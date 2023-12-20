@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - prerelease
     paths:
-      - '.github/workflows/deploy.yml'
-      - 'website/**'
+      - ".github/workflows/deploy.yml"
+      - "website/**"
 
 permissions:
   contents: read
@@ -33,7 +33,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Get yarn cache
         id: yarn-cache
@@ -57,7 +57,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: './website/build'
+          path: "./website/build"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
