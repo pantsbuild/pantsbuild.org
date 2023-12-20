@@ -7,9 +7,6 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: website
     steps:
       - uses: actions/checkout@v3
 
