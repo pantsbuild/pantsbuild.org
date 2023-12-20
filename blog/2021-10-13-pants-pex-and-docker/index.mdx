@@ -1,0 +1,114 @@
+---
+    authors: [benjy]
+    tags: [docker,getting-started,deployment]
+---
+
+# Streamline your Docker builds with Pants
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Ian
+  Taylor](https://unsplash.com/@carrier_lost?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+> TL;DR Pants makes it easy and efficient to incrementally build and deploy multiple Docker images from a single repo, with a single command. Each image can consist of a shared base image plus a single PEX (Python EXecutable) file containing all the code, resources and dependencies required by the entry point. Pants knows exactly which images need to be rebuilt and redeployed given a set of Git changes.
+
+Deploying Python applications in Docker images has traditionally been pretty clunky. The [Pants build system](https://www.pantsbuild.org/) now makes it a breeze!
+
+[Pants 2.7](../2021-09-27-introducing-pants-2-7/index.mdx) added [support](../2021-09-28-docker-support/index.mdx) for building Docker images, thanks to our new maintainer [Andreas Stenius](../2021-09-14-meet-our-newest-maintainer-andreas-stenius/index.mdx). This support unlocks several really neat optimizations that make deploying Python code in Docker images much more efficient, particularly when multiple services are involved.
+
+> I think I need to revisit my previous reply on the best way to put [#python](https://twitter.com/hashtag/python?src=hash&ref_src=twsrc%5Etfw) into [#docker](https://twitter.com/hashtag/docker?src=hash&ref_src=twsrc%5Etfw) containers. The award now goes to [@pantsbuild](https://twitter.com/pantsbuild?ref_src=twsrc%5Etfw) ... [https://t.co/5vb0b8jJ0T](https://t.co/5vb0b8jJ0T)
+>
+> — Stephan Erb (@ErbStephan) [October 22, 2021](https://twitter.com/ErbStephan/status/1451475076545761294?ref_src=twsrc%5Etfw)
+
+> The latest Pants 2.7 comes with experimental Docker support. After you change a line of Python code, Pants will not just know which tests to re-run and which package to update, but also what Docker image needs rebuilding [https://t.co/eErV8g3Urg](https://t.co/eErV8g3Urg)
+>
+> — Stephan Erb (@ErbStephan) [October 22, 2021](https://twitter.com/ErbStephan/status/1451475079574048794?ref_src=twsrc%5Etfw)
+
+> This is all based on heavy caching with very fine-grained invalidation. I have updated my pants example repo to the latest version if you want to play around with it [https://t.co/jN0FIEF1FE](https://t.co/jN0FIEF1FE)
+>
+> cc [@sebineubauer](https://twitter.com/sebineubauer?ref_src=twsrc%5Etfw) [@ChristianKuehn](https://twitter.com/ChristianKuehn?ref_src=twsrc%5Etfw) [@kaktusmimi](https://twitter.com/kaktusmimi?ref_src=twsrc%5Etfw)
+>
+> — Stephan Erb (@ErbStephan) [October 22, 2021](https://twitter.com/ErbStephan/status/1451475081859846144?ref_src=twsrc%5Etfw)
+
+## Automatically building dependencies
+
+One key feature of Docker support in Pants is that Pants will automatically rebuild any dependencies that need to be embedded in a Docker image.
+
+Before Docker support was released you'd have to manually figure out which packages your images depend on, invoke Pants separately to build them, and then run `docker build` externally. You couldn't get the benefit of Pants's automatic, fine-grained dependency management when it came to Docker images.
+
+But now, if your Dockerfile has a `COPY` command that copies a packaged artifact into the image, then when you run:
+
+```text
+./pants package path/to/Dockerfile
+```
+
+Pants will notice the dependency on the packaged artifact, and ensure that it is up to date before embedding it in the image - retrieving it from cache if possible, or rebuilding it if any of its own dependencies have changed. A single command will ensure an up-to-date image, doing just the right amount of incremental work, but no more!
+
+Even more conveniently, you don't have to manually specify that artifact dependency in a BUILD file. Pants will automatically infer it from the `COPY` command in the Dockerfile! And because Pants runs each subprocess in its own hermetic sandbox, you don't have to worry about subtle inference errors: if the dependency cannot be inferred for some reason, the packaged artifact won't be available in the sandbox, and the Docker build will fail on the `COPY` command.
+
+## Knowing which images to build
+
+If you use Git for revision control, you can now easily find out which Docker images require rebuilding, thanks to Pants's built in Git change tracking ability.
+
+For example, this command will rebuild all packages of all types, including Docker images, whose transitive dependencies have changed relative to the Git `main` branch.
+
+```text
+./pants --changed-since=main --changed-dependees=transitive package
+```
+
+And of course you can use any branch, tag or other Git reference instead of `main`.
+
+Or, if you want to be more selective and focus only on Docker images (and their transitive dependencies):
+
+```text
+./pants --changed-since=main --changed-dependees=transitive filter \
+  --target-type=docker_image | \
+  xargs ./pants package
+```
+
+(The main difference between this more complex invocation and the simpler one above, is that this one will focus on just Docker images, and only rebuild other package types if those Docker images depend on them. Whereas the more generic command will focus on packages of all types.)
+
+## Deploying PEX files in your Docker images
+
+One of the most interesting features enabled by Pants's Docker support is the ability to easily embed a [PEX file](https://www.pantsbuild.org/docs/pex-files) in your Docker images.
+
+A PEX is a Python EXecutable - a single executable file that wraps your Python code, any 3rd-party wheels, and an entry point. When you execute a PEX file, it bootstraps itself, locates a suitable Python interpreter on the system, and then runs its embedded Python code from the entry point.
+
+PEX files are incredibly useful when used in conjunction with Docker, especially when you deploy many different images, such as in a microservices architecture.
+
+Here's why:
+
+### What you're probably doing today...
+
+Without PEX, how do you deploy Python code into a Docker image? Typically you have to choose between variations on these options:
+
+1.  Generate separate images for each service, where each image contains a virtualenv with just the code and dependencies needed for that service.
+2.  Generate a single image for all services, which includes a giant virtualenv with all the code, and all the dependencies, that any service might need. The different services are then executed by invoking different entry points on the single monolithic image.
+
+The disadvantage of the first option is that managing these many images is fiddly - how do you know what code and which dependencies go into each image, and when each image needs to be rebuilt? Do you maintain a separate `requirements.txt` file for each service? If so, how do you keep them all in sync, so you don't have version collisions, especially when you have some common code that is shared across multiple services?
+
+On the other hand, the disadvantage of the monolithic image option is that this image becomes unwieldy, and has to be rebuilt for all services when the code or dependencies of any service changes. If you're working on service X, you're not going to be very happy if your image has to be laboriously rebuilt because of changes to some unrelated service Y.
+
+### PEX to the rescue
+
+But now, Pants+PEX offer a best-of-both-worlds solution! This is how it works:
+
+You start with a base image that includes a Python interpreter and any system binaries you might need. This base image typically doesn't change very often. Then, for each service you generate a Docker image that just adds a single file to the base image - a PEX file.
+
+Pants knows how to build a PEX file that contains exactly the code and dependencies for each service. And it can do so very efficiently, For example, it knows how to take just the necessary subset of a resolved set of already-downloaded or built wheels, without re-running a Pip-style resolve separately for each service.
+
+Building a PEX file is fast, and embedding it into a Docker image is also fast - you don't need to rebuild any virtualenvs, you just `COPY` a single file onto the base image.
+
+As we've shown, with Pants, you don't have the cost of frequently rebuilding a large monolithic image, but you also don't have the hassle of managing multiple independent images. Pants makes managing those multiple images easy - it knows exactly what goes into each image, and exactly when an image needs to be rebuilt, and it will ensure that the embedded PEX file is rebuilt first if necessary.
+
+And best of all, you don't need to provide a huge amount of metadata to get all this to work! Pants uses static analysis to infer your code's dependencies, so you don't have to maintain a lot of annoying BUILD file boilerplate.
+
+## Pants+Docker - a very good fit
+
+As we've shown, Pants makes deploying Python code in Docker images a breeze. Pants and Docker work really well together to create streamlined deployable images. Not to mention the opportunities for [Dockers](https://us.dockers.com/)\-related puns...
+
+To find out more check out the Pants [documentation](https://www.pantsbuild.org/), and come [chat with us](https://join.slack.com/t/pantsbuild/shared_invite/zt-d0uh0mok-RLvVosDiX6JDpvStH~bFBA) on our Slack workspace! We'd love to hear more about your Python and Docker use-cases, and discover together how Pants can help streamline your builds.

@@ -1,0 +1,56 @@
+---
+title: pex-binary-defaults
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Default settings for creating PEX executables.
+
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[pex-binary-defaults]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `emit_warnings`
+
+<Option
+  cli_repr={`--[no-]pex-binary-defaults-emit-warnings`}
+  env_repr='PANTS_PEX_BINARY_DEFAULTS_EMIT_WARNINGS'
+  default_repr={`True`}
+>
+
+Whether built PEX binaries should emit PEX warnings at runtime by default.
+
+Can be overridden by specifying the `emit_warnings` parameter of individual `pex_binary` targets
+
+</Option>
+
+### `resolve_local_platforms`
+
+<Option
+  cli_repr={`--[no-]pex-binary-defaults-resolve-local-platforms`}
+  env_repr='PANTS_PEX_BINARY_DEFAULTS_RESOLVE_LOCAL_PLATFORMS'
+  default_repr={`False`}
+>
+
+For each of the `platforms` specified for a `pex_binary` target, attempt to find a local interpreter that matches.
+
+If a matching interpreter is found, use the interpreter to resolve distributions and build any that are only available in source distribution form. If no matching interpreter is found (or if this option is `False`), resolve for the platform by accepting only pre-built binary distributions (wheels).
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

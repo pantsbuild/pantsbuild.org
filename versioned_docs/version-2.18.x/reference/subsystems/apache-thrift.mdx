@@ -1,0 +1,61 @@
+---
+title: apache-thrift
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Apache Thrift IDL compiler (https://thrift.apache.org/).
+
+Backend: <span className="color--primary">`pants.backend.codegen.thrift.apache.python`</span>
+
+Config section: <span className="color--primary">`[apache-thrift]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `expected_version`
+
+<Option
+  cli_repr={`--apache-thrift-expected-version=<str>`}
+  env_repr='PANTS_APACHE_THRIFT_EXPECTED_VERSION'
+  default_repr={`0.15`}
+>
+
+The major/minor version of Apache Thrift that you are using, such as `0.15`.
+
+Pants will only use Thrift binaries from `--thrift-search-paths` that have the expected version, and it will error if none are found.
+
+Do not include the patch version.
+
+</Option>
+
+### `thrift_search_paths`
+
+<Option
+  cli_repr={`--apache-thrift-thrift-search-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_APACHE_THRIFT_THRIFT_SEARCH_PATHS'
+  default_repr={`["<PATH>"]`}
+  target_field_name='apache_thrift_thrift_search_paths'
+>
+
+A list of paths to search for Thrift.
+
+Specify absolute paths to directories with the `thrift` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
+
+The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

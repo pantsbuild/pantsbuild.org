@@ -1,0 +1,75 @@
+---
+    title: Tips and debugging
+    position: 10
+---
+
+---
+
+:::note Reminder: ask for help
+We would love to help you with your plugin. Please reach out through [Slack](/community/members).
+
+We also appreciate any feedback on the Rules API. If you find certain things confusing or are looking for additional mechanisms, please let us know.
+:::
+
+## Tip: Use `MultiGet` for increased concurrency
+
+Every time your rule has `await`, Python will yield execution to the engine and not resume until the engine returns the result. So, you can improve concurrency by instead bundling multiple `Get` requests into a single `MutliGet`, which will allow each request to be resolved through a separate thread.
+
+Okay:
+
+```python
+from pants.core.util_rules.determine_source_files import AllSourceFilesRequest, SourceFiles
+from pants.engine.fs import AddPrefix, Digest
+from pants.engine.selectors import Get, MultiGet
+
+@rule
+async def demo(...) -> Foo:
+    new_digest = await Get(Digest, AddPrefix(original_digest, "new_prefix"))
+    source_files = await Get(SourceFiles, AllSourceFilesRequest(sources_fields))
+```
+
+Better:
+
+```python
+from pants.core.util_rules.determine_source_files import AllSourceFilesRequest, SourceFiles
+from pants.engine.fs import AddPrefix, Digest
+from pants.engine.selectors import Get, MultiGet
+
+@rule
+async def demo(...) -> Foo:
+    new_digest, source_files = await MultiGet(
+        Get(Digest, AddPrefix(original_digest, "new_prefix")),
+        Get(SourceFiles, AllSourceFilesRequest(sources_fields)),
+    )
+```
+
+## Tip: Add logging
+
+As explained in [Logging and dynamic output](./logging-and-dynamic-output.mdx), you can add logging to any `@rule` by using Python's `logging` module like you normally would.
+
+## FYI: Caching semantics
+
+There are two layers to Pants caching: in-memory memoization and caching written to disk via the [LMDB store](https://en.wikipedia.org/wiki/Lightning_Memory-Mapped_Database).
+
+Pants will write to the LMDB store—usually at `~/.cache/pants/lmdb_store`—for any `Process` execution and when ["digesting" files](./file-system.mdx), such as downloading a file or reading from the filesystem. The cache is based on inputs; for example, if the input `Process` is identical to a previous run, then the cache will use the corresponding cached `ProcessResult`. Writing to and reading from LMDB store is very fast, and reads are concurrent. The cache will be occasionally garbage collected by Pantsd, and users may also use `--no-process-execution-use-local-cache` or manually delete `~/.cache/pants/lmdb_store`.
+
+Pants will also memoize in-memory the evaluation of all `@rule`s. This means that once a rule runs, if the inputs are identical to a prior run, the cache will be used instead of re-evaluating the rule. If the user uses Pantsd (the Pants daemon), this memoization will persist across distinct Pants runs, until the daemon is shut down or restarted. This memoization happens automatically.
+
+## Debugging: Look inside the chroot
+
+When Pants runs most processes, it runs in a `chroot` (temporary directory). Usually, this gets cleaned up after the `Process` finishes. You can instead run `./pants --no-process-execution-cleanup-local-dirs`, which will keep around the folder.
+
+Pants will log the path to the chroot, e.g.:
+
+```
+▶ ./pants --no-process-execution-cleanup-local-dirs test src/python/pants/util/strutil_test.py
+...
+12:29:45.08 [INFO] preserving local process execution dir `"/private/var/folders/sx/pdpbqz4x5cscn9hhfpbsbqvm0000gn/T/process-executionN9Kdk0"` for "Test binary /Users/pantsbuild/.pyenv/shims/python3."
+...
+```
+
+## Debugging: Visualize the rule graph
+
+You can create a visual representation of the rule graph through the option `--native-engine-visualize-to=$dir_path $goal`. This will create the files `rule_graph.dot`, `rule_graph.$goal.dot`, and `graph.000.dot`, which are [`.dot` files](https://en.wikipedia.org/wiki/DOT_%28graph_description_language%29). `rule_graph.$goal.dot` contains only the rules used during your run, `rule_graph.dot` contains all rules, and `graph.000.dot` contains the actual runtime results of all rules (it can be quite large!).
+
+To open up the `.dot` file, you can install the [`graphviz`](https://graphviz.org) program, then run `dot -Tpdf -O $destination`. We recommend opening up the PDF in Google Chrome or OSX Preview, which do a good job of zooming in large PDF files.

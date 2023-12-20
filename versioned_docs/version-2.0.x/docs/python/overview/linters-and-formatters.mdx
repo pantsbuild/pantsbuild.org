@@ -1,0 +1,120 @@
+---
+    title: Linters and formatters
+    position: 4
+---
+
+How to activate and use the six Python linters and formatters bundled with Pants.
+
+---
+
+## Activating linters and formatters
+
+Linter/formatter support is implemented in separate backends so that they are easy to opt in to individually:
+
+- `pants.backend.python.lint.bandit`: Supports the the [Bandit](https://bandit.readthedocs.io/en/latest/) security issue detector.
+- `pants.backend.python.lint.black`: Supports the the [Black](https://black.readthedocs.io/en/stable/) code formatter.
+- `pants.backend.python.lint.docformatter`: Supports the [Docformatter](https://pypi.org/project/docformatter/) docstring formatter.
+- `pants.backend.python.lint.flake8`: Supports the [flake8](https://flake8.pycqa.org/en/latest/) style checker.
+- `pants.backend.python.lint.isort`: Supports the [isort](https://readthedocs.org/projects/isort/) import statement formatter.
+- `pants.backend.python.lint.pylint`: Supports the [pylint](https://www.pylint.org/) style and error checker.
+
+To enable linters/formatters, add the appropriate ones in `pants.toml`:
+
+```toml title="pants.toml"
+[GLOBAL]
+...
+backend_packages = [
+  'pants.backend.python',
+  'pants.backend.python.lint.black',
+  'pants.backend.python.lint.isort',
+]
+```
+
+You'll now see `lint` and `fmt` goals in the output of `./pants goals`.
+
+```text title="Shell"
+$ ./pants goals
+
+Goals
+-----
+
+Use `./pants help $goal` to get help for a particular goal.
+
+
+...
+
+fmt           Autoformat source code.
+
+lint          Run all linters and/or formatters in check mode.
+
+...
+```
+
+:::note How to activate MyPy
+MyPy is run with the [typecheck goal](../goals/typecheck.mdx), rather than `lint`.
+:::
+
+## Configuring the tools and adding plugins
+
+Each formatter and linter allows you to configure
+
+- `--version`: the version to use.
+- `--config`: the config file location (relative to the build root).
+- `--args`: any command-line arguments you want to pass to the tool.
+- `--extra-requirements`: any additional libraries to install, such as any plugins.
+
+For example:
+
+```toml title="pants.toml"
+[black]
+config = "pyproject.toml"
+
+[docformatter]
+args = ["--wrap-summaries=100", "--wrap-descriptions=100"]
+
+[flake8]
+config = "build-support/.flake8"
+version = "flake8==3.8.0"
+# Add a Flake8 plugin:
+extra_requirements.add = ["flake8-2020"]
+```
+
+Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for more information.
+
+:::caution Config files must be explicitly declared
+Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.
+
+(Why? When running the linters and formatters, Pants copies over all the relevant files into a temporary directory. This allows Pants to safely cache the result and to run the process in the cloud through remote execution. Pants will only know to copy the config file into the temporary directory if you explicitly set it with the `--config` option.)
+:::
+
+:::note How to use first-party Pylint plugins
+Pants supports custom Pylint plugins written by you. Run `./pants help pylint_source_plugin` for instructions.
+
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](/community/members).
+:::
+
+## Temporarily skipping a formatter or linter
+
+Use the `--skip` option. For example, run:
+
+```bash
+$ ./pants --black-skip --flake8-skip fmt ::
+```
+
+## Tip: only run over changed files
+
+With formatters and linters, there is usually no need to rerun on files that have not changed.
+
+Use the option `--changed-since` to get much better performance, like this:
+
+```bash
+$ ./pants --changed-since=HEAD fmt
+```
+
+or
+
+```bash
+$ ./pants --changed-since=main lint
+```
+
+Pants will find which files have changed and only run over those files. See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.

@@ -1,0 +1,126 @@
+---
+title: flake8
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Flake8 Python linter (https://flake8.pycqa.org/).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[flake8]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]flake8-skip`}
+  env_repr='PANTS_FLAKE8_SKIP'
+  default_repr={`False`}
+>
+
+Don&#x27;t use Flake8 when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--flake8-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_FLAKE8_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Flake8, e.g. `--flake8-args="--ignore E123,W456 --enable-extensions H111"`
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--flake8-version=<str>`}
+  env_repr='PANTS_FLAKE8_VERSION'
+  default_repr={`flake8>=3.7.9,<3.9`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
+  default_repr={`[\n  "setuptools<45; python_full_version == '2.7.*'",\n  "setuptools; python_version > '2.7'"\n]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--flake8-console-script=<str>`}
+  env_repr='PANTS_FLAKE8_CONSOLE_SCRIPT'
+  default_repr={`flake8`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--flake8-entry-point=<str>`}
+  env_repr='PANTS_FLAKE8_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--flake8-config=<file_option>`}
+  env_repr='PANTS_FLAKE8_CONFIG'
+  default_repr={`None`}
+>
+
+Path to an INI config file understood by Flake8 (https://flake8.pycqa.org/en/latest/user/configuration.html).
+
+Setting this option will disable `[flake8].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]flake8-config-discovery`}
+  env_repr='PANTS_FLAKE8_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`.flake8`, `flake8`, `setup.cfg`, and `tox.ini`).
+
+Use `[flake8].config` instead if your config is in a non-standard location.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

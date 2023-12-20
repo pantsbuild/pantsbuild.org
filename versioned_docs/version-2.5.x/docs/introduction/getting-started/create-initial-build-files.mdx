@@ -1,0 +1,20 @@
+---
+    title: Create initial BUILD files
+    position: 4
+---
+
+---
+
+Many Pants operations require extra metadata that describes units of code and the dependencies between them. These units are called _targets_ and the metadata lives in `BUILD` files scattered throughout the codebase. You can read more about targets and BUILD files [here](../../using-pants/key-concepts/targets-and-build-files.mdx).
+
+Some of this metadata, such as dependencies, can often be inferred by Pants, which cuts down on boilerplate. And much of the remaining metadata can be generated for you, and checked in to the repo.
+
+To get started with an initial set of BUILD files, run:
+
+```bash
+./pants tailor
+```
+
+This will generate an initial set of BUILD files containing targets to represent your library and test packages. You may need to further edit these BUILD files, but in many cases the generated ones will get you off to a good start as-is.
+
+You can re-run `./pants tailor` in the future, as you add new packages.

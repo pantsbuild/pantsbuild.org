@@ -1,0 +1,91 @@
+---
+title: python_library
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Python source code.
+
+A `python_library` does not necessarily correspond to a distribution you publish (see `python_distribution` and `pex_binary` for that); multiple `python_library` targets may be packaged into a distribution or binary.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python-setup].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.3/docs/python-interpreter-compatibility.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
+
+Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
+</Field>
+
+</span>

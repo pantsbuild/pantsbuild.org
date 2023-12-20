@@ -1,0 +1,68 @@
+---
+title: pex
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+How Pants uses Pex to run Python subprocesses.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[pex]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `executable_search_paths`
+
+<Option
+  cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
+  default_repr={`["<PATH>"]`}
+>
+
+The PATH value that will be used by the PEX subprocess and any subprocesses it spawns.
+
+The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the PATH env var.
+
+</Option>
+
+### `bootstrap_interpreter_names`
+
+<Option
+  cli_repr={`--pex-bootstrap-interpreter-names="[<bootstrap-python-names>, <bootstrap-python-names>, ...]"`}
+  env_repr='PANTS_PEX_BOOTSTRAP_INTERPRETER_NAMES'
+  default_repr={`[\n  "python",\n  "python3",\n  "python2"\n]`}
+>
+
+The names of Python binaries to search for to bootstrap PEX files with.
+
+This does not impact which Python interpreter is used to run your code, only what is used to run the PEX tool. See the `interpreter_search_paths` option in `[python]` to influence where interpreters are searched for.
+
+</Option>
+
+### `verbosity`
+
+<Option
+  cli_repr={`--pex-verbosity=<int>`}
+  env_repr='PANTS_PEX_VERBOSITY'
+  default_repr={`0`}
+>
+
+Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging).
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

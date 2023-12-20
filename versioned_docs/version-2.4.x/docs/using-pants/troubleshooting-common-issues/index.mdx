@@ -1,0 +1,177 @@
+---
+    title: Troubleshooting / common issues
+    position: 2
+---
+
+Known issues you may encounter.
+
+---
+
+:::tip Asking for help
+See [Getting Help](/community/getting-help). We would love to help!
+
+If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+:::
+
+## Debug tip: enable stack traces and increase logging
+
+Pants defaults to not displaying the full stack trace when it encounters an error. Pants also defaults to logging at the info level.
+
+When you encounter an exception, it can help to use the global options `--print-stacktrace` and `-ldebug`, like this:
+
+```bash
+./pants --print-stacktrace -ldebug
+```
+
+Once you have this stack trace, we recommend copying it into Pastebin or a GitHub Gist, then opening a GitHub issue or posting on Slack. Someone from the Pants team would be happy to help. See [Getting Help](/community/getting-help).
+
+## Debug tip: inspect the chroot with `--no-process-execution-local-cleanup`
+
+Pants runs most processes in a hermetic chroot (temporary directory), which allows for safely caching and running multiple processes in parallel.
+
+Use the option `--no-process-execution-local-cleanup` for Pants to log the paths to these chroots, and to keep them around after the run. You can then inspect them to check if the files you are expecting are present.
+
+```bash
+./pants --no-process-execution-local-cleanup lint src/project/app.py
+...
+21:26:13.55 [INFO] preserving local process execution dir `"/private/var/folders/hm/qjjq4w3n0fsb07kp5bxbn8rw0000gn/T/process-executionQgIOjb"` for "Run isort on 1 file."
+...
+```
+
+There is even a `__run.sh` script in the directory that will run the process using the same argv and environment that Pants would use.
+
+## Cache or pantsd invalidation issues
+
+If you are using the latest stable version of Pants and still experience a cache invalidation issue: we are sorry for the trouble. We have not yet added a comprehensive goal to "clear all caches", because we are very interested in coming up with coherent solutions to potential issues (see [#11167](https://github.com/pantsbuild/pants/issues/11167) for more information). If you experience a cache issue, please absolutely [file a bug](https://github.com/pantsbuild/pants/issues/new) before proceeding to the following steps.
+
+To start with, trying restarting `pantsd`, either by killing the `pantsd` process associated with your workspace, or by deleting the `${workspace}/.pids` directory. If this resolves the issue, please report that on the ticket and attach the recent content of the `.pants.d/pantsd/pantsd.log` file.
+
+If restarting `pantsd` is not sufficient, you can try moving the content of `~/.cache/pants` aside to clear the persistent caches. If this resolves the issue, then it is possible that the contents of the cache will be useful for debugging the ticket that you filed: please try to preserve the cache contents until it can be resolved.
+
+## Pants cannot find a file in your project
+
+Pants may complain that it cannot find a file or directory, even though the file does indeed exist.
+
+Almost always, this error happens because of the option `pants_ignore` in the `[GLOBAL]` scope. By default, Pants will read your top-level `.gitignore` file to populate `pants_ignore`, along with ignoring `dist/` and any top-level files/directories starting with `.`.
+
+To override something included in your `.gitignore`, add a new value to `pants_ignore` and prefix it with `!`, like the below. `pants_ignore` uses the [same syntax as gitignore](https://git-scm.com/docs/gitignore).
+
+```toml title="pants.toml"
+[GLOBAL]
+pants_ignore.add = ["!folder/"]
+```
+
+Alternatively, you can stop populating `pants_ignore` from your `.gitignore` by setting `pants_ignore_use_gitignore = false` in the `[GLOBAL]` scope.
+
+## Import errors and missing dependencies
+
+Because Pants runs processes in hermetic chroots (temporary directories), Pants must properly know about your [dependencies](../concepts/targets-and-build-files.mdx#dependencies-and-dependency-inference) to avoid import errors.
+
+Usually, you do not need to tell Pants about your dependencies thanks to dependency inference, but sometimes dependency inference is not set up properly or cannot work. Dependency inference can fail for several reasons, which may require that you instead explicitly set the `dependencies` field:
+
+- Pants does not know about some of your project files because you do not have targets and BUILD files describing them.
+  - Tip: run [`./pants tailor`](../../python/goals/tailor.mdx), which will generate targets for files without owners. Note that this will only teach Pants about your first-party code, but not third-party requirements, which need to be manually added.
+- [Source roots](../concepts/source-roots.mdx) are not set up properly.
+  - Pants needs to know your source roots so that it can convert source files into their language's representation, e.g. the file `src/py/project/app.py` to the Python module `project.app`.
+- \>1 target exports the same module, which means that Pants cannot safely infer which you want to use.
+  - For third-party requirements, this usually happens when you have multiple targets referring to the same requirement. Was this intentional? Sometimes it can be useful to do this, such as having two conflicting versions of the same requirement. Otherwise, you can fix this by consolidating to only one target for the requirement or using explicit dependencies to disambiguate.
+  - For first-party code, this usually happens when you have multiple targets with the same file in their `sources` field. Use `./pants list path/to/file.ext` to see all the "owners" of a particular file.
+  - Pants will warn when this happens.
+- Third-party requirements might expose different modules than Pants thinks by default.
+  - For example, see [Third-party dependencies](../../python/overview/third-party-dependencies.mdx) for how to use `module_mapping` with Python requirements.
+- Some targets can never be inferred and must always be explicitly added via the `dependencies` field, e.g. [`files` and `resources` targets](../resources-and-archives.mdx).
+
+When debugging, run [`./pants dependencies path/to/file.ext` and `./pants dependencies --transitive`](../project-introspection.mdx) to see what Pants thinks a particular file depends on. If the dependency you want is not showing up, try temporarily [adding the dependency explicitly](../concepts/targets-and-build-files.mdx#dependencies-and-dependency-inference) to see if it fixes the issue; if it does, you can then try to figure out why dependency inference was not working, or simply use the explicit dependency.
+
+If `./pants dependencies` is behaving how you'd expect, but certain imports of first-party code are still missing, try running with `--no-process-execution-local-cleanup` and inspect the logged chroot to see if the files you're expecting are present. If files are missing, you may need to adjust the [`sources` field](../concepts/targets-and-build-files.mdx#sources) of some of your dependencies.
+
+## \"Out of space\" error: set an alternative tmpdir
+
+It may be necessary to explicitly set the directory Pants uses as a temporary directory. For example, if the system default temporary directory is a small partition, you may exhaust that temp space.
+
+Use the global option `local_execution_root_dir` to change the tmpdir used by Pants.
+
+```toml title="pants.toml"
+[GLOBAL]
+local_execution_root_dir = "/mnt/large-partition/tmpdir"
+```
+
+## \"No space left on device\" error while watching files
+
+On Linux, Pants uses `inotify` to watch all files and directories related to any particular build. Some systems have limits configured for the maximum number of files watched. To adjust the limit on file watches, you can run:
+
+```shell title="shell"
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```
+
+## How to change your cache directory
+
+You may change any of these options in the `[GLOBAL]` section of your `pants.toml`:
+| Option | What it does | Default |
+| :--- | :--- | :--- |
+| `local_store_dir` | Stores the results of running subprocesses and of some file operations. | `~/.cache/pants/lmdb_store` |
+| `named_caches_dir` | Stores the caches for certain tools used by Pants, like PEX's cache for resolving Python requirements. | `~/.cache/pants/named_caches` |
+| `pants_workdir` | Stores some project-specific logs; used as a temporary directory when running `./pants repl` and `./pants run`.<br/><br/>This is not used for caching.<br/><br/>This must be relative to the build root. | `<build_root>/.pants.d/` |
+| `pants_distdir` | Where Pants writes artifacts to, such as the result of `./pants package`.<br/><br/>This is not used for caching; you can delete this folder and still leverage the cache from `local_store_dir`.<br/><br/>This must be relative to the build root. | `<build_root>/dist/` |
+
+For `local_store_dir` and `named_caches_dir`, you may either specify an absolute path or a relative path, which will be relative to the build root. You may use the special string `%(homedir)s` to get the value of `~`, e.g. `local_store_dir = "%(homedir)s/.custom_cache/pants/lmdb_store"`.
+
+It is safe to delete these folders to free up space.
+
+You can also change the cache used by the `./pants` script described in [Installing Pants](../../introduction/getting-started/installing-pants.mdx), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
+
+## \"Double requirement given\" error when resolving requirements
+
+This is an error from `pip`, and it means that the same 3rd-party Python requirement—with different version constraints—appears in your dependencies.
+
+You can use Pants to help identify why the same requirement is being used more than once:
+
+```shell title="Shell"
+# List all requirement strings used in your project. Once you
+# find the problematic requirement strings, try grepping
+# for them to see where the targets are defined.
+./pants dependencies --transitive --type=3rdparty ::
+
+# You can also try making your query more precise.
+./pants dependencies --type=3rdparty project1::
+```
+
+## macOS users: issues with system Python interpreters
+
+The macOS system Python interpreters are broken in several ways, such as sometimes resulting in:
+
+```
+ERROR: Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/3.7'
+```
+
+You can set the option `interpreter_search_paths` in the `[python-setup]` scope to teach Pants to ignore the interpreters in `/usr/bin`. See [here](../../python/overview/interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
+
+## \"Too many open files\" error
+
+You may encounter this error when running Pants:
+
+```
+./pants count-loc helloworld/greet
+
+ERROR: Could not initialize store for process cache: "Error making env for store at \"/Users/pantsbuild/.cache/pants/lmdb_store/processes/2\": Too many open files"
+
+(Use --print-exception-stacktrace to see more error details.)
+```
+
+This sometimes happens because Pants uses lots of file handles to read and write to its cache at `~/.cache/pants/lmdb_store`; often, this is more than your system's default.
+
+This can be fixed by setting `ulimit -n 10000`. (10,000 should work in all cases, but feel free to lower or increase this number as desired.)
+
+:::note Tip: permanently configuring `ulimit -n`
+We recommend permanently setting this by either:
+
+1. Adding `ulimit -n 10000` to your `./pants` script.
+2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
+3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
+
+The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
+:::
+
+:::caution macOS users: avoid `ulimit unlimited`
+Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+:::

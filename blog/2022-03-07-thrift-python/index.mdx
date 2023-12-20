@@ -1,0 +1,70 @@
+---
+    authors: [eric]
+    tags: [codegen,python]
+---
+
+# Pants 2.10 adds Apache Thrift support for Python
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Alexander
+  Sinn](https://unsplash.com/@swimstaralex?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Pants's codegen support solves one of the biggest problems with code generation: how to make sure that local developers, CI, and production are using the same generated code?
+
+{/* truncate */}
+
+---
+
+The [Pants build system](https://www.pantsbuild.org/v2.11) now supports generating Python code from [Apache Thrift](https://thrift.apache.org/), in addition to already supporting Protobuf and gRPC.
+
+Pants's codegen support solves one of the [biggest problems](https://stackoverflow.com/questions/893913/should-i-store-generated-code-in-source-control) with code generation: _how to make sure that local developers, CI, and production are using the same generated code?_
+
+Organizations often adopt subpar solutions like writing scripts that must be invoked before building, along with checking in the generated code to version control.
+
+Instead, Pants automates generating exactly what is needed for the current task. Rather than writing files to your repository directly—where they can be changed unintentionally—Pants runs processes like tests in hermetic sandboxes, guaranteeing you're using the most up-to-date generated files.
+
+(If you do want to save your generated files to disk, you can optionally run `./pants export-codegen ::`)
+
+## Precise generation, without boilerplate
+
+Pants understands which files to generate through [_dependency inference_](../2020-10-29-dependency-inference/index.mdx), which automatically maps your import statements to the rest of your code.
+
+For example, if you have this Thrift file:
+
+```thrift
+include "models/name.thrift"
+namespace py codegen.models.user
+```
+
+Pants will understand that this Python import requires generating that Thrift file:
+
+```python
+from codegen.models.user.ttypes import User
+```
+
+```shell-session
+$ ./pants dependencies project/app.py
+thrift/models/name.thrift
+```
+
+Dependency inference understands the unique semantics of Thrift, like what happens if you leave off `namespace py`. It also understands dependencies amongst Thrift files via `include` directives.
+
+This fine-grained dependency information is what unlocks fine-grained caching of builds, like running tests and [packaging Python binaries with Docker](../2021-10-13-pants-pex-and-docker/index.mdx). If none of the inputs have changed, Pants can safely use the cache.
+
+As discussed in [our post on Pants's performance](../2021-02-01-fast-incremental-builds-speculation-cancellation/index.mdx), this inference is 1) very safe and 2) very fast. Because Pants invokes processes hermetically with a sandbox, failing to infer a dependency can never cause the wrong thing to be cached. Further, the inference is fast thanks to Pants's core being implemented in Rust, along with a daemon, parallelism, and very fine-grained invalidation.
+
+## Trying out Pants
+
+In addition to generating Thrift and Protobuf/gRPC, Pants automates and improves the rest of your builds, including:
+
+- Run linters and formatters with a single consistent interface, parallelizing them all when safe. Including: Black, isort, Yapf, Flake8, Pylint, Shellcheck, Shfmt.
+- Execute tests with hermeticity, safe parallelization, and fine-grained caching.
+- Package your code into PEX binaries, [PyOxidizer binaries](../2022-02-18-packaging-python-with-the-pyoxidizer-pants-plugin/index.mdx), AWS Lambdas, Google Cloud Functions, and Python wheels/sdists.
+- Provide insight via [project introspection](https://www.pantsbuild.org/v2.10/docs/project-introspection), such as querying which files depend on which.
+
+Check out the [example-codegen repository](https://github.com/pantsbuild/example-codegen) to try out Pants 2.10's Thrift support. And let us know what you think in [Slack](https://www.pantsbuild.org/docs/getting-help) and [GitHub](https://github.com/pantsbuild/pants/issues)!
+
+To use Pants with your project, check out our [Getting started guide](https://www.pantsbuild.org/v2.8/docs/getting-started) and our [Thrift docs](https://www.pantsbuild.org/v2.10/docs/thrift-python).

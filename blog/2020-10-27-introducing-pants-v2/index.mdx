@@ -1,0 +1,114 @@
+---
+    authors: [benjy]
+    tags: [announcement,python]
+---
+
+# Introducing Pants v2
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Jess
+  Bailey](https://unsplash.com/es/@jessbaileydesigns?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+There are so many tools in the Python development ecosystem. Installing, configuring and orchestrating them—all while not re-executing work unnecessarily—is a hard problem, especially as your codebase grows.
+
+Fortunately, there is now a tailor-made (pun intended) solution: Pants v2!
+
+{/* truncate */}
+
+### Pants 2.0.0, the first stable release of the Pants v2 open-source build system, is out now!
+
+There are so many tools in the Python development ecosystem. You might use [pip](https://pip.pypa.io/en/stable/) to resolve dependencies, [pytest](https://docs.pytest.org/en/stable/) to run tests, [flake8](https://flake8.pycqa.org/en/latest/) and [pylint](https://www.pylint.org/) for lint checks, [black](https://black.readthedocs.io/en/stable/) and [isort](https://pycqa.github.io/isort/) for auto-formatting, [mypy](http://mypy-lang.org/) for type checking, [IPython](https://ipython.org/) or [Jupyter](https://jupyter.org/) for interactive sessions, [setuptools](https://setuptools.readthedocs.io/en/latest/), [pex](https://pex.readthedocs.io/en/latest/) or [docker](https://www.docker.com/) for packaging, [protocol buffers](https://developers.google.com/protocol-buffers) for code generation, and many more. Not to mention any custom tooling you've built for your repo.
+
+Installing, configuring and orchestrating the invocation of these tools—**all while not re-executing work unnecessarily**—is a hard problem, especially as your codebase grows. The lack of a robust, scalable build system for Python has been a problem for a long time, and this has become even more acute in recent years, with Python codebases increasing in size and complexity.
+
+Fortunately, there is now a tailor-made (pun intended) solution: **Pants v2**!
+
+[Pants v2](https://www.pantsbuild.org/) is designed from the ground-up for fast, consistent builds. Some noteworthy features include:
+
+- Minimal metadata and boilerplate
+- Fine-grained workflow
+- Shared result caching
+- Concurrent execution
+- A responsive, scalable UI
+- Unified interface for multiple tools and languages
+- Extensibility and customizability via a plugin API
+
+<CaptionedImg src={require("./pants-concurrency.gif").default}>
+  Pants running multiple linters in parallel
+</CaptionedImg>
+
+Read on to learn more about Pants v2, and what it means for your Python codebase.
+
+---
+
+## A little history
+
+We started the original open-source Pants project back in 2011. At the time, we were frustrated by slow, flaky Scala builds. The leading strategy for scaling was to hand each developer a RAM stick and a screwdriver... Surely this was a problem we could tackle with software! Thus Pants v1 was born.
+
+Pants v1 was quite successful, and was adopted at cutting-edge tech companies such as Twitter, Foursquare, Square and others. But we still weren't satisfied: The APIs were clunkier than we would have liked, the UI was overly chatty, caching was hard to get right, and concurrent execution had to be special-cased. We knew there were plenty of performance and stability improvements to be had, if we could only unlock them.
+
+We learned a lot from our years of work on Pants v1, and knew that we could design something new and better, leaning on our experience with v1 while addressing the drawbacks of that system. Luckily, at the same time as we began thinking about this hypothetical next system, a new motivating problem emerged: Python builds.
+
+## Python builds today
+
+As you probably know, Python has skyrocketed in popularity in recent years. Not only is it used to build a wide variety of server applications, via frameworks such as [Django](https://www.djangoproject.com/) and [Flask](https://flask.palletsprojects.com/en/1.1.x/), but it's also the language of choice for data scientists, thanks to powerful libraries and tools such as [NumPy](https://numpy.org/), [SciPy](https://www.scipy.org/), [Pandas](https://pandas.pydata.org/) and [Jupyter](https://jupyter.org/).
+
+Python hits a sweet spot of simplicity and power, but there is a big problem - there is no truly great scalable build tool for Python, and this is becoming a real pain point as Python repos grow like never before.
+
+Python builds today involve manually invoking a wide variety of tools. Each tool has to be installed, configured and invoked in just the right way, often while sequencing the output of one tool into input of another. Knowing how to use each tool in a given scenario is complicated and burdensome.
+
+Sure, you can hack around the problem for a while with some combination of shell scripts, [Makefiles](https://www.gnu.org/software/make/manual/make.html), [tox](https://tox.readthedocs.io/en/latest/), and [poetry](https://python-poetry.org/). But even a small code change might require you to run a huge amount of sequential build work. Re-executing the same processes with the same inputs over and over again is a frustrating waste of time and resources.  And these solutions start to break down as your codebase grows.
+
+Perhaps you experimented with more complex build systems, such as [Bazel](https://bazel.build/) or [Pants v1](https://v1.pantsbuild.org/).  But it's laborious to maintain all that BUILD metadata, all for a sub-par experience not optimized for Python. Not to mention the difficulty of implementing your own custom build logic.
+
+Alternatively, maybe you've been tempted to split up your codebase into multiple interdependent repos, each with their own "smaller" builds. But that creates an even thornier problem, namely how to manage those interdependencies. Having to propagate changes across codebase boundaries can slow development down to a crawl, and leave you with the worst of both worlds - slower processes and a fragmented, unmanageable codebase.
+
+A great build system for repos - of all sizes - that include Python code would support fine-grained invalidation and caching, so that it only executes the build work actually affected by a change. It would support concurrent local and even remote execution, to greatly speed up work by using all available CPU. It would be easy to adopt in a small repo, but would scale up as your codebase grows. It wouldn't require huge amounts of boilerplate metadata, and it would be easy to extend with custom build logic.
+
+Well, Pants v2 is that system!
+
+## Introducing Pants v2
+
+[Pants v2](https://www.pantsbuild.org/) is a completely new open-source build system, inspired by our work on Pants v1.  We've been developing and testing it for the last couple of years, and it's finally ready for prime time!
+
+A key factor in the design of Pants v2 was a set of lessons we learned from Pants v1 and other existing systems, such as Bazel. Among them: that ease of use and performance matter, boilerplate is annoying, concurrency and caching require hard design work, and most people will need custom logic at some point.
+
+### Lesson #1: Ease of use and performance both matter
+
+When designing software you often find yourself making tradeoffs between ease of use and performance. But in a build system, both are vital. The Pants v2 execution engine - which is the performance-critical heart of the system - is written in [Rust](https://www.rust-lang.org/), for raw speed. And the domain-specific build logic is written in familiar, easy to work with, type-annotated Python 3. This helps make Pants v2 easy to extend, without compromising performance.
+
+Pants v2 also runs a daemon that memoizes fine-grained build state in memory, for even faster performance. This daemon watches for changes to your source files and precisely invalidates its state on the fly to ensure that the minimum amount of work happens the next time you build.
+
+### Lesson #2: Writing build metadata is a real drag
+
+Some build tools are slow because they don't have enough information about the structure of your code to intelligently perform incremental work. Others have gone too far in the other direction, requiring a huge amount of metadata and boilerplate in BUILD files, especially relating to your code's dependencies.
+
+Pants v2 offers the best of both worlds - intelligent, fine-grained incremental work, without the boilerplate. It does so by assuming sensible, magic-free defaults, inferring dependencies from the import statements in your code, and supporting plugins for custom inference logic. Stay tuned for an upcoming post on exactly how Pants achieves this!
+
+### Lesson #3: Design for caching, concurrency and remoting
+
+Writing build logic that can be cached and executed concurrently and remotely is very hard. You have to be very careful about not producing or consuming side-effects, and it's extremely difficult to tack that on later. And unless you design your APIs with care, supporting these kinds of features often places severe restrictions on what your build logic may safely do.
+
+In Pants v2, build logic is composed of [pure](https://en.wikipedia.org/wiki/Pure_function) Python 3 [async coroutines](https://docs.python.org/3/library/asyncio-task.html). So a build rule can depend not only on its inputs, but can also await on new data at runtime - all of which is precisely tracked for invalidation and caching. This gives us the best of both worlds: logic that is properly isolated from side-effects, and is therefore amenable to caching, concurrent execution and remoting, while still allowing the use of natural control flow.
+
+<CaptionedImg src={require("./pants-caching.gif").default}>
+  We run both tests, then add a syntax error to one test and rerun; the
+  unmodified test uses the cache and is isolated from the syntax error.
+</CaptionedImg>
+
+### Lesson #4: Almost everyone needs to customize their builds
+
+Most teams have custom build steps, so extensibility is a key feature in any build system. Pants v2 is built around a [plugin architecture](https://www.pantsbuild.org/docs/plugins-overview). You can write your own rules using the same API as the built-in functionality. So your custom build logic will enjoy the same fine-grained invalidation, caching, concurrency and remote execution abilities as the core Pants code.
+
+## Pants 2.0.0 is out now!
+
+All this leads me to the happy announcement that [Pants 2.0.0](https://pypi.org/project/pantsbuild.pants/2.0.0/), the first stable release of Pants v2, is out now! 2.0.0 is the culmination of years of design and development work, and many months of beta testing at several organizations. So we're really happy, proud (and relieved…) to finally have it ready for general use.
+
+You can see what Python tools Pants currently supports [here](https://www.pantsbuild.org/docs/python). There are also commands for querying and understanding your dependency graph, and a robust help system.  We're adding support for additional tools and features all the time, and it's straightforward to implement your own. Beta users have already written their own logic for Cython and docker, for example.
+
+Now is a great time to adopt Pants 2.0.0! The team that developed Pants v2 is [ready to help you](https://www.pantsbuild.org/docs/community) onboard, answer any questions, and even pair with you to help you write any custom build logic. We're also eager to get feedback, bug reports and suggestions for what features we should focus on in the next weeks and months of development.
+
+Pants v2 is developed by a helpful open source community, is funded by a 501(c)6 non-profit, and has excellent support available. If you have a growing Python codebase, and want to take Pants 2.0.0 for a spin, [let us know](https://www.pantsbuild.org/docs/community). We'd love to fit you with some new Pants today!

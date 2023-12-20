@@ -1,0 +1,185 @@
+---
+    title: Targets and BUILD files
+    position: 1
+---
+
+Attaching metadata to your code.
+
+---
+
+Some goals, like `count-loc` to count lines of code, only need information found in source files.
+
+However, most goals require metadata about your source files. For example, to run a test, you need to know about all the transitive dependencies of that test. You may also want to set a timeout on that test.
+
+This extra information lives in entities called `targets`. A target is a set of metadata describing your code, usually associated with some files.
+
+## BUILD files
+
+Target information lives in files with the name `BUILD`. For example:
+
+```python title="helloworld/greet/BUILD"
+python_library(
+    name = 'greet',
+    sources = ['*.py', '!*_test.py'],
+    compatibility = ">=3.6",
+)
+```
+
+Let's break this down:
+
+- `python_library`: The target's type. In this case, a library containing Python code.
+- `name = 'greet'`: The name of the target, which defaults to the name of the directory but may be explicitly specified. Target names must be unique within a directory.
+- `sources = ['*.py', '!*_test.py']`: The source files the target is attaching metadata to.
+- `compatibility = ">=3.6"`: Indicates that this code is compatible with Python 3.6+. Pants will use this metadata when determining which Python interpreter(s) to use.
+
+Some target types are built-in, but most are provided by backends. For example, the `python_library` target type is provided by the `pants.backend.python` backend.
+
+All target types have a `name` field, and almost all have `sources` and `dependencies` fields. Specific target types will have extra fields, which you can find out by running `./pants help $target` to see which fields a particular target has.
+
+## Target addresses
+
+A target is identified by its address. A target address has the form `path/to/directory:name`. For example, the target in the example above has the address `helloworld/greet:greet`.
+
+Addresses can be used as command-line arguments, such as `./pants fmt path/to:target`. This will format all files that are in the `sources` field of `:target`.
+
+Addresses are also used in the `dependencies` field to depend on other targets, as explained below.
+
+Addresses are globally unique, which is guaranteed by the fact that target names must be unique within a directory.
+
+:::note Address Abbreviation
+If the target name is the same as the name of the directory containing it, then you can omit the target name. For example, `helloworld/greet` is an abbreviated form of `helloworld/greet:greet`.
+:::
+
+## Sources
+
+Almost all targets have a `sources` field, which determines which source files belong to the target.
+
+The value of the `sources` field is a list of names and/or glob patterns, relative to the BUILD file's directory. Sources must be in or below this directory, i.e., patterns containing `../` are not allowed.
+
+A `!` prefix excludes matching files that would otherwise be included. For example, `['*.py', '!exclude_*.py']` will include `foo.py` but not `exclude_bar.py`.
+
+Use `**` for a recursive glob, e.g. `sources=['**/*.py']`.
+
+## Dependencies and dependency inference
+
+Almost all targets have a `dependencies` field, which determines the direct dependencies of the target.
+
+Normally, you can leave off the `dependencies` field, thanks to _dependency inference_. Pants will read your import statements and map those imports back to your own code and your third-party dependencies. You can run `./pants dependencies path/to/file.ext` or `./pants dependencies path/to:target` to see what dependencies Pants infers.
+
+However, dependency inference cannot infer everything. For example, dependency inference does not know how to infer dependencies on `resources()` and `files()` targets—or on generated code (like Protobuf)—so you will need to sometimes explicitly add the `dependencies` field.
+
+To add a new explicit dependency, include the address to the target. This will result in all of the files from that target's `sources` field being included. See the below tool tip "Explicit file addresses" for how to instead use more granular dependencies, which is what dependency inference uses.
+
+```python title="helloworld/greet/BUILD"
+python_library(
+    dependencies=[
+        "3rdparty/python:ansicolors",
+        "helloworld/util",  # shorthand for `helloworld/util:util`
+        "helloworld/util:json_files,
+    ],
+)
+```
+
+You only need to declare direct dependencies; there is no need to include the dependencies of your dependencies. Pants will pull in those dependencies for you.
+
+:::note Ignore dependencies with `!` and `!!`
+If you don't like that Pants inferred a certain dependency, you can tell Pants to ignore it with `!`. Run `./pants dependencies` to find the address for the problematic dependency, then copy it into the `dependencies` field with a `!` prefix.
+
+```python
+python_library(
+    dependencies=["!3rdparty/python:numpy"],
+)
+```
+
+You can use the prefix `!!` to _transitively_ exclude a dependency, meaning that even if a target's dependencies include the bad dependency, no matter what, the final result will not include the value.
+
+Transitive excludes can only be used in target types that conventionally are not dependend upon by other targets, such `pex_binary` and `python_tests`. This is meant to limit confusion, as using `!!` in something like a `python_library` could result in surprising behavior for everything that depends on it. If you use `!!` when not allowed to, Pants will print a helpful error message saying where you can use it.
+:::
+
+:::caution Dependency inference will no-op if >2 targets refer to the same file
+If more than one target includes a certain file in their `sources` field, then Pants will not infer the dependency when that file is imported because Pants cannot safely decide which target you want to use. Instead, you will need to add an explicit dependency to the `dependencies` field.
+
+(Why would you ever have >1 target for the same file? Sometimes, it's helpful to have different metadata describing the same code. For example, you might want to have a `python_tests` target that runs with Python 2, and a `python_tests` target that runs the same tests, but with Python 3.)
+:::
+
+:::note Explicit "file addresses"
+When you declare an explicit dependency, like `helloworld/util:json_files`, you end up depending on every file in the `sources` field of `:json_files`, even if you only use some of the files. Often, this is what you meant.
+
+However, sometimes you want to be more granular, which results in finer-grained invalidation for caching. To do this, you can use a "file address", which tells Pants to only depend on a specific file from a certain target.
+
+Pants's dependency inference automatically uses file addresses already, so you only need to use explicit file addresses when Pants cannot infer the dependency and you want more granular dependencies than normal target addresses.
+
+To add an explicit file address, add the file path, followed by `:target_name`. For example, `helloworld/util/f1.json:json_resources`. If the target name is the default name, you can leave off the `:target_name` part. If the file is in the same directory or a subdirectory, you can use a relative file path like `./f1.json:json_resources`.
+
+```python
+python_library(
+    dependencies=[
+        "helloworld/util/f1.json:json_resources",
+        "./f2.json:json_resources",  # Shorthand for "helloworld/util/f2.json:json_resources
+        "helloworld/app.py",  # Shorthand for "helloworld/app.py:helloworld"
+    ],
+)
+```
+
+What if the file's target's BUILD file is in a different directory than that file? For example, consider this target definition:
+
+```python
+resources(
+  name="json_resources",
+  sources=["**/*.json"],
+)
+```
+
+If the file is in a subdirectory from the original target definition, use `../` in the target_name section, e.g. `helloworld/util/f1.json:../json_resources`.
+:::
+
+## Default field values
+
+To cut down on boilerplate:
+
+- A target's `name` defaults to the name of the directory it's in.
+- `dependencies` will be inferred when possible.
+- Some target types will have a sensible default for the `sources` field.
+  For example, the default value for the `sources` field of a `python_library` target is `['*.py', '!*_test.py', '!test_*.py', '!conftest.py']`. That is, "all Python source files in this target's directory that aren't test-related".
+
+So, for example, the target above might be rewritten more succinctly as:
+
+```python title="helloworld/greet/BUILD"
+python_library(
+    compatibility = ">=3.6",
+)
+```
+
+If we want to use the default `compatibility` value, we could simply write:
+
+```python title="helloworld/greet/BUILD"
+python_library()
+```
+
+## The build graph and dependency cycles
+
+The set of targets in a repo form the _build graph_. The vertices in this graph are the targets, and the (directed) edges are the dependencies.
+
+The build graph must not contain directed cycles, i.e., it must form a DAG (a Directed Acyclic Graph). If you do have a cycle, Pants will print an error message explaining what caused the cycle and giving suggestions for how to fix it.
+
+## Target granularity
+
+A target's sources can be as fine-grained as a single file, or as course-grained as an entire tree of files.
+
+If you use dependency inference and explicit file addresses in the `dependencies` field, then target granularity has no implications for your caching and invalidation. You can, in theory, define one `python_library` target for your entire project, for example. (However, this usually doesn't scale well as your codebase evolves.)
+
+In contrast, if you use normal target addresses in the `dependencies` field, then target granularity does have implications for caching and invalidation. Every time you add a new dependency to a target, you end up depending on every file from the `sources` field of the dependency, even if some of them are not used by your target. So, more granular targets will result in better caching and invalidation.
+
+In practice, we've found that having one library and/or one test target per-directory tends to work well. The default `sources` values for various target types reflect this.
+
+For example, for a Python project with tests colocated with source code, we recommend defaulting to a BUILD file like this in every directory:
+
+```python
+python_library()
+
+python_tests(name="tests")
+```
+
+:::note Tips on setting up initial BUILD files
+See [Adopting Pants in an Existing Repo](../adopting-pants-in-existing-repos.mdx) for tips on setting up Pants, including where to add BUILD files.
+:::

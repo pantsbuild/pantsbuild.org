@@ -1,0 +1,32 @@
+---
+    authors: [benjy]
+    tags: [announcement,python]
+---
+
+# Introducing Pants Build 2.4.0
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Nicholas
+  Cappello](https://unsplash.com/@bash__profile?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+The [latest stable release](https://pypi.org/project/pantsbuild.pants/2.4.0/) of Pants is out!
+
+This version introduces opt-in [anonymous telemetry](https://www.pantsbuild.org/docs/anonymous-telemetry), to provide the Pants maintainers with data to help detect and fix bugs and drive development decisions. We've gone to great lengths to ensure that the data is fully anonymized (see link for details) and we hope you'll choose to opt in.
+
+Other notable new features and bugfixes include:
+
+- A warning when an inferred dependency is [skipped due to ambiguity](https://github.com/pantsbuild/pants/pull/11792), and allowing the ambiguity to be resolved by explicitly including or excluding dependency choices.
+- Enabled use of Pytest plugins that write output to files,  such as [`pytest-html`](https://pypi.org/project/pytest-html/).
+- [Support](https://www.pantsbuild.org/docs/python-test-goal) for Pytest config files (e.g. `pytest.ini`).
+- A `--stats-log` option for insights on cache behavior.
+- A [default](https://github.com/pantsbuild/pants/issues/11634) [`module_mapping`](https://github.com/pantsbuild/pants/issues/11634) for Python 3rd party dependency inference. Previously, when a 3rdparty top-level package name was not the same as the distribution name (such as `pkg_resources` being provided by `setuptools`), you had to provide explicit mapping information. Now Pants can handle many such common cases automatically.
+- Fixed an issue that could in some cases prevent code-generated sources from having valid source roots.
+
+Try out Pants 2.4.0 today! We'd [love to hear from you](https://www.pantsbuild.org/docs/getting-help) with any impressions, opinions, questions and bug reports.
+
+Thanks to everyone who contributed to the 2.4.0 release. Now, onward to 2.5.0!

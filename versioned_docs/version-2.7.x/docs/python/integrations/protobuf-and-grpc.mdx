@@ -1,0 +1,145 @@
+---
+    title: Protobuf and gRPC
+    position: 0
+---
+
+How to generate Python from Protocol Buffers.
+
+---
+
+When you depend on a `protobuf_library` in a Python target (like a `python_library`), Pants will run the Protoc compiler to generate Python code that you can import and use like normal Python code.
+
+:::note Example repository
+See [the Python example repository](https://github.com/pantsbuild/example-python) for an example of using Protobuf to generate Python.
+:::
+
+:::tip Benefit of Pants: generated files are always up-to-date
+With Pants, there's no need to manually regenerate your code. Pants will ensure you are always using up-to-date files in your builds.
+
+Thanks to fine-grained caching, Pants will regenerate the minimum amount of code required when you do make changes.
+:::
+
+## Step 1: Activate the Protobuf Python backend
+
+Add this to your `pants.toml`:
+
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages.add = [
+  "pants.backend.codegen.protobuf.python",
+  "pants.backend.python",
+]
+```
+
+This adds the new `protobuf_library` target, which you can confirm by running `./pants help protobuf_library`.
+
+:::note Enable the MyPy Protobuf plugin
+The [MyPy Protobuf plugin](https://github.com/dropbox/mypy-protobuf) generates [`.pyi` type stubs](https://mypy.readthedocs.io/en/stable/stubs.html). If you use MyPy through Pants's [typecheck goal](../goals/typecheck.mdx), this will ensure MyPy understands your generated code.
+
+To activate, set `mypy_plugin = true` in the `[python-protobuf]` scope:
+
+```toml
+[python-protobuf]
+mypy_plugin = true
+```
+
+MyPy will use the generated `.pyi` type stub file, rather than looking at the `.py` implementation file.
+:::
+
+:::caution Want to use other protocols, like Thrift?
+Please message us on [Slack](/community/members) if you would like support for more protocols. We would be happy to either add support to the core Pants distribution or to help you to write a plugin.
+:::
+
+## Step 2: Set up the `protobuf` and/or `grpcio` runtime libraries
+
+Generated Python files require the [`protobuf` library](https://pypi.org/project/protobuf/) for their imports to work properly. If you're using gRPC, you also need the [`grpcio` library](https://pypi.org/project/grpcio/).
+
+First, add `protobuf`—and `grpcio`, if relevant— to your `requirements.txt` (see [Third-party dependencies](../overview/third-party-dependencies.mdx)).
+
+```text title="requirements.txt"
+grpcio==1.32.0
+protobuf>=3.12.1
+```
+
+Then, add the targets' addresses to the option `runtime_dependencies` in the `[python-protobuf]` scope. Pants will use this to automatically add the target(s) to the `dependencies` field for every `protobuf_library()` target you write.
+
+```toml title="pants.toml"
+[python-protobuf]
+# Use the path to your 3rd-party requirements,
+# e.g. `3rdparty/python:protobuf`.
+runtime_dependencies = ["//:grpcio", "//:protobuf"]
+```
+
+## Step 3: Define a `protobuf_library` target
+
+Wherever you create your `.proto` files, add a `protobuf_library`.
+
+```python tab={"label":"project/example/BUILD"}
+# `sources` defaults to `['*.proto']`.
+protobuf_library()
+```
+
+```text tab={"label":"project/example/f.proto"}
+syntax = "proto3";
+
+package project.example;
+
+message Example {
+  ...
+}
+```
+
+Pants will use [dependency inference](../../using-pants/key-concepts/targets-and-build-files.mdx) for any `import` statements in your `.proto` files, which you can confirm by running `./pants dependencies path/to/file.proto`. You can also manually add to the `dependencies` field.
+
+If you want gRPC code generated, set `grpc=True`.
+
+```python title="src/proto/example/BUILD"
+protobuf_library(grpc=True)
+```
+
+## Step 4: Use the `protobuf_library` in your Python code
+
+Now, you can import the generated Python module in your Python code. For example, to import `project/example/f.proto`, add `import project.example.f_pb2` to your code.
+
+Pants's dependency inference will detect Python imports of Protobuf modules, which you can confirm by running `./pants dependencies path/to/file.py`.
+
+If gRPC is activated, you can also import the module with `_pb2_grpc` at the end, e.g. `project.example.f_pb2_grpc`.
+
+```python
+from project.example.f_pb2 import HelloReply
+from project.example.f_pb2_grcp import GreeterServicer
+```
+
+:::note Run `./pants export-codegen ::` to inspect the files
+`./pants export-codegen ::` will run all relevant code generators and write the files to `dist/codegen` using the same paths used normally by Pants.
+
+You do not need to run this goal for codegen to work when using Pants; `export-codegen` is only for external consumption outside of Pants.
+:::
+
+:::caution You likely need to add empty `__init__.py` files
+By default, Pants will generate the Python files in the same directory as the `.proto` file. To get Python imports working properly, you will likely need to add an empty `__init__.py` in the same location, and possibly in ancestor directories. You do not need to add a `python_library()` target; Pants will automatically include the file.
+
+See the below section "Protobuf and source roots" for how to generate into a different directory. If you use this option, you will still likely need an empty `__init__.py` file in the destination directory.
+:::
+
+## Protobuf and source roots
+
+By default, generated code goes into the same [source root](../../using-pants/key-concepts/source-roots.mdx) as the `.proto` file from which it was generated. For example, a file `src/proto/example/f.proto` will generate `src/proto/example/f_pb2.py`.
+
+However this may not always be what you want. In particular, you may not want to have to add `__init__py` files under `src/proto` just so you can import Python code generated to that source root.
+
+You can configure a different source root for generated code by setting the `python_source_root` field:
+
+```python title="src/proto/example/BUILD"
+protobuf_library(
+  python_source_root='src/python'
+)
+```
+
+Now `src/proto/example/f.proto` will generate `src/python/example/f_pb2.py`, i.e., the generated files will share a source root with your other Python code.
+
+:::note Set the `.proto` file's `package` relative to the source root
+Remember that the `package` directive in your `.proto` file should be relative to the source root.
+
+For example, if you have a file at `src/proto/example/subdir/f.proto`, you'd set its `package` to `example.subdir`; and in your Python code, `from example.subdir import f_pb2`.
+:::

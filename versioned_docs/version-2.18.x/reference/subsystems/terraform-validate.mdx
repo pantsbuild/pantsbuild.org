@@ -1,0 +1,40 @@
+---
+title: terraform-validate
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Terraform validate options.
+
+Backend: <span className="color--primary">`pants.backend.experimental.terraform`</span>
+
+Config section: <span className="color--primary">`[terraform-validate]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]terraform-validate-skip`}
+  env_repr='PANTS_TERRAFORM_VALIDATE_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use `terraform validate` when running `scie-pants-linux-x86_64 check`.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

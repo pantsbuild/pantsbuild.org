@@ -1,0 +1,152 @@
+---
+    authors: [eric]
+    tags: [announcement,golang-2]
+---
+
+# Pants 2.8 adds experimental Golang support
+
+<CaptionedImg src={require("./splash.jpg").default}></CaptionedImg>
+
+Why Pants for Golang? A consistent interface for all languages & tools, integration with Git + advanced project introspection, and remote caching and execution. All with minimal boilerplate.
+
+{/* truncate */}
+
+---
+
+The open source [Pants build system](https://www.pantsbuild.org/) adds experimental Golang support to Pants 2.8, in addition to already supporting Python, Shell, and Docker!
+
+## What is Pants?
+
+Pants is a state-of-the-art software workflow system. It orchestrates the various tools you use during iterative development and CI—compilers, testing frameworks, linters, formatters, and packagers—installing, configuring, sequencing, and invoking them in just the right way to create the desired outputs.
+
+Pants applies fine-grained invalidation, caching, and concurrency to speed up your builds and other workflows, and it uses static analysis to minimize the amount of metadata and other boilerplate required to achieve this.
+
+## Why Pants for Go?
+
+Go's built-in tooling is already excellent! Many projects may be fine using only Go's tooling, although Pants offers some unique benefits:
+
+1.  A consistent interface for all languages and tools in your repository.
+2.  Integration with Git + advanced project management.
+3.  Remote caching and execution.
+4.  Unlike legacy build systems, these benefits all come with minimal boilerplate.
+
+### A consistent interface for all languages & tools in your repository
+
+- `./pants fmt ::`   runs all formatters.
+- `./pants lint ::` runs all linters and formatters (in check-mode) in parallel.
+- `./pants test ::` runs all tests in parallel, regardless of language and test framework.
+- `./pants check ::` runs all compilation and type checkers like MyPy in parallel.
+- `./pants package ::` builds all binaries, e.g. Go binaries and Python wheels. (Also see [Streamline your Docker builds with Pants](../2021-10-13-pants-pex-and-docker/index.mdx))
+
+```shell-session
+$ ./pants lint ::
+16:28:34.37 [ERROR] Completed: Lint with gofmt - gofmt failed (exit code 1).
+The following Go files require formatting:
+testprojects/src/go/pants_test/bar/bar.go
+testprojects/src/go/pants_test/foo.go
+16:28:36.70 [INFO] Completed: Lint with Shellcheck - Shellcheck succeeded.
+16:28:42.69 [INFO] Completed: Lint with Black - Black succeeded.
+All done! ✨ 🍰 ✨
+747 files would be left unchanged.
+16:28:53.63 [INFO] Completed: Lint with Flake8 - Flake8 succeeded.
+✓ Black succeeded.
+✓ Flake8 succeeded.
+✓ Shellcheck succeeded.
+✕ gofmt failed.
+```
+
+### Integration with Git + advanced project introspection
+
+Pants integrates with Git to allow you to, for example, only format and lint changed files:
+
+```shell-session
+./pants --changed-since=HEAD fmt
+./pants --changed-since=upstream/main lint
+```
+
+Pants can combine this integration with Git with its [advanced project introspection](https://www.pantsbuild.org/v2.8/docs/project-introspection). For example, to only run tests that could have possibly been changed:
+
+```shell-session
+./pants --changed-since=HEAD --changed-dependees=transitive test
+```
+
+That is, Pants will only run tests when their package or any transitive dependency was changed.
+
+You can also use Pants's project introspection to better understand your dependency graph, such as identifying which code will be impacted by updating a third-party dependency:
+
+```shell-session
+$ ./pants dependees --transitive //:mod#github.com/google/uuid
+cmd/greeter_en
+cmd/greeter_es
+pkg/greeter
+pkg/uuid
+```
+
+### Remote caching and execution
+
+Like Go, Pants locally caches each step of your build so that once you compile a package or run a package's tests, for example, you don't need to run it again unless that package or any of its transitive dependencies have changed.
+
+[Remote caching](https://www.pantsbuild.org/docs/remote-caching-execution) allows you to share this same cache amongst your CI runs and amongst your local team so that you don't have to redo work that others on your team have already done—like running tests and downloading third-party dependencies.
+
+[Remote execution](https://www.pantsbuild.org/docs/remote-caching-execution) allows you to run your builds directly in the cloud with low-latency workers for extreme parallelism, such as running your entire test suite in total parallelism.
+
+### Minimal boilerplate
+
+Unlike previous-generation build tools like Bazel, Pants 2's benefits come with minimal boilerplate.
+
+To get set up, add just four lines to the `pants.toml` config file:
+
+```toml
+[GLOBAL]
+backend_packages = ["pants.backend.experimental.go"]
+
+[golang]
+expected_version = "1.17"
+```
+
+Then run `./pants tailor` to generate a couple of one-line `BUILD` files:
+
+```shell-session
+$ ./pants tailor
+Created BUILD:
+- Added go_mod target root
+Created cmd/deploy/BUILD:
+- Added go_binary target bin
+Created cmd/runner/BUILD:
+- Added go_binary target bin
+
+# BUILD
+go_mod()
+
+# cmd/deploy/BUILD
+go_binary(name="bin")
+```
+
+In contrast, Bazel `BUILD` files often have 30-100+ lines per-directory, requiring you to enumerate every import your package has and every package provided by your third-party modules.
+
+With Bazel, whenever you change your code's imports or your third-party dependencies, you have to update your `BUILD` files saved on-disk, usually by running a different tool called Gazelle.
+
+Instead, with Pants, there is no need to update `BUILD` files. Pants uses this initial setup to analyze dependencies on startup, based on your `require` directives in `go.mod` and `go.sum`, and the import statements in first-party `.go` files in your project.
+
+## Trying out Go support
+
+Check out the [example-golang repository](https://github.com/pantsbuild/example-golang) to try out Pants 2.8's Go support! And let us know what you think in [Slack](https://www.pantsbuild.org/docs/getting-help) and [GitHub](https://github.com/pantsbuild/pants/issues)!
+
+To use Pants with your project, check out our [Getting started guide](https://www.pantsbuild.org/v2.8/docs/getting-started) and our [Golang docs](https://www.pantsbuild.org/v2.8/docs/go-overview).
+
+## What's upcoming
+
+We plan to make Pants's Go support more comprehensive in Pants 2.9, before the end of 2021. Some features we have planned:
+
+- The embed directive / resources
+- The `testdata` folder
+- `go vet`
+- Vendoring
+- Finalizing the layout of target definitions in BUILD files
+
+We would [love your feedback](https://www.pantsbuild.org/docs/getting-help) on what features your project needs to build with Pants, along with any bug reports. For example, while these features are not yet currently on the roadmap, they can be bumped based on community input:
+
+- Cgo files
+- Non-Go file types, like `.h` files (`.s` assembly files are already supported)
+- Multiple `go.mod` projects in the same repository
+- Protobuf support

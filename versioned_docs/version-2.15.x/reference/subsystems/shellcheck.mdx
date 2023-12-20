@@ -1,0 +1,146 @@
+---
+title: shellcheck
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A linter for shell scripts.
+
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+Config section: <span className="color--primary">`[shellcheck]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]shellcheck-skip`}
+  env_repr='PANTS_SHELLCHECK_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Shellcheck when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--shellcheck-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_SHELLCHECK_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e SC20529'`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--shellcheck-version=<str>`}
+  env_repr='PANTS_SHELLCHECK_VERSION'
+  default_repr={`v0.8.0`}
+>
+
+Use this version of Shellcheck.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--shellcheck-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SHELLCHECK_KNOWN_VERSIONS'
+  default_repr={`[\n  "v0.8.0|macos_arm64 |e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|macos_x86_64|e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|linux_arm64 |9f47bbff5624babfa712eb9d64ece14c6c46327122d0c54983f627ae3a30a4ac|2996468",\n  "v0.8.0|linux_x86_64|ab6ee1b178f014d1b86d1e24da20d1139656c8b0ed34d2867fbb834dad02bf0a|1403852"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
+```
+- `version` is the version string
+- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+- `sha256` is the 64-character hex representation of the expected sha256
+digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+`wc -c`
+```
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--shellcheck-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_SHELLCHECK_USE_UNSUPPORTED_VERSION'
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of Shellcheck is not supported.
+
+Supported Shellcheck versions: unspecified
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--shellcheck-url-template=<str>`}
+  env_repr='PANTS_SHELLCHECK_URL_TEMPLATE'
+  default_repr={`https://github.com/koalaman/shellcheck/releases/download/{version}/shellcheck-{version}.{platform}.tar.xz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.15/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--shellcheck-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SHELLCHECK_URL_PLATFORM_MAPPING'
+  default_repr={`{\n  "linux_arm64": "linux.aarch64",\n  "linux_x86_64": "linux.x86_64",\n  "macos_arm64": "darwin.x86_64",\n  "macos_x86_64": "darwin.x86_64"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]shellcheck-config-discovery`}
+  env_repr='PANTS_SHELLCHECK_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant `.shellcheckrc` and `shellcheckrc` files during runs. See https://www.mankier.com/1/shellcheck#RC_Files for where these can be located.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,51 @@
+---
+    title: Debugging and benchmarking
+    position: 4
+---
+
+Some techniques to figure out why Pants is behaving the way it is.
+
+---
+
+## Benchmarking Pants runs with `multitime`
+
+## Doing ... with PySpy
+
+## Obtaining Full Thread Backtraces
+
+Pants runs as a Python program that calls into a native Rust library. In debugging locking and deadlock issues, it is useful to capture dumps of the thread stacks in order to figure out where a deadlock may be occurring.
+
+One-time setup:
+
+1. Ensure that gdb is installed.
+
+- Ubuntu: `sudo apt install gdb`
+
+2. Ensure that the kernel is configured to allow debuggers to attach to processes that are not in the same parent/child process hierarchy.
+
+- `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope`
+- To make the change permanent, add a file to /etc/sysctl.d named `99-ptrace.conf` with contents `kernel.yama.ptrace_scope = 0`. **Note: This is a security exposure if you are not normally debugging processes across the process hierarchy.**
+
+3. Ensure that the debug info for your system Python binary is installed.
+
+- Ubuntu: `sudo apt install python3-dbg`
+
+Dumping thread stacks:
+
+1. Find the pants binary (which may include pantsd if pantsd is enabled).
+
+- Run: `ps -ef | grep pants`
+
+2. Invoke gdb with the python binary and the process ID:
+
+- Run: `gdb /path/to/python/binary PROCESS_ID`
+
+3. Enable logging to write the thread dump to `gdb.txt`: `set logging on`
+
+4. Dump all thread backtraces: `thread apply all bt`
+
+5. If you use pyenv to mange your Python install, a gdb script will exist in the same directory as the Python binary. Source it into gdb:
+
+- `source ~/.pyenv/versions/3.8.5/bin/python3.8-gdb.py` (if using version 3.8.5)
+
+6. Dump all Python stacks: `thread apply all py-bt`

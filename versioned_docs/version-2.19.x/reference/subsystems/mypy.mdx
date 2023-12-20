@@ -1,0 +1,168 @@
+---
+title: mypy
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The MyPy Python type checker (http://mypy-lang.org/).
+
+Backend: <span className="color--primary">`pants.backend.python.typecheck.mypy`</span>
+
+Config section: <span className="color--primary">`[mypy]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]mypy-skip`}
+  env_repr='PANTS_MYPY_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use MyPy when running `scie-pants-linux-x86_64 check`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--mypy-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_MYPY_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7 --disallow-any-expr'`.
+
+</Option>
+
+## Advanced options
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--mypy-install-from-resolve=<str>`}
+  env_repr='PANTS_MYPY_INSTALL_FROM_RESOLVE'
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `mypy` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--mypy-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.7,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--mypy-console-script=<str>`}
+  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
+  default_repr={`mypy`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--mypy-entry-point=<str>`}
+  env_repr='PANTS_MYPY_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--mypy-config=<file_option>`}
+  env_repr='PANTS_MYPY_CONFIG'
+  default_repr={`None`}
+>
+
+Path to a config file understood by MyPy (https://mypy.readthedocs.io/en/stable/config_file.html).
+
+Setting this option will disable `[mypy].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]mypy-config-discovery`}
+  env_repr='PANTS_MYPY_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`mypy.ini`, `.mypy.ini`, and `setup.cfg`).
+
+Use `[mypy].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `source_plugins`
+
+<Option
+  cli_repr={`--mypy-source-plugins="[<target_option>, <target_option>, ...]"`}
+  env_repr='PANTS_MYPY_SOURCE_PLUGINS'
+  default_repr={`[]`}
+>
+
+An optional list of `python_sources` target addresses to load first-party plugins.
+
+You must also set `plugins = path.to.module` in your `mypy.ini`, and set the `[mypy].config` option in your `pants.toml`.
+
+To instead load third-party plugins, set the option `[mypy].install_from_resolve` to a resolve whose lockfile includes those plugins, and set the `plugins` option in `mypy.ini`. See https://www.pantsbuild.org/v2.19/docs/python-check-goal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

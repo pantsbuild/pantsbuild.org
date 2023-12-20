@@ -1,0 +1,206 @@
+---
+title: flake8
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Flake8 Python linter (https://flake8.pycqa.org/).
+
+Backend: <span className="color--primary">`pants.backend.python.lint.flake8`</span>
+
+Config section: <span className="color--primary">`[flake8]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]flake8-skip`}
+  env_repr='PANTS_FLAKE8_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Flake8 when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--flake8-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_FLAKE8_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456 --enable-extensions H111'`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--flake8-version=<str>`}
+  env_repr='PANTS_FLAKE8_VERSION'
+  default_repr={`flake8>=5.0.4,<5.1`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--flake8-lockfile=<str>`}
+  env_repr='PANTS_FLAKE8_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.15.2/src/python/pants/backend/python/lint/flake8/flake8.lock for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds and supply-chain security.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=flake8`.
+
+Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--flake8-console-script=<str>`}
+  env_repr='PANTS_FLAKE8_CONSOLE_SCRIPT'
+  default_repr={`flake8`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--flake8-entry-point=<str>`}
+  env_repr='PANTS_FLAKE8_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--flake8-config=<file_option>`}
+  env_repr='PANTS_FLAKE8_CONFIG'
+  default_repr={`None`}
+>
+
+Path to an INI config file understood by Flake8 (https://flake8.pycqa.org/en/latest/user/configuration.html).
+
+Setting this option will disable `[flake8].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `extra_files`
+
+<Option
+  cli_repr={`--flake8-extra-files="[<file_option>, <file_option>, ...]"`}
+  env_repr='PANTS_FLAKE8_EXTRA_FILES'
+  default_repr={`[]`}
+>
+
+Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
+
+```
+        like including config files for the `flake8-bandit` plugin.
+```
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]flake8-config-discovery`}
+  env_repr='PANTS_FLAKE8_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`.flake8`, `flake8`, `setup.cfg`, and `tox.ini`).
+
+Use `[flake8].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `source_plugins`
+
+<Option
+  cli_repr={`--flake8-source-plugins="[<target_option>, <target_option>, ...]"`}
+  env_repr='PANTS_FLAKE8_SOURCE_PLUGINS'
+  default_repr={`[]`}
+>
+
+An optional list of `python_sources` target addresses to load first-party plugins.
+
+You must set the plugin&#x27;s parent directory as a source root. For example, if your plugin is at `build-support/flake8/custom_plugin.py`, add &#x27;build-support/flake8&#x27; to `[source].root_patterns` in `pants.toml`. This is necessary for Pants to know how to tell Flake8 to discover your plugin. See https://www.pantsbuild.org/v2.15/docs/source-roots
+
+You must also set `[flake8:local-plugins]` in your Flake8 config file.
+
+For example:
+
+```
+[flake8:local-plugins]
+    extension =
+        CUSTOMCODE = custom_plugin:MyChecker
+```
+
+While your plugin&#x27;s code can depend on other first-party code and third-party requirements, all first-party dependencies of the plugin must live in the same directory or a subdirectory.
+
+To instead load third-party plugins, set the option `[flake8].extra_requirements`.
+
+Tip: it&#x27;s often helpful to define a dedicated &#x27;resolve&#x27; via `[python].resolves` for your Flake8 plugins such as &#x27;flake8-plugins&#x27; so that the third-party requirements used by your plugin, like `flake8`, do not mix with the rest of your project. Read that option&#x27;s help message for more info on resolves.
+
+</Option>
+
+## Deprecated options
+
+### `export`
+
+<Option
+  cli_repr={`--[no-]flake8-export`}
+  env_repr='PANTS_FLAKE8_EXPORT'
+  default_repr={`True`}
+  removal_version='2.23.0.dev0'
+  removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
+>
+
+If true, export a virtual environment with Flake8 when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export`.
+
+This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
+
+</Option>
+
+</span>

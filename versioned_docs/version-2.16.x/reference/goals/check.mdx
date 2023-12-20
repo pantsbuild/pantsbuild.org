@@ -1,0 +1,53 @@
+---
+title: check
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants check [args]
+```
+
+Run type checking or the lightest variant of compilation available for a language.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[check]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `only`
+
+<Option
+  cli_repr={`--check-only="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CHECK_ONLY'
+  default_repr={`[]`}
+>
+
+Only run these checkers and skip all others.
+
+The checker names are outputted at the final summary of running this goal, e.g. `mypy` and `javac`. You can also run `check --only=fake` to get a list of all activated checkers.
+
+You can repeat this option, e.g. `check --only=mypy --only=javac` or `check --only=['mypy', 'javac']`.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

@@ -1,0 +1,20 @@
+---
+    title: tailor
+    position: 5
+---
+
+---
+
+To generate BUILD file targets for new source files, use:
+
+```bash
+$ ./pants tailor
+```
+
+You can run this when you first integrate Pants into your codebase, and then run it again as you add source files.
+
+The `tailor` goal will add `python_library` and `python_tests` targets as needed. It won't add other target types, such as `resources`, `files` or `pex_binary` targets; You must still provide those manually.
+
+Note that the `tailor` goal never modifies or deletes existing targets. It only creates new BUILD files or appends to existing ones.
+
+You may freely edit the targets emitted by `tailor` before adding them to your repo.

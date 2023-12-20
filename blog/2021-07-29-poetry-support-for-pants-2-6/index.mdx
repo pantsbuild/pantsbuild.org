@@ -1,0 +1,103 @@
+---
+    authors: [liam]
+    tags: [python]
+---
+
+# Poetry support for Pants 2.6
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Trust "Tru"
+  Katsande](https://unsplash.com/@iamtru?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Pants 2.6 can now understand Poetry's pyproject.toml configuration for third-party dependency management, addressing one of our most requested features in the last year!
+
+Pants Contributor Liam Wilson delves into this new feature as well as his experiences developing the macro as a Toolchain intern.
+
+{/* truncate */}
+
+---
+
+_Pants 2.6 can now understand Poetry's `pyproject.toml` configuration for third-party dependency management, addressing one of our most requested features in the last year! Pants handles dependencies with more precision than Python projects using `requirements.txt` or Poetry. Pants Contributor Liam Wilson delves into this new feature as well as his experiences developing the macro as a [Toolchain](http://toolchain.com) intern._
+
+[Pants](https://www.pantsbuild.org/v2.6/) handles dependencies with more precision than Python projects using `requirements.txt` or [Poetry](https://python-poetry.org/). Whereas normally you have a single virtual environment, Pants can understand precisely which 3rd-party dependendencies each file in your project uses, automatically, through [dependency inference](https://www.pantsbuild.org/docs/how-does-pants-work#dependency-inference). When building your code — like running tests or packaging your code into wheel files — Pants only uses the third-party dependencies necessary for that particular file.
+
+For example, given this file:
+
+```py caption="Code for project/app.py"
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+```
+
+Pants can infer that you depend on Django:
+
+```shell-session
+$ ./pants dependencies --type=3rdparty project/app.py
+Django==3.2.5
+```
+
+Among other benefits, this precise and automatic understanding of your dependencies gives you fine-grained caching. This means, for example, that if none of the dependencies for a particular test file have changed, the cached result can be safely used.
+
+---
+
+Normally, Pants learns about your third-party dependencies by parsing `requirements.txt` files. Now, Pants can also parse your `pyproject.toml`, including understanding Poetry's special operators like `^` and `~`.
+
+For example, given this `pyproject.toml`:
+
+```toml
+[tool.poetry]
+name = "my_project"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+ansicolors = "1.5"
+zipp = {git = “https://github.com/jaraco/zipp.git”}
+requests = {version = "1.2.3", extras = ["security"],  python = ">2.7"}
+
+[tool.poetry.dev-dependencies]
+complex_req = [{version = ">=1.9", python = "^2.7"},{version = "^2.0", python = "3.4 || 3.5"}
+isort = ">=5.5.1,<5.6"
+```
+
+Pants will map to these 3rd-party dependencies:
+
+```
+ansicolors
+zipp@git+https://github.com/jaraco/zipp.git
+requests[security] == 1.2.3; python_version >= 2.7
+complex_req>=1.9; python_version >= "2.7" and python_version < "3.0"
+complex_req<3.0.0,>=2.0; python_version == "3.4" or python_version == "3.5"
+```
+
+This teaches Pants about the universe of all the third-party dependencies your project uses. Pants will then use dependency inference to determine exactly which subset of your dependencies are used by each file. This allows a single repository (i.e. a monorepo) to safely package multiple wheels/binaries for their project using a single `pyproject.toml`, as opposed to having a unique requirements list for every package in their repo: Pants will use the proper subset of dependencies for each package, automatically.
+
+The new Poetry support makes it [even easier to incrementally adopt Pants](https://www.pantsbuild.org/docs/existing-repositories) for Poetry users. Adopting Pants now no longer requires rewriting these requirements to a `requirements.txt` format and allows for consuming `project.toml` as-is. You can also keep using Poetry to update your 3rd-party dependencies (e.g. `poetry add`).
+
+You can also teach Pants about your `poetry.lock` by running `poetry export` and pointing Pants to the generated file, ensuring that Pants uses the same pinned dependencies. (Note: Pants 2.7 will be getting more robust lockfile support).
+
+See the [docs](https://www.pantsbuild.org/v2.6/docs/python-third-party-dependencies#poetry-integration) for how to get set up with Poetry.
+
+## My experience as an intern
+
+As an intern developing a feature for Pants, I was surprised at how straightforward it was to introduce a Pants macro.
+
+Adding this functionality also highlighted how test-driven development can be extremely helpful, especially in instances where edge cases are very common. Having a firm idea about what cases need to be addressed and in what ways before development was something I already recognized, but I underestimated the value in having a concrete way to evaluate these cases prior to writing implementation details.
+
+With this particular project, a handful of bugs slipped through as I wrote tests in batches. Consider parsing for a requirement in the dictionary form: within that, there are several sub-cases, like handling a git requirement, or handling a version. Each of those consists of a new set of edge cases, and I initially focused first on the finest grain of edge case. In doing this, I let a handful of broader-scale edge cases slip through, and had to patch several bugs as a result.
+
+In retrospect, the better strategy would have been to work top-down, organizing each broad component, then after exhaustively addressing those cases, flesh out the stage below. In other words, considering the “feature” space as a m-ary tree, a breadth-first traversal makes more sense than a depth-first traversal when implementing a feature ridden with edge cases.
+
+Lastly, I realized that having readable code is important not just for the feature itself, but also for test cases: deduplicating test cases (like using helper functions) can help highlight precisely what each test case addresses, which in turn can highlight gaps in coverage.
+
+## Conclusion
+
+I learned a great deal while implementing Poetry, and am very satisfied with my work. I hope you find the added feature helpful when adopting Pants.
+
+Try out Pants today with your Poetry project, and [let us know what you think in the Pants Slack](https://www.pantsbuild.org/docs/getting-help) !
+
+_NB: The Poetry integration goal requires Pants 2.6+. The latest release is 2.6.0rc4, with a stable release coming this week!_

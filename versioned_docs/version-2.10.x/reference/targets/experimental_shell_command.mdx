@@ -1,0 +1,135 @@
+---
+title: experimental_shell_command
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Execute any external tool for its side effects.
+
+Example BUILD file:
+
+```
+experimental_shell_command(
+  command="./my-script.sh --flag",
+  tools=["tar", "curl", "cat", "bash", "env"],
+  dependencies=[":scripts"],
+  outputs=["results/", "logs/my-script.log"],
+)
+
+shell_sources(name="scripts")
+```
+
+Remember to add this target to the dependencies of each consumer, such as your `python_tests` or `docker_image`. When relevant, Pants will run your `command` and insert the `outputs` into that consumer's context.
+
+The command may be retried and/or cancelled, so ensure that it is idempotent.
+
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `./pants dependencies` or `./pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.10/docs/targets#target-addresses and https://www.pantsbuild.org/v2.10/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `./pants list ::` to find all addresses in your project, or `./pants list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `command`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Shell command to execute.
+
+The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default.
+
+</Field>
+
+## `log_output`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Set to true if you want the output from the command logged to the console.
+
+</Field>
+
+## `outputs`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Specify the shell command output files and directories.
+
+Use a trailing slash on directory names, i.e. `my_dir/`.
+
+</Field>
+
+## `timeout`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`30`}
+>
+
+Command execution timeout (in seconds).
+
+</Field>
+
+## `tools`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Specify required executable tools that might be used.
+
+Only the tools explicitly provided will be available on the search PATH, and these tools must be found on the paths provided by [shell-setup].executable_search_paths (which defaults to the system PATH).
+
+</Field>
+
+</span>

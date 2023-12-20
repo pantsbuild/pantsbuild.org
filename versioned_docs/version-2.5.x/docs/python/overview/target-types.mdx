@@ -1,0 +1,18 @@
+---
+    title: Target types
+    position: 1
+---
+
+---
+
+See [Targets](../../../reference/targets) or run `./pants help targets` for a list of all target types.
+
+Python target types:
+
+- [`python_library`](../../../reference/targets/python_library.mdx), Python source code.
+- [`python_tests`](../../../reference/targets/python_tests.mdx). Also see [test](../goals/test.mdx).
+- [`pex_binary`](../../../reference/targets/pex_binary.mdx), metadata to create an executable PEX file. Also see [package](../goals/package.mdx) and [run](../goals/run.mdx).
+- [`python_distribution`](../../../reference/targets/python_distribution.mdx), a publishable Python setuptools distribution (e.g. an sdist or wheel). Also see [Building distributions](./building-distributions.mdx).
+- [`python_requirement_library`](../../../reference/targets/python_requirement_library.mdx), Python requirements installable by pip. Also see [Third-party dependencies](./third-party-dependencies.mdx).
+
+See [Resources](../../using-pants/resources-and-archives.mdx) for information on the `files`, `resources`, and `archive` target types.

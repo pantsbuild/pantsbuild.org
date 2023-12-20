@@ -1,0 +1,72 @@
+---
+title: go_third_party_package
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A package from a third-party Go module.
+
+You should not explicitly create this target in BUILD files. Instead, add a `go_mod` target where you have your `go.mod` file, which will generate `go_third_party_package` targets for you.
+
+Make sure that your `go.mod` and `go.sum` files include this package&#x27;s module.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
+
+Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `import_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Import path in Go code to import this package.
+
+This field should not be overridden; use the value from target generation.
+
+</Field>
+
+</span>

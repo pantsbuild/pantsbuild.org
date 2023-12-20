@@ -1,0 +1,306 @@
+---
+    title: Release process
+    position: 1
+---
+
+How to release a new version of `pantsbuild.pants` and its plugins.
+
+---
+
+## Prerequisites
+
+### 1. Create a PGP signing key
+
+If you already have one, you can reuse it.
+
+You likely want to use the gpg implementation of pgp. On macOS, you can `brew install gpg`. Once gpg is installed, generate a new key: [www.gnupg.org/gph/en/manual/c14.html](https://www.gnupg.org/gph/en/manual/c14.html).
+
+### 2. Configure Git to use your PGP key.
+
+See [help.github.com/articles/telling-git-about-your-gpg-key/](https://help.github.com/articles/telling-git-about-your-gpg-key/)
+
+Note: the last step is required on macOS.
+
+### 3. Create a PyPI account
+
+[pypi.org/account/register](https://pypi.org/account/register).
+
+### 4. Get added to pantsbuild.pants PyPI
+
+You can ask any of the current Owners to add you as a maintainer.
+
+### 5. Configure `~/.pypirc`
+
+Fill in with your PyPI credentials by running:
+
+```bash
+$ cat << EOF > ~/.pypirc && chmod 600 ~/.pypirc
+[pypi]
+username: <fill me in>
+password: <fill me in>
+
+[server-login]
+username: <fill me in>
+password: <fill me in>
+EOF
+```
+
+## Step 1: Prepare the release
+
+The release is automated, outside of these steps:
+
+1. Removing any completed deprecations
+2. Changelog preparation
+3. CONTRIBUTOR.md updates
+4. Version bumping
+
+The first three steps always happen in the `master` branch, whereas the version bump happens in the relevant release branch.
+
+For dev and `rc0` releases, the release branch is `master`. For all other release candidates and stable releases, the release branch is that respective version's branch, e.g. `1.28.x` or `1.29.x`.
+
+### 0a. `dev0` - set up the release series
+
+1. Create a new file in ` src/python/pants/notes`, e.g. create `src/python/pants/notes/1.28.x.rst`.
+   1. Copy the title and template over from the prior release, e.g. `1.27.x.rst`.
+2. Add the new file to `pants.toml` in the `release_notes` section (scoped under `pants_releases`).
+
+### 0b. `dev` - Check for any deprecations
+
+Your release will fail if there are any deprecated things that should now be removed. Usually, the person who deprecated the feature should have already removed the stale code, but they may have forgotten.
+
+To check for this, search for the version you are releasing. For example, with [ripgrep](https://github.com/BurntSushi/ripgrep), run `rg -C3 1.28.0.dev0`.
+
+If there are things that must be removed, you can either:
+
+1. Ping the person who made the deprecation to ask them to remove it.
+2. Remove it yourself, either in the release prep or as a precursor PR.
+3. Bump the removal date back by one dev release (discouraged).
+
+### 0c. Release candidates - cherry-pick relevant changes
+
+Cherry-pick all changes labeled `needs-cherrypick` with the relevant milestone for the stable branch, e.g. the milestone `1.28.x`.
+
+These pull requests must have been merged into master first, so they will already be closed.
+
+To cherry-pick, for example, from 1.28.x:
+
+1. `git fetch https://github.com/pantsbuild/pants 1.28.x`
+2. `git checkout -b <new-branch-name> FETCH_HEAD`
+3. Find the commit SHA by running `git log master` or looking in GitHub: https://github.com/pantsbuild/pants/commits/master.
+4. `git cherry-pick <sha>`, using the SHA from the previous step.
+5. Open a pull request to merge into the release branch, e.g. `1.28.x`.
+
+Do not push directly to the release branch. All changes should be added through a pull request.
+
+After a commit has been cherry-picked, remove the `needs-cherrypick` label and remove it from the release milestone.
+
+### 1. Prepare the changelog
+
+Update the release page in `src/python/pants/notes` for this release series, e.g. update `src/python/pants/notes/1.28.x.rst`.
+
+Run `./build-support/bin/release-changelog-helper.sh` to get all changes since the last release. When it asks for a tag, use a tag in the form `release_1.28.0.dev0`.
+
+Use your best judgment when classifying commits. If you are uncertain, you can either message the author on Slack or, in your PR, add a comment for the entry to ask for input from others.
+
+Each entry and header should have exactly one blank line between it. You can fix typos in any PR titles.
+
+:::caution Reminder: always do this against the `master` branch
+Even if you are preparing notes for a release candidate, always prepare the notes in a branch based on `master` and, later, target your PR to merge with `master`.
+:::
+
+:::note See any weird PR titles?
+Sometimes, committers accidentally use the wrong title when squashing and merging because GitHub pulls the title from the commit title when there is only one commit.
+
+If you see a vague or strange title like "fix bug", open the original PR to see if the PR title is more descriptive. If it is, please use the more descriptive title instead.
+:::
+
+### 2. Update `CONTRIBUTORS.md`
+
+Run `./build-support/bin/contributors.sh`.
+
+Take note of any new contributors so that you can give a shoutout in the announcement email.
+
+### 3. `dev` and `rc0` - bump the `VERSION`
+
+Change `src/python/pants/VERSION` to the new release, e.g. 1.28.0.dev0.
+
+### 4. Post the prep to GitHub
+
+Open a pull request on GitHub to merge into `master`. Post the PR to the #releases channel in Slack.
+
+Merge once approved and green.
+
+:::caution Watch out for any recently landed PRs
+From the time you put up your release prep until you hit "merge", be careful that no one merges any commits into master.
+
+If they do—and you're doing a dev or `rc0` release—you must merge `master` into your PR and update the changelog with their changes.
+
+Once you click "merge", it is safe for people to merge changes again.
+:::
+
+### 5a. `rc0` - create a new Git branch
+
+For example, if you're releasing `1.28.0rc0`, create the branch `1.28.x` by running the below. Make sure you are on your release commit before doing this.
+
+```bash
+$ git checkout -b 1.28.x
+$ git push upstream 1.28.x
+```
+
+### 5b. release candidates - cherry-pick and bump the VERSION
+
+1. Checkout from `master` into the release branch, e.g. `1.28.x`.
+2. Cherry-pick the release prep using `git cherry-pick <sha>`.
+3. Bump the `VERSION` in `src/python/pants/VERSION`, e.g. to `1.28.0rc1`. Push this as a new commit directly to the release branch - you do not need to open a pull request.
+
+## Step 2: Update this docs site
+
+### `dev0` - set up the new page
+
+Create a new version of the docs. Go to [dash.readme.io/project/pants](https://dash.readme.io/project/pants). In the top left dropdown, where it says the current version, click "Manage versions". Click "Add new version" and use a "v" with the minor release number, e.g. "v1.28". Fork from the prior release.
+
+Then, create a new page in the "Release notes" section titled with the release series, e.g. "1.28.x".
+
+You can copy the prior release's page to get started. Update the bottom to point to the new changelog.
+
+Update the URL slug to be `release-notes-1-28-x`, for example. Press the drop-down on the blue "Save" button, then "Change page slug".
+
+Finally, reorder the page in the "Release notes" section so that it shows up as the most recent.
+
+### Summarize important changes
+
+In a list of bullet points, briefly describe any important changes from your release.
+
+This is a bit subjective, but some things you may want to highlight:
+
+- New features.
+- Major bug fixes.
+- Substantial API changes.
+  - You do not need to highlight small changes like "Upgrade from ansiolors 2.10 to ansicolors 2.12". This is what the changelog is for.
+
+If there are any docs explaining the new features, link to those by using readme.io's markdown variant of `[Page title](doc:new-page)`.
+
+You do not need to link to the original PRs in the summary, unless the PR has important documentation for users. The summary is only meant to give a highlight, whereas the changelog has the nitty-gritty details.
+
+### Update the version in Installing Pants
+
+Update [Installing Pants](../../introduction/getting-started/installing-pants.mdx) to use the version you're releasing in the `pants.toml` snippet.
+
+:::caution Don't have edit access?
+Ping someone in the #committers Slack channel to be added. Alternatively, you can "Suggest edits" in the top right corner.
+:::
+
+## Step 3: Wait for CI to build the wheels
+
+Once you have merged the `VERSION` bump—which will be on `master` for `dev` and `rc0` releases and the release branch for release candidates—CI will start building the wheels you need to finish the release.
+
+Head to https://travis-ci.com/github/pantsbuild/pants/builds and find your relevant build. You need the "Build Linux wheels" and "Build macOS wheels" jobs to go green to move on.
+
+To speed things up, you can cancel other jobs in your build so that there's less of a backlog, so long as you restart those jobs after you're done.
+
+:::note Big CI backlog? You can ask others if you can pause their CI
+If you are trying to get out a release and are blocked by a large CI backlog, you can politely DM other committers to see if they are okay with you temporarily canceling their build and then restarting it.
+
+Be polite when doing this! Remember that many people are often waiting on CI to make progress in their work.
+
+(Be careful to not click "cancel build" or "restart build" - this will break the entire build because we will upload two `pants.pex` files to AWS, which triggers a security mechanism. You must individually cancel and restart each job. If you accidentally restarted the bootstrap shard, push a new commit with `git commit --allow-empty`.)
+:::
+
+## Step 4: Run `release.sh`
+
+First, ensure that you are on your release branch at your version bump commit.
+
+:::note Tip: if new commits have landed after your release commit
+You can reset to your release commit by running `git rest --hard <sha>`.
+:::
+
+Then, run:
+
+```
+$ ./build-support/bin/release.sh
+```
+
+This will first perform a dry run, then will download the pre-built wheels built in CI and will publish them to PyPI. About three minutes in, the script will prompt you for your PGP password.
+
+## Step 5: Test the release
+
+Run this script as a basic smoke test:
+
+```bash
+$ ./build-support/bin/release.sh -t
+```
+
+You should also [check PyPI](https://pypi.org/pypi/pantsbuild.pants) to ensure everything looks good. Click "Release history" to find the version you released, then click it and confirm the changelog is correct on the "Project description" page and that the `macOS` and `manylinux` wheels show up in the "Download files" page.
+
+## Step 6: Announce the change
+
+Announce the release to [pants-devel](https://groups.google.com/forum/#!forum/pants-devel).
+
+You can get a contributor list by running the following, where `<tag>` is the tag for the prior release (eg: `release_1.28.0.dev0`):
+
+```bash
+$ ./build-support/bin/contributors.sh -s <tag>
+```
+
+### Sample emails
+
+:::danger Update these templates!
+Google Groups does not support markdown. You must manually create links and remove the markdown syntax.
+
+Also, make sure that you are using the correct version everywhere. When adding a link, use "Test this link" to ensure it loads properly.
+:::
+
+Dev release:
+
+```
+Subject: [dev release] pantsbuild.pants 2.0.0.dev0
+
+
+The first weekly dev release for the 2.0.x series is now available [on PyPI](https://pypi.org/project/pantsbuild.pants/2.0.0.dev0/).
+
+See [here](https://pants.readme.io/v2.0/docs/release-notes-2-0) for a summary of the 2.0.x series so far and a link to a more detailed changelog.
+
+Thank you to this week's contributors:
+
+     6 Eustolia Palledino
+     4 Ahmad Wensel
+     2 Rae Efird
+     1 Niki Fitch
+
+And a special shout-out to first-time contributor Niki Fitch, with the PR [`Upgrade Rust to 1.63 (#9441)`](https://github.com/pantsbuild/pants/pull/9441). Thank you for your contribution!
+```
+
+Release candidate:
+
+```
+Subject: [release candidate] pantsbuild.pants 2.0.0rc1
+
+
+The second release candidate for 2.0.0 is now available [on PyPI](https://pypi.org/project/pantsbuild.pants/2.0.0rc0/).
+
+See [here](https://pants.readme.io/v2.0/docs/release-notes-2-0) for a summary of the 2.0.x series and a link to a more detailed changelog.
+
+Thank you to everyone who tested the previous release, and thank you to the folks who contributed patches!
+
+   3 Niki Fitch
+   1 Mario Rozell
+```
+
+Stable release:
+
+```
+Subject: [stable release] pantsbuild.pants 2.0.0
+
+
+The first stable release of the 2.0.x series is now available [on PyPI](https://pypi.org/project/pantsbuild.pants/2.0.0/).
+
+See [here](https://pants.readme.io/v2.0/docs/release-notes-2-0) for a summary of the 2.0.x series and a link to a more detailed changelog.
+
+Thanks to all of the contributors to the 2.0.x series!
+
+    Eustolia Palledino
+    Ahmad Wensel
+    Rae Efird
+    Niki Fitch
+    Mario Rozell
+```

@@ -1,0 +1,112 @@
+---
+    title: Command line help
+    position: 1
+---
+
+How to dynamically get more information on Pants's internals.
+
+---
+
+Run `./pants help` to get basic help, including a list of commands you can run to get more specific help:
+
+```text title="Shell"
+$ ./pants help
+
+Pants 2.0.0
+
+Usage:
+
+  ./pants [option ...] [goal ...] [file/target ...]   Attempt the specified goals on the specified files/targets.
+  ./pants help                                        Display this usage message.
+  ./pants help goals                                  List all installed goals.
+  ./pants help targets                                List all installed target types.
+  ./pants help global                                 Help for global options.
+  ./pants help-advanced global                        Help for global advanced options.
+  ./pants help [target_type/goal/subsystem]            Help for a target type, goal or subsystem.
+  ./pants help-advanced [goal/subsystem]              Help for a goal or subsystem's advanced options.
+  ./pants help-all                                    Print a JSON object containing all help info.
+
+  [file] can be:
+     path/to/file.ext
+     A path glob, such as '**/*.ext', in quotes to prevent premature shell expansion.
+
+  [target] can be:
+    path/to/dir:target_name.
+    path/to/dir for a target whose name is the same as the directory name.
+    path/to/dir:  to include all targets in the specified directory.
+    path/to/dir:: to include all targets found recursively under the directory.
+
+Documentation at https://www.pantsbuild.org
+Download at https://pypi.org/pypi/pantsbuild.pants/2.0.0
+```
+
+For example, to get help on the `test` goal:
+
+```text title="Shell"
+$ ./pants help test
+
+`test` goal options
+-------------------
+
+Run tests.
+
+Config section: [test]
+
+  --[no-]test-debug
+  PANTS_TEST_DEBUG
+  debug
+      default: False
+      current value: False
+      Run tests sequentially in an interactive process. This is necessary, for example, when you add
+      breakpoints to your code.
+
+  --[no-]test-force
+  PANTS_TEST_FORCE
+  force
+      default: False
+      current value: False
+      Force the tests to run, even if they could be satisfied from cache.
+...
+
+Related subsystems: coverage-py, download-pex-bin, pants-releases, pex, pex-binary-defaults, pytest, python-infer, python-native-code, python-repos, python-setup, setup-py-generation, setuptools, source, subprocess-environment
+```
+
+Note that when you run `./pants help $goal`, it outputs all related subsystems, such as `pytest`. You can then run `./pants help pytest` to get more information.
+
+To get help on the `python_tests` target:
+
+```text title="Shell"
+$ ./pants help python_tests
+
+python_tests
+------------
+
+Python tests.
+
+These may be written in either Pytest-style or unittest style.
+
+All test util code, other than `conftest.py`, should go into a dedicated `python_library()`
+target and then be included in the `dependencies` field.
+
+See https://www.pantsbuild.org/docs/python-test-goal.
+
+Valid fields:
+
+compatibility
+    type: str | Iterable[str] | None
+    default: None
+    A string for Python interpreter constraints on this target. This should be
+    written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`.
+    As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to
+    `CPython>=2.7`. If this is left off, this will default to the option
+    `interpreter_constraints` in the [python-setup] scope. See
+    https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+
+...
+```
+
+## Advanced Help
+
+Many options are classified as _advanced_, meaning they are primarily intended to be used by admins, not by regular users.
+
+Use `help-advanced`, e.g. `./pants help-advanced global` or `./pants help-advanced pytest`.

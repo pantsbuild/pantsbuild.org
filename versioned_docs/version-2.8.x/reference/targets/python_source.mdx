@@ -1,0 +1,196 @@
+---
+title: python_source
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A single Python source file.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
+
+Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `source`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A single file that belongs to this target.
+
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
+</Field>
+
+## `skip_autoflake`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Autoflake on this target&#x27;s code.
+
+</Field>
+
+## `skip_black`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
+</Field>
+
+## `skip_docformatter`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Docformatter on this target&#x27;s code.
+
+</Field>
+
+## `skip_flake8`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
+</Field>
+
+## `skip_isort`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
+</Field>
+
+## `skip_mypy`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+</Field>
+
+## `skip_bandit`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
+</Field>
+
+## `skip_pylint`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_yapf`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
+
+</Field>
+
+</span>

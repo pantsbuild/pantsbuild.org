@@ -1,0 +1,54 @@
+---
+title: python-thrift
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options specific to generating Python from Thrift using Apache Thrift
+
+Backend: <span className="color--primary">`pants.backend.codegen.thrift.apache.python`</span>
+
+Config section: <span className="color--primary">`[python-thrift]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `options`
+
+<Option
+  cli_repr={`--python-thrift-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTHON_THRIFT_OPTIONS'
+  default_repr={`[]`}
+>
+
+Code generation options specific to the Python code generator to pass to the Apache `thift` binary via the `-gen py` argument. See `thrift -help` for supported values.
+
+</Option>
+
+## Advanced options
+
+### `infer_runtime_dependency`
+
+<Option
+  cli_repr={`--[no-]python-thrift-infer-runtime-dependency`}
+  env_repr='PANTS_PYTHON_THRIFT_INFER_RUNTIME_DEPENDENCY'
+  default_repr={`True`}
+>
+
+If True, will add a dependency on a `python_requirement` target exposing the `thrift` module (usually from the `thrift` requirement).
+
+If `[python].enable_resolves` is set, Pants will only infer dependencies on `python_requirement` targets that use the same resolve as the particular `thrift_source` / `thrift_source` target uses, which is set via its `python_resolve` field.
+
+Unless this option is disabled, Pants will error if no relevant target is found or more than one is found which causes ambiguity.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

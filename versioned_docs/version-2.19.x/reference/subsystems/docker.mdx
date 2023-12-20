@@ -1,0 +1,286 @@
+---
+title: docker
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for interacting with Docker.
+
+Backend: <span className="color--primary">`pants.backend.docker`</span>
+
+Config section: <span className="color--primary">`[docker]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `registries`
+
+<Option
+  cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_DOCKER_REGISTRIES'
+  default_repr={`{}`}
+>
+
+Configure Docker registries. The schema for a registry entry is as follows:
+
+```
+{
+    "registry-alias": {
+        "address": "registry-domain:port",
+        "default": bool,
+        "extra_image_tags": [],
+        "skip_push": bool,
+        "repository": str,
+        "use_local_alias": bool,
+    },
+    ...
+}
+```
+
+If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
+
+The `docker_image.registries` may be provided with a list of registry addresses and registry aliases prefixed with `@` to be used instead of the defaults.
+
+A configured registry is marked as default either by setting `default = true` or with an alias of `"default"`.
+
+A `docker_image` may be pushed to a subset of registries using the per registry `skip_push` option rather then the all or nothing toggle of the field option `skip_push` on the `docker_image` target.
+
+Any image tags that should only be added for specific registries may be provided as the `extra_image_tags` option. The tags may use value formatting the same as for the `image_tags` field of the `docker_image` target.
+
+When a registry provides a `repository` value, it will be used instead of the `docker_image.repository` or the default repository. Using the placeholders `{target_repository}` or `{default_repository}` those overridden values may be incorporated into the registry specific repository value.
+
+If `use_local_alias` is true, a built image is additionally tagged locally using the registry alias as the value for repository (i.e. the additional image tag is not pushed) and will be used for any `pants run` requests.
+
+</Option>
+
+### `default_repository`
+
+<Option
+  cli_repr={`--docker-default-repository=<str>`}
+  env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
+  default_repr={`{name}`}
+>
+
+Configure the default repository name used in the Docker image tag.
+
+The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
+
+- name
+- directory
+- parent_directory
+- target_repository
+
+Example: `--default-repository="{directory}/{name}"`.
+
+The `name` variable is the `docker_image`&#x27;s target name, `directory` and `parent_directory` are the name of the directory in which the BUILD file is for the target, and its parent directory respectively.
+
+Use the `repository` field to set this value directly on a `docker_image` target.
+
+Registries may override the repository value for a specific registry.
+
+Any registries or tags are added to the image name as required, and should not be part of the repository name.
+
+</Option>
+
+### `default_context_root`
+
+<Option
+  cli_repr={`--docker-default-context-root=<workspace_path>`}
+  env_repr='PANTS_DOCKER_DEFAULT_CONTEXT_ROOT'
+  default_repr={``}
+>
+
+Provide a default Docker build context root path for `docker_image` targets that does not specify their own `context_root` field.
+
+The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
+
+Examples:
+
+```
+--default-context-root=src/docker
+--default-context-root=./relative_to_the_build_file
+```
+
+</Option>
+
+### `use_buildx`
+
+<Option
+  cli_repr={`--[no-]docker-use-buildx`}
+  env_repr='PANTS_DOCKER_USE_BUILDX'
+  default_repr={`False`}
+>
+
+Use [buildx](https://github.com/docker/buildx#buildx) (and BuildKit) for builds.
+
+</Option>
+
+### `build_args`
+
+<Option
+  cli_repr={`--docker-build-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DOCKER_BUILD_ARGS'
+  default_repr={`[]`}
+>
+
+Global build arguments (for Docker `--build-arg` options) to use for all `docker build` invocations.
+
+Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
+
+Example:
+
+```
+[docker]
+build_args = ["VAR1=value", "VAR2"]
+```
+
+Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
+
+</Option>
+
+### `build_target_stage`
+
+<Option
+  cli_repr={`--docker-build-target-stage=<str>`}
+  env_repr='PANTS_DOCKER_BUILD_TARGET_STAGE'
+  default_repr={`None`}
+>
+
+Global default value for `target_stage` on `docker_image` targets, overriding the field value on the targets, if there is a matching stage in the `Dockerfile`.
+
+This is useful to provide from the command line, to specify the target stage to build for at execution time.
+
+</Option>
+
+### `build_hosts`
+
+<Option
+  cli_repr={`--docker-build-hosts="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_DOCKER_BUILD_HOSTS'
+  default_repr={`{}`}
+>
+
+Hosts entries to be added to the `/etc/hosts` file in all built images.
+
+Example:
+
+```
+[docker]
+build_hosts = {"docker": "10.180.0.1", "docker2": "10.180.0.2"}
+```
+
+Use the `extra_build_hosts` field on a `docker_image` target for additional image specific host entries.
+
+</Option>
+
+### `build_no_cache`
+
+<Option
+  cli_repr={`--[no-]docker-build-no-cache`}
+  env_repr='PANTS_DOCKER_BUILD_NO_CACHE'
+  default_repr={`False`}
+>
+
+Do not use the Docker cache when building images.
+
+</Option>
+
+### `build_verbose`
+
+<Option
+  cli_repr={`--[no-]docker-build-verbose`}
+  env_repr='PANTS_DOCKER_BUILD_VERBOSE'
+  default_repr={`False`}
+>
+
+Whether to log the Docker output to the console. If false, only the image ID is logged.
+
+</Option>
+
+### `run_args`
+
+<Option
+  cli_repr={`--docker-run-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DOCKER_RUN_ARGS'
+  default_repr={`[]`}
+>
+
+Additional arguments to use for `docker run` invocations.
+
+Example:
+
+```
+$ scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
+```
+
+To provide the top-level options to the `docker` client, use `[docker].env_vars` to configure the [Environment variables](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) as appropriate.
+
+The arguments for the image entrypoint may be passed on the command line after a double dash (`--`), or using the `--run-args` option.
+
+Defaults to `--interactive --tty` when stdout is connected to a terminal.
+
+</Option>
+
+## Advanced options
+
+### `tools`
+
+<Option
+  cli_repr={`--docker-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DOCKER_TOOLS'
+  default_repr={`[]`}
+>
+
+List any additional executable tools required for Docker to work. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by the Docker client.
+
+</Option>
+
+### `tailor`
+
+<Option
+  cli_repr={`--[no-]docker-tailor`}
+  env_repr='PANTS_DOCKER_TAILOR'
+  default_repr={`True`}
+>
+
+If true, add `docker_image` targets with the `tailor` goal.
+
+</Option>
+
+### `executable_search_paths`
+
+<Option
+  cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
+  default_repr={`["<PATH>"]`}
+  target_field_name='docker_executable_search_paths'
+>
+
+The PATH value that will be used to find the Docker client and any tools required. The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
+
+### `env_vars`
+
+<Option
+  cli_repr={`--docker-env-vars="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DOCKER_ENV_VARS'
+  default_repr={`[]`}
+  target_field_name='docker_env_vars'
+>
+
+Environment variables to set for `docker` invocations.
+
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

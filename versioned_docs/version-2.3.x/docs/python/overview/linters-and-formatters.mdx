@@ -1,0 +1,117 @@
+---
+    title: Linters and formatters
+    position: 4
+---
+
+How to activate and use the Python linters and formatters bundled with Pants.
+
+---
+
+## Activating linters and formatters
+
+Linter/formatter support is implemented in separate [backends](../../using-pants/concepts/backends.mdx) so that they are easy to opt in to individually:
+| Backend | Tool |
+| :--- | :--- |
+| `pants.backend.python.lint.bandit` | [Bandit](https://bandit.readthedocs.io/en/latest/): security linter |
+| `pants.backend.python.lint.black` | [Black](https://black.readthedocs.io/en/stable/): code formatter |
+| `pants.backend.python.lint.docformatter` | [Docformatter](https://pypi.org/project/docformatter/): docstring formatter |
+| `pants.backend.python.lint.flake8` | [Flake8](https://flake8.pycqa.org/en/latest/): style and bug linter |
+| `pants.backend.python.lint.isort` | [isort](https://readthedocs.org/projects/isort/): import statement formatter |
+| `pants.backend.python.lint.pylint` | [Pylint](https://www.pylint.org/): style and bug linter |
+
+To enable, add the appropriate backends in `pants.toml`:
+
+```toml title="pants.toml"
+[GLOBAL]
+...
+backend_packages = [
+  'pants.backend.python',
+  'pants.backend.python.lint.black',
+  'pants.backend.python.lint.isort',
+]
+```
+
+You should now be able to run `./pants lint`, and possibly `./pants fmt`:
+
+```
+$ ./pants lint src/py/project.py
+17:54:32.51 [INFO] Completed: lint - Flake8 succeeded.
+17:54:32.70 [INFO] Completed: lint - Black succeeded.
+All done! ✨ 🍰 ✨
+1 file would be left unchanged.
+
+17:54:33.91 [INFO] Completed: lint - isort succeeded.
+
+✓ Black succeeded.
+✓ Flake8 succeeded.
+✓ isort succeeded.
+```
+
+:::note How to activate MyPy
+MyPy is run with the [typecheck goal](../goals/typecheck.mdx), rather than `lint`.
+:::
+
+## Configuring the tools and adding plugins
+
+Each formatter and linter allows you to configure
+
+- `--version`: the version to use.
+- `--config`: the config file location (relative to the build root).
+- `--args`: any command-line arguments you want to pass to the tool.
+- `--extra-requirements`: any additional libraries to install, such as any plugins.
+
+For example:
+
+```toml title="pants.toml"
+[black]
+config = "pyproject.toml"
+
+[docformatter]
+args = ["--wrap-summaries=100", "--wrap-descriptions=100"]
+
+[flake8]
+config = "build-support/.flake8"
+version = "flake8==3.8.0"
+# Add a Flake8 plugin:
+extra_requirements.add = ["flake8-2020"]
+```
+
+Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for more information.
+
+:::caution Config files must be explicitly declared before Pants 2.5+
+Many tools will automatically discover their config files if it's at a standard location, like isort looking for the file `.isort.cfg`. This auto-discovery does not work with Pants; you must explicitly set the `--config` option for Pants to use the correct config file.
+
+This was fixed in Pants 2.5.
+:::
+
+:::note How to use first-party Pylint plugins
+Pants supports custom Pylint plugins written by you. Run `./pants help-advanced pylint` for instructions with the `--pylint-source-plugins` option.
+
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](/community/members).
+:::
+
+## Temporarily skipping a formatter or linter
+
+Use the `--skip` option. For example, run:
+
+```bash
+$ ./pants --black-skip --flake8-skip fmt ::
+```
+
+## Tip: only run over changed files
+
+With formatters and linters, there is usually no need to rerun on files that have not changed.
+
+Use the option `--changed-since` to get much better performance, like this:
+
+```bash
+$ ./pants --changed-since=HEAD fmt
+```
+
+or
+
+```bash
+$ ./pants --changed-since=main lint
+```
+
+Pants will find which files have changed and only run over those files. See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.

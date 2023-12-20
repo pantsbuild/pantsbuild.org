@@ -1,0 +1,71 @@
+---
+title: fmt
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants fmt [args]
+```
+
+Autoformat source code.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[fmt]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `only`
+
+<Option
+  cli_repr={`--fmt-only="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_FMT_ONLY'
+  default_repr={`[]`}
+>
+
+Only run these formatters and skip all others.
+
+The formatter names are outputted at the final summary of running this goal, e.g. `isort` and `shfmt`. You can also run `fmt --only=fake` to get a list of all activated formatters.
+
+You can repeat this option, e.g. `fmt --only=isort --only=shfmt` or `fmt --only=['isort', 'shfmt']`.
+
+</Option>
+
+## Advanced options
+
+### `batch_size`
+
+<Option
+  cli_repr={`--fmt-batch-size=<int>`}
+  env_repr='PANTS_FMT_BATCH_SIZE'
+  default_repr={`128`}
+>
+
+The target number of files to be included in each formatter batch.
+
+Formatter processes are batched for a few reasons:
+
+1. to avoid OS argument length limits (in processes which don&#x27;t support argument files)
+2. to support more stable cache keys than would be possible if all files were operated on in a single batch.
+3. to allow for parallelism in formatter processes which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly.
+
+In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &quot;target&quot; batch size (rather than an exact value).
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

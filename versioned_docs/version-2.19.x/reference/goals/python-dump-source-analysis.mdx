@@ -1,0 +1,58 @@
+---
+title: python-dump-source-analysis
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants python-dump-source-analysis [args]
+```
+
+Dump source analysis for python_source targets.
+
+Backend: <span className="color--primary">`pants.backend.experimental.python`</span>
+
+Config section: <span className="color--primary">`[python-dump-source-analysis]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `analysis_flavor`
+
+<Option
+  cli_repr={`--python-dump-source-analysis-analysis-flavor=<AnalysisFlavor>`}
+  env_repr='PANTS_PYTHON_DUMP_SOURCE_ANALYSIS_ANALYSIS_FLAVOR'
+  one_of='raw_dependency_inference, dependency_inference'
+  default_repr={`dependency_inference`}
+>
+
+The type of information that should be returned.
+
+- `dependency_inference`: The results of dependency inference, for every detected import in every file.
+
+- `raw_dependency_inference`: The raw intermediate results of the dependency inference process,
+  at every stage they&#x27;re available. Potentially useful for debugging the dependency inference process.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+- [python](../subsystems/python.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [source](../subsystems/source.mdx)
+
+</span>

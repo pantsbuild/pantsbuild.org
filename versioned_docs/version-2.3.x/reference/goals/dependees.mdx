@@ -1,0 +1,107 @@
+---
+title: dependees
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants dependees [args]
+```
+
+List all targets that depend on any of the input files/targets.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[dependees]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--dependees-output-file=<path>`}
+  env_repr='PANTS_DEPENDEES_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--dependees-sep=<separator>`}
+  env_repr='PANTS_DEPENDEES_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `transitive`
+
+<Option
+  cli_repr={`--[no-]dependees-transitive`}
+  env_repr='PANTS_DEPENDEES_TRANSITIVE'
+  default_repr={`False`}
+>
+
+List all transitive dependees, instead of only direct dependees.
+
+</Option>
+
+### `closed`
+
+<Option
+  cli_repr={`--[no-]dependees-closed`}
+  env_repr='PANTS_DEPENDEES_CLOSED'
+  default_repr={`False`}
+>
+
+Include the input targets in the output, along with the dependees.
+
+</Option>
+
+### `output_format`
+
+<Option
+  cli_repr={`--dependees-output-format=<DependeesOutputFormat>`}
+  env_repr='PANTS_DEPENDEES_OUTPUT_FORMAT'
+  one_of='text, json'
+  default_repr={`text`}
+>
+
+Use `text` for a flattened list of target addresses; use `json` for each key to be the address of one of the specified targets, with its value being a list of that target&#x27;s dependees, e.g. `{':example': [':dep1', ':dep2']}`.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [download-pex-bin](../subsystems/download-pex-bin.mdx)
+- [grpc_python_plugin](../subsystems/grpc_python_plugin.mdx)
+- [pex](../subsystems/pex.mdx)
+- [protoc](../subsystems/protoc.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [python-protobuf](../subsystems/python-protobuf.mdx)
+- [python-repos](../subsystems/python-repos.mdx)
+- [python-setup](../subsystems/python-setup.mdx)
+- [source](../subsystems/source.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
+
+</span>

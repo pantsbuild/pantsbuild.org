@@ -1,0 +1,54 @@
+---
+title: python-native-code
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for building native code using Python, e.g. when resolving distributions.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[python-native-code]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `cpp_flags`
+
+<Option
+  cli_repr={`--python-native-code-cpp-flags="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTHON_NATIVE_CODE_CPP_FLAGS'
+  default_repr={`["<CPPFLAGS>"]`}
+  target_field_name='python_native_code_cpp_flags'
+>
+
+Override the `CPPFLAGS` environment variable for any forked subprocesses. Use the value `['<CPPFLAGS>']` to inherit the value of the `CPPFLAGS` environment variable from your runtime environment target.
+
+</Option>
+
+### `ld_flags`
+
+<Option
+  cli_repr={`--python-native-code-ld-flags="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTHON_NATIVE_CODE_LD_FLAGS'
+  default_repr={`["<LDFLAGS>"]`}
+  target_field_name='python_native_code_ld_flags'
+>
+
+Override the `LDFLAGS` environment variable for any forked subprocesses. Use the value `['<LDFLAGS>']` to inherit the value of the `LDFLAGS` environment variable from your runtime environment target.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

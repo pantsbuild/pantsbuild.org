@@ -1,0 +1,85 @@
+---
+title: dependents
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants dependents [args]
+```
+
+List all targets that depend on any of the input files/targets.
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[dependents]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--dependents-output-file=<path>`}
+  env_repr='PANTS_DEPENDENTS_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--dependents-sep=<separator>`}
+  env_repr='PANTS_DEPENDENTS_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `transitive`
+
+<Option
+  cli_repr={`--[no-]dependents-transitive`}
+  env_repr='PANTS_DEPENDENTS_TRANSITIVE'
+  default_repr={`False`}
+>
+
+List all transitive dependents. If unspecified, list direct dependents only.
+
+</Option>
+
+### `closed`
+
+<Option
+  cli_repr={`--[no-]dependents-closed`}
+  env_repr='PANTS_DEPENDENTS_CLOSED'
+  default_repr={`False`}
+>
+
+Include the input targets in the output, along with the dependents.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

@@ -1,0 +1,132 @@
+---
+    title: Troubleshooting / common issues
+    position: 2
+---
+
+Common issues you may encounter.
+
+---
+
+:::tip Asking for help
+See [Getting Help](/community/members). We would love to help!
+
+If you are confused by something, likely someone else will run into the same issue. It is helpful for us to know what is going wrong so that we can improve Pants and improve this documentation.
+:::
+
+## Debug tip: enable stack traces and increase logging
+
+Pants defaults to not displaying the full stack trace when it encounters an error. Pants also defaults to logging at the info level.
+
+When you encounter an exception, it can help to use the global options `--print-stacktrace` and `-ldebug`, like this:
+
+```bash
+<<pantscmd>> --print-stacktrace -ldebug
+```
+
+Once you have this stack trace, we recommend copying it into Pastebin or a GitHub Gist, then opening a GitHub issue or posting on Slack. Someone from the Pants team would be happy to help. See [Getting Help](/community/members).
+
+## \"Out of space\" error: set an alternative tmpdir
+
+It may be necessary to explicitly set the directory Pants uses as a temporary directory. For example, if the system default temporary directory is a small partition, you may exhaust that temp space.
+
+Use the global option `local_execution_root_dir` to change the tmpdir used by Pants.
+
+```toml title="pants.toml"
+[GLOBAL]
+local_execution_root_dir = "/mnt/large-partition/tmpdir"
+```
+
+## \"No space left on device\" error while watching files
+
+On Linux, Pants uses `inotify` to watch all files and directories related to any particular build. Some systems have limits configured for the maximum number of files watched. To adjust the limit on file watches, you can run:
+
+```shell title="shell"
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```
+
+## How to change your cache directory
+
+You may change any of these options in the `[GLOBAL]` section of your `pants.toml`:
+| Option | What it does | Default |
+| :--- | :--- | :--- |
+| `local_store_dir` | Stores the results of running subprocesses and of some file operations. | `~/.cache/pants/lmdb_store` |
+| `named_caches_dir` | Stores the caches for certain tools used by Pants, like PEX's cache for resolving Python requirements. | `~/.cache/pants/named_caches` |
+| `pants_workdir` | Stores some project-specific logs; used as a temporary directory when running `./pants repl` and `./pants run`.<br/><br/>This is not used for caching.<br/><br/>This must be relative to the build root. | `<build_root>/.pants.d/` |
+| `pants_distdir` | Where Pants writes artifacts to, such as the result of `./pants package`.<br/><br/>This is not used for caching; you can delete this folder and still leverage the cache from `local_store_dir`.<br/><br/>This must be relative to the build root. | `<build_root>/dist/` |
+
+For `local_store_dir` and `named_caches_dir`, you may either specify an absolute path or a relative path, which will be relative to the build root. You may use the special string `%(homedir)s` to get the value of `~`, e.g. `local_store_dir = "%(homedir)s/.custom_cache/pants/lmdb_store"`.
+
+It is safe to delete these folders to free up space.
+
+You can also change the cache used by the `./pants` script described in [Installing Pants](../../introduction/getting-started/installing-pants.mdx), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
+
+## \"Double requirement given\" error when resolving requirements
+
+This is an error from `pip`, and it means that the same 3rd-party Python requirement—with different version constraints—appears in your dependencies.
+
+You can use Pants to help identify why the same requirement is being used more than once:
+
+```shell title="Shell"
+# List all requirement strings used in your project. Once you
+# find the problematic requirement strings, try grepping
+# for them to see where the targets are defined.
+./pants dependencies --transitive --type=3rdparty ::
+
+# You can also try making your query more precise.
+./pants dependencies --type=3rdparty project1::
+```
+
+## Pants cannot find a file in your project
+
+Pants may complain that it cannot find a file or directory, even though the file does indeed exist.
+
+Almost always, this error happens because of the option `pants_ignore` in the `[GLOBAL]` scope. By default, Pants will read your top-level `.gitignore` file to populate `pants_ignore`, along with ignoring `dist/` and any top-level files/directories starting with `.`.
+
+To override something included in your `.gitignore`, add a new value to `pants_ignore` and prefix it with `!`, like the below. `pants_ignore` uses the [same syntax as gitignore](https://git-scm.com/docs/gitignore).
+
+```toml title="pants.toml"
+[GLOBAL]
+pants_ignore.add = ["!folder/"]
+```
+
+Alternatively, you can stop populating `pants_ignore` from your `.gitignore` by setting `pants_ignore_use_gitignore = false` in the `[GLOBAL]` scope.
+
+## macOS users: issues with system Python interpreters
+
+The macOS system Python interpreters are broken in several ways, such as sometimes resulting in:
+
+```
+ERROR: Could not install packages due to an EnvironmentError: [Errno 13] Permission denied: '/Library/Python/3.7'
+```
+
+You can set the option `interpreter_search_paths` in the `[python-setup]` scope to teach Pants to ignore the interpreters in `/usr/bin`. See [here](../../python/overview/interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
+
+## \"Too many open files\" error
+
+You may encounter this error when running Pants:
+
+```
+./pants count-loc helloworld/greet
+
+ERROR: Could not initialize store for process cache: "Error making env for store at \"/Users/pantsbuild/.cache/pants/lmdb_store/processes/2\": Too many open files"
+
+(Use --print-exception-stacktrace to see more error details.)
+```
+
+This sometimes happens because Pants uses lots of file handles to read and write to its cache at `~/.cache/pants/lmdb_store`; often, this is more than your system's default.
+
+This can be fixed by setting `ulimit -n 10000`. (10,000 should work in all cases, but feel free to lower or increase this number as desired.)
+
+:::note Tip: permanently configuring `ulimit -n`
+We recommend permanently setting this by either:
+
+1. Adding `ulimit -n 10000` to your `./pants` script.
+2. Using a tool like [Direnv](https://direnv.net) to run `ulimit -n 10000` everytime the project is loaded.
+3. Adding `ulimit -n 10000` to your global `.bashrc` or equivalent.
+
+The first two approaches have the benefit that they will be checked into version control, so every developer at your organization can use the same setting.
+:::
+
+:::caution macOS users: avoid `ulimit unlimited`
+Contrary to the name, this will not fix the issue. You must use `ulimit -n` instead.
+:::

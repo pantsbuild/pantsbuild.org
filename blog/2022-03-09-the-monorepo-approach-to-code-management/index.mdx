@@ -1,0 +1,42 @@
+---
+    authors: [benjy]
+    tags: [concepts]
+---
+
+import Admonition from "@theme/Admonition";
+
+# The monorepo approach to code management
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Alex
+  wong](https://unsplash.com/@killerfvith?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+If you're responsible for your organization's codebase architecture, then at some point you have to make some emphatic choices about how to manage this growth in a scalable way. There are two common architectural alternatives to choose from...
+
+{/* truncate */}
+
+<Admonition type="info" icon="📰" title="">
+  This article was originally published by Software Development Times ([January
+  18,
+  2022](https://sdtimes.com/softwaredev/the-monorepo-approach-to-code-management/)).
+  Reprinted with permission.
+</Admonition>
+
+---
+
+Codebases are as diverse, unique and interesting as the people who work on them. But almost all of them have this in common: they grow over time (the codebases, not the people). Teams expand, requirements grow, and time, of course, marches on; and so we end up with more developers writing more code to do more things. And while we've all experienced the joy of deleting large chunks of code, that rarely offsets the overall expansion of our codebases.
+
+If you're responsible for your organization's codebase architecture, then at some point you have to make some emphatic choices about how to manage this growth in a scalable way.  There are two common architectural alternatives to choose from.
+
+One is the “multi-repo” architecture, in which we split the codebase into increasing numbers of small repos, along subteam or project boundaries. The other is the “monorepo,” in which we maintain one large, growing repository containing code for many projects and libraries, with multiple teams collaborating across it.
+
+The multi-repo approach can initially be tempting, because it seems so easy to implement. We just create more repos as we need them! We don't, at first, appear to need any special tooling, and we can give individual teams more autonomy in how they manage their code.
+
+Unfortunately, in practice the multi-repo architecture often leads to a brittle, inconsistent and change-resistant codebase. This in turn can encourage siloing in the engineering organization itself. In contrast, and perhaps counterintuitively, the monorepo approach is frequently a better, more flexible, more collaborative, long-term scaling solution.
+
+Why is this the case? Consider that the hard problem in codebase architecture involves managing changes in the presence of dependencies, and vice versa. And in a multi-repo architecture, repos consume code from other repos via published, versioned artifacts, which makes change propagation much harder.
+
+Specifically, what happens when we, the owners of repo A, need some changes in a consumed repo B? First we must find the gatekeepers of repo B and convince them to accept and publish the change under a new version. Then, in an ideal world, someone would find all the other consumers of repo B, upgrade them to this new version, and republish them. And now we must find the consumers of those initial consumers, upgrade and republish \*them\* against the new version, and so on, recursively and ad nauseam.

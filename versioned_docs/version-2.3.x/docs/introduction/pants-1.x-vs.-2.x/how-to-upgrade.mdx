@@ -1,0 +1,364 @@
+---
+    title: How to upgrade
+    position: 0
+---
+
+How to upgrade from Pants 1.x to 2.0.
+
+---
+
+:::note Why upgrade?
+See [Pants 1.x vs. 2.0](./index.mdx).
+:::
+
+## Step 1: Upgrade to Pants 1.30
+
+We recommend upgrading to 1.30.1, which is the last minor release in the 1.x series. See [Upgrade tips](../../release-notes/upgrade-tips.mdx) for some tips with upgrading.
+
+### Upgrade your `./pants` script
+
+We've made changes recently to the script to facilitate the upgrade to Pants 2.0. Run this:
+
+```bash
+curl -L -o ./pants https://pantsbuild.github.io/setup/pants
+```
+
+Check in any changes to your version control.
+
+## Step 2: Setup JVM, Node, and Go support (if relevant)
+
+Pants 2.0 initially only supports Python, with support for other languages coming soon.
+
+If you are using Pants's JVM, Node, or Go support and would like to continue using it, you will want two different Pants scripts: one to run Python with Pants 2.x, and one to run the other languages with Pants 1.x.
+
+### Step 2a: Setup `pants.v1.toml`
+
+Copy over your original `pants.toml` into a new TOML config file. You can call it whatever you'd like, such as `pants.v1.toml` or `pants.jvm.toml`.
+
+We recommend deactivating the Python backend package and any Python plugins like `pantsbuild.pants.contrib.mypy` so that you do not accidentally use your v1 script to run Python code.
+
+```toml title="pants.v1.toml"
+[GLOBAL]
+pants_version = "1.30.1"
+# Instead of using backend_packages.remove, you may alternatively
+# explicitly enumerate every backend_package you want activated.
+backend_packages.remove = ["pants.backend.python"]
+plugins = [
+  "pantsbuild.pants.contrib.go==%(pants_version)s",
+  "pantsbuild.pants.contrib.node==%(pants_version)s",
+]
+```
+
+Finally, tell Pants to ignore the BUILD files for your Python code. This is important because Pants 1.x may not understand BUILD files from Pants 2.x, such as if Pants 2.x adds a new target type.
+
+```toml title="pants.v1.toml"
+[GLOBAL]
+# Replace this with the paths to your Python code.
+build_ignore = ["src/python", "tests/python"]
+```
+
+### Step 2b: Create `./v1`
+
+Rather than using the script `./pants`, you will use this script to run Pants for other languages. You can name this script whatever you'd like, such as `./v1`, `./pants_jvm`, or `./jvm`.
+
+```shell title="./v1"
+export PANTS_TOML=pants.v1.toml
+export PANTS_CONFIG_FILES="[\"$PANTS_TOML}\"]"
+export PANTS_BIN_NAME=./v1
+./pants "$@"
+```
+
+Then, run `chmod +x ./v1`.
+
+### Step 2c: Remove the other languages from `pants.toml`
+
+Now update your main `pants.toml` to remove from `backend_packages` and `plugins` to deactivate non-Python implementations.
+
+Set `build_ignore` to tell Pants to ignore the BUILD files with any non-Python target types.
+
+```toml title="pants.toml"
+[GLOBAL]
+pants_version = "1.30.1"
+# Instead of using backend_packages.remove, you may alternatively
+# explicitly enumerate every backend_package you want activated.
+backend_packages.remove = ["pants.backend.jvm"]
+plugins = [
+  "pantsbuild.pants.contrib.mypy==%(pants_version)s",
+]
+
+# Replace this with the paths to your non-Python code.
+build_ignore = ["src/java", "src/go"]
+```
+
+## Step 3: Rewrite your plugins (if relevant)
+
+Refer to [Plugins overview](../../writing-plugins/overview.mdx) to learn more about the new Rules and Target APIs.
+
+We know that rewriting a plugin can be time-consuming, and we want to help. Please message us on [Slack](/community/members) in the `#plugins` channel. We can actively help you rewrite your code, including pair programming if needed. We don't want having to port your plugins to block you from upgrading to 2.0.
+
+## Step 4: Upgrade to 2.0
+
+Now that the v1 engine is removed, some of the option names changed.
+
+- `--v1` and `--v2` are both deprecated and will no-op.
+- `backend_packages2` and `plugins2` are deprecated in favor of `backend_packages` and `plugins`. Also, there are no more published Plugins, so the `plugins` key can be removed.
+- `--enable-pantsd` is now `--pantsd`. (Deprecated in 1.30.0)
+- `--quiet` was removed because Pants output is now much less verbose thanks to the dynamic UI. Instead, to disable all Pants output, use `--no-dynamic-ui` and `--level=error`.
+
+Before:
+
+```toml title="pants.toml"
+[GLOBAL]
+pants_version = "1.30.1"
+v1 = false
+v2 = true
+backend_packages = []
+backend_packages2 = [
+  "pants.backend.python",
+  "pants.backend.python.lint.isort",
+  "pants.backend.python.lint.mypy",
+]
+plugins = []
+plugins2 = []
+enable_pantsd = true
+```
+
+After:
+
+```toml title="pants.toml"
+[GLOBAL]
+pants_version = "2.0.1rc0"
+backend_packages = [
+  "pants.backend.python",
+  "pants.backend.python.lint.isort",
+  "pants.backend.python.typecheck.mypy",
+]
+pantsd = true
+```
+
+Run `./pants` to validate that your `pants.toml` is valid. You may need to remove some options that are no longer used in Pants 2.0.
+
+Once `./pants` works, run `./pants list ::` to make sure that Pants can parse all of your BUILD files.
+
+:::note Reminder: use `ignore_pants_warnings` to ignore deprecations
+For example:
+
+```toml
+[GLOBAL]
+ignore_pants_warnings = [
+  "DEPRECATED: Use the target type `pex_binary`",
+]
+```
+
+:::
+
+## Step 5: Tweak your CI's caching (recommended)
+
+With the v1 engine, most caching was saved to the folder `<build root>/.pants.d`. With the v2 engine, caching is saved to `~/.cache/pants/lmdb_store` and `~/.cache/pants/named_caches`.
+
+Refer to [Using Pants in CI](../../using-pants/using-pants-in-ci.mdx) for more information, including a script to nuke your cache when it has gotten too large.
+
+## Step 6: Set up a constraints file (strongly recommended)
+
+A constraints file (aka lockfile) is important for reproducible builds.
+
+Setting up a constraints file also allows Pants to optimize to avoid resolving requirements more than one time for your project. This greatly speeds up the performance of goals like `test`, `run`, and `repl`.
+
+See [Third-party dependencies](../../python/overview/third-party-dependencies.mdx) for a guide to set this up.
+
+## Key differences to be aware of
+
+:::tip Missing features? Let us know!
+Please message us on [Slack](/community/members) if you are having issues upgrading or find something missing. We would love to help.
+:::
+
+### Files are now the "atomic unit", rather than targets (1.30 vs. 2.0)
+
+Previously, with both the v1 and v2 engines, targets were the "atomic unit". For example, you could only add dependencies on an entire target, rather than specific files within the target.
+
+This model created a tension. It's convenient to only specify a few targets to avoid boilerplate in BUILD files, but this would result in much coarser invalidation. If you wanted fine-grained invalidation, you would need one target for every single file in your project.
+
+Now, files are the "atomic unit". You can now depend on a specific file, which will copy the metadata from its original target. Depending on a target is now sugar for depending on each file belonging to that target.
+
+This should have little impact on your day-to-day usage, other than:
+
+- Tests run per-file, rather than per-target.
+- The project introspection goals like `list`, `filter`, `dependencies`, and `dependees` will have different output.
+- `--changed-since` is more precise. It used to return all sibling files to files that were changed, even if those siblings were untouched. Now, it only returns files that were actually changed.
+- If you use dependency inference, Pants will infer dependencies on specific files, rather than the entire target. For one Pants user with ~70k lines of Python code, this finer-grained precision reduced the size of dependencies by 30%!
+
+`run`, `package` (formerly `binary`, `setup-py`, and `awslambda`), `fmt`, and `lint` will all behave the same as before. You can still use both files and address specs like `::` on the command line. You can keep your `dependencies` fields the same as before.
+
+Previously, we did not recommend using recursive globs with the `sources` field, like `**/*.py`, because it resulted in too coarse of invalidation. If you are using dependency inference—or use explicit file dependencies—you no longer need to be concerned with how the granularity of your targets will impact the granularity of your dependencies. (However, using too coarse of targets may still be difficult to reason about.)
+
+### Dependency inference is enabled by default (1.30 vs. 2.0)
+
+Pants now understands your Python import statements and knows how to map those imports back to the owning targets, e.g. `python_library` and `python_requirement_library` targets. This means that most of the time, you can leave off the `dependencies` field in your BUILD file.
+
+While we strongly recommend using this feature—because it makes Pants much more ergonomic and is likely to result in finer-grained invalidation—you probably do not want to use it when first upgrading. You can turn off this feature by setting `imports = false` in the `[python-infers]` section.
+
+Once you have successfully upgraded to 2.0, you can re-enable dependency inference. You'll first want to teach Pants about your third-party dependencies, see [Third-party dependencies](../../python/overview/third-party-dependencies.mdx). Then set `imports = true`, but don't yet delete anything from your BUILD files.
+
+Simply turning on dependency inference should be safe; Pants will only infer dependencies when there is no ambiguity, and it's optimized to avoid false positives. All of your original explicit `dependencies` will still be respected. While dependency inference will likely result in some dependencies being added that were unintentionally left off, these dependencies were likely already being used thanks to transitive dependencies (otherwise, your code would have been broken).
+
+Now, with dependency inference enabled, you can start deleting `dependencies` from your BUILD files. This can be an incremental process; you do not need to update all your BUILD files in one pull request. For each target, run `./pants dependencies` before, then delete the entire `dependencies` field, run `./pants dependencies` again to compare, and check if anything removed should have been included. You will want to check your import statements to see what is actually in use; it's common for the `dependencies` field to become stale and drift from your code.
+
+### Less magical handling of `__init__.py` files (1.30 vs. 2.0)
+
+Previously, with both the v1 and v2 engines, Pants would detect any missing `__init__.py` files and automatically inject them by generating empty files. This is surprising and also breaks [PEP 420](https://www.python.org/dev/peps/pep-0420/) style namespace packages.
+
+Instead, now Pants will use any `__init__.py` files it discovers for a file or its ancestor directories. `__init__.py` files will be used even if they are left off of the `sources` field in a target. Pants will no longer auto-generate any missing `__init__.py` files.
+
+If you set the option `--python-infer-inits` on (disabled by default), then Pants will infer a proper dependency on those files, rather than simply copying the file. You can run `./pants dependencies` to see this behavior. This is because it's possible for an `__init__.py` file to have content in it. This behavior may result, though, in you having more dependencies than you desire. If your `__init__.py` files are all empty, it is safe to keep this option off.
+
+If you encounter issues with imports, you may need to manually add any missing `__init__.py` files.
+
+### Dependency inference for `conftest.py` (1.30 vs. 2.0)
+
+Pytest uses any `conftest.py` files found in the current directory and any ancestor directories.
+
+Previously, with both the v1 and v2 engine, you would have to be careful to make sure that each `conftest.py` file had an owning target, and then to add an explicit dependency on each `conftest.py` file that you wanted to use.
+
+Instead, now Pants will infer dependencies on any sibling and ancestor `confest.py` files, which will ensure that they are always used. You can turn this feature off by setting `conftests = false` in the `[python-infer]` section of your `pants.toml`.
+
+### Use the `package` goal instead of `binary`, `awslambda`, and `setup-py` (1.30 vs. 2.0)
+
+We consolidated all three of those goals into the new `package` goal. (The old goals still exist, but are deprecated).
+
+`package` behaves identically for `binary` and `awslambda`. For `setup-py`, rather than using command line arguments like `./pants setup-py path/to:tgt -- bdist_wheel`, set the field `setup_py_commands = ['bdist_wheel']`, for example.
+
+### Use `python_distribution` target type for `provides=setup_py()` (1.30 vs. 2.0)
+
+Previously, the `provides` field was used on `python_library` targets for the `setup-py` goal. Now, use a dedicated `python_distribution` target.
+
+Typically, you can keep the original `python_library` you had the same as before, e.g. keep the same `dependencies` field the same. Then, create a new `python_distribution` target and move the `provides` field from the `python_library` to the `python_distribution`.
+
+Finally, add to the `python_distribution`'s `dependencies` field the address to the original `python_library`; this will cause the `python_distribution` to include everything that was originally included. You can verify everything shows up correctly by running `./pants dependencies --transitive path/to:my-dist`.
+
+```python
+python_library(
+  name="lib",
+  dependencies=["dep1", "dep2"],
+)
+
+python_distribution(
+    name="my-dist",
+    dependencies=[":lib"],
+    provides=setup_py(
+        name="my-dist",
+        ...
+    )
+)
+```
+
+### `python_binary` is deprecated in favor of `pex_binary` (1.30 vs. 2.0)
+
+The target type behaves identically. It was renamed for clarity and to accommodate possible future binary formats like PyInstaller.
+
+Use this command to automatically update your BUILD files:
+
+- macOS: `for f in $(find . -name BUILD); do sed -i '' -Ee 's#^python_binary\\(#pex_binary(#g' $f ; done`
+- Linux: `for f in $(find . -name BUILD); do sed -i -Ee 's#^python_binary\\(#pex_binary(#g' $f ; done`
+
+### Tests run in the background by default (v1 vs. v2 engine)
+
+In v1, tests run in the foreground. That is, you can see tests run in real-time in your terminal, and you can use breakpoints and debuggers.
+
+In v2, tests instead run in the background. Why? So that Pants can run multiple test files in parallel.
+
+To instead run a test interactively, run `./pants test --debug`. (See [test](../../python/goals/test.mdx)).
+
+### Tests always run in a chroot (v1 vs. v2 engine)
+
+Before Pants 1.25.0, tests would run in the build root, rather than in a temporary directory (chroot). We changed the default for the v1 engine in 1.25.0 to default to running in a chroot, but you might have still set `chroot = false` in the `[test.pytest]` scope.
+
+The `chroot` option was removed because the v2 engine always runs tests in a chroot. To fix any issues, usually, you will need to declare dependencies that you previously left off, such as declaring a `files()` or `resource()` target for resource files.
+
+(Why do we now run in a chroot? This allows us to safely run multiple tests in parallel.)
+
+### Coverage.py support was redesigned (v1 engine vs. v2 engine)
+
+Previously, Pants would try to figure out which modules you wanted coverage for by either using the `coverage` option in the `[test.pytest]` scope, or by trying to automatically figure out the value by looking at the `coverage` field in `python_tests` targets and using the package names of your test files. This did not work very well and was clunky to get the correct results.
+
+Now, Pants will default to reporting on every file in the transitive closure of your tests, meaning any file that is touched during your tests' run. The `coverage` field was removed from `python_tests`. If you want more precise coverage data, you can use the `--coverage-py-filter` option, e.g. `./pants --coverage-py-filter=helloworld.util.lang`.
+
+We also added new options to specify which type of report(s) you'd like. See [test](../../python/goals/test.mdx#coverage) for instructions on how to use coverage.
+
+### Linter config files must be specified (v1 vs. v2 engine)
+
+Because linters and formatters now run in a chroot (temporary directory), you must explicitly specify your config files to make sure that they get copied into the directory. See [Linters and formatters](../../python/overview/linters-and-formatters.mdx).
+
+(Running in a chroot means that Pants can run all of your linters in parallel.)
+
+### MyPy is activated differently (1.30 vs. 2.0)
+
+Before:
+
+```toml title="pants.toml"
+[GLOBAL]
+plugins = ["pantsbuild.pants.contrib.mypy"]
+```
+
+After:
+
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages = [
+  "pants.backend.python",
+  "pants.backend.python.typecheck.mypy",
+]
+```
+
+MyPy no longer runs under the `lint` goal, and instead uses a new `typecheck` goal.
+
+See [typecheck](../../python/goals/typecheck.mdx) for more information.
+
+### IPython is activated differently (v1 engine vs. v2 engine)
+
+Before:
+
+```toml title="pants.toml"
+[repl.py]
+ipython = true
+```
+
+After:
+
+```toml title="pants.toml"
+[repl]
+shell = "ipython"
+```
+
+### `python_app` is now `archive` (1.30 vs. 2.0)
+
+Rather than using a `python_app` target and the `bundle` goal, use the `archive` target type and the `package` goal. We redesigned this feature to be simpler, such as using dependencies on `files()` targets rather than using the `bundle` type. If you still need to relocate where files are located, you can use the `relocated_files()` target. See [Resources and archives](../../using-pants/resources-and-archives.mdx).
+
+### `--cache-ignore` is removed (v1 vs. v2 engine)
+
+The v2 engine handles caching very differently than the v1 engine. Rather than having monolithic tasks like `test.pytest`, each build step is broken up into several composable "rules". Because of this design, options like `--cache-ignore` and `--test-pytest-cache-ignore` would no longer do anything.
+
+Instead, you can use `--no-process-execution-use-local-cache`. This will avoid reading from the global cache in `~/.cache/pants/lmbd_store`. Warning: this means that you will re-resolve Python requirements, which is slow.
+
+If you're trying to rerun a test, you can instead run `./pants test --force` to force the test to rerun, but still use the cache for everything else (See [test](../../python/goals/test.mdx)).
+
+### `targets` is replaced by `help` (1.30 vs. 2.0)
+
+Run `./pants help targets` for a list of target types, and `./pants help $target_type` for details on a specific target. The new `help` mechanism gives much more detail than the previous `targets` goal.
+
+### `option` is removed in favor of a better `help` (1.30 vs. 2.0)
+
+`./pants help` will now show you what the current value is and how the value was derived.
+
+You can use `./pants help-all` to get information on every option in JSON format.
+
+### `alias` is removed (1.30 vs. 2.0)
+
+If you found this feature useful, we'd be happy to add it back in a more powerful way. Please message us on [Slack](/community/members) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues).
+
+### `prep_command` is removed (1.30 vs. 2.0)
+
+`prep_command` does not fit well with the v2 engine's execution model. If you needed this functionality, please message us on [Slack](/community/members) and we will help to figure out how to recreate your setup.
+
+### `minimize`, `filemap`, `path`, `paths`, and `sort` are removed (1.30 vs. 2.0)
+
+We are happy to add these back if you found them useful. Please message us on [Slack](/community/members) or open a [GitHub issue](https://github.com/pantsbuild/pants/issues).

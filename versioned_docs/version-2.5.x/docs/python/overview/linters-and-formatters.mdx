@@ -1,0 +1,155 @@
+---
+    title: Linters and formatters
+    position: 4
+---
+
+How to activate and use the Python linters and formatters bundled with Pants.
+
+---
+
+## Activating linters and formatters
+
+Linter/formatter support is implemented in separate [backends](../../using-pants/key-concepts/backends.mdx) so that they are easy to opt in to individually:
+| Backend | Tool |
+| :--- | :--- |
+| `pants.backend.python.lint.bandit` | [Bandit](https://bandit.readthedocs.io/en/latest/): security linter |
+| `pants.backend.python.lint.black` | [Black](https://black.readthedocs.io/en/stable/): code formatter |
+| `pants.backend.python.lint.docformatter` | [Docformatter](https://pypi.org/project/docformatter/): docstring formatter |
+| `pants.backend.python.lint.flake8` | [Flake8](https://flake8.pycqa.org/en/latest/): style and bug linter |
+| `pants.backend.python.lint.isort` | [isort](https://readthedocs.org/projects/isort/): import statement formatter |
+| `pants.backend.python.lint.pylint` | [Pylint](https://www.pylint.org/): style and bug linter |
+
+To enable, add the appropriate backends in `pants.toml`:
+
+```toml title="pants.toml"
+[GLOBAL]
+...
+backend_packages = [
+  'pants.backend.python',
+  'pants.backend.python.lint.black',
+  'pants.backend.python.lint.isort',
+]
+```
+
+You should now be able to run `./pants lint`, and possibly `./pants fmt`:
+
+```
+$ ./pants lint src/py/project.py
+17:54:32.51 [INFO] Completed: lint - Flake8 succeeded.
+17:54:32.70 [INFO] Completed: lint - Black succeeded.
+All done! ✨ 🍰 ✨
+1 file would be left unchanged.
+
+17:54:33.91 [INFO] Completed: lint - isort succeeded.
+
+✓ Black succeeded.
+✓ Flake8 succeeded.
+✓ isort succeeded.
+```
+
+:::note How to activate MyPy
+MyPy is run with the [typecheck goal](../goals/typecheck.mdx), rather than `lint`.
+:::
+
+## Configuring the tools and adding plugins
+
+Most of the formatters and linters allow you to configure
+
+- `--version`: the version to use.
+- `--args`: any command-line arguments you want to pass to the tool.
+- `--extra-requirements`: any additional libraries to install, such as any plugins.
+- `--config`: path to a config file; used if the file is in a non-standard location such that it cannot be auto-discovered.
+
+For example:
+
+```toml title="pants.toml"
+[docformatter]
+args = ["--wrap-summaries=100", "--wrap-descriptions=100"]
+
+[flake8]
+# Load a config file in a non-standard location.
+config = "build-support/.flake8"
+version = "flake8==3.8.0"
+# Add a Flake8 plugin:
+extra_requirements.add = ["flake8-2020"]
+```
+
+Run `./pants help-advanced black`, `./pants help-advanced flake8`, and so on for more information.
+
+:::note Config files are normally auto-discovered
+For tools that autodiscover config files—such as Black, isort, Flake8, and Pylint—Pants will include any relevant config files in the process's sandbox when running the tool.
+
+If your config file is in a non-standard location, you must instead set the `--config` option, e.g. `[isort].config`. This will ensure that the config file is included in the process's sandbox and Pants will instruct the tool to load the config.
+:::
+
+## Skipping a formatter or linter
+
+To temporarily skip a tool, use the `--skip` option. For example, run:
+
+```bash
+$ ./pants --black-skip --flake8-skip lint ::
+```
+
+You can also skip on a per-target basis, which can be useful for incrementally adopting new tools. For example:
+
+```python title="project/BUILD"
+# Skip Black and Flake8 for all the non-test files in this folder.
+python_library(skip_black=True, skip_flake8=True)
+
+# Skip isort for all the test files in this folder.
+python_tests(name="tests", skip_isort=True)
+```
+
+When you run `./pants fmt ::` and `./pants lint ::`, Pants will ignore any files belonging to skipped targets.
+
+## Tip: only run over changed files
+
+With formatters and linters, there is usually no need to rerun on files that have not changed.
+
+Use the option `--changed-since` to get much better performance, like this:
+
+```bash
+$ ./pants --changed-since=HEAD fmt
+```
+
+or
+
+```bash
+$ ./pants --changed-since=main lint
+```
+
+Pants will find which files have changed and only run over those files. See [Advanced target selection](../../using-pants/advanced-target-selection.mdx) for more information.
+
+## Tips for specific tools
+
+### Pylint: how to add first-party plugins
+
+Run `./pants help-advanced pylint` for instructions to add plugins written by you with the `--pylint-source-plugins` option.
+
+If you want to write first-party plugins for other linters like Flake8, let us know on [Slack](/community/getting-help).
+
+### Bandit: less verbose logging
+
+Bandit output can be extremely verbose, including on successful runs. You may want to use its `--quiet` option, which will turn off output for successful runs but keep it for failures.
+
+For example, you can set this in your `pants.toml`:
+
+```toml
+[bandit]
+args = ["--quiet"]
+```
+
+### isort: possible issues with its import classifier algorithm
+
+Some Pants users had to explicitly set `default_section = "THIRDPARTY"` to get iSort 5 to correctly classify their first-party imports, even though this is the default value.
+
+They report that this config works for them:
+
+```toml
+# pyproject.toml
+[tool.isort]
+known_first_party = ["my_org"]
+default_section = "THIRDPARTY"
+```
+
+You may also want to try downgrading to iSort 4.x by setting `version = "isort>=4.6,<5"` in the `[isort]` options scope.

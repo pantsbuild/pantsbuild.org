@@ -1,0 +1,56 @@
+---
+title: python-protobuf
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options related to the Protobuf Python backend.
+
+See https://www.pantsbuild.org/v2.19/docs/protobuf-python.
+
+Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
+
+Config section: <span className="color--primary">`[python-protobuf]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `mypy_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-mypy-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  default_repr={`False`}
+>
+
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate `.pyi` type stubs.
+
+</Option>
+
+## Advanced options
+
+### `infer_runtime_dependency`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-infer-runtime-dependency`}
+  env_repr='PANTS_PYTHON_PROTOBUF_INFER_RUNTIME_DEPENDENCY'
+  default_repr={`True`}
+>
+
+If True, will add a dependency on a `python_requirement` target exposing the `protobuf` module (usually from the `protobuf` requirement). If the `protobuf_source` target sets `grpc=True`, will also add a dependency on the `python_requirement` target exposing the `grpcio` module.
+
+If `[python].enable_resolves` is set, Pants will only infer dependencies on `python_requirement` targets that use the same resolve as the particular `protobuf_source` / `protobuf_sources` target uses, which is set via its `python_resolve` field.
+
+Unless this option is disabled, Pants will error if no relevant target is found or if more than one is found which causes ambiguity.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

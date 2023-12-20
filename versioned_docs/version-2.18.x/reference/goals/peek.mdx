@@ -1,0 +1,73 @@
+---
+title: peek
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants peek [args]
+```
+
+Display BUILD target info
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[peek]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--peek-output-file=<path>`}
+  env_repr='PANTS_PEEK_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `exclude_defaults`
+
+<Option
+  cli_repr={`--[no-]peek-exclude-defaults`}
+  env_repr='PANTS_PEEK_EXCLUDE_DEFAULTS'
+  default_repr={`False`}
+>
+
+Whether to leave off values that match the target-defined default values.
+
+</Option>
+
+### `include_dep_rules`
+
+<Option
+  cli_repr={`--[no-]peek-include-dep-rules`}
+  env_repr='PANTS_PEEK_INCLUDE_DEP_RULES'
+  default_repr={`False`}
+>
+
+Whether to include `_dependencies_rules`, `_dependents_rules` and `_applicable_dep_rules` that apply to the target and its dependencies.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

@@ -1,0 +1,40 @@
+---
+title: scala
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Scala programming language
+
+Backend: <span className="color--primary">`pants.backend.experimental.scala`</span>
+
+Config section: <span className="color--primary">`[scala]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `version`
+
+<Option
+  cli_repr={`--scala-version=<str>`}
+  env_repr='PANTS_SCALA_VERSION'
+  default_repr={`2.13.6`}
+>
+
+The version of Scala to use
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

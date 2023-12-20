@@ -1,0 +1,135 @@
+---
+    title: package
+    position: 4
+---
+
+Create a deployable artifact.
+
+---
+
+The `package` goal creates an artifact that can be deployed or distributed.
+
+:::tip Benefit of Pants: artifacts only include your true dependencies
+Because Pants understands the dependencies of your code, and the dependencies of those dependencies, the generated artifact will only include the exact code needed for your package to work. This results in smaller, more focused packages.
+:::
+
+The exact type of artifact depends on the type of target the goal is invoked on.
+
+You can run `./pants package ::` to build all artifacts in your project. Pants will filter to only the relevant targets.
+
+:::note Use built packages in integration tests
+You can depend on a package target in your `python_tests` target through the `runtime_package_dependencies` field. Pants will run the equivalent of `./pants package` beforehand and copy the built artifact into the test's chroot. See [test](./test.mdx) for more imformation.
+:::
+
+## Creating a PEX file from a `pex_binary` target
+
+Running `package` on a `pex_binary` target will create an executable [PEX file](../overview/pex-files.mdx).
+
+The PEX file will contain all the code needed to run the binary, namely:
+
+- All Python code and resources the binary transitively depends on.
+- The resolved 3rd-party Python dependencies (sdists, eggs and wheels) of all targets the binary transitively depends on.
+
+The PEX metadata will include:
+
+- The entry point specified by the `pex_binary` target.
+- The intersection of all interpreter constraints applicable to the code in the Pex.
+
+When defining a `pex_binary` target, you must either specify the `sources` field or the `entry_point` field. If you leave off `entry_point` and set `sources`, Pants will default the entry point to the module name.
+
+Approach #1, `sources` field:
+
+```python title="helloworld/BUILD"
+python_library(
+  name="lib",
+  # See the below warning about dependency inference for why we do this.
+  sources=["*.py", "!main.py"],
+)
+
+pex_binary(
+  name="app",
+  sources=["main.py"],
+  # `entry_point` defaults to 'helloworld.main'. We can still
+  # manually set the field if we want, even if `sources` is set.
+)
+```
+
+Approach #2, explicit `entry_point`:
+
+```python title="helloworld/BUILD"
+python_library(name="lib")
+
+pex_binary(
+  name="app",
+  # We can also set to `helloworld.main:my_func`.
+  entry_point="helloworld.main",
+  # Because there are no sources, Pants cannot infer dependencies.
+  dependencies=[":lib"],
+)
+```
+
+:::caution Setting the `sources` field can cause issues with dependency inference
+If >1 target "owns" the same file, then Pants will not use dependency inference for imports of that file, as Pants cannot disambiguate which you want to use.
+
+By default, a `python_library()` target will include your binary's source file, so you must be careful to override the `sources` field for any `python_library` target in the same BUILD file.
+
+Bad, because both `:lib` and `:app` own the `main.py` file:
+
+```python
+python_library(name="lib")
+pex_binary(name="app", sources=["main.py"])
+```
+
+Fixed:
+
+```python
+python_library(name="app", sources=["*.py", "!main.py"])
+pex_binary(name="app", sources=["main.py"])
+```
+
+You can run `./pants list path/to/app.py` to see which targets "own" that file, and to confirm there is only one owner.
+:::
+
+Run `./pants help pex_binary` for advanced options.
+
+:::caution PEX files may be platform-specific
+If your code's requirements include distributions that include native code, then the resulting PEX file will only run on the platform it was built on.
+
+However, if all native code requirements are available as [wheels](https://packaging.python.org/glossary/#term-wheel) for the target platform, then you can cross-build a PEX file on a different source platform by specifying the `platforms` field on the `pex_binary`, e.g. `platforms=["linux-x86_64-cp-37-cp37m", "macosx_10_15_x86_64-cp-38-cp38"]`.
+:::
+
+:::note Tip: inspect the `.pex` file with `unzip`
+Because a `.pex` file is simply a ZIP file, you can use the Unix tool `unzip` to inspect the contents. For example, run `unzip -l dist/app.pex` to see all file members.
+:::
+
+:::caution Use `resources` instead of `files`
+`files` targets will not be included in the built PEX because filesystem APIs like `open()` would not load them as expected. Instead, use the `resources` target or wrap your `pex_binary` in an `archive` target. See [Resources and archives](../../using-pants/resources-and-archives.mdx) for further explanation.
+:::
+
+### Examples
+
+```text title="Shell"
+$ ./pants package helloworld/main.py
+
+17:36:42 [INFO] Wrote dist/helloworld/helloworld.pex
+```
+
+We can also build the same Pex by using the address of the `pex_binary` target, as described [here](../../using-pants/concepts/targets-and-build-files.mdx).
+
+```text title="Shell"
+$ ./pants package helloworld:app
+
+17:36:42 [INFO] Wrote dist/helloworld/helloworld.pex
+```
+
+## Creating a setuptools distribution from a `python_distribution` target
+
+Running `package` on a `python_distribution` target will create a standard setuptools-style Python distribution, such as an sdist or a wheel. See [Building Distributions](../overview/building-distributions.mdx) for details.
+
+## Creating a `zip` or `tar` file from an `archive` target
+
+See [Resources and archives](../../using-pants/resources-and-archives.mdx) for how to create a zip or tar file with built binaries and/or loose files in it. This is often useful when you want to create a PEX binary using the `pex_binary` target, and bundle it with some loose config files.
+
+## Creating an AWS Lambda from a `python_awslambda` target
+
+If you have the `pants.backend.awslambda.python` backend enabled, then you can use the `package` goal to build AWS Lambdas. See [AWS Lambda](../../aws-lambda/python-support.mdx) for more details.

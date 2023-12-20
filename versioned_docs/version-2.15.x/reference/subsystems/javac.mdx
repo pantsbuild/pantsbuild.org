@@ -1,0 +1,50 @@
+---
+title: javac
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The javac Java source compiler.
+
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+Config section: <span className="color--primary">`[javac]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--javac-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_JAVAC_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to javac, e.g. `--javac-args='-g -deprecation'`.
+
+</Option>
+
+## Advanced options
+
+### `tailor_source_targets`
+
+<Option
+  cli_repr={`--[no-]javac-tailor-source-targets`}
+  env_repr='PANTS_JAVAC_TAILOR_SOURCE_TARGETS'
+  default_repr={`True`}
+>
+
+If true, add `java_sources` and `java_tests` targets with the `tailor` goal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

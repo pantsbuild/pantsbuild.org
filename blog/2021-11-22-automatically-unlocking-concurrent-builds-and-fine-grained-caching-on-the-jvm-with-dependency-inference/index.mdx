@@ -1,0 +1,115 @@
+---
+    authors: [chrisjrn]
+    tags: [jvm,development]
+---
+
+# Automatically unlocking concurrent builds and fine-grained caching on the JVM with dependency inference
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Samantha
+  Lam](https://unsplash.com/@contradirony?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+We've been busy working on JVM support for the open source Pants Build system, starting with support for Java and Scala. We're excited about the progress we've made with Java support, and we want to share with you some of the more exciting work we've done.
+
+## What is Pants Build 2 and why do you want it?
+
+Pants 2 is a developer workflow system that orchestrates the tools that developers use during iterative development and CI runs — including tasks like compilation and testing that build tools usually provide, as well as linting, formatting, and packaging — and provides a consistent interface for these tasks across every language that we support.
+
+On top of that, Pants has semantic understanding of different development workflows, which means we can automatically apply fine-grained caching and invalidation, or concurrency to tools that don't have these performance features out of the box.
+
+Finally, we try to achieve this with minimal manual configuration, so that you can spend your time writing code, rather than fighting your build system.
+
+Pants has stable Python and Shell script support out of the box, and we recently announced preview support for Golang. Now, we're offering preview support for Java and Scala!
+
+Check out [our recent blog post about Go support](../2021-11-10-golang-support-pants-28/index.mdx) to see the benefits of a workflow tool that supports multiple languages. All of the `pants` commands that we support for Go also work for the JVM. This means your development team can jump between languages and not need to learn an entirely new set of tools for each language — you can use the best language for the job.
+
+Each language we support is implemented as a separate plug-in backend, which means each language's toolchain runs in isolation, and as we add new languages you'll keep that same consistent interface.
+
+## Avoiding dependency management tradeoffs with inference
+
+Even if you only have JVM code in your codebase, Pants can provide benefits over project-oriented build tools like Gradle, Ant, sbt, or Maven.
+
+JVM compilers expect all source files and dependency JARs to be available when the compiler gets invoked, and for an entire project's source to be compiled at once. In project-oriented tools, the tool supplies the compiler with all of those files, this is fine when your projects are small, but as your set of first party projects grows, you need a strategy to manage them.
+
+In many organisations, in-house dependencies are managed by publishing JAR files to an internal repository. This means publishing a new JAR when new features are added or bugs are patched, and then making sure that downstream projects keep dependency versions up-to-date.
+
+You can avoid this by keeping all of your source files at hand, such as by using a monorepo approach.
+
+Previous-generation monorepo build tools like Bazel can build small, fine-grained sets of files with minimal dependencies — enabling better concurrency and cache performance — but require large amounts of boilerplate when configured optimally: the finer-grained your dependencies, the more dependencies you need to hardcode (either manually, or with the help of a compiler plugin like Zinc). This can become difficult to maintain as you add more internal packages.
+
+Pants 2 solves this dilemma with dependency inference, where we use static analysis to intelligently determine what dependencies the compiler needs to be able to build a source file, before the compiler even runs.
+
+As in our other supported languages, you usually only need to specify external requirements once per repo, and Pants takes care of figuring out all the dependencies. And because Pants runs each build step in a sandbox, missing inferred dependencies can't cause correctness issues for your build.
+
+## Import parsing
+
+The easiest piece of dependency inference in Java and Scala involves parsing import statements. If a file contains an import statement, then it probably depends on the code that was imported (this is a good reason to lint for unused imports, which Pants also makes easy).
+
+If a Java source contains `import org.pantsbuild.java.Frobnicator;` then Pants can go looking for a class called `org.pantsbuild.java.Frobnicator`. If this is a first-party Java source file, then it's easy to find: source files include a package declaration.
+
+This is harder for third-party dependencies: these dependencies are often in JAR files that Pants won't even download until it's sure that it needs them. Sometimes the name of the artifact's group can give us a clue — an artifact in the `com.google.truth` group may well contain `com.google.truth` class files — but the rest of the time, we need more data. You can supply a list of JVM packages provided by a maven artifact when you define your dependencies, and for other artifacts, we make use of an internal database of packages to unversioned maven coordinates.
+
+This database is still pretty new and bare, but [the public mapping](https://github.com/pantsbuild/pants/blob/227a33d4667c21e8cd6472ecb43c149680161613/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py) is an easy place to contribute your first pull request and make a meaningful improvement to our dependency inference support.
+
+## Consumed type analysis
+
+Annoyingly, not every dependency type in a JVM source file has to be imported. For example, if you use a fully qualified type name to declare a variable or return (e.g. `org.pantsbuild.java.Frobnicator frobnicator = new org.pantsbuild.java.Frobnicator();`) rather than importing that type first, then that type needs to be included as a dependency too.
+
+Pants uses [Scalameta](https://scalameta.org/) and the [JavaParser library](https://javaparser.org/) to quickly parse Scala and Java source files, and return all of the symbols that may be dependency types. Once we have those symbols, we can compute possible fully-qualified type names and include matching source or JAR files as dependencies.
+
+## Export types
+
+Finally, some dependencies in Java files are hidden a bit more deeply. If we have even a slightly nested hierarchy like: `public class Blinker extends Light {}` and `public class Light implements Switchable {}`, then any code that depends on `Blinker` also depends on `Light` and `Switchable`. These create a concept called an export type. Exports are types that belong to a direct dependency that a compiler needs to know about in order to have a full understanding of that dependency.
+
+While this could be solved by transitively walking an entire tree of dependencies, in practice, this is inefficient: we'd end up supplying a lot of dependencies that are not export types, and aren't needed to compile a given unit of Java code.
+
+Our JavaParser tool makes note of which types are likely to be required as export types, and Pants ensures that these types are available when compiling dependent files.
+
+## What does this mean?
+
+We've been testing our inference code against Google's Guice codebase. Guice has a non-trivial number of maven dependencies, and uses just about every Java language feature available to specify dependency types.
+
+As an example [`LineNumbersTest`](https://github.com/google/guice/blob/e960b66d3d5931b9cb1aebd49e452e2c489a921e/core/test/com/google/inject/internal/util/LineNumbersTest.java) depends on maven artifacts from Junit, `aopalliance`, and ObjectWeb2, as well as a large number of 1st-party imports. These dependencies are specified with imports, with static factory method calls, and in the middle of method call chains.
+
+After defining maven dependencies once for the repository, the BUILD file for `LineNumbersTests`'s source directory is minuscule:
+
+```python
+junit_tests()
+```
+
+Everything else is supplied through repo-wide defaults, or calculated automatically: if you ask Pants the (direct) dependencies of `LineNumbersTest`, you'll see that precise dependency information has been computed:
+
+```shell-session
+$ ./pants dependencies core/test/com/google/inject/internal/util/LineNumbersTest.java
+core/src/com/google/inject/AbstractModule.java
+core/src/com/google/inject/CreationException.java
+core/src/com/google/inject/Guice.java
+core/src/com/google/inject/Injector.java
+core/src/com/google/inject/internal/InternalFlags.java
+core/src/com/google/inject/matcher/Matchers.java
+core/test/com/google/inject/Asserts.java
+core/test/com:junit_junit
+core:aopalliance_aopalliance
+core:javax.inject_javax.inject
+core:org.ow2.asm_asm
+
+```
+
+A comparable Bazel BUILD file would need to manually specify each maven dependency, along with 4 first-party Java source dependencies. In Guice, this would involve maintaining 23 BUILD files containing 622 individual `java_library` targets, each with many dependencies and exports listed. In larger monorepos, there'd be even more.
+
+Because Pants automatically caches results of tasks, these dependencies — along with compile and test results — are only recalculated when they're needed. Finally, if you want or need to specify any dependencies manually, [you can still do that](https://www.pantsbuild.org/docs/targets#dependencies-field).
+
+## Scala support
+
+While most of the examples in this post focus on Java, both import parsing and consumed type analysis are implemented for Scala. At the moment, our Scala support uses transitive dependencies for compilation, so export types aren't as important a concept there.
+
+We'll be expanding our support for Java and Scala projects in the coming months, so expect more updates soon! We'd love your feedback to help guide our priorities: check out the [prioritised issues](https://github.com/pantsbuild/pants/projects/22), and stop by the [Pants slack](https://join.slack.com/t/pantsbuild/shared_invite/zt-d0uh0mok-RLvVosDiX6JDpvStH~bFBA) to let us know what you'd like to see from JVM support.
+
+## Where can I learn more?
+
+You can check out the docs for Pants at [pantsbuild.org](https://pantsbuild.org), or sign up to our newsletter at [newsletter.pantsbuild.org](https://newsletter.pantsbuild.org). To use Pants with your project, see our [Getting Started guide](https://www.pantsbuild.org/v2.8/docs/getting-started).

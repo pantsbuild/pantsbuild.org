@@ -1,0 +1,61 @@
+---
+    authors: [benjy]
+    tags: []
+---
+
+# The pants launcher binary - a much simpler way to install and run Pants
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by Granada, used under the [CC Attribution-ShareAlike 4.0
+  International](https://creativecommons.org/licenses/by-sa/4.0/) license
+</CaptionedImg>
+
+{/* truncate */}
+
+_TL;DR Ensuring that an appropriate Python interpreter is available for running Pants has always been a stumbling block. Now Pants embeds its own interpreter and you don't have to worry about it! With the new `pants` launcher binary, developing, publishing and using Pants gets a whole lot easier._
+
+### Why Pants needs a Python interpreter
+
+Pants consists of two main layers: The core, generic execution engine is written in Rust, for performance, while the pluggable rules that implement specific build functionality are written in Python, for familiarity and ease of use.
+
+This architecture is powerful and has many benefits. But there was always one drawback: any system you ran Pants on, whether a developer laptop or a CI machine, had to have a suitable Python interpreter available. The `./pants` runner script then had logic in it to detect that appropriate (i.e., Python 3.7, 3.8 or 3.9) interpreter on the `$PATH`, or fail if it couldn't find one.
+
+Note that this interpreter selection was distinct from the method used to select the interpreter your code runs on. After all, Pants can run your tests using Python 3.10, 3.11, or even 2.7! But it still needed a 3.7-3.9 interpreter to run its own rule code on. And yes, this often caused confusion for users.
+
+### Interpreter Hell
+
+Ensuring that a suitable interpreter is available was often annoying to users. And this was especially true as more codebases moved to Python 3.10 or 3.11 for their own code, or didn't use Python at all (Pants is now increasingly used in JVM and Go repos), yet still needed to keep an older interpreter around to run Pants on.
+
+It was also not uncommon for the `./pants` script to fail to find or use the right interpreter. For example, interpreters installed using [pyenv](https://github.com/pyenv/pyenv), with their fluctuating shim files, sometimes caused issues. And the situation on macOS was particularly finicky: the system interpreters are often unable to run Pants, and installing Python 3.7/3.8 interpreters on [Apple Silicon](https://en.wikipedia.org/wiki/Apple_silicon) machines is tricky.
+
+We could have partially solved this problem by supporting more versions of Python. But because Pants includes a lot of native code written in Rust, each Python version requires a separate wheel, so this would have become an ever-increasing maintenance burden.
+
+### Embedding an interpreter
+
+Instead, we've implemented the [Alexandrian solution](https://www.thefreedictionary.com/Alexandrian+solution#:~:text=n.-,1.,an%20intricate%2C%20seemingly%20insoluble%20problem.) of releasing Pants with its own embedded interpreter.
+
+Starting with the upcoming 2.15.0 release, we're introducing an [entirely new way](https://www.pantsbuild.org/v2.15/docs/installation) of installing and running Pants. Instead of checking a `./pants` launcher script into your repo, you install a new `pants` launcher binary. You can install this binary by running [this script](https://github.com/pantsbuild/setup/blob/gh-pages/get-pants.sh) or, on macOS, using `brew`.
+
+The launcher binary is not tied to a specific Pants version. When you run `pants` in a repo, it first ensures that it has bootstrapped its embedded interpreter. Then it reads the version of Pants used in the repo out of your `pants.toml` and ensures that version is bootstrapped. And finally it delegates the actual command processing to that version of Pants. This means that you continue to control the version of Pants used in your repo via `pants.toml`, and you don't need to futz around with installing different versions. A single `pants` launcher binary can work with different Pants versions in different repos on your machine.
+
+And, as an added bonus, launching Pants via the `pants` binary is about 33% faster than using the `./pants` script!
+
+You cannot use the embedded interpreter for your own code, so if you have Python in your repo you'll still have to ensure that an interpreter is available for running your tests etc. But that's a pretty sensible requirement, that enforces the separation between Pants's internal use of Python as an implementation detail and your repo's use of Python.[(1)](#ref1)
+
+The embedded interpreter is currently Python 3.9, and we will continue to [release Pants](https://pypi.org/project/pantsbuild.pants/) for 3.7 and 3.8 for a while. But in the long run the plan is to release Pants for just a single embedded interpreter, which we can upgrade as new versions of Python are released.
+
+If you're using Pants in a GitHub Actions workflow, we've updated the [init-pants](https://github.com/pantsbuild/actions/tree/main/init-pants) action to take care of installing the `pants` launcher binary. Use `pantsbuild/actions/init-pants@v4-scie-pants` to pick up this functionality. If you're using a different CI provider you can follow the lead of that action in that provider's config vernacular.
+
+### How does this work?
+
+The `pants` launcher binary uses a new technology we've developed called [SCIE](https://github.com/a-scie/jump) (Self-Contained Interpreted Executable). SCIEs support embedding an interpreter with the code to run on it, creating a truly self-contained binary. SCIE works with Python, Ruby, JS and even JVM! And SCIE is pronounced "ski", to afford good "scie pants" puns.
+
+We'll talk more about SCIEs, and how to build them, in a future blog post. And we hope to make Pants able to build SCIEs from your own code soon.
+
+### Kudos
+
+We provide the embedded interpreter using the [Python Standalone Builds](https://gregoryszorc.com/docs/python-build-standalone/main/), so many thanks to [@indygreg](https://github.com/indygreg) for making these available!
+
+---
+
+1\. The one slight exception is if you have custom Pants plugin code in your repo. Such code has two facets: It runs in the Pants engine, so it executes on the embedded interpreter, but it is code in your repo, which presumably has tests (you did write tests, yes?) and those need to run on an interpreter (3.9 in this case) that you install.

@@ -1,0 +1,141 @@
+---
+    title: Building distributions
+    position: 7
+---
+
+Running `setup.py` commands to create an sdist or a wheel.
+
+---
+
+The standard Python packaging mechanism, [setuptools](https://setuptools.readthedocs.io/), expects a build script called `setup.py` that describes how to package your project into a _distribution_: an archive that is uploaded to a package index such as [PyPI](https://pypi.org/), and can be installed by [pip](https://packaging.python.org/key_projects/#pip).
+
+Common distribution formats include [sdist](https://packaging.python.org/glossary/#term-source-distribution-or-sdist), a source distribution format, and [wheel](https://packaging.python.org/glossary/#wheel), a built distribution format.
+
+Much of the data you would normally put in a `setup.py` file is already known to Pants, so it's convenient to generate these files instead of maintaining them manually for each distributable project.
+
+When run on appropriate targets, the `./pants package` goal will generate a `setup.py` file, based on the information available in your BUILD files, and then run `setup.py` commands to package your code. For example, you can run the `bdist_wheel` command to create a wheel.
+
+See [here](https://packaging.python.org/tutorials/packaging-projects/) for more information about the `setup.py` file and the commands you can run with it.
+
+:::note See `package` for other package formats
+This page focuses on building sdists and wheels with the `./pants package` goal. See [package](../goals/package.mdx) for information on other formats that work with `./pants package`, such as PEX binaries and zip/tar archives.
+:::
+
+:::tip Benefit of Pants: multiple distributions in the same repository
+Typically, repositories without sophisticated tooling end up with a single `setup.py`, which includes the entire repo in the distribution.
+
+Pants makes it ergonomic to create multiple distributions from the same repository. Because Pants understands your code's true dependencies, each distribution will only be built with the exact code and metadata that it needs to work.
+:::
+
+## Configuring distributions
+
+A distribution is set up using a `python_distribution` target, like this:
+
+```python title="BUILD"
+python_distribution(
+    name="mydist",
+    dependencies=[
+        ...
+    ],
+    provides=setup_py(
+        name="mydist",
+        version="2.21.0",
+        description="An example distribution built with Pants.",
+        author="Pantsbuild",
+        classifiers=[
+            "Programming Language :: Python :: 3.7",
+        ],
+    ),
+    setup_py_commands=["sdist", "bdist_wheel", "--python-tag", "py36.py37"]
+)
+```
+
+Some important `setup.py` metadata is inferred by Pants from your code and its dependencies. Other metadata needs to be provided explicitly. In Pants, as shown above, you do so through the `provides` field.
+
+You can use almost any [keyword argument](https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args) accepted by `setup.py` in the `setup()` function.
+
+However, you cannot use `data_files`, `install_requires`, `namespace_packages`, `package_dir`, `package_data`, or `packages` because Pants will generate these for you, based on the data derived from your code and dependencies.
+
+:::note Use `.with_binaries()` to register `console_scripts` entry points
+You can use `pex_binary` targets to set the `console_scripts` value on your distribution.
+
+The `pex_binary` target must explicitly set the field `entry_point` in the form `path.to.module:my_func`, e.g. `project.app:main`. See https://python-packaging.readthedocs.io/en/latest/command-line-scripts.html#the-console-scripts-entry-point.
+
+To add a new entry point to your package, call the method `.with_binaries()`, like this:
+
+```python
+provides=setup_py(
+    ...
+).with_binaries(my_command=":binary_target")
+```
+
+This will register a new `console_script` named `my_command`, which has the `entry_point` from the `pex_binary` target.
+
+You may register multiple binary targets by using a dictionary, such as `.with_binaries({"my_command": ":binary_target"})`.
+:::
+
+:::note Consider writing a plugin to dynamically generate the `setup()` keyword arguments
+You may want to write a plugin to do any of these things:
+
+- Reduce boilerplate by hardcoding common arguments and commands.
+- Read from the file system to dynamically determine kwargs, such as the `long_description` or `version`.
+- Run processes like Git to dynamically determine the `version` kwarg.
+
+Start by reading about the [Plugin API](../../writing-plugins/overview.mdx), then refer to the [Custom `setup_py()` kwargs](../../writing-plugins/common-plugin-tasks/custom-setup-py-kwargs.mdx) instructions.
+:::
+
+## Mapping libraries to distributions
+
+A Pants repo typically consists of many `python_library` targets in BUILD files spread across the codebase. To build distributions, Pants must determine which libraries are bundled into each distribution.
+
+In the extreme case, you could have one distribution per library. But `python_library` targets tend to be fine-grained, representing perhaps a single Python package, whereas distributions are coarser grained, representing a larger project or piece of functionality. A codebase might have hundreds or thousands of `python_library` targets, but publishing and consuming that many distributions isn't practical.
+
+So in practice, multiple libraries are typically bundled into a single distribution. Naively, you might think that a `python_distribution` publishes all the code of all the `python_library` targets it transitively depends on. But that could easily lead to trouble if you have multiple distributions that share common dependencies. You typically don't want the same code published in multiple distributions, as this can lead to all sorts of runtime import issues.
+
+Instead, Pants applies the following algorithm:
+
+Given a `python_distribution` target D, take all the libraries in the transitive dependency closure of D. Some of those libraries may be published in D itself, but others may be published in some other `python_distribution` target, D', in which case Pants will correctly add a requirement on D' in the metadata for D.
+
+For each `python_library` target L, the distribution in which L's code is published is chosen to be:
+
+1. A `python_distribution` that depends, directly or indirectly, on L.
+2. Is L's closest filesystem ancestor among those satisfying 1.
+
+If there are multiple such exported libraries at the same degree of ancestry, the ownership
+is ambiguous and an error is raised. If there is no `python_distribution` that depends on L
+and is its ancestor, then there is no owner and an error is raised.
+
+This algorithm implies that all libraries published by a distribution must be below it in the filesystem. It also guarantees that a library is only published by a single distribution.
+
+:::note Changing the versioning scheme for first-party dependencies
+When a `python_distribution` depends on another `python_distribution`, Pants will add it to the `install_requires` value in the generated `setup.py`.
+
+By default, Pants will use exact requirements for first-party dependencies, like `other_dist==1.0.1`. You can set `first_party_depenency_version_scheme` in the `[setup-py-generation]` scope to `'compatible'` to use `~=` instead of `==`, and `any` to leave off the version.
+
+For example:
+
+```toml
+[setup-py-generation]
+first_party_depenency_version_scheme = "compatible"
+```
+
+See https://www.python.org/dev/peps/pep-0440/#version-specifiers for more information on the `~=` specifier.
+:::
+
+## Generating a `setup.py` file
+
+If your `python_distribution` target has no `setup_py_commands`, then running `./pants package` on that target will just create a directory with all of your package's code and a generated `setup.py` file.
+
+The generated `setup.py` will have its `install_requires` set to include the 3rdparty dependencies of the code bundled in the distribution, and any other distributions from your own repo. For example, if distribution D1 contains code that has a dependency on some library L, and that library is published in distribution D2, then D1's requirements will include a dependency on D2. In other words, Pants does the right thing...
+
+## Running setup.py commands
+
+If your `python_distribution` target has `setup_py_commands`, then running `./pants package` on that target will run those commands for you.
+
+For example, if `setup_py_commands=["bdist_wheel", "sdist"]`, then `./pants package` will build both a wheel and sdist for the given target.
+
+:::note How to upload your distributions to a package index
+Pants does not have a mechanism to upload your distributions. Instead, run `package` as described above to create the asset, such as the wheel, then use a tool like Twine to upload your package.
+
+Please let us know on [Slack](/community/members) or [GitHub issues](https://github.com/pantsbuild/pants/issues/new) if you would like this feature.
+:::

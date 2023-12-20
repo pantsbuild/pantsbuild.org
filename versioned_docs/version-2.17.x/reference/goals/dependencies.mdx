@@ -1,0 +1,85 @@
+---
+title: dependencies
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants dependencies [args]
+```
+
+List the dependencies of the input files/targets.
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[dependencies]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--dependencies-output-file=<path>`}
+  env_repr='PANTS_DEPENDENCIES_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--dependencies-sep=<separator>`}
+  env_repr='PANTS_DEPENDENCIES_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `transitive`
+
+<Option
+  cli_repr={`--[no-]dependencies-transitive`}
+  env_repr='PANTS_DEPENDENCIES_TRANSITIVE'
+  default_repr={`False`}
+>
+
+List all transitive dependencies. If unspecified, list direct dependencies only.
+
+</Option>
+
+### `closed`
+
+<Option
+  cli_repr={`--[no-]dependencies-closed`}
+  env_repr='PANTS_DEPENDENCIES_CLOSED'
+  default_repr={`False`}
+>
+
+Include the input targets in the output, along with the dependencies.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

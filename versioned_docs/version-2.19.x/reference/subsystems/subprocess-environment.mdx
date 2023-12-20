@@ -1,0 +1,45 @@
+---
+title: subprocess-environment
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Environment settings for forked subprocesses.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[subprocess-environment]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `env_vars`
+
+<Option
+  cli_repr={`--subprocess-environment-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SUBPROCESS_ENVIRONMENT_ENV_VARS'
+  default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "SSL_CERT_FILE",\n  "SSL_CERT_DIR"\n]`}
+  target_field_name='subprocess_environment_env_vars'
+>
+
+Environment variables to set for process invocations.
+
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+See https://www.pantsbuild.org/v2.19/docs/options#addremove-semantics for how to add and remove Pants&#x27;s default for this option.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

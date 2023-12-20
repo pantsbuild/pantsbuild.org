@@ -1,0 +1,105 @@
+---
+title: filter
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Filter the input targets based on various criteria.
+
+Most of the filtering options below are comma-separated lists of filtering criteria, with an implied logical OR between them, so that a target passes the filter if it matches any of the criteria in the list. A &#x27;-&#x27; prefix inverts the sense of the entire comma-separated list, so that a target passes the filter only if it matches none of the criteria in the list.
+
+Each of the filtering options may be specified multiple times, with an implied logical AND between them.
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[filter]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--filter-output-file=<path>`}
+  env_repr='PANTS_FILTER_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--filter-sep=<separator>`}
+  env_repr='PANTS_FILTER_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `target_type`
+
+<Option
+  cli_repr={`--filter-target-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
+  env_repr='PANTS_FILTER_TARGET_TYPE'
+  default_repr={`[]`}
+>
+
+Filter on these target types, e.g. `resources` or `python_sources`.
+
+</Option>
+
+### `granularity`
+
+<Option
+  cli_repr={`--filter-granularity=<TargetGranularity>`}
+  env_repr='PANTS_FILTER_GRANULARITY'
+  one_of='all, file, BUILD'
+  default_repr={`all`}
+>
+
+Filter to rendering only targets declared in BUILD files, only file-level targets, or all targets.
+
+</Option>
+
+### `address_regex`
+
+<Option
+  cli_repr={`--filter-address-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
+  env_repr='PANTS_FILTER_ADDRESS_REGEX'
+  default_repr={`[]`}
+>
+
+Filter on target addresses matching these regexes.
+
+</Option>
+
+### `tag_regex`
+
+<Option
+  cli_repr={`--filter-tag-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
+  env_repr='PANTS_FILTER_TAG_REGEX'
+  default_repr={`[]`}
+>
+
+Filter on targets with tags matching these regexes.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

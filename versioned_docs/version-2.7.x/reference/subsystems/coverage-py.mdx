@@ -1,0 +1,189 @@
+---
+title: coverage-py
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Configuration for Python test coverage measurement.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[coverage-py]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `filter`
+
+<Option
+  cli_repr={`--coverage-py-filter="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COVERAGE_PY_FILTER'
+  default_repr={`[]`}
+>
+
+A list of Python modules or filesystem paths to use in the coverage report, e.g. `[&#x27;helloworld_test&#x27;, &#x27;helloworld/util/dirutil&#x27;].
+
+Both modules and directory paths are recursive: any submodules or child paths, respectively, will be included.
+
+If you leave this off, the coverage report will include every file in the transitive closure of the address/file arguments; for example, `test ::` will include every Python file in your project, whereas `test project/app_test.py` will include `app_test.py` and any of its transitive dependencies.
+
+</Option>
+
+### `report`
+
+<Option
+  cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
+  env_repr='PANTS_COVERAGE_PY_REPORT'
+  one_of='console, xml, html, raw, json'
+  default_repr={`["console"]`}
+>
+
+Which coverage report type(s) to emit.
+
+</Option>
+
+### `global_report`
+
+<Option
+  cli_repr={`--[no-]coverage-py-global-report`}
+  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  default_repr={`False`}
+>
+
+If true, Pants will generate a global coverage report.
+
+The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--coverage-py-version=<str>`}
+  env_repr='PANTS_COVERAGE_PY_VERSION'
+  default_repr={`coverage[toml]>=5.5,<5.6`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--coverage-py-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COVERAGE_PY_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.6,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--coverage-py-lockfile=<str>`}
+  env_repr='PANTS_COVERAGE_PY_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python-setup].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.7.2/src/python/pants/backend/python/subsystems/coverage_py_lockfile.txt for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants generate-lockfiles --resolve=coverage-py`.
+
+Lockfile generation currently does not wire up the `[python-repos]` options. If lockfile generation fails, you can manually generate a lockfile, such as by using pip-compile or `pip freeze`. Set this option to the path to your manually generated lockfile. When manually maintaining lockfiles, set `[python-setup].invalid_lockfile_behavior = 'ignore'`.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--coverage-py-console-script=<str>`}
+  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
+  default_repr={`coverage`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--coverage-py-entry-point=<str>`}
+  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `output_dir`
+
+<Option
+  cli_repr={`--coverage-py-output-dir=<str>`}
+  env_repr='PANTS_COVERAGE_PY_OUTPUT_DIR'
+  default_repr={`dist/coverage/python`}
+>
+
+Path to write the Pytest Coverage report to. Must be relative to build root.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--coverage-py-config=<file_option>`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG'
+  default_repr={`None`}
+>
+
+Path to an INI or TOML config file understood by coverage.py (https://coverage.readthedocs.io/en/stable/config.html).
+
+Setting this option will disable `[coverage-py].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]coverage-py-config-discovery`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`.coveragerc`, `setup.cfg`, `tox.ini`, and `pyproject.toml`).
+
+Use `[coverage-py].config` instead if your config is in a non-standard location.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

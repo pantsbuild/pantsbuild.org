@@ -1,0 +1,79 @@
+---
+    title: Enabling Python support
+    position: 0
+---
+
+How to enable Pants's bundled Python backend package.
+
+---
+
+:::note Example Python repository
+See [here](https://github.com/pantsbuild/example-python) for examples of Pants's Python functionality.
+:::
+
+Enable the Python [backend](../../using-pants/concepts/backends.mdx) like this:
+
+```toml title="pants.toml"
+[GLOBAL]
+...
+backend_packages = [
+  'pants.backend.python'
+]
+```
+
+You should now see some new goals available:
+
+```text title="Shell"
+$ ./pants help goals
+...
+
+package       Create a distributable package.
+
+repl          Open a REPL with the specified code loadable.
+
+...
+
+run           Runs a binary target.
+...
+
+test          Run tests.
+```
+
+:::note Have content in your `__init__.py` files?
+Pants automatically uses all relevant `__init__.py` files, even if dependency inference does not include the files and you don't add it to the `dependencies` fields of your targets.
+
+This works if you have empty `__init__.py` files, like most Python projects do; but if you have actual code in your `__init__.py` files, you should turn on this option in your `pants.toml`:
+
+```toml
+[python-infer]
+inits = true
+```
+
+This option will cause Pants to infer "proper" dependencies on any ancestor `__init__.py` file. If you run `./pants dependencies project/util/foo.py`, you should see `project/__init__.py` and `project/util/__init__.py` show up. This will ensure that any of the `dependencies` of your `__init__.py` files are included.
+:::
+
+:::danger Using Python 3.8's `:=` walrus operator? Tweak the `./pants` script
+For dependency inference to work properly when using Python 3.8+ syntax, you need to tweak the `./pants` script to run the tool with Python 3.8, rather than 3.6 or 3.7. Change the function `set_supported_python_versions` to only use 3.8: https://github.com/pantsbuild/setup/blob/2f079cbe4fc6a1d9d87decba51f19d7689aee69e/pants#L140-L141. If you do not have that function in your `./pants` script, you likely need to update the script by copying the file from the above GitHub link.
+
+This will be fixed in 2.2 so that Pants can always parse your code, regardless of what interpreter Pants is run with.
+:::
+
+:::caution macOS users: you may need to change interpreter search paths
+By default, Pants will look at both your `$PATH` and—if you use Pyenv—your `$(pyenv root)/versions` folder when discovering Python interpreters. Your `$PATH` likely includes the system Pythons at `/usr/bin/python` and `/usr/bin/python3`, which are known to have many issues like failing to install some dependencies.
+
+Pants will prefer new Python versions, like 3.6.10 over 3.6.3. Because macOS system Pythons are usually very old, they will usually be ignored.
+
+However, if you run into issues, you can set the `interpreter_search_paths` option in the `[python-setup]` scope:
+
+```toml
+[python-setup]
+interpreter_search_paths = [
+    # This will use all interpreters in `$(pyenv root)/versions`.
+    "<PYENV>",
+     # Brew usually installs Python here.
+    "/usr/local/bin",
+]
+```
+
+See [here](./interpreter-compatibility.mdx#changing-the-interpreter-search-path) for more information.
+:::

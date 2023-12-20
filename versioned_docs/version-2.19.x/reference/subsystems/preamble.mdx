@@ -1,0 +1,67 @@
+---
+title: preamble
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Formats files with a preamble, with the preamble looked up based on path.
+
+This is useful for things such as copyright headers or shebang lines.
+
+Pants substitutes the following identifiers (following Python&#x27;s `string.Template` substitutions): - $year: The current year (only used when actually writing the year to the file).
+
+Backend: <span className="color--primary">`pants.backend.tools.preamble`</span>
+
+Config section: <span className="color--primary">`[preamble]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]preamble-skip`}
+  env_repr='PANTS_PREAMBLE_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use preamble when running `scie-pants-linux-x86_64 fmt`.
+
+</Option>
+
+### `template_by_globs`
+
+<Option
+  cli_repr={`--preamble-template-by-globs="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PREAMBLE_TEMPLATE_BY_GLOBS'
+  default_repr={`{}`}
+>
+
+Which preamble template to use based on the path globs (relative to the build root).
+
+Example:
+
+```
+{
+    '*.rs': '// Copyright (c) $year\n// Line 2\n'
+    '*.py:!__init__.py': '# Copyright (c) $year\n# Line 2\n',
+}
+```
+
+It might be helpful to load this config from a JSON or YAML file. To do that, set `[preamble].config = '@path/to/config.yaml'`, for example.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

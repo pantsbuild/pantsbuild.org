@@ -1,0 +1,152 @@
+---
+title: ruff
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Ruff Python formatter (https://github.com/charliermarsh/ruff).
+
+Backend: <span className="color--primary">`pants.backend.experimental.python.lint.ruff`</span>
+
+Config section: <span className="color--primary">`[ruff]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]ruff-skip`}
+  env_repr='PANTS_RUFF_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Ruff when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--ruff-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_RUFF_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Ruff, e.g. `--ruff-args='--exclude=foo --ignore=E501'`.
+
+</Option>
+
+## Advanced options
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--ruff-install-from-resolve=<str>`}
+  env_repr='PANTS_RUFF_INSTALL_FROM_RESOLVE'
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `ruff` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--ruff-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUFF_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--ruff-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUFF_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.7,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--ruff-console-script=<str>`}
+  env_repr='PANTS_RUFF_CONSOLE_SCRIPT'
+  default_repr={`ruff`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--ruff-entry-point=<str>`}
+  env_repr='PANTS_RUFF_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--ruff-config=<file_option>`}
+  env_repr='PANTS_RUFF_CONFIG'
+  default_repr={`None`}
+>
+
+Path to the `pyproject.toml` or `ruff.toml` file to use for configuration (https://github.com/charliermarsh/ruff#configuration).
+
+Setting this option will disable `[ruff].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]ruff-config-discovery`}
+  env_repr='PANTS_RUFF_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`pyproject.toml`, and `ruff.toml`).
+
+Use `[ruff].config` instead if your config is in a non-standard location.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

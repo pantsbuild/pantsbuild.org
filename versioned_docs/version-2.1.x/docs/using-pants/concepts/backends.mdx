@@ -1,0 +1,32 @@
+---
+    title: Backends
+    position: 3
+---
+
+How to enable specific functionality.
+
+---
+
+Pants has some basic, non-language-specific functionality built in to its core. For example, you can count the lines of code under some directory in your repo:
+
+```text title="Bash"
+$ ./pants count-loc 'src/**'
+───────────────────────────────────────────────────────────────────────────────
+Language                 Files     Lines   Blanks  Comments     Code Complexity
+───────────────────────────────────────────────────────────────────────────────
+Python                      13       155       50        22       83          5
+BASH                         2       261       29        22      210         10
+JSON                         2        25        0         0       25          0
+...
+```
+
+However most Pants functionality, including all language-specific functionality, is provided via _backends_.
+
+A backend is a Python package that implements some required functionality, and uses hooks to register itself with Pants. You enable a backend by listing it under the `backend_packages` config key in `pants.toml`.
+
+For example, to enable Python support:
+
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages = ["pants.backend.python"]
+```

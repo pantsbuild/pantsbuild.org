@@ -1,0 +1,162 @@
+---
+title: pyoxidizer
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The PyOxidizer utility for packaging Python code in a Rust binary (https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer.html).
+
+Used with the `pyoxidizer_binary` target.
+
+Backend: <span className="color--primary">`pants.backend.experimental.python.packaging.pyoxidizer`</span>
+
+Config section: <span className="color--primary">`[pyoxidizer]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--pyoxidizer-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_PYOXIDIZER_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args='--release'`.
+
+</Option>
+
+## Advanced options
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--pyoxidizer-install-from-resolve=<str>`}
+  env_repr='PANTS_PYOXIDIZER_INSTALL_FROM_RESOLVE'
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.16/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pyoxidizer` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--pyoxidizer-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.8,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--pyoxidizer-console-script=<str>`}
+  env_repr='PANTS_PYOXIDIZER_CONSOLE_SCRIPT'
+  default_repr={`pyoxidizer`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--pyoxidizer-entry-point=<str>`}
+  env_repr='PANTS_PYOXIDIZER_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+## Deprecated options
+
+### `version`
+
+<Option
+  cli_repr={`--pyoxidizer-version=<str>`}
+  env_repr='PANTS_PYOXIDIZER_VERSION'
+  default_repr={`pyoxidizer>=0.18.0,<1`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--pyoxidizer-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--pyoxidizer-lockfile=<str>`}
+  env_repr='PANTS_PYOXIDIZER_LOCKFILE'
+  default_repr={`<default>`}
+  removal_version='2.18.0.dev0'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[pyoxidizer].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced pyoxidizer`.'}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.16.1rc4/src/python/pants/backend/python/packaging/pyoxidizer/pyoxidizer.lock for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds and supply-chain security.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 generate-lockfiles --resolve=pyoxidizer`.
+
+Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+</span>

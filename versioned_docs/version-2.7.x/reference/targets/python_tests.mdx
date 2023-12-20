@@ -1,0 +1,228 @@
+---
+title: python_tests
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Python tests, written in either Pytest style or unittest style.
+
+All test util code, other than `conftest.py`, should go into a dedicated `python_library()` target and then be included in the `dependencies` field.
+
+See https://www.pantsbuild.org/v2.7/docs/python-test-goal.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python-setup].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.7/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`('test_*.py', '*_test.py', 'tests.py', 'conftest.py', 'test_*.pyi', '*_test.pyi', 'tests.pyi')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
+
+Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `timeout`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A timeout (in seconds) used by each test file belonging to this target.
+
+This only applies if the option `--pytest-timeouts` is set to True.
+
+</Field>
+
+## `runtime_package_dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
+
+Pants will build the artifacts as if you had run `./pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+
+You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+
+</Field>
+
+## `extra_env_vars`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
+</Field>
+
+## `skip_black`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
+</Field>
+
+## `skip_docformatter`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Docformatter on this target&#x27;s code.
+
+</Field>
+
+## `skip_flake8`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
+</Field>
+
+## `skip_isort`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
+</Field>
+
+## `skip_mypy`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
+## `skip_bandit`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
+</Field>
+
+## `skip_pylint`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_yapf`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
+
+</Field>
+
+</span>

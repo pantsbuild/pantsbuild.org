@@ -1,0 +1,65 @@
+---
+    title: Create initial BUILD files
+    position: 4
+---
+
+---
+
+Many Pants operations require extra metadata in the form of [_targets_](../../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx), which are defined in `BUILD` files.
+
+You can generate these BUILD files by running `./pants tailor`:
+
+```
+❯ ./pants tailor
+Created scripts/BUILD:
+  - Add shell_sources target scripts
+Created src/py/project/BUILD:
+  - Add python_sources target project
+  - Add python_tests target tests
+Created src/go/BUILD:
+  - Add go_mod target mod
+```
+
+Often, this will be all you need for Pants to work, thanks to sensible defaults and inference, like [inferring your dependencies](../../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx). Sometimes, though, you may need to or want to change certain fields, like setting `timeout=120` on a `python_test` target.
+
+You may also need to add some targets that Pants cannot generate, like [`resources` and `files`](../../using-pants/resources-and-archives.mdx) targets.
+
+We recommend running `./pants tailor --check` in your [continuous integration](../../using-pants/using-pants-in-ci.mdx) so that you don't forget to add any targets and BUILD files.
+
+```
+❯ ./pants tailor --check
+Would create scripts/BUILD:
+  - Add shell_sources target scripts
+
+To fix `tailor` failures, run `./pants tailor`.
+```
+
+To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](../../../reference/goals/tailor.mdx) for more detail.
+
+```toml title="pants.toml"
+[tailor]
+ignore_paths = ["src/py/ignore_me/**"]
+ignore_adding_targets = ["src/py/project:tgt"]
+```
+
+## Formatting BUILD files with Black
+
+`./pants run update-build-files` will format your BUILD files with the Black Python formatter. The goal will also fix any safe Pants deprecations like renaming target types.
+
+```
+❯ ./pants update-build-files
+Updated scripts/BUILD:
+  - Format with Black
+  - Rename `python_library` to `python_sources`
+```
+
+Like `tailor`, we recommend running `./pants update-build-files --check` in your [continuous integration](../../using-pants/using-pants-in-ci.mdx).
+
+```
+❯ ./pants update-build-files --check
+Would update scripts/BUILD:
+  - Format with Black
+  - Rename `python_library` to `python_sources`
+
+To fix `update-build-files` failures, run `./pants update-build-files`.
+```

@@ -1,0 +1,147 @@
+---
+    authors: [stu]
+    tags: [jvm,golang-2,docker,deployment]
+---
+
+# Pants 2.9: Alpha support for Java and Scala, improvements for Docker and Go, and more
+
+<CaptionedImg src={require("./splash.png").default}></CaptionedImg>
+
+We're pleased to announce [Pants 2.9.0](https://www.pantsbuild.org/v2.9/docs), the latest release of Pants: the scalable and ergonomic build system!
+
+{/* truncate */}
+
+---
+
+To update, set `pants_version = "2.9.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips) for more information.
+
+## Alpha Support for Java and Scala
+
+We're very happy to announce that support for Java and Scala has reached alpha quality in the `2.9.0` release!
+
+Pants 1.x had a long history of support for Java and Scala, going back to when it was first created at Twitter. In fact: they were the first supported languages! Consequently, (re-)adding support for these popular JVM languages has been high on our list ever since [the 2.x release](../2020-10-27-introducing-pants-v2/index.mdx) in late 2020.
+
+### Improvements over Pants 1.x
+
+In the last few years, we've learned a lot about how best to deal with more-slowly-compiling, high level languages like Scala.
+
+#### Dependency inference and per-file compilation
+
+As described in our recent blog post, [dependency inference for Java and Scala](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.mdx) removes a ton of boilerplate.
+
+But very fine-grained, always-accurate dependencies also enable per-file compilation, reducing the number of files that Pants needs to feed to `scalac`, and allowing for automatic file-level parallelization and the most accurate cache keys possible. From a correctness perspective, that means that unlike tools which use compilation libraries like [Zinc](https://github.com/sbt/zinc) (SBT, Bloop, Mill, optionally Bazel, and others) Pants `2.9.0` supports sandboxed, minimal incremental Java and Scala compilation, while preventing the under-compilation bugs that have historically troubled Scala developers.
+
+For more information on how dependency inference works for the JVM, [check out that post](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.mdx)!
+
+#### Multiple resolves of third party dependencies
+
+Another significant improvement for the JVM over 1.x is that Pants `2.9` implements a monorepo-friendly multiple-resolve/lockfile strategy for third party dependencies, allowing for correctness, flexibility, _and_ performance.
+
+Build tools for the JVM tend to either resolve dependencies globally (for an entire repository), or locally (on a project-by-project basis). Global resolves (as in Bazel) remove flexibility, because teams working within a repository cannot diverge from the single blessed versions of any library: if they try, they are nearly guaranteed to encounter classpath incompatibilities. On the other hand, local/per-project resolves (as in SBT, Gradle, Maven) within a monorepo allow for local flexibility, but reduce the performance and compatibility of any particular build by executing one unique resolve per project.
+
+Rather than forcing global or per-project resolves, Pants `2.9` supports a unique hybrid approach: third party resolves are named and first-class, and can be used on a target by target basis. This allows a monorepo to operate with the minimum number of resolves required to support their conflicting library versions, without necessarily going to the costly extreme of per-project resolves.
+
+Having the minimum number of resolves improves performance, but it doesn't come with a correctness cost! To ensure reproducible builds, Pants generates a lockfile per resolve, which is then efficiently consumed to fetch the precise, fingerprinted dependencies of any particular file.
+
+### Trying out Java or Scala
+
+Although this is an alpha release, the features that are implemented so far are expected to give teams enough to work with to validate using Pants with a JVM codebase:
+
+- Use of [nailgun](http://martiansoftware.com/nailgun/) to keep warm JVMs for compilers and tools
+- [ScalaTest](https://www.scalatest.org/) support for Scala, and [JUnit](https://junit.org/junit5/) support for both Java and Scala
+- [Scalafmt](https://scalameta.org/scalafmt/) and [Google Java Format](https://github.com/google/google-java-format)
+- Scala Repl support
+- Protobuf code generation with [ScalaPB](https://scalapb.github.io/)
+- Debugging support via `./pants test --debug $file`
+- Scala compiler plugins
+- Support for compiling cycles between Java and Scala code
+- Bootstrapping a consistent JVM using [coursier](https://get-coursier.io/)
+- Multiple first class thirdparty resolves ([coursier](https://get-coursier.io/) again!) with independent lockfiles
+
+We'd love to help you try out Pants with your JVM codebase: you can start by checking out the [initial documentation](https://www.pantsbuild.org/v2.9/docs/jvm-overview) and [example JVM repository](https://github.com/pantsbuild/example-jvm). If you see anything missing that prevents you from evaluating Pants for Java and Scala, please let us know by [opening a Github issue](https://github.com/pantsbuild/pants/issues/new/choose), or [visiting Slack](https://www.pantsbuild.org/v2.9/docs/community)!
+
+## Better visibility into runtime and caching for tests
+
+Thanks to a great change from a new contributor, Pants `2.9` now renders test runtime and cache status (whether a process ran, hit a cache, or was memoized in memory by `pantsd`) in the test summary for all supported languages!
+
+```shell-session
+$ ./pants test src/python/pants/util:
+...
+✓ src/python/pants/util/dirutil_test.py:tests succeeded in 1.21s (cached locally).
+✓ src/python/pants/util/osutil_test.py:tests succeeded in 0.72s (memoized).
+✓ src/python/pants/util/strutil_test.py:tests succeeded in 0.98s (cached remotely).
+```
+
+No more thinking to yourself: “Gee, that was even faster than usual! I wonder why?”
+
+## Improvements to Docker support
+
+Among a number of bug fixes and documentation enhancements, there were a few noteworthy improvements to the Docker backend:
+
+- Introduce a new `target_stage` field for the [`docker_image` target](https://www.pantsbuild.org/v2.9/docs/reference-docker_image) as well as the `[docker].build_target_stage` option.
+- Add [`instructions` field](https://www.pantsbuild.org/v2.9/docs/reference-docker_image#codeinstructionscode) to `docker_image` to support generating an anonymous Dockerfile from scratch.
+- Log suggestions of how to fix the docker build context when a docker build fails.
+- New option for the `[docker]` scope, which allows passing additional options when executing `docker run [OPTIONS] <image>`, in addition to the `--run-args` which are passed to the image entrypoint.
+  - For example: `./pants run --docker-run-args="-p 8080/tcp" src/docker:example -- --arg-for-the-image-entrypoint`
+- Add new [`secrets` field](https://www.pantsbuild.org/v2.9/docs/reference-docker_image#codesecretscode) to `docker_image`.
+- Include `shell_source(s)` in `docker_image` build context.
+- Support interpolating Docker build args into the `repository` field of `docker_image` targets.
+- Allow tailor to create `docker_image` targets for any files with “Dockerfile” in the file name.
+
+Check out the updated [`docker` documentation](https://www.pantsbuild.org/v2.9/docs/docker) for more information!
+
+## Support for running `tailor` continuously
+
+The `./pants tailor` goal automatically updates `BUILD` files to add targets for recognized file types, which makes it great for onboarding a new repository to Pants.
+
+Pants `2.9` expands `tailor`'s options to allow it to be run on an ongoing basis in your repository, to ensure that your `BUILD` metadata stays up to date as files are added.
+
+To do this, `tailor` gained a `--check` mode, and now supports [ignoring files](https://www.pantsbuild.org/v2.9/docs/reference-tailor#section-ignore-paths) which should be visible to Pants (i.e., not in [pants_ignore](https://www.pantsbuild.org/v2.9/docs/gitignore)), but not have `BUILD` targets generated for them.
+
+## Changes to Go project layouts
+
+After [adding experimental support for Go](../2021-11-10-golang-support-pants-28/index.mdx) in Pants `2.8`, we decided that a few changes to how Go targets are laid out in BUILD files would help to future proof the support.
+
+To that end, in Pants `2.9`, each Go package now needs its own `go_package` declaration in a `BUILD` file. Thanks to dependency inference and `./pants tailor`, these BUILD files are very simple, can be created automatically, and rarely require adjustments. But when you do need to add metadata, the new layout [follows the 1:1:1 principle](https://github.com/pantsbuild/pants/issues/13488): metadata about your code should live near the code itself.
+
+### New Go features
+
+In particular, the changes to target layouts make it easier to use the new Go features in `2.9`.
+
+`go_package` targets now support:
+
+1\. Setting a `test_timeout` for the package (in seconds), which is propagated down to the Go test runner:
+
+```python
+go_package(
+    test_timeout=120,
+)
+```
+
+2\. Embedding `resource` files in a binary for use at runtime:
+
+```python
+go_package(dependencies=[":resources"])
+resources(
+    name="resources",
+    sources=["*.txt"],
+)
+```
+
+3\. Adding `files` to the working directory of your tests (i.e. `testdata`):
+
+```python
+go_package(dependencies=[":testdata"])
+file(
+    name="testdata",
+    source="testdata/f.txt"
+)
+```
+
+### Updating for Go
+
+To update your `BUILD` files for the new layout in `2.9`, all you need to do is run `./pants tailor`. Thanks for your patience, and for all of your feedback on the new Go support! Please continue to let us know how it can be most useful to you.
+
+## Thanks!
+
+Thanks to all the contributors to `2.9`, including everyone who shared feedback on changes and who tested release candidates!

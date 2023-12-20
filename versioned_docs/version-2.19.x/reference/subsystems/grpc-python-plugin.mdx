@@ -1,0 +1,125 @@
+---
+title: grpc-python-plugin
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The gRPC Protobuf plugin for Python.
+
+Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
+
+Config section: <span className="color--primary">`[grpc-python-plugin]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--grpc-python-plugin-version=<str>`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_VERSION'
+  default_repr={`1.32.0`}
+>
+
+Use this version of grpcpythonplugin.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--grpc-python-plugin-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_KNOWN_VERSIONS'
+  default_repr={`[\n  "1.32.0|macos_arm64 |b2db586656463841aa2fd4aab34fb6bd3ef887b522d80e4f2f292146c357f533|6215304",\n  "1.32.0|macos_x86_64|b2db586656463841aa2fd4aab34fb6bd3ef887b522d80e4f2f292146c357f533|6215304",\n  "1.32.0|linux_arm64 |9365e728c603d64735963074340994245d324712344f63557ef3630864dd9f52|5233664",\n  "1.32.0|linux_x86_64|1af99df9bf733c17a75cbe379f3f9d9ff1627d8a8035ea057c3c78575afe1687|4965728"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+
+```
+digest of the download file, as emitted by `shasum -a 256`
+```
+
+- `length` is the expected length of the download file in bytes, as emitted by
+
+```
+`wc -c`
+```
+
+- (Optional) `url_override` is a specific url to use instead of the normally
+
+```
+generated url for this version
+```
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--grpc-python-plugin-url-template=<str>`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_URL_TEMPLATE'
+  default_repr={`https://binaries.pantsbuild.org/bin/grpc_python_plugin/{version}/{platform}/grpc_python_plugin`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.19/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--grpc-python-plugin-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_URL_PLATFORM_MAPPING'
+  default_repr={`{\n  "linux_arm64": "linux/arm64",\n  "linux_x86_64": "linux/x86_64",\n  "macos_arm64": "macos/x86_64",\n  "macos_x86_64": "macos/x86_64"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--grpc-python-plugin-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_USE_UNSUPPORTED_VERSION'
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of grpcpythonplugin is not supported.
+
+Supported grpcpythonplugin versions: unspecified
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

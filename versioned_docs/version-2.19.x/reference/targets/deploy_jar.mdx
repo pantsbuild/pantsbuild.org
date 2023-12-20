@@ -1,0 +1,180 @@
+---
+title: deploy_jar
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A `jar` file with first and third-party code bundled for deploys.
+
+The JAR will contain class files for both first-party code and third-party dependencies, all in a common directory structure.
+
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `restartable`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Where the built asset should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
+
+When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `main`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
+
+</Field>
+
+## `jdk`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `duplicate_policy`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`(duplicate_rule(pattern='^META-INF/services/', action='concat_text'), duplicate_rule(pattern='^META-INF/LICENSE', action='skip'))`}
+>
+
+A list of the rules to apply when duplicate file entries are found in the final assembled JAR file.
+
+When defining a duplicate policy, just add `duplicate_rule` directives to this field as follows:
+
+Example:
+
+```
+duplicate_policy=[
+    duplicate_rule(pattern="^META-INF/services", action="concat_text"),
+    duplicate_rule(pattern="^reference\.conf", action="concat_text"),
+    duplicate_rule(pattern="^org/apache/commons", action="throw"),
+]
+```
+
+Where:
+
+- The `pattern` field is treated as a regular expression
+- The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
+
+Note that the order in which the rules are listed is relevant.
+
+</Field>
+
+## `shading_rules`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Shading rules to be applied to the final JAR artifact.
+
+There are 4 possible shading rules available, which are as follows:
+
+- `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
+- `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
+- `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
+- `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
+
+When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
+
+</Field>
+
+## `exclude_files`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A list of patterns to exclude from the final jar.
+
+</Field>
+
+</span>

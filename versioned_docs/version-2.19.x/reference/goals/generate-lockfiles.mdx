@@ -1,0 +1,90 @@
+---
+title: generate-lockfiles
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants generate-lockfiles [args]
+```
+
+Generate lockfiles for third-party dependencies.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[generate-lockfiles]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `resolve`
+
+<Option
+  cli_repr={`--generate-lockfiles-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GENERATE_LOCKFILES_RESOLVE'
+  default_repr={`[]`}
+>
+
+Only generate lockfiles for the specified resolve(s).
+
+Resolves are the logical names for the different lockfiles used in your project. For your own code&#x27;s dependencies, these come from backend-specific configuration such as `[python].resolves`. For tool lockfiles, resolve names are the options scope for that tool such as `black`, `pytest`, and `mypy-protobuf`.
+
+For example, you can run `scie-pants-linux-x86_64 generate-lockfiles --resolve=black --resolve=pytest --resolve=data-science` to only generate lockfiles for those two tools and your resolve named `data-science`.
+
+If you specify an invalid resolve name, like &#x27;fake&#x27;, Pants will output all possible values.
+
+If not specified, Pants will generate lockfiles for all resolves.
+
+</Option>
+
+### `diff`
+
+<Option
+  cli_repr={`--[no-]generate-lockfiles-diff`}
+  env_repr='PANTS_GENERATE_LOCKFILES_DIFF'
+  default_repr={`True`}
+>
+
+Print a summary of changed distributions after generating the lockfile.
+
+</Option>
+
+### `diff_include_unchanged`
+
+<Option
+  cli_repr={`--[no-]generate-lockfiles-diff-include-unchanged`}
+  env_repr='PANTS_GENERATE_LOCKFILES_DIFF_INCLUDE_UNCHANGED'
+  default_repr={`False`}
+>
+
+Include unchanged distributions in the diff summary output. Implies `diff=true`.
+
+</Option>
+
+## Advanced options
+
+### `custom_command`
+
+<Option
+  cli_repr={`--generate-lockfiles-custom-command=<str>`}
+  env_repr='PANTS_GENERATE_LOCKFILES_CUSTOM_COMMAND'
+  default_repr={`None`}
+>
+
+If set, lockfile headers will say to run this command to regenerate the lockfile, rather than running `scie-pants-linux-x86_64 generate-lockfiles --resolve=<name>` like normal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+
+</span>

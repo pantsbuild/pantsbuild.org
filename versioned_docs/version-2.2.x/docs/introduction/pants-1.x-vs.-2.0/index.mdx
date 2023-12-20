@@ -1,0 +1,22 @@
+---
+    title: Pants 1.x vs. 2.0
+    position: 3
+---
+
+The main differences between Pants 1.x and 2.x.
+
+---
+
+:::tip New user? you can skip this page
+This page is intended for current Pants users still on the 1.x series. If you are trying Pants for a new project, you should already be using Pants 2.0, so you can ignore this page.
+:::
+
+Pants 1.x supported the original, "v1", execution engine, and the build logic that ran on it, including support for Python, Java, Scala, Node and Go.
+
+Recent versions in the 1.x series also supported the new, "v2", execution engine, which is a complete, ground-up redesign, based on lessons learned from v1.
+
+The v2 engine is written in Rust, for performance. The build rules that it uses are written in typed Python 3, for familiarity and simplicity. The v2 engine is designed so that fine-grained invalidation, concurrency, hermeticity, caching and remote execution happen naturally, without rule authors needing to think about it.
+
+Pants 2.x currently supports Python. Support for Java, Scala and other languages coming soon.
+
+See [here](./how-to-upgrade.mdx) for help on upgrading to Pants 2.0.

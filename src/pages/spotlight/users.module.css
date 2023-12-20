@@ -1,0 +1,13 @@
+.userLogo {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.bigOrg {
+  font-size: 4rem;
+  color: black;
+}
+
+[data-theme="dark"] .usersContainer {
+  background-color: rgb(200, 200, 200);
+}

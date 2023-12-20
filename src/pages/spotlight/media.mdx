@@ -1,0 +1,486 @@
+import Link from "@docusaurus/Link";
+import Heading from "@theme/Heading";
+
+export function Card({ children, header, date, href, title, extraLink }) {
+  return (
+    <div className="card margin-bottom--md">
+      <div className="card__header">
+        <Heading as="h3" className="margin-bottom--xs">
+          {header}
+        </Heading>
+        <small class="avatar__subtitle">
+          {date && <span>{date} &nbsp;</span>}
+          <Link to={href}>{title ? `"${title}"` : href}</Link>
+
+          {extraLink && (
+            <div>
+              &nbsp;
+              <Link to={extraLink.href}>
+                {extraLink.title ? `${extraLink.title}` : extraLink.href}
+              </Link>
+            </div>
+          )}
+        </small>
+      </div>
+      <div class="card__body">{children}</div>
+    </div>
+
+);
+}
+
+# Resource hub
+
+Learn more about Pants and related topics from these talks, posts and podcasts featuring Pants contributors and users.
+
+---
+
+## Case Studies
+
+<Card
+  header="Tweag"
+  date="January 3, 2023"
+  href="https://blog.pantsbuild.org/tweag-case-study/"
+  title="From adopting Pants, to generalizing our CI to multiple Python versions"
+>
+  Describes why and how the maintainers of Bazel's Haskell rules chose to use
+  Pants for a client's Python monorepo. Also covers some gotchas for newcomers.
+</Card>
+
+<Card
+  header="Oxbotica"
+  date="November 4, 2022"
+  href="https://blog.pantsbuild.org/introducing-pants-to-oxbotica/"
+  title="Introducing Pants to Oxbotica"
+>
+  Self-driving vehicle company's successful journey to adopting Pants locally
+  and in CI.
+</Card>
+
+<Card
+  header="Coinbase"
+  date="September 1, 2022"
+  href="https://blog.coinbase.com/building-a-python-ecosystem-for-efficient-and-reliable-development-d986c97a94a0"
+  title="Part 1: Building a Python ecosystem for efficient and reliable development"
+>
+  Describes how the company developed an efficient, reliable Python ecosystem
+  using Pants, and solved the challenge of managing Python applications at a
+  large scale at Coinbase.
+</Card>
+
+<Card
+  header="Coinbase"
+  date="October 27, 2022"
+  href="https://www.coinbase.com/blog/part-2-building-a-python-ecosystem-for-efficient-and-reliable-development"
+  title="Part 2: Building a Python ecosystem for efficient and reliable development"
+>
+  Explains the technical details of the continuous integration/continuous
+  delivery (CI/CD) infrastructure and dependency management of the company's
+  Python ecosystem.
+</Card>
+
+<Card
+  header="IBM Developer Blog"
+  date="August 24, 2022"
+  href="https://developer.ibm.com/blogs/case-study-incrementally-migrating-a-python-monorepo-from-bazel-to-pants/"
+  title="Incrementally migrating a Python monorepo from Bazel to Pants"
+>
+  Watson Orders is an IBM Silicon Valley based technology development group
+  targeting the development of world-class conversational AI. This posts walks
+  through the process of migrating off Bazel, where they maintained 19,000 lines
+  of BUILD file metadata, to Pants where that was slashed to 2,400 lines thanks
+  to [dependency
+  inference](/docs/introduction/how-does-pants-work#dependency-inference). CI
+  build time for PRs dropped from 10-12 minutes with Bazel to under 4 minutes
+  with Pants.
+</Card>
+
+<Card
+  header="Astranis Space Technologies"
+  date="August 12, 2022"
+  href="https://blog.pantsbuild.org/astranis-case-study-wrangling-python-in-a-monorepo/"
+  title="Astranis Case Study: Wrangling Python In a Monorepo"
+>
+  > ...We found it incredibly easy to hook in our existing remote caching
+  systems to Pants, and added other nice features like running tailor in a
+  check-only mode to highlight any inconsistencies in our repo. As a side
+  benefit, Pants has helped us gain better insight into our repository by being
+  able to easily scan for and report the transitive dependencies of modules.
+  Having that insight has helped us plan out how to minimize the coupling of our
+  modules...
+</Card>
+
+<Card
+  header="Twitter Engineering"
+  date="December 31, 2021"
+  href="https://blog.twitter.com/engineering/en_us/topics/infrastructure/2021/advancing-jupyter-notebooks-at-twitter---part-1--a-first-class-d"
+  title="Advancing Jupyter Notebooks at Twitter - Part 1"
+>
+  About the intersection of Twitter data science, monorepos, Pants, Pex, and the
+  [pants-jupyter-plugin](https://github.com/pantsbuild/pants-jupyter-plugin).
+</Card>
+
+<Card
+  header="iManage"
+  date="October 2, 2021"
+  href="https://g-cassie.github.io/2021/10/02/django-pants.html"
+  title="Putting Pants On: One Thing We Did Right After 5 Years with Django"
+></Card>
+
+---
+
+## Tutorials
+
+<Card
+  header="Doctrine.fr Engineering blog"
+  date="Nov 25, 2022"
+  href="https://medium.com/doctrine/industrialized-python-code-with-pylint-plugins-in-pants-321d9cbad07a"
+  title="Industrialized Python code with Pylint plugins in Pants"
+>
+  What if you needed to put strict code convention rules through a linter and
+  apply them with the help of Pants?
+</Card>
+
+<Card
+  header="Suresh Joshi"
+  date="April 4, 2022"
+  href="https://sureshjoshi.com/development/pants-plugin-code-quality"
+  title="It's Pants Plugins All the Way Down"
+>
+  A follow-up to "Your first Pants plugin" detailing how to manage code quality
+  via plugins, continuous integration checks, and pre-commit hooks.
+</Card>
+
+<Card
+  header="Suresh Joshi"
+  date="January 25, 2022"
+  href="https://sureshjoshi.com/development/first-pants-plugin"
+  title="Your first Pants plugin"
+>
+  A newcomer's walk-through of the code and experience of writing one's first
+  Pants plugin.
+</Card>
+
+<Card
+  header="Gordon Cassie"
+  date="October 30, 2021"
+  href="https://g-cassie.github.io/2021/10/30/django-pants-tutorial-pt1.html"
+  title="Getting Started With Pants and Django"
+></Card>
+
+---
+
+## Podcasts
+
+<Card
+  header="The Real Python Podcast"
+  date="December 16, 2022"
+  title="Episode 137: Start Using a Build System & Continuous Integration in Python"
+>
+  What advantages can a build system provide for a Python developer? What new
+  skills are required when working with a team of developers? Pants core
+  maintainer and co-author Benjy Weinberger discusses Pants and getting started
+  with continuous integration (CI).
+</Card>
+
+<Card
+  header="Happy Path Programming Podcast"
+  date="December 16, 2022"
+  href="https://anchor.fm/happypathprogramming/episodes/72-Pants-Makes-Developers-Happier--More-Productive-with-Benjy-Weinberger-e1sc1uj"
+  title="Episode 72: Pants Makes Developers Happier and More Productive, with Benjy Weinberger"
+></Card>
+
+<Card
+  header="Humans of Devops"
+  date="March 7, 2022"
+  href="https://audioboom.com/posts/8043212-the-curse-of-knowledge-with-eric-arellano-and-nick-grisafi"
+  title="Season 3, Episode 69: The Curse of Knowledge"
+>
+  Pants core maintainer Eric Arellano and Pants contributor Nick Grisafi discuss
+  what Pants team has learned from philosophical concepts such as The Curse of
+  Knowledge, Beginners Mind, and The Power of the Outsider.
+</Card>
+
+<Card
+  header="Podcast.__init__"
+  date="February 14, 2022"
+  href="https://www.pythonpodcast.com/pants-software-development-lifecycle-tool-episode-352/"
+  title="Episode 352: Simplify And Scale Your Software Development Cycles By Putting On Pants (Build Tool)"
+>
+  Pants core maintainers Stu Hood, Eric Arellano, and Andreas Stenius guest.
+</Card>
+
+<Card
+  header="Software Engineering Daily"
+  date="January 17, 2022"
+  href="https://softwareengineeringdaily.com/2022/01/17/build-tools-with-benjy-weinberger/"
+  title="Build Tools with Benjy Weinberger"
+></Card>
+
+<Card
+  header="Semaphore Uncut"
+  date="April 13, 2021"
+  href="https://semaphoreci.com/blog/monorepo-building-at-scale"
+  title="Episode 33: Monorepo and Building at Scale"
+>
+  Pants core maintainer Benjy Weinberger guests.
+</Card>
+
+<Card
+  header="Angelneers"
+  date="February 12, 2021"
+  href="https://angelneers.com/podcast/28-shifting-build-execution-paradigm/"
+  title="Episode 28: Shifting Build Execution Paradigm"
+>
+  Pants core maintainer Benjy Weinberger guests.
+</Card>
+
+<Card
+  header="Podcast.__init__"
+  date="November 23, 2020"
+  href="https://www.pythonpodcast.com/pants-monorepo-build-tool-episode-290/"
+  title="Episode 290: Pants Has Got Your Python Monorepo Covered"
+>
+  Pants core maintainers Stu Hood and Eric Arellano guest.
+</Card>
+
+## Posts & Articles
+
+<Card
+  header="Inside Doctrine"
+  date="November 25, 2022"
+  href="https://medium.com/doctrine/industrialized-python-code-with-pylint-plugins-in-pants-321d9cbad07a"
+  title="Industrialized python code with Pylint plugins in Pants"
+></Card>
+
+<Card
+  header="Dev.to"
+  date="July 25, 2022"
+  href="https://dev.to/benjyw/better-cicd-caching-with-new-gen-build-systems-3aem"
+  title="Better CI/CD caching with new-gen build systems"
+>
+  How the cache solutions offered by CI providers work, why they are often of
+  limited benefit, and how Pants supports a much more effective caching
+  paradigm.
+</Card>
+
+<Card
+  header="Software Development Times"
+  date="January 18, 2022"
+  href="https://sdtimes.com/softwaredev/the-monorepo-approach-to-code-management/"
+  title="The monorepo approach to code management"
+>
+  > "If you're responsible for your organization's codebase architecture, then
+  at some point you have to make some emphatic choices about how to manage
+  growth in a scalable way..."
+</Card>
+
+<Card
+  header="Semaphore Blog"
+  date="June 9, 2021"
+  href="https://t.co/WuXPqwQ9KX"
+  title="Building Python Projects at Scale with Pants"
+></Card>
+
+<Card
+  header="Towards Data Science"
+  date="Sept 3, 2020"
+  href="https://towardsdatascience.com/building-a-monorepo-for-data-science-with-pantsbuild-2f77b9ee14bd"
+  title="Building a monorepo for Data Science with Pants Build"
+></Card>
+
+## Talks
+
+<Card
+  header="AWS Community Day Bay Area 2022"
+  date="September 9, 2022"
+  href="https://www.youtube.com/watch?v=bLBpM3I3GHw"
+  title="When Projects Grow: CI/CD at scale"
+>
+  Pants maintainer Josh Reed gives a talk about the challenges about running CI
+  on a large monolith codebase, and mentions Pants as part of the ensemble of
+  soultions to help wrangle the complexity that comes with scale.
+</Card>
+
+<Card
+  header="Pycon 2022"
+  date="April 24, 2022"
+  href="https://www.youtube.com/watch?v=0INmW9KaAp4"
+  title='"Hermetic Environments in Pantsbuild" aka "Fast and Reproducible Tests, Packaging, and Deploys with Pantsbuild"'
+  extraLink={{
+    title: "[Slides]",
+    href: "https://speakerdeck.com/chrisjrn/hermetic-environments-in-pantsbuild-31d03419-8a15-4cd3-9041-b817b8924b3c",
+  }}
+>
+  Pants maintainer Chris Neugebauer gives a deep dive into the sandboxing model
+  used by Pants, the priorities driving its design, and the pros and cons.
+</Card>
+
+<Card
+  header="Pycon 2022 - Lightning Talks"
+  date="April 23, 2022"
+  href="https://youtu.be/r-rpo4Xm_lM?t=2799"
+  title="Stop Running Your Tests"
+>
+  Chris Neugebauer gives a swift and cheeky introduction to Pants.
+</Card>
+
+<Card
+  header="EuroPython 2021"
+  title="Python monorepos: what, why and how"
+  date="July 30, 2021"
+  href="https://www.youtube.com/watch?v=p4stnR1gCR4"
+  extraLink={{
+    title: "[Slides]",
+    href: "https://speakerdeck.com/benjyw/python-monorepos-what-why-and-how-europython-2021",
+  }}
+>
+  A discussion of the advantages of monorepos for Python codebases, and the
+  kinds of tooling and processes we can use to make working in a Python monorepo
+  effective.
+</Card>
+
+<Card
+  header="Build Meetup 2021"
+  title="Faster Incremental Builds with Speculation"
+  date="June 24, 2021"
+  href="https://meetup.build/"
+></Card>
+
+<Card
+  header="Djangocon Europe 2021"
+  title="Managing Multiple Django Services in a Single Repo"
+  date="June 3, 2021"
+  href="https://www.youtube.com/watch?v=Glillzb_TqQ"
+></Card>
+
+<Card
+  header="Pyninsula Meetup"
+  title="Effective Python Monorepos with the Pants Build System"
+  date="May 25, 2021"
+  href="https://youtu.be/a15T-D-f9a8?t=1225"
+></Card>
+
+<Card
+  header="Pycon 2021"
+  title="Creating Extensible Workflows With Off-Label Use of Python"
+  date="May 14, 2021"
+  href="https://youtu.be/HA5gzP4Ncaohref="
+  extraLink={{
+    title: "[Slides]",
+    href: "https://speakerdeck.com/benjyw/creating-extensible-workflows-with-off-label-use-of-python",
+  }}
+>
+  A dive into how Pants 2 benefits from making unconventional use of certain
+  Python 3 features.
+</Card>
+
+<Card
+  header="Pycon 2021"
+  title="Cuándo Usar Extensiones Nativas en Rust: Rendimiento Accesible y Seguro"
+  date="May 14, 2021"
+  href="https://youtu.be/gMFY0uUQexE"
+  extraLink={{
+    title: "[Slides]",
+    href: "https://speakerdeck.com/ericarellano/cuando-usar-extensiones-nativas-en-rust-rendimiento-accesible-y-seguro",
+  }}
+>
+  Cuando hay problemas de rendimiento, las extensiones nativas de Python se
+  empoderan para mejorar el rendimiento del "critical path", y también seguir
+  usando Python y evitar una reinscripción costosa.
+</Card>
+
+<Card
+  header="Pycon Israel 2021"
+  title="Python Monorepos: What, Why, and How"
+  date="May 3, 2021"
+  href="https://www.youtube.com/watch?v=N6ENyH4_r8U"
+  extraLink={{
+    title: "[Slides]",
+    href: "https://speakerdeck.com/benjyw/python-monorepos-what-why-and-how",
+  }}
+></Card>
+
+<Card
+  header="SF Python Meetup"
+  title="How the Pants Build System Leverages Python 3 Features"
+  date="May 13, 2020"
+  href="https://www.youtube.com/watch?v=mLyW6oAExW0"
+  extraLink={{
+    title: "[Slides]",
+    href: "https://speakerdeck.com/benjyw/how-the-pants-build-system-leverages-python-3-features",
+  }}
+></Card>
+
+---
+
+## Repositories
+
+<Card
+  header="Example: Python with Pants and PEX"
+  href="https://github.com/StephanErb/pexample"
+>
+  A running example of the Pants Build system and Python packaging with PEX.
+</Card>
+
+<Card
+  header="Example: Pylint custom linter rules for a Python project using Pants"
+  href="https://github.com/DoctrineLegal/demo-pants-pylint"
+>
+  A ready-to-use example of a repository that contains a Python project and
+  Pylint custom linter rules
+</Card>
+
+---
+
+## Press
+
+<Card
+  header="InfoWorld: A brief intro to the Pants build system"
+  title="A brief intro to the Pants build system"
+  date="February 17, 2022"
+  href="https://www.infoworld.com/article/3650508/a-brief-intro-to-the-pants-build-system.html"
+></Card>
+
+<Card
+  header="IT Technology Series"
+  title="New Preview Release Version of Pants Adds Support for Java, Scala, and Go"
+  date="December 6, 2021"
+  href="https://itechnologyseries.com/security/toolchain-releases-significant-update-to-the-pants-open-source-build-system/"
+></Card>
+
+<Card
+  header="Software Development Times"
+  title="SD Times Open Source Project of the Week: Pants"
+  date="December 3, 2021"
+  href="https://sdtimes.com/softwaredev/sd-times-open-source-project-of-the-week-pants/"
+></Card>
+
+<Card
+  header="Computer Weekly"
+  title="Pants is not pants, open source build system is good"
+  date="November 23, 2021"
+  href="https://www.computerweekly.com/blog/Open-Source-Insider/Pants-is-not-pants-open-source-build-system-is-good"
+></Card>
+
+---
+
+## Interviews
+
+<Card
+  header="TechStrong TV"
+  title="Open-Source Build"
+  date="December 14, 2021"
+  href="https://digitalanarchist.com/videos/featured-guests/open-source-build-toolchain-labs"
+>
+  Interview with long-time Pants maintainer Benjy Weinberger, who explains why
+  developers need a simpler open-source build system.
+</Card>
+
+<Card
+  header="InfoQ"
+  title="Pants Build System Adds Support for Java, Scala and Go"
+  date="November 20, 2021"
+  href="https://www.infoq.com/news/2021/11/pants-build-system-2/"
+>
+  Interview with long-time maintainer Benjy Weinberger.
+</Card>

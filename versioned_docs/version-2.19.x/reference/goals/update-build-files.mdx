@@ -1,0 +1,92 @@
+---
+title: update-build-files
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants update-build-files [args]
+```
+
+Format and fix safe deprecations in BUILD files.
+
+This does not handle the full Pants upgrade. You must still manually change `pants_version` in `pants.toml` and you may need to manually address some deprecations. See https://www.pantsbuild.org/v2.19/docs/upgrade-tips for upgrade tips.
+
+This goal is run without arguments. It will run over all BUILD files in your project.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[update-build-files]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `check`
+
+<Option
+  cli_repr={`--[no-]update-build-files-check`}
+  env_repr='PANTS_UPDATE_BUILD_FILES_CHECK'
+  default_repr={`False`}
+>
+
+Do not write changes to disk, only write back what would change. Return code 0 means there would be no changes, and 1 means that there would be.
+
+</Option>
+
+### `fmt`
+
+<Option
+  cli_repr={`--[no-]update-build-files-fmt`}
+  env_repr='PANTS_UPDATE_BUILD_FILES_FMT'
+  default_repr={`True`}
+>
+
+Format BUILD files using Black or Yapf.
+
+Set `[black].args` / `[yapf].args`, `[black].config` / `[yapf].config` , and `[black].config_discovery` / `[yapf].config_discovery` to change Black&#x27;s or Yapf&#x27;s behavior. Set `[black].interpreter_constraints` / `[yapf].interpreter_constraints` and `[python].interpreter_search_path` to change which interpreter is used to run the formatter.
+
+</Option>
+
+### `formatter`
+
+<Option
+  cli_repr={`--update-build-files-formatter=<Formatter>`}
+  env_repr='PANTS_UPDATE_BUILD_FILES_FORMATTER'
+  one_of='yapf, black'
+  default_repr={`black`}
+>
+
+Which formatter Pants should use to format BUILD files.
+
+</Option>
+
+### `fix_safe_deprecations`
+
+<Option
+  cli_repr={`--[no-]update-build-files-fix-safe-deprecations`}
+  env_repr='PANTS_UPDATE_BUILD_FILES_FIX_SAFE_DEPRECATIONS'
+  default_repr={`True`}
+>
+
+Automatically fix deprecations, such as target type renames, that are safe because they do not change semantics.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

@@ -1,0 +1,246 @@
+---
+hide_table_of_contents: true
+---
+
+import Link from "@docusaurus/Link";
+import Heading from "@theme/Heading";
+import clsx from "clsx";
+import styles from "./users.module.css";
+
+export function Header() {
+  return (
+    <section className="margin-top--lg margin-bottom--lg text--center">
+      <Heading as="h1">Who uses Pants</Heading>
+      <p>
+        Pants is making engineering teams productive and happy at a range of
+        companies and organizations.
+      </p>
+      <Link className="button button--primary" to="/404">
+        Add your organization or company
+      </Link>
+    </section>
+  );
+}
+
+export function MaybeImg({ src, alt }) {
+  if (src) {
+    return <img src={src} alt={alt} itemProp="image" />;
+  }
+  return <span className={clsx(styles.bigOrg)}>{alt}</span>;
+}
+
+export function User({ alt, href, asset }) {
+  return (
+    <div className={clsx("col", styles.userLogo)}>
+      <Link to={href}>
+        <MaybeImg src={asset} alt={alt} />
+      </Link>
+    </div>
+  );
+}
+
+export function Row({ children }) {
+  return (
+    <div className="row padding-top--lg padding-bottom--lg">{children}</div>
+  );
+}
+
+<Header />
+
+<div className={clsx("container", "text--center", styles.usersContainer)}>
+  <Row>
+    <User
+      alt="Aiven"
+      href="https://aiven.io/"
+      asset={require("./users/aiven.png").default}
+    />
+    <User
+      alt="Astranis"
+      href="https://www.astranis.com/"
+      asset={require("./users/astranis.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Aviva Credito"
+      href="https://www.avivacredito.com/"
+      asset={require("./users/aviva.png").default}
+    />
+    <User
+      alt="Brand24"
+      href="https://brand24.com/"
+      asset={require("./users/brand24.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Chartbeat"
+      href="https://chartbeat.com/"
+      asset={require("./users/chartbeat.png").default}
+    />
+    <User
+      alt="Coinbase"
+      href="https://www.coinbase.com/"
+      asset={require("./users/coinbase.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Doctrine"
+      href="https://www.doctrine.fr/"
+      asset={require("./users/doctrine.png").default}
+    />
+    <User
+      alt="Embark Studios"
+      href="https://www.embark-studios.com/"
+      asset={require("./users/embark.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="ESL Gaming"
+      href="https://about.eslgaming.com/"
+      asset={require("./users/esl.png").default}
+    />
+    <User
+      alt="ExoFlare"
+      href="https://www.exoflare.com/open-source/?utm_source=pants&utm_campaign=open_source"
+      asset={require("./users/exoflare.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Foursquare"
+      href="https://foursquare.com/"
+      asset={require("./users/foursquare.png").default}
+    />
+    <User
+      alt="Geminus"
+      href="https://www.geminus.ai/"
+      asset={require("./users/geminus.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Grapl"
+      href="https://www.graplsecurity.com/"
+      asset={require("./users/grapl.png").default}
+    />
+    <User
+      alt="HousingAnywhere"
+      href="https://housinganywhere.com/"
+      asset={require("./users/housing-anywhere.png").default}
+    />
+  </Row>
+  <Row>
+    <User alt="IBM" href="https://www.ibm.com/" />
+    <User
+      alt="iManage"
+      href="https://imanage.com/"
+      asset={require("./users/iManage.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Kaiko"
+      href="https://www.kaiko.ai/"
+      asset={require("./users/kaiko.png").default}
+    />
+    <User
+      alt="Lablup"
+      href="https://lablup.com/"
+      asset={require("./users/lablup.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Myst AI"
+      href="https://www.myst.ai/"
+      asset={require("./users/myst-ai.png").default}
+    />
+    <User
+      alt="Ocrolus"
+      href="https://www.ocrolus.com/"
+      asset={require("./users/ocrolus.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Orca Security"
+      href="https://orca.security/"
+      asset={require("./users/orca-security.png").default}
+    />
+    <User
+      alt="Pave"
+      href="https://www.pave.dev/"
+      asset={require("./users/pave.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Payhere"
+      href="https://payhere.in/"
+      asset={require("./users/payhere.png").default}
+    />
+    <User
+      alt="People Data Labs"
+      href="https://www.peopledatalabs.com/"
+      asset={require("./users/people-data-labs.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Ponder"
+      href="https://ponder.io/"
+      asset={require("./users/ponder.png").default}
+    />
+    <User
+      alt="Rippling"
+      href="https://www.rippling.com/"
+      asset={require("./users/rippling.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Salesforce"
+      href="https://salesforce.com/"
+      asset={require("./users/salesforce.png").default}
+    />
+    <User
+      alt="Snowfall"
+      href="https://snowfalltravel.com/"
+      asset={require("./users/snowfall.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Tessian"
+      href="https://www.tessian.com"
+      asset={require("./users/tessian.png").default}
+    />
+    <User
+      alt="Unit"
+      href="https://unit.co"
+      asset={require("./users/unit.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Valon"
+      href="https://valon.com/"
+      asset={require("./users/valon.png").default}
+    />
+    <User
+      alt="Vicara Solutions"
+      href="https://vicarasolutions.com/"
+      asset={require("./users/vicara-solutions.png").default}
+    />
+  </Row>
+  <Row>
+    <User
+      alt="Whisper"
+      href="https://whisper.ai/"
+      asset={require("./users/whisper.png").default}
+    />
+  </Row>
+</div>

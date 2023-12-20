@@ -1,0 +1,112 @@
+---
+    authors: [alexey]
+    tags: []
+---
+
+# Pants 2.16.0 is here!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  This bird is called a ... Ruff! Just so you know. Photo by
+  [peterichman](https://www.flickr.com/photos/145489125@N03/) used under [CC BY
+  2.0](https://creativecommons.org/licenses/by/2.0/)
+</CaptionedImg>
+
+{/* truncate */}
+
+We're very happy to announce Pants 2.16.0, the latest release of Pants.
+
+To upgrade, set `pants_version = "2.16.0"` in your `pants.toml` file. See [upgrade tips](https://www.pantsbuild.org/v2.16/docs/upgrade-tips) to learn more.
+
+And, if you haven't already, we highly recommend switching from the old `./pants` runner script to the new `pants` [launcher binary](https://www.pantsbuild.org/docs/installation).
+
+In terms of new features, 2.16.0 is one of our biggest releases ever! Read on to find out what's in the box.
+
+## Target visibility
+
+Pants 2.16's biggest new feature is [Target visibility](https://www.pantsbuild.org/v2.16/docs/validating-dependencies), unlocking support for controlling dependencies within the repository.
+
+The visibility backend lets you write rules that define allowed and forbidden dependencies between different parts of your repo. These rules may be set at any granularity, from entire directory trees down to a single file, as required.
+
+Visibility rules were one of our most requested features! Previously, "bad" dependencies could sneak in under the radar, particularly when relying on automatic [dependency inference](https://www.pantsbuild.org/v2.16/docs/how-does-pants-work#dependency-inference). Now, you can ensure that only dependencies that make sense for your repo architecture can exist.
+
+This is likely to have a profound effect on the structure of your repository, as it can enforce a clean interface between components and prevent unwanted cross-tier or cross-project dependencies. Given its significant scope, we published a blog post specifically about this feature. Please visit [Visibility features coming in Pants 2.16](../2023-04-25-visibility-feature-in-pants-2-16/index.mdx) to learn more.
+
+To help you get started, there's a [GitHub repository](https://github.com/pantsbuild/example-visibility) with a simple Python project where you will find some basic rules so that you could try to tweak them and explore.
+
+## ruff Python linter support
+
+The [`ruff`](https://github.com/astral-sh/ruff) linter is the new hotness in the Python world. Written in Rust, it performs thousands of times faster than equivalent tools written in pure Python. The Pants core is also written in Rust, and so we're big fans of the language and the powerful combo of Rust and Python. Therefore we're extra-happy to announce that Pants now supports ruff for linting and formatting Python code.
+
+If you haven't seen this tool yet, take a close look! It may speed up your build workflow a lot, particularly if you rely heavily on static code checks. Enable the
+`pants.backend.experimental.python.lint.ruff` backend to make ruff available in your repository.
+Ruff support was added by a [first time contributor](https://github.com/pantsbuild/pants/pull/17945)! We're very grateful and excited to have new people coming on board and making such substantial changes. And this could be you! If you have a feature you'd like to add or a bug you need to fix, come talk to us [on Slack](https://www.pantsbuild.org/v2.16/docs/getting-help#community-chat). We'd love to help guide you through the contribution process.
+
+You can find more information about the linter addition process in a separate blog post. Please read [Linting Python at warp speed with Pants+Ruff](../2023-02-28-linting-python-at-warp-speed/index.mdx) to find out more.
+
+## yamllint linter support
+
+Pants now supports the [yamllint](https://yamllint.readthedocs.io) linter for inspecting YAML files. Enable the `pants.backend.experimental.tools.yamllint` backend to make it available in your repository.
+
+In fact, `yamllint` support, too, was added by a [first time contributor](https://github.com/pantsbuild/pants/pull/17821)! It's great to see the community growing with so many substantial contributions from newcomers.
+
+## pydocstyle linter support
+
+[`pydocstyle`](https://www.pydocstyle.org/) is now supported for linting Python docstrings. Enable the `pants.backend.python.lint.pydocstyle` backend to make it available in your repository.
+
+## Auto-installation of Python interpreters via pyenv
+
+Pants can now use [`pyenv`](https://github.com/pyenv/pyenv) to install Python interpreters for you! No more messing around with manually placing the right interpreter versions for your code on the PATH! Now Pants can now provide a hermetic version of Python for each relevant interpreter required to run user code. Enable the `pants.backend.python.providers.experimental.pyenv` backend to make it available in your repository. See our [separate blog post](../2023-03-31-two-hermetic-pythons/index.mdx) for more on this feature.
+
+## Shell command improvements and running ad hoc tools
+
+The Shell backend, along with the new `pants.backend.experimental.adhoc` backend, have received a number of major improvements. These allow Pants to invoke workflows that include tools for which Pants does not yet have a dedicated backend.
+
+In recognition of this, the `pants.backend.shell` backend has now been stabilized: `shell_command` and `run_shell_command` no longer have the `experimental` prefix, and are recommended for use for tasks like code generation and reusable commands by running an arbitrary shell script. This stabilization includes [a number of deprecations and changes](https://github.com/pantsbuild/pants/blob/2.16.x/src/python/pants/notes/2.16.x.md#shell-command-improvements-and-support-for-ad-hoc-tools).
+
+For example, the `adhoc` backend lets you run an arbitrary Go binary, Python or JavaScript script before running certain tests, or generate code artifacts such as bindings or schema files necessary for your build workflow. Make sure to review the [Integrating new tools without plugins](https://www.pantsbuild.org/v2.16/docs/adhoc-tool) documentation page and explore the [example-adhoc](https://github.com/pantsbuild/example-adhoc/tree/main) GitHub repository that features various use cases.
+
+## Using `env` function BUILD files
+
+With the help of the new `env` function, you can now access environment variables in your BUILD files. This may be helpful when you need to be able to parametrize your build targets to be able to pass field values dynamically. For example, you could set the version of a Python distribution target (for example with the environment variable set to the result of a Git command execution) or skip running certain static checks when building on a particular operating system.
+
+## Preamble plugin
+
+The new "preamble" plugin allows formatting/linting files to ensure they start with specific text, such as a copyright header. This backend can be used instead of (or in addition to) the [regex-lint](https://www.pantsbuild.org/v2.16/docs/reference-regex-lint) backend which could lint your code using regex patterns. Enable the `pants.backend.tools.preamble` backend to add this support.
+
+## CUE language support
+
+Pants now have basic support for the [CUE language](https://cuelang.org/) for defining, generating, and validating configuration data. Enable the `pants.backend.experimental.cue` backend to make it available in your repository.
+
+## Go
+
+The Go backend has received a large number of changes in order to be ready for Go v1.20
+and to make continued progress on [stabilizing the Go backend](https://github.com/pantsbuild/pants/issues/17447).
+
+The main change is that Pants will now compile Go SDK packages from scratch and no longer rely on the prebuilt package archives distributed with the Go SDK. Go v1.20 will no longer ship with those prebuilt package archives, and so this change was necessary for Pants to continue to work with Go v1.20 and later releases.
+
+## Other notable changes
+
+- A new `symbols` topic was added to the help goal: `pants help symbols` provides a list of available BUILD file symbols which will help when troubleshooting or learning about the BUILD files syntax
+- the `tailor` goal was extended to produce resource targets for `py.typed` marker files that make it possible for `mypy` and other compatible type checkers to regard the Python package as typed
+- the [`python-infer`](https://www.pantsbuild.org/v2.16/docs/reference-python-infer#ignored_unowned_imports) subsystem was extended to let users provide unowned imports that should be ignored during dependency discovery. This will make it easier to ignore multiple modules when adding many `# pants: no-infer-dep` pragmas would be impractical.
+- the `generate-lockfiles` goal was extended with the [`--diff`](https://www.pantsbuild.org/v2.16/docs/reference-generate-lockfiles#diff) flag that reports a summary of changes to requirements made after generating the lockfile.
+- the special Python "tool lockfile" functionality is deprecated. It is now possible to use regular "user lockfiles" to provide custom versions of tools.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.16.x.md) for more changes, along with our [plugin upgrade guide](https://www.pantsbuild.org/docs/plugin-upgrade-guide).
+
+---
+
+Try out one of our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc/)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)
+
+We're grateful as always for the growth of the Pants community, the increase in users, contributors, PRs and features. 2.16.0 was a slog, but it's finally here, and we're so excited for you to try it!

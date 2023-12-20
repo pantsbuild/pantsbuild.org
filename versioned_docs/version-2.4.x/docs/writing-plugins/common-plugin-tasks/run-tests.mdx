@@ -1,0 +1,50 @@
+---
+    title: Run tests
+    position: 7
+---
+
+How to add a new test runner to the `test` goal.
+
+---
+
+:::note Example repository
+This guide walks through adding a simple `test` implementation for Bash that runs the `shunit2` test runner. See [here](https://github.com/pantsbuild/example-plugin/blob/main/pants-plugins/examples/bash/shunit2_test_runner.py) for the final implementation.
+:::
+
+## 1. Set up a tests target type
+
+Usually, you will want to add a "tests" target type for your language, such as `bash_tests` or `python_tests`. A binary target contrasts with a "library" target, such as `bash_library`. A test target is useful so that `./pants test ::` doesn't try to run tests on non-test files.
+
+When creating a tests target, you should usually subclass the `Sources` field and set the `default`. You may also want to create a `Timeout` field, which should subclass `IntField`.
+
+See [Creating new targets](../the-target-api/creating-new-targets.mdx) for a guide on how to define new target types.
+
+```python
+from pants.engine.target import COMMON_TARGET_FIELDS, Dependencies, IntField, Sources, Target
+
+class BashSources(Sources):
+    expected_file_extensions = (".sh",)
+
+
+class BashTestSources(BashSources):
+    default = ("*_test.sh", "test_*.sh")
+
+
+class BashTestTimeout(IntField):
+     """Whether to time out after a certain amount of time.
+
+      If unset, the test will never time out.
+      """
+
+     alias = "timeout"
+
+
+class BashTests(Target):
+    """Bash tests that are run via `shunit2`."""
+
+    alias = "bash_tests"
+    core_fields = (*COMMON_TARGET_FIELDS, Dependencies, BashTestSources, BashTestTimeout)
+
+```
+
+## 2. Set up a subclass of `TestFieldSet`

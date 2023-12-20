@@ -1,0 +1,80 @@
+---
+title: sourcefile-validation
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Configuration for source file validation.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[sourcefile-validation]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `config`
+
+<Option
+  cli_repr={`--sourcefile-validation-config="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SOURCEFILE_VALIDATION_CONFIG'
+  default_repr={`{}`}
+>
+
+Config schema is as follows:
+
+&#123;
+&#x27;path_patterns&#x27;: [
+
+```
+{
+  'name': path_pattern1',
+  'pattern': <path regex pattern>,
+  'inverted': True|False (defaults to False),
+  'content_encoding': <encoding> (defaults to utf8)
+},
+...
+```
+
+],
+&#x27;content_patterns&#x27;: [
+
+```
+{
+  'name': 'content_pattern1',
+  'pattern': <content regex pattern>,
+  'inverted': True|False (defaults to False)
+}
+...
+```
+
+],
+&#x27;required_matches&#x27;: &#123;
+
+```
+'path_pattern1': [content_pattern1, content_pattern2],
+'path_pattern2': [content_pattern1, content_pattern3],
+...
+```
+
+}
+&#125;
+
+Meaning: if a file matches some path pattern, its content must match all
+the corresponding content patterns.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,56 @@
+---
+title: experimental-explorer
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants experimental-explorer [args]
+```
+
+Run the Pants Explorer Web UI server.
+
+Backend: <span className="color--primary">`pants.goal`</span>
+
+Config section: <span className="color--primary">`[experimental-explorer]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `address`
+
+<Option
+  cli_repr={`--experimental-explorer-address=<str>`}
+  env_repr='PANTS_EXPERIMENTAL_EXPLORER_ADDRESS'
+  default_repr={`localhost`}
+>
+
+Server address to bind to.
+
+</Option>
+
+### `port`
+
+<Option
+  cli_repr={`--experimental-explorer-port=<int>`}
+  env_repr='PANTS_EXPERIMENTAL_EXPLORER_PORT'
+  default_repr={`8000`}
+>
+
+Server port to bind to.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

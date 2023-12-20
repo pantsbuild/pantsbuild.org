@@ -1,0 +1,282 @@
+---
+    authors: [joshua]
+    tags: [docker,python]
+---
+
+# Optimizing Python + Docker deploys using Pants
+
+<CaptionedImg src={require("./splash.png").default}>
+  The Python and Docker logos, with a plus sign between them
+</CaptionedImg>
+
+Pants can build a PEX file, an executable zip file containing your Python code and all transitive dependencies. Deploying your application is as simple as copying the file. This post elaborates on how to get best performance out of the powerful combination of Pants+PEX+Docker.
+
+{/* truncate */}
+
+---
+
+The [Pantsbuild system](https://www.pantsbuild.org) ships with support for building an all-in-one distributable Python file called a [PEX](https://www.pantsbuild.org/docs/pex-files). A PEX file is an executable zip file containing your Python code and all its transitive dependencies. Deploying your Python application is as simple as copying a PEX file to a system or image with a suitable Python interpreter.
+
+Pants also supports building [Docker images](https://www.pantsbuild.org/docs/docker) and embedding code it packages into those images. With the combination of PEX+Docker, [Pants allows you](../2021-10-13-pants-pex-and-docker/index.mdx) to easily containerize your Python application with minimal boilerplate.
+
+This post builds off of our [previous post](../2021-10-13-pants-pex-and-docker/index.mdx) about Pants + PEX + Docker, and elaborates on how to squeeze the best build-time performance out of this powerful combination.
+
+## A very simple example
+
+```python title="BUILD"
+python_sources()
+
+pex_binary(
+    name = "binary",
+    entry_point = "app.py",
+    # Optimal settings for Docker builds
+    layout = "packed",
+    execution_mode = "venv",
+)
+
+docker_image(
+    name = "img",
+    repository = "app",
+    instructions = [
+        "FROM python:3.10-slim",
+        'ENTRYPOINT ["/usr/local/bin/python3.10", "/bin/app"]',
+        "COPY path.to.here/binary.pex /bin/app",
+    ]
+)
+```
+
+The example BUILD file above demonstrates how simple Pants makes building a docker image containing a Python application.
+
+In production environments, however, simplicity at build-time comes with trade-offs. Since a PEX is meant to be an all-in-one distributable, it has a few thorns when used as a container's entrypoint.
+
+- It must extract itself before it can run, increasing application startup times
+- After extraction, your running container has the PEX and the extracted contents on disk, increasing space required to run
+- Changing a first-party source file requires a full rebuild of the PEX and the container, which doesn't leverage Pants or Docker's caches
+
+### Metrics
+
+Using some metrics from a real-world use case (a PEX with 56 third-party requirements, a few large assets, and about a hundred source files) using DOCKER_BUILDKIT set to 1:
+
+|                               |        |
+| ----------------------------- | ------ |
+| PEX: Build time               | 10s    |
+| PEX: Size                     | ~3.3GB |
+| Docker: Total build time      | 30s    |
+| Docker: Context transfer time | ~3.3GB |
+| Docker: Export time           | 11s    |
+| Docker: Startup time          | 18s    |
+| Docker: Image size            | 3.63GB |
+
+Touching a 1stparty source results in similar metrics. I.e., we get no incrementality.
+
+## Simple Multi-Stage Build
+
+We can leverage Docker multi-stage builds and interesting PEX features to solve some of these challenges. Using [this recipe](https://pex.readthedocs.io/en/latest/recipes.html#pex-app-in-a-container) in PEX's documentation, we can:
+
+1.  Create a Python virtual environment containing only our third-party dependencies in one stage
+2.  Create an identical virtual environment containing only our first-party sources in another stage
+3.  COPY them both onto our final “production image” stage
+
+Our BUILD file becomes:
+
+```python title="BUILD"
+python_sources()
+
+pex_binary(
+    name = "binary",
+    entry_point = "app.py",
+    layout = "packed",
+    execution_mode = "venv",
+    include_tools = True,
+)
+
+docker_image(
+    name = "img",
+    repository = "app",
+    instructions = [
+        "FROM python:3.10-slim as deps",
+        "COPY path.to.here/binary.pex /binary.pex",
+        "RUN PEX_TOOLS=1 /usr/local/bin/python3.10 /binary.pex venv --scope=deps --compile /bin/app",
+
+        "FROM python:3.10-slim as srcs",
+        "COPY path.to.here/binary.pex /binary.pex",
+        "RUN PEX_TOOLS=1 /usr/local/bin/python3.10 /binary.pex venv --scope=srcs --compile /bin/app",
+
+        "FROM python:3.10-slim",
+        'ENTRYPOINT ["/bin/app/pex"]',
+        "COPY --from=deps /bin/app /bin/app",
+        "COPY --from=srcs /bin/app /bin/app",
+    ]
+)
+```
+
+This approach has several benefits:
+
+- It moves the extraction of the PEX to “build time” and also compiles each Python file, so that the application has the lowest-possible startup latency
+- Running the final image doesn't require any additional space
+- The `COPY  --from=deps` instruction in the final image can be cached between runs when only touching first-party code
+
+It also has some drawbacks:
+
+- Even though the final layer of the deps stage is re-used if deps don't change, the input PEX has changed, and so docker must still re-RUN the extraction
+- Having docker pre-extracting the PEX incurs extra build time
+
+### Metrics:
+
+|                               |                    |
+| ----------------------------- | ------------------ |
+| PEX: Build time               | 10s (unchanged)    |
+| PEX: Size                     | ~3.3GB (unchanged) |
+| Docker: Total build time      | 75.7s (+45.7s)     |
+| Docker: Context transfer time | 13.1s (unchanged)  |
+| Docker: Extract deps time     | 35.4s              |
+| Docker: Extract srcs time     | 22.5s              |
+| Docker: Export time           | 9.3s (unchanged)   |
+| Docker: Startup time          | \<1s (-17s)        |
+| Docker: Image size            | 5.01GB (+1.38GB)   |
+
+If we touch a first-party source (leveraging Docker's layer caches) here's what changes:
+
+|                               |                |
+| ----------------------------- | -------------- |
+| Docker: Total build time      | 59.7s (-16.9s) |
+| Docker: Context transfer time | ~0s (-13.1s)   |
+
+## Multi-stage build leveraging 2 PEXs
+
+In order to fully leverage Pants and Docker caches, we can split our all-in-one PEX into two: one for transitive third-party dependencies and one for first-party code.
+
+```python title="BUILD"
+python_sources()
+
+pex_binary(
+    name="binary-deps",
+    entry_point="app.py",
+
+layout="packed",
+    include_sources=False,
+    include_tools=True,
+)
+
+pex_binary(
+    name="binary-srcs",
+    entry_point="app.py",
+
+layout="packed",
+    include_requirements=False,
+    include_tools=True,
+)
+
+docker_image(
+    name = "img",
+
+repository = "app",
+    instructions = [
+        "FROM python:3.10-slim as deps",
+        "COPY path.to.here/binary-deps.pex /binary-deps.pex",
+        "RUN PEX_TOOLS=1 /usr/local/bin/python3.10 /binary-deps.pex venv --scope=deps --compile /bin/app",
+
+        "FROM python:3.10-slim as srcs",
+        "COPY path.to.here/binary-srcs.pex /binary-srcs.pex",
+        "RUN PEX_TOOLS=1 /usr/local/bin/python3.10 /binary-srcs.pex venv --scope=srcs --compile /bin/app",
+
+        "FROM python:3.10-slim",
+        'ENTRYPOINT ["/bin/app/pex"]',
+        "COPY --from=deps /bin/app /bin/app",
+        "COPY --from=srcs /bin/app /bin/app",
+    ]
+)
+```
+
+### Metrics
+
+|                               |                           |
+| ----------------------------- | ------------------------- |
+| Deps PEX: Build time          | 5s                        |
+| Deps PEX: Size                | 936MB                     |
+| Srcs PEX: Build time          | 5s                        |
+| Srcs PEX: Size                | 2.4GB                     |
+| Docker: Total build time      | 68.3s (roughly unchanged) |
+| Docker: Context transfer time | 13s (unchanged)           |
+| Docker: Extract deps time     | 30.2s (-5.2s)             |
+| Docker: Extract srcs time     | 7.9s (-14.s)              |
+| Docker: Export time           | 9.3s (unchanged)          |
+| Docker: Startup time          | \<1s                      |
+| Docker: Image size            | 5.01GB (unchanged)        |
+
+If we touch a first-party source (leveraging Pants and Docker's layer caches) here's what changes:
+
+|                               |               |
+| ----------------------------- | ------------- |
+| Deps PEX: Build time          | 0s (-5s)      |
+| Docker: Total build time      | 23s (-45.3s)  |
+| Docker: Context transfer time | ~0s (-13s)    |
+| Docker: Extract deps time     | 0s (-30.2s)   |
+| Docker: Extract srcs time     | 4.7s (-3.9.s) |
+
+## Multiple Images and tagging
+
+This approach leads to significant speedup in both the cold and warm build times, but it can be improved even further:
+
+- The important layers that allow for a faster incremental build aren't in an image, so they will get cleaned when docker is pruned
+- If we tell Pants to tag our image, docker will tag the intermediate images before tagging the final one, leading to two `<none>`\-tagged images in addition to the final, tagged, image
+
+We can fix this by using several `docker_image` targets in tandem:
+
+```python title="BUILD"
+...
+
+docker_image(
+    name = "img-deps",
+    repository="app",
+    registry=["companyname"],
+    image_tags=["deps"],
+    skip_push=True,
+    instructions = [
+        "FROM python:3.10-slim",
+        "COPY path.to.here/binary-deps.pex /",
+        "RUN PEX_TOOLS=1 /usr/local/bin/python3.10 /binary-deps.pex venv --scope=deps --compile /bin/app",
+    ]
+)
+
+docker_image(
+    name = "img-srcs",
+    repository="app",
+    registry=["companyname"],
+    image_tags=["srcs"],
+    skip_push=True,
+    instructions = [
+        "FROM python:3.10-slim",
+        "COPY path.to.here/binary-srcs.pex /",
+        "RUN PEX_TOOLS=1 /usr/local/bin/python3.10 /binary-srcs.pex venv --scope=srcs --compile /bin/app",
+    ]
+)
+
+docker_image(
+    name = "img",
+    dependencies=[":img-srcs", ":img-deps"],
+    repository="app",
+    instructions = [
+        "FROM python:3.10-slim",
+        'ENTRYPOINT ["/bin/app/pex"]',
+        "COPY --from=companyname/app:deps /bin/app /bin/app",
+        "COPY --from=companyname/app:srcs /bin/app /bin/app",
+    ]
+)
+```
+
+Pants will build the dependent images before building the final one. (Note the registry value “companyname” can be any string (or set the registry to an empty list), we just need to hardcode something that we can reference in the final image's COPY instructions).
+
+Now after building the image, we are free to prune untagged images and layers.
+
+## Further Optimizations
+
+There are avenues to squeezing even more performance out of this approach, such as declaring our large assets as files, and using a dedicated stage to COPY them into the virtual environment.
+
+Additionally, the above targets can all be wrapped into a handy [Pants macro](https://www.pantsbuild.org/docs/macros) for simplicity and re-usability.
+
+## In Conclusion
+
+Pants' support for Python and Docker is well-equipped to easily cater to varying business needs and interesting use-cases. And although support for everything listed here is primed and ready as of the upcoming Pants 2.13 release, the Pants community hopes to make even the most complex use-case (such as the final example) as simple to declare as the straightforward use-case (such as the first example) in future versions.
+
+If you want to learn more about Pants, PEX and how they can help you deploy Python applications efficiently, [come and say hi](https://www.pantsbuild.org/docs/getting-help) on Slack!

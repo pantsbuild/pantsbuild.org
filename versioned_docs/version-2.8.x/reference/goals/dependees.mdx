@@ -1,0 +1,93 @@
+---
+title: dependees
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants dependees [args]
+```
+
+List all targets that depend on any of the input files/targets.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[dependees]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--dependees-output-file=<path>`}
+  env_repr='PANTS_DEPENDEES_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--dependees-sep=<separator>`}
+  env_repr='PANTS_DEPENDEES_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `transitive`
+
+<Option
+  cli_repr={`--[no-]dependees-transitive`}
+  env_repr='PANTS_DEPENDEES_TRANSITIVE'
+  default_repr={`False`}
+>
+
+List all transitive dependees. If unspecified, list direct dependees only.
+
+</Option>
+
+### `closed`
+
+<Option
+  cli_repr={`--[no-]dependees-closed`}
+  env_repr='PANTS_DEPENDEES_CLOSED'
+  default_repr={`False`}
+>
+
+Include the input targets in the output, along with the dependees.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+### `output_format`
+
+<Option
+  cli_repr={`--dependees-output-format=<DependeesOutputFormat>`}
+  env_repr='PANTS_DEPENDEES_OUTPUT_FORMAT'
+  one_of='text, json'
+  default_repr={`text`}
+  removal_version='2.9.0.dev0'
+  removal_hint={'Use the `peek` goal for structured output, including dependencies.'}
+>
+
+Use `text` for a flattened list of target addresses; use `json` for each key to be the address of one of the specified targets, with its value being a list of that target&#x27;s dependees, e.g. `{':example': [':dep1', ':dep2']}`.
+
+</Option>
+
+</span>

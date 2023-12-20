@@ -1,0 +1,94 @@
+---
+title: python-bootstrap
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options used to locate Python interpreters.
+
+This subsystem controls where and how Pants will locate Python, but beyond that it does not control which Python interpreter versions are actually used for your code: see the `python` subsystem for that.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[python-bootstrap]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `internal_python_build_standalone_info`
+
+<Option
+  cli_repr={`--python-bootstrap-internal-python-build-standalone-info="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_INTERNAL_PYTHON_BUILD_STANDALONE_INFO'
+  default_repr={`{\n  "linux_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-aarch64-unknown-linux-gnu-install_only.tar.gz",\n    "1ba520c0db431c84305677f56eb9a4254f5097430ed443e92fc8617f8fba973d",\n    23873387\n  ],\n  "linux_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-x86_64-unknown-linux-gnu-install_only.tar.gz",\n    "7ba397787932393e65fc2fb9fcfabf54f2bb6751d5da2b45913cb25b2d493758",\n    26129729\n  ],\n  "macos_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-aarch64-apple-darwin-install_only.tar.gz",\n    "d732d212d42315ac27c6da3e0b69636737a8d72086c980daf844344c010cab80",\n    17084463\n  ],\n  "macos_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-x86_64-apple-darwin-install_only.tar.gz",\n    "3948384af5e8d4ee7e5ccc648322b99c1c5cf4979954ed5e6b3382c69d6db71e",\n    17059474\n  ]\n}`}
+>
+
+A map from platform to the information needed to download Python Build Standalone.
+
+Python Build Standalone is used to run Python-implemented Pants tools/scripts in docker environments (so that Python doesn&#x27;t need to be installed).
+
+The version of Python provided should match the default value&#x27;s version, which is the highest Python Major/Minor version compatible with the Pants package&#x27;s interpreter constraints. Additionally, the downloaded file should be extractable by `tar` using `-xvf` (most likely a `.tar.gz` file).
+
+The schema is `<string platform key>: (<string url>, <string fingerprint>, <int bytelen>)` for each possible platform.
+
+</Option>
+
+### `search_path`
+
+<Option
+  cli_repr={`--python-bootstrap-search-path="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_SEARCH_PATH'
+  default_repr={`[\n  "<PYENV>",\n  "<ASDF>",\n  "<PATH>"\n]`}
+  target_field_name='python_bootstrap_search_path'
+>
+
+A list of paths to search for Python interpreters.
+
+Which interpreters are actually used from these paths is context-specific: the Python backend selects interpreters using options on the `python` subsystem, in particular, the `[python].interpreter_constraints` option.
+
+You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter.
+
+The following special strings are supported:
+
+For all runtime environment types:
+
+- `<PATH>`, the contents of the PATH env var
+
+When the environment is a `local_environment` target:
+
+- `<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `<ASDF_LOCAL>`, the ASDF interpreter with the version in `BUILD_ROOT/.tool-versions`
+- `<PYENV>`, all Python versions under `$(pyenv root)/versions`
+- `<PYENV_LOCAL>`, the Pyenv interpreter with the version in `BUILD_ROOT/.python-version`
+- `<PEXRC>`, paths in the `PEX_PYTHON_PATH` variable in `/etc/pexrc` or `~/.pexrc`
+
+</Option>
+
+### `names`
+
+<Option
+  cli_repr={`--python-bootstrap-names="[<python-binary-names>, <python-binary-names>, ...]"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_NAMES'
+  default_repr={`[\n  "python",\n  "python3"\n]`}
+  target_field_name='python_bootstrap_names'
+>
+
+The names of Python binaries to search for. See the `--search-path` option to influence where interpreters are searched for.
+
+This does not impact which Python interpreter is used to run your code, only what is used to run internal tools.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

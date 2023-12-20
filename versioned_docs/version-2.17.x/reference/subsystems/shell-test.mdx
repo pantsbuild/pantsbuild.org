@@ -1,0 +1,40 @@
+---
+title: shell-test
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for Pants&#x27; Shell test support.
+
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+Config section: <span className="color--primary">`[shell-test]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]shell-test-skip`}
+  env_repr='PANTS_SHELL_TEST_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Test with shell scripts when running `scie-pants-linux-x86_64 test`.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

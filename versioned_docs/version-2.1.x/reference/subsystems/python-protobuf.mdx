@@ -1,0 +1,62 @@
+---
+title: python-protobuf
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options related to the Protobuf Python backend.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[python-protobuf]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `runtime_dependencies`
+
+<Option
+  cli_repr={`--python-protobuf-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
+  env_repr='PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES'
+  default_repr={`[]`}
+>
+
+A list of addresses to `python_requirement_library` targets for the runtime dependencies needed for generated Python code to work. For example, `['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies will be automatically added to every `protobuf_library` target
+
+</Option>
+
+### `mypy_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-mypy-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  default_repr={`False`}
+>
+
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
+
+</Option>
+
+## Advanced options
+
+### `mypy_plugin_version`
+
+<Option
+  cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
+  default_repr={`mypy-protobuf==1.23`}
+>
+
+The pip-style requirement string for `mypy-protobuf`. You must still set `--mypy-plugin` for this option to be used.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

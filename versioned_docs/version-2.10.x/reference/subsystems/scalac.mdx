@@ -1,0 +1,64 @@
+---
+title: scalac
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Scala compiler.
+
+Backend: <span className="color--primary">`pants.backend.experimental.scala`</span>
+
+Config section: <span className="color--primary">`[scalac]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--scalac-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_SCALAC_ARGS'
+  default_repr={`[]`}
+>
+
+Global `scalac` compiler flags, e.g. `--scalac-args='-encoding UTF-8'`.
+
+</Option>
+
+## Advanced options
+
+### `plugins_global`
+
+<Option
+  cli_repr={`--scalac-plugins-global="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SCALAC_PLUGINS_GLOBAL'
+  default_repr={`[]`}
+>
+
+A list of addresses of `scalac_plugin` targets which should be used for compilation of all Scala targets in a build.
+
+If you set this, you must also set `[scalac].plugins_global_lockfile`.
+
+</Option>
+
+### `plugins_global_lockfile`
+
+<Option
+  cli_repr={`--scalac-plugins-global-lockfile=<str>`}
+  env_repr='PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+The filename of the lockfile for global plugins. You must set this option to a file path, e.g. &#x27;3rdparty/jvm/global_scalac_plugins.lock&#x27;, if you set `[scalac].plugins_global`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

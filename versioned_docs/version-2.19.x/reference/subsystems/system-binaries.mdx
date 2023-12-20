@@ -1,0 +1,43 @@
+---
+title: system-binaries
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+System binaries related settings.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[system-binaries]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `system_binary_paths`
+
+<Option
+  cli_repr={`--system-binaries-system-binary-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SYSTEM_BINARIES_SYSTEM_BINARY_PATHS'
+  default_repr={`[\n  "/usr/bin",\n  "/bin",\n  "/usr/local/bin",\n  "/opt/homebrew/bin"\n]`}
+  target_field_name='system_binaries_system_binary_paths'
+>
+
+The PATH value that will searched for executables.
+
+The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,102 @@
+---
+title: setuptools-scm
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A tool for generating versions from VCS metadata (https://github.com/pypa/setuptools_scm).
+
+Backend: <span className="color--primary">`pants.backend.experimental.python`</span>
+
+Config section: <span className="color--primary">`[setuptools-scm]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--setuptools-scm-install-from-resolve=<str>`}
+  env_repr='PANTS_SETUPTOOLS_SCM_INSTALL_FROM_RESOLVE'
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `setuptools-scm` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--setuptools-scm-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SETUPTOOLS_SCM_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--setuptools-scm-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SETUPTOOLS_SCM_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.7,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--setuptools-scm-console-script=<str>`}
+  env_repr='PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT'
+  default_repr={`None`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--setuptools-scm-entry-point=<str>`}
+  env_repr='PANTS_SETUPTOOLS_SCM_ENTRY_POINT'
+  default_repr={`setuptools_scm`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

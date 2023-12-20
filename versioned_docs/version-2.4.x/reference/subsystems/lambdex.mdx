@@ -1,0 +1,88 @@
+---
+title: lambdex
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A tool for turning .pex files into AWS Lambdas (https://github.com/wickman/lambdex).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[lambdex]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--lambdex-version=<str>`}
+  env_repr='PANTS_LAMBDEX_VERSION'
+  default_repr={`lambdex==0.1.3`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--lambdex-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_LAMBDEX_EXTRA_REQUIREMENTS'
+  default_repr={`["setuptools>=50.3.0,<50.4"]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.5"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--lambdex-console-script=<str>`}
+  env_repr='PANTS_LAMBDEX_CONSOLE_SCRIPT'
+  default_repr={`lambdex`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--lambdex-entry-point=<str>`}
+  env_repr='PANTS_LAMBDEX_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

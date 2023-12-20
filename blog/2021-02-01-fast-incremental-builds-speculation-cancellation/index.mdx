@@ -1,0 +1,214 @@
+---
+    authors: [stu]
+    tags: [under-the-hood]
+---
+
+import { Chart } from "react-google-charts";
+
+export const chartColumns = [
+  { type: "string", label: "Task ID" },
+  { type: "string", label: "Task Name" },
+  { type: "string", label: "Resource" },
+  { type: "date", label: "Start Date" },
+  { type: "date", label: "End Date" },
+  { type: "number", label: "Duration" },
+  { type: "number", label: "Percent Complete" },
+  { type: "string", label: "Dependencies" },
+];
+
+export const chartOptions = {
+  width: "720px",
+  height: "210px",
+  gantt: {
+    criticalPathEnabled: false,
+  },
+};
+
+export const withoutSpeculativeExecution = [
+  ["run", "Run tests", "run", new Date(2021, 1, 1), null, 301, 0, null],
+  [
+    "capture",
+    "Capture sources",
+    "capture",
+    new Date(2021, 1, 1),
+    null,
+    13,
+    0,
+    null,
+  ],
+  ["extract", "Extract imports", "extract", null, null, 26, 0, "capture"],
+  [
+    "sandbox",
+    "Prepare test sandbox",
+    "sandbox",
+    null,
+    null,
+    57,
+    0,
+    "capture,extract",
+  ],
+  ["execute", "Execute test", "execute", null, null, 205, 0, "sandbox"],
+];
+
+export const withSpeculativeExecution = [
+  ["run", "Run tests", "run", new Date(2021, 1, 1), null, 301, 0, null],
+  [
+    "capture",
+    "Capture sources",
+    "capture",
+    new Date(2021, 1, 1),
+    null,
+    13,
+    0,
+    null,
+  ],
+  [
+    "extract",
+    "Extract imports",
+    "extract",
+    new Date(2021, 1, 1),
+    null,
+    26,
+    0,
+    null,
+  ],
+  [
+    "sandbox",
+    "Prepare test sandbox",
+    "sandbox",
+    new Date(2021, 1, 1),
+    null,
+    57,
+    0,
+    null,
+  ],
+  [
+    "execute",
+    "Execute test",
+    "execute",
+    null,
+    null,
+    205,
+    0,
+    "capture,extract,sandbox",
+  ],
+];
+
+# Fast Incremental Builds with Speculation and Cancellation
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Craventure
+  Media](https://unsplash.com/@craventure?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Fast incremental re-builds are critical in large codebases and monorepos. Thanks to deep support for cancellation and a side-effect free execution model, Pants is able to further reduce re-build latency by speculatively re-executing work.
+
+{/* truncate */}
+
+## Overview
+
+Because they decouple your iteration time from the total size of your codebase, fast incremental re-builds are critical in large codebases and monorepos. As discussed in [our post about dependency inference](../2020-10-29-dependency-inference/index.mdx), having fine-grained dependency information reduces the amount of work that is invalidated after an edit by ignoring irrelevant changes.
+
+But modern build tools are also able to avoid wasted work when a file that your build depends on _has_ (maybe!) changed. And thanks to its deep support for cancellation and side-effect free execution model, [Pants](https://www.pantsbuild.org/) is able to further reduce re-build latency by speculatively re-executing work!
+
+## Cleaning and Early Cutoff
+
+In many cases while building your code, files will change in ways that don't actually affect the outcome of the build. Common examples are cases like changing comments in compiled or code-generated languages (Java and Protobuf, for example), or touching files on disk without actually editing their contents. In these cases, avoiding running the dependent compiles or other logic is a significant benefit.
+
+Pants uses SHA256 hashing and deep equality to determine whether `@rules` (used to write [build logic in Pants](https://www.pantsbuild.org/docs/rules-api-concepts)) and processes need to re-run, but because build processes should always be deterministic, we can more quickly provide incremental results in these cases. To do so, Pants supports what the [Build Systems à la Carte](https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems.pdf) paper calls “early cutoff”.
+
+Early cutoff (also known as “cleaning”) is implemented in Pants by deciding whether to re-run an `@rule` (after a file that it depends on -- likely indirectly -- has changed on disk) by comparing a record of previous “generation” values for each dependency `@rule` to up-to-date generation values. This generation value is incremented each time the previous output value of a `@rule` is not identical to its new output value: it acts as a very memory efficient record of which versions of its dependencies an `@rule` used. When the generation values of all of an `@rule`s dependencies are equal to those from its previous run, we know that it does not need to re-run, and that its previous output value is still valid. When `@rule`s are cleaned this way, it's very likely that their dependents in the graph will be cleaned as well, which “cuts off” the need to run any `@rule` logic, dramatically reducing runtime.
+
+Pants' dependency inference (for Python; elsewhere soon!) also presents a really useful case for early cutoff. Dependency inference extracts import statements from the content of individual files, but while editing your code, the vast majority of your edits to files will be to non-import statements. This means that the dependency inference `@rule`s will very frequently trigger early cutoff!
+
+## Data Dependencies
+
+But the combination of dependency inference and cleaning is interesting for another reason: because the dependencies of your code fundamentally drive “which” `@rule` logic needs to run (“what do I need to compile before compiling this module?”, “which files need to be in the sandbox for this test?”, etc), the output of the dependency inference `@rule`s will very frequently be a [data dependency](https://en.wikipedia.org/wiki/Data_dependency) of other `@rule` logic … and dependency inference represents a very fundamental data dependency!
+
+Neil Mitchell's [excellent blog post on the topic of dependencies in build systems](https://neilmitchell.blogspot.com/2020/11/data-types-for-build-system-dependencies.html) introduces a particularly costly example of ignoring a data dependency: a computed “is_optimized” flag might fundamentally affect which (and how much!) work needs to be done in a build. If between two builds, the computed value of `is_optimized` changes from `True` to `False` (potentially representing an order of magnitude difference in runtime), it's particularly critical that a user does not need to wait for the stale result before the updated result is computed.
+
+Pants' monadic plugin API allows `@rule` authors to write natural, seemingly imperative code. But as described in Mitchell's post, the existence of data dependencies between `@rule` outputs in a monadic build system would suggest that Pants needs to be careful to clean a graph of `@rule`s in the order that dependencies were originally requested in. And dependency inference is no exception: in the build after an import statement has been removed from your code, Pants must not force you to wait for that removed dependency to be rebuilt!
+
+But this is potentially problematic: data dependencies are costly because they force ordering. Dependency inference requires parsing the AST of your code to extract import statements: a data dependency between extracting the imports of a file and running a test in that file (for example), implies that while cleaning the `@rule` graph after that file has changed, we should not start running the test until after we've finished extracting imports. And as mentioned before, the imports of your test file are much less likely to have changed than its other content, meaning that an infrequently changing output blocks computing the key result of your build: whether your test passed!
+
+This represents an interesting challenge: is it possible for Pants to preserve the excellent usability properties of dependency inference (avoiding needing to maintain redundant, potentially-stale copies of your import statements in both your code and in `BUILD` files), without forcing the running of a test to wait for import parsing? Yes, we can: via speculative execution!
+
+<Chart
+  chartType="Gantt"
+  data={[chartColumns, ...withoutSpeculativeExecution]}
+  options={chartOptions}
+/>
+
+## Speculative Execution
+
+[Speculative execution](https://en.wikipedia.org/wiki/Speculative_execution) (aka “speculation”) is a technique used (somewhat infamously: more on that later) in CPUs, but which is also employed when sending RPCs in distributed systems (where it might be referred to as using [hedged requests](https://blog.acolyer.org/2015/01/15/the-tail-at-scale/)).
+
+Applying speculative execution to reducing the cost of data dependencies means applying prior knowledge about the likelihood that a data-dependency will have a particular output value to decide to eagerly launch a data-dependent task with the predicted input _before_ its data-dependency has completed. Concretely: it means being able to launch the extraction of imports _and_ the running of the test _in parallel_!
+
+And so: Pants uses its record of the generation values of the previous build to [clean the `@rule` graph speculatively](https://github.com/pantsbuild/pants/pull/11308), sidestepping the data dependency in incremental rebuilds!
+
+<Chart
+  chartType="Gantt"
+  data={[chartColumns, ...withSpeculativeExecution]}
+  options={chartOptions}
+/>
+
+## Prerequisites for Speculation
+
+To ensure correctness, safe speculation requires that speculated work never has side-effects (which is where speculation in CPUs [went astray](https://en.wikipedia.org/wiki/Speculative_execution#Security_vulnerabilities)). And reducing speculation's costs requires the ability to quickly and cleanly cancel speculated work when you determine that your guesses were incorrect.
+
+Fortunately, both purity (the absence of side-effects) and interruptibility are already fundamental to the architecture of Pants 2.0!
+
+### Pure
+
+Pants' `@rule` API was designed from the ground up to be side-effect free. With the exception of specially classified “Goal” rules (which “finalize” the run from an end user's perspective), `@rule`s are intended to be [pure](https://en.wikipedia.org/wiki/Pure_function) coroutines.
+
+`@rule`s consume specialized APIs that present [an atomic, read-only view of the filesystem](https://www.pantsbuild.org/v2.2/docs/rules-api-file-system), and precise tracking of `@rule` dependencies (down to the level of syscalls to expand symlinks, etc) ensures that -- although the filesystem might look like a global static -- the relevant `@rule`s can be restarted in cases where files change during a run to preserve atomicity guarantees.
+
+Build tools [“excel”](https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems.pdf) at running processes: your typechecker, compiler, code generator, test, etc. But most processes that run during your build produce outputs, and ensuring that these outputs are not observable side-effects is an interesting challenge! To isolate processes, Pants fundamentally operates on content-addressable collections of files (known as `Snapshots`, and implemented using the Bazel [Remote APIs](https://github.com/bazelbuild/remote-apis/blob/9e72daff42c941baaf43a4c370e2607a984c58a7/build/bazel/remote/execution/v2/remote_execution.proto#L819-L857)) rather than on filesystem state. This means that process inputs and outputs are always immutable values, and never references into a mutable store like the filesystem.
+
+Rather than writing out the results of processes into a shared mutable working directory as is common in many build tools, Pants stores all process inputs and outputs in a database (backed locally by [LMDB](https://symas.com/lmdb/), and remotely by a Remote API [CAS](https://github.com/bazelbuild/remote-apis/blob/9e72daff42c941baaf43a4c370e2607a984c58a7/build/bazel/remote/execution/v2/remote_execution.proto#L185-L257) instance), and executes processes inside of chroots. Only the final results that a user directly requested via a high level “goal” (`fmt`, `test`, `package`, etc) are actually materialized as a visible side-effect in their workspace.
+
+This fundamental isolation is critical to speculation, because it means that Pants can always spawn multiple copies of processes, without worrying that they will collide or otherwise observe one-another's results!
+
+### Interruptible
+
+Being free of side-effects eliminates one common challenge of providing interruptibility: there is no need to “clean up” after canceled processes, because their execution could not affect any mutable resources in ways that might need to be reverted. But the other requirement is ensuring that you don't waste CPU time on those trees as they fall in that unobserved forest: and cancelling work once you've launched it can be, in-and-of-itself, tricky.
+
+Native threads in all common operating systems are eager: once you've launched them they run to completion, killing them without their cooperation is a [risky proposition](https://unix.stackexchange.com/questions/403988/how-to-kill-an-individual-thread-under-a-process-in-linux), and getting their cooperation at a fine-grained level would require peppering your code with “`is_it_time_to_give_up()`?” checks.
+
+Luckily, the core of Pants is written in Rust, and -- rather than using native threads -- uses [tokio](https://tokio.rs/) to support running thousands of lightweight user-space tasks. Due to their [pull-based/lazy](https://rust-lang.github.io/async-book/02_execution/02_future.html) design, Rust Futures (which back its excellent `async/await` feature) are inherently cancellable: with [rare](https://docs.rs/tokio/1.0.1/tokio/fn.spawn.html) and [well-noted](https://docs.rs/tokio/1.0.1/tokio/process/index.html#droppingcancellation) exceptions, dropping a `Future` value recursively cancels all associated work at its next `await`.
+
+And because we use tokio to spawn processes, receive UNIX signals, interact with the filesystem, communicate with remote servers, etc, this deep support for cancellation pervades Pants' APIs, and continuously minimizes the overhead of speculation.
+
+Another very visible feature enabled by inherent support for cancellation is getting the expected behavior when a user running Pants cancels a run using Ctrl+C: in `2.2.x`, Pants is able to immediately interrupt ongoing work without killing the `pantsd` server, and can resume the next run incrementally using any work that had already completed. A video is worth a thousand words:
+
+<iframe
+  width="100%"
+  height="500"
+  src="https://www.youtube.com/embed/OqPztfXlv2s?si=U2-wBfKqwEI82SDR"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
+
+## Future Work
+
+All of the recent stable `2.y.x` releases of Pants speculatively clean the `@rule` graph to deliver this extra low latency experience for the most common cases. But there is some interesting future work that will help to reduce the chances of speculation ever being a pessimization.
+
+For example, because Pants constrains the number of processes that can run in parallel, [process prioritization](https://github.com/pantsbuild/pants/issues/11303) will help to avoid priority inversions where a cheap process (like a dependency extraction `@rule`) ends up waiting on a more expensive process (like a test run) to complete, delaying the time before we determine that we've speculated incorrectly. And as a more advanced feature of prioritization, process [preemption](<https://en.wikipedia.org/wiki/Preemption_(computing)>) would allow taking advantage of cancellation to fix inversions by cancelling the lower priority work to finish the highest priority work. We'd love to collaborate with the Rust community on generic solutions to this problem ([such as](https://github.com/tokio-rs/tokio/issues/3242))!
+
+## Closing
+
+If you'd like to [try out Pants](https://www.pantsbuild.org/docs/welcome-to-pants) with your Python project, [we're happy to help](https://www.pantsbuild.org/docs/community)! Pants is an open source project that welcomes new contributors: if you're interested in working to push the state of the art in build systems, [we'd love to work with you](https://www.pantsbuild.org/docs/committers) (and contributing companies, including my employer [are hiring](https://toolchain.com/jobs))!
+
+## Thanks!
+
+- To the [Build Systems à la Carte](https://www.microsoft.com/en-us/research/uploads/prod/2018/03/build-systems.pdf) authors, for covering an “awesome, terrifying, and unloved” subject, and especially Neil Mitchell for his [followup post](https://neilmitchell.blogspot.com/2020/11/data-types-for-build-system-dependencies.html).
+- To the Rust community for the truly fantastic implementation of async/await.
+- To the [tokio](https://tokio.rs/) community, for a library that's been central to Pants' engine for about four years now.
+- To the Python community for Python 3, which has been a huge leap forward for Pants.
+- To all of Pants' contributors and users!

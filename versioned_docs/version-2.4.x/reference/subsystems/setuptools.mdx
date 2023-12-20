@@ -1,0 +1,78 @@
+---
+title: setuptools
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Python setuptools library (https://github.com/pypa/setuptools).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[setuptools]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--setuptools-version=<str>`}
+  env_repr='PANTS_SETUPTOOLS_VERSION'
+  default_repr={`setuptools>=50.3.0,<54.0`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--setuptools-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS'
+  default_repr={`["wheel>=0.35.1,<0.37"]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+## Deprecated options
+
+### `entry_point`
+
+<Option
+  cli_repr={`--setuptools-entry-point=<str>`}
+  env_repr='PANTS_SETUPTOOLS_ENTRY_POINT'
+  default_repr={`None`}
+  removal_version='2.5.0.dev0'
+  removal_hint={'This option was never used.'}
+>
+
+DEPRECATED: Unused.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--setuptools-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SETUPTOOLS_INTERPRETER_CONSTRAINTS'
+  default_repr={`[]`}
+  removal_version='2.5.0.dev0'
+  removal_hint={'Interpreter constraints for setup.py execution are now derived from the `python_distribution` being packaged so this option is not needed.'}
+>
+
+DEPRECATED: Python interpreter constraints to use when selecting an interpreter to package `python_distribution` targets using setup.py.
+
+</Option>
+
+</span>

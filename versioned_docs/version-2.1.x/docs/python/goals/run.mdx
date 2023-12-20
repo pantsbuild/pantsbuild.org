@@ -1,0 +1,40 @@
+---
+    title: run
+    position: 4
+---
+
+Run a `pex_binary` target.
+
+---
+
+To run an executable/script, simply use `./pants run` on a `pex_binary` target, like this:
+
+```bash
+$ ./pants run project/app.py
+```
+
+or
+
+```bash
+$ ./pants run project:app
+```
+
+You may only run one target at a time.
+
+The program will have access to the same environment used by the parent `./pants` process, so you can set environment variables in the external environment, e.g. `FOO=bar ./pants run project/app.py`. (Pants will auto-set some values like `$PATH`).
+
+:::note Tip: check the return code
+Pants will propagate the return code from the underlying executable. Run `echo $?` after the Pants run to see the return code.
+:::
+
+:::caution Issues finding files?
+Run `./pants dependencies --transitive path/to/binary.py` to ensure that all the files you need are showing up, including for any [resources](../../using-pants/resources-and-archives.mdx) you intend to use.
+:::
+
+## Passing arguments
+
+To pass arguments to the script/executable, use `--` at the end of the command, like this:
+
+```bash
+$ ./pants run project/app.py -- --arg1 arg2 arg3
+```

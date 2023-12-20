@@ -1,0 +1,60 @@
+---
+title: roots
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants roots [args]
+```
+
+List the repo&#x27;s registered source roots.
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[roots]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--roots-output-file=<path>`}
+  env_repr='PANTS_ROOTS_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--roots-sep=<separator>`}
+  env_repr='PANTS_ROOTS_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [source](../subsystems/source.mdx)
+
+</span>

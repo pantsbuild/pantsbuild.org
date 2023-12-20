@@ -1,0 +1,83 @@
+---
+    authors: [eric]
+    tags: [announcement,python]
+---
+
+# Introducing Pants 2.6: Poetry support, third-party type stubs, and linter reports
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Elisa Calvet
+  B.](https://unsplash.com/@elisa_cb?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce Pants 2.6.0, the latest release of Pants, the scalable and ergonomic build system.
+
+To update, set `pants_version = "2.6.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips).
+
+# Poetry support
+
+Pants now understands Poetry's `pyproject.toml` configuration for third-party dependency management, addressing one of our most requested features in the last year!
+
+Poetry support makes it even easier [to incrementally adopt Pants](https://www.pantsbuild.org/docs/existing-repositories), and you can keep using Poetry for third-party dependency management after Pants adoption. Thanks to Pants's dependency inference, you can build multiple distinct wheels/binaries using only a single pyproject.toml.
+
+See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-support-for-pants-2-6/index.mdx) for a more detailed introduction, along with the personal story behind [Toolchain](https://toolchain.com/)'s intern Liam Wilson adding this highly requested feature.
+
+# Third-party type stubs and MyPy 0.900+
+
+[MyPy 0.900+ no longer includes typeshed](https://mypy-lang.blogspot.com/2021/06/mypy-0900-released.html), meaning that you must now install type stubs for many popular libraries. For example, you must install `types-requests` when using the `requests` library for MyPy to work properly.
+
+Pants now understands how to [infer dependencies](../2020-10-29-dependency-inference/index.mdx) for third-party type stubs. For example, if you have `import requests` in your code, Pants will infer a dependency on both the implementation and the type stub.
+
+```shell-session
+$ ./pants dependencies project/app.py
+3rdparty/python:requests
+3rdparty/python:types-requests
+```
+
+Pants still only infers dependencies when it is safe to, meaning that it checks for ambiguity. If you have 2+ implementations—like `requests==2.25.1` and `requests==2.22.0`—or 2+ type stub versions, Pants will not infer a dependency and will log a helpful suggestion for how to disambiguate.
+
+The default for `[mypy].version` is now `0.910`. When upgrading to Pants 2.6, you may want to pin `[mypy].version` in `pants.toml` to `0.812` if you are not yet ready to upgrade; otherwise, you will need to add type stub requirements like `types-requests` to your project (MyPy gives helpful error messages).
+
+Finally, MyPy `0.900+` now supports `pyproject.toml` config files. Pants 2.6 will auto-discover this config file.
+
+# Linter reports
+
+Previously, you could set `[lint].reports_dir` for Pants to instruct Flake8 and Bandit to write reports under that directory. This had [several issues](https://github.com/pantsbuild/pants/pull/12122), including that some tools like Bandit allow you to write multiple formats (e.g. text vs. JSON), and Pants assumed a single format.
+
+Instead, now you directly tell Flake8 and Bandit to generate a report by setting their config files or setting `[flake8].args` and `[bandit].args` to write to the `reports/` folder, e.g. setting `[flake8].args = ["--output-filer=reports/foo.txt"]`. Pants will capture all reports and write them to `dist/lint/<linter_name>`.
+
+You can also now use [MyPy's report generation](https://mypy.readthedocs.io/en/stable/config_file.html#report-generation), e.g. by setting `linecount_report = "reports"` in `mypy.ini`. Pants will capture all files under the `reports/` folder and write them to `dist/typecheck/mypy`.
+
+# Other changes
+
+- Updated default versions for Black, Pylint, and Bandit.
+- New [plugin hook](https://github.com/pantsbuild/pants/pull/12091) for setting up Python tests, e.g. starting up databases before test runs.
+- When there's an exception, we now suggest several other things you can try, like running with `-ldebug`.
+- New `--no-watch-filesystem` option, which allows you to run x86 Docker images from Apple Silicon machines.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md) for more changes.
+
+## **Upcoming in Pants 2.7**
+
+We have been re-envisioning Pants's support for Python third-party dependencies to be more ergonomic, flexible, and safe. The changes include:
+
+- Autogenerating lockfiles.
+- Adding dedicated lockfiles for each tool you run, e.g. Black and Flake8.
+- Supporting multiple lockfiles for your repository.
+- Possibly using [PEP 665](https://www.python.org/dev/peps/pep-0665/)'s new standardized lockfile format.
+
+The full project may not be complete by Pants 2.7, given the recent developments around PEP 665. We are excited by the push for standardization in the Python ecosystem and eager to play our part in improving the build experience for Python developers. However, at a minimum, Pants 2.7 will have experimental lockfile support using the requirements.txt-style.
+
+Other upcoming improvements in Pants 2.7:
+
+- Support for the Yapf autoformatter.
+- Support for the Hadolint Docker autoformatter.
+- A `./pants peek` goal to inspect your targets' metadata.
+
+\--
+
+Try out our [example repository](https://github.com/pantsbuild/example-python), and let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)

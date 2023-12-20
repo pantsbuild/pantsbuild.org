@@ -1,0 +1,90 @@
+---
+    authors: [eric]
+    tags: [announcement]
+---
+
+# How we added Apple Silicon support to Pants
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Thomas
+  Ciszewski](https://unsplash.com/@coc6?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Successful open source projects are full of tradeoffs between purity vs. pragmatism. We often remind ourselves "Do not let perfect be the enemy of good".
+
+{/* truncate */}
+
+---
+
+[Pants](https://www.pantsbuild.org) 2.5+ now supports Apple Silicon natively—including the M1 processor on new MacBooks, Mac Minis, and iMacs—without needing Rosetta.
+
+## Problem: Python native extensions
+
+Pants is distributed as a Python program, but [with a native extension](https://www.pantsbuild.org/docs/how-does-pants-work) written in Rust for performance and parallelism. This native code means that we must distribute a distinct binary—as a Python "wheel" file—for every platform we support: Linux x86_64, macOS x86_64, and now macOS arm64.
+
+(It's also possible to release Python programs as an "sdist", where the user builds the native extension locally. However, Pants's Rust extension can take up to 15-25 minutes to build and it requires having modern Rust installed locally, so we do not yet distribute an sdist. Although, we do provide a way for motivated users [to build their own wheel](https://www.pantsbuild.org/docs/installation#building-pants-from-sources).)
+
+Normally, we could simply build the wheel with GitHub Actions, which is how we build for macOS x86*64 and Linux. However, GitHub Actions and other CI providers [do not \_yet* support Apple Silicon](https://github.com/actions/virtual-environments/issues/2187).
+
+## Original workaround: Rosetta
+
+It has been possible to run Pants using Rosetta (by running `arch -x86_64`). However, Pants is the ergonomic build system, and it should Just Work out of the box.
+
+We also wanted to avoid the [performance hit](https://mjtsai.com/blog/2020/11/16/performance-of-rosetta-2-on-apple-m1/) from Rosetta, given that Pants aims to speed up your build experience.
+
+## Rejected solution: cross-compilation
+
+Cross-compilation allows you to build a native binary for a platform different than the host platform, e.g. building for macOS ARM from macOS x86_64.
+
+Rust has [strong support for cross-compilation](https://rust-lang.github.io/rustup/cross-compilation.html).
+
+However, cross-complication can be non-trivial. For example, the FFI library we use, [PyO3](https://pyo3.rs/v0.13.2/building_and_distribution.html#cross-compiling), requires a compiled Python interpreter for the target platform.
+
+While cross-compilation is promising, we decided to prioritize other project improvements instead of spending the time getting it working.
+
+## Solution: build locally
+
+Instead, we went with the simplest solution: build the Apple Silicon wheel locally with an M1 machine from one of our core contributors, rather than using CI.
+
+Admittedly, this solution is not very sustainable in the long run: we are coupling our release process to a single contributor's machine, along with increasing the risk that a misconfigured developer machine results in an incompatible wheel.
+
+**However, successful open source projects are full of tradeoffs between purity vs. pragmatism. We often remind ourselves "Do not let perfect be the enemy of good"**, and we are passionate about prioritizing an excellent experience for users.
+
+Here, we can provide a much better experience for Apple Silicon users for little work, while we wait for the CI ecosystem to improve.
+
+We took some steps to make this more sustainable:
+
+- Communicated with users that Apple Silicon support is "best-effort". The ARM wheel may take an extra 1-2 days to be published. This way, we do not ever block releases by having access to the contributor's M1 machine.
+- [Expanded automation](https://github.com/pantsbuild/pants/pull/12229) of the build and publish process.
+- Sign the wheel from the contributor's trusted machine.
+
+Further, this situation is temporary: once GitHub Actions supports Apple Silicon, we will use CI to automate building ARM wheels.
+
+## Other challenges
+
+### Python 3.9+
+
+When we first started this project, only Python 3.9+ worked natively with Apple Silicon. (Since then, the newest versions of Python 3.8 [work too](https://bugs.python.org/issue41100).)
+
+This meant that we had to first [update Pants](https://github.com/pantsbuild/pants/pull/11858) to be able to run with Python 3.9.
+
+Even though we currently release wheels for Python 3.7, 3.8, and 3.9 for Linux and macOS x86_64, we only release a wheel for Python 3.9 for macOS arm64.
+
+### Docker and Apple Silicon
+
+The Docker team has done an amazing job bringing native support to Apple Silicon.
+
+Unfortunately, however, Docker on Apple Silicon is fundamentally [not able to support the `inotify` syscall](https://github.com/docker/for-mac/issues/5321) for amd64 containers, which is used for file watching. Pants uses the Rust `notify` crate, which relies on this syscall, so that it knows when to invalidate builds due to changes on the filesystem. File watching is particularly important for the Pants daemon (pantsd) to safely memoize work across multiple Pants runs.
+
+To work around this limitation, we added an option `--no-watch-filesystem` to Pants 2.6+ to disable file watching. We only allow you to disable file watching if you also disable the Pants daemon. There is a small risk that changing files halfway during a Pants run may invalidate the build and require you to re-run the command. However, this situation is unlikely when using Docker because it would be unusual to make edits to your code mid-run. So, we made a pragmatic choice to unblock using Pants with Docker on Apple Silicon.
+
+## Try out Pants
+
+Regardless of whether you use Apple Silicon, try out how Pants makes working on repositories with Python or Shell code a joy, even as they grow:
+
+- [Video tour](https://www.youtube.com/watch?v=maK3_Ix5Z4I&list=PLwPRXwjURiOzXjgqydxZE9RVjZqaB6OXb)
+- [Docs](https://www.pantsbuild.org/docs)
+- [Example Python repository](https://github.com/pantsbuild/example-python)
+- [Slack](https://www.pantsbuild.org/docs/getting-help#slack)

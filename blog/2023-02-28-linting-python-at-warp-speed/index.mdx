@@ -1,0 +1,150 @@
+---
+    authors: [berkay]
+    tags: [python]
+---
+
+# Linting Python at warp speed with Pants+Ruff
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Mathew
+  Schwartz](https://unsplash.com/@cadop?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Now that Pants 2.15 is out, let's whet your appetite for 2.16: lint your Python monorepo faster than ever with Pants and Ruff, two projects that share a passion for combining the raw power of Rust with the elegance of Python.
+
+{/* truncate */}
+
+## Status Quo
+
+Tools like [Pylint](https://github.com/PyCQA/pylint) and [Flake8](https://github.com/pycqa/flake8) are some of the most common static code analyzers used in the Python community. They allow us to improve code quality by checking for errors and "code smells", as well as enforcing coding standards. It is very common to use such tools in the CI pipelines and local development environments. However, as the team and the code gets bigger, the number of tools being used and the time it takes to run them increases. This reduces productivity and increases compute costs due to longer CI runs, especially in bigger teams.
+
+Just to give a sense of the _cold-run_ speed of these tools, I cloned the Pants project from Github and ran Pylint with the default configurations using WSL2 on a 6-core 12-thread Intel i7-5820K Windows PC with 32 GB of RAM.
+
+| Metrics                | Results                                                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------- |
+| SLOC                   | 161,410                                                                                        |
+| Version                | pylint 2.16.1<br/>astroid 2.14.1<br/>Python 3.11.1 (main, Jan 28 2023, 18:50:01) \[GCC 9.4.0\] |
+| Time (with `--jobs=0`) | 475.83s user<br/>4.07s system<br/>99% cpu<br/>8:00.03 total                                    |
+
+That's _a lot_ of time spent just on a single linting tool. Let's look at another usual suspect, Flake8; which will be my main reference point in this blog post.
+
+| Metrics                                               | Results                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SLOC                                                  | 161,410                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Version                                               | 6.0.0 (flake8-2020: 1.7.0, flake8-annotations: 3.0.0, flake8-bandit: 4.1.1, flake8-blind-except: 0.2.1, flake8-boolean-trap: 0.1.0, flake8-bugbear: 23.1.20, flake8-builtins: 2.1.0, flake8-commas: 2.1.0, flake8-comprehensions: 3.10.1, flake8-datetimez: 20.10.0, flake8-debugger: 4.1.2, flake8-executable: 2.1.3, flake8-import-conventions: 0.1.0, flake8-logging-format: 0.9.0, flake8-no-pep420: 2.3.0, flake8-pie: 0.16.0, flake8-print: 5.0.0, flake8-pyi: 23.1.2, flake8-pytest-style: 1.7.0, flake8-quotes: 3.3.2, flake8-return: 1.2.0, flake8-simplify: 0.19.3, flake8-tidy-imports: 4.8.0, flake8-type-checking: 2.3.0, flake8-unused-arguments: 0.0.13, flake8-use-pathlib: 0.3.0, flake8_errmsg: 0.4.0, flake8_implicit_str_concat: 0.4.0, mccabe: 0.7.0, pycodestyle: 2.10.0, pyflakes: 3.0.1) CPython 3.11.1 on Linux |
+| Time (with `--jobs=auto`)                             | 159.24s user<br/>1.71s system<br/>1101% cpu<br/>14.617 total                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Time (without any Flake8 plugins, with `--jobs=auto`) | 42.24s user<br/>0.58s system<br/>1089% cpu<br/>3.930 total                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+
+Installing the plugins decreased the speed by ~272%! It would be nice to have a linting tool with a similar feature set and much better performance.
+
+Please also note that the purpose of this blog post is not to extensively benchmark these tools. I'm trying to provide some first impressions using a simple setup with the default configurations.
+
+## Enter Ruff
+
+[ruff](https://github.com/charliermarsh/ruff#flake8-blind-except-ble) is the new cool kid in the block which claims to be 10 to 100 times faster than the existing linters. That's because ruff is written in Rust. (Pants v2 execution engine is written in Rust as well! Read more [here](../2020-10-27-introducing-pants-v2/index.mdx).)
+
+It is already almost on par with Flake8, including the majority of the rules from Flake8 plugins. There is even a way to automatically convert your Flake8 configurations into ruff-compatible `pyproject.toml` configurations, so migration should be fairly simple.
+
+However, it is worth noting that **ruff is not close to being on par with Pylint yet**. You can track the roadmap to cover Pylint rules from [this](https://github.com/charliermarsh/ruff/issues/970) Github issue.
+
+Aside from being nearly on par with Flake8, ruff is aiming to be a replacement for tools like `pyupgrade`, to "fix" your codebase instead of just sticking to formatting. Unfortunately, [ruff doesn't expose](https://github.com/charliermarsh/ruff/issues/455#issue-1413887821) sub-commands to distinguish the use cases like Pants do with `fmt` and `fix`.
+
+One of the reasons that make ruff a good fit for projects using Pants is that ruff is monorepo-friendly. You can implement hierarchical configurations with multiple `pyproject.toml` files. When you run ruff against a path, it finds the nearest `pyproject.toml` file with the `[tool.ruff]` section and loads the corresponding configurations.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=charliermarsh/ruff&type=Date)](https://star-history.com/#charliermarsh/ruff&Date)
+
+Ruff is actively developed (as of writing this blog post, the last commit was 1 hour ago and the last release was 13 hours ago) and already gaining adoption from major open-source projects like pandas, airflow, fastapi and scipy.
+
+Let's repeat the previous tests, but with ruff this time:
+
+| Metrics                | Results                                                       |
+| ---------------------- | ------------------------------------------------------------- |
+| SLOC                   | 161,410                                                       |
+| Version                | ruff 0.0.245                                                  |
+| Time (with `--jobs=0`) | 1.19s user<br/>0.21s system<br/>645% cpu<br/>0.217 total<br/> |
+
+It ran under a fraction of a second. That's _very_ impressive.
+
+## My First Contribution
+
+As a Pants user, I was very excited about ruff. So I kept asking myself how hard would it be to implement a ruff backend for Pants. Turns out, it's not that hard! Thanks to the [comprehensive documentation](https://www.pantsbuild.org/docs/contributor-overview), I was able to [write the backend](https://github.com/pantsbuild/pants/pull/17945) in just a few hours by using the existing backend implementations as a reference. There are still _a lot_ of things about Pants that I'm clueless about though. Thankfully, Pants have an [internal architecture documentation](https://www.pantsbuild.org/docs/internal-rules-architecture) for curious minds.
+
+Pants community is also very active on [Slack](https://docs.google.com/forms/d/e/1FAIpQLSf9zgf-MXRnVDJbrVEST3urqneq7LCcy0zw8qU-GH4hPMn52A/viewform?usp=sf_link). I was very surprised by the immediate feedback and overall positivity of the maintainers. This was my very first non-documentation contribution to a major open-source project. After seeing the response from the maintainers, I got motivated to keep contributing to more open-source projects.
+
+## Pants ❤️ Ruff
+
+On January 30th, Pants [released](https://github.com/pantsbuild/pants/releases/tag/release_2.16.0.dev6) `v2.16.0.dev6` which includes the experimental ruff backend!
+
+Here are the steps to get started:
+
+1.  Create your monorepo. Notice that we are injecting an unused import statement, ruff will take care of this.
+
+    ```shell-session
+    $ mkdir ~/projects/monorepo
+    $ cd ~/projects/monorepo
+    $ mkdir -p src/python/demo
+    $ touch src/python/demo/__init__.py
+    $ touch src/python/demo/app.py
+    $ echo "import unused" > src/python/demo/app.py
+    $ tree
+    .
+    └── src
+        └── python
+            └── demo
+                ├── __init__.py
+                └── app.py
+
+    3 directories, 2 files
+    ```
+
+2.  Install `pants` into your project's root directory.
+
+    ```shell-session
+    $ curl -L -O https://static.pantsbuild.org/setup/pants
+    $ chmod +x ./pants
+    $ echo """
+    [GLOBAL]
+    pants_version = \"2.16.0.dev6\"
+    backend_packages = [
+        \"pants.backend.python\",
+        \"pants.backend.experimental.python.lint.ruff\",
+    ]
+
+    [anonymous-telemetry]
+    enabled = false
+    """ > pants.toml
+    $ ./pants --version
+    22:17:19.20 [INFO] Initializing scheduler...
+    22:17:20.91 [INFO] Scheduler initialized.
+    2.16.0.dev6
+    $ ./pants tailor ::
+    Created src/python/demo/BUILD:
+    - Add python_sources target demo
+    $ tree
+    .
+    ├── pants
+    ├── pants.toml
+    └── src
+        └── python
+            └── demo
+                ├── BUILD
+                ├── __init__.py
+                └── app.py
+
+    3 directories, 5 files
+    ```
+
+3.  Start using the fix [goal](https://www.pantsbuild.org/docs/python-goals). As you can see, ruff fixed the file with the unused import.
+
+    ```shell-session
+    $ ./pants fix ::
+    12:20:59.81 [INFO] Completed: Building ruff.pex from ruff_default.lock
+    12:20:59.86 [WARN] Completed: Format with ruff - ruff made changes.
+    src/python/demo/app.py
+
+    + ruff made changes.
+    ```
+
+That's it! Feel free to visit the [Getting Started](https://www.pantsbuild.org/docs/getting-started) page of the documentation to start using Pants. If you have any questions about the experimental ruff integration, drop a message in the [Slack channel](https://docs.google.com/forms/d/e/1FAIpQLSf9zgf-MXRnVDJbrVEST3urqneq7LCcy0zw8qU-GH4hPMn52A/viewform?usp=sf_link) or use the [GitHub issues](https://github.com/pantsbuild/pants/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) to provide report bugs.

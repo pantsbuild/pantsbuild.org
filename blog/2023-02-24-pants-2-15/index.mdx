@@ -1,0 +1,131 @@
+---
+    authors: [chrisjrn]
+    tags: [announcement]
+---
+
+# Pants 2.15: Easier multi-platform workflows, Docker build support, automatic code cleanup, and more!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  "[Blue Bill Duck](https://www.flickr.com/photos/43603415@N08/4738192538)" by
+  Richard Ashurst licensed under CC BY 2.0
+</CaptionedImg>
+
+The 2.15 series represents the biggest change to Pants since version 2.0, and we're excited to share how it can let you complete more workflows, more easily, in more places. Including cross-platform builds, containerized builds with Docker, and easier configuration for local builds…
+
+{/* truncate */}
+
+---
+
+We're excited to announce Pants 2.15.0. Under the hood, the 2.15 series represents the biggest change to Pants since version 2.0, and we're excited to share how it can let you complete more workflows, more easily, in more places.
+
+Along with our usual assortment of new tool support and incremental improvements to existing features, this update brings support for cross-platform builds, containerized builds with Docker, and easier configuration for local builds, while minimizing disruption for those of you who are only just upgrading.
+
+You can update by setting `pants_version = "2.15.0"` in your `pants.toml` file. See [upgrade tips](https://www.pantsbuild.org/v2.15/docs/upgrade-tips) for more information.
+
+# Support for easier multi-platform development with Target Environments
+
+Pants 2.15's biggest new feature is [Target Environments, unlocking support for workflows that span multiple platforms](https://www.pantsbuild.org/v2.15/docs/environments).
+
+With Target Environments, you can launch workflows from your development machine, or a CI machine that include any combination of tasks that run locally, tasks that run on a local Docker container, or even tasks that run on remote build servers.
+
+For users that need to test or build packages for multiple systems, Target Environments mean that you can now perform platform-independent tasks once and farm out the platform-specific pieces of your workflow to compatible systems, all from a single invocation of Pants.
+
+Pants' fine-grained concurrency and caching works across Target Environments, which means that Pants can run as many individual tasks as there are compatible worker machines available to you.
+
+As an example, if you need to build a Mac OS package and a Linux package, it's possible to do it from the same workflow with Target environments:
+
+```python title="BUILD"
+local_environment(
+    name="macos",
+    compatible_platforms=["macOS_x86_64"],
+    ...
+)
+
+docker_environment(
+    name="local_busybox",
+    platform="linux_x86_64",
+    ...
+
+)
+
+pex_binary(
+    name="bin",
+    environment=parametrize("linux", "macos"),
+)
+```
+
+Additionally, Target Environments streamlines configuration in codebases whose developers do their local development on a variety of platforms. Where users previously had to individually set environment variables or command line flags to locate specific tools or runtime dependencies, it's now possible to set different `local_environment` targets with configuration for each platform. When Pants is run on a machine that matches those specifications, the configuration values from that environment are used.
+
+```python title="BUILD"
+local_environment(
+    name="macos",
+    compatible_platforms=["macOS_x86_64"],
+    ...
+)
+
+local_environment(
+    name="macos_arm",
+    compatible_platforms=["macos_arm64"],
+    ...
+)
+```
+
+Target Environments represent one of the biggest internal changes to Pants since version 2.0, unlocking a huge variety of new use cases, while keeping the user API for existing workflows entirely the same. This means you can adopt Target Environments as you need them, but remain blissfully unaware of them until you do.
+
+To read more about this quite large feature, you can read our in-depth blog post.
+
+# Containerized local development support with the Docker command runner
+
+If you're in an organization that deploys applications in containers, it can often make sense for developers to do their testing and local verification in a containerized environment. In previous versions of Pants, if you wanted to run tools or check behaviors inside a container, you'd need to import your codebase into a container and run Pants itself within the container.
+
+Now, thanks to Target Environments and our new Docker command runner, Pants can use its precise understanding of the files required in your build to run tools, tests, and other processes transparently inside a local Docker container. Just [define a `docker_environment` to define your container's properties](https://www.pantsbuild.org/v2.15/docs/reference-docker_environment), set the `environment` on the parts of your codebase that you want to handle in Docker, and Pants will take care of the rest.
+
+# Stop making linters pass manually, `fix` your code automatically!
+
+Pants supports a wide array of quality checkers that can point out where your code is unsafe, uses deprecated code patterns, or fails documentation standards. Often, running `./pants lint` means being faced with a pile of small, trivial changes to make.
+
+Pants also supports code formatters through `./pants fmt`, which takes care of style fixes that are purely mechanical, and result in structurally identical code.
+
+While many quality checkers supported by `./pants lint` have fixup modes, previously we haven't supported that since many quality checkers make changes that may not result in identical code. Running these tools with `./pants fmt` can sometimes have unexpected consequences.
+
+Pants 2.15 lets you run your tools in fixup mode! [Use `./pants fix`](https://www.pantsbuild.org/v2.15/docs/reference-fix), and Pants will ask your underlying tools to automatically apply all the changes they can, from simple formatting changes, to adjustments that may have semantic consequences. If you happen to have a workflow where you want to only run formatters, `./pants fmt` is still around.
+
+We've been using `./pants fix` internally for a few months now, and we've appreciated the time saved from not having to manually fix simple linting errors. Now you can, too!
+
+# OpenAPI support with dependency inference for JVM projects
+
+Pants 2.15.0 adds [initial support for OpenAPI](https://www.pantsbuild.org/v2.15/docs/reference-openapi_source), along with `./pants tailor` support for OpenAPI schemas, and support for automatically generating JVM bindings based on OpenAPI schemas in your repository.
+
+For JVM users, this means that writing code that depends on bindings generated from an OpenAPI schema is as simple as declaring an `openapi_document` target that depends on your schema and importing the resulting package in your JVM code. Bindings will be automatically built when you build your code, with no need to deploy extra artifacts. When your schema changes, new bindings will automatically be available.
+
+# Describe your codebase better with synthetic targets
+
+Plugins can now programmatically create their own targets, which can be used as dependencies in your `BUILD` files or as goal targets when invoking a Pants command line.
+
+It's early days yet, but in future releases synthetic targets will allow users and plugin authors to better specify the structure of their codebase along with dependencies that can't currently be effectively modeled with Pants.
+
+# Other notable changes
+
+- A plethora of improvements in Go, including access to the `go` binary in tests, `go generate` support, and better lint and `./pants tailor` functionality
+- Formatters and linters can now operate on any file in the project without prior configuration
+- Tests can now be run in batches, reducing the amount of time lost to starting up test runners
+- Adds the `preamble` plugin, which ensures that applicable files start with a standardized message, such as a copyright or licensing notice
+
+We also recently released the new self-contained Pants launcher, which allows you to run Pants without needing to install a compatible Python installation first. It works with previous versions of Pants, as early as 2.12.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.15.x.md) for more changes, along with our [plugin upgrade guide](https://www.pantsbuild.org/docs/plugin-upgrade-guide).
+
+---
+
+Try out one of our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)
+
+For those of you paying close attention, you may have noticed that the 2.15 release has taken quite some time while we worked to make sure that things didn't break. The good news is that in the meantime, we've been hard at work on new features that will land in 2.16, including support for [Python linting with Ruff](../2023-02-28-linting-python-at-warp-speed/index.mdx), support for integrating new tools into your Pants codebase without writing plugins, and more!

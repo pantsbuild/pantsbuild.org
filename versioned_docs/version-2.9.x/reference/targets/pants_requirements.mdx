@@ -1,0 +1,59 @@
+---
+title: pants_requirements
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Generate `python_requirement` targets for Pants itself to use with Pants plugins.
+
+This is useful when writing plugins so that you can build and test your plugin using Pants. The generated targets will have the correct version based on the `version` in your `pants.toml`, and they will work with dependency inference.
+
+Because the Plugin API is not yet stable, the version is set automatically for you to improve stability. If you&#x27;re currently using a dev release, the version will be set to that exact dev release. If you&#x27;re using a release candidate (rc) or stable release, the version will allow any non-dev-release release within the release series, e.g. `>=2.9.0rc0,<2.10`.
+
+(If this versioning scheme does not work for you, you can directly create `python_requirement` targets for `pantsbuild.pants` and `pantsbuild.pants.testutil`. We also invite you to share your ideas at https://github.com/pantsbuild/pants/issues/new/choose)
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `testutil`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
+
+</Field>
+
+</span>

@@ -1,0 +1,40 @@
+---
+    title: Welcome to Pants!
+    position: 0
+---
+
+---
+
+## What is Pants?
+
+Pants is a scalable software build system. Pants orchestrates the various tools and steps that process your source code into deployable software: code generation, compilation/type checking, testing, linting, formatting, packaging and more.
+
+Pants is useful for repos of all sizes, but is particularly relevant if you want to scale your codebase without breaking it up into multiple disconnected repos. Pants allows you to have a _monorepo_: a codebase containing multiple projects—often using multiple programming languages and frameworks—in a single unified repository.
+
+## What are the main features of Pants?
+
+Pants is designed for fast, consistent builds. Some noteworthy features include:
+
+- Dependency modeling with minimal boilerplate.
+- Fine-grained invalidation.
+- Shared result caching.
+- Concurrent execution.
+- Remote execution.
+- Unified interface for multiple tools and languages.
+- Extensibility and customizability via a plugin API.
+
+## Which languages and frameworks does Pants support?
+
+Pants currently works with Python code, but support for other languages, including Javascript/Node, Java, Scala and more, is coming soon.
+
+## How does Pants work?
+
+See [here](./how-does-pants-work.mdx) for details about the Pants engine.
+
+## Who develops Pants?
+
+Pants is an open-source software project, developed at [github.com/pantsbuild/pants](https://github.com/pantsbuild/pants). Pants is released under the [Apache License 2.0](https://github.com/pantsbuild/pants/blob/master/LICENSE).
+
+:::note Pants 1.x vs. 2.x
+This documentation is for Pants v2, which is a ground-up redesign of Pants based on lessons from the past 10 years of development. See [here](https://v1.pantsbuild.org/) for Pants v1 documentation, which includes support for Node, Go, Java, and Scala.
+:::

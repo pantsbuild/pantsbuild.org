@@ -1,0 +1,143 @@
+---
+title: python_awslambda
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A self-contained Python function suitable for uploading to AWS Lambda.
+
+See https://www.pantsbuild.org/v2.11/docs/awslambda-python.
+
+Backend: <span className="color--primary">`pants.backend.awslambda.python`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Where the built asset should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
+
+When running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `handler`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Entry point to the AWS Lambda handler.
+
+You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;lambda.py:handler_func&#x27;.
+
+You must use the file name shorthand for file arguments to work with this target.
+
+</Field>
+
+## `include_requirements`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to resolve requirements and include them in the Pex. This is most useful with Lambda Layers to make code uploads smaller when deps are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+
+</Field>
+
+## `runtime`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
+
+</Field>
+
+## `complete_platforms`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The platforms the built PEX should be compatible with.
+
+There must be built wheels available for all of the foreign platforms, rather than sdists.
+
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+
+Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+</span>

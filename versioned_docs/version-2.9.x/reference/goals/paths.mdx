@@ -1,0 +1,68 @@
+---
+title: paths
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants paths [args]
+```
+
+List the paths between two addresses.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[paths]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--paths-output-file=<path>`}
+  env_repr='PANTS_PATHS_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `frm`
+
+<Option
+  cli_repr={`--paths-from=<str>`}
+  env_repr='PANTS_PATHS_FRM'
+  default_repr={`None`}
+>
+
+The path starting address
+
+</Option>
+
+### `to`
+
+<Option
+  cli_repr={`--paths-to=<str>`}
+  env_repr='PANTS_PATHS_TO'
+  default_repr={`None`}
+>
+
+The path end address
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

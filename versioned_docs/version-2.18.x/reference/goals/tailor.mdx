@@ -1,0 +1,131 @@
+---
+title: tailor
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants tailor [args]
+```
+
+Auto-generate BUILD file targets for new source files.
+
+Each specific `tailor` implementation may be disabled through language-specific options, e.g. `[python].tailor_pex_binary_targets` and `[shell-setup].tailor`.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[tailor]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `check`
+
+<Option
+  cli_repr={`--[no-]tailor-check`}
+  env_repr='PANTS_TAILOR_CHECK'
+  default_repr={`False`}
+>
+
+Do not write changes to disk, only write back what would change. Return code 0 means there would be no changes, and 1 means that there would be.
+
+</Option>
+
+## Advanced options
+
+### `build_file_name`
+
+<Option
+  cli_repr={`--tailor-build-file-name=<str>`}
+  env_repr='PANTS_TAILOR_BUILD_FILE_NAME'
+  default_repr={`BUILD`}
+>
+
+The name to use for generated BUILD files.
+
+This must be compatible with `[GLOBAL].build_patterns`.
+
+</Option>
+
+### `build_file_header`
+
+<Option
+  cli_repr={`--tailor-build-file-header=<str>`}
+  env_repr='PANTS_TAILOR_BUILD_FILE_HEADER'
+  default_repr={`None`}
+>
+
+A header, e.g., a copyright notice, to add to the content of created BUILD files.
+
+</Option>
+
+### `build_file_indent`
+
+<Option
+  cli_repr={`--tailor-build-file-indent=<str>`}
+  env_repr='PANTS_TAILOR_BUILD_FILE_INDENT'
+  default_repr={`    `}
+>
+
+The indent to use when auto-editing BUILD files.
+
+</Option>
+
+### `alias_mapping`
+
+<Option
+  cli_repr={`--tailor-alias-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_TAILOR_ALIAS_MAPPING'
+  default_repr={`{}`}
+>
+
+A mapping from standard target type to custom type to use instead. The custom type can be a custom target type or a macro that offers compatible functionality to the one it replaces (see https://www.pantsbuild.org/v2.18/docs/macros).
+
+</Option>
+
+### `ignore_paths`
+
+<Option
+  cli_repr={`--tailor-ignore-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TAILOR_IGNORE_PATHS'
+  default_repr={`[]`}
+>
+
+Do not edit or create BUILD files at these paths.
+
+Can use literal file names and/or globs, e.g. `['project/BUILD, 'ignore_me/**']`.
+
+This augments the option `[GLOBAL].build_ignore`, which tells Pants to also not _read_ BUILD files at certain paths. In contrast, this option only tells Pants to not edit/create BUILD files at the specified paths.
+
+</Option>
+
+### `ignore_adding_targets`
+
+<Option
+  cli_repr={`--tailor-ignore-adding-targets="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TAILOR_IGNORE_ADDING_TARGETS'
+  default_repr={`[]`}
+>
+
+Do not add these target definitions.
+
+Expects a list of target addresses that would normally be added by `tailor`, e.g. `['project:tgt']`. To find these names, you can run `tailor --check`, then combine the BUILD file path with the target&#x27;s name. For example, if `tailor` would add the target `bin` to `project/BUILD`, then the address would be `project:bin`. If the BUILD file is at the root of your repository, use `//` for the path, e.g. `//:bin`.
+
+Does not work with macros.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>
