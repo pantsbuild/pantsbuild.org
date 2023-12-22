@@ -10188,10 +10188,6 @@ export default [
     to: "/2.17.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
-    from: "/v2.17/docs/tutorials-coming-soon",
-    to: "/2.17.x/docs/tutorials-coming-soon",
-  },
-  {
     from: "/v2.17/docs/upgrade-tips",
     to: "/2.17.x/docs/releases/upgrade-tips",
   },
@@ -11509,10 +11505,6 @@ export default [
   {
     from: "/v2.18/docs/troubleshooting",
     to: "/2.18.x/docs/using-pants/troubleshooting-common-issues",
-  },
-  {
-    from: "/v2.18/docs/tutorials-coming-soon",
-    to: "/2.18.x/docs/tutorials-coming-soon",
   },
   {
     from: "/v2.18/docs/upgrade-tips",
@@ -12840,10 +12832,6 @@ export default [
   {
     from: "/v2.19/docs/troubleshooting",
     to: "/2.19.x/docs/using-pants/troubleshooting-common-issues",
-  },
-  {
-    from: "/v2.19/docs/tutorials-coming-soon",
-    to: "/2.19.x/docs/tutorials-coming-soon",
   },
   {
     from: "/v2.19/docs/upgrade-tips",
@@ -17467,10 +17455,6 @@ export default [
   {
     from: "/v2.9/docs/jvm-overview",
     to: "/2.9.x/docs/java-and-scala/overview",
-  },
-  {
-    from: "/v2.9/docs/language-support",
-    to: "/spotlight/language-support",
   },
   { from: "/v2.9/docs/macros", to: "/2.9.x/docs/writing-plugins/macros" },
   { from: "/v2.9/docs/maintainers", to: "/community/maintainers" },
