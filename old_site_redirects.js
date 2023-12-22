@@ -3,16 +3,16 @@ export default [
     from: "/v2.0/docs/advanced-target-selection",
     to: "/2.0.x/docs/using-pants/advanced-target-selection",
   },
-  { from: "/v2.0/docs/aws-lambda", to: "/2.0.x/docs/aws-lambda/index" },
+  { from: "/v2.0/docs/aws-lambda", to: "/2.0.x/docs/aws-lambda" },
   {
     from: "/v2.0/docs/awslambda-python",
     to: "/2.0.x/docs/aws-lambda/python-support",
   },
   {
     from: "/v2.0/docs/code-of-conduct",
-    to: "/2.0.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
-  { from: "/v2.0/docs/codegen", to: "/2.0.x/docs/codegen/index" },
+  { from: "/v2.0/docs/codegen", to: "/2.0.x/docs/codegen" },
   {
     from: "/v2.0/docs/command-line-help",
     to: "/2.0.x/docs/using-pants/command-line-help",
@@ -23,20 +23,20 @@ export default [
   },
   {
     from: "/v2.0/docs/common-plugin-tasks",
-    to: "/2.0.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.0.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.0/docs/community", to: "/2.0.x/community/members" },
+  { from: "/v2.0/docs/community", to: "/community/members" },
   {
     from: "/v2.0/docs/concepts",
-    to: "/2.0.x/docs/using-pants/concepts/index",
+    to: "/2.0.x/docs/using-pants/concepts",
   },
   {
     from: "/v2.0/docs/contentious-decisions",
-    to: "/2.0.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.0/docs/contributing-to-pants",
-    to: "/2.0.x/docs/contributions/index",
+    to: "/2.0.x/docs/contributions",
   },
   {
     from: "/v2.0/docs/contributions-debugging",
@@ -60,11 +60,11 @@ export default [
   },
   {
     from: "/v2.0/docs/development",
-    to: "/2.0.x/docs/contributions/development/index",
+    to: "/2.0.x/docs/contributions/development",
   },
   {
     from: "/v2.0/docs/documentation",
-    to: "/2.0.x/docs/introduction/index",
+    to: "/2.0.x/docs/introduction",
   },
   {
     from: "/v2.0/docs/enabling-backends",
@@ -78,10 +78,10 @@ export default [
     from: "/v2.0/docs/existing-repositories",
     to: "/2.0.x/docs/using-pants/adopting-pants-in-existing-repos",
   },
-  { from: "/v2.0/docs/getting-help", to: "/2.0.x/community/getting-help" },
+  { from: "/v2.0/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.0/docs/getting-started",
-    to: "/2.0.x/docs/introduction/getting-started/index",
+    to: "/2.0.x/docs/introduction/getting-started",
   },
   {
     from: "/v2.0/docs/gitignore",
@@ -113,19 +113,19 @@ export default [
   },
   {
     from: "/v2.0/docs/language-support",
-    to: "/2.0.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.0/docs/macros", to: "/2.0.x/docs/writing-plugins/macros" },
-  { from: "/v2.0/docs/maintainers", to: "/2.0.x/community/maintainers" },
-  { from: "/v2.0/docs/media", to: "/2.0.x/spotlight/media" },
-  { from: "/v2.0/docs/news-room", to: "/2.0.x/spotlight/media" },
+  { from: "/v2.0/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.0/docs/media", to: "/spotlight/media" },
+  { from: "/v2.0/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.0/docs/options",
     to: "/2.0.x/docs/using-pants/concepts/options",
   },
   {
     from: "/v2.0/docs/pants-1-vs-2",
-    to: "/2.0.x/docs/introduction/pants-1.x-vs.-2.0/index",
+    to: "/2.0.x/docs/introduction/pants-1.x-vs.-2.0",
   },
   {
     from: "/v2.0/docs/pex-files",
@@ -199,7 +199,7 @@ export default [
     from: "/v2.0/docs/python-fmt-goal",
     to: "/2.0.x/docs/python/goals/fmt",
   },
-  { from: "/v2.0/docs/python-goals", to: "/2.0.x/docs/python/goals/index" },
+  { from: "/v2.0/docs/python-goals", to: "/2.0.x/docs/python/goals" },
   {
     from: "/v2.0/docs/python-interpreter-compatibility",
     to: "/2.0.x/docs/python/overview/interpreter-compatibility",
@@ -240,7 +240,7 @@ export default [
     from: "/v2.0/docs/python-typecheck-goal",
     to: "/2.0.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.0/docs/python", to: "/2.0.x/docs/python/overview/index" },
+  { from: "/v2.0/docs/python", to: "/2.0.x/docs/python/overview" },
   { from: "/v2.0/docs/reference-all-goals", to: "/2.0.x/reference/goals" },
   {
     from: "/v2.0/docs/reference-all-subsystems",
@@ -493,10 +493,10 @@ export default [
     from: "/v2.0/docs/reference-validate",
     to: "/2.0.x/reference/goals/validate",
   },
-  { from: "/v2.0/docs/reference", to: "/2.0.x/reference/index" },
+  { from: "/v2.0/docs/reference", to: "/2.0.x/reference" },
   {
     from: "/v2.0/docs/release-notes",
-    to: "/2.0.x/docs/release-notes/index",
+    to: "/2.0.x/docs/release-notes",
   },
   {
     from: "/v2.0/docs/release-process",
@@ -508,7 +508,7 @@ export default [
   },
   {
     from: "/v2.0/docs/releases",
-    to: "/2.0.x/docs/contributions/releases/index",
+    to: "/2.0.x/docs/contributions/releases",
   },
   {
     from: "/v2.0/docs/remote-execution",
@@ -564,7 +564,7 @@ export default [
   },
   {
     from: "/v2.0/docs/rules-api",
-    to: "/2.0.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.0.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.0/docs/source-roots",
@@ -592,18 +592,18 @@ export default [
   },
   {
     from: "/v2.0/docs/target-api",
-    to: "/2.0.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.0.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.0/docs/targets",
     to: "/2.0.x/docs/using-pants/concepts/targets-and-build-files",
   },
-  { from: "/v2.0/docs/team", to: "/2.0.x/community/meet-the-team" },
-  { from: "/v2.0/docs/testimonials", to: "/2.0.x/spotlight/testimonials" },
-  { from: "/v2.0/docs/the-pants-community", to: "/2.0.x/community/members" },
+  { from: "/v2.0/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.0/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.0/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.0/docs/troubleshooting",
-    to: "/2.0.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.0.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.0/docs/upgrade-tips",
@@ -613,30 +613,30 @@ export default [
     from: "/v2.0/docs/using-pants-in-ci",
     to: "/2.0.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.0/docs/using-pants", to: "/2.0.x/docs/using-pants/index" },
+  { from: "/v2.0/docs/using-pants", to: "/2.0.x/docs/using-pants" },
   {
     from: "/v2.0/docs/welcome-to-pants",
     to: "/2.0.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.0/docs/who-uses-pants", to: "/2.0.x/spotlight/users" },
+  { from: "/v2.0/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.0/docs/writing-plugins",
-    to: "/2.0.x/docs/writing-plugins/index",
+    to: "/2.0.x/docs/writing-plugins",
   },
   {
     from: "/v2.1/docs/advanced-target-selection",
     to: "/2.1.x/docs/using-pants/advanced-target-selection",
   },
-  { from: "/v2.1/docs/aws-lambda", to: "/2.1.x/docs/aws-lambda/index" },
+  { from: "/v2.1/docs/aws-lambda", to: "/2.1.x/docs/aws-lambda" },
   {
     from: "/v2.1/docs/awslambda-python",
     to: "/2.1.x/docs/aws-lambda/python-support",
   },
   {
     from: "/v2.1/docs/code-of-conduct",
-    to: "/2.1.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
-  { from: "/v2.1/docs/codegen", to: "/2.1.x/docs/codegen/index" },
+  { from: "/v2.1/docs/codegen", to: "/2.1.x/docs/codegen" },
   {
     from: "/v2.1/docs/command-line-help",
     to: "/2.1.x/docs/using-pants/command-line-help",
@@ -647,20 +647,20 @@ export default [
   },
   {
     from: "/v2.1/docs/common-plugin-tasks",
-    to: "/2.1.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.1.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.1/docs/community", to: "/2.1.x/community/members" },
+  { from: "/v2.1/docs/community", to: "/community/members" },
   {
     from: "/v2.1/docs/concepts",
-    to: "/2.1.x/docs/using-pants/concepts/index",
+    to: "/2.1.x/docs/using-pants/concepts",
   },
   {
     from: "/v2.1/docs/contentious-decisions",
-    to: "/2.1.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.1/docs/contributing-to-pants",
-    to: "/2.1.x/docs/contributions/index",
+    to: "/2.1.x/docs/contributions",
   },
   {
     from: "/v2.1/docs/contributions-debugging",
@@ -684,11 +684,11 @@ export default [
   },
   {
     from: "/v2.1/docs/development",
-    to: "/2.1.x/docs/contributions/development/index",
+    to: "/2.1.x/docs/contributions/development",
   },
   {
     from: "/v2.1/docs/documentation",
-    to: "/2.1.x/docs/introduction/index",
+    to: "/2.1.x/docs/introduction",
   },
   {
     from: "/v2.1/docs/enabling-backends",
@@ -702,10 +702,10 @@ export default [
     from: "/v2.1/docs/existing-repositories",
     to: "/2.1.x/docs/using-pants/adopting-pants-in-existing-repos",
   },
-  { from: "/v2.1/docs/getting-help", to: "/2.1.x/community/getting-help" },
+  { from: "/v2.1/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.1/docs/getting-started",
-    to: "/2.1.x/docs/introduction/getting-started/index",
+    to: "/2.1.x/docs/introduction/getting-started",
   },
   {
     from: "/v2.1/docs/gitignore",
@@ -737,19 +737,19 @@ export default [
   },
   {
     from: "/v2.1/docs/language-support",
-    to: "/2.1.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.1/docs/macros", to: "/2.1.x/docs/writing-plugins/macros" },
-  { from: "/v2.1/docs/maintainers", to: "/2.1.x/community/maintainers" },
-  { from: "/v2.1/docs/media", to: "/2.1.x/spotlight/media" },
-  { from: "/v2.1/docs/news-room", to: "/2.1.x/spotlight/media" },
+  { from: "/v2.1/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.1/docs/media", to: "/spotlight/media" },
+  { from: "/v2.1/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.1/docs/options",
     to: "/2.1.x/docs/using-pants/concepts/options",
   },
   {
     from: "/v2.1/docs/pants-1-vs-2",
-    to: "/2.1.x/docs/introduction/pants-1.x-vs.-2.x/index",
+    to: "/2.1.x/docs/introduction/pants-1.x-vs.-2.x",
   },
   {
     from: "/v2.1/docs/pex-files",
@@ -823,7 +823,7 @@ export default [
     from: "/v2.1/docs/python-fmt-goal",
     to: "/2.1.x/docs/python/goals/fmt",
   },
-  { from: "/v2.1/docs/python-goals", to: "/2.1.x/docs/python/goals/index" },
+  { from: "/v2.1/docs/python-goals", to: "/2.1.x/docs/python/goals" },
   {
     from: "/v2.1/docs/python-interpreter-compatibility",
     to: "/2.1.x/docs/python/overview/interpreter-compatibility",
@@ -864,7 +864,7 @@ export default [
     from: "/v2.1/docs/python-typecheck-goal",
     to: "/2.1.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.1/docs/python", to: "/2.1.x/docs/python/overview/index" },
+  { from: "/v2.1/docs/python", to: "/2.1.x/docs/python/overview" },
   { from: "/v2.1/docs/reference-all-goals", to: "/2.1.x/reference/goals" },
   {
     from: "/v2.1/docs/reference-all-subsystems",
@@ -1093,10 +1093,10 @@ export default [
     from: "/v2.1/docs/reference-validate",
     to: "/2.1.x/reference/goals/validate",
   },
-  { from: "/v2.1/docs/reference", to: "/2.1.x/reference/index" },
+  { from: "/v2.1/docs/reference", to: "/2.1.x/reference" },
   {
     from: "/v2.1/docs/release-notes",
-    to: "/2.1.x/docs/release-notes/index",
+    to: "/2.1.x/docs/release-notes",
   },
   {
     from: "/v2.1/docs/release-process",
@@ -1108,7 +1108,7 @@ export default [
   },
   {
     from: "/v2.1/docs/releases",
-    to: "/2.1.x/docs/contributions/releases/index",
+    to: "/2.1.x/docs/contributions/releases",
   },
   {
     from: "/v2.1/docs/remote-execution",
@@ -1164,7 +1164,7 @@ export default [
   },
   {
     from: "/v2.1/docs/rules-api",
-    to: "/2.1.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.1.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.1/docs/source-roots",
@@ -1192,18 +1192,18 @@ export default [
   },
   {
     from: "/v2.1/docs/target-api",
-    to: "/2.1.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.1.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.1/docs/targets",
     to: "/2.1.x/docs/using-pants/concepts/targets-and-build-files",
   },
-  { from: "/v2.1/docs/team", to: "/2.1.x/community/meet-the-team" },
-  { from: "/v2.1/docs/testimonials", to: "/2.1.x/spotlight/testimonials" },
-  { from: "/v2.1/docs/the-pants-community", to: "/2.1.x/community/members" },
+  { from: "/v2.1/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.1/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.1/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.1/docs/troubleshooting",
-    to: "/2.1.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.1.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.1/docs/upgrade-tips",
@@ -1213,15 +1213,15 @@ export default [
     from: "/v2.1/docs/using-pants-in-ci",
     to: "/2.1.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.1/docs/using-pants", to: "/2.1.x/docs/using-pants/index" },
+  { from: "/v2.1/docs/using-pants", to: "/2.1.x/docs/using-pants" },
   {
     from: "/v2.1/docs/welcome-to-pants",
     to: "/2.1.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.1/docs/who-uses-pants", to: "/2.1.x/spotlight/users" },
+  { from: "/v2.1/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.1/docs/writing-plugins",
-    to: "/2.1.x/docs/writing-plugins/index",
+    to: "/2.1.x/docs/writing-plugins",
   },
   {
     from: "/v2.10/docs/advanced-target-selection",
@@ -1239,10 +1239,10 @@ export default [
     from: "/v2.10/docs/awslambda-python",
     to: "/2.10.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.10/docs/changelog", to: "/2.10.x/versions" },
+  { from: "/v2.10/docs/changelog", to: "/versions" },
   {
     from: "/v2.10/docs/code-of-conduct",
-    to: "/2.10.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.10/docs/command-line-help",
@@ -1250,20 +1250,20 @@ export default [
   },
   {
     from: "/v2.10/docs/common-plugin-tasks",
-    to: "/2.10.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.10.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.10/docs/community", to: "/2.10.x/community/members" },
+  { from: "/v2.10/docs/community", to: "/community/members" },
   {
     from: "/v2.10/docs/concepts",
-    to: "/2.10.x/docs/using-pants/key-concepts/index",
+    to: "/2.10.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.10/docs/contentious-decisions",
-    to: "/2.10.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.10/docs/contributing-to-pants",
-    to: "/2.10.x/docs/contributions/index",
+    to: "/2.10.x/docs/contributions",
   },
   {
     from: "/v2.10/docs/contributions-debugging",
@@ -1291,12 +1291,12 @@ export default [
   },
   {
     from: "/v2.10/docs/development",
-    to: "/2.10.x/docs/contributions/development/index",
+    to: "/2.10.x/docs/contributions/development",
   },
   { from: "/v2.10/docs/docker", to: "/2.10.x/docs/docker/overview" },
   {
     from: "/v2.10/docs/documentation",
-    to: "/2.10.x/docs/introduction/index",
+    to: "/2.10.x/docs/introduction",
   },
   {
     from: "/v2.10/docs/enabling-backends",
@@ -1310,10 +1310,10 @@ export default [
     from: "/v2.10/docs/existing-repositories",
     to: "/2.10.x/docs/getting-started/getting-started/incremental-adoption",
   },
-  { from: "/v2.10/docs/getting-help", to: "/2.10.x/community/getting-help" },
+  { from: "/v2.10/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.10/docs/getting-started",
-    to: "/2.10.x/docs/getting-started/getting-started/index",
+    to: "/2.10.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.10/docs/gitignore",
@@ -1342,7 +1342,7 @@ export default [
   },
   {
     from: "/v2.10/docs/integrations",
-    to: "/2.10.x/docs/python/integrations/index",
+    to: "/2.10.x/docs/python/integrations",
   },
   {
     from: "/v2.10/docs/internal-rules-architecture",
@@ -1356,15 +1356,15 @@ export default [
     from: "/v2.10/docs/jvm-overview",
     to: "/2.10.x/docs/java-and-scala/overview",
   },
-  { from: "/v2.10/docs/jvm", to: "/2.10.x/docs/java-and-scala/index" },
+  { from: "/v2.10/docs/jvm", to: "/2.10.x/docs/java-and-scala" },
   {
     from: "/v2.10/docs/language-support",
-    to: "/2.10.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.10/docs/macros", to: "/2.10.x/docs/writing-plugins/macros" },
-  { from: "/v2.10/docs/maintainers", to: "/2.10.x/community/maintainers" },
-  { from: "/v2.10/docs/media", to: "/2.10.x/spotlight/media" },
-  { from: "/v2.10/docs/news-room", to: "/2.10.x/spotlight/media" },
+  { from: "/v2.10/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.10/docs/media", to: "/spotlight/media" },
+  { from: "/v2.10/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.10/docs/options",
     to: "/2.10.x/docs/using-pants/key-concepts/options",
@@ -1439,7 +1439,7 @@ export default [
   },
   {
     from: "/v2.10/docs/python-goals",
-    to: "/2.10.x/docs/python/goals/index",
+    to: "/2.10.x/docs/python/goals",
   },
   {
     from: "/v2.10/docs/python-interpreter-compatibility",
@@ -1477,7 +1477,7 @@ export default [
     from: "/v2.10/docs/python-third-party-dependencies",
     to: "/2.10.x/docs/python/overview/third-party-dependencies",
   },
-  { from: "/v2.10/docs/python", to: "/2.10.x/docs/python/overview/index" },
+  { from: "/v2.10/docs/python", to: "/2.10.x/docs/python/overview" },
   { from: "/v2.10/docs/reference-all-goals", to: "/2.10.x/reference/goals" },
   {
     from: "/v2.10/docs/reference-all-subsystems",
@@ -2065,8 +2065,8 @@ export default [
     from: "/v2.10/docs/reference-yapf",
     to: "/2.10.x/reference/subsystems/yapf",
   },
-  { from: "/v2.10/docs/reference", to: "/2.10.x/reference/index" },
-  { from: "/v2.10/docs/release-notes", to: "/2.10.x/docs/releases/index" },
+  { from: "/v2.10/docs/reference", to: "/2.10.x/reference" },
+  { from: "/v2.10/docs/release-notes", to: "/2.10.x/docs/releases" },
   {
     from: "/v2.10/docs/release-process",
     to: "/2.10.x/docs/contributions/releases/release-process",
@@ -2077,11 +2077,11 @@ export default [
   },
   {
     from: "/v2.10/docs/releases",
-    to: "/2.10.x/docs/contributions/releases/index",
+    to: "/2.10.x/docs/contributions/releases",
   },
   {
     from: "/v2.10/docs/remote-caching-execution",
-    to: "/2.10.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.10.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.10/docs/remote-caching",
@@ -2141,7 +2141,7 @@ export default [
   },
   {
     from: "/v2.10/docs/rules-api",
-    to: "/2.10.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.10.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.10/docs/run-shell-commands",
@@ -2186,15 +2186,15 @@ export default [
   },
   {
     from: "/v2.10/docs/target-api",
-    to: "/2.10.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.10.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.10/docs/targets",
     to: "/2.10.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.10/docs/team", to: "/2.10.x/community/meet-the-team" },
-  { from: "/v2.10/docs/testimonials", to: "/2.10.x/spotlight/testimonials" },
-  { from: "/v2.10/docs/the-pants-community", to: "/2.10.x/community/members" },
+  { from: "/v2.10/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.10/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.10/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.10/docs/thrift-python",
     to: "/2.10.x/docs/python/integrations/thrift",
@@ -2211,15 +2211,15 @@ export default [
     from: "/v2.10/docs/using-pants-in-ci",
     to: "/2.10.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.10/docs/using-pants", to: "/2.10.x/docs/using-pants/index" },
+  { from: "/v2.10/docs/using-pants", to: "/2.10.x/docs/using-pants" },
   {
     from: "/v2.10/docs/welcome-to-pants",
     to: "/2.10.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.10/docs/who-uses-pants", to: "/2.10.x/spotlight/users" },
+  { from: "/v2.10/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.10/docs/writing-plugins",
-    to: "/2.10.x/docs/writing-plugins/index",
+    to: "/2.10.x/docs/writing-plugins",
   },
   {
     from: "/v2.11/docs/advanced-target-selection",
@@ -2237,10 +2237,10 @@ export default [
     from: "/v2.11/docs/awslambda-python",
     to: "/2.11.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.11/docs/changelog", to: "/2.11.x/versions" },
+  { from: "/v2.11/docs/changelog", to: "/versions" },
   {
     from: "/v2.11/docs/code-of-conduct",
-    to: "/2.11.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.11/docs/command-line-help",
@@ -2248,20 +2248,20 @@ export default [
   },
   {
     from: "/v2.11/docs/common-plugin-tasks",
-    to: "/2.11.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.11.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.11/docs/community", to: "/2.11.x/community/members" },
+  { from: "/v2.11/docs/community", to: "/community/members" },
   {
     from: "/v2.11/docs/concepts",
-    to: "/2.11.x/docs/using-pants/key-concepts/index",
+    to: "/2.11.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.11/docs/contentious-decisions",
-    to: "/2.11.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.11/docs/contributing-to-pants",
-    to: "/2.11.x/docs/contributions/index",
+    to: "/2.11.x/docs/contributions",
   },
   {
     from: "/v2.11/docs/contributions-debugging",
@@ -2285,12 +2285,12 @@ export default [
   },
   {
     from: "/v2.11/docs/development",
-    to: "/2.11.x/docs/contributions/development/index",
+    to: "/2.11.x/docs/contributions/development",
   },
   { from: "/v2.11/docs/docker", to: "/2.11.x/docs/docker/docker-overview" },
   {
     from: "/v2.11/docs/documentation",
-    to: "/2.11.x/docs/introduction/index",
+    to: "/2.11.x/docs/introduction",
   },
   {
     from: "/v2.11/docs/enabling-backends",
@@ -2304,14 +2304,14 @@ export default [
     from: "/v2.11/docs/existing-repositories",
     to: "/2.11.x/docs/getting-started/getting-started/incremental-adoption",
   },
-  { from: "/v2.11/docs/getting-help", to: "/2.11.x/community/getting-help" },
+  { from: "/v2.11/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.11/docs/getting-started",
-    to: "/2.11.x/docs/getting-started/getting-started/index",
+    to: "/2.11.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.11/docs/go-integrations",
-    to: "/2.11.x/docs/go/integrations/index",
+    to: "/2.11.x/docs/go/integrations",
   },
   { from: "/v2.11/docs/go", to: "/2.11.x/docs/go/go-overview" },
   {
@@ -2346,15 +2346,15 @@ export default [
     from: "/v2.11/docs/jvm-overview",
     to: "/2.11.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.11/docs/jvm", to: "/2.11.x/docs/java-and-scala/index" },
+  { from: "/v2.11/docs/jvm", to: "/2.11.x/docs/java-and-scala" },
   {
     from: "/v2.11/docs/language-support",
-    to: "/2.11.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.11/docs/macros", to: "/2.11.x/docs/writing-plugins/macros" },
-  { from: "/v2.11/docs/maintainers", to: "/2.11.x/community/maintainers" },
-  { from: "/v2.11/docs/media", to: "/2.11.x/spotlight/media" },
-  { from: "/v2.11/docs/news-room", to: "/2.11.x/spotlight/media" },
+  { from: "/v2.11/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.11/docs/media", to: "/spotlight/media" },
+  { from: "/v2.11/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.11/docs/options",
     to: "/2.11.x/docs/using-pants/key-concepts/options",
@@ -2433,11 +2433,11 @@ export default [
   },
   {
     from: "/v2.11/docs/python-goals",
-    to: "/2.11.x/docs/python/goals/index",
+    to: "/2.11.x/docs/python/goals",
   },
   {
     from: "/v2.11/docs/python-integrations",
-    to: "/2.11.x/docs/python/integrations/index",
+    to: "/2.11.x/docs/python/integrations",
   },
   {
     from: "/v2.11/docs/python-interpreter-compatibility",
@@ -2477,7 +2477,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python",
-    to: "/2.11.x/docs/python/python-overview/index",
+    to: "/2.11.x/docs/python/python-overview",
   },
   { from: "/v2.11/docs/reference-all-goals", to: "/2.11.x/reference/goals" },
   {
@@ -3090,8 +3090,8 @@ export default [
     from: "/v2.11/docs/reference-yapf",
     to: "/2.11.x/reference/subsystems/yapf",
   },
-  { from: "/v2.11/docs/reference", to: "/2.11.x/reference/index" },
-  { from: "/v2.11/docs/release-notes", to: "/2.11.x/docs/releases/index" },
+  { from: "/v2.11/docs/reference", to: "/2.11.x/reference" },
+  { from: "/v2.11/docs/release-notes", to: "/2.11.x/docs/releases" },
   {
     from: "/v2.11/docs/release-process",
     to: "/2.11.x/docs/contributions/releases/release-process",
@@ -3102,11 +3102,11 @@ export default [
   },
   {
     from: "/v2.11/docs/releases",
-    to: "/2.11.x/docs/contributions/releases/index",
+    to: "/2.11.x/docs/contributions/releases",
   },
   {
     from: "/v2.11/docs/remote-caching-execution",
-    to: "/2.11.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.11.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.11/docs/remote-caching",
@@ -3166,7 +3166,7 @@ export default [
   },
   {
     from: "/v2.11/docs/rules-api",
-    to: "/2.11.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.11.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.11/docs/run-shell-commands",
@@ -3211,15 +3211,15 @@ export default [
   },
   {
     from: "/v2.11/docs/target-api",
-    to: "/2.11.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.11.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.11/docs/targets",
     to: "/2.11.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.11/docs/team", to: "/2.11.x/community/meet-the-team" },
-  { from: "/v2.11/docs/testimonials", to: "/2.11.x/spotlight/testimonials" },
-  { from: "/v2.11/docs/the-pants-community", to: "/2.11.x/community/members" },
+  { from: "/v2.11/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.11/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.11/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.11/docs/thrift-python",
     to: "/2.11.x/docs/python/integrations/thrift",
@@ -3236,15 +3236,15 @@ export default [
     from: "/v2.11/docs/using-pants-in-ci",
     to: "/2.11.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.11/docs/using-pants", to: "/2.11.x/docs/using-pants/index" },
+  { from: "/v2.11/docs/using-pants", to: "/2.11.x/docs/using-pants" },
   {
     from: "/v2.11/docs/welcome-to-pants",
     to: "/2.11.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.11/docs/who-uses-pants", to: "/2.11.x/spotlight/users" },
+  { from: "/v2.11/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.11/docs/writing-plugins",
-    to: "/2.11.x/docs/writing-plugins/index",
+    to: "/2.11.x/docs/writing-plugins",
   },
   {
     from: "/v2.12/docs/advanced-target-selection",
@@ -3262,14 +3262,14 @@ export default [
     from: "/v2.12/docs/awslambda-python",
     to: "/2.12.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.12/docs/changelog", to: "/2.12.x/versions" },
+  { from: "/v2.12/docs/changelog", to: "/versions" },
   {
     from: "/v2.12/docs/ci-for-macos-on-arm64",
     to: "/2.12.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.12/docs/code-of-conduct",
-    to: "/2.12.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.12/docs/command-line-help",
@@ -3277,20 +3277,20 @@ export default [
   },
   {
     from: "/v2.12/docs/common-plugin-tasks",
-    to: "/2.12.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.12.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.12/docs/community", to: "/2.12.x/community/members" },
+  { from: "/v2.12/docs/community", to: "/community/members" },
   {
     from: "/v2.12/docs/concepts",
-    to: "/2.12.x/docs/using-pants/key-concepts/index",
+    to: "/2.12.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.12/docs/contentious-decisions",
-    to: "/2.12.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.12/docs/contributing-to-pants",
-    to: "/2.12.x/docs/contributions/index",
+    to: "/2.12.x/docs/contributions",
   },
   {
     from: "/v2.12/docs/contributions-debugging",
@@ -3314,12 +3314,12 @@ export default [
   },
   {
     from: "/v2.12/docs/development",
-    to: "/2.12.x/docs/contributions/development/index",
+    to: "/2.12.x/docs/contributions/development",
   },
   { from: "/v2.12/docs/docker", to: "/2.12.x/docs/docker/docker-overview" },
   {
     from: "/v2.12/docs/documentation",
-    to: "/2.12.x/docs/introduction/index",
+    to: "/2.12.x/docs/introduction",
   },
   {
     from: "/v2.12/docs/enabling-backends",
@@ -3333,14 +3333,14 @@ export default [
     from: "/v2.12/docs/existing-repositories",
     to: "/2.12.x/docs/getting-started/getting-started/incremental-adoption",
   },
-  { from: "/v2.12/docs/getting-help", to: "/2.12.x/community/getting-help" },
+  { from: "/v2.12/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.12/docs/getting-started",
-    to: "/2.12.x/docs/getting-started/getting-started/index",
+    to: "/2.12.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.12/docs/go-integrations",
-    to: "/2.12.x/docs/go/integrations/index",
+    to: "/2.12.x/docs/go/integrations",
   },
   { from: "/v2.12/docs/go", to: "/2.12.x/docs/go/go-overview" },
   {
@@ -3355,7 +3355,7 @@ export default [
     from: "/v2.12/docs/helm-overview",
     to: "/2.12.x/docs/helm/helm-overview",
   },
-  { from: "/v2.12/docs/helm", to: "/2.12.x/docs/helm/index" },
+  { from: "/v2.12/docs/helm", to: "/2.12.x/docs/helm" },
   {
     from: "/v2.12/docs/how-does-pants-work",
     to: "/2.12.x/docs/introduction/how-does-pants-work",
@@ -3380,19 +3380,19 @@ export default [
     from: "/v2.12/docs/jvm-overview",
     to: "/2.12.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.12/docs/jvm", to: "/2.12.x/docs/java-and-scala/index" },
+  { from: "/v2.12/docs/jvm", to: "/2.12.x/docs/java-and-scala" },
   {
     from: "/v2.12/docs/language-support",
-    to: "/2.12.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.12/docs/macros", to: "/2.12.x/docs/writing-plugins/macros" },
-  { from: "/v2.12/docs/maintainers", to: "/2.12.x/community/maintainers" },
+  { from: "/v2.12/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.12/docs/manual-installation",
     to: "/2.12.x/docs/getting-started/getting-started/manual-and-advanced-installation",
   },
-  { from: "/v2.12/docs/media", to: "/2.12.x/spotlight/media" },
-  { from: "/v2.12/docs/news-room", to: "/2.12.x/spotlight/media" },
+  { from: "/v2.12/docs/media", to: "/spotlight/media" },
+  { from: "/v2.12/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.12/docs/options",
     to: "/2.12.x/docs/using-pants/key-concepts/options",
@@ -3471,11 +3471,11 @@ export default [
   },
   {
     from: "/v2.12/docs/python-goals",
-    to: "/2.12.x/docs/python/goals/index",
+    to: "/2.12.x/docs/python/goals",
   },
   {
     from: "/v2.12/docs/python-integrations",
-    to: "/2.12.x/docs/python/integrations/index",
+    to: "/2.12.x/docs/python/integrations",
   },
   {
     from: "/v2.12/docs/python-interpreter-compatibility",
@@ -3515,7 +3515,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python",
-    to: "/2.12.x/docs/python/python-overview/index",
+    to: "/2.12.x/docs/python/python-overview",
   },
   { from: "/v2.12/docs/reference-all-goals", to: "/2.12.x/reference/goals" },
   {
@@ -4172,8 +4172,8 @@ export default [
     from: "/v2.12/docs/reference-yapf",
     to: "/2.12.x/reference/subsystems/yapf",
   },
-  { from: "/v2.12/docs/reference", to: "/2.12.x/reference/index" },
-  { from: "/v2.12/docs/release-notes", to: "/2.12.x/docs/releases/index" },
+  { from: "/v2.12/docs/reference", to: "/2.12.x/reference" },
+  { from: "/v2.12/docs/release-notes", to: "/2.12.x/docs/releases" },
   {
     from: "/v2.12/docs/release-process",
     to: "/2.12.x/docs/contributions/releases/release-process",
@@ -4184,11 +4184,11 @@ export default [
   },
   {
     from: "/v2.12/docs/releases",
-    to: "/2.12.x/docs/contributions/releases/index",
+    to: "/2.12.x/docs/contributions/releases",
   },
   {
     from: "/v2.12/docs/remote-caching-execution",
-    to: "/2.12.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.12.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.12/docs/remote-caching",
@@ -4248,7 +4248,7 @@ export default [
   },
   {
     from: "/v2.12/docs/rules-api",
-    to: "/2.12.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.12.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.12/docs/run-shell-commands",
@@ -4293,15 +4293,15 @@ export default [
   },
   {
     from: "/v2.12/docs/target-api",
-    to: "/2.12.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.12.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.12/docs/targets",
     to: "/2.12.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.12/docs/team", to: "/2.12.x/community/meet-the-team" },
-  { from: "/v2.12/docs/testimonials", to: "/2.12.x/spotlight/testimonials" },
-  { from: "/v2.12/docs/the-pants-community", to: "/2.12.x/community/members" },
+  { from: "/v2.12/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.12/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.12/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.12/docs/thrift-python",
     to: "/2.12.x/docs/python/integrations/thrift",
@@ -4318,15 +4318,15 @@ export default [
     from: "/v2.12/docs/using-pants-in-ci",
     to: "/2.12.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.12/docs/using-pants", to: "/2.12.x/docs/using-pants/index" },
+  { from: "/v2.12/docs/using-pants", to: "/2.12.x/docs/using-pants" },
   {
     from: "/v2.12/docs/welcome-to-pants",
     to: "/2.12.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.12/docs/who-uses-pants", to: "/2.12.x/spotlight/users" },
+  { from: "/v2.12/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.12/docs/writing-plugins",
-    to: "/2.12.x/docs/writing-plugins/index",
+    to: "/2.12.x/docs/writing-plugins",
   },
   {
     from: "/v2.13/docs/advanced-target-selection",
@@ -4344,14 +4344,14 @@ export default [
     from: "/v2.13/docs/awslambda-python",
     to: "/2.13.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.13/docs/changelog", to: "/2.13.x/versions" },
+  { from: "/v2.13/docs/changelog", to: "/versions" },
   {
     from: "/v2.13/docs/ci-for-macos-on-arm64",
     to: "/2.13.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.13/docs/code-of-conduct",
-    to: "/2.13.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.13/docs/command-line-help",
@@ -4359,20 +4359,20 @@ export default [
   },
   {
     from: "/v2.13/docs/common-plugin-tasks",
-    to: "/2.13.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.13.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.13/docs/community", to: "/2.13.x/community/members" },
+  { from: "/v2.13/docs/community", to: "/community/members" },
   {
     from: "/v2.13/docs/concepts",
-    to: "/2.13.x/docs/using-pants/key-concepts/index",
+    to: "/2.13.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.13/docs/contentious-decisions",
-    to: "/2.13.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.13/docs/contributing-to-pants",
-    to: "/2.13.x/docs/contributions/index",
+    to: "/2.13.x/docs/contributions",
   },
   {
     from: "/v2.13/docs/contributions-debugging",
@@ -4396,12 +4396,12 @@ export default [
   },
   {
     from: "/v2.13/docs/development",
-    to: "/2.13.x/docs/contributions/development/index",
+    to: "/2.13.x/docs/contributions/development",
   },
   { from: "/v2.13/docs/docker", to: "/2.13.x/docs/docker/docker-overview" },
   {
     from: "/v2.13/docs/documentation",
-    to: "/2.13.x/docs/introduction/index",
+    to: "/2.13.x/docs/introduction",
   },
   {
     from: "/v2.13/docs/enabling-backends",
@@ -4419,14 +4419,14 @@ export default [
     from: "/v2.13/docs/generating-version-tags",
     to: "/2.13.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.13/docs/getting-help", to: "/2.13.x/community/getting-help" },
+  { from: "/v2.13/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.13/docs/getting-started",
-    to: "/2.13.x/docs/getting-started/getting-started/index",
+    to: "/2.13.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.13/docs/go-integrations",
-    to: "/2.13.x/docs/go/integrations/index",
+    to: "/2.13.x/docs/go/integrations",
   },
   { from: "/v2.13/docs/go", to: "/2.13.x/docs/go/go-overview" },
   {
@@ -4441,7 +4441,7 @@ export default [
     from: "/v2.13/docs/helm-overview",
     to: "/2.13.x/docs/helm/helm-overview",
   },
-  { from: "/v2.13/docs/helm", to: "/2.13.x/docs/helm/index" },
+  { from: "/v2.13/docs/helm", to: "/2.13.x/docs/helm" },
   {
     from: "/v2.13/docs/how-does-pants-work",
     to: "/2.13.x/docs/introduction/how-does-pants-work",
@@ -4466,20 +4466,20 @@ export default [
     from: "/v2.13/docs/jvm-overview",
     to: "/2.13.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.13/docs/jvm", to: "/2.13.x/docs/java-and-scala/index" },
+  { from: "/v2.13/docs/jvm", to: "/2.13.x/docs/java-and-scala" },
   { from: "/v2.13/docs/kotlin", to: "/2.13.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.13/docs/language-support",
-    to: "/2.13.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.13/docs/macros", to: "/2.13.x/docs/writing-plugins/macros" },
-  { from: "/v2.13/docs/maintainers", to: "/2.13.x/community/maintainers" },
+  { from: "/v2.13/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.13/docs/manual-installation",
     to: "/2.13.x/docs/getting-started/getting-started/manual-and-advanced-installation",
   },
-  { from: "/v2.13/docs/media", to: "/2.13.x/spotlight/media" },
-  { from: "/v2.13/docs/news-room", to: "/2.13.x/spotlight/media" },
+  { from: "/v2.13/docs/media", to: "/spotlight/media" },
+  { from: "/v2.13/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.13/docs/options",
     to: "/2.13.x/docs/using-pants/key-concepts/options",
@@ -4558,11 +4558,11 @@ export default [
   },
   {
     from: "/v2.13/docs/python-goals",
-    to: "/2.13.x/docs/python/goals/index",
+    to: "/2.13.x/docs/python/goals",
   },
   {
     from: "/v2.13/docs/python-integrations",
-    to: "/2.13.x/docs/python/integrations/index",
+    to: "/2.13.x/docs/python/integrations",
   },
   {
     from: "/v2.13/docs/python-interpreter-compatibility",
@@ -4602,7 +4602,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python",
-    to: "/2.13.x/docs/python/python-overview/index",
+    to: "/2.13.x/docs/python/python-overview",
   },
   { from: "/v2.13/docs/reference-all-goals", to: "/2.13.x/reference/goals" },
   {
@@ -5287,8 +5287,8 @@ export default [
     from: "/v2.13/docs/reference-yapf",
     to: "/2.13.x/reference/subsystems/yapf",
   },
-  { from: "/v2.13/docs/reference", to: "/2.13.x/reference/index" },
-  { from: "/v2.13/docs/release-notes", to: "/2.13.x/docs/releases/index" },
+  { from: "/v2.13/docs/reference", to: "/2.13.x/reference" },
+  { from: "/v2.13/docs/release-notes", to: "/2.13.x/docs/releases" },
   {
     from: "/v2.13/docs/release-process",
     to: "/2.13.x/docs/contributions/releases/release-process",
@@ -5299,11 +5299,11 @@ export default [
   },
   {
     from: "/v2.13/docs/releases",
-    to: "/2.13.x/docs/contributions/releases/index",
+    to: "/2.13.x/docs/contributions/releases",
   },
   {
     from: "/v2.13/docs/remote-caching-execution",
-    to: "/2.13.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.13.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.13/docs/remote-caching",
@@ -5363,7 +5363,7 @@ export default [
   },
   {
     from: "/v2.13/docs/rules-api",
-    to: "/2.13.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.13.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.13/docs/run-shell-commands",
@@ -5408,15 +5408,15 @@ export default [
   },
   {
     from: "/v2.13/docs/target-api",
-    to: "/2.13.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.13.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.13/docs/targets",
     to: "/2.13.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.13/docs/team", to: "/2.13.x/community/meet-the-team" },
-  { from: "/v2.13/docs/testimonials", to: "/2.13.x/spotlight/testimonials" },
-  { from: "/v2.13/docs/the-pants-community", to: "/2.13.x/community/members" },
+  { from: "/v2.13/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.13/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.13/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.13/docs/thrift-python",
     to: "/2.13.x/docs/python/integrations/thrift",
@@ -5433,15 +5433,15 @@ export default [
     from: "/v2.13/docs/using-pants-in-ci",
     to: "/2.13.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.13/docs/using-pants", to: "/2.13.x/docs/using-pants/index" },
+  { from: "/v2.13/docs/using-pants", to: "/2.13.x/docs/using-pants" },
   {
     from: "/v2.13/docs/welcome-to-pants",
     to: "/2.13.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.13/docs/who-uses-pants", to: "/2.13.x/spotlight/users" },
+  { from: "/v2.13/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.13/docs/writing-plugins",
-    to: "/2.13.x/docs/writing-plugins/index",
+    to: "/2.13.x/docs/writing-plugins",
   },
   {
     from: "/v2.14/docs/advanced-target-selection",
@@ -5459,14 +5459,14 @@ export default [
     from: "/v2.14/docs/awslambda-python",
     to: "/2.14.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.14/docs/changelog", to: "/2.14.x/versions" },
+  { from: "/v2.14/docs/changelog", to: "/versions" },
   {
     from: "/v2.14/docs/ci-for-macos-on-arm64",
     to: "/2.14.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.14/docs/code-of-conduct",
-    to: "/2.14.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.14/docs/command-line-help",
@@ -5474,20 +5474,20 @@ export default [
   },
   {
     from: "/v2.14/docs/common-plugin-tasks",
-    to: "/2.14.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.14.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.14/docs/community", to: "/2.14.x/community/members" },
+  { from: "/v2.14/docs/community", to: "/community/members" },
   {
     from: "/v2.14/docs/concepts",
-    to: "/2.14.x/docs/using-pants/key-concepts/index",
+    to: "/2.14.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.14/docs/contentious-decisions",
-    to: "/2.14.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.14/docs/contributing-to-pants",
-    to: "/2.14.x/docs/contributions/index",
+    to: "/2.14.x/docs/contributions",
   },
   {
     from: "/v2.14/docs/contributions-debugging",
@@ -5511,12 +5511,12 @@ export default [
   },
   {
     from: "/v2.14/docs/development",
-    to: "/2.14.x/docs/contributions/development/index",
+    to: "/2.14.x/docs/contributions/development",
   },
   { from: "/v2.14/docs/docker", to: "/2.14.x/docs/docker/docker-overview" },
   {
     from: "/v2.14/docs/documentation",
-    to: "/2.14.x/docs/introduction/index",
+    to: "/2.14.x/docs/introduction",
   },
   {
     from: "/v2.14/docs/enabling-backends",
@@ -5534,14 +5534,14 @@ export default [
     from: "/v2.14/docs/generating-version-tags",
     to: "/2.14.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.14/docs/getting-help", to: "/2.14.x/community/getting-help" },
+  { from: "/v2.14/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.14/docs/getting-started",
-    to: "/2.14.x/docs/getting-started/getting-started/index",
+    to: "/2.14.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.14/docs/go-integrations",
-    to: "/2.14.x/docs/go/integrations/index",
+    to: "/2.14.x/docs/go/integrations",
   },
   { from: "/v2.14/docs/go", to: "/2.14.x/docs/go/go-overview" },
   {
@@ -5560,7 +5560,7 @@ export default [
     from: "/v2.14/docs/helm-overview",
     to: "/2.14.x/docs/helm/helm-overview",
   },
-  { from: "/v2.14/docs/helm", to: "/2.14.x/docs/helm/index" },
+  { from: "/v2.14/docs/helm", to: "/2.14.x/docs/helm" },
   {
     from: "/v2.14/docs/how-does-pants-work",
     to: "/2.14.x/docs/introduction/how-does-pants-work",
@@ -5585,20 +5585,20 @@ export default [
     from: "/v2.14/docs/jvm-overview",
     to: "/2.14.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.14/docs/jvm", to: "/2.14.x/docs/java-and-scala/index" },
+  { from: "/v2.14/docs/jvm", to: "/2.14.x/docs/java-and-scala" },
   { from: "/v2.14/docs/kotlin", to: "/2.14.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.14/docs/language-support",
-    to: "/2.14.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.14/docs/macros", to: "/2.14.x/docs/writing-plugins/macros" },
-  { from: "/v2.14/docs/maintainers", to: "/2.14.x/community/maintainers" },
+  { from: "/v2.14/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.14/docs/manual-installation",
     to: "/2.14.x/docs/getting-started/getting-started/manual-and-advanced-installation",
   },
-  { from: "/v2.14/docs/media", to: "/2.14.x/spotlight/media" },
-  { from: "/v2.14/docs/news-room", to: "/2.14.x/spotlight/media" },
+  { from: "/v2.14/docs/media", to: "/spotlight/media" },
+  { from: "/v2.14/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.14/docs/options",
     to: "/2.14.x/docs/using-pants/key-concepts/options",
@@ -5677,11 +5677,11 @@ export default [
   },
   {
     from: "/v2.14/docs/python-goals",
-    to: "/2.14.x/docs/python/goals/index",
+    to: "/2.14.x/docs/python/goals",
   },
   {
     from: "/v2.14/docs/python-integrations",
-    to: "/2.14.x/docs/python/integrations/index",
+    to: "/2.14.x/docs/python/integrations",
   },
   {
     from: "/v2.14/docs/python-interpreter-compatibility",
@@ -5721,7 +5721,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python",
-    to: "/2.14.x/docs/python/python-overview/index",
+    to: "/2.14.x/docs/python/python-overview",
   },
   { from: "/v2.14/docs/reference-all-goals", to: "/2.14.x/reference/goals" },
   {
@@ -6430,8 +6430,8 @@ export default [
     from: "/v2.14/docs/reference-yapf",
     to: "/2.14.x/reference/subsystems/yapf",
   },
-  { from: "/v2.14/docs/reference", to: "/2.14.x/reference/index" },
-  { from: "/v2.14/docs/release-notes", to: "/2.14.x/docs/releases/index" },
+  { from: "/v2.14/docs/reference", to: "/2.14.x/reference" },
+  { from: "/v2.14/docs/release-notes", to: "/2.14.x/docs/releases" },
   {
     from: "/v2.14/docs/release-process",
     to: "/2.14.x/docs/contributions/releases/release-process",
@@ -6442,11 +6442,11 @@ export default [
   },
   {
     from: "/v2.14/docs/releases",
-    to: "/2.14.x/docs/contributions/releases/index",
+    to: "/2.14.x/docs/contributions/releases",
   },
   {
     from: "/v2.14/docs/remote-caching-execution",
-    to: "/2.14.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.14.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.14/docs/remote-caching",
@@ -6506,7 +6506,7 @@ export default [
   },
   {
     from: "/v2.14/docs/rules-api",
-    to: "/2.14.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.14.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.14/docs/run-shell-commands",
@@ -6551,15 +6551,15 @@ export default [
   },
   {
     from: "/v2.14/docs/target-api",
-    to: "/2.14.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.14.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.14/docs/targets",
     to: "/2.14.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.14/docs/team", to: "/2.14.x/community/meet-the-team" },
-  { from: "/v2.14/docs/testimonials", to: "/2.14.x/spotlight/testimonials" },
-  { from: "/v2.14/docs/the-pants-community", to: "/2.14.x/community/members" },
+  { from: "/v2.14/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.14/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.14/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.14/docs/thrift-python",
     to: "/2.14.x/docs/python/integrations/thrift",
@@ -6576,15 +6576,15 @@ export default [
     from: "/v2.14/docs/using-pants-in-ci",
     to: "/2.14.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.14/docs/using-pants", to: "/2.14.x/docs/using-pants/index" },
+  { from: "/v2.14/docs/using-pants", to: "/2.14.x/docs/using-pants" },
   {
     from: "/v2.14/docs/welcome-to-pants",
     to: "/2.14.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.14/docs/who-uses-pants", to: "/2.14.x/spotlight/users" },
+  { from: "/v2.14/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.14/docs/writing-plugins",
-    to: "/2.14.x/docs/writing-plugins/index",
+    to: "/2.14.x/docs/writing-plugins",
   },
   {
     from: "/v2.15/docs/advanced-plugin-concepts",
@@ -6606,14 +6606,14 @@ export default [
     from: "/v2.15/docs/awslambda-python",
     to: "/2.15.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.15/docs/changelog", to: "/2.15.x/versions" },
+  { from: "/v2.15/docs/changelog", to: "/versions" },
   {
     from: "/v2.15/docs/ci-for-macos-on-arm64",
     to: "/2.15.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.15/docs/code-of-conduct",
-    to: "/2.15.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.15/docs/command-line-help",
@@ -6621,20 +6621,20 @@ export default [
   },
   {
     from: "/v2.15/docs/common-plugin-tasks",
-    to: "/2.15.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.15.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.15/docs/community", to: "/2.15.x/community/members" },
+  { from: "/v2.15/docs/community", to: "/community/members" },
   {
     from: "/v2.15/docs/concepts",
-    to: "/2.15.x/docs/using-pants/key-concepts/index",
+    to: "/2.15.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.15/docs/contentious-decisions",
-    to: "/2.15.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.15/docs/contributing-to-pants",
-    to: "/2.15.x/docs/contributions/index",
+    to: "/2.15.x/docs/contributions",
   },
   {
     from: "/v2.15/docs/contributions-debugging",
@@ -6662,12 +6662,12 @@ export default [
   },
   {
     from: "/v2.15/docs/development",
-    to: "/2.15.x/docs/contributions/development/index",
+    to: "/2.15.x/docs/contributions/development",
   },
   { from: "/v2.15/docs/docker", to: "/2.15.x/docs/docker/docker-overview" },
   {
     from: "/v2.15/docs/documentation",
-    to: "/2.15.x/docs/introduction/index",
+    to: "/2.15.x/docs/introduction",
   },
   {
     from: "/v2.15/docs/enabling-backends",
@@ -6689,14 +6689,14 @@ export default [
     from: "/v2.15/docs/generating-version-tags",
     to: "/2.15.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.15/docs/getting-help", to: "/2.15.x/community/getting-help" },
+  { from: "/v2.15/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.15/docs/getting-started",
-    to: "/2.15.x/docs/getting-started/getting-started/index",
+    to: "/2.15.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.15/docs/go-integrations",
-    to: "/2.15.x/docs/go/integrations/index",
+    to: "/2.15.x/docs/go/integrations",
   },
   { from: "/v2.15/docs/go", to: "/2.15.x/docs/go/go-overview" },
   {
@@ -6715,7 +6715,7 @@ export default [
     from: "/v2.15/docs/helm-overview",
     to: "/2.15.x/docs/helm/helm-overview",
   },
-  { from: "/v2.15/docs/helm", to: "/2.15.x/docs/helm/index" },
+  { from: "/v2.15/docs/helm", to: "/2.15.x/docs/helm" },
   {
     from: "/v2.15/docs/how-does-pants-work",
     to: "/2.15.x/docs/getting-started/getting-started/how-does-pants-work",
@@ -6740,20 +6740,20 @@ export default [
     from: "/v2.15/docs/jvm-overview",
     to: "/2.15.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.15/docs/jvm", to: "/2.15.x/docs/java-and-scala/index" },
+  { from: "/v2.15/docs/jvm", to: "/2.15.x/docs/java-and-scala" },
   { from: "/v2.15/docs/kotlin", to: "/2.15.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.15/docs/language-support",
-    to: "/2.15.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.15/docs/macros", to: "/2.15.x/docs/writing-plugins/macros" },
-  { from: "/v2.15/docs/maintainers", to: "/2.15.x/community/maintainers" },
+  { from: "/v2.15/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.15/docs/manual-installation",
     to: "/2.15.x/docs/getting-started/getting-started/manual-installation",
   },
-  { from: "/v2.15/docs/media", to: "/2.15.x/spotlight/media" },
-  { from: "/v2.15/docs/news-room", to: "/2.15.x/spotlight/media" },
+  { from: "/v2.15/docs/media", to: "/spotlight/media" },
+  { from: "/v2.15/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.15/docs/options",
     to: "/2.15.x/docs/using-pants/key-concepts/options",
@@ -6836,11 +6836,11 @@ export default [
   },
   {
     from: "/v2.15/docs/python-goals",
-    to: "/2.15.x/docs/python/goals/index",
+    to: "/2.15.x/docs/python/goals",
   },
   {
     from: "/v2.15/docs/python-integrations",
-    to: "/2.15.x/docs/python/integrations/index",
+    to: "/2.15.x/docs/python/integrations",
   },
   {
     from: "/v2.15/docs/python-interpreter-compatibility",
@@ -6880,7 +6880,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python",
-    to: "/2.15.x/docs/python/python-overview/index",
+    to: "/2.15.x/docs/python/python-overview",
   },
   {
     from: "/v2.15/docs/reference-add-trailing-comma",
@@ -7642,8 +7642,8 @@ export default [
     from: "/v2.15/docs/reference-yapf",
     to: "/2.15.x/reference/subsystems/yapf",
   },
-  { from: "/v2.15/docs/reference", to: "/2.15.x/reference/index" },
-  { from: "/v2.15/docs/release-notes", to: "/2.15.x/docs/releases/index" },
+  { from: "/v2.15/docs/reference", to: "/2.15.x/reference" },
+  { from: "/v2.15/docs/release-notes", to: "/2.15.x/docs/releases" },
   {
     from: "/v2.15/docs/release-process",
     to: "/2.15.x/docs/contributions/releases/release-process",
@@ -7654,11 +7654,11 @@ export default [
   },
   {
     from: "/v2.15/docs/releases",
-    to: "/2.15.x/docs/contributions/releases/index",
+    to: "/2.15.x/docs/contributions/releases",
   },
   {
     from: "/v2.15/docs/remote-caching-execution",
-    to: "/2.15.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.15.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.15/docs/remote-caching",
@@ -7718,7 +7718,7 @@ export default [
   },
   {
     from: "/v2.15/docs/rules-api",
-    to: "/2.15.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.15.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.15/docs/run-shell-commands",
@@ -7763,19 +7763,19 @@ export default [
   },
   {
     from: "/v2.15/docs/target-api",
-    to: "/2.15.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.15.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.15/docs/targets",
     to: "/2.15.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.15/docs/team", to: "/2.15.x/community/meet-the-team" },
+  { from: "/v2.15/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.15/docs/test-custom-plugin-goal",
     to: "/2.15.x/docs/tutorials/testing-plugins",
   },
-  { from: "/v2.15/docs/testimonials", to: "/2.15.x/spotlight/testimonials" },
-  { from: "/v2.15/docs/the-pants-community", to: "/2.15.x/community/members" },
+  { from: "/v2.15/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.15/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.15/docs/thrift-python",
     to: "/2.15.x/docs/python/integrations/thrift",
@@ -7786,7 +7786,7 @@ export default [
   },
   {
     from: "/v2.15/docs/tutorials-coming-soon",
-    to: "/2.15.x/docs/tutorials/index",
+    to: "/2.15.x/docs/tutorials",
   },
   {
     from: "/v2.15/docs/upgrade-tips",
@@ -7796,19 +7796,19 @@ export default [
     from: "/v2.15/docs/using-pants-in-ci",
     to: "/2.15.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.15/docs/using-pants", to: "/2.15.x/docs/using-pants/index" },
+  { from: "/v2.15/docs/using-pants", to: "/2.15.x/docs/using-pants" },
   {
     from: "/v2.15/docs/welcome-to-pants",
     to: "/2.15.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.15/docs/who-uses-pants", to: "/2.15.x/spotlight/users" },
+  { from: "/v2.15/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.15/docs/writing-plugins",
-    to: "/2.15.x/docs/writing-plugins/index",
+    to: "/2.15.x/docs/writing-plugins",
   },
   {
     from: "/v2.16/docs/ad-hoc-tools",
-    to: "/2.16.x/docs/ad-hoc-tools/index",
+    to: "/2.16.x/docs/ad-hoc-tools",
   },
   {
     from: "/v2.16/docs/adhoc-tool",
@@ -7834,14 +7834,14 @@ export default [
     from: "/v2.16/docs/awslambda-python",
     to: "/2.16.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.16/docs/changelog", to: "/2.16.x/versions" },
+  { from: "/v2.16/docs/changelog", to: "/versions" },
   {
     from: "/v2.16/docs/ci-for-macos-on-arm64",
     to: "/2.16.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.16/docs/code-of-conduct",
-    to: "/2.16.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.16/docs/command-line-help",
@@ -7849,20 +7849,20 @@ export default [
   },
   {
     from: "/v2.16/docs/common-plugin-tasks",
-    to: "/2.16.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.16.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.16/docs/community", to: "/2.16.x/community/members" },
+  { from: "/v2.16/docs/community", to: "/community/members" },
   {
     from: "/v2.16/docs/concepts",
-    to: "/2.16.x/docs/using-pants/key-concepts/index",
+    to: "/2.16.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.16/docs/contentious-decisions",
-    to: "/2.16.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.16/docs/contributing-to-pants",
-    to: "/2.16.x/docs/contributions/index",
+    to: "/2.16.x/docs/contributions",
   },
   {
     from: "/v2.16/docs/contributions-debugging",
@@ -7890,12 +7890,12 @@ export default [
   },
   {
     from: "/v2.16/docs/development",
-    to: "/2.16.x/docs/contributions/development/index",
+    to: "/2.16.x/docs/contributions/development",
   },
   { from: "/v2.16/docs/docker", to: "/2.16.x/docs/docker/docker-overview" },
   {
     from: "/v2.16/docs/documentation",
-    to: "/2.16.x/docs/introduction/index",
+    to: "/2.16.x/docs/introduction",
   },
   {
     from: "/v2.16/docs/enabling-backends",
@@ -7917,14 +7917,14 @@ export default [
     from: "/v2.16/docs/generating-version-tags",
     to: "/2.16.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.16/docs/getting-help", to: "/2.16.x/community/getting-help" },
+  { from: "/v2.16/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.16/docs/getting-started",
-    to: "/2.16.x/docs/getting-started/getting-started/index",
+    to: "/2.16.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.16/docs/go-integrations",
-    to: "/2.16.x/docs/go/integrations/index",
+    to: "/2.16.x/docs/go/integrations",
   },
   { from: "/v2.16/docs/go", to: "/2.16.x/docs/go/go-overview" },
   {
@@ -7943,7 +7943,7 @@ export default [
     from: "/v2.16/docs/helm-overview",
     to: "/2.16.x/docs/helm/helm-overview",
   },
-  { from: "/v2.16/docs/helm", to: "/2.16.x/docs/helm/index" },
+  { from: "/v2.16/docs/helm", to: "/2.16.x/docs/helm" },
   {
     from: "/v2.16/docs/how-does-pants-work",
     to: "/2.16.x/docs/introduction/how-does-pants-work",
@@ -7968,20 +7968,20 @@ export default [
     from: "/v2.16/docs/jvm-overview",
     to: "/2.16.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.16/docs/jvm", to: "/2.16.x/docs/java-and-scala/index" },
+  { from: "/v2.16/docs/jvm", to: "/2.16.x/docs/java-and-scala" },
   { from: "/v2.16/docs/kotlin", to: "/2.16.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.16/docs/language-support",
-    to: "/2.16.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.16/docs/macros", to: "/2.16.x/docs/writing-plugins/macros" },
-  { from: "/v2.16/docs/maintainers", to: "/2.16.x/community/maintainers" },
+  { from: "/v2.16/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.16/docs/manual-installation",
     to: "/2.16.x/docs/getting-started/getting-started/manual-installation",
   },
-  { from: "/v2.16/docs/media", to: "/2.16.x/spotlight/media" },
-  { from: "/v2.16/docs/news-room", to: "/2.16.x/spotlight/media" },
+  { from: "/v2.16/docs/media", to: "/spotlight/media" },
+  { from: "/v2.16/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.16/docs/options",
     to: "/2.16.x/docs/using-pants/key-concepts/options",
@@ -8064,11 +8064,11 @@ export default [
   },
   {
     from: "/v2.16/docs/python-goals",
-    to: "/2.16.x/docs/python/goals/index",
+    to: "/2.16.x/docs/python/goals",
   },
   {
     from: "/v2.16/docs/python-integrations",
-    to: "/2.16.x/docs/python/integrations/index",
+    to: "/2.16.x/docs/python/integrations",
   },
   {
     from: "/v2.16/docs/python-interpreter-compatibility",
@@ -8112,7 +8112,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python",
-    to: "/2.16.x/docs/python/python-overview/index",
+    to: "/2.16.x/docs/python/python-overview",
   },
   {
     from: "/v2.16/docs/reference-add-trailing-comma",
@@ -8946,8 +8946,8 @@ export default [
     from: "/v2.16/docs/reference-yapf",
     to: "/2.16.x/reference/subsystems/yapf",
   },
-  { from: "/v2.16/docs/reference", to: "/2.16.x/reference/index" },
-  { from: "/v2.16/docs/release-notes", to: "/2.16.x/docs/releases/index" },
+  { from: "/v2.16/docs/reference", to: "/2.16.x/reference" },
+  { from: "/v2.16/docs/release-notes", to: "/2.16.x/docs/releases" },
   {
     from: "/v2.16/docs/release-process",
     to: "/2.16.x/docs/contributions/releases/release-process",
@@ -8958,11 +8958,11 @@ export default [
   },
   {
     from: "/v2.16/docs/releases",
-    to: "/2.16.x/docs/contributions/releases/index",
+    to: "/2.16.x/docs/contributions/releases",
   },
   {
     from: "/v2.16/docs/remote-caching-execution",
-    to: "/2.16.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.16.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.16/docs/remote-caching",
@@ -9022,7 +9022,7 @@ export default [
   },
   {
     from: "/v2.16/docs/rules-api",
-    to: "/2.16.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.16.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.16/docs/run-shell-commands",
@@ -9071,19 +9071,19 @@ export default [
   },
   {
     from: "/v2.16/docs/target-api",
-    to: "/2.16.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.16.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.16/docs/targets",
     to: "/2.16.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.16/docs/team", to: "/2.16.x/community/meet-the-team" },
+  { from: "/v2.16/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.16/docs/test-custom-plugin-goal",
     to: "/2.16.x/docs/tutorials/testing-plugins",
   },
-  { from: "/v2.16/docs/testimonials", to: "/2.16.x/spotlight/testimonials" },
-  { from: "/v2.16/docs/the-pants-community", to: "/2.16.x/community/members" },
+  { from: "/v2.16/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.16/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.16/docs/thrift-python",
     to: "/2.16.x/docs/python/integrations/thrift",
@@ -9094,7 +9094,7 @@ export default [
   },
   {
     from: "/v2.16/docs/tutorials-coming-soon",
-    to: "/2.16.x/docs/tutorials/index",
+    to: "/2.16.x/docs/tutorials",
   },
   {
     from: "/v2.16/docs/upgrade-tips",
@@ -9104,7 +9104,7 @@ export default [
     from: "/v2.16/docs/using-pants-in-ci",
     to: "/2.16.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.16/docs/using-pants", to: "/2.16.x/docs/using-pants/index" },
+  { from: "/v2.16/docs/using-pants", to: "/2.16.x/docs/using-pants" },
   {
     from: "/v2.16/docs/validating-dependencies",
     to: "/2.16.x/docs/using-pants/validating-dependencies",
@@ -9113,14 +9113,14 @@ export default [
     from: "/v2.16/docs/welcome-to-pants",
     to: "/2.16.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.16/docs/who-uses-pants", to: "/2.16.x/spotlight/users" },
+  { from: "/v2.16/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.16/docs/writing-plugins",
-    to: "/2.16.x/docs/writing-plugins/index",
+    to: "/2.16.x/docs/writing-plugins",
   },
   {
     from: "/v2.17/docs/ad-hoc-tools",
-    to: "/2.17.x/docs/ad-hoc-tools/index",
+    to: "/2.17.x/docs/ad-hoc-tools",
   },
   {
     from: "/v2.17/docs/adhoc-tool",
@@ -9146,14 +9146,14 @@ export default [
     from: "/v2.17/docs/awslambda-python",
     to: "/2.17.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.17/docs/changelog", to: "/2.17.x/versions" },
+  { from: "/v2.17/docs/changelog", to: "/versions" },
   {
     from: "/v2.17/docs/ci-for-macos-on-arm64",
     to: "/2.17.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.17/docs/code-of-conduct",
-    to: "/2.17.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.17/docs/command-line-help",
@@ -9161,20 +9161,20 @@ export default [
   },
   {
     from: "/v2.17/docs/common-plugin-tasks",
-    to: "/2.17.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.17.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.17/docs/community", to: "/2.17.x/community/members" },
+  { from: "/v2.17/docs/community", to: "/community/members" },
   {
     from: "/v2.17/docs/concepts",
-    to: "/2.17.x/docs/using-pants/key-concepts/index",
+    to: "/2.17.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.17/docs/contentious-decisions",
-    to: "/2.17.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.17/docs/contributing-to-pants",
-    to: "/2.17.x/docs/contributions/index",
+    to: "/2.17.x/docs/contributions",
   },
   {
     from: "/v2.17/docs/contributions-debugging",
@@ -9202,12 +9202,12 @@ export default [
   },
   {
     from: "/v2.17/docs/development",
-    to: "/2.17.x/docs/contributions/development/index",
+    to: "/2.17.x/docs/contributions/development",
   },
   { from: "/v2.17/docs/docker", to: "/2.17.x/docs/docker/docker-overview" },
   {
     from: "/v2.17/docs/documentation",
-    to: "/2.17.x/docs/introduction/index",
+    to: "/2.17.x/docs/introduction",
   },
   {
     from: "/v2.17/docs/enabling-backends",
@@ -9229,14 +9229,14 @@ export default [
     from: "/v2.17/docs/generating-version-tags",
     to: "/2.17.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.17/docs/getting-help", to: "/2.17.x/community/getting-help" },
+  { from: "/v2.17/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.17/docs/getting-started",
-    to: "/2.17.x/docs/getting-started/getting-started/index",
+    to: "/2.17.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.17/docs/go-integrations",
-    to: "/2.17.x/docs/go/integrations/index",
+    to: "/2.17.x/docs/go/integrations",
   },
   { from: "/v2.17/docs/go", to: "/2.17.x/docs/go/go-overview" },
   {
@@ -9255,7 +9255,7 @@ export default [
     from: "/v2.17/docs/helm-overview",
     to: "/2.17.x/docs/helm/helm-overview",
   },
-  { from: "/v2.17/docs/helm", to: "/2.17.x/docs/helm/index" },
+  { from: "/v2.17/docs/helm", to: "/2.17.x/docs/helm" },
   {
     from: "/v2.17/docs/how-does-pants-work",
     to: "/2.17.x/docs/introduction/how-does-pants-work",
@@ -9280,20 +9280,20 @@ export default [
     from: "/v2.17/docs/jvm-overview",
     to: "/2.17.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.17/docs/jvm", to: "/2.17.x/docs/java-and-scala/index" },
+  { from: "/v2.17/docs/jvm", to: "/2.17.x/docs/java-and-scala" },
   { from: "/v2.17/docs/kotlin", to: "/2.17.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.17/docs/language-support",
-    to: "/2.17.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.17/docs/macros", to: "/2.17.x/docs/writing-plugins/macros" },
-  { from: "/v2.17/docs/maintainers", to: "/2.17.x/community/maintainers" },
+  { from: "/v2.17/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.17/docs/manual-installation",
     to: "/2.17.x/docs/getting-started/getting-started/manual-installation",
   },
-  { from: "/v2.17/docs/media", to: "/2.17.x/spotlight/media" },
-  { from: "/v2.17/docs/news-room", to: "/2.17.x/spotlight/media" },
+  { from: "/v2.17/docs/media", to: "/spotlight/media" },
+  { from: "/v2.17/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.17/docs/options",
     to: "/2.17.x/docs/using-pants/key-concepts/options",
@@ -9380,11 +9380,11 @@ export default [
   },
   {
     from: "/v2.17/docs/python-goals",
-    to: "/2.17.x/docs/python/goals/index",
+    to: "/2.17.x/docs/python/goals",
   },
   {
     from: "/v2.17/docs/python-integrations",
-    to: "/2.17.x/docs/python/integrations/index",
+    to: "/2.17.x/docs/python/integrations",
   },
   {
     from: "/v2.17/docs/python-interpreter-compatibility",
@@ -9428,7 +9428,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python",
-    to: "/2.17.x/docs/python/python-overview/index",
+    to: "/2.17.x/docs/python/python-overview",
   },
   {
     from: "/v2.17/docs/reference-add-trailing-comma",
@@ -10266,8 +10266,8 @@ export default [
     from: "/v2.17/docs/reference-yapf",
     to: "/2.17.x/reference/subsystems/yapf",
   },
-  { from: "/v2.17/docs/reference", to: "/2.17.x/reference/index" },
-  { from: "/v2.17/docs/release-notes", to: "/2.17.x/docs/releases/index" },
+  { from: "/v2.17/docs/reference", to: "/2.17.x/reference" },
+  { from: "/v2.17/docs/release-notes", to: "/2.17.x/docs/releases" },
   {
     from: "/v2.17/docs/release-process",
     to: "/2.17.x/docs/contributions/releases/release-process",
@@ -10278,11 +10278,11 @@ export default [
   },
   {
     from: "/v2.17/docs/releases",
-    to: "/2.17.x/docs/contributions/releases/index",
+    to: "/2.17.x/docs/contributions/releases",
   },
   {
     from: "/v2.17/docs/remote-caching-execution",
-    to: "/2.17.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.17.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.17/docs/remote-caching",
@@ -10342,7 +10342,7 @@ export default [
   },
   {
     from: "/v2.17/docs/rules-api",
-    to: "/2.17.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.17.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.17/docs/run-shell-commands",
@@ -10391,19 +10391,19 @@ export default [
   },
   {
     from: "/v2.17/docs/target-api",
-    to: "/2.17.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.17.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.17/docs/targets",
     to: "/2.17.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.17/docs/team", to: "/2.17.x/community/meet-the-team" },
+  { from: "/v2.17/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.17/docs/test-custom-plugin-goal",
     to: "/2.17.x/docs/tutorials-coming-soon/testing-plugins",
   },
-  { from: "/v2.17/docs/testimonials", to: "/2.17.x/spotlight/testimonials" },
-  { from: "/v2.17/docs/the-pants-community", to: "/2.17.x/community/members" },
+  { from: "/v2.17/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.17/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.17/docs/thrift-python",
     to: "/2.17.x/docs/python/integrations/thrift",
@@ -10414,7 +10414,7 @@ export default [
   },
   {
     from: "/v2.17/docs/tutorials-coming-soon",
-    to: "/2.17.x/docs/tutorials-coming-soon/index",
+    to: "/2.17.x/docs/tutorials-coming-soon",
   },
   {
     from: "/v2.17/docs/upgrade-tips",
@@ -10424,7 +10424,7 @@ export default [
     from: "/v2.17/docs/using-pants-in-ci",
     to: "/2.17.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.17/docs/using-pants", to: "/2.17.x/docs/using-pants/index" },
+  { from: "/v2.17/docs/using-pants", to: "/2.17.x/docs/using-pants" },
   {
     from: "/v2.17/docs/validating-dependencies",
     to: "/2.17.x/docs/using-pants/validating-dependencies",
@@ -10433,14 +10433,14 @@ export default [
     from: "/v2.17/docs/welcome-to-pants",
     to: "/2.17.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.17/docs/who-uses-pants", to: "/2.17.x/spotlight/users" },
+  { from: "/v2.17/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.17/docs/writing-plugins",
-    to: "/2.17.x/docs/writing-plugins/index",
+    to: "/2.17.x/docs/writing-plugins",
   },
   {
     from: "/v2.18/docs/ad-hoc-tools",
-    to: "/2.18.x/docs/ad-hoc-tools/index",
+    to: "/2.18.x/docs/ad-hoc-tools",
   },
   {
     from: "/v2.18/docs/adhoc-tool",
@@ -10466,14 +10466,14 @@ export default [
     from: "/v2.18/docs/awslambda-python",
     to: "/2.18.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.18/docs/changelog", to: "/2.18.x/versions" },
+  { from: "/v2.18/docs/changelog", to: "/versions" },
   {
     from: "/v2.18/docs/ci-for-macos-on-arm64",
     to: "/2.18.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.18/docs/code-of-conduct",
-    to: "/2.18.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.18/docs/command-line-help",
@@ -10481,20 +10481,20 @@ export default [
   },
   {
     from: "/v2.18/docs/common-plugin-tasks",
-    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.18/docs/community", to: "/2.18.x/community/members" },
+  { from: "/v2.18/docs/community", to: "/community/members" },
   {
     from: "/v2.18/docs/concepts",
-    to: "/2.18.x/docs/using-pants/key-concepts/index",
+    to: "/2.18.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.18/docs/contentious-decisions",
-    to: "/2.18.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.18/docs/contributing-to-pants",
-    to: "/2.18.x/docs/contributions/index",
+    to: "/2.18.x/docs/contributions",
   },
   {
     from: "/v2.18/docs/contributions-debugging",
@@ -10522,12 +10522,12 @@ export default [
   },
   {
     from: "/v2.18/docs/development",
-    to: "/2.18.x/docs/contributions/development/index",
+    to: "/2.18.x/docs/contributions/development",
   },
   { from: "/v2.18/docs/docker", to: "/2.18.x/docs/docker/docker-overview" },
   {
     from: "/v2.18/docs/documentation",
-    to: "/2.18.x/docs/introduction/index",
+    to: "/2.18.x/docs/introduction",
   },
   {
     from: "/v2.18/docs/enabling-backends",
@@ -10549,14 +10549,14 @@ export default [
     from: "/v2.18/docs/generating-version-tags",
     to: "/2.18.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.18/docs/getting-help", to: "/2.18.x/community/getting-help" },
+  { from: "/v2.18/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.18/docs/getting-started",
-    to: "/2.18.x/docs/getting-started/getting-started/index",
+    to: "/2.18.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.18/docs/go-integrations",
-    to: "/2.18.x/docs/go/integrations/index",
+    to: "/2.18.x/docs/go/integrations",
   },
   { from: "/v2.18/docs/go", to: "/2.18.x/docs/go/go-overview" },
   {
@@ -10579,7 +10579,7 @@ export default [
     from: "/v2.18/docs/helm-overview",
     to: "/2.18.x/docs/helm/helm-overview",
   },
-  { from: "/v2.18/docs/helm", to: "/2.18.x/docs/helm/index" },
+  { from: "/v2.18/docs/helm", to: "/2.18.x/docs/helm" },
   {
     from: "/v2.18/docs/how-does-pants-work",
     to: "/2.18.x/docs/introduction/how-does-pants-work",
@@ -10604,20 +10604,20 @@ export default [
     from: "/v2.18/docs/jvm-overview",
     to: "/2.18.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.18/docs/jvm", to: "/2.18.x/docs/java-and-scala/index" },
+  { from: "/v2.18/docs/jvm", to: "/2.18.x/docs/java-and-scala" },
   { from: "/v2.18/docs/kotlin", to: "/2.18.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.18/docs/language-support",
-    to: "/2.18.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.18/docs/macros", to: "/2.18.x/docs/writing-plugins/macros" },
-  { from: "/v2.18/docs/maintainers", to: "/2.18.x/community/maintainers" },
+  { from: "/v2.18/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.18/docs/manual-installation",
     to: "/2.18.x/docs/getting-started/getting-started/manual-installation",
   },
-  { from: "/v2.18/docs/media", to: "/2.18.x/spotlight/media" },
-  { from: "/v2.18/docs/news-room", to: "/2.18.x/spotlight/media" },
+  { from: "/v2.18/docs/media", to: "/spotlight/media" },
+  { from: "/v2.18/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.18/docs/options",
     to: "/2.18.x/docs/using-pants/key-concepts/options",
@@ -10704,11 +10704,11 @@ export default [
   },
   {
     from: "/v2.18/docs/python-goals",
-    to: "/2.18.x/docs/python/goals/index",
+    to: "/2.18.x/docs/python/goals",
   },
   {
     from: "/v2.18/docs/python-integrations",
-    to: "/2.18.x/docs/python/integrations/index",
+    to: "/2.18.x/docs/python/integrations",
   },
   {
     from: "/v2.18/docs/python-interpreter-compatibility",
@@ -10752,7 +10752,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python",
-    to: "/2.18.x/docs/python/python-overview/index",
+    to: "/2.18.x/docs/python/python-overview",
   },
   {
     from: "/v2.18/docs/reference-add-trailing-comma",
@@ -11614,7 +11614,7 @@ export default [
     from: "/v2.18/docs/reference-yapf",
     to: "/2.18.x/reference/subsystems/yapf",
   },
-  { from: "/v2.18/docs/release-notes", to: "/2.18.x/docs/releases/index" },
+  { from: "/v2.18/docs/release-notes", to: "/2.18.x/docs/releases" },
   {
     from: "/v2.18/docs/release-process",
     to: "/2.18.x/docs/contributions/releases/release-process",
@@ -11625,11 +11625,11 @@ export default [
   },
   {
     from: "/v2.18/docs/releases",
-    to: "/2.18.x/docs/contributions/releases/index",
+    to: "/2.18.x/docs/contributions/releases",
   },
   {
     from: "/v2.18/docs/remote-caching-execution",
-    to: "/2.18.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.18.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.18/docs/remote-caching",
@@ -11689,7 +11689,7 @@ export default [
   },
   {
     from: "/v2.18/docs/rules-api",
-    to: "/2.18.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.18/docs/run-shell-commands",
@@ -11738,19 +11738,19 @@ export default [
   },
   {
     from: "/v2.18/docs/target-api",
-    to: "/2.18.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.18.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.18/docs/targets",
     to: "/2.18.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.18/docs/team", to: "/2.18.x/community/meet-the-team" },
+  { from: "/v2.18/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.18/docs/test-custom-plugin-goal",
     to: "/2.18.x/docs/tutorials-coming-soon/testing-plugins",
   },
-  { from: "/v2.18/docs/testimonials", to: "/2.18.x/spotlight/testimonials" },
-  { from: "/v2.18/docs/the-pants-community", to: "/2.18.x/community/members" },
+  { from: "/v2.18/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.18/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.18/docs/thrift-python",
     to: "/2.18.x/docs/python/integrations/thrift",
@@ -11761,7 +11761,7 @@ export default [
   },
   {
     from: "/v2.18/docs/tutorials-coming-soon",
-    to: "/2.18.x/docs/tutorials-coming-soon/index",
+    to: "/2.18.x/docs/tutorials-coming-soon",
   },
   {
     from: "/v2.18/docs/upgrade-tips",
@@ -11771,7 +11771,7 @@ export default [
     from: "/v2.18/docs/using-pants-in-ci",
     to: "/2.18.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.18/docs/using-pants", to: "/2.18.x/docs/using-pants/index" },
+  { from: "/v2.18/docs/using-pants", to: "/2.18.x/docs/using-pants" },
   {
     from: "/v2.18/docs/validating-dependencies",
     to: "/2.18.x/docs/using-pants/validating-dependencies",
@@ -11780,14 +11780,14 @@ export default [
     from: "/v2.18/docs/welcome-to-pants",
     to: "/2.18.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.18/docs/who-uses-pants", to: "/2.18.x/spotlight/users" },
+  { from: "/v2.18/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.18/docs/writing-plugins",
-    to: "/2.18.x/docs/writing-plugins/index",
+    to: "/2.18.x/docs/writing-plugins",
   },
   {
     from: "/v2.19/docs/ad-hoc-tools",
-    to: "/2.19.x/docs/ad-hoc-tools/index",
+    to: "/2.19.x/docs/ad-hoc-tools",
   },
   {
     from: "/v2.19/docs/adhoc-tool",
@@ -11813,14 +11813,14 @@ export default [
     from: "/v2.19/docs/awslambda-python",
     to: "/2.19.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.19/docs/changelog", to: "/2.19.x/versions" },
+  { from: "/v2.19/docs/changelog", to: "/versions" },
   {
     from: "/v2.19/docs/ci-for-macos-on-arm64",
     to: "/2.19.x/docs/contributions/releases/github-actions-macos-arm64-runners",
   },
   {
     from: "/v2.19/docs/code-of-conduct",
-    to: "/2.19.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.19/docs/command-line-help",
@@ -11828,20 +11828,20 @@ export default [
   },
   {
     from: "/v2.19/docs/common-plugin-tasks",
-    to: "/2.19.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.19.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.19/docs/community", to: "/2.19.x/community/members" },
+  { from: "/v2.19/docs/community", to: "/community/members" },
   {
     from: "/v2.19/docs/concepts",
-    to: "/2.19.x/docs/using-pants/key-concepts/index",
+    to: "/2.19.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.19/docs/contentious-decisions",
-    to: "/2.19.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.19/docs/contributing-to-pants",
-    to: "/2.19.x/docs/contributions/index",
+    to: "/2.19.x/docs/contributions",
   },
   {
     from: "/v2.19/docs/contributions-debugging",
@@ -11869,12 +11869,12 @@ export default [
   },
   {
     from: "/v2.19/docs/development",
-    to: "/2.19.x/docs/contributions/development/index",
+    to: "/2.19.x/docs/contributions/development",
   },
   { from: "/v2.19/docs/docker", to: "/2.19.x/docs/docker/docker-overview" },
   {
     from: "/v2.19/docs/documentation",
-    to: "/2.19.x/docs/introduction/index",
+    to: "/2.19.x/docs/introduction",
   },
   {
     from: "/v2.19/docs/enabling-backends",
@@ -11896,14 +11896,14 @@ export default [
     from: "/v2.19/docs/generating-version-tags",
     to: "/2.19.x/docs/using-pants/generating-version-tags-from-git",
   },
-  { from: "/v2.19/docs/getting-help", to: "/2.19.x/community/getting-help" },
+  { from: "/v2.19/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.19/docs/getting-started",
-    to: "/2.19.x/docs/getting-started/getting-started/index",
+    to: "/2.19.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.19/docs/go-integrations",
-    to: "/2.19.x/docs/go/integrations/index",
+    to: "/2.19.x/docs/go/integrations",
   },
   { from: "/v2.19/docs/go", to: "/2.19.x/docs/go/go-overview" },
   {
@@ -11926,7 +11926,7 @@ export default [
     from: "/v2.19/docs/helm-overview",
     to: "/2.19.x/docs/helm/helm-overview",
   },
-  { from: "/v2.19/docs/helm", to: "/2.19.x/docs/helm/index" },
+  { from: "/v2.19/docs/helm", to: "/2.19.x/docs/helm" },
   {
     from: "/v2.19/docs/how-does-pants-work",
     to: "/2.19.x/docs/introduction/how-does-pants-work",
@@ -11951,20 +11951,20 @@ export default [
     from: "/v2.19/docs/jvm-overview",
     to: "/2.19.x/docs/java-and-scala/java-and-scala-overview",
   },
-  { from: "/v2.19/docs/jvm", to: "/2.19.x/docs/java-and-scala/index" },
+  { from: "/v2.19/docs/jvm", to: "/2.19.x/docs/java-and-scala" },
   { from: "/v2.19/docs/kotlin", to: "/2.19.x/docs/java-and-scala/kotlin" },
   {
     from: "/v2.19/docs/language-support",
-    to: "/2.19.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.19/docs/macros", to: "/2.19.x/docs/writing-plugins/macros" },
-  { from: "/v2.19/docs/maintainers", to: "/2.19.x/community/maintainers" },
+  { from: "/v2.19/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.19/docs/manual-installation",
     to: "/2.19.x/docs/getting-started/getting-started/manual-installation",
   },
-  { from: "/v2.19/docs/media", to: "/2.19.x/spotlight/media" },
-  { from: "/v2.19/docs/news-room", to: "/2.19.x/spotlight/media" },
+  { from: "/v2.19/docs/media", to: "/spotlight/media" },
+  { from: "/v2.19/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.19/docs/options",
     to: "/2.19.x/docs/using-pants/key-concepts/options",
@@ -12051,11 +12051,11 @@ export default [
   },
   {
     from: "/v2.19/docs/python-goals",
-    to: "/2.19.x/docs/python/goals/index",
+    to: "/2.19.x/docs/python/goals",
   },
   {
     from: "/v2.19/docs/python-integrations",
-    to: "/2.19.x/docs/python/integrations/index",
+    to: "/2.19.x/docs/python/integrations",
   },
   {
     from: "/v2.19/docs/python-interpreter-compatibility",
@@ -12099,7 +12099,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python",
-    to: "/2.19.x/docs/python/python-overview/index",
+    to: "/2.19.x/docs/python/python-overview",
   },
   {
     from: "/v2.19/docs/reference-add-trailing-comma",
@@ -12969,7 +12969,7 @@ export default [
     from: "/v2.19/docs/reference-yapf",
     to: "/2.19.x/reference/subsystems/yapf",
   },
-  { from: "/v2.19/docs/release-notes", to: "/2.19.x/docs/releases/index" },
+  { from: "/v2.19/docs/release-notes", to: "/2.19.x/docs/releases" },
   {
     from: "/v2.19/docs/release-process",
     to: "/2.19.x/docs/contributions/releases/release-process",
@@ -12980,11 +12980,11 @@ export default [
   },
   {
     from: "/v2.19/docs/releases",
-    to: "/2.19.x/docs/contributions/releases/index",
+    to: "/2.19.x/docs/contributions/releases",
   },
   {
     from: "/v2.19/docs/remote-caching-execution",
-    to: "/2.19.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.19.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.19/docs/remote-caching",
@@ -13044,7 +13044,7 @@ export default [
   },
   {
     from: "/v2.19/docs/rules-api",
-    to: "/2.19.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.19.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.19/docs/run-shell-commands",
@@ -13093,19 +13093,19 @@ export default [
   },
   {
     from: "/v2.19/docs/target-api",
-    to: "/2.19.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.19.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.19/docs/targets",
     to: "/2.19.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.19/docs/team", to: "/2.19.x/community/meet-the-team" },
+  { from: "/v2.19/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.19/docs/test-custom-plugin-goal",
     to: "/2.19.x/docs/tutorials-coming-soon/testing-plugins",
   },
-  { from: "/v2.19/docs/testimonials", to: "/2.19.x/spotlight/testimonials" },
-  { from: "/v2.19/docs/the-pants-community", to: "/2.19.x/community/members" },
+  { from: "/v2.19/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.19/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.19/docs/thrift-python",
     to: "/2.19.x/docs/python/integrations/thrift",
@@ -13116,7 +13116,7 @@ export default [
   },
   {
     from: "/v2.19/docs/tutorials-coming-soon",
-    to: "/2.19.x/docs/tutorials-coming-soon/index",
+    to: "/2.19.x/docs/tutorials-coming-soon",
   },
   {
     from: "/v2.19/docs/upgrade-tips",
@@ -13126,7 +13126,7 @@ export default [
     from: "/v2.19/docs/using-pants-in-ci",
     to: "/2.19.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.19/docs/using-pants", to: "/2.19.x/docs/using-pants/index" },
+  { from: "/v2.19/docs/using-pants", to: "/2.19.x/docs/using-pants" },
   {
     from: "/v2.19/docs/validating-dependencies",
     to: "/2.19.x/docs/using-pants/validating-dependencies",
@@ -13135,25 +13135,25 @@ export default [
     from: "/v2.19/docs/welcome-to-pants",
     to: "/2.19.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.19/docs/who-uses-pants", to: "/2.19.x/spotlight/users" },
+  { from: "/v2.19/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.19/docs/writing-plugins",
-    to: "/2.19.x/docs/writing-plugins/index",
+    to: "/2.19.x/docs/writing-plugins",
   },
   {
     from: "/v2.2/docs/advanced-target-selection",
     to: "/2.2.x/docs/using-pants/advanced-target-selection",
   },
-  { from: "/v2.2/docs/aws-lambda", to: "/2.2.x/docs/aws-lambda/index" },
+  { from: "/v2.2/docs/aws-lambda", to: "/2.2.x/docs/aws-lambda" },
   {
     from: "/v2.2/docs/awslambda-python",
     to: "/2.2.x/docs/aws-lambda/python-support",
   },
   {
     from: "/v2.2/docs/code-of-conduct",
-    to: "/2.2.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
-  { from: "/v2.2/docs/codegen", to: "/2.2.x/docs/codegen/index" },
+  { from: "/v2.2/docs/codegen", to: "/2.2.x/docs/codegen" },
   {
     from: "/v2.2/docs/command-line-help",
     to: "/2.2.x/docs/using-pants/command-line-help",
@@ -13164,20 +13164,20 @@ export default [
   },
   {
     from: "/v2.2/docs/common-plugin-tasks",
-    to: "/2.2.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.2.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.2/docs/community", to: "/2.2.x/community/members" },
+  { from: "/v2.2/docs/community", to: "/community/members" },
   {
     from: "/v2.2/docs/concepts",
-    to: "/2.2.x/docs/using-pants/concepts/index",
+    to: "/2.2.x/docs/using-pants/concepts",
   },
   {
     from: "/v2.2/docs/contentious-decisions",
-    to: "/2.2.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.2/docs/contributing-to-pants",
-    to: "/2.2.x/docs/contributions/index",
+    to: "/2.2.x/docs/contributions",
   },
   {
     from: "/v2.2/docs/contributions-debugging",
@@ -13201,11 +13201,11 @@ export default [
   },
   {
     from: "/v2.2/docs/development",
-    to: "/2.2.x/docs/contributions/development/index",
+    to: "/2.2.x/docs/contributions/development",
   },
   {
     from: "/v2.2/docs/documentation",
-    to: "/2.2.x/docs/introduction/index",
+    to: "/2.2.x/docs/introduction",
   },
   {
     from: "/v2.2/docs/enabling-backends",
@@ -13219,10 +13219,10 @@ export default [
     from: "/v2.2/docs/existing-repositories",
     to: "/2.2.x/docs/using-pants/adopting-pants-in-existing-repos",
   },
-  { from: "/v2.2/docs/getting-help", to: "/2.2.x/community/getting-help" },
+  { from: "/v2.2/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.2/docs/getting-started",
-    to: "/2.2.x/docs/introduction/getting-started/index",
+    to: "/2.2.x/docs/introduction/getting-started",
   },
   {
     from: "/v2.2/docs/gitignore",
@@ -13254,19 +13254,19 @@ export default [
   },
   {
     from: "/v2.2/docs/language-support",
-    to: "/2.2.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.2/docs/macros", to: "/2.2.x/docs/writing-plugins/macros" },
-  { from: "/v2.2/docs/maintainers", to: "/2.2.x/community/maintainers" },
-  { from: "/v2.2/docs/media", to: "/2.2.x/spotlight/media" },
-  { from: "/v2.2/docs/news-room", to: "/2.2.x/spotlight/media" },
+  { from: "/v2.2/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.2/docs/media", to: "/spotlight/media" },
+  { from: "/v2.2/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.2/docs/options",
     to: "/2.2.x/docs/using-pants/concepts/options",
   },
   {
     from: "/v2.2/docs/pants-1-vs-2",
-    to: "/2.2.x/docs/introduction/pants-1.x-vs.-2.0/index",
+    to: "/2.2.x/docs/introduction/pants-1.x-vs.-2.0",
   },
   {
     from: "/v2.2/docs/pex-files",
@@ -13340,7 +13340,7 @@ export default [
     from: "/v2.2/docs/python-fmt-goal",
     to: "/2.2.x/docs/python/goals/fmt",
   },
-  { from: "/v2.2/docs/python-goals", to: "/2.2.x/docs/python/goals/index" },
+  { from: "/v2.2/docs/python-goals", to: "/2.2.x/docs/python/goals" },
   {
     from: "/v2.2/docs/python-interpreter-compatibility",
     to: "/2.2.x/docs/python/overview/interpreter-compatibility",
@@ -13381,7 +13381,7 @@ export default [
     from: "/v2.2/docs/python-typecheck-goal",
     to: "/2.2.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.2/docs/python", to: "/2.2.x/docs/python/overview/index" },
+  { from: "/v2.2/docs/python", to: "/2.2.x/docs/python/overview" },
   { from: "/v2.2/docs/reference-all-goals", to: "/2.2.x/reference/goals" },
   {
     from: "/v2.2/docs/reference-all-subsystems",
@@ -13606,10 +13606,10 @@ export default [
     from: "/v2.2/docs/reference-validate",
     to: "/2.2.x/reference/goals/validate",
   },
-  { from: "/v2.2/docs/reference", to: "/2.2.x/reference/index" },
+  { from: "/v2.2/docs/reference", to: "/2.2.x/reference" },
   {
     from: "/v2.2/docs/release-notes",
-    to: "/2.2.x/docs/release-notes/index",
+    to: "/2.2.x/docs/release-notes",
   },
   {
     from: "/v2.2/docs/release-process",
@@ -13621,7 +13621,7 @@ export default [
   },
   {
     from: "/v2.2/docs/releases",
-    to: "/2.2.x/docs/contributions/releases/index",
+    to: "/2.2.x/docs/contributions/releases",
   },
   {
     from: "/v2.2/docs/remote-execution",
@@ -13677,7 +13677,7 @@ export default [
   },
   {
     from: "/v2.2/docs/rules-api",
-    to: "/2.2.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.2.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.2/docs/source-roots",
@@ -13705,18 +13705,18 @@ export default [
   },
   {
     from: "/v2.2/docs/target-api",
-    to: "/2.2.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.2.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.2/docs/targets",
     to: "/2.2.x/docs/using-pants/concepts/targets-and-build-files",
   },
-  { from: "/v2.2/docs/team", to: "/2.2.x/community/meet-the-team" },
-  { from: "/v2.2/docs/testimonials", to: "/2.2.x/spotlight/testimonials" },
-  { from: "/v2.2/docs/the-pants-community", to: "/2.2.x/community/members" },
+  { from: "/v2.2/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.2/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.2/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.2/docs/troubleshooting",
-    to: "/2.2.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.2.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.2/docs/upgrade-tips",
@@ -13726,50 +13726,50 @@ export default [
     from: "/v2.2/docs/using-pants-in-ci",
     to: "/2.2.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.2/docs/using-pants", to: "/2.2.x/docs/using-pants/index" },
+  { from: "/v2.2/docs/using-pants", to: "/2.2.x/docs/using-pants" },
   {
     from: "/v2.2/docs/welcome-to-pants",
     to: "/2.2.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.2/docs/who-uses-pants", to: "/2.2.x/spotlight/users" },
+  { from: "/v2.2/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.2/docs/writing-plugins",
-    to: "/2.2.x/docs/writing-plugins/index",
+    to: "/2.2.x/docs/writing-plugins",
   },
   {
     from: "/v2.3/docs/advanced-target-selection",
     to: "/2.3.x/docs/using-pants/advanced-target-selection",
   },
-  { from: "/v2.3/docs/aws-lambda", to: "/2.3.x/docs/aws-lambda/index" },
+  { from: "/v2.3/docs/aws-lambda", to: "/2.3.x/docs/aws-lambda" },
   {
     from: "/v2.3/docs/awslambda-python",
     to: "/2.3.x/docs/aws-lambda/python-support",
   },
   {
     from: "/v2.3/docs/code-of-conduct",
-    to: "/2.3.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
-  { from: "/v2.3/docs/codegen", to: "/2.3.x/docs/codegen/index" },
+  { from: "/v2.3/docs/codegen", to: "/2.3.x/docs/codegen" },
   {
     from: "/v2.3/docs/command-line-help",
     to: "/2.3.x/docs/using-pants/command-line-help",
   },
   {
     from: "/v2.3/docs/common-plugin-tasks",
-    to: "/2.3.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.3.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.3/docs/community", to: "/2.3.x/community/members" },
+  { from: "/v2.3/docs/community", to: "/community/members" },
   {
     from: "/v2.3/docs/concepts",
-    to: "/2.3.x/docs/using-pants/concepts/index",
+    to: "/2.3.x/docs/using-pants/concepts",
   },
   {
     from: "/v2.3/docs/contentious-decisions",
-    to: "/2.3.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.3/docs/contributing-to-pants",
-    to: "/2.3.x/docs/contributions/index",
+    to: "/2.3.x/docs/contributions",
   },
   {
     from: "/v2.3/docs/contributions-debugging",
@@ -13797,11 +13797,11 @@ export default [
   },
   {
     from: "/v2.3/docs/development",
-    to: "/2.3.x/docs/contributions/development/index",
+    to: "/2.3.x/docs/contributions/development",
   },
   {
     from: "/v2.3/docs/documentation",
-    to: "/2.3.x/docs/introduction/index",
+    to: "/2.3.x/docs/introduction",
   },
   {
     from: "/v2.3/docs/enabling-backends",
@@ -13815,10 +13815,10 @@ export default [
     from: "/v2.3/docs/existing-repositories",
     to: "/2.3.x/docs/using-pants/adopting-pants-in-existing-repos",
   },
-  { from: "/v2.3/docs/getting-help", to: "/2.3.x/community/getting-help" },
+  { from: "/v2.3/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.3/docs/getting-started",
-    to: "/2.3.x/docs/introduction/getting-started/index",
+    to: "/2.3.x/docs/introduction/getting-started",
   },
   {
     from: "/v2.3/docs/gitignore",
@@ -13850,19 +13850,19 @@ export default [
   },
   {
     from: "/v2.3/docs/language-support",
-    to: "/2.3.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.3/docs/macros", to: "/2.3.x/docs/writing-plugins/macros" },
-  { from: "/v2.3/docs/maintainers", to: "/2.3.x/community/maintainers" },
-  { from: "/v2.3/docs/media", to: "/2.3.x/spotlight/media" },
-  { from: "/v2.3/docs/news-room", to: "/2.3.x/spotlight/media" },
+  { from: "/v2.3/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.3/docs/media", to: "/spotlight/media" },
+  { from: "/v2.3/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.3/docs/options",
     to: "/2.3.x/docs/using-pants/concepts/options",
   },
   {
     from: "/v2.3/docs/pants-1-vs-2",
-    to: "/2.3.x/docs/introduction/pants-1.x-vs.-2.x/index",
+    to: "/2.3.x/docs/introduction/pants-1.x-vs.-2.x",
   },
   {
     from: "/v2.3/docs/pex-files",
@@ -13936,7 +13936,7 @@ export default [
     from: "/v2.3/docs/python-fmt-goal",
     to: "/2.3.x/docs/python/goals/fmt",
   },
-  { from: "/v2.3/docs/python-goals", to: "/2.3.x/docs/python/goals/index" },
+  { from: "/v2.3/docs/python-goals", to: "/2.3.x/docs/python/goals" },
   {
     from: "/v2.3/docs/python-interpreter-compatibility",
     to: "/2.3.x/docs/python/overview/interpreter-compatibility",
@@ -13981,7 +13981,7 @@ export default [
     from: "/v2.3/docs/python-typecheck-goal",
     to: "/2.3.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.3/docs/python", to: "/2.3.x/docs/python/overview/index" },
+  { from: "/v2.3/docs/python", to: "/2.3.x/docs/python/overview" },
   { from: "/v2.3/docs/reference-all-goals", to: "/2.3.x/reference/goals" },
   {
     from: "/v2.3/docs/reference-all-subsystems",
@@ -14206,10 +14206,10 @@ export default [
     from: "/v2.3/docs/reference-validate",
     to: "/2.3.x/reference/goals/validate",
   },
-  { from: "/v2.3/docs/reference", to: "/2.3.x/reference/index" },
+  { from: "/v2.3/docs/reference", to: "/2.3.x/reference" },
   {
     from: "/v2.3/docs/release-notes",
-    to: "/2.3.x/docs/release-notes/index",
+    to: "/2.3.x/docs/release-notes",
   },
   {
     from: "/v2.3/docs/release-process",
@@ -14221,11 +14221,11 @@ export default [
   },
   {
     from: "/v2.3/docs/releases",
-    to: "/2.3.x/docs/contributions/releases/index",
+    to: "/2.3.x/docs/contributions/releases",
   },
   {
     from: "/v2.3/docs/remote-caching-execution",
-    to: "/2.3.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.3.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.3/docs/remote-caching",
@@ -14285,7 +14285,7 @@ export default [
   },
   {
     from: "/v2.3/docs/rules-api",
-    to: "/2.3.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.3.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.3/docs/source-roots",
@@ -14313,18 +14313,18 @@ export default [
   },
   {
     from: "/v2.3/docs/target-api",
-    to: "/2.3.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.3.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.3/docs/targets",
     to: "/2.3.x/docs/using-pants/concepts/targets-and-build-files",
   },
-  { from: "/v2.3/docs/team", to: "/2.3.x/community/meet-the-team" },
-  { from: "/v2.3/docs/testimonials", to: "/2.3.x/spotlight/testimonials" },
-  { from: "/v2.3/docs/the-pants-community", to: "/2.3.x/community/members" },
+  { from: "/v2.3/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.3/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.3/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.3/docs/troubleshooting",
-    to: "/2.3.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.3.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.3/docs/upgrade-tips",
@@ -14334,15 +14334,15 @@ export default [
     from: "/v2.3/docs/using-pants-in-ci",
     to: "/2.3.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.3/docs/using-pants", to: "/2.3.x/docs/using-pants/index" },
+  { from: "/v2.3/docs/using-pants", to: "/2.3.x/docs/using-pants" },
   {
     from: "/v2.3/docs/welcome-to-pants",
     to: "/2.3.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.3/docs/who-uses-pants", to: "/2.3.x/spotlight/users" },
+  { from: "/v2.3/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.3/docs/writing-plugins",
-    to: "/2.3.x/docs/writing-plugins/index",
+    to: "/2.3.x/docs/writing-plugins",
   },
   {
     from: "/v2.4/docs/advanced-target-selection",
@@ -14358,7 +14358,7 @@ export default [
   },
   {
     from: "/v2.4/docs/code-of-conduct",
-    to: "/2.4.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.4/docs/command-line-help",
@@ -14366,20 +14366,20 @@ export default [
   },
   {
     from: "/v2.4/docs/common-plugin-tasks",
-    to: "/2.4.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.4.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.4/docs/community", to: "/2.4.x/community/members" },
+  { from: "/v2.4/docs/community", to: "/community/members" },
   {
     from: "/v2.4/docs/concepts",
-    to: "/2.4.x/docs/using-pants/concepts/index",
+    to: "/2.4.x/docs/using-pants/concepts",
   },
   {
     from: "/v2.4/docs/contentious-decisions",
-    to: "/2.4.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.4/docs/contributing-to-pants",
-    to: "/2.4.x/docs/contributions/index",
+    to: "/2.4.x/docs/contributions",
   },
   {
     from: "/v2.4/docs/contributions-debugging",
@@ -14407,11 +14407,11 @@ export default [
   },
   {
     from: "/v2.4/docs/development",
-    to: "/2.4.x/docs/contributions/development/index",
+    to: "/2.4.x/docs/contributions/development",
   },
   {
     from: "/v2.4/docs/documentation",
-    to: "/2.4.x/docs/introduction/index",
+    to: "/2.4.x/docs/introduction",
   },
   {
     from: "/v2.4/docs/enabling-backends",
@@ -14425,10 +14425,10 @@ export default [
     from: "/v2.4/docs/existing-repositories",
     to: "/2.4.x/docs/using-pants/adopting-pants-in-existing-repos",
   },
-  { from: "/v2.4/docs/getting-help", to: "/2.4.x/community/getting-help" },
+  { from: "/v2.4/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.4/docs/getting-started",
-    to: "/2.4.x/docs/introduction/getting-started/index",
+    to: "/2.4.x/docs/introduction/getting-started",
   },
   {
     from: "/v2.4/docs/gitignore",
@@ -14456,7 +14456,7 @@ export default [
   },
   {
     from: "/v2.4/docs/integrations",
-    to: "/2.4.x/docs/python/integrations/index",
+    to: "/2.4.x/docs/python/integrations",
   },
   {
     from: "/v2.4/docs/internal-rules-architecture",
@@ -14468,19 +14468,19 @@ export default [
   },
   {
     from: "/v2.4/docs/language-support",
-    to: "/2.4.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.4/docs/macros", to: "/2.4.x/docs/writing-plugins/macros" },
-  { from: "/v2.4/docs/maintainers", to: "/2.4.x/community/maintainers" },
-  { from: "/v2.4/docs/media", to: "/2.4.x/spotlight/media" },
-  { from: "/v2.4/docs/news-room", to: "/2.4.x/spotlight/media" },
+  { from: "/v2.4/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.4/docs/media", to: "/spotlight/media" },
+  { from: "/v2.4/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.4/docs/options",
     to: "/2.4.x/docs/using-pants/concepts/options",
   },
   {
     from: "/v2.4/docs/pants-1-vs-2",
-    to: "/2.4.x/docs/introduction/pants-1.x-vs.-2.x/index",
+    to: "/2.4.x/docs/introduction/pants-1.x-vs.-2.x",
   },
   {
     from: "/v2.4/docs/pex-files",
@@ -14554,7 +14554,7 @@ export default [
     from: "/v2.4/docs/python-fmt-goal",
     to: "/2.4.x/docs/python/goals/fmt",
   },
-  { from: "/v2.4/docs/python-goals", to: "/2.4.x/docs/python/goals/index" },
+  { from: "/v2.4/docs/python-goals", to: "/2.4.x/docs/python/goals" },
   {
     from: "/v2.4/docs/python-interpreter-compatibility",
     to: "/2.4.x/docs/python/overview/interpreter-compatibility",
@@ -14599,7 +14599,7 @@ export default [
     from: "/v2.4/docs/python-typecheck-goal",
     to: "/2.4.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.4/docs/python", to: "/2.4.x/docs/python/overview/index" },
+  { from: "/v2.4/docs/python", to: "/2.4.x/docs/python/overview" },
   { from: "/v2.4/docs/reference-all-goals", to: "/2.4.x/reference/goals" },
   {
     from: "/v2.4/docs/reference-all-subsystems",
@@ -14836,10 +14836,10 @@ export default [
     from: "/v2.4/docs/reference-validate",
     to: "/2.4.x/reference/goals/validate",
   },
-  { from: "/v2.4/docs/reference", to: "/2.4.x/reference/index" },
+  { from: "/v2.4/docs/reference", to: "/2.4.x/reference" },
   {
     from: "/v2.4/docs/release-notes",
-    to: "/2.4.x/docs/release-notes/index",
+    to: "/2.4.x/docs/release-notes",
   },
   {
     from: "/v2.4/docs/release-process",
@@ -14851,11 +14851,11 @@ export default [
   },
   {
     from: "/v2.4/docs/releases",
-    to: "/2.4.x/docs/contributions/releases/index",
+    to: "/2.4.x/docs/contributions/releases",
   },
   {
     from: "/v2.4/docs/remote-caching-execution",
-    to: "/2.4.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.4.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.4/docs/remote-caching",
@@ -14915,7 +14915,7 @@ export default [
   },
   {
     from: "/v2.4/docs/rules-api",
-    to: "/2.4.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.4.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.4/docs/source-roots",
@@ -14943,18 +14943,18 @@ export default [
   },
   {
     from: "/v2.4/docs/target-api",
-    to: "/2.4.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.4.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.4/docs/targets",
     to: "/2.4.x/docs/using-pants/concepts/targets-and-build-files",
   },
-  { from: "/v2.4/docs/team", to: "/2.4.x/community/meet-the-team" },
-  { from: "/v2.4/docs/testimonials", to: "/2.4.x/spotlight/testimonials" },
-  { from: "/v2.4/docs/the-pants-community", to: "/2.4.x/community/members" },
+  { from: "/v2.4/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.4/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.4/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.4/docs/troubleshooting",
-    to: "/2.4.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.4.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.4/docs/upgrade-tips",
@@ -14964,15 +14964,15 @@ export default [
     from: "/v2.4/docs/using-pants-in-ci",
     to: "/2.4.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.4/docs/using-pants", to: "/2.4.x/docs/using-pants/index" },
+  { from: "/v2.4/docs/using-pants", to: "/2.4.x/docs/using-pants" },
   {
     from: "/v2.4/docs/welcome-to-pants",
     to: "/2.4.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.4/docs/who-uses-pants", to: "/2.4.x/spotlight/users" },
+  { from: "/v2.4/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.4/docs/writing-plugins",
-    to: "/2.4.x/docs/writing-plugins/index",
+    to: "/2.4.x/docs/writing-plugins",
   },
   {
     from: "/v2.5/docs/advanced-target-selection",
@@ -14986,10 +14986,10 @@ export default [
     from: "/v2.5/docs/awslambda-python",
     to: "/2.5.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.5/docs/changelog", to: "/2.5.x/versions" },
+  { from: "/v2.5/docs/changelog", to: "/versions" },
   {
     from: "/v2.5/docs/code-of-conduct",
-    to: "/2.5.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.5/docs/command-line-help",
@@ -14997,20 +14997,20 @@ export default [
   },
   {
     from: "/v2.5/docs/common-plugin-tasks",
-    to: "/2.5.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.5.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.5/docs/community", to: "/2.5.x/community/members" },
+  { from: "/v2.5/docs/community", to: "/community/members" },
   {
     from: "/v2.5/docs/concepts",
-    to: "/2.5.x/docs/using-pants/key-concepts/index",
+    to: "/2.5.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.5/docs/contentious-decisions",
-    to: "/2.5.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.5/docs/contributing-to-pants",
-    to: "/2.5.x/docs/contributions/index",
+    to: "/2.5.x/docs/contributions",
   },
   {
     from: "/v2.5/docs/contributions-debugging",
@@ -15038,11 +15038,11 @@ export default [
   },
   {
     from: "/v2.5/docs/development",
-    to: "/2.5.x/docs/contributions/development/index",
+    to: "/2.5.x/docs/contributions/development",
   },
   {
     from: "/v2.5/docs/documentation",
-    to: "/2.5.x/docs/introduction/index",
+    to: "/2.5.x/docs/introduction",
   },
   {
     from: "/v2.5/docs/enabling-backends",
@@ -15056,10 +15056,10 @@ export default [
     from: "/v2.5/docs/existing-repositories",
     to: "/2.5.x/docs/using-pants/adopting-pants-in-existing-repos",
   },
-  { from: "/v2.5/docs/getting-help", to: "/2.5.x/community/getting-help" },
+  { from: "/v2.5/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.5/docs/getting-started",
-    to: "/2.5.x/docs/introduction/getting-started/index",
+    to: "/2.5.x/docs/introduction/getting-started",
   },
   {
     from: "/v2.5/docs/gitignore",
@@ -15083,7 +15083,7 @@ export default [
   },
   {
     from: "/v2.5/docs/integrations",
-    to: "/2.5.x/docs/python/integrations/index",
+    to: "/2.5.x/docs/python/integrations",
   },
   {
     from: "/v2.5/docs/internal-rules-architecture",
@@ -15095,12 +15095,12 @@ export default [
   },
   {
     from: "/v2.5/docs/language-support",
-    to: "/2.5.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.5/docs/macros", to: "/2.5.x/docs/writing-plugins/macros" },
-  { from: "/v2.5/docs/maintainers", to: "/2.5.x/community/maintainers" },
-  { from: "/v2.5/docs/media", to: "/2.5.x/spotlight/media" },
-  { from: "/v2.5/docs/news-room", to: "/2.5.x/spotlight/media" },
+  { from: "/v2.5/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.5/docs/media", to: "/spotlight/media" },
+  { from: "/v2.5/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.5/docs/options",
     to: "/2.5.x/docs/using-pants/key-concepts/options",
@@ -15177,7 +15177,7 @@ export default [
     from: "/v2.5/docs/python-fmt-goal",
     to: "/2.5.x/docs/python/goals/fmt",
   },
-  { from: "/v2.5/docs/python-goals", to: "/2.5.x/docs/python/goals/index" },
+  { from: "/v2.5/docs/python-goals", to: "/2.5.x/docs/python/goals" },
   {
     from: "/v2.5/docs/python-interpreter-compatibility",
     to: "/2.5.x/docs/python/overview/interpreter-compatibility",
@@ -15222,7 +15222,7 @@ export default [
     from: "/v2.5/docs/python-typecheck-goal",
     to: "/2.5.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.5/docs/python", to: "/2.5.x/docs/python/overview/index" },
+  { from: "/v2.5/docs/python", to: "/2.5.x/docs/python/overview" },
   { from: "/v2.5/docs/reference-all-goals", to: "/2.5.x/reference/goals" },
   {
     from: "/v2.5/docs/reference-all-subsystems",
@@ -15479,8 +15479,8 @@ export default [
     from: "/v2.5/docs/reference-validate",
     to: "/2.5.x/reference/goals/validate",
   },
-  { from: "/v2.5/docs/reference", to: "/2.5.x/reference/index" },
-  { from: "/v2.5/docs/release-notes", to: "/2.5.x/docs/releases/index" },
+  { from: "/v2.5/docs/reference", to: "/2.5.x/reference" },
+  { from: "/v2.5/docs/release-notes", to: "/2.5.x/docs/releases" },
   {
     from: "/v2.5/docs/release-process",
     to: "/2.5.x/docs/contributions/releases/release-process",
@@ -15491,11 +15491,11 @@ export default [
   },
   {
     from: "/v2.5/docs/releases",
-    to: "/2.5.x/docs/contributions/releases/index",
+    to: "/2.5.x/docs/contributions/releases",
   },
   {
     from: "/v2.5/docs/remote-caching-execution",
-    to: "/2.5.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.5.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.5/docs/remote-caching",
@@ -15555,7 +15555,7 @@ export default [
   },
   {
     from: "/v2.5/docs/rules-api",
-    to: "/2.5.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.5.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.5/docs/setting-up-an-ide",
@@ -15588,18 +15588,18 @@ export default [
   },
   {
     from: "/v2.5/docs/target-api",
-    to: "/2.5.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.5.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.5/docs/targets",
     to: "/2.5.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.5/docs/team", to: "/2.5.x/community/meet-the-team" },
-  { from: "/v2.5/docs/testimonials", to: "/2.5.x/spotlight/testimonials" },
-  { from: "/v2.5/docs/the-pants-community", to: "/2.5.x/community/members" },
+  { from: "/v2.5/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.5/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.5/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.5/docs/troubleshooting",
-    to: "/2.5.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.5.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.5/docs/upgrade-tips",
@@ -15609,15 +15609,15 @@ export default [
     from: "/v2.5/docs/using-pants-in-ci",
     to: "/2.5.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.5/docs/using-pants", to: "/2.5.x/docs/using-pants/index" },
+  { from: "/v2.5/docs/using-pants", to: "/2.5.x/docs/using-pants" },
   {
     from: "/v2.5/docs/welcome-to-pants",
     to: "/2.5.x/docs/introduction/welcome-to-pants",
   },
-  { from: "/v2.5/docs/who-uses-pants", to: "/2.5.x/spotlight/users" },
+  { from: "/v2.5/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.5/docs/writing-plugins",
-    to: "/2.5.x/docs/writing-plugins/index",
+    to: "/2.5.x/docs/writing-plugins",
   },
   {
     from: "/v2.6/docs/advanced-target-selection",
@@ -15631,10 +15631,10 @@ export default [
     from: "/v2.6/docs/awslambda-python",
     to: "/2.6.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.6/docs/changelog", to: "/2.6.x/versions" },
+  { from: "/v2.6/docs/changelog", to: "/versions" },
   {
     from: "/v2.6/docs/code-of-conduct",
-    to: "/2.6.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.6/docs/command-line-help",
@@ -15642,20 +15642,20 @@ export default [
   },
   {
     from: "/v2.6/docs/common-plugin-tasks",
-    to: "/2.6.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.6.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.6/docs/community", to: "/2.6.x/community/members" },
+  { from: "/v2.6/docs/community", to: "/community/members" },
   {
     from: "/v2.6/docs/concepts",
-    to: "/2.6.x/docs/using-pants/key-concepts/index",
+    to: "/2.6.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.6/docs/contentious-decisions",
-    to: "/2.6.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.6/docs/contributing-to-pants",
-    to: "/2.6.x/docs/contributions/index",
+    to: "/2.6.x/docs/contributions",
   },
   {
     from: "/v2.6/docs/contributions-debugging",
@@ -15683,11 +15683,11 @@ export default [
   },
   {
     from: "/v2.6/docs/development",
-    to: "/2.6.x/docs/contributions/development/index",
+    to: "/2.6.x/docs/contributions/development",
   },
   {
     from: "/v2.6/docs/documentation",
-    to: "/2.6.x/docs/learn-about-pants/index",
+    to: "/2.6.x/docs/learn-about-pants",
   },
   {
     from: "/v2.6/docs/enabling-backends",
@@ -15701,10 +15701,10 @@ export default [
     from: "/v2.6/docs/existing-repositories",
     to: "/2.6.x/docs/learn-about-pants/getting-started/incremental-adoption",
   },
-  { from: "/v2.6/docs/getting-help", to: "/2.6.x/community/getting-help" },
+  { from: "/v2.6/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.6/docs/getting-started",
-    to: "/2.6.x/docs/learn-about-pants/getting-started/index",
+    to: "/2.6.x/docs/learn-about-pants/getting-started",
   },
   {
     from: "/v2.6/docs/gitignore",
@@ -15728,7 +15728,7 @@ export default [
   },
   {
     from: "/v2.6/docs/integrations",
-    to: "/2.6.x/docs/python/integrations/index",
+    to: "/2.6.x/docs/python/integrations",
   },
   {
     from: "/v2.6/docs/internal-rules-architecture",
@@ -15740,12 +15740,12 @@ export default [
   },
   {
     from: "/v2.6/docs/language-support",
-    to: "/2.6.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.6/docs/macros", to: "/2.6.x/docs/writing-plugins/macros" },
-  { from: "/v2.6/docs/maintainers", to: "/2.6.x/community/maintainers" },
-  { from: "/v2.6/docs/media", to: "/2.6.x/spotlight/media" },
-  { from: "/v2.6/docs/news-room", to: "/2.6.x/spotlight/media" },
+  { from: "/v2.6/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.6/docs/media", to: "/spotlight/media" },
+  { from: "/v2.6/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.6/docs/options",
     to: "/2.6.x/docs/using-pants/key-concepts/options",
@@ -15822,7 +15822,7 @@ export default [
     from: "/v2.6/docs/python-fmt-goal",
     to: "/2.6.x/docs/python/goals/fmt",
   },
-  { from: "/v2.6/docs/python-goals", to: "/2.6.x/docs/python/goals/index" },
+  { from: "/v2.6/docs/python-goals", to: "/2.6.x/docs/python/goals" },
   {
     from: "/v2.6/docs/python-interpreter-compatibility",
     to: "/2.6.x/docs/python/overview/interpreter-compatibility",
@@ -15867,7 +15867,7 @@ export default [
     from: "/v2.6/docs/python-typecheck-goal",
     to: "/2.6.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.6/docs/python", to: "/2.6.x/docs/python/overview/index" },
+  { from: "/v2.6/docs/python", to: "/2.6.x/docs/python/overview" },
   { from: "/v2.6/docs/reference-all-goals", to: "/2.6.x/reference/goals" },
   {
     from: "/v2.6/docs/reference-all-subsystems",
@@ -16124,8 +16124,8 @@ export default [
     from: "/v2.6/docs/reference-validate",
     to: "/2.6.x/reference/goals/validate",
   },
-  { from: "/v2.6/docs/reference", to: "/2.6.x/reference/index" },
-  { from: "/v2.6/docs/release-notes", to: "/2.6.x/docs/releases/index" },
+  { from: "/v2.6/docs/reference", to: "/2.6.x/reference" },
+  { from: "/v2.6/docs/release-notes", to: "/2.6.x/docs/releases" },
   {
     from: "/v2.6/docs/release-process",
     to: "/2.6.x/docs/contributions/releases/release-process",
@@ -16136,11 +16136,11 @@ export default [
   },
   {
     from: "/v2.6/docs/releases",
-    to: "/2.6.x/docs/contributions/releases/index",
+    to: "/2.6.x/docs/contributions/releases",
   },
   {
     from: "/v2.6/docs/remote-caching-execution",
-    to: "/2.6.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.6.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.6/docs/remote-caching",
@@ -16200,7 +16200,7 @@ export default [
   },
   {
     from: "/v2.6/docs/rules-api",
-    to: "/2.6.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.6.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.6/docs/setting-up-an-ide",
@@ -16233,18 +16233,18 @@ export default [
   },
   {
     from: "/v2.6/docs/target-api",
-    to: "/2.6.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.6.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.6/docs/targets",
     to: "/2.6.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.6/docs/team", to: "/2.6.x/community/meet-the-team" },
-  { from: "/v2.6/docs/testimonials", to: "/2.6.x/spotlight/testimonials" },
-  { from: "/v2.6/docs/the-pants-community", to: "/2.6.x/community/members" },
+  { from: "/v2.6/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.6/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.6/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.6/docs/troubleshooting",
-    to: "/2.6.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.6.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.6/docs/upgrade-tips",
@@ -16254,15 +16254,15 @@ export default [
     from: "/v2.6/docs/using-pants-in-ci",
     to: "/2.6.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.6/docs/using-pants", to: "/2.6.x/docs/using-pants/index" },
+  { from: "/v2.6/docs/using-pants", to: "/2.6.x/docs/using-pants" },
   {
     from: "/v2.6/docs/welcome-to-pants",
     to: "/2.6.x/docs/learn-about-pants/welcome-to-pants",
   },
-  { from: "/v2.6/docs/who-uses-pants", to: "/2.6.x/spotlight/users" },
+  { from: "/v2.6/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.6/docs/writing-plugins",
-    to: "/2.6.x/docs/writing-plugins/index",
+    to: "/2.6.x/docs/writing-plugins",
   },
   {
     from: "/v2.7/docs/advanced-target-selection",
@@ -16276,10 +16276,10 @@ export default [
     from: "/v2.7/docs/awslambda-python",
     to: "/2.7.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.7/docs/changelog", to: "/2.7.x/versions" },
+  { from: "/v2.7/docs/changelog", to: "/versions" },
   {
     from: "/v2.7/docs/code-of-conduct",
-    to: "/2.7.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.7/docs/command-line-help",
@@ -16287,20 +16287,20 @@ export default [
   },
   {
     from: "/v2.7/docs/common-plugin-tasks",
-    to: "/2.7.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.7.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.7/docs/community", to: "/2.7.x/community/members" },
+  { from: "/v2.7/docs/community", to: "/community/members" },
   {
     from: "/v2.7/docs/concepts",
-    to: "/2.7.x/docs/using-pants/key-concepts/index",
+    to: "/2.7.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.7/docs/contentious-decisions",
-    to: "/2.7.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.7/docs/contributing-to-pants",
-    to: "/2.7.x/docs/contributions/index",
+    to: "/2.7.x/docs/contributions",
   },
   {
     from: "/v2.7/docs/contributions-debugging",
@@ -16328,12 +16328,12 @@ export default [
   },
   {
     from: "/v2.7/docs/development",
-    to: "/2.7.x/docs/contributions/development/index",
+    to: "/2.7.x/docs/contributions/development",
   },
   { from: "/v2.7/docs/docker", to: "/2.7.x/docs/docker/overview" },
   {
     from: "/v2.7/docs/documentation",
-    to: "/2.7.x/docs/learn-about-pants/index",
+    to: "/2.7.x/docs/learn-about-pants",
   },
   {
     from: "/v2.7/docs/enabling-backends",
@@ -16347,10 +16347,10 @@ export default [
     from: "/v2.7/docs/existing-repositories",
     to: "/2.7.x/docs/learn-about-pants/getting-started/incremental-adoption",
   },
-  { from: "/v2.7/docs/getting-help", to: "/2.7.x/community/getting-help" },
+  { from: "/v2.7/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.7/docs/getting-started",
-    to: "/2.7.x/docs/learn-about-pants/getting-started/index",
+    to: "/2.7.x/docs/learn-about-pants/getting-started",
   },
   {
     from: "/v2.7/docs/gitignore",
@@ -16374,7 +16374,7 @@ export default [
   },
   {
     from: "/v2.7/docs/integrations",
-    to: "/2.7.x/docs/python/integrations/index",
+    to: "/2.7.x/docs/python/integrations",
   },
   {
     from: "/v2.7/docs/internal-rules-architecture",
@@ -16386,12 +16386,12 @@ export default [
   },
   {
     from: "/v2.7/docs/language-support",
-    to: "/2.7.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.7/docs/macros", to: "/2.7.x/docs/writing-plugins/macros" },
-  { from: "/v2.7/docs/maintainers", to: "/2.7.x/community/maintainers" },
-  { from: "/v2.7/docs/media", to: "/2.7.x/spotlight/media" },
-  { from: "/v2.7/docs/news-room", to: "/2.7.x/spotlight/media" },
+  { from: "/v2.7/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.7/docs/media", to: "/spotlight/media" },
+  { from: "/v2.7/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.7/docs/options",
     to: "/2.7.x/docs/using-pants/key-concepts/options",
@@ -16468,7 +16468,7 @@ export default [
     from: "/v2.7/docs/python-fmt-goal",
     to: "/2.7.x/docs/python/goals/fmt",
   },
-  { from: "/v2.7/docs/python-goals", to: "/2.7.x/docs/python/goals/index" },
+  { from: "/v2.7/docs/python-goals", to: "/2.7.x/docs/python/goals" },
   {
     from: "/v2.7/docs/python-interpreter-compatibility",
     to: "/2.7.x/docs/python/overview/interpreter-compatibility",
@@ -16513,7 +16513,7 @@ export default [
     from: "/v2.7/docs/python-typecheck-goal",
     to: "/2.7.x/docs/python/goals/typecheck",
   },
-  { from: "/v2.7/docs/python", to: "/2.7.x/docs/python/overview/index" },
+  { from: "/v2.7/docs/python", to: "/2.7.x/docs/python/overview" },
   { from: "/v2.7/docs/reference-all-goals", to: "/2.7.x/reference/goals" },
   {
     from: "/v2.7/docs/reference-all-subsystems",
@@ -16799,8 +16799,8 @@ export default [
     from: "/v2.7/docs/reference-yapf",
     to: "/2.7.x/reference/subsystems/yapf",
   },
-  { from: "/v2.7/docs/reference", to: "/2.7.x/reference/index" },
-  { from: "/v2.7/docs/release-notes", to: "/2.7.x/docs/releases/index" },
+  { from: "/v2.7/docs/reference", to: "/2.7.x/reference" },
+  { from: "/v2.7/docs/release-notes", to: "/2.7.x/docs/releases" },
   {
     from: "/v2.7/docs/release-process",
     to: "/2.7.x/docs/contributions/releases/release-process",
@@ -16811,11 +16811,11 @@ export default [
   },
   {
     from: "/v2.7/docs/releases",
-    to: "/2.7.x/docs/contributions/releases/index",
+    to: "/2.7.x/docs/contributions/releases",
   },
   {
     from: "/v2.7/docs/remote-caching-execution",
-    to: "/2.7.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.7.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.7/docs/remote-caching",
@@ -16875,7 +16875,7 @@ export default [
   },
   {
     from: "/v2.7/docs/rules-api",
-    to: "/2.7.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.7.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.7/docs/running-pants-from-sources",
@@ -16912,18 +16912,18 @@ export default [
   },
   {
     from: "/v2.7/docs/target-api",
-    to: "/2.7.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.7.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.7/docs/targets",
     to: "/2.7.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.7/docs/team", to: "/2.7.x/community/meet-the-team" },
-  { from: "/v2.7/docs/testimonials", to: "/2.7.x/spotlight/testimonials" },
-  { from: "/v2.7/docs/the-pants-community", to: "/2.7.x/community/members" },
+  { from: "/v2.7/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.7/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.7/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.7/docs/troubleshooting",
-    to: "/2.7.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.7.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.7/docs/upgrade-tips",
@@ -16933,15 +16933,15 @@ export default [
     from: "/v2.7/docs/using-pants-in-ci",
     to: "/2.7.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.7/docs/using-pants", to: "/2.7.x/docs/using-pants/index" },
+  { from: "/v2.7/docs/using-pants", to: "/2.7.x/docs/using-pants" },
   {
     from: "/v2.7/docs/welcome-to-pants",
     to: "/2.7.x/docs/learn-about-pants/welcome-to-pants",
   },
-  { from: "/v2.7/docs/who-uses-pants", to: "/2.7.x/spotlight/users" },
+  { from: "/v2.7/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.7/docs/writing-plugins",
-    to: "/2.7.x/docs/writing-plugins/index",
+    to: "/2.7.x/docs/writing-plugins",
   },
   {
     from: "/v2.8/docs/advanced-target-selection",
@@ -16955,10 +16955,10 @@ export default [
     from: "/v2.8/docs/awslambda-python",
     to: "/2.8.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.8/docs/changelog", to: "/2.8.x/versions" },
+  { from: "/v2.8/docs/changelog", to: "/versions" },
   {
     from: "/v2.8/docs/code-of-conduct",
-    to: "/2.8.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.8/docs/command-line-help",
@@ -16966,20 +16966,20 @@ export default [
   },
   {
     from: "/v2.8/docs/common-plugin-tasks",
-    to: "/2.8.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.8.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.8/docs/community", to: "/2.8.x/community/members" },
+  { from: "/v2.8/docs/community", to: "/community/members" },
   {
     from: "/v2.8/docs/concepts",
-    to: "/2.8.x/docs/using-pants/key-concepts-to-know-about-pants/index",
+    to: "/2.8.x/docs/using-pants/key-concepts-to-know-about-pants",
   },
   {
     from: "/v2.8/docs/contentious-decisions",
-    to: "/2.8.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.8/docs/contributing-to-pants",
-    to: "/2.8.x/docs/contributions/index",
+    to: "/2.8.x/docs/contributions",
   },
   {
     from: "/v2.8/docs/contributions-debugging",
@@ -17007,12 +17007,12 @@ export default [
   },
   {
     from: "/v2.8/docs/development",
-    to: "/2.8.x/docs/contributions/development/index",
+    to: "/2.8.x/docs/contributions/development",
   },
   { from: "/v2.8/docs/docker", to: "/2.8.x/docs/docker/overview" },
   {
     from: "/v2.8/docs/documentation",
-    to: "/2.8.x/docs/learn-about-pants/index",
+    to: "/2.8.x/docs/learn-about-pants",
   },
   {
     from: "/v2.8/docs/enabling-backends",
@@ -17026,10 +17026,10 @@ export default [
     from: "/v2.8/docs/existing-repositories",
     to: "/2.8.x/docs/getting-started/getting-started/incremental-adoption",
   },
-  { from: "/v2.8/docs/getting-help", to: "/2.8.x/community/getting-help" },
+  { from: "/v2.8/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.8/docs/getting-started",
-    to: "/2.8.x/docs/getting-started/getting-started/index",
+    to: "/2.8.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.8/docs/gitignore",
@@ -17058,7 +17058,7 @@ export default [
   },
   {
     from: "/v2.8/docs/integrations",
-    to: "/2.8.x/docs/python/integrations/index",
+    to: "/2.8.x/docs/python/integrations",
   },
   {
     from: "/v2.8/docs/internal-rules-architecture",
@@ -17070,12 +17070,12 @@ export default [
   },
   {
     from: "/v2.8/docs/language-support",
-    to: "/2.8.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.8/docs/macros", to: "/2.8.x/docs/writing-plugins/macros" },
-  { from: "/v2.8/docs/maintainers", to: "/2.8.x/community/maintainers" },
-  { from: "/v2.8/docs/media", to: "/2.8.x/spotlight/media" },
-  { from: "/v2.8/docs/news-room", to: "/2.8.x/spotlight/media" },
+  { from: "/v2.8/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.8/docs/media", to: "/spotlight/media" },
+  { from: "/v2.8/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.8/docs/options",
     to: "/2.8.x/docs/using-pants/key-concepts-to-know-about-pants/options",
@@ -17148,7 +17148,7 @@ export default [
     from: "/v2.8/docs/python-fmt-goal",
     to: "/2.8.x/docs/python/goals/fmt",
   },
-  { from: "/v2.8/docs/python-goals", to: "/2.8.x/docs/python/goals/index" },
+  { from: "/v2.8/docs/python-goals", to: "/2.8.x/docs/python/goals" },
   {
     from: "/v2.8/docs/python-interpreter-compatibility",
     to: "/2.8.x/docs/python/overview/interpreter-compatibility",
@@ -17185,7 +17185,7 @@ export default [
     from: "/v2.8/docs/python-third-party-dependencies",
     to: "/2.8.x/docs/python/overview/third-party-dependencies",
   },
-  { from: "/v2.8/docs/python", to: "/2.8.x/docs/python/overview/index" },
+  { from: "/v2.8/docs/python", to: "/2.8.x/docs/python/overview" },
   { from: "/v2.8/docs/reference-all-goals", to: "/2.8.x/reference/goals" },
   {
     from: "/v2.8/docs/reference-all-subsystems",
@@ -17623,8 +17623,8 @@ export default [
     from: "/v2.8/docs/reference-yapf",
     to: "/2.8.x/reference/subsystems/yapf",
   },
-  { from: "/v2.8/docs/reference", to: "/2.8.x/reference/index" },
-  { from: "/v2.8/docs/release-notes", to: "/2.8.x/docs/releases/index" },
+  { from: "/v2.8/docs/reference", to: "/2.8.x/reference" },
+  { from: "/v2.8/docs/release-notes", to: "/2.8.x/docs/releases" },
   {
     from: "/v2.8/docs/release-process",
     to: "/2.8.x/docs/contributions/releases/release-process",
@@ -17635,11 +17635,11 @@ export default [
   },
   {
     from: "/v2.8/docs/releases",
-    to: "/2.8.x/docs/contributions/releases/index",
+    to: "/2.8.x/docs/contributions/releases",
   },
   {
     from: "/v2.8/docs/remote-caching-execution",
-    to: "/2.8.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.8.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.8/docs/remote-caching",
@@ -17699,7 +17699,7 @@ export default [
   },
   {
     from: "/v2.8/docs/rules-api",
-    to: "/2.8.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.8.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.8/docs/running-pants-from-sources",
@@ -17740,18 +17740,18 @@ export default [
   },
   {
     from: "/v2.8/docs/target-api",
-    to: "/2.8.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.8.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.8/docs/targets",
     to: "/2.8.x/docs/using-pants/key-concepts-to-know-about-pants/targets-and-build-files",
   },
-  { from: "/v2.8/docs/team", to: "/2.8.x/community/meet-the-team" },
-  { from: "/v2.8/docs/testimonials", to: "/2.8.x/spotlight/testimonials" },
-  { from: "/v2.8/docs/the-pants-community", to: "/2.8.x/community/members" },
+  { from: "/v2.8/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.8/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.8/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.8/docs/troubleshooting",
-    to: "/2.8.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.8.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.8/docs/upgrade-tips",
@@ -17761,15 +17761,15 @@ export default [
     from: "/v2.8/docs/using-pants-in-ci",
     to: "/2.8.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.8/docs/using-pants", to: "/2.8.x/docs/using-pants/index" },
+  { from: "/v2.8/docs/using-pants", to: "/2.8.x/docs/using-pants" },
   {
     from: "/v2.8/docs/welcome-to-pants",
     to: "/2.8.x/docs/learn-about-pants/welcome-to-pants",
   },
-  { from: "/v2.8/docs/who-uses-pants", to: "/2.8.x/spotlight/users" },
+  { from: "/v2.8/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.8/docs/writing-plugins",
-    to: "/2.8.x/docs/writing-plugins/index",
+    to: "/2.8.x/docs/writing-plugins",
   },
   {
     from: "/v2.9/docs/advanced-target-selection",
@@ -17783,10 +17783,10 @@ export default [
     from: "/v2.9/docs/awslambda-python",
     to: "/2.9.x/docs/python/integrations/aws-lambda",
   },
-  { from: "/v2.9/docs/changelog", to: "/2.9.x/versions" },
+  { from: "/v2.9/docs/changelog", to: "/versions" },
   {
     from: "/v2.9/docs/code-of-conduct",
-    to: "/2.9.x/community/code-of-conduct",
+    to: "/community/code-of-conduct",
   },
   {
     from: "/v2.9/docs/command-line-help",
@@ -17794,20 +17794,20 @@ export default [
   },
   {
     from: "/v2.9/docs/common-plugin-tasks",
-    to: "/2.9.x/docs/writing-plugins/common-plugin-tasks/index",
+    to: "/2.9.x/docs/writing-plugins/common-plugin-tasks",
   },
-  { from: "/v2.9/docs/community", to: "/2.9.x/community/members" },
+  { from: "/v2.9/docs/community", to: "/community/members" },
   {
     from: "/v2.9/docs/concepts",
-    to: "/2.9.x/docs/using-pants/key-concepts/index",
+    to: "/2.9.x/docs/using-pants/key-concepts",
   },
   {
     from: "/v2.9/docs/contentious-decisions",
-    to: "/2.9.x/community/contentious-decisions",
+    to: "/community/contentious-decisions",
   },
   {
     from: "/v2.9/docs/contributing-to-pants",
-    to: "/2.9.x/docs/contributions/index",
+    to: "/2.9.x/docs/contributions",
   },
   {
     from: "/v2.9/docs/contributions-debugging",
@@ -17835,12 +17835,12 @@ export default [
   },
   {
     from: "/v2.9/docs/development",
-    to: "/2.9.x/docs/contributions/development/index",
+    to: "/2.9.x/docs/contributions/development",
   },
   { from: "/v2.9/docs/docker", to: "/2.9.x/docs/docker/overview" },
   {
     from: "/v2.9/docs/documentation",
-    to: "/2.9.x/docs/learn-about-pants/index",
+    to: "/2.9.x/docs/learn-about-pants",
   },
   {
     from: "/v2.9/docs/enabling-backends",
@@ -17854,10 +17854,10 @@ export default [
     from: "/v2.9/docs/existing-repositories",
     to: "/2.9.x/docs/getting-started/getting-started/incremental-adoption",
   },
-  { from: "/v2.9/docs/getting-help", to: "/2.9.x/community/getting-help" },
+  { from: "/v2.9/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.9/docs/getting-started",
-    to: "/2.9.x/docs/getting-started/getting-started/index",
+    to: "/2.9.x/docs/getting-started/getting-started",
   },
   {
     from: "/v2.9/docs/gitignore",
@@ -17886,7 +17886,7 @@ export default [
   },
   {
     from: "/v2.9/docs/integrations",
-    to: "/2.9.x/docs/python/integrations/index",
+    to: "/2.9.x/docs/python/integrations",
   },
   {
     from: "/v2.9/docs/internal-rules-architecture",
@@ -17900,15 +17900,15 @@ export default [
     from: "/v2.9/docs/jvm-overview",
     to: "/2.9.x/docs/java-and-scala/overview",
   },
-  { from: "/v2.9/docs/jvm", to: "/2.9.x/docs/java-and-scala/index" },
+  { from: "/v2.9/docs/jvm", to: "/2.9.x/docs/java-and-scala" },
   {
     from: "/v2.9/docs/language-support",
-    to: "/2.9.x/spotlight/language-support",
+    to: "/spotlight/language-support",
   },
   { from: "/v2.9/docs/macros", to: "/2.9.x/docs/writing-plugins/macros" },
-  { from: "/v2.9/docs/maintainers", to: "/2.9.x/community/maintainers" },
-  { from: "/v2.9/docs/media", to: "/2.9.x/spotlight/media" },
-  { from: "/v2.9/docs/news-room", to: "/2.9.x/spotlight/media" },
+  { from: "/v2.9/docs/maintainers", to: "/community/maintainers" },
+  { from: "/v2.9/docs/media", to: "/spotlight/media" },
+  { from: "/v2.9/docs/news-room", to: "/spotlight/media" },
   {
     from: "/v2.9/docs/options",
     to: "/2.9.x/docs/using-pants/key-concepts/options",
@@ -17981,7 +17981,7 @@ export default [
     from: "/v2.9/docs/python-fmt-goal",
     to: "/2.9.x/docs/python/goals/fmt",
   },
-  { from: "/v2.9/docs/python-goals", to: "/2.9.x/docs/python/goals/index" },
+  { from: "/v2.9/docs/python-goals", to: "/2.9.x/docs/python/goals" },
   {
     from: "/v2.9/docs/python-interpreter-compatibility",
     to: "/2.9.x/docs/python/overview/interpreter-compatibility",
@@ -18018,7 +18018,7 @@ export default [
     from: "/v2.9/docs/python-third-party-dependencies",
     to: "/2.9.x/docs/python/overview/third-party-dependencies",
   },
-  { from: "/v2.9/docs/python", to: "/2.9.x/docs/python/overview/index" },
+  { from: "/v2.9/docs/python", to: "/2.9.x/docs/python/overview" },
   { from: "/v2.9/docs/reference-all-goals", to: "/2.9.x/reference/goals" },
   {
     from: "/v2.9/docs/reference-all-subsystems",
@@ -18532,8 +18532,8 @@ export default [
     from: "/v2.9/docs/reference-yapf",
     to: "/2.9.x/reference/subsystems/yapf",
   },
-  { from: "/v2.9/docs/reference", to: "/2.9.x/reference/index" },
-  { from: "/v2.9/docs/release-notes", to: "/2.9.x/docs/releases/index" },
+  { from: "/v2.9/docs/reference", to: "/2.9.x/reference" },
+  { from: "/v2.9/docs/release-notes", to: "/2.9.x/docs/releases" },
   {
     from: "/v2.9/docs/release-process",
     to: "/2.9.x/docs/contributions/releases/release-process",
@@ -18544,11 +18544,11 @@ export default [
   },
   {
     from: "/v2.9/docs/releases",
-    to: "/2.9.x/docs/contributions/releases/index",
+    to: "/2.9.x/docs/contributions/releases",
   },
   {
     from: "/v2.9/docs/remote-caching-execution",
-    to: "/2.9.x/docs/using-pants/remote-caching-&-execution/index",
+    to: "/2.9.x/docs/using-pants/remote-caching-&-execution",
   },
   {
     from: "/v2.9/docs/remote-caching",
@@ -18608,7 +18608,7 @@ export default [
   },
   {
     from: "/v2.9/docs/rules-api",
-    to: "/2.9.x/docs/writing-plugins/the-rules-api/index",
+    to: "/2.9.x/docs/writing-plugins/the-rules-api",
   },
   {
     from: "/v2.9/docs/run-shell-commands",
@@ -18653,18 +18653,18 @@ export default [
   },
   {
     from: "/v2.9/docs/target-api",
-    to: "/2.9.x/docs/writing-plugins/the-target-api/index",
+    to: "/2.9.x/docs/writing-plugins/the-target-api",
   },
   {
     from: "/v2.9/docs/targets",
     to: "/2.9.x/docs/using-pants/key-concepts/targets-and-build-files",
   },
-  { from: "/v2.9/docs/team", to: "/2.9.x/community/meet-the-team" },
-  { from: "/v2.9/docs/testimonials", to: "/2.9.x/spotlight/testimonials" },
-  { from: "/v2.9/docs/the-pants-community", to: "/2.9.x/community/members" },
+  { from: "/v2.9/docs/team", to: "/community/meet-the-team" },
+  { from: "/v2.9/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/v2.9/docs/the-pants-community", to: "/community/members" },
   {
     from: "/v2.9/docs/troubleshooting",
-    to: "/2.9.x/docs/using-pants/troubleshooting-common-issues/index",
+    to: "/2.9.x/docs/using-pants/troubleshooting-common-issues",
   },
   {
     from: "/v2.9/docs/upgrade-tips",
@@ -18674,14 +18674,14 @@ export default [
     from: "/v2.9/docs/using-pants-in-ci",
     to: "/2.9.x/docs/using-pants/using-pants-in-ci",
   },
-  { from: "/v2.9/docs/using-pants", to: "/2.9.x/docs/using-pants/index" },
+  { from: "/v2.9/docs/using-pants", to: "/2.9.x/docs/using-pants" },
   {
     from: "/v2.9/docs/welcome-to-pants",
     to: "/2.9.x/docs/learn-about-pants/welcome-to-pants",
   },
-  { from: "/v2.9/docs/who-uses-pants", to: "/2.9.x/spotlight/users" },
+  { from: "/v2.9/docs/who-uses-pants", to: "/spotlight/users" },
   {
     from: "/v2.9/docs/writing-plugins",
-    to: "/2.9.x/docs/writing-plugins/index",
+    to: "/2.9.x/docs/writing-plugins",
   },
 ];
