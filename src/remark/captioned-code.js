@@ -1,3 +1,21 @@
+/*
+A remark plugin to allow codeblocks to have a caption="..." meta which translates to `<figcaption>`
+after the codeblock.
+
+E.g.
+
+  ```py caption="A code snippet"
+  import everything
+  ```
+
+is equivalent to
+
+  ```py
+  import everything
+  ```
+
+  <figcaption>A code snippet</figcaption>
+*/
 import { visit } from "unist-util-visit";
 
 const plugin = () => {
