@@ -15,21 +15,21 @@ function getCurrentVersion() {
 
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
-//  - PANTS_SITE_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
-//  - PANTS_SITE_INCLUDE_BLOG=1 -> Include the blog.
+//  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
+//  - PANTSBUILD_ORG_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
 const disableVersioning =
-  isDev && process.env.PANTS_SITE_INCLUDE_VERSIONS === undefined;
+  isDev && process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS === undefined;
 const onlyIncludeVersions = isDev
-  ? process.env.PANTS_SITE_INCLUDE_VERSIONS
+  ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
     ? ["current"].concat(
-        (process.env.PANTS_SITE_INCLUDE_VERSIONS || "").split(",")
+        (process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS || "").split(",")
       )
     : ["current"]
   : undefined;
 const currentVersion = getCurrentVersion();
-const includeBlog = process.env.PANTS_SITE_INCLUDE_BLOG === "1" || !isDev;
+const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
 
 const config = {
   title: "Pantsbuild",
