@@ -37,7 +37,7 @@ const config = {
   favicon: "img/favicon.ico",
 
   url: "https://pantsbuild.github.io",
-  baseUrl: "/",
+  baseUrl: "/pantsbuild.org",
   trailingSlash: false,
 
   organizationName: "pantsbuild",
