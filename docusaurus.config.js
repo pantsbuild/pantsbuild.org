@@ -1,5 +1,5 @@
 import versions from "./versions.json";
-import redirects from "./redirects.js";
+import redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 
 import { themes as prismThemes } from "prism-react-renderer";
@@ -281,16 +281,7 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects: [
-          {
-            from: "/v2.20/docs/welcome-to-pants",
-            to: "/2.20.x/docs/introduction/welcome-to-pants",
-          },
-          {
-            from: "/FOO",
-            to: "/2.20.x/docs",
-          },
-        ],
+        redirects,
       },
     ],
   ],
