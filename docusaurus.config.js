@@ -42,8 +42,8 @@ const config = {
   organizationName: "pantsbuild",
   projectName: "pantsbuild.org",
 
-  onBrokenLinks: isDev ? "warn" : "error",
-  onBrokenMarkdownLinks: isDev ? "warn" : "error",
+  onBrokenLinks: isDev ? "warn" : "throw",
+  onBrokenMarkdownLinks: isDev ? "warn" : "throw",
 
   presets: [
     [
