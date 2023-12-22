@@ -16401,7 +16401,6 @@ export default [
     from: "/v2.7/docs/reference-yapf",
     to: "/2.7.x/reference/subsystems/yapf",
   },
-  ,
   {
     from: "/v2.7/docs/release-process",
     to: "/2.7.x/docs/contributions/releases/release-process",
