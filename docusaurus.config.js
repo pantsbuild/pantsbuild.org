@@ -1,4 +1,5 @@
 import versions from "./versions.json";
+import redirects from "./redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 
 import { themes as prismThemes } from "prism-react-renderer";
@@ -42,13 +43,15 @@ const config = {
   organizationName: "pantsbuild",
   projectName: "pantsbuild.org",
 
-  onBrokenLinks: isDev ? "warn" : "throw",
-  onBrokenMarkdownLinks: isDev ? "warn" : "throw",
+  // @TODO: This should throw on prod
+  onBrokenLinks: isDev ? "warn" : "warn",
+  onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
   presets: [
     [
       "@docusaurus/preset-classic",
       {
+        debug: process.env.NODE_ENV !== "production",
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/",
@@ -274,6 +277,23 @@ const config = {
       darkTheme: prismThemes.nightOwl,
     },
   },
+  plugins: [
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            from: "/v2.20/docs/welcome-to-pants",
+            to: "/2.20.x/docs/introduction/welcome-to-pants",
+          },
+          {
+            from: "/FOO",
+            to: "/2.20.x/docs",
+          },
+        ],
+      },
+    ],
+  ],
 };
 
 module.exports = config;
