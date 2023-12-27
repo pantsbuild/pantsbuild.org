@@ -12,7 +12,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "generate-templates": "node reference_codegen/generate.js"
   },
   "dependencies": {
     "@docusaurus/core": "^3.0.0",
@@ -29,6 +30,8 @@
   "devDependencies": {
     "@docusaurus/eslint-plugin": "^3.0.1",
     "@docusaurus/module-type-aliases": "3.0.0",
+    "he": "^1.2.0",
+    "mustache": "^4.2.0",
     "prettier": "^3.1.1"
   },
   "browserslist": {

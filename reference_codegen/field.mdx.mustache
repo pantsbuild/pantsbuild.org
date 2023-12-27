@@ -1,0 +1,15 @@
+## `{{ alias }}`
+
+<Field
+    type_repr={`{{{ type_hint }}}`}
+    {{#default}}
+    default_repr={`{{{ default }}}`}
+    {{/default}}
+    {{#provider}}
+    backend="{{ provider }}"
+    {{/provider}}
+>
+
+{{{ description }}}
+
+</Field>

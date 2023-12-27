@@ -4,8 +4,8 @@ export default function Option({
   env_repr,
   one_of,
   default_repr,
-  deprecated_version,
-  deprecated_hint,
+  removal_version,
+  removal_hint,
 }) {
   return (
     <div className="margin-bottom--lg">
@@ -31,11 +31,11 @@ export default function Option({
           </span>
         </span>
         <br />
-        {deprecated_version &&
+        {removal_version &&
           <span style={{ color: "var(--ifm-color-danger-darkest)" }}>
-            Deprecated, will be removed in version: {deprecated_version}.
+            Deprecated, will be removed in version: {removal_version}.
             <br />
-            {deprecated_hint}
+            {removal_hint}
             <br />
           </span>
         }
