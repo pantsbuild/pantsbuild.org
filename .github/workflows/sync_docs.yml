@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Generate `help-all.json`
-      - uses: pantsbuild/actions/init-pants@v5-scie-pants
-        with:
-          gha-cache-key: v0
-          named-caches-hash: "" # We have nothing to hash since we have no state...
+      - name: Pants on!
+        run: |
+          curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Generate help JSON
         run: |
           touch pants.toml
