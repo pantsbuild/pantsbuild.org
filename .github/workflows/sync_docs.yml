@@ -54,7 +54,10 @@ jobs:
             DESTINATION_DIR="docs"
           fi
           echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" >> "${GITHUB_OUTPUT}"
-      - run: rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+      - run: |
+          rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+          mkdir "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+
       # Generate reference docs
       - name: Setup Node
         uses: actions/setup-node@v3
