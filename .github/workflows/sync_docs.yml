@@ -92,4 +92,6 @@ jobs:
         working-directory: pantsbuild.org
       - name: Make a PR
         run: gh pr create --title "Update docs site for version ${{ inputs.version }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
         working-directory: pantsbuild.org
