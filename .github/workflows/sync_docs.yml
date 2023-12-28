@@ -21,6 +21,7 @@ jobs:
           curl --proto '=https' --tlsv1.2 -fsSL https://static.pantsbuild.org/setup/get-pants.sh | bash
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Generate help JSON
+        # Run the command twice, since the first run might put extraneous crap on stdout
         run: |
           touch pants.toml
           PANTS_VERSION="${{ inputs.version }}" pants help-all
@@ -52,7 +53,7 @@ jobs:
           if [ ! -d "$DESTINATION_DIR" ]; then
             DESTINATION_DIR="docs"
           fi
-          echo "DESTINATION_DIR=$(echo "DESTINATION_DIR")" >> "${GITHUB_OUTPUT}"
+          echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" >> "${GITHUB_OUTPUT}"
 
       # Generate reference docs
       - name: Setup Node
