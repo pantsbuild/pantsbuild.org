@@ -1,6 +1,9 @@
 name: Sync the Docs
 
 on:
+  push:
+    branches:
+      - prerelease
   workflow_dispatch:
     inputs:
       version:
