@@ -81,6 +81,8 @@ jobs:
 
       # Sync the docs repo
       - run: cp -r pants/docs "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+      - run: npm run format
+        working-directory: pantsbuild.org
 
       # Commit and create a PR
       - name: Commit changes
