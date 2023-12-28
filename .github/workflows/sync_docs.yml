@@ -12,7 +12,7 @@ on:
         type: string
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     steps:
       # Generate `help-all.json`
@@ -71,7 +71,7 @@ jobs:
       - run: yarn install --frozen-lockfile
         working-directory: pantsbuild.org
       - name: Generate reference docs
-        run: npm generate-templates "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}" ../help-all.json
+        run: npm run generate-templates "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}" ../help-all.json
         working-directory: pantsbuild.org
 
       # Sync the docs repo
