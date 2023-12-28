@@ -7,6 +7,9 @@ on:
         description: Pants Version to use (should be the full version, like "2.20.1rc2")
         required: true
         type: string
+      pants_repo_ref:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -27,7 +30,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: pantsbuild/pants
-          ref: release_${{ inputs.version }}
+          ref: ${{ inputs.pants_repo_ref }}
           fetch-depth: 0
           path: pants
       - name: Checkout docs repo

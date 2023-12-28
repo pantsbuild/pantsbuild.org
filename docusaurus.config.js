@@ -195,10 +195,6 @@ const config = {
           title: "Connect",
           items: [
             {
-              label: "Slack",
-              href: "https://pantsbuild.slack.com/",
-            },
-            {
               label: "GitHub",
               href: "https://github.com/pantsbuild/pants",
             },
