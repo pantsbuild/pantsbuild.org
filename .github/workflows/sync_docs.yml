@@ -23,6 +23,7 @@ jobs:
       - name: Generate help JSON
         run: |
           touch pants.toml
+          PANTS_VERSION="${{ inputs.version }}" pants help-all
           PANTS_VERSION="${{ inputs.version }}" pants help-all > help-all.json
 
       # Checkout both repos
