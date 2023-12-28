@@ -1,0 +1,90 @@
+name: Sync the Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Pants Version to use (should be the full version, like "2.20.1rc2")
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Generate `help-all.json`
+      - uses: pantsbuild/actions/init-pants@v5-scie-pants
+        with:
+          gha-cache-key: v0
+          named-caches-hash: "" # We have nothing to hash since we have no state...
+      - name: Generate help JSON
+        run: |
+          touch pants.toml
+          PANTS_VERSION="${{ inputs.version }}" pants help-all > help-all.json
+
+      # Checkout both repos
+      - name: Checkout pants repo
+        uses: actions/checkout@v4
+        with:
+          repository: pantsbuild/pants
+          ref: release_${{ inputs.version }}
+          fetch-depth: 0
+          path: pants
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+        with:
+          repository: pantsbuild/pantsbuild.org
+          fetch-depth: 0
+          path: pantsbuild.org
+
+      # Calculate destination
+      - name: Calculate branch name
+        id: get-branch-name
+        run: echo "BRANCH_NAME=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2.x/')" >> "${GITHUB_OUTPUT}"
+      - name: Calculate destination
+        id: get-destination-dir
+        run: |
+          DESTINATION_DIR="versioned_docs/version-${{ steps.get-branch-name.outputs.BRANCH_NAME }}"
+          if [ ! -d "$DESTINATION_DIR" ]; then
+            DESTINATION_DIR="docs"
+          fi
+          echo "DESTINATION_DIR=$(echo "DESTINATION_DIR")" >> "${GITHUB_OUTPUT}"
+
+      # Generate reference docs
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "YARN_CACHE_DIR=$(yarn cache dir)" >> "${GITHUB_OUTPUT}"
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache.outputs.YARN_CACHE_DIR }}
+          key: ${{ runner.os }}-website-${{ hashFiles('pantsbuild.org/**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-website-
+      - run: yarn install --frozen-lockfile
+        working-directory: pantsbuild.org
+      - name: Generate reference docs
+        run: npm generate-templates "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}" ../help-all.json
+        working-directory: pantsbuild.org
+
+      # Sync the docs repo
+      - name: Replace docs
+        run: |
+          rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+          cp -r pants/docs "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+
+      # Commit and create a PR
+      - name: Commit changes
+        run: |
+          git config --local user.email "pantsbuild+github-automation@gmail.com"
+          git config --local user.name "Worker Pants (Pantsbuild GitHub Automation Bot)"
+          git add -a
+          git commit -m "Update docs site for version ${{ inputs.version }}" -a
+        working-directory: pantsbuild.org
+      - name: Make a PR
+        run: gh pr create --title "Update docs site for version ${{ inputs.version }}"
+        working-directory: pantsbuild.org
