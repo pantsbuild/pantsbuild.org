@@ -54,7 +54,7 @@ jobs:
             DESTINATION_DIR="docs"
           fi
           echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" >> "${GITHUB_OUTPUT}"
-
+      - run: rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
       # Generate reference docs
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -77,10 +77,7 @@ jobs:
         working-directory: pantsbuild.org
 
       # Sync the docs repo
-      - name: Replace docs
-        run: |
-          rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
-          cp -r pants/docs "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+      - run: cp -r pants/docs "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
 
       # Commit and create a PR
       - name: Commit changes
