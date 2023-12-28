@@ -87,8 +87,10 @@ jobs:
         run: |
           git config --local user.email "pantsbuild+github-automation@gmail.com"
           git config --local user.name "Worker Pants (Pantsbuild GitHub Automation Bot)"
+          git checkout -b "automation/sync-${{ inputs.version }}"
           git add -A
           git commit -m "Update docs site for version ${{ inputs.version }}" -a
+          git push -u origin "automation/sync-${{ inputs.version }}"
         working-directory: pantsbuild.org
       - name: Make a PR
         run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body ""
