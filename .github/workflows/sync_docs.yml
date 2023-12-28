@@ -91,7 +91,7 @@ jobs:
           git commit -m "Update docs site for version ${{ inputs.version }}" -a
         working-directory: pantsbuild.org
       - name: Make a PR
-        run: gh pr create --title "Update docs site for version ${{ inputs.version }}"
+        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body ""
         env:
           GH_TOKEN: ${{ github.token }}
         working-directory: pantsbuild.org
