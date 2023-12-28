@@ -87,7 +87,7 @@ jobs:
         run: |
           git config --local user.email "pantsbuild+github-automation@gmail.com"
           git config --local user.name "Worker Pants (Pantsbuild GitHub Automation Bot)"
-          git add -a
+          git add -A
           git commit -m "Update docs site for version ${{ inputs.version }}" -a
         working-directory: pantsbuild.org
       - name: Make a PR
