@@ -125,6 +125,11 @@ const config = {
         { to: "/sponsorship", label: "Sponsor", position: "left" },
         // Right
         {
+          type: "html",
+          position: "right",
+          value: "(Search coming soon!)",
+        },
+        {
           type: "docsVersionDropdown",
           position: "right",
           dropdownActiveClassDisabled: true,
