@@ -4,13 +4,13 @@ All of the material and stitching for [pantsbuild.org](pantsbuild.org).
 
 ## Development
 
-The docs site is a JS project, so you'll want `nvm` installed.
+The docs site is a JS project, so you'll want `nvm` and `yarn` installed.
 
 Afterwards
 
 ```bash
-cd website
 nvm use
+yarn install
 ```
 
 ### Dev server
@@ -43,7 +43,7 @@ To build the site, run:
 NODE_OPTIONS="--max-old-space-size=6144" npm build
 ```
 
-(Note: Node need more than the default amount of RAM because this site is beefy)
+(Note: Node needs more than the default amount of RAM because this site is beefy)
 
 ## Tech
 
