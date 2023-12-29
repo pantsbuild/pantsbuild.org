@@ -92,6 +92,9 @@ const config = {
           showReadingTime: true,
           editUrl: "https://github.com/pantsbuild/pantsbuild.org/edit/main/",
           remarkPlugins: [captionedCode],
+          blogSidebarTitle: "All posts",
+          blogSidebarCount: "ALL",
+          postsPerPage: "ALL",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
