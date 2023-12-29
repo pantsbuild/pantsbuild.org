@@ -1,0 +1,61 @@
+---
+title: validate
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants validate [args]
+```
+
+Validate sources against regexes.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[validate]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `detail_level`
+
+<Option
+  cli_repr={`--validate-detail-level=<DetailLevel>`}
+  env_repr='PANTS_VALIDATE_DETAIL_LEVEL'
+  one_of='none, summary, nonmatching, names, all'
+  default_repr={`nonmatching`}
+>
+
+How much detail to emit to the console.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [download-pex-bin](../subsystems/download-pex-bin.mdx)
+- [grpc_python_plugin](../subsystems/grpc_python_plugin.mdx)
+- [pex](../subsystems/pex.mdx)
+- [protoc](../subsystems/protoc.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [python-protobuf](../subsystems/python-protobuf.mdx)
+- [python-protobuf.mypy-plugin](../subsystems/python-protobuf.mypy-plugin.mdx)
+- [python-repos](../subsystems/python-repos.mdx)
+- [python-setup](../subsystems/python-setup.mdx)
+- [source](../subsystems/source.mdx)
+- [sourcefile-validation](../subsystems/sourcefile-validation.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
+
+</span>

@@ -1,0 +1,93 @@
+---
+    authors: [benjy]
+    tags: [concepts]
+---
+
+# Effective monorepos with Pants
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Image by Markus Spiske / [CC0
+  1.0](https://creativecommons.org/publicdomain/zero/1.0/?ref=openverse)
+</CaptionedImg>
+
+Working effectively in a monorepo requires appropriate tooling. While Pants can be a really useful system in repos of all sizes and architectures, it has some features that make it particularly appealing in a monorepo setting…
+
+{/* truncate */}
+
+---
+
+The Software Development Times recently published an [article](https://sdtimes.com/softwaredev/the-monorepo-approach-to-code-management/) I wrote about monorepos - single unified repositories containing code for many projects and libraries. In the article I give various reasons why a monorepo is often a preferable codebase architecture, including that it makes change management more straightforward, and that it encourages organizational coherence and unity.
+
+Working effectively in a monorepo requires appropriate tooling. And while Pants can be a really useful system in repos of all sizes and architectures, it has some [features](https://www.pantsbuild.org/docs/welcome-to-pants#what-are-the-main-features-of-pants) that make it particularly appealing in a monorepo setting.
+
+In this post I'll highlight a few Pants features that make working in a monorepo a breeze!
+
+### Fine-grained workflow, caching and concurrency
+
+One of the most important focus areas in a monorepo is speed. As your codebase grows, build and test times grow too. There are two ways to speed up work: do less of it overall, or do more of it at once. Pants helps with both of these.
+
+The key to unlocking speedups is having a fine-grained workflow: Pants, thanks to its sophisticated [rule engine](https://www.pantsbuild.org/docs/how-does-pants-work#the-pants-engine) and its [dependency inference](https://www.pantsbuild.org/docs/how-does-pants-work#dependency-inference) capabilities, can decompose a single build command, such as `./pants test ::`, into many hundreds or even thousands of small units of work. Each of these work units can be cached independently, and work units that don't directly or indirectly depend on each other's outputs can be run concurrently.
+
+So, for example, if you have 8 cores on your laptop, then Pants can first skip running any tests that have cached results for the given inputs, and run the rest 8 at a time, utilizing all your cores. And of course if you have [remote caching and/or remote execution](https://www.pantsbuild.org/docs/remote-caching-execution) set up, your caching and concurrency benefits are even more dramatic! ([Toolchain](https://toolchain.com/), the lead sponsor of Pants, offers remote caching as a service, [reach out](https://toolchain.com/contact) to learn more!)
+
+### A consistent interface
+
+Pants gives you a consistent interface, regardless of the language and underlying tools. So you can run `./pants lint::` to run all configured linters on all your code, across multiple languages. And Pants will even run all those linters concurrently!
+
+### Slim deployables
+
+A monorepo typically produces many deployable artifacts, such as binaries, container images and serverless functions.  Without the right tooling you might find yourself bundling far too much code into each production artifact, and then having to redeploy every artifact on every change, as you cannot easily know which deployables are truly affected. But, thanks to its dependency analysis, Pants knows exactly which code should be packaged into each artifact. These slim artifacts not only means you don't deploy unused code, but also that you're not constantly redeploying artifacts due to unrelated changes.
+
+### Selective execution
+
+Another way to speed up build work is to request goals on just a specific [subset of files or directories](https://www.pantsbuild.org/docs/goals#file-arguments-vs-target-arguments). For example, if you're iterating on a specific test file, you can run just the tests in that file with `./pants test path/to/test_file.py`, or if you only care about Go code in a repo with code in multiple languages, you can run `./pants test src/go::`.
+
+### Git integration
+
+Pants's git integration takes selective execution to the next level, using git state to determine which files to act on. For example, instead of naively running your linters on all source files, on every change, you can run them [just on the files](https://www.pantsbuild.org/docs/advanced-target-selection#running-over-changed-files-with---changed-since) that have been edited relative to, say, the main branch: `./pants --changed-since=main lint`. If you know that the code in the main branch has already been linted, this can save huge amounts of time by ignoring code that hasn't been touched.
+
+And if you need to run some work on the changed files and everything that depends on them, you can do that too: `./pants --changed-since=main –changed-dependees=transitive test`.
+
+### Code introspection
+
+For cases when the streamlined Git integration isn't sufficient, or when you want to manually query the structure of your codebase, Pants has a rich set of [project introspection goals](https://www.pantsbuild.org/docs/project-introspection). Among these are `./pants dependencies` (to find the dependencies of a given set of files), `./pants peek` (to print detailed JSON data about a set of files), and  `./pants filter`, to filter a set of files by various criteria, and more.
+
+These goals can be combined using shell pipes (and sometimes [`xargs`](https://en.wikipedia.org/wiki/Xargs) and [`jq`](https://stedolan.github.io/jq/)) to solve complex queries such as "which Docker images do I need to redeploy if I change this file", or "which tests cover code needed for this AWS Lambda function?"
+
+As you can imagine, this kind of introspection is very useful for reasoning about changes and dependencies in a large codebase with many deployables and moving parts.
+
+### Dependency Inference
+
+Unlike other systems, you do not have to laboriously provide huge amounts of dependency metadata (e.g., in BUILD files). Instead, the data is [inferred](../2020-10-29-dependency-inference/index.mdx) by static analysis. Not having to create and maintain heaps of metadata spares you a lot of effort, and removes many headaches caused by inevitable mismatches between that manually provided information and the true state of your code.
+
+### Flexible codebase structure
+
+With Pants you don't have to structure your codebase around the expectations of the tooling. Instead, thanks to dependency inference, you can structure your codebase in whatever way makes sense to you.
+
+For example, It's quite common to have all tests in a repo live under an entirely separate directory than the code they test. This layout has historically been imposed by tooling that cannot otherwise distinguish sources from tests. Pants does support this layout, but because it is aware of the distinction between source and test files, it also supports having tests live right alongside the code they test.
+
+In this layout, the tests for `src/python/util/files.py` can simply live in `src/python/util/files_test.py`. This makes it much easier to find the relevant tests when reading and editing code, and provides a gentle nudge to update tests when you add new code.
+
+It's also common to have multiple top-level projects in a repo, which is necessary when you have to package and publish entire source trees as one item. But with Pants you can have a single big package tree, and the tool will figure out what actually needs to be packaged and published for each entry point.
+
+### Source roots
+
+Programming languages, and their runtime environments, typically have a package hierarchy of some sort, used by the import mechanism to locate code to load. Underlying tools that build and test your code need to know how to map package names to source files. Therefore in a monorepo you must have some way of knowing which directories in your repo represent roots of package hierarchies (called [source roots](https://www.pantsbuild.org/docs/source-roots) in Pants terminology). For example, if you import the module at `src/py/my_project/foo.py` using `import my_project.foo`, then `src/py` is a source root.
+
+A monorepo often has many source roots, and they can be tricky to manage.  But Pants makes this easy by identifying common default source root locations, such as the repo root and directories with names like `src/python`, or `test/java`. If these defaults don't work for your repo, you can configure your own patterns, to match the conventions in your codebase. And you can also designate a marker file, so that every directory containing a file of this name is considered a source root.
+
+Once your source roots are configured, Pants takes care of setting up and running the underlying tools in the right way, so that your code's package structure is properly understood by those tools.
+
+### Multiple runtimes
+
+Different parts of a monorepo might contain code targeting different runtimes, such as Python 3.6 vs. 3.8, or Java 8 vs Java 12.  Managing these manually is complex and prone to error. Pants, however, can model which parts of your codebase target each runtime, and even which are compatible with multiple runtimes. For example, you may have application code that requires Python 3.8 but depends on common library code that is compatible with both Python 3.6 and 3.8.
+
+With the [right configuration](https://www.pantsbuild.org/docs/python-interpreter-compatibility), Pants knows about the runtime requirements of each part of your codebase, and will use this information appropriately. So, for example, if you run `./pants check ::` to typecheck your code with MyPy, Pants will divide the source files into a "Python 3.6" subset and a "Python 3.8" subset, and run MyPy separately on each subset in parallel, with the common library code present in both subsets, as needed.
+
+### Conflicting dependencies
+
+Similarly, different parts of a monorepo might contain code that depends on conflicting 3rd party dependencies, such as two different versions of Hadoop. Pants can represent these as different "resolves" (AKA "[lockfiles](https://www.pantsbuild.org/v2.10/docs/python-third-party-dependencies#lockfiles)") and partition the code as needed, giving you the flexibility to safely use multiple versions, without dependency hell.
+
+These are just a few prominent examples of ways that Pants makes working in a monorepo effective and productive!
+
+Have any questions? Want to share your own monorepo stories and practices? [Reach out to us on Slack](https://www.pantsbuild.org/docs/getting-help), we'd love to hear from you!

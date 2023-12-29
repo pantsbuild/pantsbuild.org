@@ -1,0 +1,24 @@
+{{! Ideally, the component would handle the header, but https://github.com/facebook/docusaurus/issues/6201 }}
+{{! We also color this using CSS, as the title for the heading gets mucked if we use HTML }}
+
+### `{{ config_key }}`
+
+<Option
+  cli_repr={`{{{ comma_separated_display_args }}}`}
+  env_repr='{{ env_var }}'
+{{#comma_separated_choices}}
+  one_of='{{ comma_separated_choices }}'
+{{/comma_separated_choices}}
+  default_repr={`{{{ default }}}`}
+{{#removal_version}}
+  removal_version='{{ removal_version }}'
+  removal_hint={'{{{ removal_hint }}}'}
+{{/removal_version}}
+{{#target_field_name}}
+  target_field_name='{{ target_field_name }}'
+{{/target_field_name}}
+>
+
+{{{ help }}}
+
+</Option>

@@ -1,0 +1,82 @@
+---
+title: protobuf-java-grpc
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+gRPC support for Java Protobuf (https://github.com/grpc/grpc-java)
+
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.protobuf.java`</span>
+
+Config section: <span className="color--primary">`[protobuf-java-grpc]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--protobuf-java-grpc-version=<str>`}
+  env_repr='PANTS_PROTOBUF_JAVA_GRPC_VERSION'
+  default_repr={`1.48.0`}
+>
+
+Version string for the tool. This is available for substitution in the `[protobuf-java-grpc].artifacts` option by including the string `{version}`.
+
+</Option>
+
+### `artifacts`
+
+<Option
+  cli_repr={`--protobuf-java-grpc-artifacts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PROTOBUF_JAVA_GRPC_ARTIFACTS'
+  default_repr={`[\n  "io.grpc:protoc-gen-grpc-java:exe:linux-aarch_64:{version}",\n  "io.grpc:protoc-gen-grpc-java:exe:linux-x86_64:{version}",\n  "io.grpc:protoc-gen-grpc-java:exe:osx-aarch_64:{version}",\n  "io.grpc:protoc-gen-grpc-java:exe:osx-x86_64:{version}"\n]`}
+>
+
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[protobuf-java-grpc].version` option.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--protobuf-java-grpc-lockfile=<str>`}
+  env_repr='PANTS_PROTOBUF_JAVA_GRPC_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.19.0rc1/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 jvm-generate-lockfiles --resolve=protobuf-java-grpc`.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--protobuf-java-grpc-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PROTOBUF_JAVA_GRPC_JVM_OPTIONS'
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `protobuf-java-grpc` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

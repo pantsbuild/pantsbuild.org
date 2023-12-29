@@ -1,0 +1,51 @@
+---
+title: validate
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants validate [args]
+```
+
+Deprecated: to use, set `[regex-lint].config` and run with the `lint` goal
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[validate]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+### `detail_level`
+
+<Option
+  cli_repr={`--validate-detail-level=<DetailLevel>`}
+  env_repr='PANTS_VALIDATE_DETAIL_LEVEL'
+  one_of='none, summary, nonmatching, names, all'
+  default_repr={`nonmatching`}
+  removal_version='2.11.0.dev0'
+  removal_hint={'Use `[regex-lint].detail_level` instead, which behaves the same.'}
+>
+
+How much detail to emit to the console.
+
+</Option>
+
+## Related subsystems
+
+- [regex-lint](../subsystems/regex-lint.mdx)
+
+</span>

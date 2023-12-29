@@ -1,0 +1,49 @@
+---
+title: publish
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants publish [args]
+```
+
+Publish deliverables (assets, distributions, images, etc).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[publish]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output`
+
+<Option
+  cli_repr={`--publish-output=<str>`}
+  env_repr='PANTS_PUBLISH_OUTPUT'
+  default_repr={`None`}
+>
+
+Filename for JSON structured publish information.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

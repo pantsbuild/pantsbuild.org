@@ -1,0 +1,154 @@
+---
+title: buildifier
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Buildifier is a tool for formatting BUILD files with a standard convention.
+
+Pants supports running Buildifier on your Pants BUILD files for several reasons:
+
+- You might like the style that buildifier uses.
+- You might be incrementally adopting Pants from Bazel, and are already using buildifier.
+
+Please note that there are differences from Bazel&#x27;s BUILD files (which are Starlark) and Pants&#x27; BUILD files (which are Python), so buildifier may issue a syntax error. In practice, these errors should be rare. See https://bazel.build/rules/language#differences_with_python.
+
+Backend: <span className="color--primary">`pants.backend.build_files.fmt.buildifier`</span>
+
+Config section: <span className="color--primary">`[buildifier]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]buildifier-skip`}
+  env_repr='PANTS_BUILDIFIER_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Buildifier when running `scie-pants-linux-x86_64 fmt`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--buildifier-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_BUILDIFIER_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Buildifier, e.g. `--buildifier-args='-lint=fix'`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--buildifier-version=<str>`}
+  env_repr='PANTS_BUILDIFIER_VERSION'
+  default_repr={`5.1.0`}
+>
+
+Use this version of Buildifier.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--buildifier-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_BUILDIFIER_KNOWN_VERSIONS'
+  default_repr={`[\n  "5.1.0|macos_x86_64|c9378d9f4293fc38ec54a08fbc74e7a9d28914dae6891334401e59f38f6e65dc|7125968",\n  "5.1.0|macos_arm64 |745feb5ea96cb6ff39a76b2821c57591fd70b528325562486d47b5d08900e2e4|7334498",\n  "5.1.0|linux_x86_64|52bf6b102cb4f88464e197caac06d69793fa2b05f5ad50a7e7bf6fbd656648a3|7226100",\n  "5.1.0|linux_arm64 |917d599dbb040e63ae7a7e1adb710d2057811902fdc9e35cce925ebfd966eeb8|7171938"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+
+```
+digest of the download file, as emitted by `shasum -a 256`
+```
+
+- `length` is the expected length of the download file in bytes, as emitted by
+
+```
+`wc -c`
+```
+
+- (Optional) `url_override` is a specific url to use instead of the normally
+
+```
+generated url for this version
+```
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--buildifier-url-template=<str>`}
+  env_repr='PANTS_BUILDIFIER_URL_TEMPLATE'
+  default_repr={`https://github.com/bazelbuild/buildtools/releases/download/{version}/buildifier-{platform}`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--buildifier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_BUILDIFIER_URL_PLATFORM_MAPPING'
+  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--buildifier-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_BUILDIFIER_USE_UNSUPPORTED_VERSION'
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of Buildifier is not supported.
+
+Supported Buildifier versions: unspecified
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,190 @@
+---
+title: mypy
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The MyPy Python type checker (http://mypy-lang.org/).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[mypy]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]mypy-skip`}
+  env_repr='PANTS_MYPY_SKIP'
+  default_repr={`False`}
+>
+
+Don&#x27;t use MyPy when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 typecheck`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--mypy-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_MYPY_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to mypy, e.g. `--mypy-args="--python-version 3.7 --disallow-any-expr"`
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--mypy-version=<str>`}
+  env_repr='PANTS_MYPY_VERSION'
+  default_repr={`mypy==0.910`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--mypy-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.6"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--mypy-lockfile=<str>`}
+  env_repr='PANTS_MYPY_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.9.2/src/python/pants/backend/python/typecheck/mypy/lockfile.txt for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants generate-lockfiles --resolve=mypy`.
+
+Lockfile generation currently does not wire up the `[python-repos]` options. If lockfile generation fails, you can manually generate a lockfile, such as by using pip-compile or `pip freeze`. Set this option to the path to your manually generated lockfile. When manually maintaining lockfiles, set `[python].invalid_lockfile_behavior = 'ignore'`.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--mypy-console-script=<str>`}
+  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
+  default_repr={`mypy`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--mypy-entry-point=<str>`}
+  env_repr='PANTS_MYPY_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--mypy-config=<file_option>`}
+  env_repr='PANTS_MYPY_CONFIG'
+  default_repr={`None`}
+>
+
+Path to a config file understood by MyPy (https://mypy.readthedocs.io/en/stable/config_file.html).
+
+Setting this option will disable `[mypy].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]mypy-config-discovery`}
+  env_repr='PANTS_MYPY_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`mypy.ini`, `.mypy.ini`, and `setup.cfg`).
+
+Use `[mypy].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `source_plugins`
+
+<Option
+  cli_repr={`--mypy-source-plugins="[<target_option>, <target_option>, ...]"`}
+  env_repr='PANTS_MYPY_SOURCE_PLUGINS'
+  default_repr={`[]`}
+>
+
+An optional list of `python_sources` target addresses to load first-party plugins.
+
+You must also set `plugins = path.to.module` in your `mypy.ini`, and set the `[mypy].config` option in your `pants.toml`.
+
+To instead load third-party plugins, set the option `[mypy].extra_requirements` and set the `plugins` option in `mypy.ini`.
+
+</Option>
+
+### `extra_type_stubs`
+
+<Option
+  cli_repr={`--mypy-extra-type-stubs="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_EXTRA_TYPE_STUBS'
+  default_repr={`[]`}
+>
+
+Extra type stub requirements to install when running MyPy.
+
+Normally, type stubs can be installed as typical requirements, such as putting them in `requirements.txt` or using a `python_requirement_library` target.Alternatively, you can use this option so that the dependencies are solely used when running MyPy and are not runtime dependencies.
+
+Expects a list of pip-style requirement strings, like `['types-requests==2.25.9']`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

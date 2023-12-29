@@ -1,0 +1,55 @@
+---
+title: {{#scope}}{{scope}}{{/scope}}{{^scope}}Global options{{/scope}}
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+{{#is_goal}}
+```
+pants {{scope}} [args]
+```
+{{/is_goal}}
+
+{{{description}}}
+
+Backend: <span className="color--primary">{{provider}}</span>
+Config section: <span className="color--primary">[{{scope}}{{^scope}}GLOBAL{{/scope}}]</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+{{#basic}}
+{{> option}}
+{{/basic}}
+{{^basic}}
+None
+{{/basic}}
+
+## Advanced options
+
+{{#advanced}}
+{{> option}}
+{{/advanced}}
+{{^advanced}}
+None
+{{/advanced}}
+
+## Deprecated options
+
+{{#deprecated}}
+{{> option}}
+{{/deprecated}}
+{{^deprecated}}
+None
+{{/deprecated}}
+
+{{#comma_separated_consumed_scopes}}
+## Related subsystems
+{{comma_separated_consumed_scopes}}
+{{/comma_separated_consumed_scopes}}
+
+</span>

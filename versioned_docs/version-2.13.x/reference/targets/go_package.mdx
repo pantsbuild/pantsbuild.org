@@ -1,0 +1,122 @@
+---
+title: go_package
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A first-party Go package (corresponding to a directory with `.go` files).
+
+Expects that there is a `go_mod` target in its directory or in an ancestor directory.
+
+Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.13/docs/targets#target-addresses and https://www.pantsbuild.org/v2.13/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`('*.go', '*.s')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
+
+</Field>
+
+## `test_extra_env_vars`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
+
+</Field>
+
+## `test_timeout`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A timeout (in seconds) when running this package&#x27;s tests.
+
+If this field is not set, the test will never time out.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this package&#x27;s tests.
+
+</Field>
+
+## `skip_gofmt`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.go"
+>
+
+If true, don&#x27;t run gofmt on this package.
+
+</Field>
+
+</span>

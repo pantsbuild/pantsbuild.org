@@ -1,0 +1,72 @@
+---
+title: setup-py
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants setup-py [args]
+```
+
+Deprecated in favor of the `package` goal.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[setup-py]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--setup-py-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
+  env_repr='PANTS_SETUP_PY_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to setup.py, e.g. `--setup-py-args='bdist_wheel --python-tag py36.py37'`. If unspecified, Pants will dump the setup.py chroot.
+
+</Option>
+
+### `transitive`
+
+<Option
+  cli_repr={`--[no-]setup-py-transitive`}
+  env_repr='PANTS_SETUP_PY_TRANSITIVE'
+  default_repr={`False`}
+>
+
+If specified, will run the setup.py command recursively on all exported targets that the specified targets depend on, in dependency order.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [download-pex-bin](../subsystems/download-pex-bin.mdx)
+- [grpc_python_plugin](../subsystems/grpc_python_plugin.mdx)
+- [pex](../subsystems/pex.mdx)
+- [protoc](../subsystems/protoc.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [python-protobuf](../subsystems/python-protobuf.mdx)
+- [python-repos](../subsystems/python-repos.mdx)
+- [python-setup](../subsystems/python-setup.mdx)
+- [setup-py-generation](../subsystems/setup-py-generation.mdx)
+- [setuptools](../subsystems/setuptools.mdx)
+- [source](../subsystems/source.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
+
+</span>

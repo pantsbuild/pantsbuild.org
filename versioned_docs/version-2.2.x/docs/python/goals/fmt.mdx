@@ -1,0 +1,31 @@
+---
+    title: fmt
+    position: 0
+---
+
+Autoformat source code.
+
+---
+
+See [here](../overview/linters-and-formatters.mdx) for how to opt in to specific formatters, along with how to configure them:
+
+- Black
+- Docformatter
+- isort
+
+If you activate multiple formatters, Pants will run them sequentially so that they do not overwrite each other. You may need to update each formatter's config file to ensure that it is compatible with the other activated formatters.
+
+:::caution Possible issue with iSort 5's import classifier algorithm
+Some Pants users had to explicitly set `default_section = "THIRDPARTY"` to get iSort 5 to correctly classify their first-party imports, even though this is the default value.
+
+They report that this config works for them:
+
+```toml
+# pyproject.toml
+[tool.isort]
+known_first_party = ["my_org"]
+default_section = "THIRDPARTY"
+```
+
+You may also want to try downgrading to iSort 4.x by setting `version = "isort>=4.6,<5"` in the `[isort]` options scope.
+:::

@@ -1,0 +1,111 @@
+---
+    authors: [benjy]
+    tags: [community]
+---
+
+# The 2022 annual community survey is a wrap, and the results are in!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Burst](https://stocksnap.io/author/burstshopify) on
+  [StockSnap](https://stocksnap.io)
+</CaptionedImg>
+
+{/* truncate */}
+
+We recently conducted our [annual survey](https://groups.google.com/g/pants-devel/c/UFt3Os--6ps/m/FCjGTnlRBQAJ) of the Pants community. The purpose, as usual, was to inform the project roadmap for the year.
+
+The survey proceeded in two phases: First, we gathered all the potential projects and needs from the community, then we conducted a round of voting, to help prioritize the gathered ideas.
+
+We got lots of great responses, with participation by everyone from long-time users to recent adopters to people with future interest in the project. This netted us many great ideas and a lot of valuable feedback.
+
+### Remembering 2021
+
+If you're wondering to what extent this survey will benefit the user community, looking back at last year is instructive. We got some excellent suggestions from the [2021 survey](https://groups.google.com/u/1/g/pants-devel/c/F8Saug3BrFw?hl=en), and were able to implement many of them, such as support for [multiple Python lockfiles](https://www.pantsbuild.org/v2.11/docs/python-third-party-dependencies#lockfiles), The [tailor](../2021-03-19-tailoring-pants-to-your-codebase/index.mdx) goal, support for live reload with `[--loop](https://www.pantsbuild.org/docs/goals#running-goals)` for the \`repl\` and \`run\` goals, [exporting](https://www.pantsbuild.org/docs/reference-export) a virtualenv and generated code for IDE consumption, and more.
+
+So the 2021 survey was a great example of how community feedback drives major improvements to Pants, and we will continue this trend in 2022.
+
+### Who is this "We", anyway?
+
+The Pants project thrives and grows thanks to the work of its expanding team of [contributors and maintainers](https://www.pantsbuild.org/docs/the-pants-community#how-is-the-community-structured).
+
+Many of the most active current contributors work for [Toolchain](https://toolchain.com/), the lead sponsor of the project. However there have been increasing numbers of substantial contributions from individuals at a variety of other companies, including some that have lead to maintainer status.
+
+We're always looking to grow the active contributor base, and several of the ideas that emerged from the 2022 survey are very suitable for new contributors to work on (and I call those out below). So if you're interested in working on any of these issues, or any other ones you personally care about that didn't come up, or didn't make the prioritization cut, [let us know](https://www.pantsbuild.org/docs/getting-help)!
+
+### Community priorities for 2022
+
+So, without further fanfare, here are some of the main themes from the 2022 survey results:
+
+#### Improving Python 3rd party dependency resolution
+
+The current Python [lockfile support](https://www.pantsbuild.org/docs/python-third-party-dependencies#lockfiles) is a work in progress, and we're committed to completing it soon, to make it easy to generate and use multiple, potentially incompatible lockfiles. This is really important for providing repeatable, consistent builds and preventing supply chain attacks.
+
+We're also keenly aware that Python dependency resolution can be a performance bottleneck, due to it running in a [hermetic environment](https://github.com/pantsbuild/pants/issues/14127) as opposed to an incrementally-updated virtualenv. Some efforts [coming soon](https://github.com/pantsbuild/pants/issues/13964) will improve that, but improving performance here remains a high priority.
+
+#### IDE Support
+
+Two of the most heavily upvoted issues were [IntelliJ](https://github.com/pantsbuild/pants/issues/13260)/[PyCharm](https://github.com/pantsbuild/pants/issues/11151) support and [VS Code support](https://github.com/pantsbuild/pants/issues/10920). These integrations would involve Pants providing the necessary dependency metadata to the IDE to support code comprehension and navigation, as well as allowing the IDE to delegate build, test and run commands to Pants.
+
+We are already committed to providing first-class IntelliJ support for Java and Scala soon, and hope to extend this work to provide PyCharm support for Python later in the year (this would be a great thing for a keen community member to work on!).
+
+This work relies on neutral standards ([LSP](https://microsoft.github.io/language-server-protocol/) and [BSP](https://build-server-protocol.github.io/)) and so it should be possible to leverage it for VS Code support as well, but this might depend on code contributions from VS Code experts, so if you're interested, let us know!
+
+#### Building inside local Docker containers
+
+Currently, Pants builds directly on the local system. So, for example, if you're running on a Mac, you get macOS-specific artifacts. One popular idea was to [support cross-building, testing and running](https://github.com/pantsbuild/pants/issues/13682) inside Docker containers.
+
+This would allow all users, including macOS users, to have a single, uniform environment while running only the relevant portion of the build inside Docker (which can be quite slow on macOS), in parallel with other work.
+
+With images matching your production environment, this can eliminate an entire class of often-thorny problems caused by mismatches in the underlying system (different OSes, different versions of system libraries, and so on).
+
+#### Support for more languages
+
+Today Pants supports Python, Go, Java, Scala and Shell. By far the most requested next languages are, of course, [JavaScript and TypeScript](https://github.com/pantsbuild/pants/issues/14190).
+
+However, to advance this work beyond the idea phase, we ideally need contributors who have experience with the underlying JS tool ecosystem, and a driving use-case for this support, to work on it.
+
+So, again, if you're interested in helping out with JS support, let us know!
+
+#### Support for dependency “visibility”
+
+One of our most popular requested features, even before the survey, was the [ability to control "visibility"](https://github.com/pantsbuild/pants/issues/13393) in the repo. That is, to configure which other packages are allowed to use a package. This is really useful for enforcing good codebase hygiene and avoiding dependency tangles.
+
+This feature would be relatively straightforward for a new contributor to implement, with our guidance, so we're actively [looking for volunteers](https://www.pantsbuild.org/docs/getting-help) to take this on.
+
+#### Performance and resource consumption
+
+People understandably want builds to be ever faster, and several issues relate to performance of [testing](https://github.com/pantsbuild/pants/issues/12662), [linting](https://github.com/pantsbuild/pants/issues/10542) and [type checking](https://github.com/pantsbuild/pants/issues/10864). Yet people also want Pants to use system resources efficiently, so keeping the memory footprint down when running large numbers of tests, for example, is important.
+
+Performance is a core goal of Pants, so we'll definitely be making some significant improvements in this area.
+
+#### Documentation improvements
+
+We want to make sure that our [documentation](https://www.pantsbuild.org/docs) is helpful, comprehensive and organized. In 2022 we plan to improve the structure of the documentation site, add more examples and guides on [best practices](https://github.com/pantsbuild/pants/issues/14199), and more [comprehensive docs for the Plugin API](https://github.com/pantsbuild/pants/issues/10945). The latter will probably have to wait until we stabilize that API though.
+
+#### Distributing Pants as a standalone binary
+
+[T](https://www.pantsbuild.org/docs)oday Pants is distributed as [Python wheels on PyPI](https://pypi.org/project/pantsbuild.pants/). The `./pants` runner script in your repo bootstraps Pants by locating a suitable Python interpreter on the system, and then installing the `pantsbuild.pants` wheel, and its dependencies, into a virtualenv.
+
+This can be a source of problems, as when a suitable interpreter can't be found, or when the interpreter gets updated. It also makes the runner script complex.
+
+Instead, we'd like to distribute Pants as a standalone binary, with an embedded Python interpreter. Applying the recently added [PyOxidizer support](../2022-02-18-packaging-python-with-the-pyoxidizer-pants-plugin/index.mdx) to Pants itself seems like a good way to go about this.
+
+#### Misc
+
+There were [other ideas](https://github.com/pantsbuild/pants/issues?page=1&q=is%3Aissue+label%3A2022-idea) that we hope to tackle, such as [ARM Linux support](https://github.com/pantsbuild/pants/issues/12183) and [better cache debugging output](https://github.com/pantsbuild/pants/issues/14195), and many more that we probably won't be able to get to. Several of these would be great projects for [new contributors](https://www.pantsbuild.org/docs/getting-help)!
+
+### A caveat
+
+Note that although we're taking the community's priorities seriously as we lay out the 2022 roadmap, we must also balance those with our big-picture view of the project, of how the various pieces fit together, and of the available developer resources and their own priorities.  So we can't promise that the roadmap will exactly reflect the survey results.
+
+For example, even though it didn't feature in the survey, we plan to work on supporting [cross-platform remote execution](https://github.com/pantsbuild/pants/issues/11148), as this is a key feature for dramatically improving Pants's performance.  Similarly, we plan to polish and improve our recently-added [JVM](../2022-01-12-pants-2-9/index.mdx) and [Go](../2021-11-10-golang-support-pants-28/index.mdx) support, so we can continue to support and grow our user base for those languages.
+
+But the wonderful thing about open-source, is that anyone is free to participate! So if there are ideas and issues that you particularly care about, you're [invited to jump in](https://www.pantsbuild.org/docs/getting-help) and work on them. We will gladly mentor you and get you up to speed!
+
+### To sum up
+
+The annual survey reflects our commitment to developing the best build system for everyone. We want to make sure we're designing and building not just for the use cases we're personally familiar with, but for those of a wide range of teams and codebases, including yours.
+
+The currently active contributors will be working through these ideas throughout the year, but we're always looking to add to our ranks. So if you want to [join](https://www.pantsbuild.org/docs/getting-help) a growing, friendly, welcoming open-source community, where everyone is treated with respect, we welcome you and are happy to help you get started. As we like to say, there are no dumb questions, only incomplete [documentation](https://www.pantsbuild.org/docs).
+
+I'd like to take this opportunity to thank everyone who participated in the survey, as well as all the maintainers and contributors whose hard work makes this project possible. Here's to a productive 2022!

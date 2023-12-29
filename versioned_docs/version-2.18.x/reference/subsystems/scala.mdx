@@ -1,0 +1,52 @@
+---
+title: scala
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Scala programming language
+
+Backend: <span className="color--primary">`pants.backend.experimental.scala`</span>
+
+Config section: <span className="color--primary">`[scala]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `version_for_resolve`
+
+<Option
+  cli_repr={`--scala-version-for-resolve="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SCALA_VERSION_FOR_RESOLVE'
+  default_repr={`{}`}
+>
+
+A dictionary mapping the name of a resolve to the Scala version to use for all Scala targets consuming that resolve.
+
+All Scala-compiled jars on a resolve&#x27;s classpath must be &quot;compatible&quot; with one another and with all Scala-compiled first-party sources from `scala_sources` (and other Scala target types) using that resolve. The option sets the Scala version that will be used to compile all first-party sources using the resolve. This ensures that the compatibility property is maintained for a resolve. To support multiple Scala versions, use multiple resolves.
+
+</Option>
+
+## Advanced options
+
+### `tailor_source_targets`
+
+<Option
+  cli_repr={`--[no-]scala-tailor-source-targets`}
+  env_repr='PANTS_SCALA_TAILOR_SOURCE_TARGETS'
+  default_repr={`True`}
+>
+
+If true, add `scala_sources`, `scala_junit_tests`, and `scalatest_tests` targets with the `tailor` goal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,153 @@
+---
+    authors: [eric]
+    tags: [announcement,python,deployment]
+---
+
+# Introducing Pants 2.7: Python tool lockfiles, Yapf, Docker, and ./pants peek
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Joakim
+  Honkasalo](https://unsplash.com/@jhonkasalo?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce Pants 2.7.0, the latest release of Pants, the scalable and ergonomic build system.
+
+To update, set `pants_version = "2.7.0"` in your pants.toml. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips).
+
+## Python tool lockfiles
+
+Pants now [pins every dependency](https://www.pantsbuild.org/v2.7/docs/python-third-party-dependencies#tool-lockfiles) used when installing Python tools like Black, Pytest, and MyPy. This makes your builds more stable and more secure from supply chain attacks (by using pip's checksum validation for downloaded files).
+
+Each tool comes with a default lockfile. If you change the tool's version or add plugins, you can generate a new lockfile by running `./pants generate-lockfiles`:
+
+```shell-session
+$ ./pants generate-lockfiles
+19:00:39.29 [INFO] Wrote lockfile for the resolve `flake8` to 3rdparty/flake8_lockfile.txt
+19:00:39.30 [INFO] Wrote lockfile for the resolve `pytest` to 3rdparty/pytest_lockfile.txt
+```
+
+Whenever you change the tool's version or extra requirements, Pants will remind you to regenerate the lockfile.
+
+(This new feature lays the foundation for an [upcoming revamp of lockfiles](https://github.com/pantsbuild/pants/issues/12314) for your user code, including supporting using different lockfiles for different portions of your code, and generating the files for you!)
+
+## Experimental Docker support
+
+Pants can now create Docker images for you that include any of Pants' supported artifact types, including archives, PEX binary files, and Python wheel files!
+
+For example, given this Dockerfile and Pants metadata:
+
+```dockerfile title="project/Dockerfile"
+FROM python:3.8
+ENTRYPOINT ["/bin/my_app"]
+COPY project/app.pex /bin/my_app
+```
+
+```python title="project/BUILD"
+pex_binary(name="app", entry_point="app.py")
+docker_image(name="docker_app", dependencies=[":app"])
+```
+
+Pants will first build your PEX binary, and then insert it into the Dockerfile's context.
+
+```shell-session
+$ ./pants package project/Dockerfile
+18:07:29.66 [INFO] Completed: Building project/app.pex
+18:07:31.83 [INFO] Completed: Building docker image docker_app:latest
+18:07:31.83 [INFO] Built docker image: docker_app:latest
+To try out the image interactively:
+    docker run -it --rm docker_app:latest [entrypoint args...]
+To push your image:
+    docker push docker_app:latest
+$ docker run -it --rm docker_app:latest
+Hello, Docker!
+```
+
+Pants also now supports [Hadolint](https://github.com/hadolint/hadolint) to lint your Dockerfiles. This gives you a consistent interface to run all your project's linters by running `./pants lint`: Pants will run all activated linters—selected from Hadolint, Shellcheck, Black, Flake8, isort, Pylint, and more—in parallel.
+
+See [https://www.pantsbuild.org/v2.7/docs/docker](https://www.pantsbuild.org/v2.7/docs/docker) to get started, and stay tuned for a blog post from [our newest maintainer](../2021-09-14-meet-our-newest-maintainer-andreas-stenius/index.mdx) Andreas Stenius about adding this highly requested feature.
+
+Disclaimer: this backend is still experimental and may change based on user feedback. Share what you think in [Slack](https://www.pantsbuild.org/docs/getting-help)!
+
+## Yapf Python formatter
+
+Pants now supports the Yapf formatter, in addition to [already supporting](https://www.pantsbuild.org/v2.7/docs/python-linters-and-formatters) Black, isort, Docformatter, and Shfmt!
+
+For example, if we start with this code:
+
+```python
+x  =     3 +  3
+print( x )
+```
+
+You can run `./pants fmt` and Yapf will reformat the file to:
+
+```python
+x = 3 + 3
+print(x)
+```
+
+Stay tuned for a blog post from Pants Contributor Alexey Tereshenkov about his experience writing his first Pants plugin.
+
+## `./pants peek`
+
+You can now programmatically query targets to see what metadata you're setting for your code, getting back a JSON representation of your metadata.
+
+```shell-session
+$ ./pants peek helloworld/app.py
+[
+  {
+    "address": "helloworld/app.py",
+    "target_type": "python_library",
+    "dependencies": null,
+    "interpreter_constraints": ["==3.7.*"],
+    "skip_black": false,
+    ...
+    "skip_mypy": false,
+    "sources": [
+      "app.py",
+    ],
+  },
+]
+```
+
+For example, Pants supports [incremental tool adoption](../2021-05-20-introducing-pants-2-5/index.mdx) where you can say to skip running the tool on some code by setting fields like `skip_flake8=True`. Now, you can combine `./pants peek` with [jq](https://stedolan.github.io/jq/) to find all targets where you set `skip_flake8=True`:
+
+```shell-session
+$ ./pants peek :: | jq -r '.[] | select(.skip_flake8 == true) | .["address"]'
+helloworld/greet:lib
+helloworld/greet:tests
+helloworld/util:lib
+```
+
+Likewise, you could set up Pants to run only part of your test suite, and then use `./pants peek` and `jq` to find all tests that set `skip_tests=True` and pipe those into your old test runner. This allows you to incrementally switch to Pants's test support.
+
+## Other changes
+
+- Cache reuse is higher for resolving third-party dependencies.
+- `python_distribution` has a new, more flexible [`entry_points` field](https://www.pantsbuild.org/v2.7/docs/python-distributions#using-a-generated-setuppy), which replaces the now deprecated `.with_binaries()` mechanism.
+- Pants can now build [existing setup.py files](https://www.pantsbuild.org/v2.7/docs/python-distributions#using-an-existing-setuppy) for you.
+- macOS ARM (Apple Silicon) is better supported when installing native tools like `protoc`.
+- ASDF support was added to `[python-setup].interpreter_search_paths`.
+- Pants now uses PEP 561, meaning that plugin authors will benefit from type hints.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.7.x.md) for more changes.
+
+## Upcoming in Pants 2.8
+
+We've been working on adding support for other languages, starting with Go and Java. We hope to have made enough meaningful progress for alpha/beta testing.
+
+Other upcoming improvements in Pants [2.8](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.8.x.md):
+
+- TOML dictionaries will work for `dict` options.
+- Google Cloud Functions, similar to the [AWS Lambda support](https://www.pantsbuild.org/v2.7/docs/awslambda-python).
+- `pex_binary` has a `script` field to allow setting console scripts.
+- `[coverage-py].fail_under` option to fail if test coverage is too low.
+- An `experimental_shell_command` target to support scripting of build steps.
+
+\--
+
+Try out our [example repository](https://github.com/pantsbuild/example-python/), and let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)

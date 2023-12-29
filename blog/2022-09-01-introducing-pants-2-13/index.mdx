@@ -1,0 +1,111 @@
+---
+    authors: [chrisjrn]
+    tags: [python,jvm,announcement]
+---
+
+# Pants 2.13: Easier at the command line, easier parallel execution in CI, Kotlin support, and better Python and JVM support!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Henry &
+  Co.](https://unsplash.com/@hngstrm?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+We're pleased to announce Pants 2.13.0. Highlights include better command line arguments for file sets, improved JVM support, easier access to parallel execution in CI, and lower barriers to adoption for Python projects that currently use existing distribution and build tools.
+
+{/* truncate */}
+
+---
+
+We're pleased to announce Pants 2.13.0, the latest release of Pants, the scalable and ergonomic build system. Highlights of this release include experimental support for Kotlin on the JVM, better command line arguments for file sets, improved JVM support, easier access to parallel execution in CI, and lower barriers to adoption for Python projects that currently use existing distribution and build tools.
+
+You can update by setting `pants_version = "2.13.0"` in your `pants.toml` file. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips) for more information.
+
+# Making it easier to work with file sets at the command line
+
+We've improved our command line arguments to make it easier to run Pants against multiple files, and making the behavior of different goals more consistent, so they're easier to learn and remember.
+
+[You can now `filter` targets in a goal](https://www.pantsbuild.org/v2.13/docs/reference-filter#target_type), which lets you select targets of a specific type from a broader set of targets. For example, it's now easy to run just the Python tests when running the `test` goal over your entire codebase:
+
+- **Before**: `./pants filter --target-type=python_test :: | xargs ./pants test`
+- **After**: `./pants --filter-target-type=python_test test ::` \[[#15599](https://github.com/pantsbuild/pants/pull/15599)\]
+
+You can now easily run Pants against all targets in a directory by [specifying a directory name at the command line](https://www.pantsbuild.org/v2.13/docs/goals#goal-arguments). Previously, specifying a directory name was a shorthand for a specific target in a directory.
+
+[You can now selectively ignore targets, files, and directories](https://www.pantsbuild.org/v2.13/docs/goals#goal-arguments) when running a goal against a set of files. To ignore targets, add an extra argument, prefixed with a `-`, for example, to run all of your Python tests, except the `integration_tests` directory, you could run `./pants test src/py:: -src/py/integration_tests`. \[[#15619](https://github.com/pantsbuild/pants/pull/15619)\]
+
+Finally, you can now supply files to any Pants goal in the same way! Previously, some goals handled arguments in their own way, making it difficult to switch between goals, or use multiple goals for the same invocation. Now, the `::` glob, or the `--changed-since` command line option works for any goal that needs a list of targets. For example, try `./pants count-loc ::` to get the lines of code in your project (previously, you'd need to use `**`), or `./pants --changed-since=HEAD update-build-files` to only format changed `BUILD` files \[[#15577](https://github.com/pantsbuild/pants/pull/15577)\], \[[#14434](https://github.com/pantsbuild/pants/pull/14434)\]
+
+# Easy parallel execution in CI with test sharding
+
+One goal of Pants is to make it easier to speed up your build and CI suites. Up until now, Pants' support for speeding up builds with parallelism has been limited to [remote execution](https://www.pantsbuild.org/v2.13/docs/remote-execution) services. Remote execution is highly flexible, at a cost of higher complexity.
+
+For an easier first step into speeding up your test suite in CI, Pants 2.13 adds support for [sharded test suites](https://www.pantsbuild.org/v2.13/docs/reference-test#shard), which splits test execution across a configurable number of machines. Parallelism with sharding can give faster results than running on a single machine, while being easier to get started than a remote execution suite.
+
+To enable, use the `PANTS_TEST_SHARD` environment variable or `--test-shard` command line option. Setting a value of `k/N` will deterministically split your test suite into `N` shards (by number of files only) and run the `k`th subset of that shard. \[[#15417](https://github.com/pantsbuild/pants/pull/15417)\]
+
+# Experimental Kotlin on JVM Support
+
+Fresh after adding support for Java and Scala, we've added initial support for Kotlin on the JVM, which brings all of the features from other JVM languages including multiple lockfile support for third-party dependencies, and JUnit for running your tests, along with integration with popular Kotlin tools including KtLint.
+
+Kotlin support is still work-in-progress, but we'd love for you to try it out and let us know how we can improve it.
+
+# Improved fine-tuning in JVM builds with per-tool options
+
+Following on from our initial experimental JVM support first released last year, Pants 2.13 now allows you to provide per-tool configuration for the underlying steps in your build. This is particularly handy for adjusting memory allocations for [more heavyweight compilers](https://www.scala-lang.org/) without increasing the memory for tools that don't need it.
+
+The end result is that you should be able to run more JVM build steps in parallel on the same machine.
+
+To enable, you can set the `jvm_options` setting in the relevant tool's configuration block in your `pants.toml` file. See, for example, our [JUnit support documentation](https://www.pantsbuild.org/v2.13/docs/reference-junit#jvm_options). \[[#15505](https://github.com/pantsbuild/pants/pull/15505)\]
+
+# Improved IDE support for JVM languages
+
+Our Build Server Protocol-based IDE support has gained a few more features since the initial release in Pants 2.12. We now support automatic JDK configuration for Scala projects, and it's now possible for IntelliJ to run tests against class files that have been built by Pants \[[#15408](https://github.com/pantsbuild/pants/pull/15408)\], \[[#15347](https://github.com/pantsbuild/pants/pull/15347)\].
+
+# More efficient remote cache access
+
+We've added new behaviors to our [remote cache support](https://www.pantsbuild.org/docs/remote-caching) which can improve the efficiency and performance by optionally skipping downloads of cache entries where possible.
+
+With the new [`[GLOBAL].cache_content_behavior = "validate"`](https://www.pantsbuild.org/v2.13/docs/reference-global#section-cache-content-behavior) flag, Pants will register a cache hit after validating that the contents exist, rather than first requiring a successful download. Depending on the shape of their code, users have seen anywhere from 25% to 75% fewer bytes downloaded in CI runs with `"validate"` set. Please try it out and let us know what you think!
+
+Because this can change the behavior of builds when a remote cache is flaky or unavailable, `"validate"` mode remains optional behavior, with the old-style `"fetch"` behavior remaining the default.  \[[#16409](https://github.com/pantsbuild/pants/pull/16409)\]
+
+# Lower barriers to adoption for Python open source projects
+
+We're also working towards making it easier to adopt pants in Python projects that use the setuptools or distutils workflows. This release adds support for `setuptools_scm` and `mypyc`.
+
+Pants 2.13 [adds support for the `setuptools_scm` tools](https://www.pantsbuild.org/v2.13/docs/reference-vcs_version), which allow Python projects to [use git tags and commit hashes to set the project version in built packages](https://www.pantsbuild.org/v2.13/docs/generating-version-tags#the-vcs_version-target). Files generated by `setuptools_scm` are fully supported by existing Pants features\`, including dependency inference \[[#15374](https://github.com/pantsbuild/pants/pull/15374)\], \[[#15385](https://github.com/pantsbuild/pants/pull/15385)\].
+
+We've also started building out initial support for Python build-time requirements, starting with producing dists that use `mypyc` in their existing `setup.py` file \[[#15380](https://github.com/pantsbuild/pants/pull/15380)\].
+
+# Other notable changes
+
+As always, this release brings a [whole pile of smaller features, improvements, and bugfixes](https://github.com/pantsbuild/pants/blob/2.13.x/src/python/pants/notes/2.13.x.md), including:
+
+- `./pants test` and `./pants run` support for visual debuggers in Python \[[#15799](https://github.com/pantsbuild/pants/pull/15799)\]
+- `./pants run` support for arbitrary Python targets \[[#16022](https://github.com/pantsbuild/pants/pull/16022)\]
+- Numerous `tailor` improvements including support for `poetry_requirements` and `pipenv_requirements` \[[#15352](https://github.com/pantsbuild/pants/pull/15352)\],
+- Adding file downloading support to asset targets \[[#15457](https://github.com/pantsbuild/pants/pull/15457)\]
+- Support for Kotlin JUnit tests \[[#15382](https://github.com/pantsbuild/pants/pull/15382)\]
+- Added the option `lint --skip-formatters` to avoid running formatters like Black and Scalafmt in check-only mode. \[[#15427](https://github.com/pantsbuild/pants/pull/15427)\]
+- Improved error messages for invalid target addresses. \[[#15751](https://github.com/pantsbuild/pants/pull/15751)\]
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.13.x.md) for more changes, along with our [plugin upgrade guide](https://www.pantsbuild.org/docs/plugin-upgrade-guide).
+
+---
+
+Try out one of our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)
+
+# Thanks!
+
+Pants wouldn't be possible without everyone who contributed to 2.13, including everyone who shared feedback on changes and who tested release candidates! Thank you all!

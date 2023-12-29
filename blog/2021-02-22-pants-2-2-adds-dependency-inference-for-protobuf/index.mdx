@@ -1,0 +1,95 @@
+---
+    authors: [eric]
+    tags: [codegen]
+---
+
+# Pants 2.2 adds dependency inference for Protobuf
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Simon
+  Wilkes](https://unsplash.com/@simonfromengland?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+As of Pants 2.2, Pants now knows how to use dependency inference with Protobuf! This includes:
+
+1. Protobuf imports of other Protobuf files
+2. Python imports of generated Protobuf code, including gRPC.
+
+{/* truncate */}
+
+---
+
+As discussed [in our post on dependency inference](../2020-10-29-dependency-inference/index.mdx), Pants understands which files depend on which to offer fine-grained caching. If none of the inputs have changed, Pants can safely cache your builds like running tests and generating code.
+
+With conventional scalable build tools, this fine-grained invalidation requires substantial boilerplate: maintaining BUILD files that explicitly declare every dependency. Instead, Pants uses _dependency inference_ to reduce this boilerplate by up to 90% by reading your code and figuring out the dependencies for you.
+
+As of Pants 2.2, Pants now knows how to use dependency inference with [Protobuf](https://developers.google.com/protocol-buffers/)! This includes:
+
+- Protobuf imports of other Protobuf files.
+- Python imports of generated Protobuf code, including gRPC.
+
+While Pants currently only generates code with Protobuf, we are eager to work with [community members](https://www.pantsbuild.org/docs/community) to support other protocols like Apache Thrift.
+
+---
+
+### WTH is Pants?
+
+Pants is a scalable build tool, meaning that it orchestrates the tools you use in a modern Python repository, like Black, Pytest, Protoc (Protobufs), and setuptools. Pants will run these and many other tools concurrently, and brings fine-grained caching with minimal boilerplate, including as your codebase scales up in size.
+
+See [our blog post introducting Pants v2/](../2020-10-27-introducing-pants-v2/index.mdx).
+
+---
+
+## How it works
+
+Pants will first look at your repository's code layout and your Protobuf and Python file names to develop a global mapping. For example, we know that `protos/project/models.proto` corresponds to the Protobuf import `project/models.proto` and the Python modules `project.models_pb2` and (possibly) `project.models_pb2_grpc`.
+
+With this global mapping computed, Pants then parses the relevant files to extract their import statements and look up the corresponding owner, if any.
+
+For example, given this Proto:
+
+```protobuf
+// protos/build/remote/execution/remote_execution.proto
+package build.remote.execution;
+
+import "build/semver/semver.proto";
+import "google/api/annotations.proto";
+import "google/rpc/status.proto";
+import "google/protobuf/duration.proto";
+```
+
+Pants infers dependencies on the correct Protobuf files:
+
+```shell-session
+$ ./pants dependencies protos/build/remote/execution/remote_execution.proto
+protos/build/semver/semver.proto
+protos/google/api/annotations.proto
+protos/google/rpc/status.proto
+protos/google/protobuf/duration.proto
+```
+
+Pants will also understand Python imports of these Protobuf files, normalizing their full paths into Python module names:
+
+```python
+# src/py/project/app.py
+import build.semver.semver_pb2
+import google.api.annotations_pb2_grpc
+```
+
+```shell-session
+$ ./pants dependencies src/py/project/app.py
+protos/build/semver/semver.proto
+protos/google/api/annotations.proto
+```
+
+As discussed in [our post on Pants's performance](../2021-02-01-fast-incremental-builds-speculation-cancellation/index.mdx), this inference is 1) very safe and 2) very fast. Because Pants invokes processes hermetically with a sandbox, failing to infer a dependency can never cause the wrong thing to be cached. Further, the inference is fast thanks to Pants's core being implemented in Rust, along with a daemon, parallelism, and very fine-grained invalidation.
+
+## Trying out Pants
+
+Using Pants ensures that your builds always use your up-to-date Protobuf code—no more need to manually invoke scripts! Further, thanks to Pants's fine-grained understanding of your project's dependencies, you will only ever generate the Protobuf files you actually need.
+
+We optimized Pants to be easy to [add incrementally to existing repositories](https://www.pantsbuild.org/docs/existing-repositories), including an upcoming feature in Pants 2.3 to auto-generate BUILD files (stay tuned for a blog post!).
+
+The [Pants community](https://www.pantsbuild.org/docs/community) would love to help you get started. [www.pantsbuild.org/docs](https://www.pantsbuild.org/v2.1/docs)

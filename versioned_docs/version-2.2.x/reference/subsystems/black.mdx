@@ -1,0 +1,110 @@
+---
+title: black
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Black Python code formatter (https://black.readthedocs.io/).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[black]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]black-skip`}
+  env_repr='PANTS_BLACK_SKIP'
+  default_repr={`False`}
+>
+
+Don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--black-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_BLACK_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Black, e.g. `--black-args="--target-version=py37 --quiet"`
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--black-version=<str>`}
+  env_repr='PANTS_BLACK_VERSION'
+  default_repr={`black==20.8b1`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--black-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_BLACK_EXTRA_REQUIREMENTS'
+  default_repr={`["setuptools"]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--black-entry-point=<str>`}
+  env_repr='PANTS_BLACK_ENTRY_POINT'
+  default_repr={`black:patched_main`}
+>
+
+The main module for the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--black-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_BLACK_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.6"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--black-config=<file_option>`}
+  env_repr='PANTS_BLACK_CONFIG'
+  default_repr={`None`}
+>
+
+Path to Black&#x27;s pyproject.toml config file
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

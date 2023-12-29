@@ -1,0 +1,183 @@
+---
+    authors: [eric]
+    tags: [announcement,golang-2,jvm,python]
+---
+
+# Pants 2.11 adds Go Protobuf codegen, Pex lockfiles for Python, and parametrization
+
+<CaptionedImg src={require("./splash.jpg").default}></CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce Pants 2.11.0, the latest release of Pantsbuild, the scalable and ergonomic build system.
+
+To update, set `pants_version = "2.11.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips), including the `update-build-files` goal to automate some of the upgrade.
+
+## Protobuf codegen for Golang
+
+Pants now can generate Go from Protobuf!
+
+For example, given:
+
+```protobuf
+syntax = "proto3";
+
+package simple_example.v1;
+
+option go_package = "github.com/pantsbuild/example-codegen/gen";
+
+message Person {
+  string name = 1;
+  int32 id = 2;
+  string email = 3;
+}
+```
+
+Pants will detect whenever your first party code uses the package set by `option go_package`, and then generate and compile the precise code for you using Protoc.
+
+```go
+package examples
+
+import "testing"
+import "github.com/pantsbuild/example-codegen/gen"
+
+func TestGenerateUuid(t *testing.T) {
+    person := gen.Person{
+        Name:  "Thomas the Train",
+        Id:    1,
+        Email: "allaboard@trains.build",
+    }
+    if person.Name != "Thomas the Train" {
+        t.Fail()
+    }
+}
+```
+
+There's no need to manually regenerate your code or check generated files into version control. Pants will [ensure](../2022-03-07-thrift-python/index.mdx) you are always using up-to-date files in your builds.
+
+We are excited that this is our first instance of code generation for a compiled language. With this foundation, we are adding codegen for Scala and Java. (Pants already supports [Thrift](https://www.pantsbuild.org/docs/thrift-python) and [Protobuf](https://www.pantsbuild.org/docs/protobuf-python) for Python.)
+
+For instructions, see our [docs](https://www.pantsbuild.org/v2.11/docs/protobuf-go).
+
+## Protobuf formatting and linting
+
+Pants now integrates with the [Buf](https://docs.buf.build/lint/overviewhttps://docs.buf.build/lint/overview) Protobuf formatter and linter. This means that you can easily lint your Protobuf files in parallel to the rest of your languages, e.g.:
+
+```shell-session
+$ ./pants lint ::
+✓ black succeeded.
+✓ buf-format succeeded.
+✓ buf-lint succeeded.
+✓ flake8 succeeded.
+✓ gofmt succeeded.
+✓ google-java-format succeeded.
+✓ isort succeeded.
+✓ shellcheck succeeded.
+✓ shfmt succeeded.
+```
+
+To use, add `pants.backend.codegen.protobuf.lint.buf` to `[GLOBAL].backend_packages` in `pants.toml`.
+
+Thank you to Pants's [new Contributor Jonas Stendahl](https://groups.google.com/g/pants-devel/c/WRZanfHS_cs/m/yA0PhAr6AQAJ) for adding this integration (only one day after it was released!)
+
+## Pex lockfiles
+
+Pants 2.11 expands on the [lockfile support added in 2.10](../2022-03-23-introducing-pants-2-10/index.mdx) by allowing you to use to the new lockfile mechanism from the Pex tool, as an alternative to generating the lockfile with Poetry.
+
+This change brings several improvements:
+
+- Support for VCS (Git) requirements, with support for local file requirements coming soon.
+- Support for private indexes, including pip's `--find-links`.
+- Faster lockfile installation. _**Before**_: Pants would install your entire lockfile, but then quickly extract out the specific third-party dependencies you need for a particular task like running `test`. That gave you fine-grained caching. **_Now_**: we directly install only the dependencies you need without having to first install the entire lockfile. That gives you fine-grained caching, and avoids installing irrelevant dependencies.
+
+We [appreciate feedback](https://www.pantsbuild.org/docs/getting-help) on how this new locking mechanism is working in your repository. It is plausible there are edge cases we are not yet accounting for, given how vast the Python packaging ecosystem is.
+
+Stay tuned for a blog explaining why we made the decision to add first-class lockfile support to Pex.
+
+## Target parametrization
+
+In Pants, a _target_ is an addressable set of metadata describing some of your code.
+
+```python title="BUILD"
+python_tests(
+    name="tests",
+    timeout=120,
+)
+```
+
+Sometimes, you may want conflicting metadata to describe the same entity. For example, to run the same Python tests with both Python 2 and Python 3.
+
+Pants 2.11 add the `parametrize` mechanism to make it more ergonomic to set conflicting metadata for the same entity:
+
+```python title="BUILD"
+shunit2_tests(
+    name="tests",
+    shell=parametrize("bash", "zsh", "ksh"),
+)
+```
+
+Each parameter creates a uniquely identifiable target, so that you can, for example, run only one of the test variations. But you can also reference them all together. For example, `./pants test ::` will run every test in parallel.
+
+This feature pairs particularly well with the [multiple resolves](../2022-05-25-multiple-lockfiles-python/index.mdx) (lockfiles) feature added in Pants 2.10. You can now more easily declare that some code should work with multiple lockfiles.
+
+```python title="BUILD"
+python_sources(
+    resolve=parametrize("web-app", "data-science"),
+)
+```
+
+For more information, see our [updated docs](https://www.pantsbuild.org/v2.11/docs/targets#parametrizing-targets).
+
+## Dependency inference for assets/resources
+
+Pants can now detect in some cases when your Python code depends on a resource file. For example:
+
+```python title="project/app.py"
+# Uses: project/data/logo.svg
+
+pkgutil.get_data(__name__, "data/logo.svg")
+```
+
+```shell-session
+$ ./pants dependencies project/app.py
+project/data/logo.svg
+```
+
+As explained in our [blog on dependency inference](../2020-10-29-dependency-inference/index.mdx), this granular dependency information unlocks benefits like fine-grained cache invalidation.
+
+To try this out, set `[python-infer].assets = true` in `pants.toml`.
+
+This dependency inference is not fully comprehensive and you may still need to manually declare some dependencies. You must also still manually declare `resource` and `file` targets. We are excited that with this foundation, we will continue to improve inference in future versions.
+
+## Performance improvements
+
+The `2.11.0` release also includes several performance enhancements:
+
+- Builds will capture 15x less tracing information by default (although [the level can still be increased](https://www.pantsbuild.org/v2.11/docs/reference-global#section-streaming-workunits-level), which reduces memory usage and improves performance slightly.
+- Filesystem operations used to prepare running processes require significantly less IO due to holding [more state in memory-efficient data structures](https://github.com/pantsbuild/pants/issues/13112).
+- MyPy and Pylint have reduced startup overhead.
+- Finally (as mentioned above): PEX lockfiles [significantly improve the performance](https://github.com/pantsbuild/pants/pull/14944) of running tests locally after a lockfile has changed.
+
+Collectively, some `2.11.x` testers observed a 30-40% speedup for warm (fully cached) of larger repositories due to the first two changes, and local test and lint runs were significantly improved by the latter two.
+
+## Other changes
+
+- `python_distribution` has a new field `long_description_path`. When Pants generates `setup.py` for you, it can now read the description from a file like `README.md`.
+- `./pants export` now includes `pip` when creating virtual environments, e.g. for IDE integrations.
+- Target generators like `python_sources` now only show with `./pants dependencies` their dependencies on their generated targets, even if you set the `dependencies` field explicitly. Those explicit dependencies are moved to the generated targets directly, as before. This better reflects how Pants target generators work and unlocks some necessary semantics for `parametrize`.
+- Pants no longer defaults to your code working with Python 3.6 (`[python].interpreter_constraints`).
+- New `build_file_dir()` symbol in BUILD files.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.11.x.md) for more changes, along with our [plugin upgrade guide](https://www.pantsbuild.org/docs/plugin-upgrade-guide).
+
+---
+
+Try out one of our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)

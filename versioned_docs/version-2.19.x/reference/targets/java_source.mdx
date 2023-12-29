@@ -1,0 +1,130 @@
+---
+title: java_source
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A single Java source file containing application or library code.
+
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `source`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A single file that belongs to this target.
+
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `main`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.
+
+</Field>
+
+## `experimental_provides_types`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Signals that the specified types should be fulfilled by these source files during dependency inference.
+
+This allows for specific types within packages that are otherwise inferred as belonging to `jvm_artifact` targets to be unambiguously inferred as belonging to this first-party source.
+
+If a given type is defined, at least one source file captured by this target must actually provide that symbol.
+
+</Field>
+
+## `jdk`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
+## `skip_google_java_format`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.java.lint.google_java_format"
+>
+
+If true, don&#x27;t run Google Java Format on this target&#x27;s code.
+
+</Field>
+
+</span>

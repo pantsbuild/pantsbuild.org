@@ -1,0 +1,73 @@
+---
+    authors: [alexey]
+    tags: [deployment,docker,concepts]
+---
+
+# Challenges in choosing a Python packaging format
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Kira auf der
+  Heide](https://unsplash.com/@kadh?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Alexey reviews the Python packaging landscape. You'll learn more about the options you have, their pros and cons, and how to find the best approach to distribute your Python applications.
+
+{/* truncate */}
+
+---
+
+There is a good reason why Python is a very popular language. It has a very concise yet expressive syntax, there are all kinds of open-source frameworks and libraries available, and the Python community is healthy and vibrant. Many companies adopt Python for various reasons: some use it primarily for automation and scripting, and others write server-side applications. It's heavily used in the machine learning and AI industry as well as data science and analytics. Python being not the most performant language is often not a concern as this is compensated by the speed of development; the performance-critical parts are also often written in a system language and wrapped as a native extension.
+
+Conventionally, Python libraries are distributed via a central repository, pypi.org, in the form of Python [wheels](https://packaging.python.org/en/latest/glossary/#term-Wheel) and/or [source distributions](https://packaging.python.org/en/latest/glossary/#term-Source-Distribution-or-sdist). The tooling to support setting up a virtual environment with all the necessary packages needed either for development or runtime production has improved over the years and serves the needs of individual users adequately. Various well-established tools such as `poetry`, `piptools`, and `pip` help with development environment setup and dependency management.
+
+For Python applications, however, the story is somewhat different: distributing ready-to-use applications has been historically challenging as this has almost always implied the need to have a Python interpreter on the machine where the application is supposed to be run. If distributing only the first-party code, users are expected to have an Internet connection to be able to download the third-party dependencies the application needs. Running multiple applications in the same Python environment has also presented a challenge due to potentially conflicting requirements.
+
+In this blog post, we'll review the Python packaging landscape so that you can learn more about the options you have, and their pros and cons. This should help you find the best approach to distribute your applications as you'll be navigating the Python packaging ecosystem and tooling.
+
+## Shipping first-party code
+
+Distributing your application as a wheel or a source distribution is still a viable option, particularly if its dependencies are simple enough. The actual application would be typically accessed via an [entry point](https://setuptools.pypa.io/en/latest/userguide/entry_point.html) defined by the package author. A wheel or sdist would be produced with the help of standard Python tooling and later distributed via an internal binary repository manager or the PyPI. The `setuptools` support multiple target formats including source distributions, Python wheels, archive files, and even [RPM packages](https://setuptools.pypa.io/en/latest/deprecated/distutils/builtdist.html#creating-rpm-packages). Visit the [official Python packaging guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/) and [Building distributions with Pants](https://www.pantsbuild.org/docs/python-distributions) to get started.
+
+## Shipping first-party and third-party code
+
+While the strategy above works in many cases, it still expects the application consumer to be responsible for obtaining all the application dependencies and preparing the runtime environment. The conflicting requirements problem has been partially addressed by tools such as [pipx](https://pypa.github.io/pipx/) that let you install multiple packages by hiding away the fact that each tool would have an own Python virtual environment created specifically for this tool. For instance, running `pipx install jc` would make the [jc](https://github.com/kellyjonbrazil/jc) command available on your system path.
+
+A more serious concern with the distribution of Python wheels is non-determinism: installing a Python wheel today may (and often will) bring a different set of dependencies compared to the one that will be obtained upon installation taking place tomorrow. This is because transitive dependencies of the application dependencies are often specified with an open version range: this is done to be able to install multiple Python wheels into the same virtual environments. Transitively pinning the dependencies for the wheels would very soon result in the inability to co-install two wheels due to conflicting requirements. The version "freeze" happens on the consumer's side instead: one can use tools such as `pip-compile` to produce a list of requirements with versions pinned, transitively, for all the applications and their dependencies that are supposed to be installed in the runtime environment.
+
+This does not, however, guarantee the presence of the external dependencies at the moment of installation: the PyPI servers may be down or your server may have a flaky network connection. In addition, there is a security concern with regards to pulling an external resource into your physical environment - supply chain attacks using identical (or very similarly named) PyPI packages are common ([1](https://www.fortinet.com/blog/threat-research/supply-chain-attack-using-identical-pypi-packages-colorslib-httpslib-libhttps), [2](https://www.bitdefender.com/blog/hotforsecurity/supply-chain-attack-detected-in-pypi-library/)). This is usually addressed by mirroring the external repositories into your corporate ones to minimize the security risks and improve build stability as well as verifying the checksum of the downloaded packages.
+
+A step further is to pre-package the application along with all its transitive dependencies. Two popular ways to package first and third-party code into a single executable file are [PEX](https://github.com/pantsbuild/pex) and [XAR](https://github.com/facebookincubator/xar). When an application is run, the virtual environment is bootstrapped out of this archive and Python code can be executed. This is perhaps an ideal way to distribute standalone tools and self-contained applications that only require having a compatible Python interpreter on the target machine. There's no need to install anything and one can have multiple versions of the application accessible side-by-side since they are just files. Pants, for instance, relies heavily on PEX mechanisms to prepare the runtime environment necessary for its operations. There have also been similar attempts to create a virtual environment with all the packages installed which could be compressed into an archive file and distributed as is or as part of an operating system package. This is how Python virtual environments can be distributed as Debian packages with [dh-virtualenv](https://github.com/spotify/dh-virtualenv), for instance.
+
+However, distributing raw executable files is associated with certain difficulties:
+
+- files contain only limited metadata and there is no notion of a version
+- there are no standard tools for managing these types of distributions: in contrast to wheels, self-contained packages cannot be hosted on a public or private PyPI server and installed with `pip` or other package managers
+
+Using a system packaging ecosystem such as Debian or RPM to package a Python executable, in contrast, may bring various benefits:
+
+- there is software for managing system packages such as `dpkg`/`apt`, and `yum`/`dnf` which can be used to search for, install, update, and uninstall system packages
+- one can add an arbitrary amount of metadata to be placed into the package and later discovered using the `dpkg-query` / `rpmquery` tools
+- packages have a native versioning notation which is understood by system tools
+- packages can be installed via a binary repository similar to how Python wheels can be installed from the PyPI
+- users are not responsible for installing a compatible Python interpreter to be able to install the package as the package dependencies will be satisfied by the operating system
+- every Python file that will be installed is going to be owned by a package which makes removal of the installations a lot easier
+
+However, using operating system packages in a similar way to Python wheels (where deployable artifacts can be produced weekly or daily) comes with its shortcomings. There is an argument that Debian/RPM packages haven't been designed for that kind of software distribution: the initial intention was to use them to distribute system software and packages required by the operating system. This means, for example, that you cannot have multiple versions of the same package co-installed (unless using some sort of a meta package or symlinks) which makes it difficult to upgrade your running application in an atomic transaction. It is also not conventional to pin the dependencies transitively for the system packages, so it's not often possible to know exactly what third-party package version will be pulled upon an upgrade of your deployment.
+
+## Shipping the system runtime requirements
+
+In contrast to compiled code, Python applications require having a compatible Python interpreter. For production deployments, this is less of an issue given the full control over the server environment. For end-user distributions, however, this may present certain challenges. Installing Python on consumer's devices has become a lot easier recently, but is still non-trivial as it requires installing an additional piece of software and may result in conflicts with existing system applications.
+
+Docker is a very popular choice for server-side deployment of Python applications and distributing executable code as it makes it ready to be run on demand. Docker is, however, a non-trivial dependency, and distributing Docker images in a corporate environment would likely require having a binary repository manager. Writing, debugging, and packaging Python code in Docker may also require ensuring the compatibility of the tooling used by your engineering organization while satisfying the security team's concerns. You can visit [pythonspeed.com](https://pythonspeed.com/docker/) to learn more about Docker packaging for Python code. Including static resources and Python executable files such as PEX files into a Docker image does, however, combine the best of two worlds: you get a sealed image containing the Python interpreter and the application itself, ready to be run. This is how [Docker images can be produced with Pants](https://www.pantsbuild.org/docs/docker).
+
+To avoid dealing with the virtualization of the deployments, there have been attempts to include a Python interpreter in the application bundle that is being distributed. This kind of full-stack package includes first-party code (code that you write), third-party code (PyPI packages), and a compatible Python interpreter that could be run in the target environment. This is how [PyOxidizer](https://github.com/indygreg/PyOxidizer) and [PyInstaller](https://github.com/pyinstaller/pyinstaller) work: they package your project's files (including external dependencies) and the specified Python interpreter into a single executable file. You can experiment [building executable Python binaries with Pants using PyOxidizer](https://www.pantsbuild.org/docs/pyoxidizer).
+
+Similarly, the [scie project](https://github.com/a-scie/jump) provides a way to package executable code along with an arbitrary binary such as a Python interpreter. To learn how this framework can be used in practice, take a look at the new [scie-pants](https://github.com/pantsbuild/scie-pants) project that is used to distribute the Pants executable. [You can read more about scie-pants in this week's blog post.](../2023-02-23-the-pants-launcher-binary-a-much-simpler-way-to-install-and-run-pants/index.mdx)
+
+When shipping Python interpreter along with the application, the distribution size increases significantly, but it also makes your application much more accessible to a wider audience who may not have a compatible Python interpreter installed. For maximum reproducibility, some companies choose to compile the Python interpreter from sources before including it into the distribution, optionally, applying optimizations, as required.
+
+## Conclusion
+
+Finding the right strategy to package and distribute your Python applications and libraries requires careful thought. Each of the options come with its nuances and limitations, so you may need to experiment and iterate. It may help to speak to others and ask what works for them, and we hope you find a strategy that works for you. If you have questions, please feel free to raise a GitHub issue or ask on the Pants community Slack! It's a friendly and supportive community that is happy to respond to your questions and feedback.

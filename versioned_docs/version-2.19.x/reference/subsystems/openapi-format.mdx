@@ -1,0 +1,76 @@
+---
+title: openapi-format
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Format an OpenAPI document by ordering, formatting and filtering fields (https://github.com/thim81/openapi-format).
+
+Backend: <span className="color--primary">`pants.backend.experimental.openapi.lint.openapi_format`</span>
+
+Config section: <span className="color--primary">`[openapi-format]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]openapi-format-skip`}
+  env_repr='PANTS_OPENAPI_FORMAT_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use openapi-format when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--openapi-format-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_OPENAPI_FORMAT_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to openapi-format, e.g. `--openapi-format-args='--no-sort'`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--openapi-format-version=<str>`}
+  env_repr='PANTS_OPENAPI_FORMAT_VERSION'
+  default_repr={`openapi-format@1.13.1`}
+>
+
+Version string for the tool in the form package@version (e.g. prettier@2.6.2)
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--openapi-format-install-from-resolve=<str>`}
+  env_repr='PANTS_OPENAPI_FORMAT_INSTALL_FROM_RESOLVE'
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve, instead of the version configured in this subsystem.
+
+If unspecified, the tool will use the default configured package manager [nodejs].package_manager`, and install the tool without a lockfile.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

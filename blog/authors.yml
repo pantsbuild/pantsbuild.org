@@ -1,0 +1,65 @@
+alexey:
+  name: Alexey Tereshenkov
+  title: Pants Maintainer
+  url: https://github.com/AlexTereshenkov
+  image_url: https://github.com/AlexTereshenkov.png
+benjy:
+  name: Benjy Weinberger
+  title: Pants Co-creator and Maintainer
+  url: https://github.com/benjyw
+  image_url: https://github.com/benjyw.png
+berkay:
+  name: Berkay Öztürk
+  # title:
+  url: https://github.com/ozturkberkay
+  image_url: https://github.com/ozturkberkay.png
+cczona:
+  name: Carina C. Zona
+  title: Pants Maintainer
+  url: https://github.com/cczona
+  image_url: https://github.com/cczona.png
+chrisjrn:
+  name: Christopher Neugebauer
+  title: Pants Maintainer
+  url: https://github.com/chrisjrn
+  image_url: https://github.com/chrisjrn.png
+clement:
+  name: Clément Hurlin
+  title: Director of Engineering at Tweag
+  url: https://github.com/clemen
+  image_url: https://github.com/clemen.png
+eric:
+  name: Eric Arellano
+  title: Pants Maintainer
+  url: https://github.com/Eric-Arellano
+  image_url: https://github.com/Eric-Arellano.png
+joshua:
+  name: Joshua Cannon
+  title: Pants Maintainer
+  url: https://github.com/thejcannon
+  image_url: https://github.com/thejcannon.png
+kaos:
+  name: Andreas Stenius
+  title: Pants Maintainer
+  url: https://github.com/kaos
+  image_url: https://github.com/kaos.png
+liam:
+  name: Liam S Wilson
+  # title:
+  url: https://github.com/wilsonliam
+  image_url: https://github.com/wilsonliam.png
+nathanael:
+  name: Nathanael England
+  # title:
+  image_url: https://github.com/engnatha
+  url: https://github.com/engnatha.png
+sj:
+  name: SJ
+  title: Pants Maintainer, occasional blogger at sureshjoshi.com
+  url: https://github.com/sureshjoshi
+  image_url: https://github.com/sureshjoshi.png
+stu:
+  name: Stu Hood
+  title: Pants Maintainer
+  url: https://github.com/stuhood
+  image_url: https://github.com/stuhood.png

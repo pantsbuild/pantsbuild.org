@@ -1,0 +1,53 @@
+---
+title: environments-preview
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A highly experimental subsystem to allow setting environment variables and executable search paths for different environments, e.g. macOS vs. Linux.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[environments-preview]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `names`
+
+<Option
+  cli_repr={`--environments-preview-names="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_ENVIRONMENTS_PREVIEW_NAMES'
+  default_repr={`{}`}
+>
+
+A mapping of logical names to addresses to environment targets. For example:
+
+```
+[environments-preview.names]
+linux_local = "//:linux_env"
+macos_local = "//:macos_env"
+centos6 = "//:centos6_docker_env"
+linux_ci = "build-support:linux_ci_env"
+macos_ci = "build-support:macos_ci_env"
+```
+
+To use an environment for a given target, specify the name in the `environment` field on that target. Pants will consume the environment target at the address mapped from that name.
+
+Pants will ignore any environment targets that are not given a name via this option.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

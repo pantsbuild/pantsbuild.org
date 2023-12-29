@@ -1,0 +1,164 @@
+---
+title: pex_binary
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A Python target that can be converted into an executable PEX file.
+
+PEX files are self-contained executable files that contain a complete Python environment capable
+of running the target. For more information, see https://www.pantsbuild.org/docs/pex-files.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7._&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7._', 'CPython==3.7.\*']`means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option`[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Where the built asset should be located. If undefined, this will use the path to the the BUILD, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`). Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A single file containing the executable, such as [&#x27;app.py&#x27;]. You can leave this off if you include the executable file in one of this target&#x27;s `dependencies` and explicitly set this target&#x27;s `entry_point`. This must have 0 or 1 files, but no more. If you depend on more files, put them in a `python_library` target and include that target in the `dependencies` field.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `entry_point`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The entry point for the binary. If omitted, Pants will use the module name from the `sources` field, e.g. `project/app.py` will become the entry point `project.app` .
+
+</Field>
+
+## `platforms`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The platforms the built PEX should be compatible with. This defaults to the current platform, but can be overridden to different platforms. You can give a list of multiple platforms to create a multiplatform PEX. To use wheels for specific interpreter/platform tags, you can append them to the platform with hyphens like: PLATFORM-IMPL-PYVER-ABI (e.g. &quot;linux_x86_64-cp-27-cp27mu&quot;, &quot;macosx_10.12_x86_64-cp-36-cp36m&quot;). PLATFORM is the host platform e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;, etc&quot;. IMPL is the Python implementation abbreviation (e.g. &quot;cp&quot;, &quot;pp&quot;, &quot;jp&quot;). PYVER is a two-digit string representing the python version (e.g. &quot;27&quot;, &quot;36&quot;). ABI is the ABI tag (e.g. &quot;cp36m&quot;, &quot;cp27mu&quot;, &quot;abi3&quot;, &quot;none&quot;).
+
+</Field>
+
+## `inherit_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Whether to inherit the `sys.path` of the environment that the binary runs in. Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
+
+</Field>
+
+## `zip_safe`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether or not this binary is safe to run in compacted (zip-file) form. If the PEX is not zip safe, it will be written to disk prior to execution. You may need to mark `zip_safe=False` if you&#x27;re having issues loading your code.
+
+</Field>
+
+## `always_write_cache`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Whether PEX should always write the .deps cache of the .pex file to disk or not. This can use less memory in RAM constrained environments.
+
+</Field>
+
+## `ignore_errors`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+>
+
+Should we ignore when PEX cannot resolve dependencies?
+
+</Field>
+
+## `shebang`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints. This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
+
+</Field>
+
+## `emit_warnings`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Whether or not to emit PEX warnings at runtime. The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
+
+</Field>
+
+</span>

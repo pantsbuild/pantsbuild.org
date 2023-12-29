@@ -1,0 +1,96 @@
+---
+title: experimental_run_shell_command
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Run a script in the workspace, with all dependencies packaged/copied into a chroot.
+
+Example BUILD file:
+
+```
+experimental_run_shell_command(
+    command="./scripts/my-script.sh --data-files-dir={chroot}",
+    dependencies=["src/project/files:data"],
+)
+```
+
+The `command` may use either `{chroot}` on the command line, or the `$CHROOT` environment variable to get the root directory for where any dependencies are located.
+
+In contrast to the `experimental_shell_command`, in addition to `workdir` you only have the `command` and `dependencies` fields as the `tools` you are going to use are already on the PATH which is inherited from the Pants environment. Also, the `outputs` does not apply, as any output files produced will end up directly in your project tree.
+
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.14/docs/targets for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `command`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Shell command to execute.
+
+The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default.
+
+</Field>
+
+## `workdir`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`'.'`}
+>
+
+Sets the current working directory of the command, relative to the project root.
+
+</Field>
+
+</span>

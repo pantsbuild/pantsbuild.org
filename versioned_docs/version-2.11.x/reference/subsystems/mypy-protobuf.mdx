@@ -1,0 +1,84 @@
+---
+title: mypy-protobuf
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Configuration of the mypy-protobuf type stub generation plugin.
+
+Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
+
+Config section: <span className="color--primary">`[mypy-protobuf]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--mypy-protobuf-version=<str>`}
+  env_repr='PANTS_MYPY_PROTOBUF_VERSION'
+  default_repr={`mypy-protobuf==2.10`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--mypy-protobuf-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_PROTOBUF_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--mypy-protobuf-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_PROTOBUF_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.7,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--mypy-protobuf-lockfile=<str>`}
+  env_repr='PANTS_MYPY_PROTOBUF_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.11.1/src/python/pants/backend/codegen/protobuf/python/mypy_protobuf.lock for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=mypy-protobuf`.
+
+As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-dependencies, lockfile generation via `generate-lockfiles` does not always work and you may want to manually generate the lockfile. You will want to set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

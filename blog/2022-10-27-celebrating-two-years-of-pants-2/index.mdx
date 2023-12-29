@@ -1,0 +1,67 @@
+---
+    authors: [chrisjrn]
+    tags: [community]
+---
+
+# Celebrating two years of Pants 2
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  "[Happy Birthday
+  Balloon](https://www.flickr.com/photos/93322500@N00/6077474404)" by [Shelley &
+  Dave](https://www.flickr.com/photos/93322500@N00) is licensed under [CC BY-NC
+  2.0](https://creativecommons.org/licenses/by-nc/2.0/?ref=openverse).
+</CaptionedImg>
+
+Pants 2's design incorporated many lessons learned from the first version of Pants, and many of its contemporary build systems. On Pants 2's 2nd anniversary, we return to some of the earliest decisions we made when rewriting Pants and look back at how they've helped us evolve at a remarkable pace…
+
+{/* truncate */}
+
+---
+
+27 October 2022 (that's today!) marks the second anniversary of the release of Pants 2.0, a from-the-ground-up rewrite of the Pants build system, which had been around for almost 10 years at the time of Pants 2's release.
+
+Pants 2's design incorporated many lessons learned from the first version of Pants, and many of its contemporary build systems. On our second anniversary, we thought it would be a great opportunity to return to [some of the earliest decisions we made when rewriting Pants](../2020-10-27-introducing-pants-v2/index.mdx), and see how they've helped us evolve at a remarkable pace over the last two years.
+
+### Builds for large-scale codebases without the metadata
+
+Pants 1, like most other build tools for larger codebases and monorepos, was a configuration-heavy tool. It required you to write out huge amounts of metadata in `BUILD` to describe how your codebase fit together. [Build metadata is hard to make accurate and hard to maintain.](../2021-11-18-pants-vs-bazel/index.mdx)
+
+Pants 2 came from an observation that in retrospect was very simple: most of the metadata that went into `BUILD` files in Pants 1 was information that already existed in your codebase. [Pants 2 introduced dependency inference, allowing Pants to harness that latent information](../2022-10-27-why-dependency-inference/index.mdx). If you need to specify dependencies at all, it's usually only for complex cases that can't be statically inferred, and these cases are becoming vanishingly infrequent.
+
+Dependency inference transformed `BUILD` files from something that needed to be updated every time you add or remove an `import` statement into ones that need to be updated very infrequently indeed.
+
+Now, most Pants 2 users rarely need to update a `BUILD` file once it's created.
+
+But what about creating `BUILD` files? Pants 2.3 introduced the `tailor` goal. [`tailor` gave Pants the ability to automatically create a first pass at a codebase's `BUILD` files.](../2021-03-19-tailoring-pants-to-your-codebase/index.mdx) Once your initial `BUILD` files were created, you only needed to focus on the small amount of metadata that Pants couldn't automatically infer.
+
+Pants 2's core feature of dependency inference combined with `tailor` meant that Pants went from a system where `BUILD` files were difficult to manage, to one where you barely think about them at all. It's now much easier to get your build tooling running optimally, with less time wasted on configuration tasks. We're continuing to work out how to make it easier to get started and maintain Pants installations, so that you can spend even less time configuring things!
+
+### Designing for plugins has proven its value
+
+Pants 2 was designed with a plugin architecture, and most importantly, that architecture is used internally as well as for actual third-party plugins. This meant even though our initial supported language was Python, we had to design a system with concepts that could be adapted to any language that we decided we wanted to support.
+
+It didn't take long for this design to prove itself! [Pants 2.5, released in May 2021, included support for Shell scripting workflows](../2021-05-20-introducing-pants-2-5/index.mdx), with support for the `test`, `check`, and `fmt` goals already established for Python, all using established tools from the shell scripting community.
+
+Since then, we've been able to [add support for Golang](../2021-11-10-golang-support-pants-28/index.mdx), as well as [Java, Scala](../2022-01-12-pants-2-9/index.mdx) and Kotlin on the JVM into the Pants distribution, each bringing with it [support for dependency inference](../2021-11-22-automatically-unlocking-concurrent-builds-and-fine-grained-caching-on-the-jvm-with-dependency-inference/index.mdx), and orchestrating those language's testing, linting, formatting, and quality checking tools, all using the same command-line interface that we introduced in Pants 2.0 for Python.
+
+The plugin architecture turned out to be more flexible than we'd expected, leading to some contributions from outside the initial core team that we couldn't have imagined when we released Pants 2.0. [Pants 2.7 added support for Docker](../2021-09-28-docker-support/index.mdx), allowing users of any Pants-supported language to produce a Docker image containing artifacts built with Pants. [Pants 2.10 added experimental PyOxidizer support](../2022-02-18-packaging-python-with-the-pyoxidizer-pants-plugin/index.mdx), giving Python users an alternative way to package their Python applications, alongside the Python packaging formats that we support in the core Pants distribution. [Finally, Pants 2.14 has added a `deploy` goal, along with experimental Helm support](../2022-10-26-pants-2-14/index.mdx).
+
+We've heard of Pants users working on experimental-quality third-party plugins for other languages and tools, including C and C++, too, so we're confident that users can already start adapting Pants to their use case if they need to.
+
+In future releases, we're excited to add support for even more languages and tools, and we know our architecture gives us a starting point that will make it easier than other build systems would have made it.
+
+### Concurrency, caching, and distributed builds
+
+Pants 2.0 was released with a goal of unlocking better build performance with less effort than its predecessors. Firstly, by writing our core in Rust, any CPU-intensive core task can run as close to the metal as possible, while still being as memory-safe as tasks written in Python. Our Python API (which lets us write rules quickly and easily) for v2 has always made use of coroutines, driven by a Rust-based event loop that focuses on CPU-bound parallelism rather than the IO focus of other Python event loops.
+
+[Pants 2.0 came with support for a remote cache](https://www.pantsbuild.org/docs/remote-caching), and thanks to dependency inference, most cacheable results are automatically as granular as possible, and can easily be run in parallel. Now there are remote caching providers for Pants 2, and we're seeing some pull requests on the Pants Open Source repository take less than 5 minutes to complete in CI, down from more than 40, now that it's using [Pants project sponsor Toolchain's remote cache](https://toolchain.com).
+
+[For Pants 2.13, we added support for sharding, as a happy medium between running on a single machine and using a full remote execution cluster](../2022-09-01-introducing-pants-2-13/index.mdx). This turned out to be a remarkably [simple change of barely 100 lines of code](https://github.com/pantsbuild/pants/pull/15417/files) (including comments, error handling, and tests), which was possible because Pants's understanding of a codebase is deterministic across multiple executions.
+
+For Pants 2.15, we're starting Pants on a path to truly take advantage of remote execution, adding experimental support for running tools in a Docker environment, and laying the groundwork to run multi-platform cross builds from a single parent instance of Pants.
+
+### Building a community
+
+With Pants 2, we've also made a real effort to grow our community beyond our initial contributors, who mostly came from the Pants v1 world. Now we have [a team of 18 Maintainers and 12 Contributors](https://www.pantsbuild.org/docs/team), [and Pants 2 is used in notable companies all around the world.](https://www.pantsbuild.org/page/who-uses-pants) There are [testimonials](https://www.pantsbuild.org/docs/testimonials), and [case studies](https://www.pantsbuild.org/docs/media#posts--articles) from happy users who've found that Pants 2 meets their needs where other build tools weren't ready.
+
+It's been exciting to see Pants 2 progress from a promising idea with initial Python support, through to a multi-language scalable build tool with adoption in many really cool places. We can't wait to see where the next two years of Pants takes us!

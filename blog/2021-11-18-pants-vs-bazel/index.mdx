@@ -1,0 +1,108 @@
+---
+    authors: [benjy]
+    tags: [getting-started,concepts]
+---
+
+export const Hero = ({ children, color }) => (
+  <div className="hero">
+    <div className="container" style={{ "text-align": "center" }}>
+      <div className="hero__title">👖</div>
+      <div className="hero__subtitle">{children}</div>
+    </div>
+  </div>
+);
+
+# Pants vs. Bazel: Why Pants may be the right choice for your team
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Jeremy
+  Bezanger](https://unsplash.com/@unarchive?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Many considerations go into evaluating and adopting a new build system: performance, scalability language and framework support, ease of adoption and use, extensibility, compatibility with existing practices, and more.…
+
+{/* truncate */}
+
+📆 LAST UPDATED: Sept 23, 2022
+
+---
+
+## Introduction
+
+We in the [Pants Build community](https://www.pantsbuild.org/docs/the-pants-community) have a lot of experience in helping teams evaluate and adopt Pants. And often, the first step involves helping those teams understand why Pants is the best fit for their needs (and honestly recognizing when it isn't).
+
+As you may expect, organizations evaluating Pants often also consider [Bazel](https://bazel.build/), which is an open-source variant of Google's internal build system. As a result, the two systems are often compared.
+
+Of course, many considerations go into evaluating and adopting a new build system: performance, scalability language and framework support, ease of adoption and use, extensibility, compatibility with existing practices, and more. All systems make trade-offs, so there is no magic bullet solution to a problem as multi-faceted, challenging and fascinating as software builds. Ultimately, every team ends up making a nuanced choice based on their needs and priorities.
+
+But we have found that many teams have a similar set of comparison points, and reach similar conclusions, regarding the advantages of Pants for their use cases, when compared to Bazel. We often get asked about these and have therefore decided to publish them in this document.
+
+We have a lot of respect for Bazel. Pants and Bazel share common lineage and inspiration. However, there are important differences between the systems. Many of these can be boiled down to the fact that Bazel's design was substantially limited to Google's internal engineering practices, while Pants's design is informed by the real-world use cases of a variety of organizations. As a result, Pants is often a better fit for your existing codebase, workflows and practices.
+
+<Hero>
+  Bazel's design was substantially limited to Google's internal engineering
+  practices, while Pants's design is informed by the real-world use cases of a
+  variety of organizations.
+</Hero>
+
+---
+
+## Why choose Pants
+
+Here are some reasons why Pants may be a better choice than Bazel for your team:
+
+- **Pants is strongly focused on first-class support for the real-world use cases of a variety of software organizations.** Bazel, in contrast, was designed primarily for internal C++ usage at Google. For example:
+
+  - Bazel's support for consuming published third-party dependencies is haphazard, because Google typically doesn't use external code. But your team, like almost all others, probably relies on published code in public repositories such as PyPI or Maven Central, so Pants has strong support for that case, including [a feature for safely managing multiple versions of the same dependency in a single repo](../2022-05-25-multiple-lockfiles-python/index.mdx).
+  - Pants has first-class [support for Python](https://www.pantsbuild.org/docs/python), and specifically for how real-world organizations use it in practice. Its Python plugin has out-of-the-box support for running pip, setuptools, pytest, mypy, black, yapf, pylint, isort, bandit, flake8, docformatter, protoc, pex, AWS lambda and more. New tools and functionality are being added all the time. Pants also intrinsically handles complex issues such as Python interpreter version compatibility, and can work well with tools like pyenv and asdf. Whereas Bazel's Python support was somewhat tacked on as an adjunct to the core functionality, and is often insufficient, leading teams to have to cobble together their own custom logic.
+
+- **Pants lets you use the natural idioms of each language and framework.** For example, users naturally think in terms of files and directories, so Pants operates primarily in those terms: you can simply run Pants commands on files and directories, and metadata concepts like targets mostly fade into the background. Bazel foregrounds new conceptual models, such as workspaces and targets, that every user has to comprehend in order to use the system at all. Pants also integrates with Git, so you can [run Pants commands selectively](https://www.pantsbuild.org/docs/advanced-target-selection#running-over-changed-files-with---changed-since) only on files that have changed, and the files that depend on them. Generally, Pants conforms to the natural idioms of each language and framework, whereas Bazel forces everything to conform to its model, even where that leads to “impedance mismatch”.
+- **Pants requires almost no metadata and BUILD file boilerplate.** Pants relies instead on smart dependency inference, sensible defaults and auto-generation. This not only makes setup and maintenance dramatically easier, but also leads to more accurate (and more performant) builds, since BUILD files don't get out of date. Bazel requires a huge amount of handwritten BUILD boilerplate, including enumeration of dependencies, which is laborious and error-prone to keep in sync as code changes. There are tools that attempt to work around this problem by generating BUILD files, but this requires extra setup, more commands to remember, and more complexity. As a result, Pants is much easier to adopt initially, and to maintain during ongoing use.
+- **Pants natively understands the semantics of a variety of build actions.** These include "test", "lint", "fmt", "check", "package", "publish", "run", "repl" and more. It understands what these commands do and how that affects caching and concurrency (e.g., linters don't modify sources, so Pants can run them all in parallel, but formatters do modify sources so Pants knows to run them in sequence). And you can add your own custom actions via the Plugin API. Bazel is limited to a handful of built-in build actions - "build", “test” and "run", so getting it to do things like run linters requires extra scripting and complexity.
+- **Pants has useful built-in features like file watching to automatically rebuild your code.** Rather than needing third-party wrapper scripts to support re-running the build when input files have changed, Pants can automatically re-run a goal when its inputs have changed, via the `--loop` flag. It can also spawn and restart servers via `run`. This enables the fastest possible iteration on changes to your code.
+- **Pants is easy to extend.** The Pants engine is written in Rust, for performance and security. The Rust engine orchestrates your build logic via a powerful, flexible [Plugin API](https://www.pantsbuild.org/docs/plugins-overview) that uses idiomatic Python 3 async code, so you can use natural control flow and advanced language features (including type hints) in your plugins. In fact, the Plugin API is so powerful that Pants uses it internally to implement its built-in features. So your custom extension code has access to the same capabilities as the core Pants plugins. Bazel's external API is more limited and brittle, and it requires you to use Starlark, a less expressive language that is less convenient than Python 3. For example, Bazel rules can't view the output of processes or consume file content (If you're versed in functional programming, Pants's API is monadic, while Bazel's is applicative). Of course, with greater power comes greater responsibility - Pants's API strives to prevent bugs in your extension rules, rather than defend against malicious code in them. Overall, the combination of Rust and Python gives us a great balance of performance and ease of use.
+- **Pants has a strong open-source ethos.** It's an OSS-first project with a governance model that allows any individual to participate and any org to play an equal role, including yours! Bazel is controlled by Google, and with the needs of their internal users taking precedence. It can be extremely hard to get your needs or changes considered by the Bazel project. We in the Pants community pride ourselves on being responsive, helpful, inclusive and friendly.
+
+<Hero>
+  Google typically doesn't use external code. But your team, like almost all
+  others, probably relies on published code in public repositories such as PyPI
+  or Maven Central, so Pants has strong support for that case.
+</Hero>
+
+---
+
+## Design matters
+
+Pants's advantages stem primarily from the fact that it was designed with codebases like yours in mind. Bazel was designed years ago, for internal use (primarily C++) at Google. Unless your codebase scale and engineering practices are similar to those (and they almost certainly aren't...) Bazel was not built with your current or future use cases in mind and may not support them well. Certainly, there may be third-party Bazel rules that provide some support for other use cases, but since those didn't factor into the core system design, you are more likely to find that Bazel's tradeoffs aren't right for you.
+
+<Hero>Pants was designed with codebases like yours in mind.</Hero>
+
+---
+
+## In our users' own words
+
+But don't take our word for it! Here are some quotes from our users:
+
+- “Easier setup than Bazel”
+- “More approachable than Bazel”
+- “Bazel was not well-optimized for Python and building Docker images”
+- “Pants has felt much more 'batteries included' than Bazel -- features like 'git smarts baked in' and 'code formatting support' make it feel like it has fewer sharper edges”
+- "If the comparison was exactly equivalent, I'd choose Pants for the approachability and support y'all offer in the Slack and on GitHub. I've never in my career found a dev team as willing to help and improve as y'all."
+- "Pants has good documentation. Bazel has docs, and in abundance, but you need your PhD in Bazel to understand good chunks of it."
+- "Once we landed on Pants, we got set up pretty easily. Within 30 minutes you could get Pants installed in your project and then start asking Pants, "Hey, if I change this file, what depends on it?" We could easily integrate this into CI, because Pants is super transportable."
+- “Bazel is very unapproachable. As we explored the inscrutable documentation, we found no clear way to dip our toes in and try building a simple python app. Compare this to Pants where a single page of the docs explained how to get a python codebase building self-contained executable files with a few simple lines of config. Pants' first-class support for Python means it's trivial to get up and running with common python tooling like pip, setuptools, pytest, black, isort, flake8, and more.”
+
+You can read more testimonials from Pants users [here](https://www.pantsbuild.org/docs/testimonials).
+
+<Hero>
+  "I've never in my career found a dev team as willing to help and improve as
+  y'all."
+</Hero>
+
+---
+
+## To sum it up
+
+Pants is state-of-the-art, designed for organizations like yours, with your developers' happiness and productivity front and center. And with enterprise support from [Toolchain](https://toolchain.com/), the lead sponsor of Pants, you have world-class experts ready to be your build team!

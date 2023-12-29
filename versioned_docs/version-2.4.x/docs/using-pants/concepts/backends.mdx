@@ -1,0 +1,49 @@
+---
+    title: Backends
+    position: 3
+---
+
+How to enable specific functionality.
+
+---
+
+Pants has some basic, non-language-specific functionality built in to its core. For example, you can count the lines of code under some directory in your repo:
+
+```text title="Bash"
+$ ./pants count-loc 'src/**'
+───────────────────────────────────────────────────────────────────────────────
+Language                 Files     Lines   Blanks  Comments     Code Complexity
+───────────────────────────────────────────────────────────────────────────────
+Python                      13       155       50        22       83          5
+BASH                         2       261       29        22      210         10
+JSON                         2        25        0         0       25          0
+...
+```
+
+However most Pants functionality, including all language-specific functionality, is provided via _backends_.
+
+A backend is a Python package that implements some required functionality, and uses hooks to register itself with Pants. You enable a backend by listing it under the `backend_packages` config key in `pants.toml`.
+
+For example, to enable Python support:
+
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages = ["pants.backend.python"]
+```
+
+## Available backends
+
+Activate by adding the backend to the option `backend_packages` in the `[GLOBAL]` scope in `pants.toml`.
+| Backend | What it does | Docs |
+| :--- | :--- | :--- |
+| `pants.backend.awslambda.python` | Enables generating an AWS Lambda zip file from Python code. | [Python support](../../python/integrations/aws-lambda.mdx) |
+| `pants.backend.codegen.protobuf.python` | Enables generating Python from Protocol Buffers. Includes gRPC support. | [Protobuf and gRPC](../../python/integrations/protobuf-and-grpc.mdx) |
+| `pants.backend.python` | Core Python support. | [Enabling Python support](../../python/overview/enabling-python-support.mdx) |
+| `pants.backend.python.mixed_interpreter_constraints` | Adds the `py-constraints` goal for insights on Python interpreter constraints. | [Interpreter compatibility](../../python/overview/interpreter-compatibility.mdx) |
+| `pants.backend.python.lint.bandit` | Enables Bandit, the Python security linter: https://bandit.readthedocs.io/en/latest/. | [Linters and formatters](../../python/overview/linters-and-formatters.mdx) |
+| `pants.backend.python.lint.black` | Enables Black, the Python autoformatter: https://black.readthedocs.io/en/stable/. | [Linters and formatters](../../python/overview/linters-and-formatters.mdx) |
+| `pants.backend.python.lint.docformatter` | Enables Docformatter, the Python docstring autoformatter: https://github.com/myint/docformatter. | [Linters and formatters](../../python/overview/linters-and-formatters.mdx) |
+| `pants.backend.python.lint.flake8` | Enables Flake8, the Python linter: https://flake8.pycqa.org/en/latest/. | [Linters and formatters](../../python/overview/linters-and-formatters.mdx) |
+| `pants.backend.python.lint.isort` | Enables isort, the Python import autoformatter: https://timothycrosley.github.io/isort/. | [Linters and formatters](../../python/overview/linters-and-formatters.mdx) |
+| `pants.backend.python.lint.pylint` | Enables Pylint, the Python linter: https://www.pylint.org. | [Linters and formatters](../../python/overview/linters-and-formatters.mdx) |
+| `pants.backend.python.typecheck.mypy` | Enables MyPy, the Python type checker: https://mypy.readthedocs.io/en/stable/. | [typecheck](../../python/goals/typecheck.mdx) |

@@ -1,0 +1,100 @@
+---
+title: pyoxidizer
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The PyOxidizer utility for packaging Python code in a Rust binary (https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer.html).
+
+Used with the `pyoxidizer_binary` target.
+
+Backend: <span className="color--primary">`pants.backend.experimental.python.packaging.pyoxidizer`</span>
+
+Config section: <span className="color--primary">`[pyoxidizer]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--pyoxidizer-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_PYOXIDIZER_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args="--release"`
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--pyoxidizer-version=<str>`}
+  env_repr='PANTS_PYOXIDIZER_VERSION'
+  default_repr={`pyoxidizer==0.18.0`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--pyoxidizer-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.8"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--pyoxidizer-console-script=<str>`}
+  env_repr='PANTS_PYOXIDIZER_CONSOLE_SCRIPT'
+  default_repr={`pyoxidizer`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--pyoxidizer-entry-point=<str>`}
+  env_repr='PANTS_PYOXIDIZER_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,95 @@
+---
+    authors: [alexey]
+    tags: [getting-started,python]
+---
+
+# Updating Pants BUILD files programmatically
+
+<CaptionedImg src={require("./splash.jpg").default}></CaptionedImg>
+
+{/* truncate */}
+
+### Introduction
+
+Working with a monorepository implies dealing with build metadata files that provide information about the source code and how it should be built. Pants build system uses `BUILD` files which are valid Python files and are evaluated using a Python interpreter as a list of statements. When adding support for Pants in a codebase, one can use the `./pants tailor` command which will generate the minimal `BUILD` files necessary to get started.
+
+As the adoption of Pants goes on, you may want to update your `BUILD` files across some parts or throughout the whole monorepository. This can be the case when you'd like to update your [`python_sources`](https://www.pantsbuild.org/v2.9/docs/reference-python_sources) targets to enable/disable some code formatters or linters (for instance, by adding `skip_black` and `skip_flake8` arguments). Likewise, updating `BUILD` files may be necessary if you'd need to tag multiple `python_tests` targets by setting the `tags` argument.
+
+Although in most cases Pants does not require you to declare the dependencies between targets (thanks to [dependency inference](../2020-10-29-dependency-inference/index.mdx#dependency-inference)), manually updating the `BUILD` files for any codebase of a decent size will get tedious rather soon which is why it is necessary to have appropriate tooling for updating the `BUILD` files programmatically.
+
+### Modifying BUILD files by using source code refactoring tools
+
+Since the `BUILD` files are valid Python files, it is possible to use an AST / CST (abstract or concrete syntax tree) based approach and refactor the target declarations. This is fairly easy given the low complexity of the files in question.
+
+You may be already using some automated refactoring tools developed in the Python community for large refactorings of the source code. If not, you may explore some tools such as [rope](https://github.com/python-rope/rope), [redbaron](https://github.com/PyCQA/redbaron), [astor](https://github.com/berkerpeksag/astor), or [LibCST](https://github.com/Instagram/LibCST).
+
+### Modifying BUILD files by using Bazel build tools
+
+If your use case is rather simple, and you don't have enough resources to develop Python refactoring tools in house, you may want to look at the out-of-the-box tools that will let you update the `BUILD` files programmatically. Because `BUILD` files in Pants share a lot of syntax with the `BUILD` files used in [Bazel](https://bazel.build/), it is often possible to use the Bazel build toolchain to interact with the Pants `BUILD` files.
+
+When adopting Pants incrementally, potentially for only a segment of the monorepository, you would create `BUILD` files only in the projects (i.e. directories) of interest. However, it may be the case that after you have already enabled Pants for a part of your monorepository, you'd like to have a more fine-grained control over the target declarations. For instance, you may want to edit `BUILD` files within one or more projects by modifying the current arguments values, adding new or removing existing ones.
+
+When using the Bazel build tools, keep in mind that they reformat the `BUILD` files following the [Bazel formatting style](https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md) which may be not necessarily how you expect your `BUILD` files to be formatted. If you are migrating from Bazel to Pants, however, you may find it convenient to preserve the same, familiar formatting style of the `BUILD` files used in the monorepository. Either way, if you are already formatting the `BUILD` files using `black`, then you may take advantage of the
+[`./pants update-build-files`](https://www.pantsbuild.org/v2.9/docs/reference-update-build-files) command which will format all `BUILD` files in your project using `black` (support for `yapf` will come in the future releases).
+
+To modify the Pants `BUILD` files in your project, you can use [buildozer](https://github.com/bazelbuild/buildtools/blob/master/buildozer/README.md). This is how you would add additional arguments to all existing targets across your monorepository:
+
+```shell-session
+$ buildozer 'set skip_yapf True' 'set skip_mypy True' ///...:%python_tests
+$ buildozer 'set skip_yapf True' 'set skip_mypy True' ///...:%python_sources
+```
+
+The input target declaration
+
+```python
+python_sources()
+```
+
+would be turned into
+
+```python
+python_sources(
+    skip_flake8 = True,
+    skip_mypy = True,
+    skip_yapf = True,
+)
+```
+
+If you run a Python formatter on the `BUILD` files afterwards, it would be formatted to something like below:
+
+```python
+python_sources(
+    skip_flake8=True,
+    skip_mypy=True,
+    skip_yapf=True,
+)
+```
+
+There are ways to have a more fine-grained control over what targets you'd like to run the editing command on, but you may need to consult the Bazel docs as the semantics of addressing a particular target or targets within a directory may differ
+from the ones used in Pants. This command, for example, would update only `python_sources` targets within a single project directory:
+
+```shell-session
+$ buildozer 'set skip_yapf False' projectdir/subdir:%python_sources
+```
+
+### Querying the Pants BUILD files before running the editing commands
+
+The `./pants peek` command would be of help if you would need to query your `BUILD` files for information necessary to update them (e.g. you want to update only those targets that have a particular argument set to a particular value). The `peek` command would also help you confirm that programmatic updates of the `BUILD` files succeeded and made the changes you wanted to make.
+
+For instance, with a little help from [jq](https://stedolan.github.io/jq/) to parse JSON, this command would report all `pex_binary` targets that have something else than `/usr/bin/python3` as its `shebang`:
+
+```shell-session
+$ ./pants peek project-name:: | jq '.[] | select(.target_type == "pex_binary" and .shebang != "/usr/bin/python3")'
+```
+
+If you already have experience using `buildozer`, you may want to prefer using its querying functionality to learn more about `BUILD` files targets before running the editing commands. This command would print the `name` and the `dependencies` arguments for all `pex_binary` targets for a particular project:
+
+```shell-session
+$ buildozer 'print name dependencies' project-name:%pex_binary
+```
+
+Buildozer documentation has lots of code snippets that will help you learn how to update your `BUILD` files.
+
+_Happy coding!_
+
+Want to explore more of Pants open source project or its first-class support for Python? Check out [`example-python`](https://github.com/pantsbuild/example-python) and come say hi on the [Pants community Slack](https://pantsbuild.slack.com)! It's a friendly and supportive community that is happy to respond to your questions and feedback.

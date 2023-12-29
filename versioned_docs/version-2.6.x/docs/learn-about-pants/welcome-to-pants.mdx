@@ -1,0 +1,57 @@
+---
+    title: Welcome to Pants!
+    position: 0
+---
+
+---
+
+## What is Pants?
+
+Pants is a scalable software build system. It is useful for code repositories of all sizes, but is particularly valuable for those containing multiple distinct but interdependent pieces.
+
+Pants orchestrates the various tools and steps that process your source code into deployable software, including:
+
+- Dependency resolution
+- Compilation/type checking
+- Testing
+- Linting
+- Formatting
+- Packaging
+- Code generation
+- Project introspection
+
+Pants is in a similar category as tools such as `make`, `ant`, `maven`, `gradle`, `sbt`, `bazel` and others. Its design leans on ideas and inspiration from some of these earlier tools, while optimizing for speed, correctness, and ergonomics in today's real-world use cases.
+
+## Who is Pants for?
+
+Pants is useful for repos of all sizes, but is particularly valuable for those containing multiple distinct but interdependent pieces.
+
+Pants allows you to have a _monorepo_: a codebase containing multiple projects—often using multiple programming languages and frameworks—in a single unified repository. If you want to scale your codebase without breaking it up into multiple disconnected repos, with all the versioning and maintenance headaches that causes, Pants provides the tooling for you to do so effectively.
+
+## What are the main features of Pants?
+
+Pants is designed for fast, consistent builds. Some noteworthy features include:
+
+- Dependency modeling with minimal boilerplate.
+- Fine-grained invalidation.
+- Shared result caching.
+- Concurrent execution.
+- Remote execution.
+- Unified interface for multiple tools and languages.
+- Extensibility and customizability via a plugin API.
+
+## Which languages and frameworks does Pants support?
+
+Pants 2 supports Python and shell code. Support for other languages, including Java, Scala, Go, Rust, and more, is coming soon.
+
+## How does Pants work?
+
+See [here](./how-does-pants-2-work.mdx) for details about the Pants engine.
+
+## Who develops Pants?
+
+Pants is an open-source software project, developed at [github.com/pantsbuild/pants](https://github.com/pantsbuild/pants). Pants is released under the [Apache License 2.0](https://github.com/pantsbuild/pants/blob/master/LICENSE).
+
+:::note Pants 1 vs. 2
+This documentation is for Pants 2, which is a ground-up redesign of Pants based on lessons from the past 10 years of development. See [here](https://v1.pantsbuild.org/) for Pants v1 documentation.
+:::

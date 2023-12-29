@@ -1,0 +1,40 @@
+---
+title: junit
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The JUnit test framework (https://junit.org)
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[junit]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--junit-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
+  env_repr='PANTS_JUNIT_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to JUnit, e.g. `--disable-ansi-colors`
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

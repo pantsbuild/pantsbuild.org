@@ -1,0 +1,73 @@
+---
+title: list
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants list [args]
+```
+
+Lists all targets matching the file or target arguments.
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[list]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--list-output-file=<path>`}
+  env_repr='PANTS_LIST_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--list-sep=<separator>`}
+  env_repr='PANTS_LIST_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `documented`
+
+<Option
+  cli_repr={`--[no-]list-documented`}
+  env_repr='PANTS_LIST_DOCUMENTED'
+  default_repr={`False`}
+>
+
+Print only targets that are documented with a description.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

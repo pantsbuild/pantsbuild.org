@@ -1,0 +1,66 @@
+---
+title: java-infer
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options controlling which dependencies will be inferred for Java targets.
+
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+Config section: <span className="color--primary">`[java-infer]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `imports`
+
+<Option
+  cli_repr={`--[no-]java-infer-imports`}
+  env_repr='PANTS_JAVA_INFER_IMPORTS'
+  default_repr={`True`}
+>
+
+Infer a target&#x27;s dependencies by parsing import statements from sources.
+
+</Option>
+
+### `consumed_types`
+
+<Option
+  cli_repr={`--[no-]java-infer-consumed-types`}
+  env_repr='PANTS_JAVA_INFER_CONSUMED_TYPES'
+  default_repr={`True`}
+>
+
+Infer a target&#x27;s dependencies by parsing consumed types from sources.
+
+</Option>
+
+### `third_party_import_mapping`
+
+<Option
+  cli_repr={`--java-infer-third-party-import-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_JAVA_INFER_THIRD_PARTY_IMPORT_MAPPING'
+  default_repr={`{}`}
+>
+
+A dictionary mapping a Java package path to a JVM artifact coordinate (GROUP:ARTIFACT) without the version.
+
+See `jvm_artifact` for more information on the mapping syntax.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

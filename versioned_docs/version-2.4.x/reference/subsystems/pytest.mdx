@@ -1,0 +1,152 @@
+---
+title: pytest
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The pytest Python test framework (https://docs.pytest.org/).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[pytest]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--pytest-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
+  env_repr='PANTS_PYTEST_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Pytest, e.g. `--pytest-args="-k test_foo --quiet"`
+
+</Option>
+
+### `timeouts`
+
+<Option
+  cli_repr={`--[no-]pytest-timeouts`}
+  env_repr='PANTS_PYTEST_TIMEOUTS'
+  default_repr={`True`}
+>
+
+Enable test target timeouts. If timeouts are enabled then test targets with a timeout= parameter set on their target will time out after the given number of seconds if not completed. If no timeout is set, then either the default timeout is used or no timeout is configured.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--pytest-version=<str>`}
+  env_repr='PANTS_PYTEST_VERSION'
+  default_repr={`pytest>=6.0.1,<6.3`}
+>
+
+Requirement string for Pytest.
+
+</Option>
+
+### `pytest_plugins`
+
+<Option
+  cli_repr={`--pytest-pytest-plugins="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTEST_PYTEST_PLUGINS'
+  default_repr={`["pytest-cov>=2.10.1,<2.12"]`}
+>
+
+Requirement strings for any plugins or additional requirements you&#x27;d like to use.
+
+</Option>
+
+### `timeout_default`
+
+<Option
+  cli_repr={`--pytest-timeout-default=<int>`}
+  env_repr='PANTS_PYTEST_TIMEOUT_DEFAULT'
+  default_repr={`None`}
+>
+
+The default timeout (in seconds) for a test target if the `timeout` field is not set on the target.
+
+</Option>
+
+### `timeout_maximum`
+
+<Option
+  cli_repr={`--pytest-timeout-maximum=<int>`}
+  env_repr='PANTS_PYTEST_TIMEOUT_MAXIMUM'
+  default_repr={`None`}
+>
+
+The maximum timeout (in seconds) that may be used on a `python_tests` target.
+
+</Option>
+
+### `junit_xml_dir`
+
+<Option
+  cli_repr={`--pytest-junit-xml-dir=<DIR>`}
+  env_repr='PANTS_PYTEST_JUNIT_XML_DIR'
+  default_repr={`None`}
+>
+
+Specifying a directory causes Junit XML result files to be emitted under that dir for each test run.
+
+</Option>
+
+### `junit_family`
+
+<Option
+  cli_repr={`--pytest-junit-family=<str>`}
+  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  default_repr={`xunit2`}
+>
+
+The format of the generated XML file. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+
+</Option>
+
+### `execution_slot_var`
+
+<Option
+  cli_repr={`--pytest-execution-slot-var=<str>`}
+  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
+  default_repr={`None`}
+>
+
+If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--pytest-config=<file_option>`}
+  env_repr='PANTS_PYTEST_CONFIG'
+  default_repr={`None`}
+>
+
+Path to pytest.ini or alternative Pytest config file.
+
+Pytest will attempt to auto-discover the config file,meaning that it should typically be an ancestor of yourtests, such as in the build root.
+
+Pants will not automatically set --rootdir for you to force Pytest to pick up your config file, but you can manually set --rootdir in [pytest].args.
+
+Refer to https://docs.pytest.org/en/stable/customize.html#initialization-determining-rootdir-and-configfile.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

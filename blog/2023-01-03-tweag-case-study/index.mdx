@@ -1,0 +1,67 @@
+---
+    authors: [clement]
+    tags: [case-studies,python,users]
+---
+
+# Tweag case study: From adopting Pants, to generalizing our CI to multiple Python versions
+
+<CaptionedImg src={require("./splash.png").default}></CaptionedImg>
+
+At Tweag we have a lot of experience with Bazel, as we maintain the Haskell rules. However, I had feedback that Bazel's Python support was not ideal. In contrast, Python is Pants' strong point. My client's fear of boilerplate also made Bazel unappealing. Whereas, Pants reduces boilerplate…
+
+{/* truncate */}
+
+---
+
+I'm a principal engineer at [Tweag](https://www.tweag.io/), a consultancy company offering expertise in robust build systems, functional programming, and data science. In Spring 2022 I was put in charge of setting up the monorepo of a healthcare startup: [kaiko.ai](https://www.kaiko.ai/). Kaiko was dedicated to starting its development with a monorepo from nearly day 0, as the CTO wanted to spread best practices and great CI support to all projects and developers. This project culminated in adopting Pants in our setup. In this post I want to detail our journey:
+
+1.  How we came to choose Pants as our scalable build tool for this monorepo,
+2.  How we proceeded to adopt Pants smoothly, and
+3.  How we generalized our existing Pants CI to support multiple Python versions.
+
+---
+
+## Motivating Pants in a healthcare startup
+
+Kaiko's monorepo is hosted on GitHub. To deliver a working repository as fast as possible, I initially made its CI modular by using GitHub Actions [paths triggers](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-based-on-files-changed-in-a-pull-request). Concretely, a library living in `libs/A` had a `paths` trigger of the form `libs/A/**` in its CI pipeline. While this was an easy way to start, it did not scale very well: everytime a library was added, its trigger needed to be written manually. Even worse, as the dependency graph between libraries was complexifying, the triggers had to be adapted accordingly: if `libs/B` depends on `libs/A`, the trigger of `B`'s CI must be both `libs/B/**` and `libs/A/**`.
+
+So, a few months after the monorepo's initial version, people started to worry about the CI's level of boilerplate. In addition, a number of triggers had been erroneous a number of times already: we had evidence manual maintenance was too error prone to be sustainable in the long term.
+
+At this point I did a quick tour of the build tools available for monorepos:
+
+1. At Tweag we have had a lot of experience with Bazel, as we maintain the [Haskell rules](https://github.com/tweag/rules_haskell) and work for various clients in other languages. However I had feedback that the Python support with Bazel was not ideal. In contrast, Python is Pants' strong point.
+2. Kaiko's fear of boilerplate did not make Bazel appealing. Whereas the reduced boilerplate offered by Pants was very attractive.
+3. Kaiko already had a developer internally advocating for Pants.
+
+Pants was the strongest candidate for the monorepo.
+
+## Initial adoption of Pants
+
+At this point, I listed the tools in use in Kaiko's monorepo. It was pretty standard: [black](https://github.com/psf/black), [flake8](https://flake8.pycqa.org/en/latest/), [isort](https://pycqa.github.io/isort/), [shellcheck](https://www.shellcheck.net/), [bandit](https://bandit.readthedocs.io/en/latest/), etc. All these tools were supported already in Pants, but two weren't: [yamllint](https://github.com/adrienverge/yamllint) and Microsoft's [pyright](https://github.com/microsoft/pyright) Python typechecker. Pants' not supporting pyright was a potential blocker for Kaiko, as it was used in their regular CI already, and also locally by developers. Pyright's ability to report errors as you type was a big plus over [mypy](http://mypy-lang.org/), so we didn't want to switch. This is how I first came in touch with Pants' community: I opened [an issue](https://github.com/pantsbuild/pants/issues/17141) on Pant's GitHub to ask whether pyright support could be added.
+
+In a matter of hours, I was blown away by the responsiveness of the community as the issue's comments show, as well as the discussions on Pant's Slack. [Suresh Joshi](https://github.com/sureshjoshi) rolled out a proof of concept of pyright integration within Pants in a matter of days and he then iterated to improve it, based on feedback from me trying his code on our production use case. This caused a streak of issues to be created (here is [one](https://github.com/pantsbuild/pants/issues/17225), here is [another](https://github.com/pantsbuild/pants/issues/17816)) and this fast feedback loop contributed to Kaiko committing to using Pants, even if, at this point, pyright support is not yet mature enough to support our production use case. But we are confident it will be the case soon!
+
+The second tool that we needed support for in Pants is [yamllint](https://github.com/adrienverge/yamllint). At [Tweag](https://www.tweag.io/), we seized this occasion to evaluate how easy it was to write plugins in Pants and created our [pants-yamllint-poc](https://github.com/tweag/pants-yamllint-poc) repository. While there is a bit of boilerplate when writing plugins, we deemed it acceptable, and we could get away by taking inspiration from [shellcheck's plugin](https://github.com/pantsbuild/pants/tree/97c4ede10978fe20750ddc2642149d8b8a841126/src/python/pants/backend/shell/lint/shellcheck). After having validated our proof of concept in production, we opened [a PR](https://github.com/pantsbuild/pants/pull/17821) to have yamllint support merged into Pants. We received helpful feedback on the PR to move it forward.
+
+To adopt Pants serenely, I proposed internally that we bring our new Pants CI on par with the features of our regular CI. One nice feature of our regular CI is that it was parameterized with a matrix to use multiple versions of Python. In the rest of this post, I will describe how I brought this feature to our Pants CI.
+
+## Using multiple Python versions
+
+One strong argument for using Pants was the quality of the documentation. However, when looking at the documentation for [using multiple interpreters in Python](https://www.pantsbuild.org/docs/python-interpreter-compatibility), I was at first puzzled that the doc indicated how to _declare_ multiple interpreters but not how the multiple interpreters are actually used to (spoiler alert: the doc is getting updated regarding this)! This is why, after having added `interpreter_constraints=parametrize(py38=["==3.8.*"], py39=["==3.9.*"])` to one `python_sources` declaration, I tried to reproduce my regular CI setup with Pants, using a [matrix](https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs) with one Python version available in each instance of the matrix, and restricting targets to the running interpreter with [`–filter-tag-regex`](https://www.pantsbuild.org/docs/advanced-target-selection#--filter-tag-regex).
+
+What a fool I was! After having asked for helped on Pants' [#general Slack channel](https://pantsbuild.slack.com/archives/C046T6T9U), I realized that **the interpreter used to run Pants is independent from the interpreters that Pants uses for executing targets. This simplified the CI setup, because I could get rid of the matrix and simply install all required Python versions in a single job**, which is straightforward because the GitHub [`setup-python`](https://github.com/actions/setup-python) action can be used multiple times in a single job.
+
+Pants' documentation gives its `interpreter_constraints` example on a `python_sources` declaration, which is the first thing I tried. However, having multiple Python versions in `python_sources` is contaminating, because many targets depend on `python_sources`. For example `python_distribution` depends on `python_sources`, but `python_distribution` doesn't support multiple interpreters: it requires specifying an exact version. Generalizing `python_sources` hence proved creating noise in `BUILD` files, for little advantages.
+
+A simpler way to proceed was to put `interpreter_constraints` on `python_tests` declarations. This is less intrusive because `python_tests` declarations typically do not have other targets depending on them. Tests are also the first thing you usually want to generalize, because they are obviously sensitive to different Python versions. Typechecking is another such target, but I wasn't able to try generalizing it yet, since we are waiting for pyright support to be production ready, as explained above.
+
+Finally, to support multiple Python versions, you need to generalize the `interpreter_constraints` declaration in the top-level `pants.toml` file. When you change this declaration, you typically need to regenerate lockfiles with `./pants generate-lockfiles`, because lockfiles are affected by the possible Python version. While doing so, I encountered two issues which were quickly solved by discussing on Pants' Slack:
+
+1.  Despite having regenerated its lockfile, black was failing with: `InvalidLockfileError: You are using the lockfile at pants-utils/3rdparty/python/black_lockfile.lock to install the tool black, but it is not compatible with your configuration.` This proved to be caused by Pants sometimes picking up a default `interpreter_constraints` instead of the global one declared in _pants.toml_. Copying the `interpreter_constraints` declaration of the `[python]` section to the `[black]` section solved the problem.
+2.  When generalizing to use both Python 3.8 and Python 3.9, I had written _`interpreter_constraints`_ in the form `["==3.8.*", "==3.9.*"]`. However I was facing error messages of the form _`Expected a single interpreter constraint for libs/kaiko:kaiko-lib-dist, got: CPython!=3.9.*,==3.8.* OR CPython!=3.9.*,==3.9.*.`_ At this point I was puzzled since the conjunction to the right is unsatisfiable and I expected it would be eliminated automatically. However, it turned out that my `interpreter_constraints` was better written `[">=3.8,<3.10"]`. Albeit equivalent to the previous one, this one is better supported. My initial `["==3.8.*", "==3.9.*"]` constraint uses a historical disjunction that dates back to Pants v1 and is now legacy. Better avoid it.
+
+## Conclusion
+
+My overall impression of introducing Pants to my client is very positive. Because day-to-day developers were sensitive to limiting boilerplate, Pants was easily accepted. For authors and maintainers of the CI, Pants greatly simplified the existing pipelines, by avoiding the need for matrices, and by avoiding manual triggers for scaling (we use Pants' [`–changed-since`](https://www.pantsbuild.org/docs/reference-changed) feature for having the CI scale).
+
+The fast feedback loop with Pants' developers as well as helpful support on Slack also made for a great journey. Thanks everyone for your support! ❤️

@@ -1,0 +1,52 @@
+---
+title: scalac
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Scala compiler.
+
+Backend: <span className="color--primary">`pants.backend.experimental.scala`</span>
+
+Config section: <span className="color--primary">`[scalac]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--scalac-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_SCALAC_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to scalac, e.g. `--scalac-args='-encoding UTF-8'`.
+
+</Option>
+
+### `plugins_for_resolve`
+
+<Option
+  cli_repr={`--scalac-plugins-for-resolve="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SCALAC_PLUGINS_FOR_RESOLVE'
+  default_repr={`{}`}
+>
+
+A dictionary, whose keys are the names of each JVM resolve that requires default `scalac` plugins, and the value is a comma-separated string consisting of scalac plugin names. Each specified plugin must have a corresponding `scalac_plugin` target that specifies that name in either its `plugin_name` field or is the same as its target name.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

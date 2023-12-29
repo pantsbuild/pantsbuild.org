@@ -1,0 +1,117 @@
+---
+    authors: [benjy]
+    tags: [announcement]
+---
+
+# Tailoring Pants to your codebase
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Yasamine
+  June](https://unsplash.com/@yasamine?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+**TL;DR The `tailor` goal, newly available in Pants 2.3.0, generates BUILD file boilerplate for you, making adopting Pants easier than ever!**
+
+Pants is a powerful system that brings speed and stability to your builds thanks to features such as fine-grained invalidation, caching, and concurrent execution.
+
+These features rely on metadata that describes your code and its dependencies. So, as with other build systems, the price you pay for scalability and performance is having to maintain metadata about your code, in the form of [BUILD files](https://www.pantsbuild.org/docs/targets).
+
+Creating and updating BUILD files can be quite a chore, especially when first integrating Pants into an existing repo. And a key goal of the Pants Build project is to make users' lives easier, not harder!  To achieve this goal we've made several ongoing efforts to minimize the burden of creating and maintaining this metadata.
+
+## Reducing the BUILD maintenance burden
+
+One way we cut down on BUILD boilerplate is by giving fields in target definitions sensible default values where possible.
+
+So, for example, consider this target:
+
+```python caption="src/python/rentacar/models/BUILD - very verbose"
+python_library(
+  name = "models",
+  sources = ["car.py", "driver.py", "agreement.py", "insurance.py"],
+  dependencies = [
+    "src/python/rentacar/base",
+    "src/python/rentacar/util",
+  ]
+)
+```
+
+It can actually be written more succinctly as:
+
+```python caption="src/python/rentacar/models/BUILD - more succinct"
+python_library(
+  dependencies = [
+    "src/python/rentacar/base",
+    "src/python/rentacar/util",
+  ]
+)
+```
+
+because the `name` field defaults to the directory name, and the `sources` field for a `python_library` defaults to `*.py` (minus test files such as `*_test.py`)_._ These defaults have been available all the way back to early versions of Pants 1.x.
+
+But in Pants 2.x that same target can be written _even more_ succinctly as:
+
+```python caption="src/python/rentacar/models/BUILD - very succinct"
+python_library()
+```
+
+thanks to [dependency inference](https://www.pantsbuild.org/docs/targets#dependencies-and-dependency-inference), which infers the dependencies at runtime based on `import` statements in the source files. Sometimes you do have to manually add dependencies that can't be inferred, but those are usually the exception.
+
+So Pants 2.x BUILD files can be very concise, but you do still need to provide at least those trivial target definitions.  And that can be a bit of a hassle.
+
+Well now, in Pants 2.3.0, you can use the aptly-named `tailor` goal to generate that remaining BUILD file boilerplate, hassle-free!
+
+Because, you know, a tailor makes your pants fit? I'll show myself out...
+
+## How it works
+
+You run
+
+```
+./pants tailor
+```
+
+That's it. It's that simple!
+
+When you run the `tailor` goal, Pants will scan your repo for file types it recognizes that don't belong to existing targets, and create new targets for them, either appending to existing BUILD files or creating new ones as needed.
+
+For example, if Pants sees the following files in a directory with no BUILD file:
+
+```text caption="src/python/rentacar/models"
+agreement.py
+agreement_test.py
+car.py
+driver.py
+driver_test.py
+insurance.py
+models.proto
+base.proto
+```
+
+then it'll generate the following BUILD file:
+
+```python caption="src/python/rentacar/models/BUILD - generated"
+python_library()
+
+python_tests(name="tests")
+
+protobuf_library()
+
+```
+
+If there was an existing BUILD file in the directory, and some of the files were already owned by targets in that BUILD file, then `tailor` will append targets that cover just the unowned files.
+
+The `tailor` goal tries to generate targets that rely on default values when it can, but it has mechanisms to prevent naming collisions or sources overlapping across multiple targets. So it will give a target an explicit name, or enumerate its sources, if it must.
+
+Importantly, `tailor` _never_ modifies existing targets, so you can run it safely without impacting existing metadata.
+
+`tailor` works hand-in-hand with dependency inference - generated targets would be of very limited use use if you then had to manually stitch them together by adding dependencies everywhere.
+
+`tailor` may not do the right thing in _every_ case, but that's OK - you can tweak the generated metadata manually before checking it into the repo.
+
+The `tailor` goal is exceptionally useful for new repos integrating Pants: you can generate the BUILD file scaffolding and get started in minutes. But you can also run `tailor` in an ongoing way: as your repo grows and changes, re-run `./pants tailor` to ensure that your BUILD files keep up.
+
+So give Pants 2.3.0 and `tailor` a whirl - you may find that it's a perfect fit for your repo!

@@ -1,0 +1,285 @@
+---
+    authors: [sj]
+    tags: [python,deployment]
+---
+
+import Admonition from "@theme/Admonition";
+
+# Packaging Python with the PyOxidizer Pants Plugin
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Jay
+  Heike](https://unsplash.com/@jayrheike?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Alliterations aside, this post discusses the new PyOxidizer integration coming in Pants 2.10 for packaging Python applications.
+
+{/* truncate */}
+
+---
+
+Let's talk about Python!
+
+As a language, Python is very expressive, succinct, and typically requires the least effort and code to solve my problems - huge win. I can write custom command lines, automation tools, and even API servers in as little as a few minutes. Awesome.
+
+Python's tooling and ecosystem is fantastic, but the development workflow surrounding dependency management, testing, linting, formatting, and other pre-release tasks is a bit kludgey. I had scripts upon scripts to handle virtual environment creation, pip installs, code generation, and then a bunch of other tasks. It mostly worked, but it wasn't pretty. Then I discovered Pants and all of those dev-only bash scripts disappeared overnight in place of a few simple BUILD files and the confidence of reliable, reproducible, and much faster builds. More awesome.
+
+Python's application packaging and distribution stories, however… Well, those are significantly less awesome. It's always been a bit tricky distributing my Python code because of package management, Python interpreter management, etc. Also, trying to ask non-devs to install/run Python code never goes well.
+
+Every year or so, I take a few days to look at the state of Python's packaging and distribution and play around with the options. Every year I try out the latest and greatest from all the usual suspects - but this year was different. I decided to try out PyOxidizer… and then I made a Pants plugin for it.
+
+Now I, at long last, have a fully integrated end-to-end Python workflow that starts with me typing code and ends with a fully tested executable binary.
+
+## What is PyOxidizer?
+
+PyOxidizer is a command-line tool (or Rust crate) which packages/creates distributions for Python applications. It functionally falls into a class of Python packagers called "[freezers](https://docs.python-guide.org/shipping/freezing/)".
+
+## What is freezing?
+
+The goal of freezing is to create a standalone, single-file executable which can be distributed to end-users. It "just works".
+
+A "frozen" application comes pre-packaged with all of your application code, dependencies, and a Python interpreter. This way, your application isn't reliant on the user having already installed the compatible version of Python on their computer.
+
+This freezing process isn't free, however. Embedding a Python interpreter incurs a size hit on the final bundle.
+
+## How does PyOxidizer work?
+
+The PyOxidizer process is [thoroughly documented](https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_overview.html#how-it-works), but as a **very** hand-wavy TLDR: Your Python application, dependencies, and a Python interpreter are all embedded into a Rust application. When you call the resulting binary executable, you're actually calling Rust which drives Python (and thus, your Py application).
+
+## How is that different from using a PEX?
+
+Anyone who has used Pants for Python tooling has inevitably come across [PEX](https://pex.readthedocs.io/en/latest/whatispex.html#whatispex) files (short for "Python Executable" files). A PEX file is a self-contained, executable Python virtual environment. It's basically a special zip file that a Python interpreter knows how to run.
+
+From the outside, the main functional difference between a PEX file and a PyOxidized application is that the PEX file requires a compatible Python interpreter on the host system, whereas the PyOxidized application embeds the Python interpreter.
+
+For an even better TLDR, I can [quote the docs](https://www.pantsbuild.org/v2.10/docs/pyoxidizer):
+
+> PyOxidizer allows you to distribute your code as a single binary file, similar to Pex files. Unlike Pex, these binaries include a Python interpreter, often greatly simplifying distribution.
+
+## How can PyOxidizer change my workflow?
+
+Since I started on this plugin a few weeks ago, I've had two major modifications in my packaging and deployment workflows.
+
+### Command-line Applications
+
+I write a lot of CLIs to speed up certain common workflows for team members. Most recently, I wrote a CLI with [Typer](https://typer.tiangolo.com/) to handle user management administration on Firebase.
+
+In order to use this tool, developers would clone the repo and run the commands using Python or alternatively, they would use the latest released PEX file on Github. This works fine, so long as everyone is on roughly the same Python version.
+
+The distribution process became a bit more difficult when dealing with QA or non-technical account managers. Running the script was simple, but it was definitely tedious to have to get on a Zoom call to walk people through installing Python and then debug any problems that arose along the way.
+
+Now, with a PyOxidized CLI, I haven't had to hop on a Zoom call in weeks.
+
+### Server Applications
+
+Before PyOxidizer, my server deployment workflow consisted of creating [Docker](https://www.docker.com/) images with the correct Python base image, copying my `.pex` binaries into those containers, and using that as a distribution. It became easier with [Docker support in Pants](../2021-10-13-pants-pex-and-docker/index.mdx), as Docker handles the copying and a few other tedious items.
+
+This solution has worked well for a long time, but it has always bugged me that I need Docker installed on all of my target systems. I have no problem with Docker, and I use it all the time to create custom development and build environments, but for a lot of my smaller deployments - I feel as though I'm using a sledgehammer to put up a painting.
+
+Using PyOxidizer, however, my deployments consist of a `scp` and dropping my `systemd` service files in the right location (all using [Ansible](https://www.ansible.com/), of course).
+
+<Admonition type="info" icon="✏️" title="Aside">
+  This was my first Pants plugin and to make the experience easier for fellow
+  newcomers, I wrote a post on my personal blog about developing [your first
+  Pants plugin](https://sureshjoshi.com/development/first-pants-plugin).
+</Admonition>
+
+## I'm sold, how do I use it?
+
+Fortunately, I've already answered some/all of that question in the first [Pants PyOxidizer plugin pull request (or PPPPR™ for short)](https://github.com/pantsbuild/pants/pull/14183), so I'll just quote that below. This PPPPR was accepted and Pants PyOxidizer support will be included in the 2.10 release.
+
+> Adding a new experimental plugin for creating executable binaries using PyOxidizer.
+>
+> The plugin's current functionality is proof-of-concept, with minimal configuration capabilities, and minimal edge-case checking
+>
+> The new `pyoxidizer_binary` target expects a wheel-based python distribution dependency, and optionally supports a PyOxidizer configuration template (with the extension `.bzlt`). If no template is specified, it will use a default configuration with reasonable defaults. The complexity of PyOxidizer's configuration, however, would suggest custom configurations will be the norm. Additionally, a `filesystem_resources` target field exists to handle certain edge cases listed in PyOxidizer's documentation (unclassified resource dependencies). The `entry_point` field is optional, however, if it is not included - the PyOxidizer binary will default to a REPL.
+>
+> Recent versions of PyOxidizer require Python 3.8 or greater - which is setup as a default `interpreter_constraint`.
+>
+> The only other option is to set command-line args (e.g. setting release mode, or setting the target tuple).
+
+```toml title="pants.toml"
+[pyoxidizer]
+interpreter_constraints = [">=3.9"]
+args = ["--release"]
+```
+
+```python title="BUILD"
+python_sources(name="libhelloworld", sources=["**/*.py"])
+
+python_distribution(
+    name="helloworld-dist",
+    dependencies=[":libhelloworld"],
+    wheel=True,
+    sdist=False,
+    provides=python_artifact(
+        name="helloworld-dist",
+        version="0.0.1",
+        description="A distribution for the hello world library.",
+    ),
+)
+
+pyoxidizer_binary(
+    name="helloworld-bin",
+    entry_point="helloworld.main", # Optional
+    template="pyoxidizer.bzlt", # Optional
+    filesystem_resources=["numpy"], # Optional
+    dependencies=[":helloworld-dist"],
+)
+```
+
+```bash
+./pants --version
+./pants package helloworld:
+```
+
+Packaging takes about a minute, and then you have a shiny new binary in your `dist` folder (under your architecture and debug/release folders).
+
+For more examples, check out this [sample repo](https://github.com/sureshjoshi/pants-pyoxidizer-example) with some supporting code for this post. For more examples of how to use PyOxidizer with (or without) Pants, I maintain a [pants-plugins repo](https://github.com/sureshjoshi/pants-plugins) where I am working on some new plugins. Additionally, that repo contains example projects using various libraries - and each project has a working PyOxidizer configuration and whatever workarounds I needed to do in order to package them.
+
+## This sounds too good to be true, what's the catch?
+
+Well, that depends on how you look at it.
+
+### Chunky files
+
+As mentioned earlier, there is a definite size impact by packaging a Python interpreter. On my MacOS 12.1 system (Intel), a single-file, "Hello World" application created a 55MB PyOxidized binary file. Whether hosting and distributing packages of this size is a problem is entirely dependent on your workflow. Personally, I don't mind it. If I'm deploying to a server, the ease of copying a few single-file applications, instead of re-running a Docker pipeline outweighs the extra few seconds the transfer takes. This is similar for distributing automation and scripting tools to end-user machines. The files do feel a bit chunky, but not prohibitively so.
+
+On the other hand, deploying some of these applications to my embedded Linux systems is a bit of a harder sell. A single 50MB Hello World application is already twice the size of the rest of the root filesystem and kernel.
+
+I should note, if your files are even larger than what I've mentioned, ensure you've set the `--release` argument for PyOxidizer in `pants.toml` as shown in the code and configuration above. Compilation and packaging takes a bit more time, but the final result is smaller.
+
+### Single-ish file executable
+
+The "single binary file" is a bit of a stretch too at the current state. If you're simply packaging source code, then yes, it is a single file. However, if you're packaging application-level or dependencies with compiled files - then there will need to be a folder of those files on the filesystem next to your binary. This is discussed more below.
+
+### All the Pythons
+
+Selecting Pants Python interpreters in a coherent manner to avoid differing behaviour on developer machines, CI, and even in production, requires careful thought. Fortunately for all of us, Alexey Tereshenkov has taken care of most of that thought in his great (and aptly named) blog post: [Choosing a Python interpreter for a Pants project](../2022-02-15-choosing-a-python-interpreter-for-a-pants-project/index.mdx)
+
+During packaging, PyOxidizer will take that Python interpreter and bundle it in each and every binary executable. Some people might find it odd or unsettling that they have so many Python interpreter "copies" floating around on their machine. Personally, I find it comforting. I think the version of your Python interpreter should be viewed as a classical dependency, and thus, versioned and lockfile'd just like any other dependency in your project.
+
+## Frequently anticipated questions
+
+To get ahead of some inevitable problems/questions/comments that the typical user will run into…
+
+### My app doesn't run any faster
+
+Nope. Nor should it - not by any appreciable amount, anyways.
+
+PyOxidizer is embedding and bundling resources, maybe running some out of memory, perhaps the filesystem - but fundamentally, it's calling a Python interpreter to run your code. It's not compiling that code, nor doing any particular optimization that would induce a performance jump.
+
+In fact, there might even be a small hit caused by the Rust to embedded Python overhead, when compared against using a system Python interpreter.
+
+On my Mac Mini (6-core i5, 32GB DDR4), I get the following when comparing a PyOxidized [hellofib](https://github.com/sureshjoshi/pants-pyoxidizer-example/tree/main/hellofib) example (in release mode) against my system Python (3.9.10).
+
+Over 10 runs (about 2 seconds per run), the PyOxidized app takes ~100ms more per run. This equates to a 5% performance hit on this completely contrived example. In my day-to-day, real-world applications, I haven't really noticed any appreciable differences.
+
+```bash
+#! /bin/bash
+
+# Using the release PyOxidized binary
+for i in {1..10}; do
+    time ./dist/build/x86_64-apple-darwin/release/install/hellofib-bin
+done
+
+# Compared to the system Python calling my .py file
+for i in {1..10}; do
+    time python3 hellofib/hellofib/main.py
+done
+```
+
+## `sys.argv[0] is None`
+
+If you're writing code or using a library that needs your application's executable name (e.g. argparse/Click/Typer), you're in for a surprise. For instance, this is what happens when I run a `Typer` application.
+
+```txt
+Traceback (most recent call last):
+  File "runpy", line 197, in _run_module_as_main
+  File "runpy", line 87, in _run_code
+  File "hellotyper.main", line 9, in <module>
+  File "typer.main", line 864, in run
+  File "typer.main", line 214, in __call__
+  File "click.core", line 1128, in __call__
+  File "click.core", line 1045, in main
+  File "click.utils", line 528, in _detect_program_name
+  File "posixpath", line 142, in basename
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+```
+
+This is a [known PyOxidizer issue](https://github.com/indygreg/PyOxidizer/issues/307) - and [hellotyper](https://github.com/sureshjoshi/pants-plugins/tree/main/hellotyper) has an example workaround. At the top of your entry point file, you can add the following to force a `sys.argv[0]` if it doesn't already exist.
+
+```python title="main.py"
+import sys
+
+# Patch missing sys.argv[0] which is None for some reason when using PyOxidizer
+# Typer fails on this because it tries to emit the filename
+if sys.argv[0] is None:
+   sys.argv[0] = sys.executable
+   print(f"Patched sys.argv to {sys.argv}")
+```
+
+### I can't use `__file__`
+
+This one caused the most confusion when I ran into it.
+
+From the [documentation](https://pyoxidizer.readthedocs.io/en/stable/oxidized_importer_behavior_and_compliance.html#no-file):
+
+> when loading modules from memory, the traditional filesystem hierarchy of Python modules does not exist. In the opinion of PyOxidizer's maintainer, exposing `__file__` would be lying and this would cause more potential for harm than good.
+
+What this means is that neither your application code, nor your dependencies, can have code that uses `__file__` and also be stored in memory. This limitation, however, does not exist when your resources are [stored on the filesystem](https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_packaging_additional_files.html#installing-classified-resources-on-the-filesystem).
+
+> In scenarios where in-memory resource loading doesn't work, the ideal mitigation is to fix the offending Python modules so they can load from memory. But this isn't always trivial or possible with 3rd party dependencies.
+>
+> Your next mitigation should be to attempt to place the resource on the filesystem, next to the built binary.
+
+In the [default configuration template](https://github.com/pantsbuild/pants/blob/main/src/python/pants/backend/python/packaging/pyoxidizer/config.py), there is a hook to place these resources onto the filesystem, but it's up to the developer to tell the Pants BUILD target which dependencies need to be on the filesystem. Those deps will be `pip install`'d as `filesystem-relative` libs.
+
+For example, this target knows to package `numpy` on the filesystem in a `libs` folder next to the `hellonumpy-bin` file.
+
+```python title="BUILD"
+pyoxidizer_binary(
+    name="hellonumpy-bin",
+    entry_point="hellonumpy.main",
+    dependencies=[":hellonumpy-dist"],
+    filesystem_resources=["numpy"],
+)
+```
+
+For more context on the above snippet, please refer to the [hellonumpy example](https://github.com/sureshjoshi/pants-plugins/tree/main/hellonumpy).
+
+That folder also contains an example of a Pants-less NumPy [PyOxidizer configuration](https://github.com/sureshjoshi/pants-plugins/blob/main/hellonumpy/pyoxidizer.bzl) which can be run using PyOxidizer outside of the Pants ecosystem. The file represents roughly what Pants uses internally when hydrating the default configuration template with the `pyoxidizer_binary` target fields.
+
+### The default configuration template is too limiting
+
+If all else fails, you can always create a custom `pyoxidizer.bzlt`, place it next to the BUILD file, set the `template` field in the target - and your custom template will be used instead. For more information, please refer to the [documentation](https://www.pantsbuild.org/v2.10/docs/pyoxidizer) or run `./pants help pyoxidizer_binary`.
+
+[Full template example](https://github.com/sureshjoshi/pants-plugins/tree/main/hellotemplate).
+
+```python title="BUILD"
+pyoxidizer_binary(
+    name="hellotemplate-bin",
+    entry_point="hellotemplate.main",
+    template="pyoxidizer.bzlt",
+    dependencies=[":hellotemplate-dist"],
+)
+```
+
+If you do try using the default configuration template but need to fall-back to using a custom template, [please let us know](https://www.pantsbuild.org/docs/getting-help) so we can work on improving the default configuration.
+
+## Still a work-in-progress
+
+As this is the first PyOxidizer plugin release for Pants, it has an experimental status and an API subject to change, but hopefully there won't be too many breaking changes in the future.
+
+But, being in experimental status means this is also the best time to try it out, [provide feedback](https://www.pantsbuild.org/docs/getting-help), and help improve the Python packaging experience.
+
+## Recommended reading
+
+Before you start to use PyOxidizer, or this plugin, I **highly** recommend reviewing the excellent PyOxidizer documentation. In order to have the fewest surprises, these four links explain the parts with the most overlap between PyOxidizer and the Pants plugin.
+
+- [Overview](https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_overview.html)
+- [Getting Started](https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_getting_started.html#getting-started)
+- [Configuration Files](https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_config.html)
+- [Packaging Files Instead of In-Memory Resources](https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_packaging_additional_files.html)

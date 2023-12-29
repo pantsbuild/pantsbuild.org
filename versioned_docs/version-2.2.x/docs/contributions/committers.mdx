@@ -1,0 +1,79 @@
+---
+    title: Committers
+    position: 3
+---
+
+What Pants maintainers do and how to become one.
+
+---
+
+We welcome contributions from all developers.
+
+To guide these contributions, the Pants community has several committers (aka maintainers) with write access to the GitHub project. These committers have a proven track record of contributions to the community, both through code changes and through active participation in the community.
+
+## Committer responsibilities
+
+It is the responsibility of a committer to assist in upholding the health and quality of the project.
+
+- Committers are responsible for the quality of the changes that they approve.
+- Committers should raise objections to changes that may impact the performance, security, or maintainability of the project.
+- Committers should help shepherd changes from non-committers through our contribution process.
+- Committers should maintain a courteous and professional demeanor when participating in the community.
+- Committers should be regular participants on our public communications channels.
+
+:::note Releaser
+A releaser is a committer who has permission to publish releases to the `pantsbuild.pants` PyPI repository.
+
+Pants releasers maintain [a Google Calendar](https://calendar.google.com/calendar/b/0/embed?src=hvd8qnf6fnp5klnk7u46q1noeo@group.calendar.google.com&ctz=America/Los_Angeles) to coordinate who is on release duty. When it is time for a release, a releaser is responsible for updating the release documentation, creating release builds, and shepherding them through the review and [release process](./releases/release-process.mdx).
+
+Any committer may become a releaser by asking another releaser to be added to the release calendar.
+:::
+
+:::note Committer emeritus
+A committer may be placed on emeritus status. This is an honorary position for committers who were formerly active in the community but have retired from active Pants life. These committers do not have commit access to the repositories.
+
+The decision to place a committer on emeritus status is either by request or by a majority vote of the committers. If a committer has not participated in code reviews or contributed a patch to Pants within the past three months, an automatic recommendation for emeritus status may be put forward to the committers.
+:::
+
+## Becoming a committer
+
+Nominations for committers are discussed in the [pants-committers@googlegroups.com](mailto:pants-committers@googlegroups.com) group. The discussion will consider commits contributed to date and the participation of the contributor in reviews and public communication channels. Feedback is gathered on what might be required for the contributor to be approved as a committer.
+
+The minimum requirement to become a committer is evidence of at least 10 "significant contributions" to the open source repository. The definition of what constitutes a "significant contribution" is kept intentionally vague, but at a minimum, those contributions should:
+
+- Include changes that impact code, test, and documentation.
+- Be vetted by committers from multiple organizations.
+- Cover more than a single area of the Pants codebase.
+- Demonstrate knowledge of and willingness to follow project development processes and procedures.
+
+After approval by a vote of the current committers, a new committer has access to the following resources:
+
+- Commit access to the GitHub repo.
+- Ability to stop/restart builds on Travis-CI.
+- Access to the [pants-committers@googlegroups.com](mailto:pants-committers@googlegroups.com) group.
+
+A committer may also request access to publish changes to the org.pantsbuild groupId on the Maven Central Repository.
+
+:::note Becoming a Contributor
+Contributors are able to stop and restart builds on Travis CI and can request reviews from contributors and committers in GitHub. However, unlike committers, they do not have commit access nor voting power in contentious decisions.
+
+Often, becoming a contributor is the first step to becoming a committer.
+
+To become a contributor, a committer must have at least 3 "significant contributions" to the open-source repository, using the same criteria for determining eligibility to become a committer.
+
+A committer may nominate a contributor by emailing pants-committers@googlegroups.com or sending a message to the #committers channel in Slack. The nomination must receive at least two positive acknowledgments and no blocking concerns; it does not need a formal vote like required with committer nominations.
+:::
+
+## Contentious decisions
+
+To address cases where consensus cannot be reached even after an extended discussion, committers may use a vote to reach a conclusion.
+
+Before calling a vote, it's very important to attempt to reach consensus without a vote. Because discussion and collaboration help us to understand one another's concerns and weigh them, issues that are potentially contentious generally deserve a thread on [pants-devel@googlegroups.com](mailto:pants-devel@googlegroups.com): if you are unsure of whether an issue is contentious, consider sending the mail anyway.
+
+If it becomes clear that all concerns have been voiced, but that consensus cannot be reached via discussion, a committer may call a vote by creating a new thread on [pants-devel@googlegroups.com](mailto:pants-devel@googlegroups.com) with a subject line of the form `[vote] Should We X for Y?`, and a body that presents a series of the (pre-discussed) numbered choices. The committer should publicize the vote in relevant Slack channels such as `#infra` and `#releases`, and on the [pants-committers@googlegroups.com](mailto:pants-committers@googlegroups.com) list.
+
+Because the topic will already have been extensively discussed, the voting thread should not be used for further discussion: instead, it should be filled with responses containing only a list of the individual's ranked numerical choices (from first choice to last choice in descending order), with no rationale included. Individuals may change their votes by replying again.
+
+When a thread has not received any new responses in three business days, the committer who called the vote should reply to request any final votes within one business day (and restart the three day countdown if any new votes arrive before that period has elapsed). On the other hand, if new information is raised on the discussion (note: not voting) thread during the course of voting, the committer who called the vote might choose to cancel the vote and start a new voting thread based on that new information.
+
+When tallying the votes, only committer's votes will be counted: votes are counted using https://en.wikipedia.org/wiki/Instant-runoff_voting (the "last choice" alternative is eliminated round by round until only the target number of choices remains), using a simple majority of the participating (i.e., those who replied to the voting thread) committer's votes. Once the votes have been tallied, the committer should reply to the thread with the conclusion of the vote.

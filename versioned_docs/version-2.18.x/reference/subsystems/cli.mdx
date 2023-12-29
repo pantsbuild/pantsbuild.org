@@ -1,0 +1,52 @@
+---
+title: cli
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for configuring CLI behavior, such as command line aliases.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[cli]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `alias`
+
+<Option
+  cli_repr={`--cli-alias="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_CLI_ALIAS'
+  default_repr={`{}`}
+>
+
+Register command line aliases.
+
+Example:
+
+```
+[cli.alias]
+green = "fmt lint check"
+all-changed = "--changed-since=HEAD --changed-dependents=transitive"
+```
+
+This would allow you to run `scie-pants-linux-x86_64 green all-changed`, which is shorthand for `scie-pants-linux-x86_64 fmt lint check --changed-since=HEAD --changed-dependents=transitive`.
+
+Notice: this option must be placed in a config file (e.g. `pants.toml` or `pantsrc`) to have any effect.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

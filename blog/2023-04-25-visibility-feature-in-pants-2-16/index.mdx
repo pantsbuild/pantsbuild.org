@@ -1,0 +1,164 @@
+---
+    authors: [alexey]
+    tags: [python,development]
+---
+
+# Visibility features coming in Pants 2.16
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Ben
+  Hershey](https://unsplash.com/@benhershey?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Pants 2.16 introduces visibility features. These can be vital for keeping a monorepo's repository structure under control as the codebase grows. You'll benefit from having cleaner architecture and a dependency graph that is easier to reason about.
+
+{/* truncate */}
+
+---
+
+Continuing our series previewing Pants 2.16's coming attractions, one of the larger features introduced in 2.16 is [visibility rules](https://github.com/pantsbuild/pants/blob/main/docs/markdown/Using%20Pants/validating-dependencies.md). These rules provide a mechanism to help you control the accessibility of individual targets (such as source files) in your codebase.
+
+In codebases with languages that have visibility rules built into them such as Java or Scala, you are already using mechanisms that let you declare whether classes are visible outside of their packages. For other languages such as Python, you have to rely on conventions and agreements made within your engineering organization, optionally, writing some custom linting tools to help you spot prohibited imports to keep the dependency graph sane. In either case, Pants visibility feature lets you go beyond what is offered by any programming language as it can operate on build targets rather than individual code elements.
+
+Having the visibility rules declared may be important in a large codebase, particularly if it has multiple, often independent, projects or components. By using the visibility feature, you can:
+
+- Hide implementation logic behind an interface via a stable API
+- Enforce a clean interface between components and prevent cross-project dependencies
+- Deprecate safely by first raising warnings on deprecated usages and then at some point forbidding the imports
+- Refactor fearlessly knowing no one else directly depends on your implementation details
+
+Having the boundaries established between your codebase components has a few other benefits:
+
+## Code reuse and code extraction
+
+In a codebase model consisting of one or more shared libraries and multiple applications, an application may not be allowed to depend on code from a sibling application. That code would need to be extracted and, optionally, refactored to make it more generic and reusable by other applications.
+
+## Faster builds
+
+After having the dependency rule violations amended, changes in one component would no longer trigger tests in a sibling component. With fewer cache invalidations, you are likely to see improvements in build times; particularly if the modules used across multiple applications are large and are modified often.
+
+## Safer deployments
+
+If your components are released and deployed independently, a component shouldn't accidentally depend (potentially transitively) on code that is not included in the final deployment artifact such as an executable or an image.
+
+## Usage
+
+The visibility rules are declared in BUILD metadata files just like any other Pants metadata. This is an example of a ruleset declaration for a project that is not to be imported by anything else than itself and can only depend on its own code:
+
+```python title="src/projectA/BUILD"
+# Declare rules for targets that depend on projectA
+__dependents_rules__(
+      (
+            {"type": "*"},  # applies to every potential target
+            "//src/projectA/*",  # code within the project directory
+            "//src/projectA/**",  # code within the project, recursively
+            "//tests/**",  # tests can import the projectA files
+            "!*",  # no one else may import projectA files
+      )
+)
+
+# Declare rules for targets in projectA
+__dependencies_rules__(
+      (
+            {"type": "*"},  # applies to every target in projectA
+            "/**",  # may depend on anything in this subtree
+            "//3rdparty:upstream-requirements",  # may depend on 3rd-party packages
+            "!*",  # may not depend on anything else
+      )
+)
+```
+
+[Visibility documentation](https://www.pantsbuild.org/v2.16/docs/validating-dependencies) is going to be available soon. Feel free to ask on Slack if you need help!
+
+The way an organization would use the visibility rules may vary greatly. For a small codebase, one may only need to manually extend a few BUILD files with the `dependents` and/or `dependencies` rules. As your codebase evolves, you will adjust the BUILD files rules, for instance, by allowing an additional dependency or adding an exception to the list of actors who may depend on a component.
+
+For a more complex codebase, you may want to take a more structured approach to the declaration of the rules. It may be worthwhile to spend some time thinking about the dependency graph of your codebase and the relationships between its components. In a codebase with multiple independent applications, you would likely have identical (or almost identical) rules applied to them. For instance, you may want your application to depend only on certain shared libraries and prevent any code in the repository from depending on the application's code. To prevent code duplication, you may want to declare the rules using a [macro](https://www.pantsbuild.org/docs/macros). Coming back to our previous example of an isolated component, it could be wrapped into a macro that would let us declare exceptions for each component:
+
+```python
+def visibility_private_component(**kwargs):
+    """Private package not expected to be imported by anything else than itself."""
+    name = kwargs["name"]
+    allowed_dependencies = kwargs.get("allowed_dependencies", [])
+    allowed_dependents = kwargs.get("allowed_dependents", [])
+
+    __dependents_rules__(
+        (
+            {"type": "*"}, # applies to every target in the project
+            "//src/projectA/*",  # code within the project directory
+            "//src/projectA/**",  # code within the project, recursively
+            allowed_dependents,  # extra allowed dependents
+            "//tests/**",  # tests can import the projectA files
+            "!*",  # no one else may import projectA files
+        )
+    )
+    __dependencies_rules__(
+        (
+            "*",  # applies to everything in this BUILD file
+            "/**",  # may depend on anything in this subtree
+            "//3rdparty:upstream-requirements",  # may depend on 3rd-party packages
+            allowed_dependencies,  # extra allowed dependencies
+            "!*",  # may not depend on anything else
+        )
+    )
+```
+
+Having this macro, you can keep your BUILD files concise:
+
+```python title="src/libraryA/BUILD"
+python_sources()
+python_tests()
+visibility_private_component(
+      name="libraryA",
+      allowed_dependencies=["src/common/helpers"],
+      allowed_dependents=["//reporting/tools"],
+)
+```
+
+```python title="src/libraryB/BUILD"
+python_sources()
+python_tests()
+visibility_private_component(
+      name="libraryB",
+      allowed_dependencies=["src/shared/images"],
+      allowed_dependents=["reporting/tools"],
+)
+```
+
+There's [ongoing work](https://github.com/pantsbuild/pants/pull/17671) to extend the `lint` goal so that you could validate all project dependencies:
+
+```shell-session
+$ ./pants lint --only=visibility --no-visibility-enforce ::
+```
+
+Before this is available, you can trigger analysis of all dependencies via the `pants dependencies ::` command that would cause evaluation of all visibility rules.
+
+## Building a proof of concept (PoC)
+
+In the early stages, instead of starting to code the rules, it may make sense to first spend some time sketching out the rules that you would like to apply to the targets in the codebase. You may need to consult any design documents and generate some graphs to be able to reason about the components in your codebase and the relationships between them. We recommend to ask yourself the following questions:
+
+- For sources, should there be any restrictions on who can depend on the code in a directory or a package and what code in a directory or a package can depend on?
+- For tests, if having multiple test suite types, should there be any restrictions on what code can be shared between those and where would you want to place any test support code?
+- For non-code resources, should there be any restrictions on where these can be stored and used?
+- How much effort would it be to refactor the codebase to fix violating imports and enforce the visibility ruleset?
+
+Later on, before rolling out the visibility rules across your organization, you may start with a pilot project which would give you a chance to analyze how the relationships between the targets in the codebase are laid out. You may start with a project that is easy to reason about and the dependencies of which are much easier to refactor once you'll start enforcing the visibility rules. During the trial, you should become comfortable with the concepts and how the rules work in practice and figure out what rules make sense to apply.
+
+An alternative strategy would be to start with the most complex project to see whether the visibility rules would work for you at all. There is a chance that the initial ruleset declaration syntax as introduced in 2.16 may not be expressive enough yet for your organization's needs. In this case, you should reach out to us on Slack since we'd be very interested in hearing about your use case! If you can't wait for the feature to be extended in future versions to cover your scenario, you could still proceed with coarse-grained rule declarations (e.g. sources in a certain directory may not depend on sources in another directory) and should still be able to see the improvements of the overall code design.
+
+## Enforcing the rules
+
+Once you are done with the PoC, you'll be able to see the warnings produced when running the `lint` goal. You would have to decide whether the violation of the boundaries you have established between the repository components should fail your CI builds or not. There may be too many violations in the codebase which would often be the case for a legacy codebase that hasn't been written with the visibility of packages in mind. This is particularly true for large, monolithic codebases where there are only a couple of final artifacts often deployed along each other.
+
+For a large Python project, you will likely get a few false positives if you have enabled the [python-infer.string_imports](https://www.pantsbuild.org/docs/reference-python-infer#string_imports) option to pick up string literals that look like dynamic dependencies. For instance, you may be generating a log or a report file that happens to coincide with the name of the module declared in the project that a particular module should not depend on. If it's not obvious why a module depends on another module, try running the `paths` goal to find out if it is due to a transitive dependency you've overseen. The `peek` goal output would also include a variety of information about the visibility rules you have in your BUILD files which may help you troubleshoot when you cannot explain the reason for having a violation.
+
+Coming up with a solid strategy on handling the violations is crucial at this point. You may want to fix all the violations before enforcing the rules. Alternatively, you can add the violating imports as exceptions in your visibility ruleset to enforce the ruleset immediately and fix the violations later. Keep in mind that if your build pipeline is slow and your codebase is very large, you may want to think carefully and run extensive experiments before merging your changes. This is because editing the BUILD files (which is what would happen after you adjust your macro declaration) would mark all the targets declared in those BUILD files as changed which would invalidate any cache you may have which would cause additional build stages or more computations to run.
+
+When declaring the visibility policy, you can either warn (using `?`) or error (using `!`) when finding a violation. Depending on the strategy chosen, you would need to pick one accordingly: if you enforce the ruleset immediately, it makes sense to only warn about the issues while you work on fixing them and if you have already addressed all the relevant violations, then you can start failing the builds in CI, if you'd like to. Keep in mind that if it is strictly forbidden to depend on a particular target, whenever you run a Pants goal that would inspect that target's dependencies, an error would be shown and the process fails. This can make local exploratory development and testing harder in cases where developers would like to avoid having any restrictions while they experiment and iterate. If you think this could be a concern, you may want to go with the warnings only which you can accumulate and present to the users in a CI build console or in a pre-push error message.
+
+## Conclusion
+
+Having dependency rules declared in a large monorepo is often essential since it helps hide implementation details, exposing only your shared library's public interfaces which are vital to keep the repository structure under control as your codebase grows. It is possible to author sophisticated, fine-grained rules to operate on individual files level, but you can also declare the rules very coarsely to cover only the most critical parts of your codebase. In either case, you'll benefit from having a cleaner code architecture and a dependency graph that is easier to reason about.
+
+To help you get started, there's a [GitHub repository](https://github.com/pantsbuild/example-visibility) with a simple Python project where we have written some basic rules so that you could try to tweak them and explore. We do understand that despite having the visibility feature developed to be very generic to cover most use cases, it's possible that you would struggle to find a way to express your particular visibility ruleset that makes sense for your organization. Don't stay out in the dark - please reach out to us on Slack and we'd love to take a look! As always, we welcome your questions, feedback, and ideas for continuing to make Pants more adaptable to your needs.

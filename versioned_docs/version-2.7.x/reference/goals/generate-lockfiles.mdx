@@ -1,0 +1,91 @@
+---
+title: generate-lockfiles
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants generate-lockfiles [args]
+```
+
+Generate lockfiles for Python third-party dependencies.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[generate-lockfiles]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `resolve`
+
+<Option
+  cli_repr={`--generate-lockfiles-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GENERATE_LOCKFILES_RESOLVE'
+  default_repr={`[]`}
+>
+
+Only generate lockfiles for the specified resolve(s).
+
+For now, resolves are the options scope for each Python tool that supports lockfiles, such as `black`, `pytest`, and `mypy-protobuf`. For example, you can run `./pants generate-lockfiles --resolve=black --resolve=pytest` to only generate the lockfile for those two tools.
+
+If you specify an invalid resolve name, like &#x27;fake&#x27;, Pants will output all possible values.
+
+If not specified, Pants will generate for all resolves.
+
+</Option>
+
+## Advanced options
+
+### `custom_command`
+
+<Option
+  cli_repr={`--generate-lockfiles-custom-command=<str>`}
+  env_repr='PANTS_GENERATE_LOCKFILES_CUSTOM_COMMAND'
+  default_repr={`None`}
+>
+
+If set, lockfile headers will say to run this command to regenerate the lockfile, rather than running `./pants generate-lockfiles --resolve=<name>` like normal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [bandit](../subsystems/bandit.mdx)
+- [black](../subsystems/black.mdx)
+- [coverage-py](../subsystems/coverage-py.mdx)
+- [docformatter](../subsystems/docformatter.mdx)
+- [download-pex-bin](../subsystems/download-pex-bin.mdx)
+- [flake8](../subsystems/flake8.mdx)
+- [grpc-python-plugin](../subsystems/grpc-python-plugin.mdx)
+- [ipython](../subsystems/ipython.mdx)
+- [isort](../subsystems/isort.mdx)
+- [lambdex](../subsystems/lambdex.mdx)
+- [mypy](../subsystems/mypy.mdx)
+- [mypy-protobuf](../subsystems/mypy-protobuf.mdx)
+- [pex](../subsystems/pex.mdx)
+- [poetry](../subsystems/poetry.mdx)
+- [protoc](../subsystems/protoc.mdx)
+- [pylint](../subsystems/pylint.mdx)
+- [pytest](../subsystems/pytest.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [python-protobuf](../subsystems/python-protobuf.mdx)
+- [python-repos](../subsystems/python-repos.mdx)
+- [python-setup](../subsystems/python-setup.mdx)
+- [setuptools](../subsystems/setuptools.mdx)
+- [shell-setup](../subsystems/shell-setup.mdx)
+- [shellcheck](../subsystems/shellcheck.mdx)
+- [source](../subsystems/source.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
+- [yapf](../subsystems/yapf.mdx)
+
+</span>

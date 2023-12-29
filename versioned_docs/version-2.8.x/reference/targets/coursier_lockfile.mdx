@@ -1,0 +1,54 @@
+---
+title: coursier_lockfile
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A Coursier lockfile along with references to the artifacts to use for the lockfile.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `source`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A single Pants Coursier Lockfile source.
+
+Use `./pants coursier-resolve ...` to generate (or regenerate) the Lockfile. If the Lockfile doesn&#x27;t exist on disk, the first run of `coursier-resolve` will attempt to generate it for you to the default file name (&#x27;coursier_resolve.lockfile&#x27;). After running `coursier-resolve` for the first time, you should update this field&#x27;s`sources` to explicit take ownership of the generated lockfile.
+
+</Field>
+
+</span>

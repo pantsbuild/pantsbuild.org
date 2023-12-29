@@ -1,0 +1,60 @@
+---
+    title: Setting up an IDE
+    position: 10
+---
+
+---
+
+If you use a code-aware editor or IDE, such as PyCharm or VSCode, you may want to set it up to understand your code layout and dependencies. This will allow it to perform code navigation, auto-completion and other features that rely on code comprehension.
+
+## First-party Sources
+
+To get your editor to understand the repo's first-party sources, you will probably need to tell it about the repo's [source roots](./key-concepts/source-roots.mdx). You can list those with:
+
+```shell title="shell"
+$ ./pants roots
+```
+
+and then apply the corresponding IDE concept. For example, in PyCharm you would mark each source root as a "Sources" folder.
+
+## Third-party Dependencies
+
+To get your editor to understand the repo's third-party dependencies, you will probably want to point it at a virtualenv containing those dependencies.
+
+To generate this virtualenv, you can use something like:
+
+```shell title="shell"
+VENV=/path/to/venv
+python3 -m venv "${VENV}"
+"${VENV}/bin/pip" install -r <(./pants --no-pantsd --tag=-lockfile_ignore dependencies --type=3rdparty ::)
+```
+
+and then point the IDE at the virtualenv at `/path/to/venv`.
+
+For example, in PyCharm you would select this virtualenv's `bin/python` as the Project SDK.
+
+Note that this only works if a single consistent global resolve is possible for your repo. If not, you'll have to segment the set of requirements returned by that `./pants dependencies` command appropriately, generate multiple virtualenvs, and set up separate IDE modules for each.
+
+## Generated code
+
+If you're using protocol buffers, you may want your editor to be able to index and navigate the generated source code.
+
+Normally Pants treats generated code as an internal byproduct, and doesn't expose it. But you can run the `export-codegen` goal to generate code to a well-known output location for consumption:
+
+```shell title="shell"
+$ ./pants export-codegen ::
+```
+
+The generated code will be written to `dist/codegen`, and you can now add them as sources in the IDE.
+
+For example, in PyCharm you would mark `dist/codegen` as a "Sources" folder.
+
+## Remote debugging
+
+You can use PyCharm to debug code running under Pants.
+
+See the following links for instructions on how to do so under the [test goal](../python/goals/test.mdx) and under the [run goal](../python/goals/run.mdx).
+
+## IDE integrations
+
+We have not yet developed tight IDE integrations, such as a PyCharm plugin or a VSCode extension, that would allow the IDE to run Pants on your behalf. If you're interested in developing this functionality for your favorite IDE, [let us know](/community/members)!

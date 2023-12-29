@@ -1,0 +1,76 @@
+---
+    authors: [benjy]
+    tags: [python,deployment]
+---
+
+# Pants supports PEP 517
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Alessandra
+  Caretto](https://unsplash.com/@alessandracaretto?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+> TL;DR The upcoming Pants 2.8 release has [greatly improved support](https://www.pantsbuild.org/v2.8/docs/python-distributions) for packaging Python distributions (sdists and wheels), including native extensions, by leveraging PEP 517.
+
+Pants has industry-leading support for Python builds - covering steps such as resolving 3rd-party dependencies, running tests, generating code, running formatters and linters, packaging python executables, building Docker images, and more.
+
+One important build step that Pants has supported for a long time is building Python package distributions, namely [sdists](https://packaging.python.org/overview/#python-source-distributions) and [wheels](https://packaging.python.org/overview/#python-binary-distributions).
+
+We just cut the [first release candidate](https://pypi.org/project/pantsbuild.pants/2.8.0rc0/) for Pants 2.8, so this is a good time to talk about the significant enhancements to its distribution-building capabilities, including support for [native extensions](https://docs.python.org/3/extending/extending.html) and for [PEP-517](https://www.python.org/dev/peps/pep-0517/).
+
+## Why package distributions anyway?
+
+Historically, there hasn't been an obvious answer to the question "how do I deploy my Python code?" But typically it has involved some variation on:
+
+- Packaging your code into distributions (sdists and/or wheels)
+- Publishing that code (either to public [PyPI](https://pypi.org/) or to a private package repository)
+- Consuming it in the deployment environment in the same way as you consume any third-party dependency.
+
+That is, you build a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/#creating-a-virtual-environment) and install your own code into it in the same way you would install third-party dependencies, using requirement strings, such as `mypackage==1.2.3`.
+
+Pants, on the other hand, allows you package your code into a single PEX (Python EXecutable) file, that contains all the first-party source code and third-party dependencies. I've written about some of the advantages of PEX as a deployment format [here](../2021-10-13-pants-pex-and-docker/index.mdx), and we'll be posting more on that subject in the near future.
+
+So it's true that in many cases Pants allows you to forgo building distributions!
+
+However, you do often still need to build sdists and wheels, for various reasons, such as:
+
+- You want to publish your code, privately or publicly, for consumption by other repos.
+- You have legacy architecture that expects to consume code as distributions.
+- You have native extensions that have to be built via legacy mechanisms such as setuptools.
+- You just prefer to!
+
+Whatever the reason, Pants is able to build distributions for you, and in the upcoming 2.8 release that ability has been greatly improved.
+
+## Setuptools
+
+For a long time, [Setuptools](https://setuptools.pypa.io/) was the de-facto standard mechanism for building Python distributions. So, naturally, Pants relied on Setuptools to package your Python code into publishable distributions.
+
+Setuptools relies on a `setup.py` script that you write, and that contains the instructions on what code to package into the distribution, and what the requirements and other metadata of the distribution should be.
+
+A lot of the information needed by a `setup.py` script, such as code and dependency structure, is already known to Pants. So Pants is able to [generate](https://www.pantsbuild.org/docs/python-distributions) the script for you, based on that information. This was really useful in a repo that contains code for many different distributions: Instead of manually maintaining a lot of boilerplate in multiple `setup.py` scripts, Pants would generate that for you, while ensuring that a given source package "belongs" to only one distribution.
+
+But sometimes you do need to author your own `setup.py` script, to cover custom situations. One important example is when building native extensions. So Pants 2.8 adds support for using pre-existing `setup.py` scripts: if you turn off the auto-generation for a specific distribution, or repo-wide, Pants will use a `setup.py` script in the appropriate location in the source tree.
+
+## PEP 517
+
+But there's more! [PEP 517](https://www.python.org/dev/peps/pep-0517/) is a newer standard for specifying how a distribution should be built. Under PEP 517 (and its companion standard, [PEP 518](https://www.python.org/dev/peps/pep-0518/)) you use `pyproject.toml` to specify the python requirements and entry point for the builder code. This information is referred to as a "build backend".
+
+> Fun fact: These PEPs were the genesis of `pyproject.toml`! The fact that various tools jumped on the bandwagon and started using that file for their own config is an unintentional byproduct that got retconned into the standard. Learn more in this [very informative post](http://daily.gopython.org/2020/03/brett-cannon-what-heck-is-pyprojecttoml.html) by one of the authors of the PEPs.
+
+Examples of build backends include Setuptools (naturally), but also other systems with package-building capabilities, such as [Flit](https://flit.readthedocs.io/en/latest/) or [Poetry](https://github.com/python-poetry/poetry-core).
+
+We're pleased to announce that Pants 2.8 supports PEP 517! In the parlance of that standard it is a "build frontend" - it reads the build backend information from `pyproject.toml`, installs the backend's requirements in a virtualenv, ensures that all the relevant sources and resources are present in that environment, and invokes the backend's entry point to produce an sdist or wheel.
+
+This means that you can use Pants to orchestrate your PEP 517-compatible packaging operation, whether or not you're using Setuptools. And of course your PEP 517 packaging operations enjoy the same concurrency and caching benefits as everything else Pants does.
+
+Another example of a PEP 517 build frontend is [Pip](https://pypi.org/project/pip/). But Pip is more oriented towards building wheels out of downloaded sdists as its primary use-case. Pants is designed more towards building both sdists and wheels from your own code, particularly where you package multiple distributions out of a single repo.
+
+## Summary
+
+PEP-517 is a big move towards standardizing how Python distribution builds are declared and executed. We're excited to have Pants support this important standard.
+
+Want to learn more? Take a look at the [documentation](https://www.pantsbuild.org/v2.8/docs/python-distributions) or come [chat with us](https://www.pantsbuild.org/docs/getting-help) on Slack!

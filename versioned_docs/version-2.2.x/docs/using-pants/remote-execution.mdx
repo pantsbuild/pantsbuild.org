@@ -1,0 +1,124 @@
+---
+    title: Remote Execution
+    position: 8
+---
+
+---
+
+:::caution Remote execution support is still experimental
+Remote execution support in Pants comes with several limitations. For example, Pants requires that the server's operating system match the client's operating system. In practice, this means that Pants must be running on Linux because all three major server projects really only operate well on Linux.
+:::
+
+## What is remote execution?
+
+"Remote execution" allows Pants to offload execution of processes to a remote server that complies with the [Remote Execution API](https://github.com/bazelbuild/remote-apis) standard ("REAPI"). The REAPI standard is supported by several different server and client projects including Bazel and of course Pants.
+
+REAPI servers consist of two related but different services: (1) a "content-addressable storage" service that stores data keyed by the hash of that data and (2) an "execution service" that executes processes by using the content-address storage service to obtain the inputs and store the outputs from running those processes. (The content-addressable storage service is also know as a "CAS.")
+
+Pants calls the CAS a "store server" and the execution service an "execution server." Note that, while these are logically distinct, they may in fact be exposed to clients on the same network endpoint.
+
+The REAPI model contains the notion of an "instance." An "instance" is a distinct deployment of a CAS and execution service that is given a specific name. All REAPI operations send an instance name to the server, thus a single network endpoint can conceivably support multiple REAPI deployments.
+
+## Setup
+
+### Server
+
+In order to use remote execution, you will need access to a server that complies with REAPI. Pants is known to work with:
+
+- [BuildBarn](https://github.com/buildbarn/bb-remote-execution)
+- [Buildfarm](https://github.com/bazelbuild/bazel-buildfarm/)
+- [BuildGrid](https://buildgrid.build/)
+
+**Note**: Setup of a remote execution server is beyond the scope of this documentation. All three server projects have support channels on the BuildTeamWorld Slack. [Go here to obtain an invite to that Slack.](https://bit.ly/2SG1amT)
+
+### Pants
+
+After you have either setup a REAPI server or obtained access to one, the next step is to point Pants to it so that Pants may submit REAPI execution requests. The server should be running a CAS and execution service. These may be the same network endpoint, but for Pants' purposes they are configured by different configuration options.
+
+For the following examples, assume that the REAPI server is running on `build.corp.example.com` at port 8980 and that it is on an internal network (and for the sake of this example is not running TLS, which will be covered later). Also assume that the name of the REAPI instance is "main." At a minimum, you will need to configure `pants.toml` as follows:
+
+```
+[GLOBAL]
+remote_execution = true
+remote_store_server = "build.corp.example.com:8980"
+remote_execution_server = "build.corp.example.com:8980"
+remote_instance_name = "main"
+```
+
+#### Platform Properties
+
+The REAPI execution service selects a worker for a process by consulting the "platform properties" that are passed in a remote execution request. These platform properties are key/value pairs that are configured in the server. Generally, you will configure these in the server (or be provided them by your server's administrator), and then configure Pants to use what was configured.
+
+Assume that the REAPI server is configured with `OSFamily=linux` as the only platform properties. Then building on the first example earlier, add the `remote_execution_extra_platform_properties` to `pants.toml`:
+
+```
+[GLOBAL]
+remote_execution = true
+remote_store_server = "build.corp.example.com:8980"
+remote_execution_server = "build.corp.example.com:8980"
+remote_instance_name = "main"
+remote_execution_extra_platform_properties = [
+  "OSFamily=linux",
+]
+```
+
+#### Concurrency
+
+Finally, you should configure Pants to limit the number of concurrent execution requests that are sent to the REAPI server. The `process_execution_remote_parallelism` option controls this concurrency. For example, if `process_execution_remote_parallelism` is set to `20`, then Pants will only send a maximum of 20 execution requests at a single moment of time.
+
+Note: The specific value depends on the resources available to the REAPI server. If this value is configured to a high number, then Pants will happily send that many concurrent execution requests, which could potentially overwhelm the REAPI server.
+
+Building on the previous example, `pants.toml` would contain:
+
+```
+[GLOBAL]
+remote_execution = true
+remote_store_server = "build.corp.example.com:8980"
+remote_execution_server = "build.corp.example.com:8980"
+remote_instance_name = "main"
+remote_execution_extra_platform_properties = [
+  "OSFamily=linux",
+]
+process_execution_remote_parallelism = 20
+```
+
+#### TLS
+
+If the REAPI server requires TLS for the connection, then you will need to set the `remote_ca_certs_path` option to point at a file containing TLS root certificates.
+
+Note: If `remote_ca_certs_path` is set, TLS will be enabled. To disable TLS, this option must be unset (whether by commenting it out or deleting it).
+
+- On macOS, use `/etc/ssl/cert.pem`.
+- On Linux (Ubuntu), ensure the `ca-certificates` package is installed and use `/etc/ssl/certs/ca-certificates.crt`.
+
+Assume that the REAPI server is running on port 443 (https/TLS) at build.example.com and that Pants is running on Linux. Then the relevant parts of `pants.toml` would contain:
+
+```
+[GLOBAL]
+remote_execution = true
+remote_store_server = "build.example.com:443"
+remote_execution_server = "build.example.com:443"
+remote_instance_name = "main"
+remote_ca_certs_path = "/etc/ssl/certs/ca-certificates.crt" # assumes Linux / Ubuntu
+```
+
+## Reference
+
+The options related to remote execution are:
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| `--remote-execution` | boolean | This option turns remote execution on and off. It must be set to `true` for Pants to use remote execution. |
+| `--remote-execution-server` | string | HOST:PORT of a REAPI-compliant execution service |
+| `--remote-store-server` | string | HOST:PORT of a REAPI-compliant content-addressable storage service ("CAS") |
+| `--remote_instance_name` | string | Path to a file containing an authorization token to pass in remote execution requests. Necessary only if the server requires authentication. The token will be placed in the `authorization` header in gRPC requests as `Bearer TOKEN`. |
+| `--remote_execution_extra_platform_properties` | list of strings | Key/value pairs for the platform properties to set on remote execution requests. Each list element should be in the form `KEY=VALUE`. |
+| `--remote_ca_certs_path` | string | Path to a file containing the TLS root certificate store. The path varies by operating system. |
+| `--process_execution_remote_parallelism` | integer | Maximum number of concurrent remote execution requests to submit to the REAPI server at any one time. |
+
+## Limitations
+
+The remote execution support in Pants is still experimental and comes with several limitations:
+
+1. The main limitation is that Pants assumes that the remote execution platform is the same as the local platform. Thus, if the remote execution service is running on Linux, then Pants must also be running on Linux in order to successfully submit remote execution requests. This limitation will eventually be fixed, but as of version 2.0.x, Pants still has the limitation.
+
+2. The remote execution environment will need to contain appropriate tooling expected by the Pants subsystems used in your repository. At a minimum, this means a Python interpreter must be available if building Python code. If using protobuf support, then you may also need `unzip` available in the remote execution environment in order to unpack the protoc archive. This documentation is incomplete with regards to what tooling needs to be available.

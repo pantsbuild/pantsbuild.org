@@ -1,0 +1,106 @@
+---
+title: changed
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Tell Pants to detect what files and targets have changed from Git.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[changed]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `since`
+
+<Option
+  cli_repr={`--changed-since=<str>`}
+  env_repr='PANTS_CHANGED_SINCE'
+  default_repr={`None`}
+>
+
+Calculate changes since this Git spec (commit range/SHA/ref).
+
+</Option>
+
+### `diffspec`
+
+<Option
+  cli_repr={`--changed-diffspec=<str>`}
+  env_repr='PANTS_CHANGED_DIFFSPEC'
+  default_repr={`None`}
+>
+
+Calculate changes contained within a given Git spec (commit range/SHA/ref).
+
+</Option>
+
+### `dependees`
+
+<Option
+  cli_repr={`--changed-dependees=<DependeesOption>`}
+  env_repr='PANTS_CHANGED_DEPENDEES'
+  one_of='none, direct, transitive'
+  default_repr={`none`}
+>
+
+Include direct or transitive dependees of changed targets.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+### `changes_since`
+
+<Option
+  cli_repr={`--changed-changes-since=<str>, --changed-parent=<str>`}
+  env_repr='PANTS_CHANGED_CHANGES_SINCE'
+  default_repr={`None`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use `--changed-since` instead of `--changed-parent` or `--changed-changes-since`.'}
+>
+
+Calculate changes since this tree-ish/scm ref.
+
+</Option>
+
+### `include_dependees`
+
+<Option
+  cli_repr={`--changed-include-dependees=<DependeesOption>`}
+  env_repr='PANTS_CHANGED_INCLUDE_DEPENDEES'
+  one_of='none, direct, transitive'
+  default_repr={`none`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use `--changed-dependees` instead of `--changed-include-dependees`.'}
+>
+
+Include direct or transitive dependees of changed targets.
+
+</Option>
+
+### `fast`
+
+<Option
+  cli_repr={`--[no-]changed-fast`}
+  env_repr='PANTS_CHANGED_FAST'
+  default_repr={`False`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'The option `--changed-fast` no longer does anything.'}
+>
+
+Stop searching for owners once a source is mapped to at least one owning target.
+
+</Option>
+
+</span>

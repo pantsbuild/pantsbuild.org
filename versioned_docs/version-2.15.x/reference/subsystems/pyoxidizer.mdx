@@ -1,0 +1,120 @@
+---
+title: pyoxidizer
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The PyOxidizer utility for packaging Python code in a Rust binary (https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer.html).
+
+Used with the `pyoxidizer_binary` target.
+
+Backend: <span className="color--primary">`pants.backend.experimental.python.packaging.pyoxidizer`</span>
+
+Config section: <span className="color--primary">`[pyoxidizer]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--pyoxidizer-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_PYOXIDIZER_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args='--release'`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--pyoxidizer-version=<str>`}
+  env_repr='PANTS_PYOXIDIZER_VERSION'
+  default_repr={`pyoxidizer==0.18.0`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--pyoxidizer-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_EXTRA_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
+  default_repr={`["CPython>=3.8,<4"]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--pyoxidizer-lockfile=<str>`}
+  env_repr='PANTS_PYOXIDIZER_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.15.2/src/python/pants/backend/python/packaging/pyoxidizer/pyoxidizer.lock for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds and supply-chain security.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=pyoxidizer`.
+
+Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--pyoxidizer-console-script=<str>`}
+  env_repr='PANTS_PYOXIDIZER_CONSOLE_SCRIPT'
+  default_repr={`pyoxidizer`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--pyoxidizer-entry-point=<str>`}
+  env_repr='PANTS_PYOXIDIZER_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

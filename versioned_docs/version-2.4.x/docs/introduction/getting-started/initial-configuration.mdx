@@ -1,0 +1,49 @@
+---
+    title: Initial configuration
+    position: 2
+---
+
+Creating the initial pants.toml config file.
+
+---
+
+Pants has a robust options system, allowing you to configure hundreds of options. Every Pants option can be set via a command-line flag, an environment variable, or, most commonly, a config file.
+
+The options system is described in detail [here](../../using-pants/concepts/options.mdx). This page will set up your initial Pants config file.
+
+## 1. Create the config file
+
+Pants configuration lives in a file called `pants.toml` in the root of the repo. This file uses the [TOML](https://github.com/toml-lang/toml) format.
+
+If you haven't yet, create a `pants.toml` file:
+
+```toml title="pants.toml"
+[GLOBAL]
+pants_version = "$PANTS_VERSION"
+```
+
+where `$PANTS_VERSION` is the version of Pants you want to pin your repo to. When you'd like to upgrade Pants, edit `pants_version` and the `./pants` script will self-update on the next run.
+
+## 2. Configure source roots
+
+Some project layouts use top-level folders for namespace purposes, but have the code live underneath. However, the code's imports will ignore these top-level folders, thanks to mechanisms like the `$PYTHONPATH`, the JVM classpath, and the `$GOROOT`. For example, to import the file `src/my_project/app.py`, many projects use `import my_project.app`, rather than `import src.my_project.app`. _Source roots_ are how Pants understands these imports.
+
+By default, Pants recognizes having no source root, or having `src`, `src/python`, or `src/py` as source roots. If your project has a different structure, see [Source roots](../../using-pants/concepts/source-roots.mdx) for how to configure them, and for examples of different project structures with Pants.
+
+## 3. Enable Backends
+
+Most Pants functionality is provided via pluggable [_backends_](../../using-pants/concepts/backends.mdx). You enable a backend by listing it under the `backend_packages` config key in `pants.toml`.
+
+For example, to [enable Python support](../../python/overview/enabling-python-support.mdx):
+
+```toml title="pants.toml"
+[GLOBAL]
+...
+backend_packages = ["pants.backend.python"]
+```
+
+## 4. Create BUILD files
+
+Finally, once you have enabled the backends for the language(s) you'd like to use, you will need to create BUILD files that declare the metadata for your files.
+
+See [Create initial BUILD files](./create-initial-build-files.mdx) for more information about how to do that.

@@ -1,0 +1,44 @@
+---
+title: tailor
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants tailor [args]
+```
+
+Auto-generate BUILD file targets for new source files.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[tailor]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `build_file_indent`
+
+<Option
+  cli_repr={`--tailor-build-file-indent=<str>`}
+  env_repr='PANTS_TAILOR_BUILD_FILE_INDENT'
+  default_repr={`    `}
+>
+
+The indent to use when auto-editing BUILD files.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

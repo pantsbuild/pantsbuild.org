@@ -1,0 +1,142 @@
+---
+title: python_google_cloud_function
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A self-contained Python function suitable for uploading to Google Cloud Function.
+
+See https://www.pantsbuild.org/v2.13/docs/google-cloud-function-python.
+
+Backend: <span className="color--primary">`pants.backend.google_cloud_function.python`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Where the built asset should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
+
+When running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.13/docs/targets#target-addresses and https://www.pantsbuild.org/v2.13/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `handler`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Entry point to the Google Cloud Function handler.
+
+You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;cloud_function.py:handler_func&#x27;.
+
+You must use the file name shorthand for file arguments to work with this target.
+
+</Field>
+
+## `runtime`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The identifier of the Google Cloud Function runtime to target (pythonXY). See https://cloud.google.com/functions/docs/concepts/python-runtime.
+
+</Field>
+
+## `complete_platforms`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The platforms the built PEX should be compatible with.
+
+There must be built wheels available for all of the foreign platforms, rather than sdists.
+
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+
+Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+
+</Field>
+
+## `type`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The trigger type of the cloud function. Can either be &#x27;event&#x27; or &#x27;http&#x27;. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to --trigger-http.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+</span>

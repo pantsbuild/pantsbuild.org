@@ -1,0 +1,52 @@
+---
+title: workunit-logger
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Workunit Logger subsystem. Useful for debugging pants itself.
+
+Backend: <span className="color--primary">`pants.backend.experimental.tools.workunit_logger`</span>
+
+Config section: <span className="color--primary">`[workunit-logger]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `enabled`
+
+<Option
+  cli_repr={`--[no-]workunit-logger-enabled`}
+  env_repr='PANTS_WORKUNIT_LOGGER_ENABLED'
+  default_repr={`False`}
+>
+
+Whether to enable workunit logging.
+
+</Option>
+
+### `logdir`
+
+<Option
+  cli_repr={`--workunit-logger-logdir=<str>`}
+  env_repr='PANTS_WORKUNIT_LOGGER_LOGDIR'
+  default_repr={`.pants.d`}
+>
+
+Where to write the log to.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+</span>

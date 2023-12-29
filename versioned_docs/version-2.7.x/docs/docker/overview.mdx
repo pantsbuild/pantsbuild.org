@@ -1,0 +1,166 @@
+---
+    title: Overview
+    position: 0
+---
+
+How to build Docker images containing artifacts built by Pants
+
+---
+
+[Docker](https://www.docker.com/) images are a common deployment format.
+
+Docker images typically bundle build artifacts, such as PEX files, wheels, loose files, and so on, with other runtime requirements, such as a Python interpreter.
+
+Pants makes it easy to embed the artifacts it builds into your Docker images, for easy deployment.
+
+## Enabling the Docker backend
+
+To use Pants's Docker support you must enable the appropriate backend:
+
+```toml title="pants.toml"
+backend_packages = [
+  ...
+  "pants.backend.experimental.docker",
+  ...
+]
+```
+
+We expect the Docker backend to graduate out of the "experimental" area soon!
+
+## Adding `docker_image` targets
+
+A docker image is built from a recipe specified by a [Dockerfile](https://docs.docker.com/engine/reference/builder/). When you build docker images with Pants, instead of running `docker` on the Dockerfile directly, you let Pants do that for you.
+
+Pants uses `docker_image` [targets](../using-pants/key-concepts/targets-and-build-files.mdx) to indicate which Dockerfiles you want Pants to know about, and to add any necessary metadata.
+
+You can autogenerate initial BUILD files for your Docker images, using [tailor](../python/goals/tailor.mdx):
+
+```
+$ ./pants tailor
+Created src/docker/app1/BUILD:
+  - Added docker_image target src/docker/app1:docker
+Created src/docker/app2/BUILD:
+  - Added docker_image target src/docker/app2:docker
+```
+
+Or you can add them manually, such as:
+
+```python title="src/docker/app1/BUILD"
+docker_image(name='docker')
+```
+
+## Adding dependencies to your `docker_image` targets
+
+A Dockerfile executes in a _context_ - a set of files that the commands in the Dockerfile can reference, e.g., by copying them into the image).
+
+When you run `docker` directly, the context is usually a directory within your repo. That directory must contain the Dockerfile (typically at the root of the context) and any files that the build requires. If those files are themselves the product of a build step, or if they are sources from elsewhere in the repo, then you have to copy them into the context.
+
+Pants, however, takes care of assembling the context for you. It does so using the dependencies of the `docker_image` target.
+
+A `docker_image` can depend on loose files belonging to [files targets](../using-pants/resources-and-archives.mdx#files), and on artifacts packaged from a variety of targets, such as [pex_binary](../../reference/targets/pex_binary.mdx) , [python_distribution](../../reference/targets/python_distribution.mdx), [archive](../../reference/targets/archive.mdx), or any other target that can be built via the [package](../../reference/goals/package.mdx) goal.
+
+The context is assembled as follows:
+
+- The sources of `files` targets are assembled at their relative path from the repo root.
+- The artifacts of any packageable targets are built, as if by running `./pants package`, and placed in the context under a subdirectory named for the target's path from the repo root.
+
+## Building a Docker image
+
+You build Docker images using the `package` goal:
+
+```
+$ ./pants package path/to/Dockerfile
+```
+
+## Example
+
+To see this in action, look at the following example:
+
+```python tab={"label":"src/docker/hw/BUILD"}
+files(
+    name="msg",
+    sources=["msg.txt"]
+)
+
+docker_image(
+    name="helloworld",
+    dependencies=[":msg", "src/python/hw:bin"],
+)
+```
+
+```dockerfile tab={"label":"src/docker/hw/Dockerfile"}
+FROM python:3.8
+ENTRYPOINT ["/bin/helloworld"]
+COPY msg.txt /var/msg
+COPY src.python.hw/bin.pex /bin/helloworld
+```
+
+```text tab={"label":"src/docker/hw/msg.txt"}
+Hello, Docker!
+```
+
+```python tab={"label":"src/python/hw/BUILD"}
+python_library(interpreter_constraints=["=3.8"])
+
+pex_binary(
+    name="bin",
+    entry_point="main.py",
+)
+```
+
+```python tab={"label":"src/python/hw/main.py"}
+import os
+
+if os.path.exists("/var/msg"):
+    with open("/var/msg") as fp:
+        msg = fp.read().strip()
+else:
+    msg = "Hello"
+print(msg)
+```
+
+```
+$ ./pants package src/docker/hw/Dockerfile
+[...]
+18:07:29.66 [INFO] Completed: Building src.python.hw/bin.pex
+18:07:31.83 [INFO] Completed: Building docker image helloworld:latest
+18:07:31.83 [INFO] Built docker image: helloworld:latest
+To try out the image interactively:
+    docker run -it --rm helloworld:latest [entrypoint args...]
+To push your image:
+    docker push helloworld:latest
+$ docker run -it --rm helloworld:latest
+Hello, Docker!
+```
+
+## Tagging the image
+
+By default the built image gets a `latest` tag. To select another value to use, provide a `version` value to `docker_image`:
+
+```python
+docker_image(
+    name="helloworld",
+    version="1.2.0",
+    dependencies=[":msg", "src/python/hw:bin"],
+)
+```
+
+:::note Generating Tags
+Generating custom tags at runtime based on Git state or image inputs requires you to write some custom plugin code. Don't hesitate to [reach out](/community/getting-help) for help with this.
+We are looking into adding this functionality into the core Docker plugin in the future.
+:::
+
+## Linting Dockerfiles
+
+Pants can run `hadolint` on your Dockerfiles to check for errors and mistakes:
+
+```
+$ ./pants lint src/docker/hw/Dockerfile
+```
+
+This must first be enabled by adding the following configuration:
+
+```toml title="pants.toml"
+[GLOBAL]
+backend_packages.add = ["pants.backend.experimental.docker.lint.hadolint"]
+```

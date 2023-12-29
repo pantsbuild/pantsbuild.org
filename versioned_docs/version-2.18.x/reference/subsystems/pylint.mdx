@@ -1,0 +1,160 @@
+---
+title: pylint
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Pylint linter for Python code (https://www.pylint.org/).
+
+Backend: <span className="color--primary">`pants.backend.python.lint.pylint`</span>
+
+Config section: <span className="color--primary">`[pylint]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]pylint-skip`}
+  env_repr='PANTS_PYLINT_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Pylint when running `scie-pants-linux-x86_64 lint`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--pylint-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_PYLINT_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Pylint, e.g. `--pylint-args='--ignore=foo.py,bar.py --disable=C0330,W0311'`.
+
+</Option>
+
+## Advanced options
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--pylint-install-from-resolve=<str>`}
+  env_repr='PANTS_PYLINT_INSTALL_FROM_RESOLVE'
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.18/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pylint` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--pylint-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYLINT_REQUIREMENTS'
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--pylint-console-script=<str>`}
+  env_repr='PANTS_PYLINT_CONSOLE_SCRIPT'
+  default_repr={`pylint`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--pylint-entry-point=<str>`}
+  env_repr='PANTS_PYLINT_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--pylint-config=<file_option>`}
+  env_repr='PANTS_PYLINT_CONFIG'
+  default_repr={`None`}
+>
+
+Path to a config file understood by Pylint (http://pylint.pycqa.org/en/latest/user_guide/run.html#command-line-options).
+
+Setting this option will disable `[pylint].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]pylint-config-discovery`}
+  env_repr='PANTS_PYLINT_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`.pylintrc`, `pylintrc`, `pyproject.toml`, and `setup.cfg`).
+
+Use `[pylint].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `source_plugins`
+
+<Option
+  cli_repr={`--pylint-source-plugins="[<target_option>, <target_option>, ...]"`}
+  env_repr='PANTS_PYLINT_SOURCE_PLUGINS'
+  default_repr={`[]`}
+>
+
+An optional list of `python_sources` target addresses to load first-party plugins.
+
+You must set the plugin&#x27;s parent directory as a source root. For example, if your plugin is at `build-support/pylint/custom_plugin.py`, add `'build-support/pylint'` to `[source].root_patterns` in `pants.toml`. This is necessary for Pants to know how to tell Pylint to discover your plugin. See https://www.pantsbuild.org/v2.18/docs/source-roots
+
+You must also set `load-plugins=$module_name` in your Pylint config file.
+
+While your plugin&#x27;s code can depend on other first-party code and third-party requirements, all first-party dependencies of the plugin must live in the same directory or a subdirectory.
+
+To instead load third-party plugins, add them to a custom resolve alongside pylint itself, as described in https://www.pantsbuild.org/v2.18/docs/python-lockfiles#lockfiles-for-tools.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,92 @@
+---
+title: list
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants list [args]
+```
+
+Lists all targets matching the file or target arguments.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[list]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--list-output-file=<path>`}
+  env_repr='PANTS_LIST_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--list-sep=<separator>`}
+  env_repr='PANTS_LIST_SEP'
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
+
+</Option>
+
+### `provides`
+
+<Option
+  cli_repr={`--[no-]list-provides`}
+  env_repr='PANTS_LIST_PROVIDES'
+  default_repr={`False`}
+>
+
+List only targets that provide an artifact, displaying the columns specified by --provides-columns.
+
+</Option>
+
+### `documented`
+
+<Option
+  cli_repr={`--[no-]list-documented`}
+  env_repr='PANTS_LIST_DOCUMENTED'
+  default_repr={`False`}
+>
+
+Print only targets that are documented with a description.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+### `provides_columns`
+
+<Option
+  cli_repr={`--list-provides-columns=<str>`}
+  env_repr='PANTS_LIST_PROVIDES_COLUMNS'
+  default_repr={`address,artifact_id`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'The option `--provides-columns` no longer does anything. It was specific to the JVM backend, so no longer makes sense with Pants 2.0 initially only supporting Python.'}
+>
+
+Display these columns when --provides is specified. Available columns are: address, artifact_id, repo_name, repo_url, push_db_basedir
+
+</Option>
+
+</span>

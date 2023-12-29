@@ -1,0 +1,60 @@
+---
+    title: Target types
+    position: 1
+---
+
+---
+
+Run `./pants target-types`. For more information on a particular target, run `./pants target-types --details=python_library`, for example.
+
+See [Resources](../../using-pants/resources-and-archives.mdx) for information on the `files`, `resources`, and `archive` target types.
+
+## `python_library`
+
+A library of non-test Python code.
+
+Fields:
+
+- `name`
+- `sources` (default: `['*.py', '!*_test.py', '!test_*.py', '!conftest.py']`)
+- `dependencies`
+- `compatibility`: A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, it will default to `--python-setup-interpreter-constraints`.
+
+## `pex_binary`
+
+An entry point to a Python executable runnable through [Pex files](./pex-files.mdx).
+
+Fields:
+
+- `name`
+- `sources`: the one file containing the executable. This may be left off if you include the source files as `dependencies` and explicitly configure the `entry_point`.
+- `dependencies`
+- `compatibility`: A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, it will default to `--python-setup-interpreter-constraints`.
+- `entry_point`: The entry point for the executable. Of the form `"foo.bar:main"`, where `foo.bar` is the module name and `main` is a no-arg function. If the function name is omitted, the module itself is executed directly.
+- `platforms`: An optional list of platform strings, such as `linux_x86_64-cp-27-cp27mu` or `macosx_10.12_x86_64-cp-36-cp36m`. This will cause the PEX to be compatible with the requested platforms.
+- `shebang`: For the generated Pex, use this shebang.
+- `zip_safe`: Whether or not this binary is safe to run in compacted (zip-file) form.
+
+## `python_tests`
+
+Python test code.
+
+Fields:
+
+- `name`
+- `sources` (default: `['*_test.py', 'test_*.py', 'conftest.py']`)
+- `dependencies`
+- `compatibility`: A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, it will default to `--python-setup-interpreter-constraints`.
+- `timeout`: A timeout (in seconds) which covers the total runtime of all tests in this target. This only applies if the option `--pytest-timeouts` is set to True.
+
+## `python_distribution`
+
+A Python setuptools distribution that can be uploaded to a package repo like PyPI.
+
+Fields:
+
+- `name`
+- `dependencies`
+- `provides`: The package metadata to pass to the setuptools `setup()` method.
+
+See [setup-py](./building-distributions.mdx) for details.

@@ -1,0 +1,199 @@
+---
+    authors: [alexey]
+    tags: [concepts]
+---
+
+# Monorepository linting via Pants's project introspection
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by
+  [Sigmund](https://unsplash.com/@sigmund?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Pantsbuild provides a common interface to run all code quality tools in parallel. This post explores how Pants augments excellent linters such as bandit, flake8, shellcheck, etc. by offering its own linting mechanisms, too, including regex matches, dependency analysis, and metadata checks.
+
+{/* truncate */}
+
+---
+
+Some excellent linters now exist to discover bugs and issues in your code through static analysis. Some of our favorites:
+
+- [Hadolint](https://github.com/hadolint/hadolint) for Dockerfiles
+- [Shellcheck](https://www.shellcheck.net) for shell/bash scripts
+- [Flake8](https://flake8.pycqa.org/en/latest/) for Python bugs
+- [Bandit](https://pypi.org/project/bandit/) for Python security vulnerabilities
+
+The [Pants build system](https://www.pantsbuild.org/docs) provides a common interface to run all those tools in parallel, e.g. `./pants lint ::` to check your whole project, regardless of language and tool.
+
+This blog explores how Pants augments those linters by offering its own linting mechanisms, too, including regex matches, dependency analysis, and metadata checks.
+
+## Finding fragile dependencies
+
+It is a common practice for applications to depend on libraries (shared code), however, it is also possible (but less ideal) for an application to use code from another application. If multiple applications have some code they both need, it is often suggested that this code is extracted into a shared library so that both applications can depend on that instead.
+
+With Pants and its [dependency inference](https://www.pantsbuild.org/docs/how-does-pants-work#dependency-inference) feature, you know exactly what code your application depends on.
+
+For exampleб you may enforce that application tests should only use resources and test data from its own project directory or from a shared (repository wide) test data directory. Therefore, if you introspect the `python_tests` targets of a project, the raw dependencies should either be local targets (sourcing project's files only) or a known directory with test data that can be used by any project in your repository.
+
+In the example below, by inspecting the `dependencies_raw` field, we can see that tests in the `projectA` depend on local test data (`:testdata`), test data from a known shared location (`commons`), and data from another project (`projectB`).
+
+```shell-session
+$ ./pants peek projectA/projectA/tests::
+[
+  {
+    "address": "projectA/projectA/tests/scripts/test_module.py:../../tests",
+    "target_type": "python_test",
+    "dependencies_raw": [
+      ":testdata",
+      "commons/commons/base/tests:test_data"
+      "projectB/projectB/tests:local_tests_data"
+    ],
+    ...
+  },
+  ...
+]
+```
+
+Likewise, if you would like to prevent your applications from depending on each other, you could take a look at the `dependencies` field to see if there are any imports that would imply applications being dependent on each other's code. Since the information is accessible via the project introspection tools, you could either chain a sequence of Pants commands or write a plugin to make this functionality readily available with Pants.
+
+In the example below, by inspecting the `dependencies` field, we can see that source modules in the `projectA` depend on local modules and a module from another project (`projectB`).
+
+```shell-session
+$ ./pants peek projectA/projectA/src::
+[
+  {
+    "address": "projectA/projectA/src/module.py:../projectA",
+    "target_type": "python_source",
+    "dependencies": [
+      "projectA/projectA/src/__init__.py:../projectA",
+      "projectA/projectA/src/module1.py:../projectA",
+      "projectA/projectA/src/module2.py:../projectA",
+      "projectB/projectB/src/module.py",
+    ],
+    ...
+  },
+  ...
+]
+```
+
+The Pants team has also said they hope to soon add built-in "visibility" support to make this workflow easier.
+
+## Linting arbitrary repository files
+
+Pants provides a [`regex-lint`](https://www.pantsbuild.org/docs/reference-regex-lint) linter to validate any file in your project with custom regexes, such as checking for copyright headers.
+
+For example, you could use `regex-lint` to confirm that all your `constraints.txt` files (used by `pip` package manager) start with a comment about when exactly the file was generated.
+
+Given this configuration:
+
+```json
+{
+  "required_matches": {
+    "constraints-files": ["constraints-generated-date-pattern"]
+  },
+  "path_patterns": [
+    {
+      "name": "constraints-files",
+      "pattern": "constraints.txt",
+      "inverted": false,
+      "content_encoding": "utf8"
+    }
+  ],
+  "content_patterns": [
+    {
+      "name": "constraints-generated-date-pattern",
+      "pattern": "^#(\\s)Generated(\\s)on*",
+      "inverted": false
+    }
+  ]
+}
+```
+
+Starting with Pants 2.13+, this command would report any violations of this config:
+
+```shell-session
+$ ./pants lint ::
+```
+
+## Linting metadata from `BUILD` configuration files
+
+You set Pants metadata for your project in lightweight `BUILD` files. Usually, there are only a few auto-generated lines, thanks to sensible defaults and [dependency inference](../2020-10-29-dependency-inference/index.mdx). For example:
+
+```python title="BUILD"
+python_tests(
+    name="tests",
+    timeout=120,
+)
+```
+
+Because `BUILD` files are valid Python code, you can employ Python linters like Black.
+
+You can also use Pants's `peek` goal to query the metadata of your project. Especially, when combined with `jq` to parse JSON, you can then lint your project metadata.
+
+For example, you can ensure that none of your Python `pex_binary` targets try to support banned OS and Python versions (here we search for targets that would support MacOS on Apple silicon with Python 3.8):
+
+```shell-session
+./pants peek :: | jq '.[] | select(.target_type=="pex_binary" and (.platforms | index( "macosx_11_0_arm64-cp-38-cp38") ))'
+```
+
+You can also ensure that your Python `pex_binary` targets do not get packaged for multiple platforms (here we search for any targets that have more than one platform defined):
+
+```shell-session
+$ ./pants peek:: | jq '.[] | select(.target_type=="pex_binary" and .platforms != null and (.platforms | length) > 1)'
+```
+
+Or, check which source files are opting out of Black formatting:
+
+```shell-session
+$ ./pants peek :: | jq '.[] | select(.target_type=="python_source" and .skip_black == true)'
+```
+
+### Finding files that cannot be discovered by Pants
+
+When you declare the files you would like to become a part of a target, for example, by specifying `sources` of a `python_sources` target, you tell Pants that all files that will be found using this globbing expression are going to be owned by this target.
+
+```python title="BUILD"
+python_sources(
+    sources=[
+        "src/*.py",
+        "missing-directory/*.py",
+        "main.py",
+    ]
+)
+```
+
+If, after expanding the globbing expression, there are no files found, this is most likely an error.
+
+Pants defaults to only warning when globs do not match, but you can configure it to error by setting this in `pants.toml`:
+
+```toml title="pants.toml"
+[GLOBAL]
+unmatched_build_file_globs = "error"
+```
+
+Then, for example:
+
+```shell-session
+$ ./pants lint ::
+19:56:20.39 [ERROR] 1 Exception encountered:
+
+  Exception: Unmatched glob from foo/bar:baz's `sources` field: "foo/bar/missing-directory/*.py"
+```
+
+### Finding orphan files
+
+It is possible that a developer added a file that is under version control, but is not used by Pants. For example, this could be a test module that is not globbed due to incorrect naming, e.g. the `sources` field is set to `test_*.py` but the file is named `tes_project.py`. This file would not be found. Likewise, it is possible that there is a source module in a directory that the developer forgot to list under target's sources.
+
+These "orphan" files are tricky to find because having a test module that is not sourced is not really an error from the build system perspective. However, if you have a test module that is never run, this gives a false impression to developers that tests in this module have been exercised since it's under the `tests` directory and there is `python_tests` target with the sources. If you have hundreds of test modules spread across multiple projects, it will be very easy to miss the typo in a file name.
+
+Such files can be found using `./pants tailor --check` command which will report any unmatched glob expressions in your `BUILD` files.
+
+If your workflow requires some custom inspection of the files in the monorepository, you can also get a list of all files that Pants is aware of (`BUILD` files, Python modules, test data and resources). The [`filedeps`](https://www.pantsbuild.org/docs/reference-filedeps) goal lists all source and `BUILD` files a target depends on.
+
+## Conclusion
+
+With Pants and its rich project introspection functionality, you can ensure high code quality and robust application design across the whole repository. By combining output of Pants goals such as `peek`, `paths`, `filedeps`, and `filter`, you can build sophisticated linting rules that you can run on an ad hoc basis or in an automated fashion in your CI pipeline. Being able to find issues in build configuration and application design will save time in code reviews and ensure best software design practices across the whole repository.
+
+You can try out our [example-python](https://github.com/pantsbuild/example-python) repository to see how some of the project introspection commands work. And feel free to reach out to us in [Slack](https://www.pantsbuild.org/docs/getting-help) if you have any questions!

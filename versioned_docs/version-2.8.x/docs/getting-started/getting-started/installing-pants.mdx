@@ -1,0 +1,50 @@
+---
+    title: Installing Pants
+    position: 1
+---
+
+---
+
+## Creating the launch script
+
+Pants is invoked via a launch script named `./pants` , saved at the root of the repository. This script will install Pants and handle upgrades.
+
+First, set up a minimal `pants.toml` config file to instruct the script to download the latest 2.8 release:
+
+```bash
+printf '[GLOBAL]\npants_version = "2.8.1rc1"\n' > pants.toml
+```
+
+Then, download the script:
+
+```bash
+curl -L -O https://static.pantsbuild.org/setup/pants && chmod +x ./pants
+```
+
+Now, run this to bootstrap Pants and to verify the version it installs:
+
+```bash
+./pants --version
+```
+
+:::note Tip: add `./pants` to version control
+This will allow all users in the project to use Pants without having to install it themselves.
+:::
+
+## Running Pants from unreleased builds
+
+To use an unreleased build of Pants from the [pantsbuild/pants](https://github.com/pantsbuild/pants) main branch, locate the main branch SHA, set PANTS_SHA=\<SHA> in the environment, and run `./pants` as usual:
+
+```bash
+PANTS_SHA=cd0e1e7b2ad1f429cf3bb5f83daec035302d1795 ./pants --version
+```
+
+## Building Pants from sources
+
+We currently distribute Pants for Linux (x86_64) and macOS.
+
+If you need to run Pants on some other platform, such as Linux on ARM or Alpine Linux, you can try building it yourself by checking out the [Pants repo](https://github.com/pantsbuild/pants), and running `./pants package src/python/pants:pants-packaged` to build a wheel.
+
+## Running Pants from sources
+
+You can use a [`pants_from_sources` script like this](https://github.com/pantsbuild/example-python/blob/main/pants_from_sources) to run Pants from sources in another repository. This is useful when making changes directly to Pants to see how it impacts your project.

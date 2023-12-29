@@ -1,0 +1,244 @@
+---
+    title: Third-party dependencies
+    position: 2
+---
+
+How to use third-party Python libraries in your project.
+
+---
+
+## Basic setup
+
+To set up third-party dependencies in your project, use a regular [`requirements.txt`](https://pip.pypa.io/en/stable/user_guide/#requirements-files) file.
+
+Then, in the same directory, create a `BUILD` file that invokes the `python_requirements()` macro:
+
+```text tab={"label":"requirements.txt"}
+flask>=1.1.2,<1.3
+requests[security]==2.23.0
+dataclasses ; python_version<'3.7'
+```
+
+```python tab={"label":"BUILD"}
+python_requirements()
+```
+
+Pants will use the `python_requirements()` macro to create a distinct `python_requirement_library` target for each specified requirement.
+
+Pants will then use [dependency inference](../../using-pants/concepts/targets-and-build-files.mdx) by looking at your Python import statements to automatically add those targets to the `dependencies` field. For example:
+
+```shell tab={"label":"shell"}
+$ ./pants dependencies project/app.py
+//:flask
+//:requests
+```
+
+```python tab={"label":"project/app.py"}
+import flask
+import requests
+
+...
+```
+
+If any of your dependencies expose modules with names different than the project name (i.e. having a requirement named `ansicolors` that is imported as `colors`), you can teach Pants about it by setting `module_mapping`:
+
+```python title="BUILD"
+python_requirements(
+    module_mapping={
+        "ansicolors": ["colors"],
+        "setuptools": ["pkg_resources"]
+    },
+)
+```
+
+You can also add an explicit dependency by adding the `python_requirement_library` target to the `dependencies` field for a target. This will make sure that the dependency is included regardless of if dependency inference can infer it or not. For example:
+
+```python title="project/BUILD"
+python_library(
+    dependencies=[
+        # We don't have an import statement for this dep, so inference
+        # won't add it automatically. We add it explicitly instead.
+        "//:psyscopg2-binary",
+    ],
+)
+```
+
+:::note Where should I put the requirements.txt?
+You can put the file wherever makes the most sense for your project.
+
+In smaller repositories that only use Python, it's often convenient to put the file at the "build root" (top-level), as used on this page.
+
+For larger repositories or multilingual repositories, it's often useful to have a `3rdparty` or `3rdparty/python` directory. Rather than the target's address being `//:my_requirement`, its address would be `3rdparty/python:my_requirement`, for example.
+:::
+
+:::note Requirements files with custom names
+Your requirements file doesn't have to be named `requirements.txt`. You can point the `python_requirements` macro at any other name:
+
+```
+python_requirements(
+    requirements_relpath="custom-requirements.txt",
+)
+```
+
+:::
+
+:::caution Multiple requirements files
+Pants can support multiple requirements files (each with a corresponding `python_requirements` macro invocation) in a single repo.
+
+However if those requirements overlap there will be multiple targets for the same package, and Pants will not be able to infer which of them a dependency should be on.
+
+If the version constraints for the overlapping requirements do not conflict, you may wish to refactor the common requirements out of your requirements files and include them with `-r common-requirements.txt`. Then dependency inference will see a single target for each of those common requirements.
+
+If the version constraints do conflict, or if you otherwise cannot refactor them out, then you will have to specify the relevant dependencies manually.
+
+We plan to support multiple requirements "universes" more robustly in the future, but it will always be preferable to have a single consistently resolvable universe of requirements for your repo, if possible. Pants selects requirement subsets as needed, so adding requirements to a global requirements.txt does not add unnecessary dependencies or bloat.
+:::
+
+:::note Installing from version control or local files
+You might be used to using pip's proprietary VCS-style requirements for this, like `git+https://github.com/django/django.git#egg=django`. However, this proprietary format does not work with Pants.
+
+Instead of pip VCS-style requirements:
+
+```
+git+https://github.com/django/django.git#egg=Django
+git+https://github.com/django/django.git@stable/2.1.x#egg=Django
+git+https://github.com/django/django.git@fd209f62f1d83233cc634443cfac5ee4328d98b8#egg=Django
+```
+
+Use direct references from [PEP 440](https://www.python.org/dev/peps/pep-0440/#direct-references):
+
+```
+Django@ git+https://github.com/django/django.git
+Django@ git+https://github.com/django/django.git@stable/2.1.x
+Django@ git+https://github.com/django/django.git@fd209f62f1d83233cc634443cfac5ee4328d98b8
+```
+
+You can also install from local files using [PEP 440 direct references](https://www.python.org/dev/peps/pep-0440/#direct-references). You must use an absolute path to the file, and you should ensure that the file exists on your machine.
+
+```
+Django @ file:///Users/pantsbuild/prebuilt_wheels/django-3.1.1-py3-none-any.whl
+```
+
+Pip still works with these PEP 440-compliant formats, so you won't be losing any functionality by switching to using them.
+:::
+
+## Using a lockfile (strongly recommended)
+
+Lockfiles are important for reproducible builds. They ensure that the selected versions of all transitive dependencies are consistent, even when third-party libraries release new versions.
+
+If you define a lockfile, Pants will also optimize to avoid resolving requirements more than one time for your project. This greatly speeds up the performance of goals like `test`, `run`, and `repl`. (See [python-setup](../../../reference/subsystems/python-setup.mdx) for more information on the `resolve_all_constraints` option.)
+
+Pants uses Pip's [constraints file](https://pip.pypa.io/en/stable/user_guide/#constraints-files) feature to support lockfiles. Constraints files tell Pip to use the specified version of a library when encountered, even if it overrides what was specified in your `requirements.txt`.
+
+:::caution Constraints files are not strongly validated
+It is possible to put conflicting versions in a constraints file, and to leave off constraints for some of your dependencies; Pip doesn't check for this. Unfortunately, the onus is on you to make sure that your constraints file is sound.
+:::
+
+To use this feature, create a `constraints.txt` file that pins versions of all your transitive third-party dependencies.
+
+Then tell Pants about the file with the `requirement_constraints` option in the `[python-setup]` scope, like this:
+
+```toml tab={"label":"pants.toml"}
+[python-setup]
+requirement_constraints = "constraints.txt"
+```
+
+```text tab={"label":"constraints.txt"}
+certifi==2019.6.16
+chardet==3.0.2
+idna==2.7
+requests==2.23.0
+urllib3==1.25.6
+```
+
+Pants will then pass this constraints file to Pip whenever resolving third party dependencies.
+
+:::note How do I generate a lockfile?
+The simplest approach is to create a virtual environment for your project and then to use this to generate a `constraints.txt` file. See below for an example script.
+
+You may alternatively use a tool like [Poetry](https://python-poetry.org) or [Pipenv](https://pipenv.pypa.io/en/latest/), then use their `export` commands to generate a `constraints.txt` file.
+:::
+
+:::caution Need support for multiple lockfiles?
+For now, Pants only supports one single global lockfile. But, we are considering adding support for multiple lockfiles. Please message us on [Slack](/community/members) if you would like this feature - we would appreciate feedback on your use case.
+:::
+
+## Defining inline requirements
+
+Sometimes you may want to use a certain dependency without adding it to your `requirements.txt`. For example, you may want to use a different version than what is in `requirements.txt`. Or, you may want to only use the requirement in one location and don't want it to discoverable by all targets.
+
+Pants allows you to define inline requirements with the target type `python_requirement_library`, like this:
+
+```python title="project/BUILD"
+python_requirement_library(
+    name="old_requests",
+    requirements=["requests==2.8.0"],
+)
+
+pex_binary(
+    name="app",
+    sources=["app.py"],
+    dependencies=[
+        ":old_requests",
+    ],
+)
+```
+
+If any of your dependencies expose modules with names different than the project name, you can teach Pants about it by setting `module_mapping`:
+
+```python title="project/BUILD"
+python_requirement_library(
+    name="old_requests",
+    requirements=["ansicolors=1.18.0"],
+    module_mapping={"ansicolors": ["colors"]},
+)
+```
+
+## Using custom repositories
+
+If you host your own wheels at a custom index (aka "cheese shop"), you can instruct Pants to use it with the option `indexes` in the `[python-repos]` scope.
+
+```toml title="pants.toml"
+[python-repos]
+indexes.add = ["https://custom-cheeseshop.net/simple"]
+```
+
+To exclusively use your custom index—i.e. to not use PyPI—use `indexes = [..]` instead of `indexes.add = [..]`.
+
+## Tip: Set up a virtual environment (optional)
+
+While Pants itself doesn't need a [virtualenv](https://docs.python.org/3/library/venv.html), it may be useful to create one for working with your tooling outside Pants, such as your IDE.
+
+You can create a virtualenv using standard Python tooling—such as [Python's builtin `venv` module](https://docs.python.org/3/library/venv.html)—along with running Pants to query for all of your Python requirements.
+
+For example, this script will first create a venv, and then generate a `constraints.txt` file.
+
+```shell title="build-support/generate_constraints.sh"
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# You can change these constants.
+PYTHON_BIN=python3
+VIRTUALENV=build-support/.venv
+PIP="${VIRTUALENV}/bin/pip"
+REQUIREMENTS_FILE=requirements.txt
+CONSTRAINTS_FILE=constraints.txt
+
+"${PYTHON_BIN}" -m venv "${VIRTUALENV}"
+"${PIP}" install pip --upgrade
+# Install all our requirements.txt, and also any 3rdparty
+# dependencies specified outside requirements.txt, e.g. via a
+# handwritten python_requirement_library target.
+"${PIP}" install \
+  -r "${REQUIREMENTS_FILE}" \
+  -r <(./pants dependencies --type=3rdparty ::)
+echo "# Generated by build-support/generate_constraints.sh on $(date)" > "${CONSTRAINTS_FILE}"
+"${PIP}" freeze --all >> "${CONSTRAINTS_FILE}"
+```
+
+:::caution This script only captures handwritten dependencies that are consumed
+This script will capture all requirements in your `requirements.txt`, whether they are actually consumed by your code or not.
+
+However, due to how the `./pants dependencies` goal works, it will only capture 3rdparty dependencies specified outside `requirements.txt` (i.e., via a handwritten `python_requirement_library target`) if those are actually used by your code.
+:::

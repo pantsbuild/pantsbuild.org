@@ -1,0 +1,261 @@
+---
+title: python_distribution
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A publishable Python setuptools distribution (e.g. an sdist or wheel).
+
+See https://www.pantsbuild.org/v2.18/docs/python-distributions.
+
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.18/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.18/docs/targets for more about how addresses are formed, including for generated targets. You can also run `scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `entry_points`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Any entry points, such as `console_scripts` and `gui_scripts`.
+
+Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (`"path.to.module:func"`) or a Pants target address to a `pex_binary` target.
+
+Example:
+
+```
+entry_points={
+  "console_scripts": {
+    "my-script": "project.app:main",
+    "another-script": "project/subdir:pex_binary_tgt"
+  }
+}
+```
+
+Note that Pants will assume that any value that either starts with `:` or has `/` in it, is a target address to a `pex_binary` target. Otherwise, it will assume it's a setuptools entry point as defined by https://packaging.python.org/specifications/entry-points/#entry-points-specification. Use `//` as a prefix for target addresses if you need to disambiguate.
+
+Pants will attempt to infer dependencies, which you can confirm by running:
+
+```
+scie-pants-linux-x86_64 dependencies <python_distribution target address>
+```
+
+</Field>
+
+## `provides`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The setup.py kwargs for the external artifact built from this target.
+
+You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
+
+See https://www.pantsbuild.org/v2.18/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
+
+</Field>
+
+## `generate_setup`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Whether to generate setup information for this distribution, based on analyzing sources and dependencies. Set to False to use existing setup information, such as existing `setup.py`, `setup.cfg`, `pyproject.toml` files or similar.
+
+</Field>
+
+## `wheel`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to build a wheel for the distribution.
+
+</Field>
+
+## `sdist`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`True`}
+>
+
+Whether to build an sdist for the distribution.
+
+</Field>
+
+## `wheel_config_settings`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+PEP-517 config settings to pass to the build backend when building a wheel.
+
+</Field>
+
+## `sdist_config_settings`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+PEP-517 config settings to pass to the build backend when building an sdist.
+
+</Field>
+
+## `env_vars`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Environment variables to set when running the PEP-517 build backend.
+
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+</Field>
+
+## `long_description_path`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Path to a file that will be used to fill the `long_description` field in `setup.py`.
+
+Path is relative to the build root.
+
+Alternatively, you can set the `long_description` in the `provides` field, but not both.
+
+This field won&#x27;t automatically set `long_description_content_type` field for you. You have to specify this field yourself in the `provides` field.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`''`}
+>
+
+The path to the directory to write the distribution file to, relative the dist directory.
+
+If undefined, this defaults to the empty path, i.e. the output goes at the top level of the dist dir.
+
+</Field>
+
+## `skip_twine`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python"
+>
+
+If true, don&#x27;t publish this target&#x27;s packages using Twine.
+
+</Field>
+
+## `uses_mypyc`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
+>
+
+If true, this distribution is built using mypyc.
+
+In this case, Pants will build the distribution in an environment that includes mypy, as configured in the `[mypy]` subsystem, including plugins, config files, extra type stubs, and the distribution&#x27;s own requirements (which normally would not be needed at build time, but in this case may provide necessary type annotations).
+
+You will typically set this field on distributions whose `setup.py` uses `mypyc.build.mypycify()`. See https://mypyc.readthedocs.io/en/latest/index.html .
+
+</Field>
+
+## `repositories`
+
+<Field
+    type_repr={`field.type_hint`}
+    backend="pants.backend.experimental.python"
+>
+
+List of URL addresses or Twine repository aliases where to publish the Python package.
+
+Twine is used for publishing Python packages, so the address to any kind of repository that Twine supports may be used here.
+
+Aliases are prefixed with `@` to refer to a config section in your Twine configuration, such as a `.pypirc` file. Use `@pypi` to upload to the public PyPi repository, which is the default when using Twine directly.
+
+</Field>
+
+</span>

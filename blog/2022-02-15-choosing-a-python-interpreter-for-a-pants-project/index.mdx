@@ -1,0 +1,137 @@
+---
+    authors: [alexey]
+    tags: [python]
+---
+
+# Choosing a Python interpreter for a Pants project
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Javier Allegue
+  Barros](https://unsplash.com/@soymeraki?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Choosing a compatible Python interpreter carefully is important not only for developers, but for the Pants repository administrators as well. Developers using Pants build system in their project may see various errors and have different behaviors depending on the Python interpreter...
+
+{/* truncate */}
+
+## Introduction
+
+When setting up a Python monorepo managed by Pants, there are many things to consider. How should one structure the source code? How should the requirements be declared? How fine-grained should the packaging approach be? Among these and other questions it is also necessary to determine a strategy for specifying a Python interpreter to be used.
+
+You may want to provide maximum freedom or be very restrictive in how Python interpreters will be found on a developer computer. The approach you take will depend on the IT policies of your organization, number of software engineers, and available resources to support the development infrastructure.
+
+Choosing a compatible Python interpreter carefully is important not only for developers, but for the Pants repository administrators as well. Developers using Pants build system in their project may see various errors and have different behaviors depending on the Python interpreter used to run the code. This would include missing system dependencies on Linux, having code that requires a framework build of Python on MacOS, or being affected by deprecation of functionality in a certain Python version.
+
+When deciding how to declare your Python interpreter requirements, you will need to consider a number of things, including for example:
+
+- Minimum version of Python that your code should be compatible with
+- Origin of Python interpreter to be used and how it is installed in the target environments
+- Frequency of updates for both the supported Python version and the interpreter itself as well as the updating mechanism
+
+## Setting the default Python version
+
+If users of a Pants repository can install arbitrary software on their computers, it is possible that a given user could have multiple versions of the Python interpreter available in their system. If the runtime environment of the code is known in advance and is tied to a particular Python version, you may be conservative and configure your default Python interpreter compatibility constraints in `pants.toml` to be tied to a major Python version like this:
+
+```toml
+[python]
+interpreter_constraints = ["CPython==3.8.*"]
+```
+
+This will ensure that a particular version of Python is always used, to prevent users taking advantage of syntax and functionality of later versions of Python (making the code incompatible with the runtime environment). But with only `interpreter_constraints` set, _how_ and _where_ that version of Python will end up installed on a machine is unconstrained.
+
+## Setting interpreter search path
+
+Pants will by default inspect the `$PATH` environment variable to discover available Python interpreters. If there are many compatible versions of the interpreter found, this may result in subtle, hard to troubleshoot bugs when the order in which the interpreters will be discovered is not deterministic. To be more rigorous, one can change this by setting the option `search_path` in the `[python-bootstrap]` scope, for example:
+
+```toml
+[python-bootstrap]
+search_path = ["<PYENV_LOCAL>", "/usr/bin"]
+```
+
+`<PYENV_LOCAL>` is a special notation that Pants understands and it refers to the interpreter specified in the local file `.python-version` used by `pyenv`. See [Changing the interpreter search path](https://www.pantsbuild.org/docs/python-interpreter-compatibility#changing-the-interpreter-search-path) to learn about other special symbols Pants understands when searching for a Python interpreter.
+
+If the responsibility to install a Python interpreter of a particular version is transferred to a developer, then they install the software themselves, optionally using the documentation shared with them. If it is the build system administrators who are in charge, then the software is likely to be pre-installed on a developer's machine and is managed by your organization's IT staff.
+
+It is possible, however, that the expectations of the software engineers will be in conflict because some developers may have certain preferences with regard to which Python interpreter they would want to use or have installed. It may therefore be necessary to find a sensible solution that would scale and cover the needs of most engineers. To learn more about Python interpreter compatibility, please see [Interpreter compatibility](https://www.pantsbuild.org/docs/python-interpreter-compatibility) in the Pants build system documentation.
+
+## Installing Python on Linux
+
+On Debian-based Linux, Python can be installed with the system `python3` package:
+
+```shell-session
+$ sudo apt-get install python3
+```
+
+By default, the `python3` package will install a predefined version of the interpreter, depending on the operating system version. Installing a Python interpreter of a particular version is trivial:
+
+```shell-session
+$ sudo apt-get install python3.8
+```
+
+Be careful, however, when relying on system Python on Linux, particularly with Debian-derived distros, since system Python is often modified from official (python.org) distributions in subtle, but consequential ways. See [Python in Debian](https://wiki.debian.org/Python) to learn more. In addition, global Python installations can also have arbitrary packages installed and made available on the `PYTHONPATH` if users use `pip` or `easy_install` without creating a virtual environment, which would break hermeticity and reproducibility.
+
+If you do decide to use a Python interpreter from a system package, it is possible to install multiple versions of Python interpreters side by side. One can choose to update what version of Python will be used when a particular symlink is accessed. For instance, the [update-alternatives](https://linux.die.net/man/8/update-alternatives) command would update the `/usr/bin/python3` symlink to point to the `python3.8` system package interpreter. This would be required, for example, if you want to use by default Python 3.8 on an Ubuntu 18.04 system that ships with Python 3.6:
+
+```shell-session
+$ update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
+```
+
+For engineers writing Python on Linux, you may want to set expectations that all systems will be configured in such a way that the `python3` command (when not having any virtual environment activated), must point to the interpreter `/usr/bin/python3`. To avoid confusion, developers should be discouraged from modifying their shell start-up scripts in a way that overrides the `python3` interpreter. This may be important if they use the same Python interpreter for development outside of the Pants monorepo or to run Python code locally bypassing Pants for debugging purposes.
+
+If avoiding Python interpreters via system packages on Linux is an option, you may want to look into the `pyenv` which provides a great alternative to the system Python interpreters. You'll be able to learn more about `pyenv` below when sources of Python interpreters for MacOS are discussed.
+
+## Installing Python on MacOS
+
+At the time of writing, MacOS devices, for example, Big Sur and Monterey, still come with Python 2.7. The assumption, however, is that anyone setting up a Pants repository would be interested in Python 3. A fresh installation of MacOS includes a `/usr/bin/python3` binary, however, it is a stub that will prompt you to install the command line developer tools that provide Python 3 interpreter.
+
+There are a few ways one can get an arbitrary version of Python3 interpreter installed on a MacOS device: with [Homebrew](https://brew.sh/), [Xcode developer tools](https://developer.apple.com/xcode/resources/), or [pyenv](https://github.com/pyenv/pyenv) among others. Setting up Python on MacOS may be slightly more complicated than doing this on Linux. This is because for an arbitrary MacOS computer of a software engineer, there are likely to be a variety of Python interpreters installed.
+
+### brew
+
+`/usr/local/bin/python3` binary is likely to be managed by `brew` and developers may have versions ranging from Python 3.7 all the way to Python 3.10 (and later, once newer versions are released). Using `brew`'s Python, however, may prove to be unreliable due to a very frequent update schedule. Most likely developers on MacOS will be using `brew` and running `brew install python` will install the most recent version available.
+
+`brew` will try to keep this Python interpreter on the latest version. To stop the Python formula from being updated, you can pin it with `brew pin`. Keep in mind, however, that if a pinned Python formula that another formula depends on becomes outdated, you will need to upgrade it. Therefore, you may want to be careful using the Python coming from `brew` in the Pants repository as your Python interpreter unless you have a clear strategy for managing `brew`'s updates across your developers' computers.
+
+### Xcode
+
+Xcode software is free to download and only requires an Apple ID account. On a MacOS computer, the `/usr/bin/python3` is a stub that queries the active Xcode installation (that is set with the `xcode-select` command) and runs it from there. If your developers already have Xcode installed, you may find it convenient to set `search_path = ["/usr/bin"]` since you can then be sure that a compatible version of Python interpreter is guaranteed to be present on a developer's computer. That is, all developers will have only one Python interpreter they really care about and its version won't suddenly change (in contrast to how `brew` updates Python).
+
+Python from Xcode ships with a [framework build](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html) of Python which may be required to run Python code that needs access to the screen such as wxPython or Qt applications. Keep in mind, however, that the guarantee that Apple makes for Xcode's Python is that it's sufficient to run the operations and processes in MacOS that need Python, and not necessarily user code. Therefore, this interpreter is often considered to be nonstandard in subtle ways that cause various things to break.
+
+Relying on a single Xcode's Python interpreter on MacOS, however, will free you from the MacOS operating system upgrades concerns should Apple decide to start shipping Python 3 readily available in the future. If the Xcode installations are managed in your organization, you'll also be able to control the Python interpreter version used by developers (for instance, Xcode 12 ships Python 3.8 and Xcode 13 ships Python 3.9).
+
+Be advised, however, that if Xcode is installed from the App Store, it can be accidentally updated by a user to a later version (that may come with another Python version) as part of updates offered in the App Store. To avoid this, it is possible that an organization may give their developers computers that already have everything they need for their work pre-installed. This may be the case for a large organization that needs to enforce the same system environment to ensure a universal developer experience.
+
+Alternatively, providing instructions on how to start using a Python interpreter that ships as part of Xcode would be helpful since its installation can be scripted (with [xip](https://en.wikipedia.org/wiki/.XIP) command) and can be run in quiet mode when updating the software remotely. Having Xcode installed as part of a scripted developer environment setup (done by a developer or a system administrator) would ensure that it's not being updated as part of the standard updates of other system applications via App Store.
+
+### pyenv
+
+`pyenv` approach makes it possible to have multiple versions of Python installed and users can decide what version to use at a given point of time. `pyenv` is very popular among Python developers, supports both Linux and MacOS, and provides a very clean and stable way to deal with multiple versions of Python interpreters. To be sure that engineers writing Python programs would target a certain Python version, one can install a specific version of Python that is of interest:
+
+```shell-session
+$ pyenv install 3.8.10
+$ pyenv local 3.8.10
+$ cat .python-version
+3.8.10
+$ python -V
+Python 3.8.10
+```
+
+You can choose to rely solely on the local repository settings (with the assumption that `pyenv` is going to be set up for the repository) or be more permissive and search for other interpreters, for example:
+
+```toml
+[python-bootstrap]
+search_path = ["<PYENV_LOCAL>", "/usr/bin"]
+```
+
+In this particular example, if the local `.python-version` file (created after running the `pyenv local <version>` command) with the interpreter specified is not found, then Pants will attempt to run a compatible Python interpreter from the `/usr/bin` directory. You may want to check in the `.python-version` file into the source code repository and provide documentation on how to set up `pyenv` on a computer and install a Python interpreter of interest.
+
+Having Pants project support `pyenv` driven approach may be sensible if you would want to ensure that all engineers are using the same Python interpreter set up in the same way. In addition, with `pyenv`, they would be able to take advantage of any other Python interpreter should they require them for some other local development outside of the Pants repository (while using the same `pyenv` interface). Relying on the presence of a compatible Python 3 interpreter found with the `.python-version` file would also work very well if your Pants repository will be used in a mixed environment, when some of your developers are on MacOS and some are on Linux.
+
+## Conclusion
+
+Finding the right strategy to declare your Python interpreter in a Pants project requires careful thought. Navigating intricacies of Python interpreters on various platforms may be very demanding and the more diverse set of Python interpreters you will claim to support, the more unnecessary troubleshooting and hand-holding you may end up providing. Also, having a simple way to get a Python interpreter installed may be important if there are enough developers who need to interact with the Pants repository and write or run code, but who are not Python programmers or are not familiar with the Python ecosystem and tooling.
+
+We hope you find a strategy that works for you. If you have questions, please feel free to raise a GitHub issue or ask on the Pants community Slack! It's a friendly and supportive community that is happy to respond to your questions and feedback.

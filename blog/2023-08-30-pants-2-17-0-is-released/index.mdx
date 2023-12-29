@@ -1,0 +1,76 @@
+---
+  authors: [alexey]
+  tags: []
+---
+
+# Pants 2.17.0 is released!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Ankush
+  Minda](https://unsplash.com/@an_ku_sh?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce Pants 2.17.0, the latest release of Pants Build, the scalable and ergonomic build system. To update, set `pants_version = "2.17.0"` in your `pants.toml`. See upgrade tips for more information.
+
+Version 2.17.0 comes quickly after 2.16.0, which was one of our biggest releases ever, but still contains many notable changes, along side bug fixes, documentation, and performance improvements:
+
+- You can now [support Pants financially](https://www.pantsbuild.org/docs/sponsorship).
+  Pants is an open-source project that is not owned or controlled by any one company or organization, and does incur some expenses. These expenses are managed by Pants Build, a non-profit that was established for this purpose. This non-profit's only source of revenue is sponsorship by individuals and companies that use Pants.
+  We offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/docs/sponsorship), as well as individual sponsorships via [GitHub](https://github.com/sponsors/pantsbuild).
+- The [`pants` launcher binary](https://github.com/pantsbuild/scie-pants) is now the recommended way to run Pants and use of a `./pants` shell script in a repository is deprecated. See the [Pants installation instructions](https://www.pantsbuild.org/docs/installation) for additional information on how to migrate to this way or running Pants.
+- The default version of Pip that is used for resolving requirements and generating lockfiles has been bumped to `v23.1.2` which performs faster in backtracking scenarios when there are package version conflicts.
+- Support for [Taplo](https://github.com/tamasfe/taplo), a TOML toolkit written in Rust, has been added and can now be used to format TOML files. To use, add `"pants.backend.tools.taplo"` to the list of `[GLOBAL].backend_packages` in `pants.toml`. See an example usage below:
+
+```shell-session
+$ pants fmt pants*.toml
+10:24:29.91 [WARN] Completed: Format with taplo - taplo made changes.
+  pants.ci.toml
+  pants.toml
++ taplo made changes.
+```
+
+- Pants 2.17 ships with a new Rust-based, multithreaded, in-process [dependency parser](https://www.pantsbuild.org/v2.17/docs/reference-python-infer#use_rust_parser) for Python. This greatly speeds up dependency parsing compared to the previous implementation. To try the new parser, set `use_rust_parser` in `[python-infer]` in `pants.toml`. You may want to run `pants peek :: > before.json` and then `pants --python-infer-use-rust-parser peek :: > after.json` and compare the two results before switching to the new parser.
+- The serverless `python_awslambda` or `python_google_cloud_function` targets now support a new `'zip'` layout, as recommended by the cloud vendors. This layout gives smaller packages and faster cold starts than the existing Lambdex layout, and will become the default in 2.18. See the docs [for `python_awslambda`](https://www.pantsbuild.org/v2.17/docs/awslambda-python#migrating-from-pants-216-and-earlier) and [for `python_google_cloud_function`](https://www.pantsbuild.org/v2.17/docs/google-cloud-function-python#migrating-from-pants-216-and-earlier).
+- You can now use the `pants` binary launcher  from anywhere in your repository, not just the project root. This also means that Pants will respect the address specs passed on the command line relative to the current working directory rather than the build root. See this in action in our [example-python](https://github.com/pantsbuild/example-python) repository:
+
+```shell-session
+$ pwd
+/home/user.name/example-python/helloworld/translator
+
+# target addresses are resolved relative to the build root
+$ pants --pants-version=2.16.0 list :
+//:reqs
+//:reqs#ansicolors
+...
+
+# target addresses are resolved relative to the current working directory
+$ pants --pants-version=2.17.0 list :
+helloworld/translator/__init__.py:lib
+helloworld/translator/translator.py:lib
+```
+
+- More features have been added in the work-in-progress JavaScript backend: there's support for `yarn@v1` and `Node.js` subpath imports as well as the `pnpm` package manager. There's also a new [example-javascript](https://github.com/pantsbuild/example-javascript) repository that you can use to explore JavaScript support in Pants. The Pants maintainers would appreciate any feedback from the community to help guide our JavaScript related development efforts.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.17.x.md) for more changes, along with our [plugin upgrade guide](https://www.pantsbuild.org/docs/plugin-upgrade-guide).
+
+---
+
+Try out one of our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-javascript](https://github.com/pantsbuild/example-javascript)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc/)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)
+
+Pants wouldn't be possible without everyone who contributed to 2.17.0, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!

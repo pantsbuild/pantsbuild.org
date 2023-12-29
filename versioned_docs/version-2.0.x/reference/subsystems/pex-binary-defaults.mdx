@@ -1,0 +1,52 @@
+---
+title: pex-binary-defaults
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Default settings for creating PEX executables.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[pex-binary-defaults]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `emit_warnings`
+
+<Option
+  cli_repr={`--[no-]pex-binary-defaults-emit-warnings`}
+  env_repr='PANTS_PEX_BINARY_DEFAULTS_EMIT_WARNINGS'
+  default_repr={`True`}
+>
+
+Whether built PEX binaries should emit PEX warnings at runtime by default. Can be overridden by specifying the `emit_warnings` parameter of individual `pex_binary` targets
+
+</Option>
+
+## Deprecated options
+
+### `pex_emit_warnings`
+
+<Option
+  cli_repr={`--[no-]pex-binary-defaults-pex-emit-warnings`}
+  env_repr='PANTS_PEX_BINARY_DEFAULTS_PEX_EMIT_WARNINGS'
+  default_repr={`True`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'Use `emit_warnings` rather than `pex_emit_warnings`.'}
+>
+
+Whether built PEX binaries should emit pex warnings at runtime by default. Can be overridden by specifying the `emit_warnings` parameter of individual `pex_binary` targets
+
+</Option>
+
+</span>

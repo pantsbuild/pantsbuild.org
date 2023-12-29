@@ -1,0 +1,118 @@
+---
+    authors: [stu]
+    tags: [jvm,python,golang-2,language-support-helm,announcement]
+---
+
+# Pants 2.14: Less boilerplate, more Rust, better support for Go monorepos, interactive debugging support, and more!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [James
+  Wainscoat](https://unsplash.com/@tumbao1949?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Highlights include: less boilerplate via hierarchical defaults for target field values, better Golang monorepo support, with multiple `go.mod`s, do more of your workflows in Pants with the experimental `deploy` goal (with initial support for Helm), and much more…
+
+{/* truncate */}
+
+---
+
+We're pleased to announce [Pants 2.14.0](https://www.pantsbuild.org/v2.14/docs), the latest release of Pants, the scalable and ergonomic build system.
+To update, set `pants_version = "2.14.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips) for more information.
+
+## Less boilerplate via hierarchical defaults for target field values
+
+A key goal of Pants is reducing the amount of BUILD boilerplate that users have to maintain in order to quickly and reliably build their code. To that end, Pants `2.14` introduces [`__defaults__`](https://www.pantsbuild.org/v2.14/docs/targets#field-default-values): a mechanism to set the default arguments used for the targets defined in a directory.
+
+As an example: suppose that you wanted to use a non-default thirdparty `resolve` “spark3” for all targets in a particular subdirectory. To do that, you'd declare `__defaults__` in a `BUILD` file in that subdirectory:
+
+```python title="BUILD"
+__defaults__(all=dict(resolve=”spark3”))
+```
+
+… and then all targets defined at or below that BUILD file would default to using `resolve=”spark3”` (but could still override that default if they choose)!
+
+`__defaults__` also supports setting defaults for individual target types, or can be combined with `parametrize`. For more examples, see [the docs for `__defaults__`](https://www.pantsbuild.org/v2.14/docs/targets#field-default-values)!
+
+## Better Golang monorepo support, with multiple `go.mod`s
+
+Pants `2.14` adds support for using multiple `go.mod` files in one repository, by adapting dependency inference to infer dependencies only within the scope of a single parent `go.mod`.
+
+Similar to our support for [using multiple `resolves`](https://www.pantsbuild.org/v2.14/docs/python-third-party-dependencies#user-lockfiles) (for Python, Java, Scala, Kotlin, etc), support for multiple `go.mods` can be really helpful for projects which can't fully migrate (or just haven't yet) to a single set of shared thirdparty dependencies in their repository.
+
+## Do more of your workflows in Pants with the experimental `deploy` goal, with initial support for Helm
+
+Pants' philosophy around CLI “goals” (like `test`, `fmt`, `run`, etc) is to support caching, parallelism, and a consistent user interface across tools which accomplish similar tasks across different languages or ecosystems.
+
+For example: the `test` goal provides a consistent interface to running and caching tests using `pytest`, `junit`, `shunit2`, etc, while the `fmt` goal safely pipelines (and even partially parallelizes) the running of code formatters like `scalafmt`, `go fmt`, `black`, `isort`, etc.
+
+To that end: Pants `2.14` introduces an (experimental) `deploy` goal, with initial support for [Helm](https://helm.sh/) installs. The [Helm implementation of the `deploy` goal](https://www.pantsbuild.org/v2.14/docs/helm-deployments) will:
+
+1.  Infer the Docker image dependencies of your Helm charts
+2.  Build and `publish` image dependencies
+3.  Post-process the Kubernetes manifests to use the `publish`ed image names
+4.  Run the Kubernetes deployment resulting from the post-processing
+
+We'd love your feedback on both the `deploy` goal and [the support for Helm](https://www.pantsbuild.org/v2.14/docs/helm-overview)!
+
+## Easier interactive debugging for Python in VS Code using the DAP protocol
+
+Pants usually runs processes in hermetic sandboxes for reproducibility. But in order to attach a console-based debugger like Python's [PDB](https://docs.python.org/3/library/pdb.html), [the `test --debug` flag](https://www.pantsbuild.org/v2.14/docs/reference-test#debug) has long supported forcing a test to run in “interactive” mode in the foreground in your console.
+
+In Pants `2.14`, there is a new and shiny alternative to using console debuggers: using [the `--debug-adapter` flag](https://www.pantsbuild.org/v2.14/docs/reference-test#debug_adapter) to launch an implementation of [the DAP protocol](https://microsoft.github.io/debug-adapter-protocol/) for graphical debugging (particularly in VS Code) for either the `test` goal or `run` goal.
+
+To try it out, run a test with `./pants test --debug-adapter $filename`. You'll see a prompt like:
+
+```log
+[INFO] Launching debug adapter at '127.0.0.1:5678', which will wait for a client connection…
+```
+
+… then set a breakpoint in VS Code, and use the `Remote Attach` action to run the test to your breakpoint!
+
+Although the Python backend has the only implementation of the `--debug-adapter` flag so far, there are DAP server implementations for [many other languages](https://microsoft.github.io/debug-adapter-protocol/implementors/adapters/): we'd love [to help you](https://www.pantsbuild.org/docs/getting-help) add support for your favorite language!
+
+## Better dependency computation performance by porting more critical paths to Rust
+
+Since Pants 2.0, the “engine” of Pants has been implemented in Rust, with all language support added via the plugin API as Python 3 `@rules`.
+
+Python and Rust make a great combination! They allow us to make it easy to write plugins using type safe async Python 3, while the most CPU intensive portions of Pants are written in safe and performant Rust.
+
+The `2.14.x` release brings a good example of this pairing: by porting a single codepath in the plugin API from Python to Rust (transparently to consumers!), we got [a 12% speedup for the computation of dependencies](https://github.com/pantsbuild/pants/pull/16160).
+
+We're always on the lookout for more API boundaries which can move to Rust: if you're interested in helping out, check out [our page on profiling and benchmarking](https://www.pantsbuild.org/docs/contributions-debugging)!
+
+## `BUILD` file formatters run in `fmt` and `lint`
+
+In previous versions, `BUILD` file formatting and linting only ran in the `update-build-files` goal. But in `2.14`, enabling a `BUILD` file formatter will cause it to run in the `fmt` and `lint` goals as well!
+
+If you hadn't already enabled `BUILD` file formatting, you can do so by enabling one of the following backends:
+
+- `pants.backend.build_files.fmt.black` - to use [Black](https://black.readthedocs.io/en/stable/)
+- `pants.backend.build_files.fmt.buildifier` - to use [Buildifier](https://github.com/bazelbuild/buildtools/blob/master/buildifier/README.md)
+- `pants.backend.build_files.fmt.yapf` - to use [YAPF](https://github.com/google/yapf)
+  Happy formatting!
+
+## Other notable changes
+
+There are [a long list of additional changes in 2.14](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md), but highlights include:
+
+- [`mypy`'s incremental cache will now be used](https://github.com/pantsbuild/pants/pull/16290), which should significantly reduce the latency of typechecking.
+- Concurrent execution of Python test _methods_ is now [natively supported](https://www.pantsbuild.org/v2.14/docs/python-test-goal#pytest-version-and-plugins) via `pytest-xdist`! If your test methods are concurrency safe, you can set `[pytest].xdist_enabled = True` to run individual test methods concurrently, in addition to Pants' usual file-level parallelism.
+- The file downloading intrinsic which is used to fetch fingerprinted remote binaries now has [built in retry to reduce flakiness](https://github.com/pantsbuild/pants/pull/16879).
+- When a locally-run test times out, the `stdio` of the process [will now be preserved](https://github.com/pantsbuild/pants/pull/16880), to assist with debugging which test(s) were slow.
+- `mypy`'s output will now render [in color](https://github.com/pantsbuild/pants/pull/16586), and at a [reasonable width for all terminals](https://github.com/pantsbuild/pants/pull/16488) (without breaking cache keys: huzzah!)
+- Pants' dependency inference for Scala has [been](https://github.com/pantsbuild/pants/pull/15865) [significantly](https://github.com/pantsbuild/pants/pull/15880) [improved](https://github.com/pantsbuild/pants/pull/16692)!
+- You can now add to dict-valued options in config files, using a similar syntax to that used for adding to list-valued options. To add a key to a dict option named `[scope].example`, you could use a `pants.toml` entry like:
+
+```toml title="pants.toml"
+[scope]
+example.add = { an_additional_key = and_a_value }
+```
+
+- `grpc-java` codegen [is now supported](https://github.com/pantsbuild/pants/pull/16350).
+- A few different JVM `@rules` became [more deterministic by default](https://github.com/pantsbuild/pants/pull/16950), while others have gained [optional timestamp stripping for deterministic outputs](https://github.com/pantsbuild/pants/pull/16134).
+
+## Thanks
+
+Thanks to all of the contributors to `2.14`, including everyone who shared feedback on changes and who tested release candidates!

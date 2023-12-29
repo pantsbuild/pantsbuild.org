@@ -1,0 +1,169 @@
+---
+    authors: [alexey]
+    tags: [ci,python,case-studies]
+---
+
+# Case Study: Introducing Pants to Oxbotica
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Jake
+  Blucker](https://unsplash.com/@jakeblucker?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+A year in, builds take only a few minutes (~150K LOC, ~1500 tests), PRs have become smaller as devs no longer try to squeeze as much as code as possible into a single change, code reviews get completed much faster (and are more likely to provide useful feedback), development velocity has increased…
+
+{/* truncate */}
+
+## Background
+
+At [Oxbotica](https://www.oxbotica.com/), we are on a mission to make the Earth move. The company is a global leader in autonomous vehicle software for businesses. This year an Oxbotica vehicles set the Europe-first precedent for zero-occupancy autonomous vehicle journey on publicly-accessible roads. Founded in 2014 and headquartered in Oxfordshire, England, we are a fast-growth company focused on artificial intelligence engineering, machine learning and modular software design.
+
+Our Python code repository represents a unified codebase containing code for multiple projects that share underlying dependencies, functionality, tooling, and processes. There are multiple teams within Oxbotica working on separate parts of the repository, but they very often overlap, particularly on these shared dependencies. However, as the organization and the codebase grew, the repository and its build complexity grew with it. Our company has used Pants in the Python monorepository for over a year now, and in this post I'll share our experience and the motivation to introduce Pants as a new build system for the our Python codebase.
+
+## Challenges
+
+As our company got bigger, more and more engineers started contributing to the Python repository. Each project was a `conda` package that has its 3rd party dependencies as well as peer dependencies (i.e. other projects in the same repo) declared in the `conda` build files. Local development workflow was fairly streamlined as developers spent most of their time within a single project and could run project tests. However, ensuring cross-project compatibility wasn't easy because `conda` had to resolve dependencies of each project independently. In addition, each package was versioned independently which meant that developers couldn't easily run the tests that span multiple projects since that would require spending too much time resolving dependencies and preparing the `conda` environments. This approach was quite inefficient as it's often unnecessary to rebuild and retest a project if its code and code of its dependencies haven't changed.
+
+This way, even though all the code was stored in a single Git repository, technically, it was just a common storage of interdependent projects. It wasn't possible any longer to complete the local and CI builds in feasible time and after doing some research, we have decided that its time to move to a monorepository approach. This would ideally require bringing a special build system. That's how we discovered Pants.
+
+## Why a build system?
+
+Despite Python being an interpreted language that doesn't require compiling in a sense of compiled languages such as C++ or Java, the build process refers to build in a general sense. This refers to all the steps that one takes to go from writing the source code all the way through to having a deployable artifact that can be installed in an arbitrary Python environment. The build steps are likely to include:
+
+- resolving and downloading external dependencies (from a global and/or a self-hosted private PyPI)
+- generating code if a code generator such as [Protobuf](https://developers.google.com/protocol-buffers) is used
+- type checking and static code analysis
+- running linters and formatters
+- running tests
+- packaging artifacts
+
+Standard Python ecosystem tools were not designed for monorepos, and they may do a lot of repeated work that may be unnecessary. However, the tooling already provides all the necessary functionality (e.g. `pip` for dependency resolution, `pytest` for running tests, `flake8` for linting), so we really only needed an orchestration system. As more advanced Python engineering practices will be enforced across all projects of the monorepo, as a Python developer, one will need to do a lot more than just to run the tests to validate that the code is correct and can be checked in. All the tools mentioned above need to be invoked with the right arguments, at the right time during the workflow, and in a way that the entire team will be able to reproduce.
+
+## Build system requirements
+
+We strongly believe that a good build system should coordinate all of those tools to provide a much smaller command-line interface to the team of software engineers. While one could write bespoke per-repo scripts (e.g. Shell or Makefile) to assist the developers ("use this command for this and these sequence of commands for that"), we really hoped to have a build system that could become a higher-level solution. Another benefit of using a build system we hoped to take advantage of was to invoke the tools in a way would allow using caching and incrementalism mechanisms (to minimize the amount of work that is re-done on the subsequent run). As testing within our codebase is often data driven and may involve reading large files and be quite time consuming, being able to cut the time spent running tests was critical to us.
+
+### Change management
+
+In his talk [Python monorepos: what, why and how](https://www.youtube.com/watch?v=N6ENyH4_r8U), Benjy Weinberger put well that the hardest problem of the monorepo is managing changes, managing dependencies and, most importantly, the overlap between those. Managing changes is hard per se, however, managing changes in the presence of dependencies is much harder, and vice versa.
+
+After making changes to one of the projects within the monorepo, the necessary workflow would be:
+
+1.  Find all the consumers of this project.
+2.  Ensure that they still work with the changes you made (by running their tests).
+3.  Make changes as needed until their tests pass.
+4.  Repeat recursively for all the projects you changed.
+
+At that time, it was done by building all projects using [conda-build](https://docs.conda.io/projects/conda-build/en/latest/index.html) recipes and then re-creating environments for each individual project pulling their updated dependencies and running the tests. Since all the clients of all the code are in the same repository, the breakages are immediately visible since one can run tests of all the relevant projects. However, this approach slows down a developer significantly, because running tests becomes very expensive since one has to run tests not only in the project they make changes in, but also across all other projects unless they know what the dependees of the project they work on are.
+
+## Why Pantsbuild?
+
+[Pants v2](https://www.pantsbuild.org/docs/python) was specifically designed for the Python use case in contrast to other popular choices such as [Bazel](https://bazel.build/), [Buck](https://buck.build/), or [Please](https://please.build/). It is a ground-up redesign of based on lessons from 10 years of Pants v1 development.
+
+We came to the conclusion that Pants v2 is a much better choice for Python monorepo because our only language of interest is Python and v2 removes friction present in v1 that caused some companies to migrate their multi-language monorepos to Bazel. As Pants v2 develops, support for additional languages continue to be added, which should provide us with the necessary tooling straight out-of-the-box should we start writing tools in, for example, Go.
+
+[Pants project](https://github.com/pantsbuild/pants/) is actively developed, and the contributors are friendly and helpful. In 2018, [Toolchain Labs](https://toolchain.com/) was founded by Pants' originators, John Sirois and Benjy Weinberger. The company leads development of Pants, and is staffed by other longtime Pants core team members. The open source project is foundational for these people. We reasoned that this should provide some guarantees on the long-term commitment to the open-source project and make it a safe investment.
+
+## Enabling Pants in the repository
+
+Pants documentation is a great place to learn [how to incrementally add Pants to an existing repository](https://www.pantsbuild.org/docs/existing-repositories). Setting up Pants in the monorepo was done in multiple steps as we wanted to merge changes in small bulks and with no disruption to the current users.
+
+### Project directory layout
+
+Pants makes it easy to adopt for existing codebases, because it doesn't require all Python projects within the monorepo to have the same [directory layout](https://www.pantsbuild.org/docs/source-roots#examples). We didn't want to make any structural changes to the code layout and in fact it wasn't necessary thanks to sensible defaults set in the `BUILD` metadata files. For example, some projects stored test modules along with the source modules while others had a dedicated `tests` directory. We noticed that source modules may have been stored in the root directory of a project or in a layout of the `src`/`tests` directory structure.
+
+However, if you have to follow a standard project structure (perhaps because you rely on tooling that makes certain assumptions), you may want to split sources and tests and move some code around. While in some programming languages using a build project such as Apache Maven there are some standards to the [directory layout](https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html), Python ecosystem is much more flexible in terms of conventions. [Pytest documentation](https://docs.pytest.org/en/6.2.x/goodpractices.html#choosing-a-test-layout-import-rules) currently supports two common project layouts. There are a few helpful resources ([here](https://blog.ionelmc.ro/2014/05/25/python-packaging/#the-structure) and [here](https://docs.python-guide.org/writing/structure/)) where you can find out more. If you need some inspiration, it may be worth taking a look at how other large Python projects such as [pytest](https://github.com/pytest-dev/pytest), [click](https://github.com/pallets/click), [flake8](https://github.com/PyCQA/flake8), and [black](https://github.com/psf/black) structure their projects.
+
+We have [Multiple top-level projects](https://www.pantsbuild.org/docs/source-roots#multiple-top-level-projects) layout and have enabled Pants for the projects one by one over the course of a few months. This meant we had more time to fix issues and learn more about Pants features and best practices before we rolled Pants across all the projects.
+
+### 3rd party dependencies
+
+We have decided to use a single list of the 3rd party dependencies for the entire monorepo, with the requirement that the package versions need to be conflict-free, so that all code in the monorepo can be reused. This makes it possible to create a single virtual environment containing all the requirements which we'll discuss later in the post.
+
+Pants will set up a virtual environment for every build, so any dependency conflicts are detected right away. However, thanks to the [dependency inference](../2022-10-27-why-dependency-inference/index.mdx), each build (e.g. when running a test or packaging an artifact) will pull only those dependencies that are truly required.
+
+Since there is only one place in the monorepo for defining any external dependencies, this simplifies the dependency management. You don't have to deal with the situations that can occur if you try to import a Python module that depends on a different version of a 3rd party dependency than your current project. For example, it is not possible to have project A to depend on a 3rd party package X of version 1 and project B to depend on the 3rd party package X of version 2. If a certain project needs a newer version of a package than the one defined in the monorepo root requirements, one would need to upgrade this package, and make sure all other clients of this package remain functional.
+
+However, we do allow defining individual requirements that may be specific to a particular project. This is common when a project owners would like to bring an experimental dependency and take advantage of the Pants build system, but are not yet ready to make it accessible to everyone via the root requirements. Another time we had to use this approach was when there was a project with experimental code with a dependency on a PyPI package with native code that didn't have a wheel for devices on certain hardware architecture.
+
+Since we have a variety of platforms and architecture to support (macOS on Intel and Apple silicon chips and Linux on Intel and ARM chips), it was necessary to make sure that all 3rd party dependencies that have native code are available as Python wheels so that they are readily available for Pants builds. We have managed to build those packages without rolling out a new CI pipeline that would automate this process as most of the projects finally caught up and started publishing Python wheels for missing platforms. If you would like to use open-source Python projects on Linux with ARM processors, you may have no choice, but automate the build process as it's still very rare for them to have a CI plan with ARM agents. For macOS builds, [tart](https://github.com/cirruslabs/tart) driven workflow worked really well and for Linux Docker builds, you can take a look at [pypa/manylinux](https://github.com/pypa/manylinux).
+
+A single place for pinned dependencies allows us upgrading a certain package for all the projects in the monorepo at once. This greatly simplifies doing security audits and package version upgrades. In addition to downloading the necessary public PyPI packages, Pants also support accessing a private package index via [PyPI servers](https://www.pantsbuild.org/docs/reference-python-repos) or a binary repository manager which is where we host wheels internally.
+
+Pants does support having multiple versions for 3rd party requirements for individual projects as long as they are not dependent on each other in either way. If they are, however, it won't be possible to resolve the requirements for the virtual environment where the tests will be run. Despite Pants having excellent support for [multiple lockfiles](https://www.pantsbuild.org/docs/python-third-party-dependencies#multiple-lockfiles), we have decided to have a single consistently resolvable universe of requirements.
+
+### Adding build metadata
+
+The metadata files were generated in semi-automated manner using `./pants tailor` goal after [enabling Python support](https://www.pantsbuild.org/docs/python-backend). Each project directory has `BUILD` files with minimal information about the internal and external dependencies.
+
+We have decided to [enable linters and formatters](https://www.pantsbuild.org/docs/python-linters-and-formatters) incrementally, per project basis. Because there were multiple legacy projects that were written without any linters and formatters in mind, we didn't want to make massive changes across them at once. This meant that project owners could decide themselves when they are ready to commit to format and lint their code. We felt that it would be better to empower engineers by giving them all the tooling they may need and let them use it when appropriate.
+
+We have written scripts to automate making changes to the `BUILD` metadata files. You can learn more about it the blog post [Updating Pants BUILD files programmatically](../2022-01-06-updating-pants-build-files-programmatically/index.mdx).
+
+### Adding a CI pipeline
+
+Once we had our first project to trial in Pants adoption, we were ready to start CI builds of the monorepo using Pants. Pants docs share lots of useful advice on [Using Pants in CI](https://www.pantsbuild.org/docs/using-pants-in-ci). Enabling caching was trivial as the repo checkouts are built inside Docker containers and the cache can be shared between them. Pants guarantees safe interactions between processes that make simultaneous writes to the cache which is what will happen as builds take place in parallel, so you don't need to worry about resource contention.
+
+We were not comfortable at that point to set up a cache that could be shared between the build nodes and we kept keeping one Pants cache directory per machine used as a CI node. Because a build can be started on an arbitrary node, the caches have filled fairly quickly and we have started seeing excellent cache hit rates. We may explore setting up a dedicated file server to be used as a single Pants cache, but given the build size, at the moment this feels like overkill, as a typical build currently takes only a few minutes (~150K LOC, ~1500 tests).
+
+As a side effect, since the build time got down significantly, we noticed that the pull requests became smaller as developers are no longer trying to squeeze as much as code as possible in a single change. Code reviews get completed much faster (and are more likely to provide useful feedback) and development velocity increases.
+
+Pants is source control aware and can figure out which tests need to be [run based on changed files](https://www.pantsbuild.org/docs/using-pants-in-ci#approach-1-only-run-over-changed-files). However, if your repository is not that big and takes advantage of caching, you may just run over everything (while still benefiting from having the cache set up). It may also be helpful to re-run all the tests in each build to observe the performance improvements when comparing with your current build approach (in case you have been running all the tests for every build earlier).
+
+We have also invested heavily in the monorepository linting which takes place in CI builds from the very start, to ensure consistency and best practices across the codebase. For example, we identify fragile dependencies between projects, forbid certain options in the targets metadata, warn about files not owned by any target, and many more. Please see [Monorepository linting via Pants's project introspection](../2022-08-05-monorepository-linting-via-pants-project-introspection/index.mdx) to learn more.
+
+### Packaging artifacts
+
+Before Pants, each project was distributed as a `conda` package. With Pants and the monorepo approach, this is no longer necessary as projects interact between each other directly via the source files. We have studied what projects are dependencies for engineers and systems outside of the monorepo (as we have multiple Git repositories) and started providing packages in a suitable format.
+
+To avoid creating too many distributions, we have decided that any new Python code that needs to be written should be brought into the monorepo and packaged here. The core Python libraries used in other repositories are shipped as wheels (known as a [distribution](https://www.pantsbuild.org/docs/python-distributions) in the Pants land). We produce Docker images used in data processing pipelines with each image containing Shell scripts and [PEX](https://pex.readthedocs.io/en/v2.1.104/index.html) files. We also produce Debian packages (currently with the standard Debian tooling) with each package containing one or more PEX files; please see [Packaging PEX files as Debian packages](https://github.com/pantsbuild/pants/issues/12421) to learn more about the motivation.
+
+When designing the packaging strategy, we have tried to be very thoughtful with regards to the versioning approach. If you distribute Python wheels of different libraries that may have shared code, you may run into the issues if they share some code, so you have to be very careful making sure these projects don't have overlapping scope. Since the version 2.13, Pants supports [generating version tags from Git](https://www.pantsbuild.org/docs/generating-version-tags) which may help you in case you already rely on Git driven versioning.
+
+Packaging Python code into PEX files became such a popular option so that it is currently used outside of Python monorepo where Pants is not used. A typical use case is to package command line tools into a single executable files to avoid copying or creating virtual environments from scratch.
+
+PEX has also been used for ad hoc packaging to produce executable files for a foreign hardware architecture which has been for a while a preferred way to get some arbitrary Python code running in Linux environment on ARM (before we could run Pants on ARM natively).
+
+### Developer tooling
+
+To provide optimal developer experience, we wanted to provide instructions on how to set up two most popular IDEs for Python development in the organization - PyCharm and VSCode - to work with the monorepo. We found the Pants documentation section [Setting up an IDE](https://www.pantsbuild.org/docs/setting-up-an-ide) to be very helpful. It can also be helpful to take advantage of any existing automation systems developers are used to. For instance, we use `Makefile` to bring a simpler interface to the Pants command (e.g. `make fmt` to format both the sources and the build metadata files and `make deps project=name` to list 3rd party dependencies of a project).
+
+We also try not to enforce any particular tooling on a developer and instead only share available options in case they don't have a strong opinion. For example, we let users decide on how they want to ensure their code is formatted. A CI build will fail if the code is unformatted, so how the code gets formatted locally doesn't really matter. We leave it up to a developer to decide whether they want to use Git or pre-commit hooks, run the commands manually, using a `make` command or a Bash alias, or have the code formatted by their IDE.
+
+#### `BUILD` files
+
+We have also spent some time looking for support of `BUILD` files as many IDEs and text editors already support syntax highlighting out of the box. There is some limited support for code navigation and interaction as well such as reporting syntax errors, ability to comment/uncomment blocks of code, and collapse/expand code sections.
+
+For PyCharm users, we suggested installing the [Bazel plugin](https://plugins.jetbrains.com/plugin/8609-bazel) and adding the `BUILD` file name pattern to the `Bazel BUILD language` in the `Recognized File Types` section. See [Change filename patterns associated with file type](https://www.jetbrains.com/help/pycharm/creating-and-registering-file-types.html#change-extension) to learn more. For VSCode users, we suggested installing the [Bazel plugin](https://marketplace.visualstudio.com/items?itemName=BazelBuild.vscode-bazel) with any additional configuration being optional.
+
+There is some research in progress to bring proper support of Pants build metadata files in popular IDEs using Language Server and Build Server protocols ([LSP](https://microsoft.github.io/language-server-protocol/) and [BSP](https://build-server-protocol.github.io/)).
+
+#### Virtual environments
+
+Because we have a single list of requirements for the whole monorepository, we were able to resolve them into a [constraints](https://pip.pypa.io/en/stable/user_guide/#constraints-files) file using the [pip-tools](https://github.com/jazzband/pip-tools). Developers can use `pip` to create virtual environment from the `requirements.txt` file (applying the `constraints.txt` generated with the `pip-compile`). Pants provide mechanisms for generating a virtual environment via the [`export`](https://www.pantsbuild.org/docs/reference-export), however, we wanted to keep things simple. The request to be able to run tests for a given project or run an arbitrary Python module without using Pants was quite common. Many developers felt it was easier/faster to run a `pytest` command when they are iterating writing code and they switch to the Pants tooling once they are done with a chunk of work and wanted to run the tests across the repository before starting a CI build.
+
+We also have to support hardware engineers, researchers, and other users who do not normally "live" in the repo and may be interacting with the repo only occasionally and therefore missing the build system context. For instance, users often want to create a virtual environment with only the 3rd party dependencies (identifiable with the help of [`dependencies`](https://www.pantsbuild.org/docs/reference-dependencies) goal) of a particular project for rapid prototyping. This is why we have documented how to use standard Python tooling for quick experiments, so that they never really needed to get to know Pants build system.
+
+### Python runtime environment
+
+Finding the right strategy to decide on Python interpreter constraints to be used in the Pants monorepository required some careful thinking. Because we had enough users who are not Python programmers or are not familiar with the Python ecosystem and tooling, we needed to make sure there is a simple way to get a Python interpreter installed. Because our development infrastructure team is rather small, we couldn't have the privilege to be open to any CPython 3.8 interpreter users may have installed. This is to avoid dealing with support requests from developers who experience issues running the code or tests as their Python interpreter may have come from a `pyenv` interpreter, system Python, `conda` environment, `brew` formula, or anything else discovered on the system `$PATH`.
+
+As we had a well established macOS setup, we've decided to stick to the [Xcode](https://developer.apple.com/xcode/) Python which we can automate installing using [jamf](https://www.jamf.com/). As the expectation is that the users will already have Xcode installed, we declare `search_path = ["/usr/bin"]` in the `pants.toml` file. This way, we ensure that once a user's machine is bootstrapped, the repository checkout can immediately be used with Pants and it just works. However, we also allow engineers to override this or, in fact, any setting using the [.pants.rc](https://www.pantsbuild.org/docs/options#pantsrc-file) file, so that we remain flexible and allow devs to use any compatible Python interpreter they may prefer. See [Choosing a Python interpreter for a Pants project](../2022-02-15-choosing-a-python-interpreter-for-a-pants-project/index.mdx) so that you can find a strategy that works for you.
+
+### Documentation
+
+Pants documentation is extremely sophisticated and exhaustive, however, it may also feel a bit overwhelming for a newcomer. In fact, we don't think our developers need to know anything about Pants unless they really want to. This is the opposite of what is expected from our developers working in the C++ repository - they need to be fairly proficient in [CMake](https://cmake.org/) to be able to write and maintain build metadata files. We maintain our own documentation on how to operate in Oxbotica's monorepository, covering standard internal workflows, and have extended it over the past year as we observed common questions and points of confusion.
+
+## Conclusion
+
+**After using Pants over a year now, we can say with confidence it was worth every effort.**
+
+The repository build workflows can now accommodate a much larger number of contributors thanks to Pants caching mechanisms used in tests and very smart dependency inference thanks to which the builds do only what's truly required. It has also removed the cognitive burden from the developers who can focus on the domain code instead of dealing with the build system nuances. The engineers are happy to make occasional changes to the `BUILD` files (e.g. adding new `resource` and `pex_binary` targets) and find the API very intuitive. We strive to hide the Pants internal details from the user to keep things simple, however, they found error messages given by Pants extremely helpful — not only because they are short and full of context, but also because they tell you how to fix the error (e.g. run another goal or fix a typo in a target's name).
+
+It's great to see the project being actively developed, bringing support for new frameworks and tools. For instance, we are exploring using [PyOxidizer](https://www.pantsbuild.org/docs/pyoxidizer) to produce a package with the Python interpreter baked in to facilitate sharing applications with non-developers. We are also very pleased to see the Pants community growing attracting more users and providing a space to improve developer productivity across multiple organizations. It's said that with Python, [programming is fun again](https://xkcd.com/353/). With Pants, building Python is fun again!
+
+:::info[About the author]
+Alexey Tereshenkov led Oxbotica's 2021 migration to Pants, and in the process became a committed contributor to the open source project. Since becoming involved with Pants through Oxbotica, Alexey has made many contributions to the project, notably including Yapf formatter support for Python, writing blog posts, docs improvements, and adding a long-requested `python_distribution` improvement. He also drives Debian packaging support in Pants. [In 2022 he joined the project's core team of maintainers.](../2022-02-28-meet-our-newest-maintainer-alexey-tereshenkov/index.mdx)
+:::

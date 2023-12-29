@@ -1,0 +1,56 @@
+---
+title: basicauth
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Support for HTTP basicauth.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[basicauth]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+### `providers`
+
+<Option
+  cli_repr={`--basicauth-providers="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_BASICAUTH_PROVIDERS'
+  default_repr={`{}`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'The option `--basicauth-provides` does not do anything and the `[basicauth]` subsystem will be removed.'}
+>
+
+Map from provider name to config dict. This dict contains the following items: &#123;provider_name: &lt;url of endpoint that accepts basic auth and sets a session cookie&gt;&#125;. For example, `{'prod': 'https://app.pantsbuild.org/auth'}`.
+
+</Option>
+
+### `allow_insecure_urls`
+
+<Option
+  cli_repr={`--[no-]basicauth-allow-insecure-urls`}
+  env_repr='PANTS_BASICAUTH_ALLOW_INSECURE_URLS'
+  default_repr={`False`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'The option `--basicauth-allow-insecure-urls` does not do anything and the `[basicauth]` subsystem will be removed.'}
+>
+
+Allow auth against non-HTTPS urls. Must only be set when testing!
+
+</Option>
+
+</span>

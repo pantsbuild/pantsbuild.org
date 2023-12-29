@@ -1,0 +1,73 @@
+---
+title: paths
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants paths [args]
+```
+
+List the paths between two addresses. Either address may represent a group of targets, e.g. `--from=src/app/main.py --to=src/library::`.
+
+Backend: <span className="color--primary">`pants.backend.project_info`</span>
+
+Config section: <span className="color--primary">`[paths]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--paths-output-file=<path>`}
+  env_repr='PANTS_PATHS_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `from`
+
+<Option
+  cli_repr={`--paths-from=<str>`}
+  env_repr='PANTS_PATHS_FROM'
+  default_repr={`None`}
+>
+
+The path starting address
+
+</Option>
+
+### `to`
+
+<Option
+  cli_repr={`--paths-to=<str>`}
+  env_repr='PANTS_PATHS_TO'
+  default_repr={`None`}
+>
+
+The path end address
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

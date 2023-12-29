@@ -1,0 +1,77 @@
+---
+title: py-constraints
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants py-constraints [args]
+```
+
+Determine what Python interpreter constraints are used by files/targets.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[py-constraints]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--py-constraints-output-file=<path>`}
+  env_repr='PANTS_PY_CONSTRAINTS_OUTPUT_FILE'
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `summary`
+
+<Option
+  cli_repr={`--[no-]py-constraints-summary`}
+  env_repr='PANTS_PY_CONSTRAINTS_SUMMARY'
+  default_repr={`False`}
+>
+
+Output a CSV summary of interpreter constraints for your whole repository. The headers are `Target`, `Constraints`, `Transitive Constraints`, `# Dependencies`, and `# Dependees`.
+
+This information can be useful when prioritizing a migration from one Python version to another (e.g. to Python 3). Use `# Dependencies` and `# Dependees` to help prioritize which targets are easiest to port (low # dependencies) and highest impact to port (high # dependees).
+
+Use a tool like Pandas or Excel to process the CSV. Use the option `--py-constraints-output-file=summary.csv` to write directly to a file.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [download-pex-bin](../subsystems/download-pex-bin.mdx)
+- [grpc-python-plugin](../subsystems/grpc-python-plugin.mdx)
+- [mypy-protobuf](../subsystems/mypy-protobuf.mdx)
+- [pex](../subsystems/pex.mdx)
+- [protoc](../subsystems/protoc.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [python-protobuf](../subsystems/python-protobuf.mdx)
+- [python-repos](../subsystems/python-repos.mdx)
+- [python-setup](../subsystems/python-setup.mdx)
+- [shell-setup](../subsystems/shell-setup.mdx)
+- [shellcheck](../subsystems/shellcheck.mdx)
+- [source](../subsystems/source.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
+
+</span>

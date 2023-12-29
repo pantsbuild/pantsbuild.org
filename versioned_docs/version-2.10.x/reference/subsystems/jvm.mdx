@@ -1,0 +1,82 @@
+---
+title: jvm
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for general JVM functionality.
+
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+Config section: <span className="color--primary">`[jvm]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `resolves`
+
+<Option
+  cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_JVM_RESOLVES'
+  default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
+>
+
+A dictionary mapping resolve names to the path of their lockfile.
+
+</Option>
+
+### `default_resolve`
+
+<Option
+  cli_repr={`--jvm-default-resolve=<str>`}
+  env_repr='PANTS_JVM_DEFAULT_RESOLVE'
+  default_repr={`jvm-default`}
+>
+
+The default value used for the `resolve` and `compatible_resolves` fields.
+
+The name must be defined as a resolve in `[jvm].resolves`.
+
+</Option>
+
+### `debug_args`
+
+<Option
+  cli_repr={`--jvm-debug-args="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JVM_DEBUG_ARGS'
+  default_repr={`[]`}
+>
+
+Extra JVM arguments to use when running tests in debug mode.
+
+For example, if you want to attach a remote debugger, use something like [&#x27;-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005&#x27;]
+
+</Option>
+
+## Advanced options
+
+### `jdk`
+
+<Option
+  cli_repr={`--jvm-jdk=<str>`}
+  env_repr='PANTS_JVM_JDK'
+  default_repr={`adopt:1.11`}
+>
+
+The JDK to use.
+
+This string will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
+
+If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

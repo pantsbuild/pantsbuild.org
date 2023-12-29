@@ -1,0 +1,45 @@
+---
+    authors: [alexey]
+    tags: []
+---
+
+# My experience as a Pantsbuild maintainer
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Xavi
+  Cabrera](https://unsplash.com/@xavi_cabrera?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+A Pants maintainer's personal and professional retrospective on nearly two years of involvement in the project, starting as a curious newcomer.
+
+{/* truncate */}
+
+:::info
+Alexey Tereshenkov has been an active contributor to Pants community since mid-2021. Starting in February 2022, he has also been a Pants core maintainer. Alexey looks back on the personal and professional experience of deepening one's involvement in this open source project.
+:::
+
+In this post, I'd like to share my experience being involved in Pants project during the past year and a half, and what being involved as a team member has been like.
+
+After spending some time evaluating Pants build system in the summer of 2021, I've started working on integrating it into a Python monorepository at my workplace. I've spent most of the time reading the documentation and searching for answers by raising GitHub issues and interacting with the community in Slack.
+
+Pants didn't have support for the `yapf` Python formatter (which we used at work back then), so I have decided to write a plugin to make it a core feature of Pants. I have already shared some insights about [my plugin development experience](../2021-09-27-contributing-yapf-support/index.mdx) in an earlier post.
+
+After making a few more minor improvements to the project, in July 2021, I was offered becoming a [contributor](https://www.pantsbuild.org/docs/the-pants-community#contributors) and accepted the offer. There are multiple advantages to being a recognized contributor, for example, you are more likely to get attention when you are troubleshooting an issue and receive mentorship in activities like code review. The Pants team made it very clear that there are no obligations or expectation of any commitments in terms of the contributions in any form.
+
+While completing the adoption of Pants at work, I have made a few more minor contributions in the form of documentation improvement and simple minor code refactorings. At some point, I have decided to start working on adding [Debian packaging support in Pants](https://github.com/pantsbuild/pants/issues/12421) which is how we preferred to distribute Python tools in our organization. At about this time, I was offered to become a [maintainer](https://www.pantsbuild.org/docs/maintainers). This sounded more serious and it is in fact a more significant change in comparison to becoming a contributor since a maintainer does have a list of [responsibilities](https://www.pantsbuild.org/docs/maintainers#what-do-maintainers-do) which is why I was hesitant at first. I was worrying that I would struggle to combine my current job, Pants contributions, and personal life. However, becoming a maintainer does come with a variety of benefits: you have more control over the course of project development, you get a chance to work more closely with the rest of project maintainers and have more powerful GitHub permissions to speed up PR approvals and interact with the CI pipeline.
+
+:::note [Editors note]
+Editors note: Thanks to feedback by Alexey and others, the team later thoroughly rewrote the maintainer description to better communicate what is and isn't expected. [Take a look](https://www.pantsbuild.org/docs/maintainers)!
+:::
+
+I have always been interested in being a part of a community of open-source project developers, so I decided to give it a try and the team voted to accept my candidacy. That was an exciting time! Among the good things I mentioned earlier about being a maintainer, I also got a privilege to interact more closely and get to know better other core maintainers which I have really, really enjoyed.
+
+At some point, I was just too busy with the rest of my job duties, so I haven't written much code, and only fixed a few minor issues over the course of many months. However, it's important to keep in mind that project contributions may come in different shapes! For example, I have curated the docs and wrote quite a few blog posts hoping to help with Pants adoption and share some practical advice on using Pants in a Python monorepository. I've also lately been writing a series of tutorials on plugin development. As I became more familiar with the Pants build system, I have also started interacting with other Pants users trying to help them with their issues and questions in the public Slack workspace.
+
+Being involved in Pants development has also let me feel welcomed in a community of peer developers who share the same passion for the build systems I do which is something I value a lot. Everyone understands, though, that maintaining a high cadence of contributions to an open-source project when your main focus at work isn't all about that project is very difficult. Your involvement will vary with time: there will be time when you won't have any chance to contribute because you are snowed under at work, and there will be periods when you will be absorbed by it perhaps when thinking about a new plugin development or when driving adoption of Pants for a new language in your repository. Despite not being able to ship any code for months, I have never felt any pressure from the team which, in contrast, championed my efforts when I was blogging and tidying up the docs.
+
+From an engineering perspective, becoming a Pants project contributor or a maintainer gives you a chance to become more familiar with the [open-source development model](https://www.pantsbuild.org/docs/contributor-setup). It is a fairly large Python codebase with rigid standards on code quality in terms of structure, formatting, type checking, and linting. The team faces the challenge to make sure Pants operate correctly on popular architectures (x86 and arm) and platforms (Linux and Darwin). The codebase features concurrent Python code, [Rust interaction](https://www.pantsbuild.org/docs/contributions-rust), and sophisticated CI pipeline. Pants project is a safe place that provides a great platform to grow as a Python software engineer. There is a sheer variety of integrations with other programming languages such as Java and Go and systems such as Docker and Shell.
+
+Come and join the project - you may be our next contributor and maintainer who will help drive Pants project to keep software developers happy and productive!

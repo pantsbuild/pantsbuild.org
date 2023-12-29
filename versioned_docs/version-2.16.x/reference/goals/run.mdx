@@ -1,0 +1,68 @@
+---
+title: run
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants run [args]
+```
+
+Runs a binary target.
+
+This goal propagates the return code of the underlying executable.
+
+If your application can safely be restarted while it is running, you can pass `restartable=True` on your binary target (for supported types), and the `run` goal will automatically restart them as all relevant files change. This can be particularly useful for server applications.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[run]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--run-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
+  env_repr='PANTS_RUN_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2 --debug'`.
+
+</Option>
+
+### `debug_adapter`
+
+<Option
+  cli_repr={`--[no-]run-debug-adapter`}
+  env_repr='PANTS_RUN_DEBUG_ADAPTER'
+  default_repr={`False`}
+>
+
+Run the interactive process using a Debug Adapter (https://microsoft.github.io/debug-adapter-protocol/) for the language if supported.
+
+The interactive process used will be immediately blocked waiting for a client before continuing.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [debug-adapter](../subsystems/debug-adapter.mdx)
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

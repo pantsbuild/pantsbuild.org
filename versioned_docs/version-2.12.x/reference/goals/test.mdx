@@ -1,0 +1,139 @@
+---
+title: test
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants test [args]
+```
+
+Run tests.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[test]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `debug`
+
+<Option
+  cli_repr={`--[no-]test-debug`}
+  env_repr='PANTS_TEST_DEBUG'
+  default_repr={`False`}
+>
+
+Run tests sequentially in an interactive process. This is necessary, for example, when you add breakpoints to your code.
+
+</Option>
+
+### `force`
+
+<Option
+  cli_repr={`--[no-]test-force`}
+  env_repr='PANTS_TEST_FORCE'
+  default_repr={`False`}
+>
+
+Force the tests to run, even if they could be satisfied from cache.
+
+</Option>
+
+### `output`
+
+<Option
+  cli_repr={`--test-output=<ShowOutput>`}
+  env_repr='PANTS_TEST_OUTPUT'
+  one_of='all, failed, none'
+  default_repr={`failed`}
+>
+
+Show stdout/stderr for these tests.
+
+</Option>
+
+### `use_coverage`
+
+<Option
+  cli_repr={`--[no-]test-use-coverage`}
+  env_repr='PANTS_TEST_USE_COVERAGE'
+  default_repr={`False`}
+>
+
+Generate a coverage report if the test runner supports it.
+
+</Option>
+
+### `open_coverage`
+
+<Option
+  cli_repr={`--[no-]test-open-coverage`}
+  env_repr='PANTS_TEST_OPEN_COVERAGE'
+  default_repr={`False`}
+>
+
+If a coverage report file is generated, open it on the local system if the system supports this.
+
+</Option>
+
+### `extra_env_vars`
+
+<Option
+  cli_repr={`--test-extra-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TEST_EXTRA_ENV_VARS'
+  default_repr={`[]`}
+>
+
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+
+</Option>
+
+## Advanced options
+
+### `report`
+
+<Option
+  cli_repr={`--[no-]test-report`}
+  env_repr='PANTS_TEST_REPORT'
+  default_repr={`False`}
+>
+
+Write test reports to --report-dir.
+
+</Option>
+
+### `report_dir`
+
+<Option
+  cli_repr={`--test-report-dir=<str>`}
+  env_repr='PANTS_TEST_REPORT_DIR'
+  default_repr={`{distdir}/test/reports`}
+>
+
+Path to write test reports to. Must be relative to the build root.
+
+</Option>
+
+## Deprecated options
+
+### `xml_dir`
+
+<Option
+  cli_repr={`--test-xml-dir=<DIR>`}
+  env_repr='PANTS_TEST_XML_DIR'
+  default_repr={`None`}
+  removal_version='2.13.0.dev0'
+  removal_hint={'Set the `report` option in [test] scope to emit reports to a standard location under dist/. Set the `report-dir` option to customize that location.'}
+>
+
+Specifying a directory causes Junit XML result files to be emitted under that dir for each test run that supports producing them.
+
+</Option>
+
+</span>

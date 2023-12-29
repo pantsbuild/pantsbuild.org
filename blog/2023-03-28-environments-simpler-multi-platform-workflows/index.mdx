@@ -1,0 +1,66 @@
+---
+    authors: [stu]
+    tags: [concepts,docker]
+---
+
+# Environments: simpler multi-platform workflows
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Milada
+  Vigerova](https://unsplash.com/@milada_vigerova?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+Now you can cross-test or cross-build your code on multiple different platforms concurrently, using Environments. Pants uses its precise knowledge of your build's deps to run exactly the relevant processes inside reusable Docker containers (or evenly remotely on a cluster of workers)…
+
+{/* truncate */}
+
+## tl;dr
+
+Pants' [Environments](https://www.pantsbuild.org/v2.15/docs/environments) (introduced in [2.15.0](../2023-02-24-pants-2-15/index.mdx)) allow you to quickly and transparently cross-test or cross-build your code on multiple different platforms concurrently (from Linux to macOS, but also vice-versa when remote workers are available), improving the experience of both local and CI workflows.
+
+## Environments
+
+Using an [Environment](https://www.pantsbuild.org/v2.15/docs/environments) in your Pants build replaces the need to run Pants _in_ Docker: instead, Pants transparently uses its precise knowledge of your build's dependencies to run exactly the relevant processes inside of reusable Docker containers (or even remotely on a cluster of workers; more on that later).
+
+Rather than wrapping your build in an additional layer of tooling and complexity, you can use a tightly integrated, fine-grained toggle to control the environments that portions of your build are running in.
+
+### In Local Builds
+
+Pants already carefully isolates the host machine's settings in order to ensure hermeticity and reproducibility across machines. But in many cases you might like your test environment to precisely match production or CI.
+
+Instead of figuring out how to sync your repository in and out of a container and paying the cost of virtualization ([on macOS](https://www.cncf.io/blog/2023/02/02/docker-on-macos-is-slow-and-how-to-fix-it/)) and containerization for your entire build, Pants will sync and run exactly the necessary bits.
+
+### In CI Builds
+
+If you have a multi-platform CI build, you'd usually have to split your build up by platform into separate steps/tasks using your CI provider's configuration language. But Pants' Environments allow a single run of Pants to control the execution of tests on multiple operating systems, architectures, or sets of runtime dependencies.
+
+Because Pants natively supports building with multiple Environments concurrently, you can easily cross-build for multiple platforms at once. For example, running a test on macOS and Linux simultaneously:
+
+```shell-session
+$ ./pants test src/python/pants/util/dirutil_test.py
+...
+✓ src/python/pants/util/dirutil_test.py@environment=local_macos succeeded in 2.45s.
+✓ src/python/pants/util/dirutil_test.py@environment=remote_linux succeeded in 3.48s (ran remotely).
+```
+
+## How it works
+
+### Efficiency and reuse
+
+The Environment to use is passed down through Pants' build graph, but only into subgraphs which actually need to do something environment specific (like running processes, inspecting environment variables, consuming platform specific options, etc).
+
+Unlike when running your entire build in a Docker container, only the portions of the build graph which are relevant to the Environment run there: if you are building for multiple Environments simultaneously (such as via multiple Docker images, a mix of local and remote, etc), then large portions of the build graph (including dependency calculations) can be reused across those Environments!
+
+### Docker vs Remote Execution
+
+Although Pants support for Docker Environments enables transparently building in a Linux that matches your host machine's platform, Pants' [support for Remote Execution](https://www.pantsbuild.org/v2.15/docs/remote-execution) enables transparently building on any platform and operating system supported by the [Remote Execution API](https://github.com/bazelbuild/remote-apis) standard!
+
+In 2.15, remote execution has been adapted to allow [different classes of remote execution workers to be used as distinct Environments](https://www.pantsbuild.org/v2.15/docs/remote-execution#environment-specific-settings). That means that you can use a remote execution and caching platform like [Toolchain](https://www.toolchain.com/) to allow your local or CI use cases to cross build on heterogeneous workers concurrently (expect a post from Toolchain on this topic!)
+
+## Try it out!
+
+Environments are [experimental](https://github.com/pantsbuild/pants/issues/17355) in 2.15, so you may encounter some rough edges. We'd love your feedback on how they are working for you, and what new use cases they can enable.
+
+If you have any questions, please [reach out](https://www.pantsbuild.org/docs/getting-help) -- the Pants community would be more than happy to help!

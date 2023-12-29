@@ -1,0 +1,39 @@
+---
+    title: Extending pre-existing targets
+    position: 3
+---
+
+Adding new fields to target types.
+
+---
+
+## When to add new fields?
+
+Adding new fields is useful when you are already using a target type, but need to store additional metadata for your plugin.
+
+For example, if you're writing a codegen plugin to convert a `protobuf_library` into Java source files, you may want to add a `jdk_version` field to `protobuf_library`.
+
+If you are instead adding support for a new language, [create a new target type](./creating-new-targets.mdx).
+
+If you want to reduce boilerplate in BUILD files, such as changing default values, use [macros](../macros.mdx).
+
+## How to add new fields
+
+First, [define the field](./creating-new-fields.mdx). Then, register it by using `OriginalTarget.register_plugin_field(CustomField)`, like this:
+
+```python title="plugins/register.py"
+from pants.backend.codegen.protobuf.target_types import ProtobufLibrary
+from pants.engine.target import BoolField
+
+
+class ProtobufJdkVersion(IntField):
+    alias = "jdk_version"
+    default = 11
+    help = "Which JDK protobuf should target."
+
+
+def rules():
+    return [ProtobufLibrary.register_plugin_field(ProtobufJdkVersion)]
+```
+
+To confirm this worked, run `./pants help protobuf_library`, and you should see your new field.

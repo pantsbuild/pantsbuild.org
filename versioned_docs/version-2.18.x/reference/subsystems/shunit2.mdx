@@ -1,0 +1,135 @@
+---
+title: shunit2
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+shUnit2 is a xUnit framework for Bourne based shell scripts (https://github.com/kward/shunit2)
+
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+Config section: <span className="color--primary">`[shunit2]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]shunit2-skip`}
+  env_repr='PANTS_SHUNIT2_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use shunit2 when running `scie-pants-linux-x86_64 test`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--shunit2-version=<str>`}
+  env_repr='PANTS_SHUNIT2_VERSION'
+  default_repr={`b9102bb763cc603b3115ed30a5648bf950548097`}
+>
+
+Use this version of shunit2.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--shunit2-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SHUNIT2_KNOWN_VERSIONS'
+  default_repr={`[\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+
+```
+digest of the download file, as emitted by `shasum -a 256`
+```
+
+- `length` is the expected length of the download file in bytes, as emitted by
+
+```
+`wc -c`
+```
+
+- (Optional) `url_override` is a specific url to use instead of the normally
+
+```
+generated url for this version
+```
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--shunit2-url-template=<str>`}
+  env_repr='PANTS_SHUNIT2_URL_TEMPLATE'
+  default_repr={`https://raw.githubusercontent.com/kward/shunit2/{version}/shunit2`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--shunit2-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SHUNIT2_URL_PLATFORM_MAPPING'
+  default_repr={`{}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--shunit2-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_SHUNIT2_USE_UNSUPPORTED_VERSION'
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of shunit2 is not supported.
+
+Supported shunit2 versions: unspecified
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

@@ -1,0 +1,72 @@
+---
+title: jvm_artifact
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Represents a third-party JVM artifact as identified by its Maven-compatible coordinate, that is, its `group`, `artifact`, and `version` components.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `group`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the group is &#x27;com.google.guava&#x27;.
+
+</Field>
+
+## `artifact`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the artifact is &#x27;guava&#x27;.
+
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the version is &#x27;30.1.1-jre&#x27;.
+
+</Field>
+
+</span>

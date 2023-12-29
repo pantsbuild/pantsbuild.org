@@ -1,0 +1,61 @@
+---
+title: go_mod
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A first-party Go module (corresponding to a `go.mod` file).
+
+Generates `go_first_party_package` targets for each directory from the `package_sources` field, and generates `go_third_party_package` targets based on the `require` directives in your `go.mod`.
+
+If you have third-party packages, make sure you have an up-to-date `go.sum`. Run `go mod tidy` directly to update your `go.mod` and `go.sum`.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `package_sources`
+
+<Field
+    type_repr={`field.type_hint`}
+    default_repr={`('**/*.go', '**/*.s')`}
+>
+
+What sources to generate `go_first_party_package` targets for.
+
+Pants will generate one target per matching directory.
+
+Pants does not yet support some file types like `.c` and `.h` files, along with cgo files. If you need to use these files, please open a feature request at https://github.com/pantsbuild/pants/issues/new/choose so that we know to prioritize adding support.
+
+</Field>
+
+</span>

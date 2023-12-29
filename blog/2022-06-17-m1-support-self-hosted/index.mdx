@@ -1,0 +1,42 @@
+---
+    authors: [benjy]
+    tags: [under-the-hood,ci]
+---
+
+# How we streamlined Apple M1 Support with self-hosted Github Actions runners
+
+<CaptionedImg src={require("./splash.jpeg").default}></CaptionedImg>
+
+We ended up setting up a self-hosted GitHub Actions runner, on a hosted Mac M1. Getting the machine itself up and running was easy, thanks to MacStadium's simple, effective UX. But setting up the GHA runner on it was a little trickier, for a couple of reasons...
+
+{/* truncate */}
+
+---
+
+The [Pants](https://pantsbuild.org/) build system is written in a combination of Python and Rust. We release Pants as a Python distribution on [PyPI](https://pypi.org/project/pantsbuild.pants/), but since it contains native code compiled from Rust, we must publish [wheels](https://packaging.python.org/en/latest/guides/distributing-packages-using-setuptools/#wheels) for all the platforms we support.
+
+Our [GitHub Actions](https://github.com/features/actions) workflows create the published wheels automatically, which means we need GitHub Actions runners on every platform we support.
+
+## Our temporary solution
+
+Back in June 2021 we wanted to start releasing wheels for macOS on the ARM64 architecture. This would allow early adopters of Apple hardware based on the then-new [M1 processor](https://en.wikipedia.org/wiki/Apple_M1) to use Pants without the inconvenience and performance hit of running it via [Rosetta 2](https://support.apple.com/en-us/HT211861).
+
+Unfortunately, however, GitHub Actions didn't yet have hosted macOS ARM64 runners. So, in the spirit of not making the great be the enemy of the good, we came up with an [interim scheme](../2021-06-21-how-we-added-apple-silicon-support-to-pants/index.mdx) for releases that involved one of our contributors, who owned an Apple Silicon machine, manually building release wheels. We hoped that this solution would be temporary.
+
+## Nothing is as permanent as a temporary solution...
+
+Fast-forward a year, and GitHub Actions still does not have hosted macOS ARM64 runners (although they are apparently [planning to](https://github.com/github/roadmap/issues/528) at some point)... Relying on a single person to be a manual link in an otherwise automated release process for so long had become untenable. So we looked for other solutions.
+
+## A self-hosted solution
+
+We ended up setting up a self-hosted GitHub Actions runner, on a hosted Mac M1 that we rent from [MacStadium](https://www.macstadium.com/).
+
+Getting the machine itself up and running was easy, thanks to MacStadium's simple, effective UX. But setting up the GHA runner on it was a little trickier, for a couple of reasons:
+
+1. There's not much documentation online about how to set up self-hosted GHA runners in general, and especially not on macOS ARM64.
+
+2. The runner itself is an X86_64 binary that requires Rosetta to run on M1 processors. So we must ensure that when it spawns subprocesses, they run as native ARM64 binaries.
+
+The setup is somewhat manual, as befits a bespoke machine. We've documented the process in detail so that we can repeat it if we have to, and also so that other projects with similar needs can benefit from our work.
+
+So if you're interested in how we set up our M1 self-hosted runner to build macOS ARM64 binaries, head over to the [Pants documentation site](https://www.pantsbuild.org/v2.12/docs/ci-for-macos-on-arm64) for a lot of excruciating detail.  And if you have any questions about that, or about how Pants can make working with Python, JVM, Go and shell fast, stable and fun, swing by our [Slack workspace](https://www.pantsbuild.org/docs/getting-help#slack)!

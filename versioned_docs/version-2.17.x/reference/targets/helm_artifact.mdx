@@ -1,0 +1,82 @@
+---
+title: helm_artifact
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A third party Helm artifact.
+
+Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target.
+
+Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `registry`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Either registry alias (prefixed by `@`) configured in `[helm.registries]` for the Helm artifact or the full OCI registry URL.
+
+</Field>
+
+## `repository`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Either a HTTP(S) URL to a classic repository, or a path inside an OCI registry (when `registry` is provided).
+
+</Field>
+
+## `artifact`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Artifact name of the chart, without version number.
+
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+The `version` part of a third party Helm chart.
+
+</Field>
+
+</span>

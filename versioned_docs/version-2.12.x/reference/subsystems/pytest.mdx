@@ -1,0 +1,192 @@
+---
+title: pytest
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The pytest Python test framework (https://docs.pytest.org/).
+
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[pytest]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--pytest-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
+  env_repr='PANTS_PYTEST_ARGS'
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo --quiet'`.
+
+</Option>
+
+### `timeouts`
+
+<Option
+  cli_repr={`--[no-]pytest-timeouts`}
+  env_repr='PANTS_PYTEST_TIMEOUTS'
+  default_repr={`True`}
+>
+
+Enable test target timeouts. If timeouts are enabled then test targets with a timeout= parameter set on their target will time out after the given number of seconds if not completed. If no timeout is set, then either the default timeout is used or no timeout is configured.
+
+</Option>
+
+### `export`
+
+<Option
+  cli_repr={`--[no-]pytest-export`}
+  env_repr='PANTS_PYTEST_EXPORT'
+  default_repr={`True`}
+>
+
+If true, export a virtual environment with Pytest when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export`.
+
+This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--pytest-version=<str>`}
+  env_repr='PANTS_PYTEST_VERSION'
+  default_repr={`pytest==7.0.1`}
+>
+
+Requirement string for the tool.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
+  default_repr={`["pytest-cov>=2.12,!=2.12.1,<3.1"]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--pytest-lockfile=<str>`}
+  env_repr='PANTS_PYTEST_LOCKFILE'
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.12.1/src/python/pants/backend/python/subsystems/pytest.lock for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles --resolve=pytest`.
+
+As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-dependencies, lockfile generation via `generate-lockfiles` does not always work and you may want to manually generate the lockfile. You will want to set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--pytest-console-script=<str>`}
+  env_repr='PANTS_PYTEST_CONSOLE_SCRIPT'
+  default_repr={`pytest`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--pytest-entry-point=<str>`}
+  env_repr='PANTS_PYTEST_ENTRY_POINT'
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `timeout_default`
+
+<Option
+  cli_repr={`--pytest-timeout-default=<int>`}
+  env_repr='PANTS_PYTEST_TIMEOUT_DEFAULT'
+  default_repr={`None`}
+>
+
+The default timeout (in seconds) for a test target if the `timeout` field is not set on the target.
+
+</Option>
+
+### `timeout_maximum`
+
+<Option
+  cli_repr={`--pytest-timeout-maximum=<int>`}
+  env_repr='PANTS_PYTEST_TIMEOUT_MAXIMUM'
+  default_repr={`None`}
+>
+
+The maximum timeout (in seconds) that may be used on a `python_tests` target.
+
+</Option>
+
+### `junit_family`
+
+<Option
+  cli_repr={`--pytest-junit-family=<str>`}
+  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  default_repr={`xunit2`}
+>
+
+The format of generated junit XML files. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+
+</Option>
+
+### `execution_slot_var`
+
+<Option
+  cli_repr={`--pytest-execution-slot-var=<str>`}
+  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
+  default_repr={`None`}
+>
+
+If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]pytest-config-discovery`}
+  env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`) during runs. See https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where config files should be located for Pytest to discover them.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

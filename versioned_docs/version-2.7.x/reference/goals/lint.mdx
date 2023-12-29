@@ -1,0 +1,73 @@
+---
+title: lint
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants lint [args]
+```
+
+Run all linters and/or formatters in check mode.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[lint]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `per_file_caching`
+
+<Option
+  cli_repr={`--[no-]lint-per-file-caching`}
+  env_repr='PANTS_LINT_PER_FILE_CACHING'
+  default_repr={`False`}
+>
+
+Rather than linting all files in a single batch, lint each file as a separate process.
+
+Why do this? You&#x27;ll get many more cache hits. Why not do this? Linters both have substantial startup overhead and are cheap to add one additional file to the run. On a cold cache, it is much faster to use `--no-per-file-caching`.
+
+We only recommend using `--per-file-caching` if you are using a remote cache or if you have benchmarked that this option will be faster than `--no-per-file-caching` for your use case.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [bandit](../subsystems/bandit.mdx)
+- [black](../subsystems/black.mdx)
+- [docformatter](../subsystems/docformatter.mdx)
+- [download-pex-bin](../subsystems/download-pex-bin.mdx)
+- [flake8](../subsystems/flake8.mdx)
+- [grpc-python-plugin](../subsystems/grpc-python-plugin.mdx)
+- [isort](../subsystems/isort.mdx)
+- [mypy-protobuf](../subsystems/mypy-protobuf.mdx)
+- [pex](../subsystems/pex.mdx)
+- [protoc](../subsystems/protoc.mdx)
+- [pylint](../subsystems/pylint.mdx)
+- [python-infer](../subsystems/python-infer.mdx)
+- [python-native-code](../subsystems/python-native-code.mdx)
+- [python-protobuf](../subsystems/python-protobuf.mdx)
+- [python-repos](../subsystems/python-repos.mdx)
+- [python-setup](../subsystems/python-setup.mdx)
+- [shell-setup](../subsystems/shell-setup.mdx)
+- [shellcheck](../subsystems/shellcheck.mdx)
+- [shfmt](../subsystems/shfmt.mdx)
+- [source](../subsystems/source.mdx)
+- [subprocess-environment](../subsystems/subprocess-environment.mdx)
+- [yapf](../subsystems/yapf.mdx)
+
+</span>

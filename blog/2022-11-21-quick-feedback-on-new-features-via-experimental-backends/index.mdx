@@ -1,0 +1,53 @@
+---
+    authors: [benjy]
+    tags: [concepts,under-the-hood]
+---
+
+# How we get quick feedback on new features via "experimental" backends
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Image by NTNU, Faculty of Natural Sciences
+  ([license](https://creativecommons.org/licenses/by/2.0/))
+</CaptionedImg>
+
+Pants balances release velocity and end-user stability via judicious use of deprecation cycles. Experimental backends are a way to get quick feedback on new functionality, before "graduating" it to the formal deprecation policy. Experimental features are still well-supported, and not to be feared!
+
+{/* truncate */}
+
+---
+
+Pants is a large project, with a lot of moving parts. It ships with, at the time of writing, dozens of opt-in [backends](https://www.pantsbuild.org/docs/enabling-backends) and over 900 [options](https://www.pantsbuild.org/docs/options) to configure various aspects of those backends as well as of the core system. As a result, the system has a large "surface area".
+
+Granted, almost all options have sensible defaults, and the repo administrators use the `pants.toml` config file, and sometimes wrapper scripts, to set up Pants workflows for their end users. So the majority of end users only interact with a small part of the total user interface in their day-to-day work. But nonetheless, Pants upgrades can cause disruptive changes.
+
+So how do we make changes while reducing frustration for our users?
+
+### Balancing velocity and stability
+
+Introducing changes without causing frequent disruption is a delicate balancing act: admins and users want new features and improvements, but don't want to constantly have to undo muscle memory and relearn config settings and command-line incantations.
+
+Often, changes — even substantial ones — don't affect the existing user interface. For example, performance improvements, or new configuration options whose default value continues some existing behavior. In those cases we can introduce changes without disruption.
+
+In other cases, where the existing user interface is affected by a change, we employ [deprecation cycles](https://www.pantsbuild.org/docs/deprecation-policy), so that users can transition to new behavior smoothly, with ample warning, and clear instructions on how to migrate.
+
+Deprecations are useful handrails that allow us to improve and develop Pants without sharp disruptions to users. But they have a cost - during a deprecation cycle we typically have to support both old and new behavior, and the interaction between them.
+
+### Experimental features
+
+So what happens when we introduce brand-new features, such as new language support backends? Since Pants is an open-source project, we don't have a team of product managers, UX researchers or UI designers to figure out the detailed design of a feature. Instead, we have to rely on some amount of trial and error. During these initial R&D phases, we want to be able to move rapidly towards a stable interface for the new feature, without the burden of deprecation cycles, while still subjecting the existing parts of Pants to our more rigorous stability policy.
+
+So how do we telegraph to users that a backend or feature is in this nascent, feedback stage? We refer to them as `experimental`.
+
+For example, to opt in to Terraform support, you add `pants.backend.experimental.terraform` to your `backend_packages` in `pants.toml`. That `experimental` name tells you that Terraform support is still subject to interface changes without a deprecation cycle.
+
+### Don't fear the experiment!
+
+But `experimental` does NOT mean that a backend is "lesser" in some way. It doesn't designate "alpha" or "beta" quality - we use alpha and rc releases for that. It doesn't mean that you should expect errors. It just means that the API —such as BUILD file definitions and output paths — might change without a deprecation cycle (there will still be warnings in the [changelog](https://www.pantsbuild.org/docs/changelog)).
+
+All the `experimental` backends are fully supported or maintained by the Pants developers, and they will be part of Pants for the long run. In fact, it is the destiny of every "experimental" backend to lose its `experimental` designation, and become, e.g., just `pants.backend.terraform`. As `experimental` backends tend to be newer, they may not yet have every capability you might want, but hearing from you about missing features is a good way to prioritize them!
+
+So think of `experimental` as a preview program - in fact, we are considering using the term `preview` instead (watch this space!)
+
+So you can use `experimental` backends with confidence - they are not second tier, or lower quality. The only downside of using an `experimental` feature is that its interface might change on you as you upgrade to a newer Pants version, but the upside is that as an early adopter you get to influence the development of that interface!
+
+Got ideas for new experimental backends? Want to help develop one? Have feedback on an existing one? Come [chat with us](https://www.pantsbuild.org/docs/getting-help) on Slack!

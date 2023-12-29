@@ -1,0 +1,55 @@
+---
+    authors: [stu]
+    tags: [jvm,python,announcement]
+---
+
+# Pants 2.12: Improved performance for common cases, IDE support for Java and Scala
+
+<CaptionedImg src={require("./splash.jpg").default}></CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce [Pants 2.12.0](https://www.pantsbuild.org/v2.12/docs), the latest release of Pants: the scalable and ergonomic build system.
+
+To update, set `pants_version = "2.12.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips) for more information.
+
+## Initial IDE support for Java and Scala
+
+Pants 2.12 includes [initial support](https://www.pantsbuild.org/v2.12/docs/jvm-overview#working-in-an-ide) for Pants 2.x integrating with IntelliJ! Unlike in Pants 1.x, the integration is accomplished via the [BSP protocol](https://build-server-protocol.github.io/), which means that there is no IntelliJ plugin to update.
+
+This initial integration includes support for code indexing (including go-to-definition and find-references). Full support for building and running tests is also implemented, but will first be available in the 2.13 release.
+
+Although VSCode is not supported yet for Java and Scala, this is an important step toward that support: the Scala [Metals LSP server](https://scalameta.org/metals/docs/editors/vscode/) also uses BSP to communicate with the build tool. We'd love to help a contributor [add support for Metals](https://github.com/pantsbuild/pants/issues/15965)!
+
+## Improved performance when running both \`fmt\` and \`lint\`
+
+If you use auto-formatters with Pants, it's likely that you frequently run the combination of the `fmt` and `lint` goals in order to “auto-format and then validate linters”:
+
+```bash
+./pants fmt lint ...
+```
+
+Pants 2.12 makes this very common combo faster, by sharing any redundant work between `fmt` and `lint` such that an auto-formatter which finds nothing to do runs exactly once per input.
+
+## Better validation of Python interpreter constraints
+
+Before 2.12, Pants allowed Python sources to declare that the set of interpreters that they were compatible with (i.e. their [interpreter constraints](https://www.pantsbuild.org/v2.12/docs/reference-python_sources#codeinterpreter_constraintscode)) was larger than those of their dependencies. For example, a file could claim it worked with Python 2 or 3, even if it depended on something that was only compatible with Python 2. The intention behind this feature was that during migrations between Python versions, it might be helpful to be able to indicate that the source-level compatibility of particular files had increased (by porting it to newer APIs, syntaxes, etc), even before its dependencies had been made fully compatible.
+
+In practice though, this feature cost more than it was worth: it meant that determining the interpreter to use for any particular task might require a transitive graph walk below a particular file, rather than being able to directly use and trust the [interpreter_constraints](https://www.pantsbuild.org/v2.12/docs/reference-python_sources#codeinterpreter_constraintscode) field.
+
+In Pants 2.12, the [interpreter_constraints](https://www.pantsbuild.org/v2.12/docs/reference-python_sources#codeinterpreter_constraintscode) of a target are validated up front to be a subset of that target's dependencies. This new behavior is easier to reason about, improves reuse of work across runs, and improves the performance of goals like `lint`, `fmt`, `test`, and `check` for Python.
+
+## Other notable changes
+
+There are a [long list of additional changes in 2.12](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.12.x.md), but highlights include:
+
+- Adding support for restricting specific Python requirements to consuming only wheels or only sdists. ([details](https://github.com/pantsbuild/pants/pull/14985))
+- After lots of stabilization work, the [default lockfile generator](https://www.pantsbuild.org/v2.12/docs/reference-python#section-lockfile-generator) is now [Pex](https://pex.readthedocs.io/en/latest/). Pex lockfiles bring improved performance when consuming many different subsets of a large resolve, and improved compatibility with `pip` features.
+- Consuming environment variables in `pants.toml` [is now supported](https://www.pantsbuild.org/v2.12/docs/options#config-file-interpolation) via the `env` template variable namespace: e.g. `%(env.AWS_ACCESS_KEY_ID)s`.
+- JVMs spawned via the [nailgun protocol](https://github.com/facebook/nailgun) for low latency access now have [default memory limits](https://www.pantsbuild.org/v2.12/docs/reference-global#section-process-per-child-memory-usage) applied, and the [total amount of memory](https://www.pantsbuild.org/v2.12/docs/reference-global#section-process-total-child-memory-usage) used for JVMs can be capped.
+- Python users taking advantage of Pants' [support for multiple resolves](../2022-05-25-multiple-lockfiles-python/index.mdx) now get extra helpful error messages when dependencies [only exist in another resolve](https://github.com/pantsbuild/pants/pull/15439), or when the set of interpreters they've requested [are not compatible with their resolve](https://github.com/pantsbuild/pants/pull/15364).
+- Plugin authors can now write `@rule_helper`s in situations where only code reuse or isolation (and not memoization or dependency injection) are necessary for portions of their `@rule` code.
+
+## Thanks!
+
+Thanks to all of the contributors to 2.12, including everyone who shared feedback on changes and who tested release candidates!

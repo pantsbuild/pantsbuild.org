@@ -1,0 +1,63 @@
+---
+    authors: [alexey]
+    tags: [python]
+---
+
+# My experience contributing YAPF formatter support to Pants 2.7
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Brent
+  Ninaber](https://unsplash.com/@brentninaber?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+  /
+  [Unsplash](https://unsplash.com/?utm_source=ghost&utm_medium=referral&utm_campaign=api-credit)
+</CaptionedImg>
+
+{/* truncate */}
+
+With the latest [2.7 release](../2021-09-27-introducing-pants-2-7/index.mdx), Pants now supports the [YAPF Python autoformatter](https://github.com/google/yapf), in addition to Black, isort, Docformatter, and Shfmt!
+
+For example, if we start with this code:
+
+```python title="project/app.py"
+x  =     3 +  3
+print( x )
+```
+
+You can run `./pants fmt`:
+
+```shell-session
+$ ./pants fmt project/app.py
+11:27:34.27 [WARN] Completed: fmt - yapf made changes.
+✓ yapf made changes.
+```
+
+And YAPF will reformat the file to:
+
+```python title="project/app.py"
+x = 3 + 3
+print(x)
+```
+
+Running `./pants fmt` allows you to use multiple formatters with a single, consistent interface - such as using YAPF to format indentation and isort to order your imports. Pants will be careful to run each formatter sequentially, piping the results of one into the next so that they don't overwrite each other.
+
+You can run your formatters in check-only mode with `./pants lint`, which will also run any linters you activate like Flake8, Bandit, Pylint, and Shellcheck. Because check-only mode doesn't write files, Pants will even run all your linters/formatters in parallel!
+
+Pants even facilitates incrementally adding YAPF to your codebase. You can tell Pants to skip running on certain files/directories by setting skip_yapf=True in light-weight metadata files called BUILD files. `./pants fmt` and `./pants lint` will know when to run which tools on which files. This allows you to easily introduce YAPF incrementally, first to a small part of your project and growing from there:
+
+```python title="project/BUILD"
+python_library(skip_yapf=True, skip_flake8=True)
+```
+
+# My plugin development experience
+
+In my monorepo, there were already a few projects where YAPF was used, so it was important to make sure developers could continue using the same formatter after integrating the repository with Pants. Similarly, for any new projects to be added, it would be great to offer developers the flexibility to use another formatter in addition to Black.
+
+The Pants build system has been designed with extensibility in mind: it turned out to be very easy to extend Pants to support YAPF via a plugin, which is now part of the core Pants functionality. All Pants built-in formatters and linters use the same API. This means that a new plugin can often be created by copy-pasting and making minor modifications to the code of existing plugins.
+
+Testing the new plugin code was also very easy, and only minor changes to existing tests were required. I wasn't sure at first whether I'd like to write a plugin in a separate repository to iterate quickly, or within the main Pants repository to integrate early on. However, because Pants has fine-grained control over the testing targets and test results caching, I was able to work on a plugin within the Pants source code repository. I felt productive and writing code within a large codebase hasn't slowed me down.
+
+Pants is a fairly large Python codebase, and it did look complicated at first glance, but after just a few days of exploratory testing and reading, things started making good sense. I have read through the [documentation section](https://www.pantsbuild.org/docs/plugins-overview) on writing new plugins, which was helpful. If you would like to write a new plugin, for instance, for a new linter, make sure to take a look at the [Common plugin tasks](https://www.pantsbuild.org/docs/common-plugin-tasks) documentation section which provides a step-by-step guidance for plugin authors.
+
+One of the core Pants maintainers reviewed my GitHub pull request with the new YAPF plugin code within days after submission, and the feedback was very helpful. The community of developers were encouraging and friendly which made writing the plugin even more fun!
+
+_**Editor's Note:** We're really happy to have Alexey on board as a contributor, and greatly appreciate his work of YAPF support! It's good to know that he had a positive experience interacting with the Pants community. If you'd like to learn more about how to add custom functionality to Pants to improve the developer experience on your team, or if you just want to find out more about Pants in general, come [say hi on Slack](https://www.pantsbuild.org/docs/getting-help)!_

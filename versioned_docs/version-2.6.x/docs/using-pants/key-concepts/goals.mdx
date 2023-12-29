@@ -1,0 +1,182 @@
+---
+    title: Goals
+    position: 0
+---
+
+The commands Pants runs.
+
+---
+
+Pants commands are known as _goals_, such as `test` and `lint`.
+
+To satisfy a goal, Pants will use cached data whenever possible, and perform work to compute the relevant data (and cache it) when necessary. Pants will perform work concurrently as much as possible, using all the local cores, and/or any remote build executors, it has access to.
+
+## Which goals are available?
+
+Pants is an extensible system, so the exact goals that are available depend upon which [backends](./backends.mdx) are enabled.
+
+To see the current list of goals, run:
+
+```bash
+./pants help goals
+```
+
+For example, if you don't yet have any backends installed, you should see:
+
+```text title="Shell"
+$ ./pants help goals
+
+Goals
+-----
+
+count-loc     Count lines of code.
+
+dependees     List all targets that depend on any of the input files/targets.
+
+dependencies  List the dependencies of the input files/targets.
+
+filedeps      List all source and BUILD files a target depends on.
+
+filter        Filter the input targets based on various criteria.
+
+list          Lists all targets matching the file or target arguments.
+
+package       Create a distributable package.
+
+roots         List the repo's registered source roots.
+
+validate      Validate sources against regexes.
+
+Use `./pants help $goal` to get help for a specific goal.
+```
+
+## Running goals
+
+Let's try running a goal:
+
+```text title="Shell"
+$ ./pants test src/python/pants/util/dirutil_test.py
+15:40:37.89 [INFO] Completed: test - src/python/pants/util/dirutil_test.py:tests succeeded.
+
+✓ src/python/pants/util/dirutil_test.py:tests succeeded.
+```
+
+You can also run multiple goals in a single run of Pants, in which case they will run sequentially:
+
+```text title="text"
+# Format all code, and then lint it:
+$ ./pants fmt lint ::
+
+..
+```
+
+Finally, Pants supports running goals in a `--loop`: in this mode, all goals specified will run sequentially, and then Pants will wait until a relevant file has changed to try running them again.
+
+```text title="text"
+# Re-run typechecking and testing continuously as files or their dependencies change:
+$ ./pants --loop typecheck test src/python/pants/util/dirutil_test.py
+
+..
+```
+
+Use `Ctrl+C` to exit the `--loop`.
+
+## Goal arguments
+
+Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on.
+
+For example, to run the `count-loc` goal, which counts lines of code in your repository, you need to provide a set of files and/or targets to run on:
+
+```text title="Shell"
+$ ./pants count-loc '**'
+───────────────────────────────────────────────────────────────────────────────
+Language                 Files     Lines   Blanks  Comments     Code Complexity
+───────────────────────────────────────────────────────────────────────────────
+Python                      13       155       50        22       83          5
+BASH                         2       261       29        22      210         10
+JSON                         2        25        0         0       25          0
+Plain Text                   2        43        1         0       42          0
+TOML                         2        65       14        18       33          0
+...
+```
+
+:::note Quoting file patterns
+Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
+:::
+
+### File arguments vs. target arguments
+
+**Note: ** Typically you can just use file arguments, and not worry about targets.
+
+Goal arguments can be of one of two types:
+
+- _File arguments_: file paths and/or globs.
+- _Target arguments_: addresses and/or address globs of [targets](./targets-and-build-files.mdx).
+
+Any goal can take either type of argument:
+
+- If a target argument is given, the goal acts on all the files in the matching targets.
+- If a file argument is given, Pants will map the file back to its containing target to read any necessary metadata.
+
+So again, for the most part, you can just use file arguments and not worry about targets!
+
+:::note File/target globs
+For file arguments, use `'*'` and `'**'`, with the same semantics as the shell. Reminder: quote the argument if you want Pants to evaluate the glob, rather than your shell.
+
+For target arguments, you can use:
+
+- `dir::`, where `::` means every target in the current directory and recursively in subdirectories.
+- `dir:`, where `:` means every target in that directory, but not subdirectories.
+
+For example, `./pants list ::` will find every target in your project.
+:::
+
+:::note Tip: advanced target selection, such as running over changed files
+See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
+:::
+
+### Goal options
+
+Many goals also have [options](./options.mdx) to change how they behave.
+
+To see if a goal has any options, run `./pants help $goal` or `./pants help-advanced $goal`. See [Command Line Help](/community/getting-help) for more information.
+
+For example:
+
+```
+./pants help roots
+
+`roots` goal options
+--------------------
+
+List the repo's registered source roots.
+
+Config section: [roots]
+
+  --roots-output-file=<path>
+  PANTS_ROOTS_OUTPUT_FILE
+  output_file
+      default: None
+      current value: None
+      Output the goal's stdout to this file. If unspecified, outputs to stdout.
+
+  --roots-sep=<separator>
+  PANTS_ROOTS_SEP
+  sep
+      default: \n
+      current value: \n
+      String to use to separate lines in line-oriented output.
+```
+
+You can then use the option by prefixing it with the goal name:
+
+```
+./pants --roots-sep=', ' roots
+3rdparty/python, src/assets, src/python
+```
+
+As a shorthand, if you put the option after the goal, you can leave off the goal name in the flag:
+
+```bash
+./pants roots --sep=', '
+```

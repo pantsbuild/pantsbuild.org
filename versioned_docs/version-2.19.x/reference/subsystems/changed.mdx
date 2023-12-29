@@ -1,0 +1,80 @@
+---
+title: changed
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Tell Pants to detect what files and targets have changed from Git.
+
+See https://www.pantsbuild.org/v2.19/docs/advanced-target-selection.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[changed]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `since`
+
+<Option
+  cli_repr={`--changed-since=<str>`}
+  env_repr='PANTS_CHANGED_SINCE'
+  default_repr={`None`}
+>
+
+Calculate changes since this Git spec (commit range/SHA/ref).
+
+</Option>
+
+### `diffspec`
+
+<Option
+  cli_repr={`--changed-diffspec=<str>`}
+  env_repr='PANTS_CHANGED_DIFFSPEC'
+  default_repr={`None`}
+>
+
+Calculate changes contained within a given Git spec (commit range/SHA/ref).
+
+</Option>
+
+### `dependents`
+
+<Option
+  cli_repr={`--changed-dependents=<DependentsOption>`}
+  env_repr='PANTS_CHANGED_DEPENDENTS'
+  one_of='none, direct, transitive'
+  default_repr={`none`}
+>
+
+Include direct or transitive dependents of changed targets.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+### `dependees`
+
+<Option
+  cli_repr={`--changed-dependees=<DependentsOption>`}
+  env_repr='PANTS_CHANGED_DEPENDEES'
+  one_of='none, direct, transitive'
+  default_repr={`none`}
+  removal_version='2.23.0.dev0'
+  removal_hint={'Use --dependents instead'}
+>
+
+Include direct or transitive dependents of changed targets.
+
+</Option>
+
+</span>

@@ -1,0 +1,30 @@
+---
+    authors: [benjy]
+    tags: [ci,concepts,deployment]
+---
+
+# Better CI/CD caching with Pants
+
+<CaptionedImg src={require("./splash.png").default}>
+  Terminal output of a Pants run that retrieved test results from a remote cache
+  instead of having to run the tests.
+</CaptionedImg>
+
+{/* truncate */}
+
+Pants is designed to utilize fine-grained caching to speed up builds. Users are often interested in how this interacts with CI providers' own caching features, which are necessary since CI jobs typically run in fresh containers, with no direct access to previous state. In particular, we get questions about how a remote caching service, such as that offered by [Toolchain](https://toolchain.com/) (full disclosure - that's where I work) relates to CI caching.
+
+The topic of CI caching also came up on Twitter recently:
+
+> It's pretty crazy how inefficient most CI setups are. We're spending 99% of the time reinstalling 99% the same dependencies as last time and recompiling the same code as last time etc. How did we end up in this situation?
+>
+> — Erik Bernhardsson (@bernhardsson) [July 23, 2022](https://twitter.com/bernhardsson/status/1550659837981343744?ref_src=twsrc%5Etfw)
+
+To provide some info I recently wrote a [post on dev.to](https://dev.to/benjyw/better-cicd-caching-with-new-gen-build-systems-3aem) with some background on how the cache solutions offered by CI providers work, why they are often of limited benefit, and how a modern build system like Pants can support a much more effective caching paradigm.
+
+Head over to dev.to for the [full post](https://dev.to/benjyw/better-cicd-caching-with-new-gen-build-systems-3aem), but in a nutshell:
+
+- CI caches have major drawbacks because they are coarse-grained, so you waste a lot of time uploading and downloading data you don't actually need, and because they require you to manually compute a semantically correct cache key.
+- Pants + a remote cache solves these problems with automatic reading and writing of fine-grained, intermediate and final build products against cache keys that are computed for you and guaranteed to be semantically correct.
+
+If you're interested in learning more about Pants in general, caching in particular, and remote caching even more specifically, [come say hi on Slack](https://www.pantsbuild.org/docs/getting-help)!

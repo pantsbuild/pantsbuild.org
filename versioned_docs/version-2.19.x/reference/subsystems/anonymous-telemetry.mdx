@@ -1,0 +1,62 @@
+---
+title: anonymous-telemetry
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options related to sending anonymous stats to the Pants project, to aid development.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[anonymous-telemetry]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `enabled`
+
+<Option
+  cli_repr={`--[no-]anonymous-telemetry-enabled`}
+  env_repr='PANTS_ANONYMOUS_TELEMETRY_ENABLED'
+  default_repr={`False`}
+>
+
+Whether to send anonymous telemetry to the Pants project.
+
+Telemetry is sent asynchronously, with silent failure, and does not impact build times or outcomes.
+
+See https://www.pantsbuild.org/v2.19/docs/anonymous-telemetry for details.
+
+</Option>
+
+### `repo_id`
+
+<Option
+  cli_repr={`--anonymous-telemetry-repo-id=<str>`}
+  env_repr='PANTS_ANONYMOUS_TELEMETRY_REPO_ID'
+  default_repr={`None`}
+>
+
+An anonymized ID representing this repo.
+
+For private repos, you likely want the ID to not be derived from, or algorithmically convertible to, anything identifying the repo.
+
+For public repos the ID may be visible in that repo&#x27;s config file, so anonymity of the repo is not guaranteed (although user anonymity is always guaranteed).
+
+See https://www.pantsbuild.org/v2.19/docs/anonymous-telemetry for details.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

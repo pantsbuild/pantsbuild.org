@@ -1,0 +1,143 @@
+---
+    authors: [eric]
+    tags: [announcement,python,codegen]
+---
+
+# Pants 2.10 adds multiple Python lockfile support, PyOxidizer, Thrift codegen, and better linter parallelization
+
+<CaptionedImg src={require("./splash.jpg").default}></CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce Pants 2.10.0, the latest release of Pantsbuild, the scalable and ergonomic build system.
+
+To update, set `pants_version = "2.10.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips), including the `update-build-files` goal to automate some of the upgrade.
+
+## Multiple Python user lockfiles
+
+The community's top-voted priority from [January's 2022 Community Roadmap Survey](../2022-03-21-the-2022-annual-community-survey-is-a-wrap-and-the-results-are-in/index.mdx) is our redesign of Python lockfiles. So we're excited to announce that Pants 2.10 introduces support for:
+
+1.  More robust lockfiles than the old constraints file feature, including enforcing that all dependencies are pinned and adding `--hash` support to reduce the risk of supply chain attacks.
+2.  Support for multiple lockfiles.
+3.  Generating lockfiles (with the caveat that there are still several issues).
+
+Read [our blog](../2022-05-25-multiple-lockfiles-python/index.mdx) to learn more about Pants's hybrid approach which gives you the flexibility of multiple lockfiles, but does not force you into one lockfile-per-project.
+
+We encourage existing users to upgrade from constraints files to `[python].resolves`—even if you only have one lockfile—due to the better security and reproducibility.
+
+## PyOxidizer
+
+[PyOxidizer](https://pyoxidizer.readthedocs.io/en/stable/) empowers you to distribute your application as a single binary with a Python interpreter included, which can dramatically simplify deployment when you are not using Docker.
+
+```shell-session
+$ ./pants package src/py/project:bin
+14:15:31.18 [INFO] Completed: Building src.py.project:bin with PyOxidizer
+14:15:31.23 [INFO] Wrote dist/src.py.project/bin/aarch64-apple-darwin/debug/install/bin
+
+$ dist/bin/x86_64-apple-darwin/release/install/bin
+Hello, world!
+```
+
+[Check out our blog](../2022-02-18-packaging-python-with-the-pyoxidizer-pants-plugin/index.mdx) from one of Pants's newest contributor SJ diving into this new feature, along with the [docs](https://www.pantsbuild.org/docs/pyoxidizer).
+
+## Thrift → Python codegen
+
+Pants can now generate Python code from Apache Thrift files, in addition to [already supporting](https://www.pantsbuild.org/docs/protobuf-python) generating Python from Protobuf and gRPC.
+
+Pants understands precisely which files to generate through [dependency inference](../2020-10-29-dependency-inference/index.mdx), which automatically maps your import statements to the rest of your code.
+
+For example, if you have this Thrift file:
+
+```thrift
+include "models/name.thrift"
+namespace py codegen.models.user
+```
+
+Pants will understand that this Python import means to generate that Thrift file:
+
+```python
+from codegen.models.user.ttypes import User
+```
+
+No need to check-in the generated file to your version control; you can be confident that you're always using the most up-to-date file.
+
+[Check out our blog](../2022-03-07-thrift-python/index.mdx) on Thrift codegen this new feature, along with the [docs](https://www.pantsbuild.org/v2.10/docs/thrift-python).
+
+(We've also made progress on generating Go from Protobuf, and Java/Scala from both Thrift and Protobuf. We hope to land these in Pants 2.11.)
+
+## Formatter & linter parallelization
+
+A major benefit of Pants is that it gives you a consistent and single interface for running all your linters and formatters, regardless of the language:
+
+```shell-session
+$ ./pants lint ::
+✓ autoflake succeeded.
+✓ black succeeded.
+✓ docformatter succeeded.
+✓ flake8 succeeded.
+✓ gofmt succeeded.
+✓ google-java-format succeeded.
+✓ isort succeeded.
+✓ shellcheck succeeded.
+✓ shfmt succeeded.
+```
+
+Pants was already running linters in parallel, and it is now even more intelligent. Pants will now:
+
+1.  Set the parallelism options for each tool dynamically (e.g. `--jobs` options), based on your machine's # of CPUs and what else is already running.
+2.  Split up each run into smaller batches. Each batch gets cached independently, so if you only change a few files then the other batches can be satisfied from the cache.
+
+Pants 2.10 also adds the new improvements of setting each tool's parallelism + batching to the `fmt` goal.
+
+Finally, we added the options `fmt --only` and `lint –only` to make it easier to run only certain tools:
+
+```shell-session
+$ ./pants lint --only=black --only=shfmt ::
+✓ black succeeded.
+✓ shfmt succeeded.
+```
+
+## `python_requirements` target generators
+
+Pants 2.10 gives you the option to use the new "target generation" mechanism for `python_requirements` and `poetry_requirements`, whereas it was before using a macro system that predates Pants v2's rules engine and Target API.
+
+The main change for users is that addresses now look like `3rdparty/py#django`, rather than `3rdparty/py:django`. The `./pants update-build-files` goal automates updating your `BUILD` files and `pants.toml` to the new syntax, when you're ready.
+
+Making this change brings several benefits:
+
+- Proper file watching from the engine, meaning when you change `requirements.txt` or `pyproject.toml`, Pants always picks up the change. Before, Pants had to be configured to restart the Pants daemon. If this isn't configured the right way, Pants would not restart the daemon which caused confusing behavior.
+- A consistent address scheme, aligning Python with other languages like Go.
+- The target generators now show up in `./pants help target`.
+
+We're eager for [feedback](https://www.pantsbuild.org/docs/getting-help) on your experience migrating with `./pants update-build-files` so that we can make this even more seamless for other users.
+
+## Improved Go third-party dependency management
+
+Based on user feedback, we [changed](https://github.com/pantsbuild/pants/pull/14157) how Pants downloads and analyzes third-party dependencies.
+
+Before, you had to run `go list …`, which resulted in `go.mod` and `go.sum` files that the rest of the Go ecosystem (e.g. IDEs) did not like. Now, you instead run `go mod download all` and `go mod tidy`, like the rest of the Go ecosystem.
+
+Thank you to our Go users for this valuable [feedback](https://www.pantsbuild.org/docs/getting-help)!
+
+## Other changes
+
+- The Docker backend has graduated to stable! You can now activate `pants.backend.docker`.
+- The `validate` goal was merged into the `lint` goal and is now the `regex-lint` linter. You can use it to check for regex patterns you define, such as copyright headers. We're excited that this merge is possible thanks to new APIs to run linters on files without owning targets.
+- `update-build-files` can now use Yapf instead of Black by setting `[update-build-files].formatter = 'yapf'`.
+- Flake8 now [supports](https://www.pantsbuild.org/docs/reference-flake8#advanced-options) first-party plugins.
+- Memory usage was reduced by ~30% in most cases.
+- By default, Pants now recognizes the file `<build root>/.pants.rc` to have repo-specific config overrides.
+
+See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.10.x.md) for more changes, along with our [Plugin Upgrade Guide](https://www.pantsbuild.org/docs/plugin-upgrade-guide).
+
+\-\-
+
+Try out one of our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docke)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)

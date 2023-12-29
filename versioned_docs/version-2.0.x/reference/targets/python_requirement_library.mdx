@@ -1,0 +1,75 @@
+---
+title: python_requirement_library
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Python requirements installable by pip.
+
+This target is useful when you want to declare Python requirements inline in a BUILD file. If
+you have a `requirements.txt` file already, you can instead use the macro
+`python_requirements()` to convert each requirement into a `python_requirement_library()` target
+automatically.
+
+See https://www.pantsbuild.org/docs/python-third-party-dependencies.
+
+Backend: <span className="color--primary">``</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `requirements`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&lt;=3 ; python_version&lt;&#x27;3&#x27;].
+
+</Field>
+
+## `module_mapping`
+
+<Field
+    type_repr={`field.type_hint`}
+>
+
+A mapping of requirement names to a list of the modules they provide. For example, `{"ansicolors": ["colors"]}`. Any unspecified requirements will use the requirement name as the default module, e.g. &quot;Django&quot; will default to [&quot;django&quot;]`. This is used for Pants to be able to infer dependencies in BUILD files.
+
+</Field>
+
+</span>

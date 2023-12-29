@@ -1,0 +1,22 @@
+---
+    title: Updating .gitignore
+    position: 2
+---
+
+Ignoring Pants's byproduct files.
+
+---
+
+If you use Git, we recommend adding these lines to your top-level `.gitignore` file:
+
+```text title=".gitignore"
+# Pants workspace files
+/.pants.d/
+/dist/
+/.pids
+/.pants.workdir.file_lock*
+```
+
+:::note FYI: your `.gitignore` is used to auto-populate the option `pants_ignore`
+The `pants_ignore` option tells Pants which files to avoid looking at. Occasionally, you will want to ignore something with Git, but still want Pants to work on the file. See [Troubleshooting / common issues](../../using-pants/troubleshooting-common-issues/index.mdx) for how to do this.
+:::

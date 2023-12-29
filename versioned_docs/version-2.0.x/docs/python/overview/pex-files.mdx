@@ -1,0 +1,17 @@
+---
+    title: Pex files
+    position: 5
+---
+
+---
+
+When working with Python code, Pants makes frequent use of the [Pex](https://github.com/pantsbuild/pex) (Python EXecutable) format. So, you'll see Pex referenced frequently in this documentation.
+
+A Pex is a self-contained Python environment, similar in spirit to a virtualenv. A Pex can contain combinations of Python source files, 3rd-party requirements (sdists, eggs, or wheels), resource files, and metadata describing the contents.
+
+Importantly, this metadata can include:
+
+- Python interpreter constraints.
+- An entry point.
+
+A Pex can be bundled into a single `.pex` file. This file, when executed, knows how to unpack itself, find an interpreter that matches its constraints, and run itself on that interpreter. Therefore deploying code packaged in a Pex file is as simple as copying the file to an environment that has a suitable Python interpreter!

@@ -1,0 +1,92 @@
+---
+title: experimental-bsp
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants experimental-bsp [args]
+```
+
+Setup repository for Build Server Protocol (https://build-server-protocol.github.io/).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[experimental-bsp]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `groups_config_files`
+
+<Option
+  cli_repr={`--experimental-bsp-groups-config-files="[<file_option>, <file_option>, ...]"`}
+  env_repr='PANTS_EXPERIMENTAL_BSP_GROUPS_CONFIG_FILES'
+  default_repr={`[]`}
+>
+
+A list of config files that define groups of Pants targets to expose to IDEs via Build Server Protocol.
+
+Pants generally uses fine-grained targets to define the components of a build (in many cases on a file-by-file basis). Many IDEs, however, favor coarse-grained targets that contain large numbers of source files. To accommodate this distinction, the Pants BSP server will compute a set of BSP build targets to use from the groups specified in the config files set for this option. Each group will become one or more BSP build targets.
+
+Each config file is a TOML file with a `groups` dictionary with the following format for an entry:
+
+```
+# The dictionary key is used to identify the group. It must be unique.
+[groups.ID1]:
+# One or more Pants address specs defining what targets to include in the group.
+addresses = [
+  "src/jvm::",
+  "tests/jvm::",
+]
+# Filter targets to a specific resolve. Targets in a group must be from a single resolve.
+# Format of filter is `TYPE:RESOLVE_NAME`. The only supported TYPE is `jvm`. RESOLVE_NAME must be
+# a valid resolve name.
+resolve = "jvm:jvm-default"
+display_name = "Display Name" # (Optional) Name shown to the user in the IDE.
+base_directory = "path/from/build/root" # (Optional) Hint to the IDE for where the build target should "live."
+```
+
+Pants will merge the contents of the config files together. If the same ID is used for a group definition, in multiple config files, the definition in the latter config file will take effect.
+
+</Option>
+
+## Advanced options
+
+### `server`
+
+<Option
+  cli_repr={`--[no-]experimental-bsp-server`}
+  env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
+  default_repr={`False`}
+>
+
+Run the Build Server Protocol server. Pants will receive BSP RPC requests via the console. This should only ever be invoked via the IDE.
+
+</Option>
+
+### `runner_env_vars`
+
+<Option
+  cli_repr={`--experimental-bsp-runner-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPERIMENTAL_BSP_RUNNER_ENV_VARS'
+  default_repr={`["PATH"]`}
+>
+
+Environment variables to set in the BSP runner script when setting up BSP in a repository. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27; own environment when the experimental-bsp goal was run.
+
+This option only takes effect when the BSP runner script is written. If the option changes, you must run `scie-pants-linux-x86_64 experimental-bsp` again to write a new copy of the BSP runner script.
+
+Note: The environment variables passed to the Pants BSP server will be those set for your IDE and not your shell. For example, on macOS, the IDE is generally launched by `launchd` after clicking on a Dock icon, and not from the shell. Thus, any environment variables set for your shell will likely not be seen by the Pants BSP server. At the very least, on macOS consider writing an explicit PATH into the BSP runner script via this option.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

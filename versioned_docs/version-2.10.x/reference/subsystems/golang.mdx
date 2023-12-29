@@ -1,0 +1,70 @@
+---
+title: golang
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for Golang support.
+
+Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
+
+Config section: <span className="color--primary">`[golang]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `go_search_paths`
+
+<Option
+  cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
+  default_repr={`["<PATH>"]`}
+>
+
+A list of paths to search for Go.
+
+Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
+
+The special string &#x27;&lt;PATH&gt;&#x27; will expand to the contents of the PATH env var.
+
+</Option>
+
+### `expected_version`
+
+<Option
+  cli_repr={`--golang-expected-version=<str>`}
+  env_repr='PANTS_GOLANG_EXPECTED_VERSION'
+  default_repr={`1.17`}
+>
+
+The Go version you are using, such as `1.17`.
+
+Pants will only use Go distributions from `--go-search-paths` that have the expected version, and it will error if none are found.
+
+Do not include the patch version.
+
+</Option>
+
+## Advanced options
+
+### `subprocess_env_vars`
+
+<Option
+  cli_repr={`--golang-subprocess-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GOLANG_SUBPROCESS_ENV_VARS'
+  default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "PATH"\n]`}
+>
+
+Environment variables to set when invoking the `go` tool. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+</Option>
+
+## Deprecated options
+
+None
+
+</span>

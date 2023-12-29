@@ -1,0 +1,56 @@
+---
+title: coursier-resolve
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants coursier-resolve [args]
+```
+
+Generate a lockfile by resolving JVM dependencies.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[coursier-resolve]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `names`
+
+<Option
+  cli_repr={`--coursier-resolve-names="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COURSIER_RESOLVE_NAMES'
+  default_repr={`[]`}
+>
+
+A list of resolve names to resolve.
+
+Each name must be defined as a resolve in `[jvm].resolves`.
+
+If not provided, resolve all known resolves.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [coursier](../subsystems/coursier.mdx)
+- [jvm](../subsystems/jvm.mdx)
+- [pex](../subsystems/pex.mdx)
+- [python](../subsystems/python.mdx)
+- [python-bootstrap](../subsystems/python-bootstrap.mdx)
+
+</span>

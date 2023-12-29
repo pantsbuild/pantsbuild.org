@@ -1,0 +1,62 @@
+---
+    title: Plugin upgrade guide
+    position: 9
+---
+
+How to adjust for changes made to the Plugin API.
+
+---
+
+## 2.0.0
+
+See https://github.com/pantsbuild/pants/blob/master/src/python/pants/notes/2.0.x.rst for the changelog.
+
+### Use `TransitiveTargetsRequest` as input for resolving `TransitiveTargets` (2.0.0rc0)
+
+Rather than `await Get(TransitiveTargets, Addresses([addr1]))`, use `await Get(TransitiveTargets, TransitiveTargetsRequest([addr1]))`, from `pants.engine.target`.
+
+It's no longer possible to include `TransitiveTargets` in your `@rule` signature in order to get the transitive closure of what the user specified on the command. Instead, put `Addresses` in your rule's signature, and use `await Get(TransitiveTargets, TransitiveTargetsRequest(addresses))`.
+
+### Codegen implementations: use `DependenciesRequestLite` and `TransitiveTargetsLite` (2.0.0rc0)
+
+Due to a new cycle in the rule graph, for any codegen implementations, you must use `DependenciesRequestLite` instead of `DependenciesRequest`, and `TransitiveTargetsLite` instead of `TransitiveTargetsRequest`. Both imports are still from `pants.engine.target`.
+
+These behave identically, except that they do not include dependency inference in the results. Unless you are generating for `input = PythonSources`, this should be fine, as dependency inference is currently only used with Python.
+
+This is tracked by https://github.com/pantsbuild/pants/issues/10917.
+
+### Dependencies-like fields have more robust support (2.0.0rc0)
+
+If you have any custom fields that act like the dependencies field, but do not subclass `Dependencies`, there are two new mechanisms for better support.
+
+1. Instead of subclassing `StringSequenceField`, subclass `SpecialCasedDependencies` from `pants.engine.target`. This will ensure that the dependencies show up with `./pants dependencies` and `./pants dependees`.
+2. You can use `UnparsedAddressInputs` from `pants.engine.addresses` to resolve the addresses:
+
+```python
+from pants.engine.addresses import Address, Addresses, UnparsedAddressedInputs
+from pants.engine.target import Targets
+
+...
+
+addresses = await Get(Addresses, UnparsedAddressedInputs(["//:addr1", "project/addr2"], owning_address=None)
+
+# Or, use this.
+targets = await Get(
+    Targets,
+    UnparsedAddressedInputs(["//:addr1", "project/addr2"], owning_address=Address("project", target_name="original")
+)
+```
+
+If you defined a subclass of `SpecialCasedDependencies`, you can use `await Get(Addresses | Targets, UnparsedAddressInputs, my_tgt[MyField].to_unparsed_address_inputs())`.
+
+(Why would you ever do this? If you have dependencies that you don't treat like normal—e.g. that you will call the equivalent of `./pants package` on those deps—it's often helpful to call out this magic through a dedicated field. For example, Pants's [archive](https://github.com/pantsbuild/pants/blob/969c8dcba6eda0c939918b3bc5157ca45099b4d1/src/python/pants/core/target_types.py#L231-L257) target type has the fields `files` and `packages`, rather than `dependencies`.)
+
+### `package` implementations may want to add the field `output_path` (2.0.0rc0)
+
+All of Pants's target types that can be built via `./pants package` now have an `output_path` field, which allows the user to override the path used for the created asset.
+
+You optionally may want to add this `output_path` field to your custom target type for consistency:
+
+1. Include `OutputPathField` from `pants.core.goals.package` in your target's `core_fields` class property.
+2. In your `PackageFieldSet` subclass, include `output_path: OutputPathField`.
+3. When computing the filename in your rule, use `my_package_field_set.output_path.value_or_default(field_set.address, file_ending="my_ext")`.
