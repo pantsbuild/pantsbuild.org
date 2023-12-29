@@ -183,7 +183,7 @@ const config = {
               to: "/spotlight/testimonials",
             },
             {
-              label: "Whos Hiring?",
+              label: "Who's Hiring?",
               to: "/spotlight/jobs",
             },
             {
