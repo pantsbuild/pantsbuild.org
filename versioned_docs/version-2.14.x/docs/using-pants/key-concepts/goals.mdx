@@ -1,6 +1,6 @@
 ---
     title: Goals
-    position: 0
+    sidebar_position: 0
 ---
 
 The commands Pants runs.
@@ -39,7 +39,7 @@ You can also run multiple goals in a single run of Pants, in which case they wil
 ❯ ./pants fmt test ::
 ```
 
-Finally, Pants supports running goals in a `--loop`. In this mode, all goals specified will run  
+Finally, Pants supports running goals in a `--loop`. In this mode, all goals specified will run
 sequentially, and then Pants will wait until a relevant file has changed to try running them again.
 
 ```bash
@@ -64,8 +64,8 @@ You can use several argument types:
 
 You can combine argument types, e.g. `./pants fmt src/go:: src/py/app.py`.
 
-To ignore something, prefix the argument with `-`. For example,  
-`./pants test :: -project/integration_tests` will run all your tests except for those in the  
+To ignore something, prefix the argument with `-`. For example,
+`./pants test :: -project/integration_tests` will run all your tests except for those in the
 directory `project/integration_tests`.
 
 :::caution Set `[GLOBAL].use_deprecated_directory_cli_args_semantics = false` in `pants.toml`
