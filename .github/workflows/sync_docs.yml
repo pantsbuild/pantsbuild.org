@@ -8,6 +8,12 @@ on:
         required: true
         type: string
 
+      reviewer:
+        description: |
+          Who to assign as PR reviewer (default: you)
+        required: false
+        type: string
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -92,7 +98,7 @@ jobs:
           git push -u origin "automation/sync-${{ inputs.version }}"
         working-directory: pantsbuild.org
       - name: Make a PR
-        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body "Docs from https://github.com/pantsbuild/pants/releases/tag/release_{{ inputs.version }}"
+        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body "Docs from https://github.com/pantsbuild/pants/releases/tag/release_{{ inputs.version }}" --reviewer "${{ inputs.reviewer || github.actor }}"
         env:
           GH_TOKEN: ${{ github.token }}
         working-directory: pantsbuild.org
