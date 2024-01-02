@@ -19,8 +19,9 @@ function getCurrentVersion() {
 //  - PANTSBUILD_ORG_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
-const disableVersioning =
-  isDev && process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS === undefined;
+const disableVersioning = isDev
+  ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS === undefined
+  : undefined;
 const onlyIncludeVersions = isDev
   ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
     ? ["current"].concat(
@@ -29,7 +30,9 @@ const onlyIncludeVersions = isDev
     : ["current"]
   : undefined;
 const currentVersion = getCurrentVersion();
-const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
+const includeBlog = isDev
+  ? process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1"
+  : undefined;
 
 const config = {
   title: "Pantsbuild",
@@ -63,7 +66,7 @@ const config = {
               label: `${currentVersion} (dev)`,
               path: currentVersion,
             },
-            ...(disableVersioning
+            ...(disableVersioning === undefined
               ? {}
               : versions.reduce((acc, version, index) => {
                   acc[version] = {
