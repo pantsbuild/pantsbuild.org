@@ -26,7 +26,7 @@ jobs:
             ${{ runner.os }}-website-
       - run: yarn install --frozen-lockfile
       - name: Check formatting
-        run: npm run prettier .
+        run: npm run check-formatting
       - name: Build
         run: npm run build
         env:
