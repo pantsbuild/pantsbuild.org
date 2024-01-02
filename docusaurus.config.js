@@ -256,6 +256,18 @@ const config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Pants project contributors. Built with Docusaurus.`,
     },
+    algolia: {
+      appId: "QD9KY1TRVK",
+      apiKey: "633f6891a9c1a7db671ce285a5a63819",
+      indexName: "pantsbuild",
+      contextualSearch: true,
+
+      // Optional: Replace parts of the item URLs from Algolia. Useful when using the same search index for multiple deployments using a different baseUrl. You can use regexp or string in the `from` param. For example: localhost:3000 vs myCompany.com/docs
+      replaceSearchResultPathname: {
+        from: "/docs/", // or as RegExp: /\/docs\//
+        to: "/",
+      },
+    },
     prism: {
       additionalLanguages: [
         "bash",
