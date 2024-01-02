@@ -1,5 +1,1324 @@
 export default [
   {
+    from: "/docs/adhoc-tool",
+    to: "/2.18.x/docs/ad-hoc-tools/integrating-new-tools-without-plugins",
+  },
+  {
+    from: "/docs/advanced-plugin-concepts",
+    to: "/2.18.x/docs/tutorials-coming-soon/advanced-plugin-concepts",
+  },
+  {
+    from: "/docs/advanced-target-selection",
+    to: "/2.18.x/docs/using-pants/advanced-target-selection",
+  },
+  {
+    from: "/docs/anonymous-telemetry",
+    to: "/2.18.x/docs/using-pants/anonymous-telemetry",
+  },
+  {
+    from: "/docs/assets",
+    to: "/2.18.x/docs/using-pants/assets-and-archives",
+  },
+  {
+    from: "/docs/awslambda-python",
+    to: "/2.18.x/docs/python/integrations/aws-lambda",
+  },
+  { from: "/docs/changelog", to: "/versions" },
+  {
+    from: "/docs/ci-for-macos-on-arm64",
+    to: "/2.18.x/docs/contributions/releases/github-actions-macos-arm64-runners",
+  },
+  {
+    from: "/docs/code-of-conduct",
+    to: "/community/code-of-conduct",
+  },
+  {
+    from: "/docs/command-line-help",
+    to: "/2.18.x/docs/using-pants/command-line-help",
+  },
+  {
+    from: "/docs/common-plugin-tasks",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks",
+  },
+  { from: "/docs/community", to: "/community/members" },
+  {
+    from: "/docs/concepts",
+    to: "/2.18.x/docs/using-pants/key-concepts",
+  },
+  {
+    from: "/docs/contentious-decisions",
+    to: "/community/contentious-decisions",
+  },
+  {
+    from: "/docs/contributions-debugging",
+    to: "/2.18.x/docs/contributions/development/debugging-and-benchmarking",
+  },
+  {
+    from: "/docs/contributions-rust",
+    to: "/2.18.x/docs/contributions/development/developing-rust",
+  },
+  {
+    from: "/docs/contributor-overview",
+    to: "/2.18.x/docs/contributions/contribution-overview",
+  },
+  {
+    from: "/docs/contributor-setup",
+    to: "/2.18.x/docs/contributions/development/setting-up-pants",
+  },
+  {
+    from: "/docs/create-a-new-goal",
+    to: "/2.18.x/docs/tutorials-coming-soon/create-a-new-goal",
+  },
+  {
+    from: "/docs/deprecation-policy",
+    to: "/2.18.x/docs/releases/deprecation-policy",
+  },
+  {
+    from: "/docs/development",
+    to: "/2.18.x/docs/contributions/development",
+  },
+  { from: "/docs/docker", to: "/2.18.x/docs/docker/docker-overview" },
+  {
+    from: "/docs/enabling-backends",
+    to: "/2.18.x/docs/using-pants/key-concepts/backends",
+  },
+  {
+    from: "/docs/environments",
+    to: "/2.18.x/docs/using-pants/environments:-cross-platform-or-remote-builds",
+  },
+  {
+    from: "/docs/example-repos",
+    to: "/2.18.x/docs/getting-started/getting-started/example-projects-and-repositories",
+  },
+  {
+    from: "/docs/existing-repositories",
+    to: "/2.18.x/docs/getting-started/getting-started/incremental-adoption",
+  },
+  {
+    from: "/docs/generating-version-tags",
+    to: "/2.18.x/docs/using-pants/generating-version-tags-from-git",
+  },
+  { from: "/docs/getting-help", to: "/community/getting-help" },
+  {
+    from: "/docs/getting-started",
+    to: "/2.18.x/docs/getting-started/getting-started",
+  },
+  {
+    from: "/docs/go-integrations",
+    to: "/2.18.x/docs/go/integrations",
+  },
+  { from: "/docs/go", to: "/2.18.x/docs/go/go-overview" },
+  {
+    from: "/docs/goals",
+    to: "/2.18.x/docs/using-pants/key-concepts/goals",
+  },
+  {
+    from: "/docs/google-cloud-function-python",
+    to: "/2.18.x/docs/python/integrations/google-cloud-functions",
+  },
+  {
+    from: "/docs/helm-deployments",
+    to: "/2.18.x/docs/helm/deployments",
+  },
+  {
+    from: "/docs/helm-kubeconform",
+    to: "/2.18.x/docs/helm/kubeconform",
+  },
+  {
+    from: "/docs/helm-overview",
+    to: "/2.18.x/docs/helm/helm-overview",
+  },
+  {
+    from: "/docs/how-does-pants-work",
+    to: "/2.18.x/docs/introduction/how-does-pants-work",
+  },
+  {
+    from: "/docs/initial-configuration",
+    to: "/2.18.x/docs/getting-started/getting-started/initial-configuration",
+  },
+  {
+    from: "/docs/installation",
+    to: "/2.18.x/docs/getting-started/getting-started/installing-pants",
+  },
+  {
+    from: "/docs/internal-rules-architecture",
+    to: "/2.18.x/docs/contributions/development/internal-architecture",
+  },
+  {
+    from: "/docs/jupyter",
+    to: "/2.18.x/docs/python/integrations/jupyter",
+  },
+  {
+    from: "/docs/jvm-overview",
+    to: "/2.18.x/docs/java-and-scala/java-and-scala-overview",
+  },
+  { from: "/docs/kotlin", to: "/2.18.x/docs/java-and-scala/kotlin" },
+  { from: "/docs/macros", to: "/2.18.x/docs/writing-plugins/macros" },
+  { from: "/docs/maintainers", to: "/community/maintainers" },
+  {
+    from: "/docs/manual-installation",
+    to: "/2.18.x/docs/getting-started/getting-started/manual-installation",
+  },
+  { from: "/docs/media", to: "/spotlight/media" },
+  { from: "/docs/news-room", to: "/spotlight/media" },
+  {
+    from: "/docs/options",
+    to: "/2.18.x/docs/using-pants/key-concepts/options",
+  },
+  {
+    from: "/docs/pex-files",
+    to: "/2.18.x/docs/python/python-overview/pex-files",
+  },
+  {
+    from: "/docs/plugin-helpers",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/plugin-helpers",
+  },
+  {
+    from: "/docs/plugin-upgrade-guide",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/plugin-upgrade-guide",
+  },
+  {
+    from: "/docs/plugins-codegen",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/add-codegen",
+  },
+  {
+    from: "/docs/plugins-fmt-goal",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/add-a-formatter",
+  },
+  {
+    from: "/docs/plugins-lint-goal",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/add-a-linter",
+  },
+  {
+    from: "/docs/plugins-overview",
+    to: "/2.18.x/docs/writing-plugins/plugins-overview",
+  },
+  {
+    from: "/docs/plugins-repl-goal",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/add-a-repl",
+  },
+  {
+    from: "/docs/plugins-setup-py",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/custom-python-artifact-kwargs",
+  },
+  {
+    from: "/docs/plugins-test-goal",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/run-tests",
+  },
+  {
+    from: "/docs/plugins-typecheck-goal",
+    to: "/2.18.x/docs/writing-plugins/common-plugin-tasks/add-a-typechecker",
+  },
+  {
+    from: "/docs/prerequisites",
+    to: "/2.18.x/docs/getting-started/getting-started/prerequisites",
+  },
+  {
+    from: "/docs/project-introspection",
+    to: "/2.18.x/docs/using-pants/project-introspection",
+  },
+  {
+    from: "/docs/protobuf-go",
+    to: "/2.18.x/docs/go/integrations/protobuf",
+  },
+  {
+    from: "/docs/protobuf-python",
+    to: "/2.18.x/docs/python/integrations/protobuf-and-grpc",
+  },
+  {
+    from: "/docs/pyoxidizer",
+    to: "/2.18.x/docs/python/integrations/pyoxidizer",
+  },
+  {
+    from: "/docs/python-backend",
+    to: "/2.18.x/docs/python/python-overview/enabling-python-support",
+  },
+  {
+    from: "/docs/python-check-goal",
+    to: "/2.18.x/docs/python/goals/check",
+  },
+  {
+    from: "/docs/python-distributions",
+    to: "/2.18.x/docs/python/python-overview/building-distributions",
+  },
+  {
+    from: "/docs/python-fmt-goal",
+    to: "/2.18.x/docs/python/goals/fmt",
+  },
+  {
+    from: "/docs/python-goals",
+    to: "/2.18.x/docs/python/goals",
+  },
+  {
+    from: "/docs/python-integrations",
+    to: "/2.18.x/docs/python/integrations",
+  },
+  {
+    from: "/docs/python-interpreter-compatibility",
+    to: "/2.18.x/docs/python/python-overview/interpreter-compatibility",
+  },
+  {
+    from: "/docs/python-lint-goal",
+    to: "/2.18.x/docs/python/goals/lint",
+  },
+  {
+    from: "/docs/python-linters-and-formatters",
+    to: "/2.18.x/docs/python/python-overview/linters-and-formatters",
+  },
+  {
+    from: "/docs/python-lockfiles",
+    to: "/2.18.x/docs/python/python-overview/lockfiles",
+  },
+  {
+    from: "/docs/python-package-goal",
+    to: "/2.18.x/docs/python/goals/package",
+  },
+  {
+    from: "/docs/python-publish-goal",
+    to: "/2.18.x/docs/python/goals/publish",
+  },
+  {
+    from: "/docs/python-repl-goal",
+    to: "/2.18.x/docs/python/goals/repl",
+  },
+  {
+    from: "/docs/python-run-goal",
+    to: "/2.18.x/docs/python/goals/run",
+  },
+  {
+    from: "/docs/python-test-goal",
+    to: "/2.18.x/docs/python/goals/test",
+  },
+  {
+    from: "/docs/python-third-party-dependencies",
+    to: "/2.18.x/docs/python/python-overview/third-party-dependencies",
+  },
+  {
+    from: "/docs/python",
+    to: "/2.18.x/docs/python/python-overview",
+  },
+  {
+    from: "/docs/reference-add-trailing-comma",
+    to: "/2.18.x/reference/subsystems/add-trailing-comma",
+  },
+  {
+    from: "/docs/reference-adhoc_tool",
+    to: "/2.18.x/reference/targets/adhoc_tool",
+  },
+  { from: "/docs/reference-all-goals", to: "/2.18.x/reference/goals" },
+  {
+    from: "/docs/reference-all-subsystems",
+    to: "/2.18.x/reference/subsystems",
+  },
+  {
+    from: "/docs/reference-all-targets",
+    to: "/2.18.x/reference/targets",
+  },
+  {
+    from: "/docs/reference-anonymous-telemetry",
+    to: "/2.18.x/reference/subsystems/anonymous-telemetry",
+  },
+  {
+    from: "/docs/reference-apache-thrift",
+    to: "/2.18.x/reference/subsystems/apache-thrift",
+  },
+  {
+    from: "/docs/reference-archive",
+    to: "/2.18.x/reference/targets/archive",
+  },
+  {
+    from: "/docs/reference-autoflake",
+    to: "/2.18.x/reference/subsystems/autoflake",
+  },
+  {
+    from: "/docs/reference-bandit",
+    to: "/2.18.x/reference/subsystems/bandit",
+  },
+  {
+    from: "/docs/reference-black",
+    to: "/2.18.x/reference/subsystems/black",
+  },
+  {
+    from: "/docs/reference-buf",
+    to: "/2.18.x/reference/subsystems/buf",
+  },
+  {
+    from: "/docs/reference-build-deprecations-fixer",
+    to: "/2.18.x/reference/subsystems/build-deprecations-fixer",
+  },
+  {
+    from: "/docs/reference-buildifier",
+    to: "/2.18.x/reference/subsystems/buildifier",
+  },
+  {
+    from: "/docs/reference-changed",
+    to: "/2.18.x/reference/subsystems/changed",
+  },
+  {
+    from: "/docs/reference-check",
+    to: "/2.18.x/reference/goals/check",
+  },
+  {
+    from: "/docs/reference-cli",
+    to: "/2.18.x/reference/subsystems/cli",
+  },
+  {
+    from: "/docs/reference-count-loc",
+    to: "/2.18.x/reference/goals/count-loc",
+  },
+  {
+    from: "/docs/reference-coursier",
+    to: "/2.18.x/reference/subsystems/coursier",
+  },
+  {
+    from: "/docs/reference-coverage-py",
+    to: "/2.18.x/reference/subsystems/coverage-py",
+  },
+  {
+    from: "/docs/reference-debug-adapter",
+    to: "/2.18.x/reference/subsystems/debug-adapter",
+  },
+  {
+    from: "/docs/reference-debugpy",
+    to: "/2.18.x/reference/subsystems/debugpy",
+  },
+  {
+    from: "/docs/reference-dependees",
+    to: "/2.18.x/reference/goals/dependees",
+  },
+  {
+    from: "/docs/reference-dependencies",
+    to: "/2.18.x/reference/goals/dependencies",
+  },
+  {
+    from: "/docs/reference-dependents",
+    to: "/2.18.x/reference/goals/dependents",
+  },
+  {
+    from: "/docs/reference-deploy_jar",
+    to: "/2.18.x/reference/targets/deploy_jar",
+  },
+  {
+    from: "/docs/reference-docformatter",
+    to: "/2.18.x/reference/subsystems/docformatter",
+  },
+  {
+    from: "/docs/reference-docker_environment",
+    to: "/2.18.x/reference/targets/docker_environment",
+  },
+  {
+    from: "/docs/reference-docker_image",
+    to: "/2.18.x/reference/targets/docker_image",
+  },
+  {
+    from: "/docs/reference-docker",
+    to: "/2.18.x/reference/subsystems/docker",
+  },
+  {
+    from: "/docs/reference-dockerfile-parser",
+    to: "/2.18.x/reference/subsystems/dockerfile-parser",
+  },
+  {
+    from: "/docs/reference-download-terraform",
+    to: "/2.18.x/reference/subsystems/download-terraform",
+  },
+  {
+    from: "/docs/reference-environments-preview",
+    to: "/2.18.x/reference/subsystems/environments-preview",
+  },
+  {
+    from: "/docs/reference-experimental_test_shell_command",
+    to: "/2.18.x/reference/targets/experimental_test_shell_command",
+  },
+  {
+    from: "/docs/reference-experimental_wrap_as_go_package_sources",
+    to: "/2.18.x/reference/targets/experimental_wrap_as_go_package_sources",
+  },
+  {
+    from: "/docs/reference-experimental_wrap_as_java_sources",
+    to: "/2.18.x/reference/targets/experimental_wrap_as_java_sources",
+  },
+  {
+    from: "/docs/reference-experimental_wrap_as_kotlin_sources",
+    to: "/2.18.x/reference/targets/experimental_wrap_as_kotlin_sources",
+  },
+  {
+    from: "/docs/reference-experimental_wrap_as_python_sources",
+    to: "/2.18.x/reference/targets/experimental_wrap_as_python_sources",
+  },
+  {
+    from: "/docs/reference-experimental_wrap_as_resources",
+    to: "/2.18.x/reference/targets/experimental_wrap_as_resources",
+  },
+  {
+    from: "/docs/reference-experimental_wrap_as_scala_sources",
+    to: "/2.18.x/reference/targets/experimental_wrap_as_scala_sources",
+  },
+  {
+    from: "/docs/reference-experimental-bsp",
+    to: "/2.18.x/reference/goals/experimental-bsp",
+  },
+  {
+    from: "/docs/reference-experimental-deploy",
+    to: "/2.18.x/reference/goals/experimental-deploy",
+  },
+  {
+    from: "/docs/reference-experimental-explorer",
+    to: "/2.18.x/reference/goals/experimental-explorer",
+  },
+  {
+    from: "/docs/reference-export-codegen",
+    to: "/2.18.x/reference/goals/export-codegen",
+  },
+  {
+    from: "/docs/reference-export",
+    to: "/2.18.x/reference/goals/export",
+  },
+  {
+    from: "/docs/reference-file",
+    to: "/2.18.x/reference/targets/file",
+  },
+  {
+    from: "/docs/reference-filedeps",
+    to: "/2.18.x/reference/goals/filedeps",
+  },
+  {
+    from: "/docs/reference-files",
+    to: "/2.18.x/reference/targets/files",
+  },
+  {
+    from: "/docs/reference-filter",
+    to: "/2.18.x/reference/subsystems/filter",
+  },
+  { from: "/docs/reference-fix", to: "/2.18.x/reference/goals/fix" },
+  {
+    from: "/docs/reference-flake8",
+    to: "/2.18.x/reference/subsystems/flake8",
+  },
+  { from: "/docs/reference-fmt", to: "/2.18.x/reference/goals/fmt" },
+  {
+    from: "/docs/reference-generate-lockfiles",
+    to: "/2.18.x/reference/goals/generate-lockfiles",
+  },
+  {
+    from: "/docs/reference-generate-snapshots",
+    to: "/2.18.x/reference/goals/generate-snapshots",
+  },
+  {
+    from: "/docs/reference-global",
+    to: "/2.18.x/reference/global-options",
+  },
+  {
+    from: "/docs/reference-go_binary",
+    to: "/2.18.x/reference/targets/go_binary",
+  },
+  {
+    from: "/docs/reference-go_mod",
+    to: "/2.18.x/reference/targets/go_mod",
+  },
+  {
+    from: "/docs/reference-go_package",
+    to: "/2.18.x/reference/targets/go_package",
+  },
+  {
+    from: "/docs/reference-go_third_party_package",
+    to: "/2.18.x/reference/targets/go_third_party_package",
+  },
+  {
+    from: "/docs/reference-go-generate",
+    to: "/2.18.x/reference/goals/go-generate",
+  },
+  {
+    from: "/docs/reference-go-test",
+    to: "/2.18.x/reference/subsystems/go-test",
+  },
+  {
+    from: "/docs/reference-gofmt",
+    to: "/2.18.x/reference/subsystems/gofmt",
+  },
+  {
+    from: "/docs/reference-golang",
+    to: "/2.18.x/reference/subsystems/golang",
+  },
+  {
+    from: "/docs/reference-google-java-format",
+    to: "/2.18.x/reference/subsystems/google-java-format",
+  },
+  {
+    from: "/docs/reference-grpc-python-plugin",
+    to: "/2.18.x/reference/subsystems/grpc-python-plugin",
+  },
+  {
+    from: "/docs/reference-hadolint",
+    to: "/2.18.x/reference/subsystems/hadolint",
+  },
+  {
+    from: "/docs/reference-helm_artifact",
+    to: "/2.18.x/reference/targets/helm_artifact",
+  },
+  {
+    from: "/docs/reference-helm_chart",
+    to: "/2.18.x/reference/targets/helm_chart",
+  },
+  {
+    from: "/docs/reference-helm_deployment",
+    to: "/2.18.x/reference/targets/helm_deployment",
+  },
+  {
+    from: "/docs/reference-helm_unittest_test",
+    to: "/2.18.x/reference/targets/helm_unittest_test",
+  },
+  {
+    from: "/docs/reference-helm_unittest_tests",
+    to: "/2.18.x/reference/targets/helm_unittest_tests",
+  },
+  {
+    from: "/docs/reference-helm-k8s-parser",
+    to: "/2.18.x/reference/subsystems/helm-k8s-parser",
+  },
+  {
+    from: "/docs/reference-helm-post-renderer",
+    to: "/2.18.x/reference/subsystems/helm-post-renderer",
+  },
+  {
+    from: "/docs/reference-helm-unittest",
+    to: "/2.18.x/reference/subsystems/helm-unittest",
+  },
+  {
+    from: "/docs/reference-helm",
+    to: "/2.18.x/reference/subsystems/helm",
+  },
+  {
+    from: "/docs/reference-help-advanced",
+    to: "/2.18.x/reference/goals/help-advanced",
+  },
+  {
+    from: "/docs/reference-help-all",
+    to: "/2.18.x/reference/goals/help-all",
+  },
+  {
+    from: "/docs/reference-help",
+    to: "/2.18.x/reference/goals/help",
+  },
+  {
+    from: "/docs/reference-ipython",
+    to: "/2.18.x/reference/subsystems/ipython",
+  },
+  {
+    from: "/docs/reference-isort",
+    to: "/2.18.x/reference/subsystems/isort",
+  },
+  {
+    from: "/docs/reference-jarjar",
+    to: "/2.18.x/reference/subsystems/jarjar",
+  },
+  {
+    from: "/docs/reference-java_source",
+    to: "/2.18.x/reference/targets/java_source",
+  },
+  {
+    from: "/docs/reference-java_sources",
+    to: "/2.18.x/reference/targets/java_sources",
+  },
+  {
+    from: "/docs/reference-java-infer",
+    to: "/2.18.x/reference/subsystems/java-infer",
+  },
+  {
+    from: "/docs/reference-javac",
+    to: "/2.18.x/reference/subsystems/javac",
+  },
+  {
+    from: "/docs/reference-junit_test",
+    to: "/2.18.x/reference/targets/junit_test",
+  },
+  {
+    from: "/docs/reference-junit_tests",
+    to: "/2.18.x/reference/targets/junit_tests",
+  },
+  {
+    from: "/docs/reference-junit",
+    to: "/2.18.x/reference/subsystems/junit",
+  },
+  {
+    from: "/docs/reference-jvm_artifact",
+    to: "/2.18.x/reference/targets/jvm_artifact",
+  },
+  {
+    from: "/docs/reference-jvm_war",
+    to: "/2.18.x/reference/targets/jvm_war",
+  },
+  {
+    from: "/docs/reference-jvm",
+    to: "/2.18.x/reference/subsystems/jvm",
+  },
+  {
+    from: "/docs/reference-kotlin_junit_test",
+    to: "/2.18.x/reference/targets/kotlin_junit_test",
+  },
+  {
+    from: "/docs/reference-kotlin_junit_tests",
+    to: "/2.18.x/reference/targets/kotlin_junit_tests",
+  },
+  {
+    from: "/docs/reference-kotlin_source",
+    to: "/2.18.x/reference/targets/kotlin_source",
+  },
+  {
+    from: "/docs/reference-kotlin_sources",
+    to: "/2.18.x/reference/targets/kotlin_sources",
+  },
+  {
+    from: "/docs/reference-kotlin-infer",
+    to: "/2.18.x/reference/subsystems/kotlin-infer",
+  },
+  {
+    from: "/docs/reference-kotlin",
+    to: "/2.18.x/reference/subsystems/kotlin",
+  },
+  {
+    from: "/docs/reference-kotlinc_plugin",
+    to: "/2.18.x/reference/targets/kotlinc_plugin",
+  },
+  {
+    from: "/docs/reference-kotlinc",
+    to: "/2.18.x/reference/subsystems/kotlinc",
+  },
+  {
+    from: "/docs/reference-ktlint",
+    to: "/2.18.x/reference/subsystems/ktlint",
+  },
+  {
+    from: "/docs/reference-lambdex",
+    to: "/2.18.x/reference/subsystems/lambdex",
+  },
+  {
+    from: "/docs/reference-lint",
+    to: "/2.18.x/reference/goals/lint",
+  },
+  {
+    from: "/docs/reference-list",
+    to: "/2.18.x/reference/goals/list",
+  },
+  {
+    from: "/docs/reference-local_environment",
+    to: "/2.18.x/reference/targets/local_environment",
+  },
+  {
+    from: "/docs/reference-mypy-protobuf",
+    to: "/2.18.x/reference/subsystems/mypy-protobuf",
+  },
+  {
+    from: "/docs/reference-mypy",
+    to: "/2.18.x/reference/subsystems/mypy",
+  },
+  {
+    from: "/docs/reference-nodejs-infer",
+    to: "/2.18.x/reference/subsystems/nodejs-infer",
+  },
+  {
+    from: "/docs/reference-nodejs",
+    to: "/2.18.x/reference/subsystems/nodejs",
+  },
+  {
+    from: "/docs/reference-openapi_document",
+    to: "/2.18.x/reference/targets/openapi_document",
+  },
+  {
+    from: "/docs/reference-openapi_documents",
+    to: "/2.18.x/reference/targets/openapi_documents",
+  },
+  {
+    from: "/docs/reference-openapi_source",
+    to: "/2.18.x/reference/targets/openapi_source",
+  },
+  {
+    from: "/docs/reference-openapi_sources",
+    to: "/2.18.x/reference/targets/openapi_sources",
+  },
+  {
+    from: "/docs/reference-openapi",
+    to: "/2.18.x/reference/subsystems/openapi",
+  },
+  {
+    from: "/docs/reference-package",
+    to: "/2.18.x/reference/goals/package",
+  },
+  {
+    from: "/docs/reference-pants_requirements",
+    to: "/2.18.x/reference/targets/pants_requirements",
+  },
+  {
+    from: "/docs/reference-paths",
+    to: "/2.18.x/reference/goals/paths",
+  },
+  {
+    from: "/docs/reference-peek",
+    to: "/2.18.x/reference/goals/peek",
+  },
+  {
+    from: "/docs/reference-pex_binaries",
+    to: "/2.18.x/reference/targets/pex_binaries",
+  },
+  {
+    from: "/docs/reference-pex_binary",
+    to: "/2.18.x/reference/targets/pex_binary",
+  },
+  {
+    from: "/docs/reference-pex-binary-defaults",
+    to: "/2.18.x/reference/subsystems/pex-binary-defaults",
+  },
+  {
+    from: "/docs/reference-pex-cli",
+    to: "/2.18.x/reference/subsystems/pex-cli",
+  },
+  {
+    from: "/docs/reference-pex",
+    to: "/2.18.x/reference/subsystems/pex",
+  },
+  {
+    from: "/docs/reference-pipenv_requirements",
+    to: "/2.18.x/reference/targets/pipenv_requirements",
+  },
+  {
+    from: "/docs/reference-poetry_requirements",
+    to: "/2.18.x/reference/targets/poetry_requirements",
+  },
+  {
+    from: "/docs/reference-preamble",
+    to: "/2.18.x/reference/subsystems/preamble",
+  },
+  {
+    from: "/docs/reference-protobuf_source",
+    to: "/2.18.x/reference/targets/protobuf_source",
+  },
+  {
+    from: "/docs/reference-protobuf_sources",
+    to: "/2.18.x/reference/targets/protobuf_sources",
+  },
+  {
+    from: "/docs/reference-protobuf-java-grpc",
+    to: "/2.18.x/reference/subsystems/protobuf-java-grpc",
+  },
+  {
+    from: "/docs/reference-protoc",
+    to: "/2.18.x/reference/subsystems/protoc",
+  },
+  {
+    from: "/docs/reference-publish",
+    to: "/2.18.x/reference/goals/publish",
+  },
+  {
+    from: "/docs/reference-py-constraints",
+    to: "/2.18.x/reference/goals/py-constraints",
+  },
+  {
+    from: "/docs/reference-pydocstyle",
+    to: "/2.18.x/reference/subsystems/pydocstyle",
+  },
+  {
+    from: "/docs/reference-pylint",
+    to: "/2.18.x/reference/subsystems/pylint",
+  },
+  {
+    from: "/docs/reference-pyoxidizer_binary",
+    to: "/2.18.x/reference/targets/pyoxidizer_binary",
+  },
+  {
+    from: "/docs/reference-pyoxidizer",
+    to: "/2.18.x/reference/subsystems/pyoxidizer",
+  },
+  {
+    from: "/docs/reference-pytest",
+    to: "/2.18.x/reference/subsystems/pytest",
+  },
+  {
+    from: "/docs/reference-python_aws_lambda_function",
+    to: "/2.18.x/reference/targets/python_aws_lambda_function",
+  },
+  {
+    from: "/docs/reference-python_aws_lambda_layer",
+    to: "/2.18.x/reference/targets/python_aws_lambda_layer",
+  },
+  {
+    from: "/docs/reference-python_distribution",
+    to: "/2.18.x/reference/targets/python_distribution",
+  },
+  {
+    from: "/docs/reference-python_google_cloud_function",
+    to: "/2.18.x/reference/targets/python_google_cloud_function",
+  },
+  {
+    from: "/docs/reference-python_requirement",
+    to: "/2.18.x/reference/targets/python_requirement",
+  },
+  {
+    from: "/docs/reference-python_requirements",
+    to: "/2.18.x/reference/targets/python_requirements",
+  },
+  {
+    from: "/docs/reference-python_source",
+    to: "/2.18.x/reference/targets/python_source",
+  },
+  {
+    from: "/docs/reference-python_sources",
+    to: "/2.18.x/reference/targets/python_sources",
+  },
+  {
+    from: "/docs/reference-python_test_utils",
+    to: "/2.18.x/reference/targets/python_test_utils",
+  },
+  {
+    from: "/docs/reference-python_test",
+    to: "/2.18.x/reference/targets/python_test",
+  },
+  {
+    from: "/docs/reference-python_tests",
+    to: "/2.18.x/reference/targets/python_tests",
+  },
+  {
+    from: "/docs/reference-python-bootstrap",
+    to: "/2.18.x/reference/subsystems/python-bootstrap",
+  },
+  {
+    from: "/docs/reference-python-dump-source-analysis",
+    to: "/2.18.x/reference/goals/python-dump-source-analysis",
+  },
+  {
+    from: "/docs/reference-python-infer",
+    to: "/2.18.x/reference/subsystems/python-infer",
+  },
+  {
+    from: "/docs/reference-python-native-code",
+    to: "/2.18.x/reference/subsystems/python-native-code",
+  },
+  {
+    from: "/docs/reference-python-protobuf",
+    to: "/2.18.x/reference/subsystems/python-protobuf",
+  },
+  {
+    from: "/docs/reference-python-repos",
+    to: "/2.18.x/reference/subsystems/python-repos",
+  },
+  {
+    from: "/docs/reference-python-thrift",
+    to: "/2.18.x/reference/subsystems/python-thrift",
+  },
+  {
+    from: "/docs/reference-python",
+    to: "/2.18.x/reference/subsystems/python",
+  },
+  {
+    from: "/docs/reference-pytype",
+    to: "/2.18.x/reference/subsystems/pytype",
+  },
+  {
+    from: "/docs/reference-pyupgrade",
+    to: "/2.18.x/reference/subsystems/pyupgrade",
+  },
+  {
+    from: "/docs/reference-regex-lint",
+    to: "/2.18.x/reference/subsystems/regex-lint",
+  },
+  {
+    from: "/docs/reference-relocated_files",
+    to: "/2.18.x/reference/targets/relocated_files",
+  },
+  {
+    from: "/docs/reference-remote_environment",
+    to: "/2.18.x/reference/targets/remote_environment",
+  },
+  {
+    from: "/docs/reference-repl",
+    to: "/2.18.x/reference/goals/repl",
+  },
+  {
+    from: "/docs/reference-resource",
+    to: "/2.18.x/reference/targets/resource",
+  },
+  {
+    from: "/docs/reference-resources",
+    to: "/2.18.x/reference/targets/resources",
+  },
+  {
+    from: "/docs/reference-roots",
+    to: "/2.18.x/reference/goals/roots",
+  },
+  {
+    from: "/docs/reference-ruff",
+    to: "/2.18.x/reference/subsystems/ruff",
+  },
+  {
+    from: "/docs/reference-run_shell_command",
+    to: "/2.18.x/reference/targets/run_shell_command",
+  },
+  { from: "/docs/reference-run", to: "/2.18.x/reference/goals/run" },
+  {
+    from: "/docs/reference-scala_artifact",
+    to: "/2.18.x/reference/targets/scala_artifact",
+  },
+  {
+    from: "/docs/reference-scala_junit_test",
+    to: "/2.18.x/reference/targets/scala_junit_test",
+  },
+  {
+    from: "/docs/reference-scala_junit_tests",
+    to: "/2.18.x/reference/targets/scala_junit_tests",
+  },
+  {
+    from: "/docs/reference-scala_source",
+    to: "/2.18.x/reference/targets/scala_source",
+  },
+  {
+    from: "/docs/reference-scala_sources",
+    to: "/2.18.x/reference/targets/scala_sources",
+  },
+  {
+    from: "/docs/reference-scala-infer",
+    to: "/2.18.x/reference/subsystems/scala-infer",
+  },
+  {
+    from: "/docs/reference-scala",
+    to: "/2.18.x/reference/subsystems/scala",
+  },
+  {
+    from: "/docs/reference-scalac_plugin",
+    to: "/2.18.x/reference/targets/scalac_plugin",
+  },
+  {
+    from: "/docs/reference-scalac",
+    to: "/2.18.x/reference/subsystems/scalac",
+  },
+  {
+    from: "/docs/reference-scalafmt",
+    to: "/2.18.x/reference/subsystems/scalafmt",
+  },
+  {
+    from: "/docs/reference-scalapb",
+    to: "/2.18.x/reference/subsystems/scalapb",
+  },
+  {
+    from: "/docs/reference-scalatest_test",
+    to: "/2.18.x/reference/targets/scalatest_test",
+  },
+  {
+    from: "/docs/reference-scalatest_tests",
+    to: "/2.18.x/reference/targets/scalatest_tests",
+  },
+  {
+    from: "/docs/reference-scalatest",
+    to: "/2.18.x/reference/subsystems/scalatest",
+  },
+  {
+    from: "/docs/reference-scc",
+    to: "/2.18.x/reference/subsystems/scc",
+  },
+  {
+    from: "/docs/reference-setup-py-generation",
+    to: "/2.18.x/reference/subsystems/setup-py-generation",
+  },
+  {
+    from: "/docs/reference-setuptools-scm",
+    to: "/2.18.x/reference/subsystems/setuptools-scm",
+  },
+  {
+    from: "/docs/reference-setuptools",
+    to: "/2.18.x/reference/subsystems/setuptools",
+  },
+  {
+    from: "/docs/reference-shell_command",
+    to: "/2.18.x/reference/targets/shell_command",
+  },
+  {
+    from: "/docs/reference-shell_source",
+    to: "/2.18.x/reference/targets/shell_source",
+  },
+  {
+    from: "/docs/reference-shell_sources",
+    to: "/2.18.x/reference/targets/shell_sources",
+  },
+  {
+    from: "/docs/reference-shell-setup",
+    to: "/2.18.x/reference/subsystems/shell-setup",
+  },
+  {
+    from: "/docs/reference-shell-test",
+    to: "/2.18.x/reference/subsystems/shell-test",
+  },
+  {
+    from: "/docs/reference-shellcheck",
+    to: "/2.18.x/reference/subsystems/shellcheck",
+  },
+  {
+    from: "/docs/reference-shfmt",
+    to: "/2.18.x/reference/subsystems/shfmt",
+  },
+  {
+    from: "/docs/reference-shunit2_test",
+    to: "/2.18.x/reference/targets/shunit2_test",
+  },
+  {
+    from: "/docs/reference-shunit2_tests",
+    to: "/2.18.x/reference/targets/shunit2_tests",
+  },
+  {
+    from: "/docs/reference-shunit2",
+    to: "/2.18.x/reference/subsystems/shunit2",
+  },
+  {
+    from: "/docs/reference-source",
+    to: "/2.18.x/reference/subsystems/source",
+  },
+  {
+    from: "/docs/reference-spectral",
+    to: "/2.18.x/reference/subsystems/spectral",
+  },
+  {
+    from: "/docs/reference-stats",
+    to: "/2.18.x/reference/subsystems/stats",
+  },
+  {
+    from: "/docs/reference-subprocess-environment",
+    to: "/2.18.x/reference/subsystems/subprocess-environment",
+  },
+  {
+    from: "/docs/reference-system_binary",
+    to: "/2.18.x/reference/targets/system_binary",
+  },
+  {
+    from: "/docs/reference-tailor",
+    to: "/2.18.x/reference/goals/tailor",
+  },
+  {
+    from: "/docs/reference-target",
+    to: "/2.18.x/reference/targets/target",
+  },
+  {
+    from: "/docs/reference-terraform_deployment",
+    to: "/2.18.x/reference/targets/terraform_deployment",
+  },
+  {
+    from: "/docs/reference-terraform_module",
+    to: "/2.18.x/reference/targets/terraform_module",
+  },
+  {
+    from: "/docs/reference-terraform-fmt",
+    to: "/2.18.x/reference/subsystems/terraform-fmt",
+  },
+  {
+    from: "/docs/reference-terraform-hcl2-parser",
+    to: "/2.18.x/reference/subsystems/terraform-hcl2-parser",
+  },
+  {
+    from: "/docs/reference-terraform-validate",
+    to: "/2.18.x/reference/subsystems/terraform-validate",
+  },
+  {
+    from: "/docs/reference-test",
+    to: "/2.18.x/reference/goals/test",
+  },
+  {
+    from: "/docs/reference-thrift_source",
+    to: "/2.18.x/reference/targets/thrift_source",
+  },
+  {
+    from: "/docs/reference-thrift_sources",
+    to: "/2.18.x/reference/targets/thrift_sources",
+  },
+  {
+    from: "/docs/reference-thrift",
+    to: "/2.18.x/reference/subsystems/thrift",
+  },
+  {
+    from: "/docs/reference-twine",
+    to: "/2.18.x/reference/subsystems/twine",
+  },
+  {
+    from: "/docs/reference-update-build-files",
+    to: "/2.18.x/reference/goals/update-build-files",
+  },
+  {
+    from: "/docs/reference-vcs_version",
+    to: "/2.18.x/reference/targets/vcs_version",
+  },
+  {
+    from: "/docs/reference-version",
+    to: "/2.18.x/reference/goals/version",
+  },
+  {
+    from: "/docs/reference-workunit-logger",
+    to: "/2.18.x/reference/subsystems/workunit-logger",
+  },
+  {
+    from: "/docs/reference-yamllint",
+    to: "/2.18.x/reference/subsystems/yamllint",
+  },
+  {
+    from: "/docs/reference-yapf",
+    to: "/2.18.x/reference/subsystems/yapf",
+  },
+  {
+    from: "/docs/release-process",
+    to: "/2.18.x/docs/contributions/releases/release-process",
+  },
+  {
+    from: "/docs/release-strategy",
+    to: "/2.18.x/docs/contributions/releases/release-strategy",
+  },
+  {
+    from: "/docs/releases",
+    to: "/2.18.x/docs/contributions/releases",
+  },
+  {
+    from: "/docs/remote-caching-execution",
+    to: "/2.18.x/docs/using-pants/remote-caching-&-execution",
+  },
+  {
+    from: "/docs/remote-caching",
+    to: "/2.18.x/docs/using-pants/remote-caching-&-execution/remote-caching",
+  },
+  {
+    from: "/docs/remote-execution",
+    to: "/2.18.x/docs/using-pants/remote-caching-&-execution/remote-execution",
+  },
+  {
+    from: "/docs/restricted-internet-access",
+    to: "/2.18.x/docs/using-pants/restricted-internet-access",
+  },
+  {
+    from: "/docs/rules-api-and-target-api",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/rules-and-the-target-api",
+  },
+  {
+    from: "/docs/rules-api-concepts",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/concepts",
+  },
+  {
+    from: "/docs/rules-api-file-system",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/file-system",
+  },
+  {
+    from: "/docs/rules-api-goal-rules",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/goal-rules",
+  },
+  {
+    from: "/docs/rules-api-installing-tools",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/installing-tools",
+  },
+  {
+    from: "/docs/rules-api-logging",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/logging-and-dynamic-output",
+  },
+  {
+    from: "/docs/rules-api-process",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/processes",
+  },
+  {
+    from: "/docs/rules-api-subsystems",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/options-and-subsystems",
+  },
+  {
+    from: "/docs/rules-api-testing",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/testing-plugins",
+  },
+  {
+    from: "/docs/rules-api-tips",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/tips-and-debugging",
+  },
+  {
+    from: "/docs/rules-api-unions",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api/union-rules-advanced",
+  },
+  {
+    from: "/docs/rules-api",
+    to: "/2.18.x/docs/writing-plugins/the-rules-api",
+  },
+  {
+    from: "/docs/run-shell-commands",
+    to: "/2.18.x/docs/shell/run-shell-commands",
+  },
+  {
+    from: "/docs/running-pants-from-sources",
+    to: "/2.18.x/docs/contributions/development/running-pants-from-sources",
+  },
+  {
+    from: "/docs/setting-up-an-ide",
+    to: "/2.18.x/docs/using-pants/setting-up-an-ide",
+  },
+  { from: "/docs/shell", to: "/2.18.x/docs/shell/shell-overview" },
+  {
+    from: "/docs/source-roots",
+    to: "/2.18.x/docs/using-pants/key-concepts/source-roots",
+  },
+  {
+    from: "/docs/sponsorship",
+    to: "/sponsorship",
+  },
+  {
+    from: "/docs/style-guide",
+    to: "/2.18.x/docs/contributions/development/style-guide",
+  },
+  {
+    from: "/docs/tagging-docker-images",
+    to: "/2.18.x/docs/docker/tagging-docker-images",
+  },
+  {
+    from: "/docs/target-api-concepts",
+    to: "/2.18.x/docs/writing-plugins/the-target-api/concepts",
+  },
+  {
+    from: "/docs/target-api-extending-targets",
+    to: "/2.18.x/docs/writing-plugins/the-target-api/extending-existing-targets",
+  },
+  {
+    from: "/docs/target-api-new-fields",
+    to: "/2.18.x/docs/writing-plugins/the-target-api/creating-new-fields",
+  },
+  {
+    from: "/docs/target-api-new-targets",
+    to: "/2.18.x/docs/writing-plugins/the-target-api/creating-new-targets",
+  },
+  {
+    from: "/docs/target-api",
+    to: "/2.18.x/docs/writing-plugins/the-target-api",
+  },
+  {
+    from: "/docs/targets",
+    to: "/2.18.x/docs/using-pants/key-concepts/targets-and-build-files",
+  },
+  { from: "/docs/team", to: "/community/meet-the-team" },
+  {
+    from: "/docs/test-custom-plugin-goal",
+    to: "/2.18.x/docs/tutorials-coming-soon/testing-plugins",
+  },
+  { from: "/docs/testimonials", to: "/spotlight/testimonials" },
+  { from: "/docs/the-pants-community", to: "/community/members" },
+  {
+    from: "/docs/thrift-python",
+    to: "/2.18.x/docs/python/integrations/thrift",
+  },
+  {
+    from: "/docs/troubleshooting",
+    to: "/2.18.x/docs/using-pants/troubleshooting-common-issues",
+  },
+  {
+    from: "/docs/upgrade-tips",
+    to: "/2.18.x/docs/releases/upgrade-tips",
+  },
+  {
+    from: "/docs/using-pants-in-ci",
+    to: "/2.18.x/docs/using-pants/using-pants-in-ci",
+  },
+  {
+    from: "/docs/validating-dependencies",
+    to: "/2.18.x/docs/using-pants/validating-dependencies",
+  },
+  {
+    from: "/docs/welcome-to-pants",
+    to: "/2.18.x/docs/introduction/welcome-to-pants",
+  },
+  { from: "/docs/who-uses-pants", to: "/spotlight/users" },
+  {
     from: "/v2.0/docs/advanced-target-selection",
     to: "/2.0.x/docs/using-pants/advanced-target-selection",
   },
