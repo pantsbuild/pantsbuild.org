@@ -3,7 +3,10 @@ const fs = require("fs");
 const path = require("path");
 const he = require("he");
 
-const helpAll = JSON.parse(fs.readFileSync(process.argv[3], "utf8"));
+const reference_dir = path.join(process.argv[2], "reference");
+const helpAll = JSON.parse(
+  fs.readFileSync(path.join(reference_dir, "help-all.json"), "utf8")
+);
 const subsystemTemplate = fs.readFileSync(
   "reference_codegen/subsystem.mdx.mustache",
   "utf8"
@@ -137,7 +140,6 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-const reference_dir = path.join(process.argv[2], "reference");
 fs.mkdirSync(reference_dir);
 process.chdir(reference_dir);
 fs.mkdirSync("goals");
