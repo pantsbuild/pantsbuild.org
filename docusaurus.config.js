@@ -256,6 +256,12 @@ const config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Pants project contributors. Built with Docusaurus.`,
     },
+    algolia: {
+      appId: "QD9KY1TRVK",
+      apiKey: "633f6891a9c1a7db671ce285a5a63819",
+      indexName: "pantsbuild",
+      contextualSearch: true,
+    },
     prism: {
       additionalLanguages: [
         "bash",
