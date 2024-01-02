@@ -63,6 +63,7 @@ jobs:
       - run: |
           rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
           mkdir "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
 
       # Generate reference docs
       - name: Setup Node
@@ -82,7 +83,7 @@ jobs:
       - run: yarn install --frozen-lockfile
         working-directory: pantsbuild.org
       - name: Generate reference docs
-        run: npm run generate-reference "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}" ../help-all.json
+        run: npm run generate-reference "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
         working-directory: pantsbuild.org
 
       # Sync the docs repo
