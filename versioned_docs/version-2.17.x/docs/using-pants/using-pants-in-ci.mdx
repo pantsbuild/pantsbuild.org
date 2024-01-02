@@ -20,7 +20,7 @@ If you're using GitHub Actions to run your CI workflows, then you can use our [s
 In your CI's config file, we recommend caching these directories:
 
 - `$HOME/.cache/nce` (Linux) or `$HOME/Library/Caches/nce` (macOS)<br/>
-  This is the cache directory used by the [Pants launcher binary](../getting-started/getting-started/installing-pants.mdx) to cache the assets, interpreters and venvs required to run Pants itself. Cache this against the Pants version, as specified in `pants.toml`. See the [pantsbuild/example-python](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml) repo for an example of how to generate an effective cache key for this directory in GitHub Actions.
+  This is the cache directory used by the [Pants launcher binary](../getting-started/installing-pants.mdx) to cache the assets, interpreters and venvs required to run Pants itself. Cache this against the Pants version, as specified in `pants.toml`. See the [pantsbuild/example-python](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml) repo for an example of how to generate an effective cache key for this directory in GitHub Actions.
 - `$HOME/.cache/pants/named_caches`<br/>
   Caches used by some underlying tools. Cache this against the inputs to those tools. For the `pants.backend.python` backend, named caches are used by PEX, and therefore its inputs are your lockfiles. Again, see [pantsbuild/example-python](https://github.com/pantsbuild/example-python/blob/main/.github/workflows/pants.yaml) for an example.
 
