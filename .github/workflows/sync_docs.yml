@@ -25,7 +25,7 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Generate help JSON
         # First run `help-all` which will contain the list of every backend in the `name_to_backend_help_info` object,
-        # then, run it again with every backend enabled.
+        # then run it again with every backend enabled.
         # NB: We run the command initially twice, since the first run might put extraneous crap on stdout.
         run: |
           touch pants.toml
