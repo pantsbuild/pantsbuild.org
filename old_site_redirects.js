@@ -88,11 +88,11 @@ export default [
   },
   {
     from: "/docs/example-repos",
-    to: "/2.18.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.18.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/docs/existing-repositories",
-    to: "/2.18.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.18.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/docs/generating-version-tags",
@@ -101,7 +101,7 @@ export default [
   { from: "/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/docs/getting-started",
-    to: "/2.18.x/docs/getting-started/getting-started",
+    to: "/2.18.x/docs/getting-started",
   },
   {
     from: "/docs/go-integrations",
@@ -134,11 +134,11 @@ export default [
   },
   {
     from: "/docs/initial-configuration",
-    to: "/2.18.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.18.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/docs/installation",
-    to: "/2.18.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.18.x/docs/getting-started/installing-pants",
   },
   {
     from: "/docs/internal-rules-architecture",
@@ -157,7 +157,7 @@ export default [
   { from: "/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/docs/manual-installation",
-    to: "/2.18.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.18.x/docs/getting-started/manual-installation",
   },
   { from: "/docs/media", to: "/spotlight/media" },
   { from: "/docs/news-room", to: "/spotlight/media" },
@@ -211,7 +211,7 @@ export default [
   },
   {
     from: "/docs/prerequisites",
-    to: "/2.18.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.18.x/docs/getting-started/prerequisites",
   },
   {
     from: "/docs/project-introspection",
@@ -2550,7 +2550,7 @@ export default [
   },
   {
     from: "/v2.10/docs/create-initial-build-files",
-    to: "/2.10.x/docs/getting-started/getting-started/create-initial-build-files",
+    to: "/2.10.x/docs/getting-started/create-initial-build-files",
   },
   {
     from: "/v2.10/docs/deprecation-policy",
@@ -2567,20 +2567,20 @@ export default [
   },
   {
     from: "/v2.10/docs/example-repos",
-    to: "/2.10.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.10.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.10/docs/existing-repositories",
-    to: "/2.10.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.10.x/docs/getting-started/incremental-adoption",
   },
   { from: "/v2.10/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.10/docs/getting-started",
-    to: "/2.10.x/docs/getting-started/getting-started",
+    to: "/2.10.x/docs/getting-started",
   },
   {
     from: "/v2.10/docs/gitignore",
-    to: "/2.10.x/docs/getting-started/getting-started/updating-.gitignore",
+    to: "/2.10.x/docs/getting-started/updating-.gitignore",
   },
   { from: "/v2.10/docs/go", to: "/2.10.x/docs/go/overview" },
   {
@@ -2597,11 +2597,11 @@ export default [
   },
   {
     from: "/v2.10/docs/initial-configuration",
-    to: "/2.10.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.10.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.10/docs/installation",
-    to: "/2.10.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.10.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.10/docs/integrations",
@@ -2665,7 +2665,7 @@ export default [
   },
   {
     from: "/v2.10/docs/prerequisites",
-    to: "/2.10.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.10.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.10/docs/project-introspection",
@@ -3541,16 +3541,16 @@ export default [
   },
   {
     from: "/v2.11/docs/example-repos",
-    to: "/2.11.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.11.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.11/docs/existing-repositories",
-    to: "/2.11.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.11.x/docs/getting-started/incremental-adoption",
   },
   { from: "/v2.11/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.11/docs/getting-started",
-    to: "/2.11.x/docs/getting-started/getting-started",
+    to: "/2.11.x/docs/getting-started",
   },
   {
     from: "/v2.11/docs/go-integrations",
@@ -3571,11 +3571,11 @@ export default [
   },
   {
     from: "/v2.11/docs/initial-configuration",
-    to: "/2.11.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.11.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.11/docs/installation",
-    to: "/2.11.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.11.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.11/docs/internal-rules-architecture",
@@ -3635,7 +3635,7 @@ export default [
   },
   {
     from: "/v2.11/docs/prerequisites",
-    to: "/2.11.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.11.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.11/docs/project-introspection",
@@ -4550,16 +4550,16 @@ export default [
   },
   {
     from: "/v2.12/docs/example-repos",
-    to: "/2.12.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.12.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.12/docs/existing-repositories",
-    to: "/2.12.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.12.x/docs/getting-started/incremental-adoption",
   },
   { from: "/v2.12/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.12/docs/getting-started",
-    to: "/2.12.x/docs/getting-started/getting-started",
+    to: "/2.12.x/docs/getting-started",
   },
   {
     from: "/v2.12/docs/go-integrations",
@@ -4584,11 +4584,11 @@ export default [
   },
   {
     from: "/v2.12/docs/initial-configuration",
-    to: "/2.12.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.12.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.12/docs/installation",
-    to: "/2.12.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.12.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.12/docs/internal-rules-architecture",
@@ -4606,7 +4606,7 @@ export default [
   { from: "/v2.12/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.12/docs/manual-installation",
-    to: "/2.12.x/docs/getting-started/getting-started/manual-and-advanced-installation",
+    to: "/2.12.x/docs/getting-started/manual-and-advanced-installation",
   },
   { from: "/v2.12/docs/media", to: "/spotlight/media" },
   { from: "/v2.12/docs/news-room", to: "/spotlight/media" },
@@ -4652,7 +4652,7 @@ export default [
   },
   {
     from: "/v2.12/docs/prerequisites",
-    to: "/2.12.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.12.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.12/docs/project-introspection",
@@ -5611,11 +5611,11 @@ export default [
   },
   {
     from: "/v2.13/docs/example-repos",
-    to: "/2.13.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.13.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.13/docs/existing-repositories",
-    to: "/2.13.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.13.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.13/docs/generating-version-tags",
@@ -5624,7 +5624,7 @@ export default [
   { from: "/v2.13/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.13/docs/getting-started",
-    to: "/2.13.x/docs/getting-started/getting-started",
+    to: "/2.13.x/docs/getting-started",
   },
   {
     from: "/v2.13/docs/go-integrations",
@@ -5649,11 +5649,11 @@ export default [
   },
   {
     from: "/v2.13/docs/initial-configuration",
-    to: "/2.13.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.13.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.13/docs/installation",
-    to: "/2.13.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.13.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.13/docs/internal-rules-architecture",
@@ -5672,7 +5672,7 @@ export default [
   { from: "/v2.13/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.13/docs/manual-installation",
-    to: "/2.13.x/docs/getting-started/getting-started/manual-and-advanced-installation",
+    to: "/2.13.x/docs/getting-started/manual-and-advanced-installation",
   },
   { from: "/v2.13/docs/media", to: "/spotlight/media" },
   { from: "/v2.13/docs/news-room", to: "/spotlight/media" },
@@ -5718,7 +5718,7 @@ export default [
   },
   {
     from: "/v2.13/docs/prerequisites",
-    to: "/2.13.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.13.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.13/docs/project-introspection",
@@ -6705,11 +6705,11 @@ export default [
   },
   {
     from: "/v2.14/docs/example-repos",
-    to: "/2.14.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.14.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.14/docs/existing-repositories",
-    to: "/2.14.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.14.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.14/docs/generating-version-tags",
@@ -6718,7 +6718,7 @@ export default [
   { from: "/v2.14/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.14/docs/getting-started",
-    to: "/2.14.x/docs/getting-started/getting-started",
+    to: "/2.14.x/docs/getting-started",
   },
   {
     from: "/v2.14/docs/go-integrations",
@@ -6747,11 +6747,11 @@ export default [
   },
   {
     from: "/v2.14/docs/initial-configuration",
-    to: "/2.14.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.14.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.14/docs/installation",
-    to: "/2.14.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.14.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.14/docs/internal-rules-architecture",
@@ -6770,7 +6770,7 @@ export default [
   { from: "/v2.14/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.14/docs/manual-installation",
-    to: "/2.14.x/docs/getting-started/getting-started/manual-and-advanced-installation",
+    to: "/2.14.x/docs/getting-started/manual-and-advanced-installation",
   },
   { from: "/v2.14/docs/media", to: "/spotlight/media" },
   { from: "/v2.14/docs/news-room", to: "/spotlight/media" },
@@ -6816,7 +6816,7 @@ export default [
   },
   {
     from: "/v2.14/docs/prerequisites",
-    to: "/2.14.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.14.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.14/docs/project-introspection",
@@ -7839,11 +7839,11 @@ export default [
   },
   {
     from: "/v2.15/docs/example-repos",
-    to: "/2.15.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.15.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.15/docs/existing-repositories",
-    to: "/2.15.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.15.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.15/docs/generating-version-tags",
@@ -7852,7 +7852,7 @@ export default [
   { from: "/v2.15/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.15/docs/getting-started",
-    to: "/2.15.x/docs/getting-started/getting-started",
+    to: "/2.15.x/docs/getting-started",
   },
   {
     from: "/v2.15/docs/go-integrations",
@@ -7877,15 +7877,15 @@ export default [
   },
   {
     from: "/v2.15/docs/how-does-pants-work",
-    to: "/2.15.x/docs/getting-started/getting-started/how-does-pants-work",
+    to: "/2.15.x/docs/getting-started/how-does-pants-work",
   },
   {
     from: "/v2.15/docs/initial-configuration",
-    to: "/2.15.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.15.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.15/docs/installation",
-    to: "/2.15.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.15.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.15/docs/internal-rules-architecture",
@@ -7904,7 +7904,7 @@ export default [
   { from: "/v2.15/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.15/docs/manual-installation",
-    to: "/2.15.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.15.x/docs/getting-started/manual-installation",
   },
   { from: "/v2.15/docs/media", to: "/spotlight/media" },
   { from: "/v2.15/docs/news-room", to: "/spotlight/media" },
@@ -7954,7 +7954,7 @@ export default [
   },
   {
     from: "/v2.15/docs/prerequisites",
-    to: "/2.15.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.15.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.15/docs/project-introspection",
@@ -9038,11 +9038,11 @@ export default [
   },
   {
     from: "/v2.16/docs/example-repos",
-    to: "/2.16.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.16.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.16/docs/existing-repositories",
-    to: "/2.16.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.16.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.16/docs/generating-version-tags",
@@ -9051,7 +9051,7 @@ export default [
   { from: "/v2.16/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.16/docs/getting-started",
-    to: "/2.16.x/docs/getting-started/getting-started",
+    to: "/2.16.x/docs/getting-started",
   },
   {
     from: "/v2.16/docs/go-integrations",
@@ -9080,11 +9080,11 @@ export default [
   },
   {
     from: "/v2.16/docs/initial-configuration",
-    to: "/2.16.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.16.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.16/docs/installation",
-    to: "/2.16.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.16.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.16/docs/internal-rules-architecture",
@@ -9103,7 +9103,7 @@ export default [
   { from: "/v2.16/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.16/docs/manual-installation",
-    to: "/2.16.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.16.x/docs/getting-started/manual-installation",
   },
   { from: "/v2.16/docs/media", to: "/spotlight/media" },
   { from: "/v2.16/docs/news-room", to: "/spotlight/media" },
@@ -9153,7 +9153,7 @@ export default [
   },
   {
     from: "/v2.16/docs/prerequisites",
-    to: "/2.16.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.16.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.16/docs/project-introspection",
@@ -10321,11 +10321,11 @@ export default [
   },
   {
     from: "/v2.17/docs/example-repos",
-    to: "/2.17.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.17.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.17/docs/existing-repositories",
-    to: "/2.17.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.17.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.17/docs/generating-version-tags",
@@ -10334,7 +10334,7 @@ export default [
   { from: "/v2.17/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.17/docs/getting-started",
-    to: "/2.17.x/docs/getting-started/getting-started",
+    to: "/2.17.x/docs/getting-started",
   },
   {
     from: "/v2.17/docs/go-integrations",
@@ -10363,11 +10363,11 @@ export default [
   },
   {
     from: "/v2.17/docs/initial-configuration",
-    to: "/2.17.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.17.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.17/docs/installation",
-    to: "/2.17.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.17.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.17/docs/internal-rules-architecture",
@@ -10386,7 +10386,7 @@ export default [
   { from: "/v2.17/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.17/docs/manual-installation",
-    to: "/2.17.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.17.x/docs/getting-started/manual-installation",
   },
   { from: "/v2.17/docs/media", to: "/spotlight/media" },
   { from: "/v2.17/docs/news-room", to: "/spotlight/media" },
@@ -10440,7 +10440,7 @@ export default [
   },
   {
     from: "/v2.17/docs/prerequisites",
-    to: "/2.17.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.17.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.17/docs/project-introspection",
@@ -11612,11 +11612,11 @@ export default [
   },
   {
     from: "/v2.18/docs/example-repos",
-    to: "/2.18.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.18.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.18/docs/existing-repositories",
-    to: "/2.18.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.18.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.18/docs/generating-version-tags",
@@ -11625,7 +11625,7 @@ export default [
   { from: "/v2.18/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.18/docs/getting-started",
-    to: "/2.18.x/docs/getting-started/getting-started",
+    to: "/2.18.x/docs/getting-started",
   },
   {
     from: "/v2.18/docs/go-integrations",
@@ -11658,11 +11658,11 @@ export default [
   },
   {
     from: "/v2.18/docs/initial-configuration",
-    to: "/2.18.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.18.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.18/docs/installation",
-    to: "/2.18.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.18.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.18/docs/internal-rules-architecture",
@@ -11681,7 +11681,7 @@ export default [
   { from: "/v2.18/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.18/docs/manual-installation",
-    to: "/2.18.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.18.x/docs/getting-started/manual-installation",
   },
   { from: "/v2.18/docs/media", to: "/spotlight/media" },
   { from: "/v2.18/docs/news-room", to: "/spotlight/media" },
@@ -11735,7 +11735,7 @@ export default [
   },
   {
     from: "/v2.18/docs/prerequisites",
-    to: "/2.18.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.18.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.18/docs/project-introspection",
@@ -12931,11 +12931,11 @@ export default [
   },
   {
     from: "/v2.19/docs/example-repos",
-    to: "/2.19.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.19.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.19/docs/existing-repositories",
-    to: "/2.19.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.19.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.19/docs/generating-version-tags",
@@ -12944,7 +12944,7 @@ export default [
   { from: "/v2.19/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.19/docs/getting-started",
-    to: "/2.19.x/docs/getting-started/getting-started",
+    to: "/2.19.x/docs/getting-started",
   },
   {
     from: "/v2.19/docs/go-integrations",
@@ -12977,11 +12977,11 @@ export default [
   },
   {
     from: "/v2.19/docs/initial-configuration",
-    to: "/2.19.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.19.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.19/docs/installation",
-    to: "/2.19.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.19.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.19/docs/internal-rules-architecture",
@@ -13000,7 +13000,7 @@ export default [
   { from: "/v2.19/docs/maintainers", to: "/community/maintainers" },
   {
     from: "/v2.19/docs/manual-installation",
-    to: "/2.19.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.19.x/docs/getting-started/manual-installation",
   },
   { from: "/v2.19/docs/media", to: "/spotlight/media" },
   { from: "/v2.19/docs/news-room", to: "/spotlight/media" },
@@ -13054,7 +13054,7 @@ export default [
   },
   {
     from: "/v2.19/docs/prerequisites",
-    to: "/2.19.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.19.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.19/docs/project-introspection",
@@ -17897,7 +17897,7 @@ export default [
   },
   {
     from: "/v2.8/docs/create-initial-build-files",
-    to: "/2.8.x/docs/getting-started/getting-started/create-initial-build-files",
+    to: "/2.8.x/docs/getting-started/create-initial-build-files",
   },
   {
     from: "/v2.8/docs/deprecation-policy",
@@ -17914,20 +17914,20 @@ export default [
   },
   {
     from: "/v2.8/docs/example-repos",
-    to: "/2.8.x/docs/getting-started/getting-started/example-repositories",
+    to: "/2.8.x/docs/getting-started/example-repositories",
   },
   {
     from: "/v2.8/docs/existing-repositories",
-    to: "/2.8.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.8.x/docs/getting-started/incremental-adoption",
   },
   { from: "/v2.8/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.8/docs/getting-started",
-    to: "/2.8.x/docs/getting-started/getting-started",
+    to: "/2.8.x/docs/getting-started",
   },
   {
     from: "/v2.8/docs/gitignore",
-    to: "/2.8.x/docs/getting-started/getting-started/updating-.gitignore",
+    to: "/2.8.x/docs/getting-started/updating-.gitignore",
   },
   { from: "/v2.8/docs/go", to: "/2.8.x/docs/go/overview" },
   {
@@ -17944,11 +17944,11 @@ export default [
   },
   {
     from: "/v2.8/docs/initial-configuration",
-    to: "/2.8.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.8.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.8/docs/installation",
-    to: "/2.8.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.8.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.8/docs/integrations",
@@ -18008,7 +18008,7 @@ export default [
   },
   {
     from: "/v2.8/docs/prerequisites",
-    to: "/2.8.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.8.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.8/docs/project-introspection",
@@ -18706,7 +18706,7 @@ export default [
   },
   {
     from: "/v2.9/docs/create-initial-build-files",
-    to: "/2.9.x/docs/getting-started/getting-started/create-initial-build-files",
+    to: "/2.9.x/docs/getting-started/create-initial-build-files",
   },
   {
     from: "/v2.9/docs/deprecation-policy",
@@ -18723,20 +18723,20 @@ export default [
   },
   {
     from: "/v2.9/docs/example-repos",
-    to: "/2.9.x/docs/getting-started/getting-started/example-repositories",
+    to: "/2.9.x/docs/getting-started/example-repositories",
   },
   {
     from: "/v2.9/docs/existing-repositories",
-    to: "/2.9.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.9.x/docs/getting-started/incremental-adoption",
   },
   { from: "/v2.9/docs/getting-help", to: "/community/getting-help" },
   {
     from: "/v2.9/docs/getting-started",
-    to: "/2.9.x/docs/getting-started/getting-started",
+    to: "/2.9.x/docs/getting-started",
   },
   {
     from: "/v2.9/docs/gitignore",
-    to: "/2.9.x/docs/getting-started/getting-started/updating-.gitignore",
+    to: "/2.9.x/docs/getting-started/updating-.gitignore",
   },
   { from: "/v2.9/docs/go", to: "/2.9.x/docs/go/overview" },
   {
@@ -18753,11 +18753,11 @@ export default [
   },
   {
     from: "/v2.9/docs/initial-configuration",
-    to: "/2.9.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.9.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.9/docs/installation",
-    to: "/2.9.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.9.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.9/docs/integrations",
@@ -18821,7 +18821,7 @@ export default [
   },
   {
     from: "/v2.9/docs/prerequisites",
-    to: "/2.9.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.9.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.9/docs/project-introspection",
@@ -19578,27 +19578,27 @@ export default [
   },
   {
     from: "/v2.20/docs/prerequisites",
-    to: "/2.20.x/docs/getting-started/getting-started/prerequisites",
+    to: "/2.20.x/docs/getting-started/prerequisites",
   },
   {
     from: "/v2.20/docs/installation",
-    to: "/2.20.x/docs/getting-started/getting-started/installing-pants",
+    to: "/2.20.x/docs/getting-started/installing-pants",
   },
   {
     from: "/v2.20/docs/initial-configuration",
-    to: "/2.20.x/docs/getting-started/getting-started/initial-configuration",
+    to: "/2.20.x/docs/getting-started/initial-configuration",
   },
   {
     from: "/v2.20/docs/example-repos",
-    to: "/2.20.x/docs/getting-started/getting-started/example-projects-and-repositories",
+    to: "/2.20.x/docs/getting-started/example-projects-and-repositories",
   },
   {
     from: "/v2.20/docs/existing-repositories",
-    to: "/2.20.x/docs/getting-started/getting-started/incremental-adoption",
+    to: "/2.20.x/docs/getting-started/incremental-adoption",
   },
   {
     from: "/v2.20/docs/manual-installation",
-    to: "/2.20.x/docs/getting-started/getting-started/manual-installation",
+    to: "/2.20.x/docs/getting-started/manual-installation",
   },
   {
     from: "/v2.20/docs/goals",

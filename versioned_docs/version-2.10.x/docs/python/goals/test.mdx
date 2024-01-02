@@ -133,7 +133,7 @@ Pants will automatically include any relevant config files in the process's sand
 
 Pytest uses [`conftest.py` files](https://docs.pytest.org/en/stable/fixture.html#conftest-py-sharing-fixture-functions) to share fixtures and config across multiple distinct test files.
 
-The default `sources` value for the `python_test_utils` target includes `conftest.py`. You can run [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) to automatically add this target:
+The default `sources` value for the `python_test_utils` target includes `conftest.py`. You can run [`./pants tailor`](../../getting-started/create-initial-build-files.mdx) to automatically add this target:
 
 ```
 ./pants tailor
@@ -295,7 +295,7 @@ $ ./pants test project/app_test.py --no-pytest-timeouts
 
 Use the target type `python_source` for test utilities, rather than `python_test`.
 
-To reduce boilerplate, you can use either the [`python_sources`](../../../reference/targets/python_sources.mdx) or [`python_test_utils`](../../../reference/targets/python_test_utils.mdx) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`./pants tailor`](../../getting-started/getting-started/create-initial-build-files.mdx) to generate both these targets automatically.
+To reduce boilerplate, you can use either the [`python_sources`](../../../reference/targets/python_sources.mdx) or [`python_test_utils`](../../../reference/targets/python_test_utils.mdx) targets to generate `python_source` targets. These behave the same, except that `python_test_utils` has a different default `sources` to include `conftest.py` and type stubs for tests (like `test_foo.pyi`). Use [`./pants tailor`](../../getting-started/create-initial-build-files.mdx) to generate both these targets automatically.
 
 For example:
 

@@ -79,7 +79,7 @@ Because Pants runs processes in hermetic sandboxes (temporary directories), Pant
 Usually, you do not need to tell Pants about your dependencies thanks to dependency inference, but sometimes dependency inference is not set up properly or cannot work. Dependency inference can fail for several reasons, which may require that you instead explicitly set the `dependencies` field:
 
 - Pants does not know about some of your project files because you do not have targets and BUILD files describing them.
-  - Tip: run [`./pants tailor`](../getting-started/getting-started/create-initial-build-files.mdx), which will generate targets for files without owners. Note that this will not add every target type, such as [`resources` and `files`](./assets-and-archives.mdx).
+  - Tip: run [`./pants tailor`](../getting-started/create-initial-build-files.mdx), which will generate targets for files without owners. Note that this will not add every target type, such as [`resources` and `files`](./assets-and-archives.mdx).
 - [Source roots](./key-concepts/source-roots.mdx) are not set up properly.
   - Pants needs to know your source roots so that it can convert source files into their language's representation, e.g. the file `src/py/project/app.py` to the Python module `project.app`.
 - \>1 target exports the same module, which means that Pants cannot safely infer which you want to use.
@@ -128,7 +128,7 @@ For `local_store_dir` and `named_caches_dir`, you may either specify an absolute
 
 It is safe to delete these folders to free up space.
 
-You can also change the cache used by the `./pants` script described in [Installing Pants](../getting-started/getting-started/installing-pants.mdx), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
+You can also change the cache used by the `./pants` script described in [Installing Pants](../getting-started/installing-pants.mdx), which defaults to `~/.pants/cache/setup`. Either set the environment variable `PANTS_SETUP_CACHE` or change the Bash script directly where it defines `PANTS_SETUP_CACHE`. You may use an absolute path or a path relative to the build root.
 
 ## \"Double requirement given\" error when resolving Python requirements
 
