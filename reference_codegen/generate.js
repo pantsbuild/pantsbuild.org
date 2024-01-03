@@ -24,7 +24,15 @@ const fieldTemplate = fs.readFileSync(
   "utf8"
 );
 
-function renderSubsystemTemplate(view) {
+function renderSubsystemTemplate(view, helpAll) {
+  view.related_subsystems = (
+    (helpAll.name_to_goal_info[view.scope] || {}).consumed_scopes || []
+  )
+    .filter((str) => str !== "" && str !== view.scope)
+    .sort()
+    .map((str) => {
+      return { scope: str, is_goal: helpAll.scope_to_help_info[str].is_goal };
+    });
   return Mustache.render(subsystemTemplate, view, { option: optionTemplate });
 }
 
@@ -33,21 +41,23 @@ function renderTargetTemplate(view) {
 }
 
 function convertDefault(val, type) {
-  if (Array.isArray(val) || typeof val === "object") {
-    if (val && Object.keys(val).length === 1) {
-      return JSON.stringify(val, Object.keys(val).sort(), 2);
-    }
-    if (val === null) return "None";
-    return JSON.stringify(val, null, 2).replace(/\n/g, "\\n");
-  }
   if (val === true) return "True";
   if (val === false) return "False";
   if (type === "float" && Number.isInteger(val)) return String(val) + ".0";
+  if (Array.isArray(val) || typeof val === "object") {
+    if (val && Object.keys(val).length === 1) {
+      val = JSON.stringify(val, Object.keys(val), 2).replace(/\n/g, "\\n");
+    } else if (val === null) return "None";
+    else {
+      val = JSON.stringify(val, null, 2).replace(/\n/g, "\\n");
+    }
+  } else {
+    val = String(val).replace(/\\n/g, "\\\\n");
+  }
 
-  return String(val)
+  return val
     .replace(buildroot, "<buildroot>")
-    .replace(cachedir, "$XDG_CACHE_HOME")
-    .replace(/\\n/g, "\\\\n");
+    .replace(cachedir, "$XDG_CACHE_HOME");
 }
 
 function escape(val) {
@@ -72,7 +82,12 @@ function convertDescription(val) {
   let backtickedBlock = false;
   val.split("\n").forEach((line) => {
     // If we're starting a tabbed block
-    if (!tabbedBlock && line.startsWith("    ") && !backtickedBlock) {
+    if (
+      !tabbedBlock &&
+      !backtickedBlock &&
+      line.startsWith("    ") &&
+      lines[lines.length - 1] == ""
+    ) {
       tabbedBlock = true;
       if (!line.startsWith("    ```")) {
         lines.push("```");
@@ -106,7 +121,7 @@ function convertDescription(val) {
 
   if (tabbedBlock) lines.push("```");
 
-  return lines.join("\n").replace("\n\n```", "\n```");
+  return lines.join("\n").replaceAll("\n\n```", "\n```");
 }
 
 let buildroot = "";
@@ -140,16 +155,19 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-fs.mkdirSync(reference_dir);
-process.chdir(reference_dir);
+fs.mkdirSync(reference_dir, { recursive: true });
+process.chdir(reference_dir, { recursive: true });
+fs.rmSync("goals", { recursive: true, force: true });
 fs.mkdirSync("goals");
+fs.rmSync("subsystems", { recursive: true, force: true });
 fs.mkdirSync("subsystems");
+fs.rmSync("targets", { recursive: true, force: true });
 fs.mkdirSync("targets");
 
 // Global Options
 fs.writeFileSync(
   "global-options.mdx",
-  renderSubsystemTemplate(helpAll["scope_to_help_info"][""])
+  renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
 );
 
 // Subsystems
@@ -160,7 +178,7 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
   const parent = info.is_goal ? "goals" : "subsystems";
   fs.writeFileSync(
     path.join(parent, `${info.scope}.mdx`),
-    renderSubsystemTemplate(info)
+    renderSubsystemTemplate(info, helpAll)
   );
 });
 
@@ -178,13 +196,13 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
 // `_category_.json` files
 fs.writeFileSync(
   "goals/_category_.json",
-  '{\n  "label": "Goals",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/goals",    "title": "Goals"\n  }}\n'
+  '{\n  "label": "Goals",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/goals",\n    "title": "Goals"\n  }\n}\n'
 );
 fs.writeFileSync(
   "subsystems/_category_.json",
-  '{\n  "label": "Subsystems",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/subsystems",    "title": "Subsystems"\n  }}\n'
+  '{\n  "label": "Subsystems",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/subsystems",\n    "title": "Subsystems"\n  }\n}\n'
 );
 fs.writeFileSync(
   "targets/_category_.json",
-  '{\n  "label": "Targets",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/targets",\n    "title": "Targets"\n  }}\n'
+  '{\n  "label": "Targets",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/targets",\n    "title": "Targets"\n  }\n}\n'
 );
