@@ -15,6 +15,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -25,6 +26,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -35,6 +37,7 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -45,6 +48,7 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 Where the built asset should be located. If undefined, this will use the path to the the BUILD, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`). Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `packages`
 
 <Field
@@ -55,6 +59,7 @@ Where the built asset should be located. If undefined, this will use the path to
 Addresses to any targets that can be built with `./pants package`. Pants will build the assets as if you had run `./pants package`. It will include the results in your archive using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`). You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or even another `archive`.
 
 </Field>
+
 ## `files`
 
 <Field
@@ -65,6 +70,7 @@ Addresses to any targets that can be built with `./pants package`. Pants will bu
 Addresses to any `files` or `relocated_files` targets to include in the archive, e.g. `["resources:logo"]`. This is useful to include any loose files, like data files, image assets, or config files. This will ignore any targets that are not `files` or `relocated_files` targets. If you instead want those files included in any packages specified in the `packages` field for this target, then use a `resources` target and have the original package depend on the resources.
 
 </Field>
+
 ## `format`
 
 <Field

@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 A flexible JSON/YAML linter for creating automated style guides (https://github.com/stoplightio/spectral).
 
-Backend: <span className="color--primary">pants.backend.experimental.openapi.lint.spectral</span>
-Config section: <span className="color--primary">[spectral]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.openapi.lint.spectral`</span>
+
+Config section: <span className="color--primary">`[spectral]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to Spectral, e.g. `--spectral-args='--fail-severity=w
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -76,7 +74,6 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
-
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
@@ -137,5 +134,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 None
 
+## Related subsystems
+
+None
 
 </span>

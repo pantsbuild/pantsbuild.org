@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Apache Thrift IDL compiler (https://thrift.apache.org/).
 
-Backend: <span className="color--primary">pants.backend.codegen.thrift.apache.python</span>
-Config section: <span className="color--primary">[apache-thrift]</span>
+Backend: <span className="color--primary">`pants.backend.codegen.thrift.apache.python`</span>
+
+Config section: <span className="color--primary">`[apache-thrift]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `expected_version`
 
@@ -39,9 +38,7 @@ Do not include the patch version.
 <Option
   cli_repr={`--apache-thrift-thrift-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_APACHE_THRIFT_THRIFT_SEARCH_PATHS'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='apache_thrift_thrift_search_paths'
 >
 
@@ -61,5 +58,8 @@ None
 
 None
 
+## Related subsystems
+
+None
 
 </span>

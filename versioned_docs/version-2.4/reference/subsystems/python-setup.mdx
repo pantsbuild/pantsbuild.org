@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for Pants&#x27;s Python support.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[python-setup]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[python-setup]`</span>
 
 <span className={styles.options}>
 
@@ -21,15 +21,12 @@ None
 
 ## Advanced options
 
-
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6"
-]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
@@ -134,7 +131,6 @@ The maximum number of concurrent jobs to build wheels with. Because Pants can ru
 
 ## Deprecated options
 
-
 ### `resolver_version`
 
 <Option
@@ -150,5 +146,8 @@ The resolver implementation to use when resolving Python requirements.
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

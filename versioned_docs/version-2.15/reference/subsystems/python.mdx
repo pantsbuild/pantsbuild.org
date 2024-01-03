@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for Pants&#x27;s Python backend.
 
-Backend: <span className="color--primary">pants.core</span>
-Config section: <span className="color--primary">[python]</span>
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[python]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `default_run_goal_use_sandbox`
 
@@ -32,15 +31,12 @@ The default value used for the `run_goal_use_sandbox` field of Python targets. S
 
 ## Advanced options
 
-
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
@@ -92,9 +88,7 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{
-  "python-default": "3rdparty/python/default.lock"
-}`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
@@ -118,7 +112,6 @@ For example:
 python_sources(
     resolve=parametrize("data-science", "web-app"),
 )
-
 ```
 
 You can name the lockfile paths what you would like; Pants does not expect a certain file extension or location.
@@ -374,7 +367,6 @@ If another targets address is in conflict with the created lockfile target, it w
 
 ## Deprecated options
 
-
 ### `requirement_constraints`
 
 <Option
@@ -411,5 +403,8 @@ Usually this option should be enabled because it can result in far fewer resolve
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

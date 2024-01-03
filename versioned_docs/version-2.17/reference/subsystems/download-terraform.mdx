@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Terraform (https://terraform.io)
 
-Backend: <span className="color--primary">pants.backend.experimental.terraform</span>
-Config section: <span className="color--primary">[download-terraform]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.terraform`</span>
+
+Config section: <span className="color--primary">`[download-terraform]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[download-terraform]</span>
 None
 
 ## Advanced options
-
 
 ### `version`
 
@@ -53,7 +52,6 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
-
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
@@ -126,5 +124,8 @@ If true, add `terraform_module` targets with the `tailor` goal.
 
 None
 
+## Related subsystems
+
+None
 
 </span>

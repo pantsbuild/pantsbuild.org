@@ -19,6 +19,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -31,6 +32,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -43,6 +45,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `source`
 
 <Field
@@ -55,6 +58,7 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -69,6 +73,7 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -79,6 +84,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 A timeout (in seconds) used by each test file belonging to this target. If unset, the test will never time out.
 
 </Field>
+
 ## `shell`
 
 <Field
@@ -89,6 +95,7 @@ A timeout (in seconds) used by each test file belonging to this target. If unset
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
 
 </Field>
+
 ## `runtime_package_dependencies`
 
 <Field
@@ -103,6 +110,7 @@ Pants will build the artifacts as if you had run `./pants package`. It will incl
 You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
 
 </Field>
+
 ## `skip_shellcheck`
 
 <Field
@@ -113,6 +121,7 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
+
 ## `skip_shfmt`
 
 <Field

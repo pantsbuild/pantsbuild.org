@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for Pants&#x27;s Python backend.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[python]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[python]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `macos_big_sur_compatibility`
 
@@ -32,15 +31,12 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 
 ## Advanced options
 
-
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.6,<4"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
@@ -236,7 +232,6 @@ Tailor pex_binary() targets for Python entry point files.
 
 ## Deprecated options
 
-
 ### `interpreter_search_paths`
 
 <Option
@@ -262,5 +257,8 @@ The following special strings are supported:
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

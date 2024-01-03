@@ -19,7 +19,6 @@ experimental_shell_command(
 )
 
 shell_sources(name="scripts")
-
 ```
 
 Remember to add this target to the dependencies of each consumer, such as your `python_tests` or `docker_image`. When relevant, Pants will run your `command` and insert the `outputs` into that consumer's context.
@@ -31,6 +30,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ---
 
 <span className={styles.options}>
+
 
 ## `tags`
 
@@ -44,6 +44,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -56,6 +57,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -74,6 +76,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `command`
 
 <Field
@@ -86,6 +89,7 @@ Shell command to execute.
 The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 
 </Field>
+
 ## `log_output`
 
 <Field
@@ -96,6 +100,7 @@ The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 Set to true if you want the output from the command logged to the console.
 
 </Field>
+
 ## `outputs`
 
 <Field
@@ -108,6 +113,7 @@ Specify the shell command output files and directories.
 Use a trailing slash on directory names, i.e. `my_dir/`.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -118,6 +124,7 @@ Use a trailing slash on directory names, i.e. `my_dir/`.
 Command execution timeout (in seconds).
 
 </Field>
+
 ## `tools`
 
 <Field
@@ -130,6 +137,7 @@ Specify required executable tools that might be used.
 Only the tools explicitly provided will be available on the search PATH, and these tools must be found on the paths provided by [shell-setup].executable_search_paths (which defaults to the system PATH).
 
 </Field>
+
 ## `extra_env_vars`
 
 <Field
@@ -140,6 +148,7 @@ Only the tools explicitly provided will be available on the search PATH, and the
 Additional environment variables to include in the shell process. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 </Field>
+
 ## `environment`
 
 <Field

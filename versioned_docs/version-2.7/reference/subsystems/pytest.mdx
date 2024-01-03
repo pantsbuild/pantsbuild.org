@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The pytest Python test framework (https://docs.pytest.org/).
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[pytest]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[pytest]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `args`
 
@@ -44,7 +43,6 @@ Enable test target timeouts. If timeouts are enabled then test targets with a ti
 
 ## Advanced options
 
-
 ### `version`
 
 <Option
@@ -62,9 +60,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
-  default_repr={`[
-  "pytest-cov>=2.12,!=2.12.1,<3.1"
-]`}
+  default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1"\n]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -189,15 +185,12 @@ If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`)
 
 ## Deprecated options
 
-
 ### `pytest_plugins`
 
 <Option
   cli_repr={`--pytest-pytest-plugins="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_PYTEST_PLUGINS'
-  default_repr={`[
-  "pytest-cov>=2.12,!=2.12.1,<3.1"
-]`}
+  default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1"\n]`}
   removal_version='2.8.0.dev0'
   removal_hint={'Use `[pytest].extra_requirements` instead, which behaves the same. (The option is being renamed for uniformity with other Python tools.)'}
 >
@@ -206,5 +199,8 @@ Requirement strings for any plugins or additional requirements you&#x27;d like t
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

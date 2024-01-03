@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Configuration for source file validation.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[sourcefile-validation]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[sourcefile-validation]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `config`
 
@@ -31,36 +30,27 @@ Config schema is as follows:
 
 &#123;
   &#x27;path_patterns&#x27;: [
-```
-{
-  'name': path_pattern1',
-  'pattern': <path regex pattern>,
-  'inverted': True|False (defaults to False),
-  'content_encoding': <encoding> (defaults to utf8)
-},
-...
-```
-
+    &#123;
+      &#x27;name&#x27;: path_pattern1&#x27;,
+      &#x27;pattern&#x27;: &#x3C;path regex pattern&#x3E;,
+      &#x27;inverted&#x27;: True|False (defaults to False),
+      &#x27;content_encoding&#x27;: &#x3C;encoding&#x3E; (defaults to utf8)
+    &#125;,
+    ...
   ],
   &#x27;content_patterns&#x27;: [
-```
-{
-  'name': 'content_pattern1',
-  'pattern': <content regex pattern>,
-  'inverted': True|False (defaults to False)
-}
-...
-```
-
+    &#123;
+      &#x27;name&#x27;: &#x27;content_pattern1&#x27;,
+      &#x27;pattern&#x27;: &#x3C;content regex pattern&#x3E;,
+      &#x27;inverted&#x27;: True|False (defaults to False)
+    &#125;
+    ...
   ],
   &#x27;required_matches&#x27;: &#123;
-```
-'path_pattern1': [content_pattern1, content_pattern2],
-'path_pattern2': [content_pattern1, content_pattern3],
-...
-```
-
-  }
+    &#x27;path_pattern1&#x27;: [content_pattern1, content_pattern2],
+    &#x27;path_pattern2&#x27;: [content_pattern1, content_pattern3],
+    ...
+  &#125;
 &#125;
 
 Meaning: if a file matches some path pattern, its content must match all
@@ -77,5 +67,8 @@ None
 
 None
 
+## Related subsystems
+
+None
 
 </span>

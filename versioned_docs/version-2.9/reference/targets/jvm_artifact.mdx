@@ -19,6 +19,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -31,6 +32,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -43,6 +45,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `group`
 
 <Field
@@ -55,6 +58,7 @@ The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party JAR
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the group is `com.google.guava`.
 
 </Field>
+
 ## `artifact`
 
 <Field
@@ -67,6 +71,7 @@ The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party 
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the artifact is `guava`.
 
 </Field>
+
 ## `version`
 
 <Field
@@ -79,6 +84,7 @@ The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party J
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the version is `30.1.1-jre`.
 
 </Field>
+
 ## `packages`
 
 <Field
@@ -95,6 +101,7 @@ Usually you can leave this field off. If unspecified, Pants will fall back to th
 The package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `["org.junit.**"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.
 
 </Field>
+
 ## `url`
 
 <Field
@@ -109,6 +116,7 @@ If specified, Pants will not fetch this artifact from default Maven repositories
 Note that `file:` URLs are not supported. Instead, use the `jar` field for local artifacts.
 
 </Field>
+
 ## `jar`
 
 <Field
@@ -123,6 +131,7 @@ Path is relative to the BUILD file.
 Use the `url` field for remote artifacts.
 
 </Field>
+
 ## `compatible_resolves`
 
 <Field

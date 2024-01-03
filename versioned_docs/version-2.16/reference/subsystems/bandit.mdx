@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 A tool for finding security issues in Python code (https://bandit.readthedocs.io).
 
-Backend: <span className="color--primary">pants.backend.python.lint.bandit</span>
-Config section: <span className="color--primary">[bandit]</span>
+Backend: <span className="color--primary">`pants.backend.python.lint.bandit`</span>
+
+Config section: <span className="color--primary">`[bandit]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to Bandit, e.g. `--bandit-args='--skip B101,B308 --co
 </Option>
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -121,7 +119,6 @@ Path to a Bandit YAML config file (https://bandit.readthedocs.io/en/latest/confi
 
 ## Deprecated options
 
-
 ### `version`
 
 <Option
@@ -188,5 +185,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

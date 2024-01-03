@@ -21,11 +21,9 @@ relocated_files(
     src="src/resources/project1",
     dest="",
 )
-
 ```
 
 To add a prefix:
-
 ```
 # Results in `images/logo.svg`.
 relocated_files(
@@ -33,11 +31,9 @@ relocated_files(
     src="",
     dest="images",
 )
-
 ```
 
 To replace a prefix:
-
 ```
 # Results in `new_prefix/project1/data.json`.
 relocated_files(
@@ -45,7 +41,6 @@ relocated_files(
     src="src/resources",
     dest="new_prefix",
 )
-
 ```
 
 Backend: <span className="color--primary">``</span>
@@ -53,6 +48,7 @@ Backend: <span className="color--primary">``</span>
 ---
 
 <span className={styles.options}>
+
 
 ## `tags`
 
@@ -66,6 +62,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -78,6 +75,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `files_targets`
 
 <Field
@@ -90,6 +88,7 @@ Addresses to the original `files()` targets that you want to relocate, such as `
 Every target will be relocated using the same mapping. This means that every target must include the value from the `src` field in their original path.
 
 </Field>
+
 ## `src`
 
 <Field
@@ -102,6 +101,7 @@ The original prefix that you want to replace, such as `src/resources`.
 You can set this field to `&#x60; to preserve the original path; the value in the `dest` field will then be added to the beginning of this original path.
 
 </Field>
+
 ## `dest`
 
 <Field

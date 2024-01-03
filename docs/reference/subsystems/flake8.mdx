@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The Flake8 Python linter (https://flake8.pycqa.org/).
 
-Backend: <span className="color--primary">pants.backend.python.lint.flake8</span>
-Config section: <span className="color--primary">[flake8]</span>
+Backend: <span className="color--primary">`pants.backend.python.lint.flake8`</span>
+
+Config section: <span className="color--primary">`[flake8]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456 --
 </Option>
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -130,9 +128,7 @@ Setting this option will disable `[flake8].config_discovery`. Use this option if
 >
 
 Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
-```
-        like including config files for the `flake8-bandit` plugin.
-```
+            like including config files for the `flake8-bandit` plugin.
 
 </Option>
 
@@ -169,7 +165,6 @@ For example:
 [flake8:local-plugins]
 extension =
 CUSTOMCODE = custom_plugin:MyChecker
-
 ```
 
 While your plugin's code can depend on other first-party code and third-party requirements, all first-party dependencies of the plugin must live in the same directory or a subdirectory.
@@ -182,5 +177,8 @@ To instead load third-party plugins, add them to a custom resolve alongside flak
 
 None
 
+## Related subsystems
+
+None
 
 </span>

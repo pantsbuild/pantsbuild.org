@@ -29,6 +29,7 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -41,6 +42,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -53,6 +55,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `extra_build_args`
 
 <Field
@@ -65,6 +68,7 @@ Build arguments (`--build-arg`) to use when building this image. Entries are eit
 Use `[docker].build_args` to set default build args for all images.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -83,6 +87,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `source`
 
 <Field
@@ -95,6 +100,7 @@ The Dockerfile to use when building the Docker image.
 Use the `instructions` field instead if you prefer not having the Dockerfile in your source tree.
 
 </Field>
+
 ## `instructions`
 
 <Field
@@ -118,6 +124,7 @@ docker_image(
 ```
 
 </Field>
+
 ## `context_root`
 
 <Field
@@ -132,6 +139,7 @@ Specify the `context_root` path as `files` for relative to build root, or as `./
 If `context_root` is not specified, it defaults to `[docker].default_context_root`.
 
 </Field>
+
 ## `image_tags`
 
 <Field
@@ -147,6 +155,7 @@ tag may use placeholders in curly braces to be interpolated. The placeholders ar
 See https://www.pantsbuild.org/v2.13/docs/tagging-docker-images.
 
 </Field>
+
 ## `registries`
 
 <Field
@@ -174,12 +183,12 @@ docker_image(
         "myregistrydomain:port",
     ],
 )
-
 ```
 
 The above example shows two valid `registry` options: using an alias to a configured registry and the address to a registry verbatim in the BUILD file.
 
 </Field>
+
 ## `repository`
 
 <Field
@@ -200,6 +209,7 @@ Registries may also configure the repository value for specific registries.
 See the documentation for `[docker].default_repository` for more information.
 
 </Field>
+
 ## `image_labels`
 
 <Field
@@ -214,6 +224,7 @@ label value may use placeholders in curly braces to be interpolated. The placeho
 See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manage-labels-on-objects) for more information.
 
 </Field>
+
 ## `secrets`
 
 <Field
@@ -237,6 +248,7 @@ docker_image(
 ```
 
 </Field>
+
 ## `ssh`
 
 <Field
@@ -249,12 +261,12 @@ SSH agent socket or keys to expose to the build (only if BuildKit enabled) (form
 The exposed agent and/or keys can then be used in your `Dockerfile` by mounting them in your `RUN` instructions:
 ```
 RUN --mount=type=ssh ...
-
 ```
 
 See [Docker documentation](https://docs.docker.com/develop/develop-images/build_enhancements/#using-ssh-to-access-private-data-in-builds) for more information.
 
 </Field>
+
 ## `skip_push`
 
 <Field
@@ -265,6 +277,7 @@ See [Docker documentation](https://docs.docker.com/develop/develop-images/build_
 If set to true, do not push this image to registries when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
 
 </Field>
+
 ## `target_stage`
 
 <Field
@@ -279,6 +292,7 @@ When using multi-stage build, you may name your stages, and can target them when
 Read more about [multi-stage Docker builds](https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage)
 
 </Field>
+
 ## `restartable`
 
 <Field
@@ -289,6 +303,7 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
+
 ## `skip_hadolint`
 
 <Field

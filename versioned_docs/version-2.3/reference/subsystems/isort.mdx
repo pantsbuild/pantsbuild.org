@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The Python import sorter tool (https://timothycrosley.github.io/isort/).
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[isort]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[isort]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -44,7 +43,6 @@ Arguments to pass directly to isort, e.g. `--isort-args="--case-sensitive --trai
 
 ## Advanced options
 
-
 ### `version`
 
 <Option
@@ -62,9 +60,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--isort-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_EXTRA_REQUIREMENTS'
-  default_repr={`[
-  "setuptools"
-]`}
+  default_repr={`[\n  "setuptools"\n]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -88,9 +84,7 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6"
-]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -113,5 +107,8 @@ Path to `isort.cfg` or alternative isort config file(s).
 
 None
 
+## Related subsystems
+
+None
 
 </span>

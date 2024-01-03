@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 A tool for turning .pex files into Function-as-a-Service artifacts (https://github.com/pantsbuild/lambdex).
 
-Backend: <span className="color--primary">pants.backend.awslambda.python</span>
-Config section: <span className="color--primary">[lambdex]</span>
+Backend: <span className="color--primary">`pants.backend.awslambda.python`</span>
+
+Config section: <span className="color--primary">`[lambdex]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[lambdex]</span>
 None
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -65,9 +64,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<3.12"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<3.12"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -99,7 +96,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 </Option>
 
 ## Deprecated options
-
 
 ### `version`
 
@@ -151,5 +147,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

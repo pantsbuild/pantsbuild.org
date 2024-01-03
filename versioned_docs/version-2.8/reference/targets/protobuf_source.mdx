@@ -17,6 +17,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -29,6 +30,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -41,6 +43,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -55,6 +58,7 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `source`
 
 <Field
@@ -67,6 +71,7 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
+
 ## `grpc`
 
 <Field
@@ -77,6 +82,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 Whether to generate gRPC code or not.
 
 </Field>
+
 ## `python_interpreter_constraints`
 
 <Field
@@ -95,6 +101,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `python_source_root`
 
 <Field

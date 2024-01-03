@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Used to parse Dockerfile build specs to infer their dependencies.
 
-Backend: <span className="color--primary">pants.backend.docker</span>
-Config section: <span className="color--primary">[dockerfile-parser]</span>
+Backend: <span className="color--primary">`pants.backend.docker`</span>
+
+Config section: <span className="color--primary">`[dockerfile-parser]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[dockerfile-parser]</span>
 None
 
 ## Advanced options
-
 
 ### `version`
 
@@ -51,9 +50,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--dockerfile-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCKERFILE_PARSER_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -84,5 +81,8 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
 
 None
 
+## Related subsystems
+
+None
 
 </span>

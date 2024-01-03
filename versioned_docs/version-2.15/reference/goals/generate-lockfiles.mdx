@@ -13,13 +13,13 @@ pants generate-lockfiles [args]
 
 Generate lockfiles for Python third-party dependencies.
 
-Backend: <span className="color--primary">pants.core</span>
-Config section: <span className="color--primary">[generate-lockfiles]</span>
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[generate-lockfiles]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `resolve`
 
@@ -43,7 +43,6 @@ If not specified, Pants will generate lockfiles for all resolves.
 
 ## Advanced options
 
-
 ### `custom_command`
 
 <Option
@@ -60,5 +59,8 @@ If set, lockfile headers will say to run this command to regenerate the lockfile
 
 None
 
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
 
 </span>

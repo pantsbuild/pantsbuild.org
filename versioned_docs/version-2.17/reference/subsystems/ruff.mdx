@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The Ruff Python formatter (https://github.com/charliermarsh/ruff).
 
-Backend: <span className="color--primary">pants.backend.experimental.python.lint.ruff</span>
-Config section: <span className="color--primary">[ruff]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.python.lint.ruff`</span>
+
+Config section: <span className="color--primary">`[ruff]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to Ruff, e.g. `--ruff-args='--exclude=foo --ignore=E5
 </Option>
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -88,9 +86,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--ruff-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_RUFF_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -150,7 +146,6 @@ Use `[ruff].config` instead if your config is in a non-standard location.
 </Option>
 
 ## Deprecated options
-
 
 ### `version`
 
@@ -216,5 +211,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

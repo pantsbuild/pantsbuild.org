@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The ScalaPB protocol buffer compiler (https://scalapb.github.io/).
 
-Backend: <span className="color--primary">pants.backend.experimental.codegen.protobuf.scala</span>
-Config section: <span className="color--primary">[scalapb]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.protobuf.scala`</span>
+
+Config section: <span className="color--primary">`[scalapb]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `jvm_plugins`
 
@@ -33,7 +32,6 @@ For example, to invoke the fs2-grpc protoc plugin, the following option would wo
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -52,9 +50,7 @@ Version string for the tool. This is available for substitution in the `[scalapb
 <Option
   cli_repr={`--scalapb-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAPB_ARTIFACTS'
-  default_repr={`[
-  "com.thesamet.scalapb:scalapbc_2.13:{version}"
-]`}
+  default_repr={`[\n  "com.thesamet.scalapb:scalapbc_2.13:{version}"\n]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalapb].version` option.
@@ -81,5 +77,8 @@ To use a custom lockfile, set this option to a file path relative to the build r
 
 None
 
+## Related subsystems
+
+None
 
 </span>

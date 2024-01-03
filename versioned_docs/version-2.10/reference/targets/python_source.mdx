@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field
@@ -57,6 +60,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.10/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -75,6 +79,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -89,6 +94,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `source`
 
 <Field
@@ -101,6 +107,7 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
+
 ## `skip_autoflake`
 
 <Field
@@ -112,6 +119,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pyupgrade`
 
 <Field
@@ -123,6 +131,7 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
+
 ## `skip_bandit`
 
 <Field
@@ -134,6 +143,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
 ## `skip_black`
 
 <Field
@@ -145,6 +155,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
+
 ## `skip_docformatter`
 
 <Field
@@ -156,6 +167,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
 ## `skip_flake8`
 
 <Field
@@ -167,6 +179,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
+
 ## `skip_isort`
 
 <Field
@@ -178,6 +191,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pylint`
 
 <Field
@@ -189,6 +203,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
+
 ## `skip_yapf`
 
 <Field
@@ -200,6 +215,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
+
 ## `skip_mypy`
 
 <Field

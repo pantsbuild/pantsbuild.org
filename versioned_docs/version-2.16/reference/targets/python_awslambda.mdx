@@ -17,6 +17,7 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -29,6 +30,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -41,6 +43,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -57,6 +60,7 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -75,6 +79,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `handler`
 
 <Field
@@ -89,6 +94,7 @@ You can specify a full module like &#x27;path.to.module:handler_func&#x27; or us
 You must use the file name shorthand for file arguments to work with this target.
 
 </Field>
+
 ## `include_requirements`
 
 <Field
@@ -99,6 +105,7 @@ You must use the file name shorthand for file arguments to work with this target
 Whether to resolve requirements and include them in the Pex. This is most useful with Lambda Layers to make code uploads smaller when deps are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 
 </Field>
+
 ## `runtime`
 
 <Field
@@ -111,6 +118,7 @@ The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs
 In general you&#x27;ll want to define either a `runtime` or one `complete_platforms` but not both. Specifying a `runtime` is simpler, but less accurate. If you have issues either packaging the AWS Lambda PEX or running it as a deployed AWS Lambda function, you should try using `complete_platforms` instead.
 
 </Field>
+
 ## `complete_platforms`
 
 <Field
@@ -129,6 +137,7 @@ Complete platforms should be addresses of `file` targets that point to files tha
 N.B.: If specifying `complete_platforms` to work around packaging failures encountered when using the `runtime` field, ensure you delete the `runtime` field from your `python_awslambda` target.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -143,6 +152,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `environment`
 
 <Field

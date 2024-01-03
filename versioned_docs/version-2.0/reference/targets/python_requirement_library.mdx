@@ -22,6 +22,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -32,6 +33,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -42,6 +44,7 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -52,6 +55,7 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `requirements`
 
 <Field
@@ -62,6 +66,7 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&#x3C;=3 ; python_version&#x3C;&#x27;3&#x27;].
 
 </Field>
+
 ## `module_mapping`
 
 <Field

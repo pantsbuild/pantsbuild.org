@@ -21,6 +21,7 @@ Backend: <span className="color--primary">`pants.core`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -33,6 +34,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -45,6 +47,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `image`
 
 <Field
@@ -63,6 +66,7 @@ Note that in order to use an image as a `docker_environment` it must have a few 
 While most images will have these preinstalled, users of base images such as Distroless or scratch will need to bake these tools into the image themselves. All of these except `bash` are available via busybox.
 
 </Field>
+
 ## `platform`
 
 <Field
@@ -75,6 +79,7 @@ If set, Docker will always use the specified platform when pulling and running t
 If unset, Pants will default to the CPU architecture of your local host machine. For example, if you are running on Apple Silicon, it will use `linux_arm64`, whereas running on Intel macOS will use `linux_x86_64`. This mirrors Docker&#x27;s behavior when `--platform` is left off.
 
 </Field>
+
 ## `fallback_environment`
 
 <Field
@@ -87,6 +92,7 @@ The environment to fallback to when this Docker environment cannot be used becau
 Must be an environment name from the option `[environments-preview].names`, the special string `__local__` to use the relevant local environment, or the Python value `None` to error when this specific Docker environment cannot be used.
 
 </Field>
+
 ## `nodejs_corepack_env_vars`
 
 <Field
@@ -98,6 +104,7 @@ Must be an environment name from the option `[environments-preview].names`, the 
 Overrides the default value from the option `[nodejs].corepack_env_vars` when this environment target is active.
 
 </Field>
+
 ## `python_native_code_ld_flags`
 
 <Field
@@ -109,6 +116,7 @@ Overrides the default value from the option `[nodejs].corepack_env_vars` when th
 Overrides the default value from the option `[python-native-code].ld_flags` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_gcc_binary_name`
 
 <Field
@@ -120,6 +128,7 @@ Overrides the default value from the option `[python-native-code].ld_flags` when
 Overrides the default value from the option `[golang].cgo_gcc_binary_name` when this environment target is active.
 
 </Field>
+
 ## `python_bootstrap_search_path`
 
 <Field
@@ -131,6 +140,7 @@ Overrides the default value from the option `[golang].cgo_gcc_binary_name` when 
 Overrides the default value from the option `[python-bootstrap].search_path` when this environment target is active.
 
 </Field>
+
 ## `nodejs_executable_search_paths`
 
 <Field
@@ -142,6 +152,7 @@ Overrides the default value from the option `[python-bootstrap].search_path` whe
 Overrides the default value from the option `[nodejs].executable_search_paths` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_fortran_flags`
 
 <Field
@@ -153,6 +164,7 @@ Overrides the default value from the option `[nodejs].executable_search_paths` w
 Overrides the default value from the option `[golang].cgo_fortran_flags` when this environment target is active.
 
 </Field>
+
 ## `system_binaries_system_binary_paths`
 
 <Field
@@ -164,6 +176,7 @@ Overrides the default value from the option `[golang].cgo_fortran_flags` when th
 Overrides the default value from the option `[system-binaries].system_binary_paths` when this environment target is active.
 
 </Field>
+
 ## `shell_setup_executable_search_paths`
 
 <Field
@@ -175,6 +188,7 @@ Overrides the default value from the option `[system-binaries].system_binary_pat
 Overrides the default value from the option `[shell-setup].executable_search_paths` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_c_flags`
 
 <Field
@@ -186,6 +200,7 @@ Overrides the default value from the option `[shell-setup].executable_search_pat
 Overrides the default value from the option `[golang].cgo_c_flags` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_tool_search_paths`
 
 <Field
@@ -197,6 +212,7 @@ Overrides the default value from the option `[golang].cgo_c_flags` when this env
 Overrides the default value from the option `[golang].cgo_tool_search_paths` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_fortran_binary_name`
 
 <Field
@@ -208,6 +224,7 @@ Overrides the default value from the option `[golang].cgo_tool_search_paths` whe
 Overrides the default value from the option `[golang].cgo_fortran_binary_name` when this environment target is active.
 
 </Field>
+
 ## `jvm_global_options`
 
 <Field
@@ -219,6 +236,7 @@ Overrides the default value from the option `[golang].cgo_fortran_binary_name` w
 Overrides the default value from the option `[jvm].global_options` when this environment target is active.
 
 </Field>
+
 ## `docker_executable_search_paths`
 
 <Field
@@ -230,6 +248,7 @@ Overrides the default value from the option `[jvm].global_options` when this env
 Overrides the default value from the option `[docker].executable_search_paths` when this environment target is active.
 
 </Field>
+
 ## `apache_thrift_thrift_search_paths`
 
 <Field
@@ -241,6 +260,7 @@ Overrides the default value from the option `[docker].executable_search_paths` w
 Overrides the default value from the option `[apache-thrift].thrift_search_paths` when this environment target is active.
 
 </Field>
+
 ## `docker_env_vars`
 
 <Field
@@ -252,6 +272,7 @@ Overrides the default value from the option `[apache-thrift].thrift_search_paths
 Overrides the default value from the option `[docker].env_vars` when this environment target is active.
 
 </Field>
+
 ## `golang_subprocess_env_vars`
 
 <Field
@@ -263,6 +284,7 @@ Overrides the default value from the option `[docker].env_vars` when this enviro
 Overrides the default value from the option `[golang].subprocess_env_vars` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_gxx_binary_name`
 
 <Field
@@ -274,6 +296,7 @@ Overrides the default value from the option `[golang].subprocess_env_vars` when 
 Overrides the default value from the option `[golang].cgo_gxx_binary_name` when this environment target is active.
 
 </Field>
+
 ## `nodejs_search_path`
 
 <Field
@@ -285,6 +308,7 @@ Overrides the default value from the option `[golang].cgo_gxx_binary_name` when 
 Overrides the default value from the option `[nodejs].search_path` when this environment target is active.
 
 </Field>
+
 ## `subprocess_environment_env_vars`
 
 <Field
@@ -296,6 +320,7 @@ Overrides the default value from the option `[nodejs].search_path` when this env
 Overrides the default value from the option `[subprocess-environment].env_vars` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_linker_flags`
 
 <Field
@@ -307,6 +332,7 @@ Overrides the default value from the option `[subprocess-environment].env_vars` 
 Overrides the default value from the option `[golang].cgo_linker_flags` when this environment target is active.
 
 </Field>
+
 ## `golang_cgo_cxx_flags`
 
 <Field
@@ -318,6 +344,7 @@ Overrides the default value from the option `[golang].cgo_linker_flags` when thi
 Overrides the default value from the option `[golang].cgo_cxx_flags` when this environment target is active.
 
 </Field>
+
 ## `golang_go_search_paths`
 
 <Field
@@ -329,6 +356,7 @@ Overrides the default value from the option `[golang].cgo_cxx_flags` when this e
 Overrides the default value from the option `[golang].go_search_paths` when this environment target is active.
 
 </Field>
+
 ## `python_native_code_cpp_flags`
 
 <Field
@@ -340,6 +368,7 @@ Overrides the default value from the option `[golang].go_search_paths` when this
 Overrides the default value from the option `[python-native-code].cpp_flags` when this environment target is active.
 
 </Field>
+
 ## `python_bootstrap_names`
 
 <Field
@@ -351,6 +380,7 @@ Overrides the default value from the option `[python-native-code].cpp_flags` whe
 Overrides the default value from the option `[python-bootstrap].names` when this environment target is active.
 
 </Field>
+
 ## `golang_external_linker_binary_name`
 
 <Field
@@ -362,6 +392,7 @@ Overrides the default value from the option `[python-bootstrap].names` when this
 Overrides the default value from the option `[golang].external_linker_binary_name` when this environment target is active.
 
 </Field>
+
 ## `pex_executable_search_paths`
 
 <Field
@@ -373,6 +404,7 @@ Overrides the default value from the option `[golang].external_linker_binary_nam
 Overrides the default value from the option `[pex].executable_search_paths` when this environment target is active.
 
 </Field>
+
 ## `test_extra_env_vars`
 
 <Field
@@ -384,6 +416,7 @@ Overrides the default value from the option `[pex].executable_search_paths` when
 Overrides the default value from the option `[test].extra_env_vars` when this environment target is active.
 
 </Field>
+
 ## `go_generate_env_vars`
 
 <Field

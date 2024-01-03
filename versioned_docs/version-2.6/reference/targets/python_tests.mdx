@@ -19,6 +19,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -31,6 +32,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -43,6 +45,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field
@@ -61,6 +64,7 @@ If the field is not set, it will default to the option `[python-setup].interpret
 See https://www.pantsbuild.org/v2.6/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -75,6 +79,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -89,6 +94,7 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -101,6 +107,7 @@ A timeout (in seconds) used by each test file belonging to this target.
 This only applies if the option `--pytest-timeouts` is set to True.
 
 </Field>
+
 ## `runtime_package_dependencies`
 
 <Field
@@ -115,6 +122,7 @@ Pants will build the artifacts as if you had run `./pants package`. It will incl
 You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
 
 </Field>
+
 ## `extra_env_vars`
 
 <Field
@@ -125,6 +133,7 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
 
 </Field>
+
 ## `skip_tests`
 
 <Field
@@ -135,6 +144,7 @@ Additional environment variables to include in test processes. Entries are strin
 If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
+
 ## `skip_black`
 
 <Field
@@ -145,6 +155,7 @@ If true, don&#x27;t run this target&#x27;s tests.
 If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
+
 ## `skip_docformatter`
 
 <Field
@@ -155,6 +166,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
 ## `skip_flake8`
 
 <Field
@@ -165,6 +177,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
+
 ## `skip_isort`
 
 <Field
@@ -175,6 +188,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
 ## `skip_mypy`
 
 <Field
@@ -185,6 +199,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
+
 ## `skip_bandit`
 
 <Field
@@ -195,6 +210,7 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pylint`
 
 <Field

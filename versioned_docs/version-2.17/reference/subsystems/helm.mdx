@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The Helm command line (https://helm.sh)
 
-Backend: <span className="color--primary">pants.backend.experimental.helm</span>
-Config section: <span className="color--primary">[helm]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
+
+Config section: <span className="color--primary">`[helm]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `registries`
 
@@ -35,7 +34,6 @@ Configure Helm OCI registries. The schema for a registry entry is as follows:
     },
     ...
 }
-
 ```
 
 If no registries are provided in either a `helm_chart` target, then all default addresses will be used, if any.
@@ -111,7 +109,6 @@ Before attempting to use passthrough arguments, check the refence of each of the
 
 ## Advanced options
 
-
 ### `version`
 
 <Option
@@ -143,7 +140,6 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
-
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
@@ -228,5 +224,8 @@ If true, add `helm_chart` targets with the `tailor` goal.
 
 None
 
+## Related subsystems
+
+None
 
 </span>

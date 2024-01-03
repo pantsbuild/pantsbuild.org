@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for interacting with Docker.
 
-Backend: <span className="color--primary">pants.backend.docker</span>
-Config section: <span className="color--primary">[docker]</span>
+Backend: <span className="color--primary">`pants.backend.docker`</span>
+
+Config section: <span className="color--primary">`[docker]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `registries`
 
@@ -38,7 +37,6 @@ Configure Docker registries. The schema for a registry entry is as follows:
     },
     ...
 }
-
 ```
 
 If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
@@ -120,7 +118,6 @@ Example:
 ```
 [docker]
 build_args = ["VAR1=value", "VAR2"]
-
 ```
 
 Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
@@ -166,7 +163,6 @@ Additional arguments to use for `docker run` invocations.
 Example:
 ```
 $ /home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
-
 ```
 
 To provide the top-level options to the `docker` client, use `[docker].env_vars` to configure the [Environment variables](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) as appropriate.
@@ -178,7 +174,6 @@ Defaults to `--interactive --tty` when stdout is connected to a terminal.
 </Option>
 
 ## Advanced options
-
 
 ### `tools`
 
@@ -224,9 +219,7 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 <Option
   cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='docker_executable_search_paths'
 >
 
@@ -240,5 +233,8 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 
 None
 
+## Related subsystems
+
+None
 
 </span>

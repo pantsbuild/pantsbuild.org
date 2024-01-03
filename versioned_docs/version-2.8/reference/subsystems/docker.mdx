@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for interacting with Docker.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[docker]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[docker]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `registries`
 
@@ -35,7 +34,6 @@ Configure Docker registries. The schema for a registry entry is as follows:
     },
     ...
 }
-
 ```
 
 If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
@@ -87,7 +85,6 @@ Use the `extra_build_args` field on a `docker_image` target for additional image
 
 ## Advanced options
 
-
 ### `env_vars`
 
 <Option
@@ -104,5 +101,8 @@ Environment variables to set for `docker` invocations. Entries are either string
 
 None
 
+## Related subsystems
+
+None
 
 </span>

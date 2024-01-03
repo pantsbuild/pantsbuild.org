@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -57,6 +60,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `source`
 
 <Field
@@ -69,6 +73,7 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
+
 ## `scalac_plugins`
 
 <Field
@@ -83,6 +88,7 @@ The plugin must be defined by a corresponding `scalac_plugin` AND `jvm_artifact`
 If not specified, this will default to the plugins specified in `[scalac].plugins_for_resolve` for this target&#x27;s resolve.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -97,6 +103,7 @@ If not defined, will default to `[jvm].default_resolve`.
 
 
 </Field>
+
 ## `experimental_provides_types`
 
 <Field
@@ -111,6 +118,7 @@ This allows for specific types within packages that are otherwise inferred as be
 If a given type is defined, at least one source file captured by this target must actually provide that symbol.
 
 </Field>
+
 ## `jdk`
 
 <Field
@@ -121,6 +129,7 @@ If a given type is defined, at least one source file captured by this target mus
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
+
 ## `skip_scalafmt`
 
 <Field

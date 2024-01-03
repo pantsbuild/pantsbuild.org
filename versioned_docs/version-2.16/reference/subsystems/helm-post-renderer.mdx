@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Used perform modifications to the final output produced by Helm charts when they&#x27;ve been fully rendered.
 
-Backend: <span className="color--primary">pants.backend.experimental.helm</span>
-Config section: <span className="color--primary">[helm-post-renderer]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
+
+Config section: <span className="color--primary">`[helm-post-renderer]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[helm-post-renderer]</span>
 None
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -65,9 +64,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--helm-post-renderer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_POST_RENDERER_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<3.10"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -75,7 +72,6 @@ Python interpreter constraints for this tool.
 </Option>
 
 ## Deprecated options
-
 
 ### `version`
 
@@ -96,9 +92,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--helm-post-renderer-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_POST_RENDERER_EXTRA_REQUIREMENTS'
-  default_repr={`[
-  "ruamel.yaml>=0.15.96,!=0.17.0,!=0.17.1,!=0.17.2,!=0.17.5,<=0.17.21"
-]`}
+  default_repr={`[\n  "ruamel.yaml>=0.15.96,!=0.17.0,!=0.17.1,!=0.17.2,!=0.17.5,<=0.17.21"\n]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
@@ -129,5 +123,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

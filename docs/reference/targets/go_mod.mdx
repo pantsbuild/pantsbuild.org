@@ -19,6 +19,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -31,6 +32,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -43,6 +45,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `cgo_enabled`
 
 <Field
@@ -57,6 +60,7 @@ This field can be specified on several different target types, including `go_bin
 See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional information about Cgo.
 
 </Field>
+
 ## `race`
 
 <Field
@@ -69,6 +73,7 @@ Enable compiling the binary with the Go data race detector.
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
 
 </Field>
+
 ## `msan`
 
 <Field
@@ -81,6 +86,7 @@ Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer.&#x22
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
 </Field>
+
 ## `asan`
 
 <Field
@@ -93,6 +99,7 @@ Enable interoperation between Go code and the C/C++ &#x22;address sanitizer.&#x2
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
 </Field>
+
 ## `assembler_flags`
 
 <Field
@@ -115,6 +122,7 @@ This field can be specified on several different target types:
 Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 
 </Field>
+
 ## `compiler_flags`
 
 <Field
@@ -135,6 +143,7 @@ This field can be specified on several different target types:
 Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 </Field>
+
 ## `linker_flags`
 
 <Field

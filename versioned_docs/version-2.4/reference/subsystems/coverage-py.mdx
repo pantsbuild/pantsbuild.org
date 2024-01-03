@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Configuration for Python test coverage measurement.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[coverage-py]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[coverage-py]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `filter`
 
@@ -40,9 +39,7 @@ If you leave this off, the coverage report will include every file in the transi
   cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
   env_repr='PANTS_COVERAGE_PY_REPORT'
   one_of='console, xml, html, raw, json'
-  default_repr={`[
-  "console"
-]`}
+  default_repr={`[\n  "console"\n]`}
 >
 
 Which coverage report type(s) to emit.
@@ -50,7 +47,6 @@ Which coverage report type(s) to emit.
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -81,9 +77,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6"
-]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -142,5 +136,8 @@ Path to `.coveragerc` or alternative coverage config file
 
 None
 
+## Related subsystems
+
+None
 
 </span>

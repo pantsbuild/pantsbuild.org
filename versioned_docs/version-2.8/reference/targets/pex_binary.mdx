@@ -17,6 +17,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -29,6 +30,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -41,6 +43,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -57,6 +60,7 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field
@@ -75,6 +79,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `experimental_resolve`
 
 <Field
@@ -87,6 +92,7 @@ The resolve from `[python].experimental_resolves_to_lockfiles` to use, if any.
 This field is highly experimental and may change without the normal deprecation policy.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -101,6 +107,7 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `entry_point`
 
 <Field
@@ -120,6 +127,7 @@ You must use the file name shorthand for file arguments to work with this target
 You may either set this field or the `script` field, but not both. Leave off both fields to have no entry point.
 
 </Field>
+
 ## `script`
 
 <Field
@@ -132,6 +140,7 @@ Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a scri
 You may either set this field or the `entry_point` field, but not both. Leave off both fields to have no entry point.
 
 </Field>
+
 ## `platforms`
 
 <Field
@@ -153,6 +162,7 @@ Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/
   - ABI: the ABI tag, e.g. &#x22;cp36m&#x22;, &#x22;cp27mu&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
 
 </Field>
+
 ## `inherit_path`
 
 <Field
@@ -165,6 +175,7 @@ Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the b
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
+
 ## `strip_pex_env`
 
 <Field
@@ -177,6 +188,7 @@ Whether or not to strip the PEX runtime environment of `PEX*` environment variab
 Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
 
 </Field>
+
 ## `ignore_errors`
 
 <Field
@@ -187,6 +199,7 @@ Most applications have no need for the `PEX*` environment variables that are use
 Should PEX ignore when it cannot resolve dependencies?
 
 </Field>
+
 ## `shebang`
 
 <Field
@@ -199,6 +212,7 @@ Set the generated PEX to use this shebang, rather than the default of PEX choosi
 This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
 
 </Field>
+
 ## `emit_warnings`
 
 <Field
@@ -211,6 +225,7 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
+
 ## `execution_mode`
 
 <Field
@@ -227,6 +242,7 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 The &#x27;unzip&#x27; mode is deprecated since the default &#x27;zipapp&#x27; mode now executes this way.
 
 </Field>
+
 ## `include_tools`
 
 <Field
@@ -239,6 +255,7 @@ Whether to include Pex tools in the PEX bootstrap code.
 With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
 
 </Field>
+
 ## `restartable`
 
 <Field

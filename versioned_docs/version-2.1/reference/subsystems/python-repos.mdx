@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 External Python code repositories, such as PyPI.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[python-repos]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[python-repos]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[python-repos]</span>
 None
 
 ## Advanced options
-
 
 ### `repos`
 
@@ -39,9 +38,7 @@ URLs of code repositories to look for requirements. In Pip and Pex, this option 
 <Option
   cli_repr={`--python-repos-indexes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_INDEXES'
-  default_repr={`[
-  "https://pypi.org/simple/"
-]`}
+  default_repr={`[\n  "https://pypi.org/simple/"\n]`}
 >
 
 URLs of code repository indexes to look for requirements. If set to an empty list, then Pex will use no indices (meaning it will not use PyPI). The values should be compliant with PEP 503.
@@ -52,5 +49,8 @@ URLs of code repository indexes to look for requirements. If set to an empty lis
 
 None
 
+## Related subsystems
+
+None
 
 </span>

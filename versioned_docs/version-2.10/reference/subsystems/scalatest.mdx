@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The Scalatest test framework (https://www.scalatest.org/)
 
-Backend: <span className="color--primary">pants.backend.experimental.scala</span>
-Config section: <span className="color--primary">[scalatest]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.scala`</span>
+
+Config section: <span className="color--primary">`[scalatest]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `args`
 
@@ -31,7 +30,6 @@ Arguments to pass directly to Scalatest, e.g. `-t $testname`. See https://www.sc
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -50,9 +48,7 @@ Version string for the tool. This is available for substitution in the `[scalate
 <Option
   cli_repr={`--scalatest-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALATEST_ARTIFACTS'
-  default_repr={`[
-  "org.scalatest:scalatest_2.13:{version}"
-]`}
+  default_repr={`[\n  "org.scalatest:scalatest_2.13:{version}"\n]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalatest].version` option.
@@ -81,5 +77,8 @@ To use a custom lockfile, set this option to a file path relative to the build r
 
 None
 
+## Related subsystems
+
+None
 
 </span>

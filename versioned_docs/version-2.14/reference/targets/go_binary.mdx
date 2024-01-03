@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -55,6 +58,7 @@ When running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `main`
 
 <Field
@@ -67,6 +71,7 @@ Address of the `go_package` with the `main` for this binary.
 If not specified, will default to the `go_package` for the same directory as this target&#x27;s BUILD file. You should usually rely on this default.
 
 </Field>
+
 ## `restartable`
 
 <Field

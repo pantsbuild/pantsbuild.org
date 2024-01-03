@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.core`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +56,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.txt', 'new_*.md', '!old_ignore.csv']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -71,7 +75,6 @@ overrides={
     "bar.json": {"description": "our product model"]},
     ("foo.json", "bar.json"): {"tags": ["overridden"]},
 }
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -81,6 +84,7 @@ If you&#x27;d like to override a field&#x27;s value for every `resource` target 
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `dependencies`
 
 <Field

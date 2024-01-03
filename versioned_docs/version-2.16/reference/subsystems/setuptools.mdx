@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Python setuptools, used to package `python_distribution` targets.
 
-Backend: <span className="color--primary">pants.backend.python</span>
-Config section: <span className="color--primary">[setuptools]</span>
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[setuptools]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[setuptools]</span>
 None
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -62,7 +61,6 @@ If unspecified, install the entire lockfile.
 
 ## Deprecated options
 
-
 ### `version`
 
 <Option
@@ -82,9 +80,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--setuptools-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS'
-  default_repr={`[
-  "wheel>=0.35.1,<0.38"
-]`}
+  default_repr={`[\n  "wheel>=0.35.1,<0.38"\n]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
@@ -115,5 +111,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Tracks and times the execution of a pants run.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[run-tracker]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[run-tracker]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[run-tracker]</span>
 None
 
 ## Advanced options
-
 
 ### `stats_local_json_file`
 
@@ -39,9 +38,7 @@ Write stats to this local json file on run completion.
 <Option
   cli_repr={`--run-tracker-stats-option-scopes-to-record="['<str>', '<str>', ...]"`}
   env_repr='PANTS_RUN_TRACKER_STATS_OPTION_SCOPES_TO_RECORD'
-  default_repr={`[
-  "*"
-]`}
+  default_repr={`[\n  "*"\n]`}
 >
 
 Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
@@ -52,5 +49,8 @@ Option scopes to record in stats on run completion. Options may be selected by j
 
 None
 
+## Related subsystems
+
+None
 
 </span>

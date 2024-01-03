@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Configuration of the mypy-protobuf type stub generation plugin for the Protobuf Python backend.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[python-protobuf.mypy-plugin]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[python-protobuf.mypy-plugin]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `runtime_dependencies`
 
@@ -43,7 +42,6 @@ Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to als
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -74,9 +72,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6"
-]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -87,5 +83,8 @@ Python interpreter constraints for this tool.
 
 None
 
+## Related subsystems
+
+None
 
 </span>

@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +56,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['test_*.py', '*_test.py', 'tests.py']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -71,7 +75,6 @@ overrides={
     "bar_test.py": {"timeout": 200},
     ("foo_test.py", "bar_test.py"): {"tags": ["slow_tests"]},
 }
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -81,6 +84,7 @@ If you&#x27;d like to override a field&#x27;s value for every `python_test` targ
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `skip_pylint`
 
 <Field
@@ -92,6 +96,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pytype`
 
 <Field
@@ -103,6 +108,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 If true, don&#x27;t run pytype on this target&#x27;s code.
 
 </Field>
+
 ## `skip_autoflake`
 
 <Field
@@ -114,6 +120,7 @@ If true, don&#x27;t run pytype on this target&#x27;s code.
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
+
 ## `skip_docformatter`
 
 <Field
@@ -125,6 +132,7 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
 ## `skip_mypy`
 
 <Field
@@ -136,6 +144,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
+
 ## `skip_isort`
 
 <Field
@@ -147,6 +156,7 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pydocstyle`
 
 <Field
@@ -158,6 +168,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 </Field>
+
 ## `skip_bandit`
 
 <Field
@@ -169,6 +180,7 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
 ## `skip_ruff`
 
 <Field
@@ -180,6 +192,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 If true, don&#x27;t run ruff on this target&#x27;s code.
 
 </Field>
+
 ## `stevedore_namespaces`
 
 <Field
@@ -199,6 +212,7 @@ NOTE: Each `python_distribution` must opt-in to being included in this repo-wide
 The stevedore namespace format (`my.stevedore.extension`) is similar to a Python namespace.
 
 </Field>
+
 ## `skip_flake8`
 
 <Field
@@ -210,6 +224,7 @@ The stevedore namespace format (`my.stevedore.extension`) is similar to a Python
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
+
 ## `skip_add_trailing_comma`
 
 <Field
@@ -221,6 +236,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 
 </Field>
+
 ## `skip_yapf`
 
 <Field
@@ -232,6 +248,7 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pyupgrade`
 
 <Field
@@ -243,6 +260,7 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
+
 ## `skip_black`
 
 <Field
@@ -254,6 +272,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -272,6 +291,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -286,6 +306,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `run_goal_use_sandbox`
 
 <Field
@@ -306,6 +327,7 @@ The former mode is more hermetic, and is closer to building and running the sour
 The latter mode is similar to creating, activating, and using a virtual environment when running your files. It may also be necessary if the source being run writes files into the repo and computes their location relative to the executed files. Django&#x27;s `makemigrations` command is an example of such a process.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -318,6 +340,7 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
 ## `xdist_concurrency`
 
 <Field
@@ -334,6 +357,7 @@ If `pytest-xdist` is enabled and this field is unset, Pants will attempt to deri
 Set this field to `0` to explicitly disable use of `pytest-xdist` for a target.
 
 </Field>
+
 ## `batch_compatibility_tag`
 
 <Field
@@ -357,6 +381,7 @@ If this field is set on a target, and its value is the same as the value on some
 When tests with the same `batch_compatibility_tag` have incompatibilities in some other Pants metadata, they will be automatically split into separate batches. This way you can set a high-level `batch_compatibility_tag` using `__defaults__` and then have tests continue to work as you tweak BUILD metadata on specific targets.
 
 </Field>
+
 ## `runtime_package_dependencies`
 
 <Field
@@ -371,6 +396,7 @@ Pants will build the artifacts as if you had run `scie-pants-linux-x86_64 packag
 You can include anything that can be built by `scie-pants-linux-x86_64 package`, e.g. a `pex_binary`, `python_aws_lambda_function`, or an `archive`.
 
 </Field>
+
 ## `extra_env_vars`
 
 <Field
@@ -385,6 +411,7 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
 This will be merged with and override values from `[test].extra_env_vars`.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field
@@ -403,6 +430,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.18/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `skip_tests`
 
 <Field
@@ -413,6 +441,7 @@ See https://www.pantsbuild.org/v2.18/docs/python-interpreter-compatibility for h
 If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
+
 ## `environment`
 
 <Field

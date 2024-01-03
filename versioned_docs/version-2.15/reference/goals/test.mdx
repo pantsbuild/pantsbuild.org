@@ -13,13 +13,13 @@ pants test [args]
 
 Run tests.
 
-Backend: <span className="color--primary">pants.core</span>
-Config section: <span className="color--primary">[test]</span>
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[test]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `debug`
 
@@ -143,7 +143,6 @@ Additional environment variables to include in test processes. Entries are strin
 
 ## Advanced options
 
-
 ### `report`
 
 <Option
@@ -207,7 +206,6 @@ Some test runners can execute tests from multiple files in a single run. Test im
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch
 3. to allow for parallelism in test runners which don't have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
-
 ```
 
 In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a "target" max batch size (rather than an exact value).
@@ -220,5 +218,10 @@ NOTE: This parameter has no effect on test runners/plugins that do not implement
 
 None
 
+## Related subsystems
+
+- [debug-adapter](../subsystems/debug-adapter.mdx)
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
 
 </span>

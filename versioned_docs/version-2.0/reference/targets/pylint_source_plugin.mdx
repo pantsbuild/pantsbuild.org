@@ -23,7 +23,6 @@ To load a source plugin:
     option in the `[pylint]` scope to point to your Pylint config file.
 5. Set the option `source_plugins` in the `[pylint]` scope to include this target's
     address, e.g. `source_plugins = ["build-support/pylint:plugin"]`.
-
 ```
 
 To instead load a third-party plugin, set the option `extra_requirements` in the `[pylint]`
@@ -45,6 +44,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -55,6 +55,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -65,6 +66,7 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `compatibility`
 
 <Field
@@ -75,6 +77,7 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, this will default to the option `interpreter_constraints` in the [python-setup] scope. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -85,6 +88,7 @@ A string for Python interpreter constraints on this target. This should be writt
 Addresses to other targets that this plugin depends on. Due to restrictions with Pylint plugins, these targets must either be third-party Python dependencies (https://www.pantsbuild.org/docs/python-third-party-dependencies) or be located within this target&#x27;s same directory or a subdirectory.
 
 </Field>
+
 ## `sources`
 
 <Field

@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The Python docformatter tool (https://github.com/myint/docformatter).
 
-Backend: <span className="color--primary">pants.backend.python.lint.docformatter</span>
-Config section: <span className="color--primary">[docformatter]</span>
+Backend: <span className="color--primary">`pants.backend.python.lint.docformatter`</span>
+
+Config section: <span className="color--primary">`[docformatter]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to docformatter, e.g. `--docformatter-args="--wrap-su
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -74,9 +72,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--docformatter-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCFORMATTER_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6"
-]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -131,5 +127,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 
 None
 
+## Related subsystems
+
+None
 
 </span>

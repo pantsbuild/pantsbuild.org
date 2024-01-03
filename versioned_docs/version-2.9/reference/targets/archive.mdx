@@ -15,6 +15,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -55,6 +58,7 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `packages`
 
 <Field
@@ -69,6 +73,7 @@ Pants will build the assets as if you had run `./pants package`. It will include
 You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or even another `archive`.
 
 </Field>
+
 ## `files`
 
 <Field
@@ -85,6 +90,7 @@ This will ignore any targets that are not `file`, `files`, or `relocated_files` 
 If you instead want those files included in any packages specified in the `packages` field for this target, then use a `resource` or `resources` target and have the original package depend on the resources.
 
 </Field>
+
 ## `format`
 
 <Field

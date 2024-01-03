@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 A Python environment.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[python-setup]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[python-setup]`</span>
 
 <span className={styles.options}>
 
@@ -21,15 +21,12 @@ None
 
 ## Advanced options
 
-
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.6"
-]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Constrain the selected Python interpreter. Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3)or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together. These constraints are used as the default value for the `compatibility` field of Python targets.
@@ -122,15 +119,12 @@ The maximum time (in seconds) for items in the HTTP cache. When the cache expire
 
 ## Deprecated options
 
-
 ### `platforms`
 
 <Option
   cli_repr={`--python-setup-platforms="[<platform>, <platform>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_PLATFORMS'
-  default_repr={`[
-  "current"
-]`}
+  default_repr={`[\n  "current"\n]`}
   removal_version='2.1.0.dev0'
   removal_hint={'The option `--python-setup-platforms` does not do anything anymore. Instead, explicitly set the `platforms` field on each `pex_binary` target.'}
 >
@@ -181,5 +175,8 @@ Whether to include pre-releases when resolving requirements.
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

@@ -17,6 +17,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -29,6 +30,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -41,6 +43,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -55,6 +58,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -83,6 +87,7 @@ If you&#x27;d like to override a field&#x27;s value for every `python_source` ta
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `skip_autoflake`
 
 <Field
@@ -94,6 +99,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pyupgrade`
 
 <Field
@@ -105,6 +111,7 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
+
 ## `skip_bandit`
 
 <Field
@@ -116,6 +123,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
 ## `skip_black`
 
 <Field
@@ -127,6 +135,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
+
 ## `skip_docformatter`
 
 <Field
@@ -138,6 +147,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
 ## `skip_flake8`
 
 <Field
@@ -149,6 +159,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
+
 ## `skip_isort`
 
 <Field
@@ -160,6 +171,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
 ## `skip_pylint`
 
 <Field
@@ -171,6 +183,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
+
 ## `skip_yapf`
 
 <Field
@@ -182,6 +195,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
+
 ## `skip_mypy`
 
 <Field
@@ -193,6 +207,7 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -207,6 +222,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -225,6 +241,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field

@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 The MyPy Python type checker (http://mypy-lang.org/).
 
-Backend: <span className="color--primary">pants.backend.python</span>
-Config section: <span className="color--primary">[mypy]</span>
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[mypy]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7 --di
 </Option>
 
 ## Advanced options
-
 
 ### `version`
 
@@ -74,9 +72,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -191,5 +187,8 @@ Expects a list of pip-style requirement strings, like `['types-requests==2.25.9'
 
 None
 
+## Related subsystems
+
+None
 
 </span>

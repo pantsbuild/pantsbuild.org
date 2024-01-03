@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Upgrade syntax for newer versions of the language (https://github.com/asottile/pyupgrade).
 
-Backend: <span className="color--primary">pants.backend.python.lint.pyupgrade</span>
-Config section: <span className="color--primary">[pyupgrade]</span>
+Backend: <span className="color--primary">`pants.backend.python.lint.pyupgrade`</span>
+
+Config section: <span className="color--primary">`[pyupgrade]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -43,7 +42,6 @@ Arguments to pass directly to pyupgrade, e.g. `--pyupgrade-args='--py39-plus --k
 </Option>
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -88,9 +86,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pyupgrade-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYUPGRADE_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -122,7 +118,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 </Option>
 
 ## Deprecated options
-
 
 ### `version`
 
@@ -190,5 +185,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

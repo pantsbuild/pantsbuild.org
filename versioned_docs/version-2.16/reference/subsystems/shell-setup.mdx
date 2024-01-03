@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for Pants&#x27;s Shell support.
 
-Backend: <span className="color--primary">pants.backend.shell</span>
-Config section: <span className="color--primary">[shell-setup]</span>
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+Config section: <span className="color--primary">`[shell-setup]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[shell-setup]</span>
 None
 
 ## Advanced options
-
 
 ### `dependency_inference`
 
@@ -51,9 +50,7 @@ If true, add `shell_sources` and `shunit2_tests` targets with the `tailor` goal.
 <Option
   cli_repr={`--shell-setup-executable-search-path="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATH'
-  default_repr={`[
-  "<PATH>"
-]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='shell_setup_executable_search_path'
 >
 
@@ -67,5 +64,8 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 
 None
 
+## Related subsystems
+
+None
 
 </span>

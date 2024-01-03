@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `registry`
 
 <Field
@@ -49,6 +52,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 Either registry alias (prefixed by `@`) configured in `[helm.registries]` for the Helm artifact or the full OCI registry URL.
 
 </Field>
+
 ## `repository`
 
 <Field
@@ -59,6 +63,7 @@ Either registry alias (prefixed by `@`) configured in `[helm.registries]` for th
 Either a HTTP(S) URL to a classic repository, or a path inside an OCI registry (when `registry` is provided).
 
 </Field>
+
 ## `artifact`
 
 <Field
@@ -69,6 +74,7 @@ Either a HTTP(S) URL to a classic repository, or a path inside an OCI registry (
 Artifact name of the chart, without version number.
 
 </Field>
+
 ## `version`
 
 <Field

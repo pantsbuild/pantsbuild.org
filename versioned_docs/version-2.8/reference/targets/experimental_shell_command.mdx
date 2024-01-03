@@ -19,7 +19,6 @@ experimental_shell_command(
 )
 
 shell_sources(name="scripts")
-
 ```
 
 Remember to add this target to the dependencies of each consumer, such as your `python_tests` or `docker_image`. When relevant, Pants will run your `command` and insert the `outputs` into that consumer's context.
@@ -31,6 +30,7 @@ Backend: <span className="color--primary">``</span>
 ---
 
 <span className={styles.options}>
+
 
 ## `tags`
 
@@ -44,6 +44,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -56,6 +57,7 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -70,6 +72,7 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `command`
 
 <Field
@@ -82,6 +85,7 @@ Shell command to execute.
 The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 
 </Field>
+
 ## `log_output`
 
 <Field
@@ -92,6 +96,7 @@ The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 Set to true if you want the output from the command logged to the console.
 
 </Field>
+
 ## `outputs`
 
 <Field
@@ -104,6 +109,7 @@ Specify the shell command output files and directories.
 Use a trailing slash on directory names, i.e. `my_dir/`.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -114,6 +120,7 @@ Use a trailing slash on directory names, i.e. `my_dir/`.
 Command execution timeout (in seconds).
 
 </Field>
+
 ## `tools`
 
 <Field

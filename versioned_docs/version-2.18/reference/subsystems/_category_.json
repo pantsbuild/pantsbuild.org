@@ -2,5 +2,7 @@
   "label": "Subsystems",
   "link": {
     "type": "generated-index",
-    "slug": "/reference/subsystems",    "title": "Subsystems"
-  }}
+    "slug": "/reference/subsystems",
+    "title": "Subsystems"
+  }
+}

@@ -7,18 +7,17 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 External Python code repositories, such as PyPI.
 
 These options may be used to point to custom package indexes when resolving requirements.
 
-Backend: <span className="color--primary">pants.core</span>
-Config section: <span className="color--primary">[python-repos]</span>
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[python-repos]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `find_links`
 
@@ -38,15 +37,12 @@ For local paths, you may want to use the option `[python-repos].path_mappings`.
 
 ## Advanced options
 
-
 ### `indexes`
 
 <Option
   cli_repr={`--python-repos-indexes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_INDEXES'
-  default_repr={`[
-  "https://pypi.org/simple/"
-]`}
+  default_repr={`[\n  "https://pypi.org/simple/"\n]`}
 >
 
 URLs of [PEP-503 compatible](https://peps.python.org/pep-0503/) code repository indexes to look for requirements.
@@ -77,7 +73,6 @@ Note: Only takes effect if you use Pex lockfiles. Use the default `[python].lock
 
 ## Deprecated options
 
-
 ### `repos`
 
 <Option
@@ -92,5 +87,8 @@ URLs of code repositories to look for requirements. In Pip and Pex, this option 
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>

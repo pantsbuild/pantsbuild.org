@@ -23,7 +23,6 @@ To load a source plugin:
     option in the `[pylint]` scope to point to your Pylint config file.
 5. Set the option `source_plugins` in the `[pylint]` scope to include this target's
     address, e.g. `source_plugins = ["build-support/pylint:plugin"]`.
-
 ```
 
 To instead load a third-party plugin, set the option `extra_requirements` in the `[pylint]`
@@ -45,6 +44,7 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -55,6 +55,7 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -65,6 +66,7 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field
@@ -75,6 +77,7 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.*&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option `[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -85,6 +88,7 @@ The Python interpreters this code is compatible with. Each element should be wri
 Addresses to other targets that this plugin depends on. Due to restrictions with Pylint plugins, these targets must either be third-party Python dependencies (https://www.pantsbuild.org/docs/python-third-party-dependencies) or be located within this target&#x27;s same directory or a subdirectory.
 
 </Field>
+
 ## `sources`
 
 <Field

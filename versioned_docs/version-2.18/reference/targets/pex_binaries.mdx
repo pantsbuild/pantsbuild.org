@@ -19,6 +19,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -31,6 +32,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -43,6 +45,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `entry_points`
 
 <Field
@@ -57,6 +60,7 @@ Use a file name, relative to the BUILD file, like `app.py`. You can also set the
 If you want the entry point to be for a third-party dependency or to use a console script, use the `pex_binary` target directly.
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -75,7 +79,6 @@ overrides={
   "bar.py:main": {"restartable": True]},
   ("foo.py", "bar.py:main"): {"tags": ["legacy"]},
 }
-
 ```
 
 Every key is validated to belong to this target's `entry_points` field.
@@ -85,6 +88,7 @@ If you&#x27;d like to override a field&#x27;s value for every `pex_binary` targe
 You can specify the same `entry_point` in multiple keys, so long as you don&#x27;t override the same field more than one time for the `entry_point`.
 
 </Field>
+
 ## `environment`
 
 <Field
@@ -99,6 +103,7 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
 ## `interpreter_constraints`
 
 <Field
@@ -117,6 +122,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.18/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -131,6 +137,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -149,6 +156,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `platforms`
 
 <Field
@@ -172,6 +180,7 @@ Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/
 Note that using an abbreviated platform means that certain resolves will fail when they encounter environment markers that cannot be deduced from the abbreviated platform string. A common example of this is &#x27;python_full_version&#x27; which requires knowing the patch level version of the foreign Python interpreter. To remedy this you should use a 3-component dotted version for PYVER. If your resolves fail due to more esoteric undefined environment markers, you should switch to specifying `complete_platforms` instead.
 
 </Field>
+
 ## `complete_platforms`
 
 <Field
@@ -188,6 +197,7 @@ You can give a list of multiple complete platforms to create a multiplatform PEX
 Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
 </Field>
+
 ## `resolve_local_platforms`
 
 <Field
@@ -200,6 +210,7 @@ For each of the `platforms` specified, attempt to find a local interpreter that 
 If a matching interpreter is found, use the interpreter to resolve distributions and build any that are only available in source distribution form. If no matching interpreter is found (or if this option is `False`), resolve for the platform by accepting only pre-built binary distributions (wheels).
 
 </Field>
+
 ## `inherit_path`
 
 <Field
@@ -212,6 +223,7 @@ Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the b
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
+
 ## `strip_pex_env`
 
 <Field
@@ -224,6 +236,7 @@ Whether or not to strip the PEX runtime environment of `PEX*` environment variab
 Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
 
 </Field>
+
 ## `ignore_errors`
 
 <Field
@@ -234,6 +247,7 @@ Most applications have no need for the `PEX*` environment variables that are use
 Should PEX ignore errors when it cannot resolve dependencies?
 
 </Field>
+
 ## `shebang`
 
 <Field
@@ -246,6 +260,7 @@ Set the generated PEX to use this shebang, rather than the default of PEX choosi
 This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
 
 </Field>
+
 ## `emit_warnings`
 
 <Field
@@ -258,6 +273,7 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
+
 ## `layout`
 
 <Field
@@ -276,6 +292,7 @@ A loose layout PEX is similar to a packed PEX, except that neither the Pex boots
 Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose apps by default before executing, but these layouts compose with `execution_mode='zipapp'` as well.
 
 </Field>
+
 ## `execution_mode`
 
 <Field
@@ -290,6 +307,7 @@ The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https:
 The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
 
 </Field>
+
 ## `include_requirements`
 
 <Field
@@ -300,6 +318,7 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 Whether to include the third party requirements the binary depends on in the packaged PEX file.
 
 </Field>
+
 ## `include_sources`
 
 <Field
@@ -310,6 +329,7 @@ Whether to include the third party requirements the binary depends on in the pac
 Whether to include your first party sources the binary uses in the packaged PEX file.
 
 </Field>
+
 ## `include_tools`
 
 <Field
@@ -322,6 +342,7 @@ Whether to include Pex tools in the PEX bootstrap code.
 With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
 
 </Field>
+
 ## `venv_site_packages_copies`
 
 <Field
@@ -334,6 +355,7 @@ If execution_mode is venv, populate the venv site packages using hard links or c
 This can be used to work around problems with tools or libraries that are confused by symlinked source files.
 
 </Field>
+
 ## `venv_hermetic_scripts`
 
 <Field
@@ -346,6 +368,7 @@ If execution_mode is &#x22;venv&#x22;, emit a hermetic venv `pex` script and her
 The venv `pex` script and the venv console scripts are constructed to be hermetic by default; Python is executed with `-sE` to restrict the `sys.path` to the PEX venv contents only. Setting this field to `False` elides the Python `-sE` restrictions and can be used to interoperate with frameworks that use `PYTHONPATH` manipulation to run code.
 
 </Field>
+
 ## `restartable`
 
 <Field

@@ -15,6 +15,7 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 
 <span className={styles.options}>
 
+
 ## `tags`
 
 <Field
@@ -27,6 +28,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +41,7 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +56,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -81,6 +85,7 @@ If you&#x27;d like to override a field&#x27;s value for every `protobuf_source` 
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `skip_buf_format`
 
 <Field
@@ -92,6 +97,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run `buf format` on this target&#x27;s code.
 
 </Field>
+
 ## `skip_buf_lint`
 
 <Field
@@ -103,6 +109,7 @@ If true, don&#x27;t run `buf format` on this target&#x27;s code.
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 </Field>
+
 ## `python_interpreter_constraints`
 
 <Field
@@ -122,6 +129,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.11/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `python_resolve`
 
 <Field
@@ -137,6 +145,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `python_source_root`
 
 <Field
@@ -150,6 +159,7 @@ The source root to generate Python sources under.
 If unspecified, the source root the `protobuf_sources` is under will be used.
 
 </Field>
+
 ## `jvm_jdk`
 
 <Field
@@ -161,6 +171,7 @@ If unspecified, the source root the `protobuf_sources` is under will be used.
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
+
 ## `jvm_resolve`
 
 <Field
@@ -176,6 +187,7 @@ If not defined, will default to `[jvm].default_resolve`.
 
 
 </Field>
+
 ## `grpc`
 
 <Field
@@ -186,6 +198,7 @@ If not defined, will default to `[jvm].default_resolve`.
 Whether to generate gRPC code or not.
 
 </Field>
+
 ## `dependencies`
 
 <Field

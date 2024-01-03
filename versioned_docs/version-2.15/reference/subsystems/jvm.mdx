@@ -7,29 +7,26 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for general JVM functionality.
 
 JDK strings will be passed directly to Coursier&#x27;s `--jvm` parameter. Run `cs java --available` to see a list of available JVM versions on your platform.
 
 If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` option will be used instead, but note that this can lead to inconsistent behavior since the JVM version will be whatever happens to be found first on the system&#x27;s PATH.
 
-Backend: <span className="color--primary">pants.backend.experimental.java</span>
-Config section: <span className="color--primary">[jvm]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+Config section: <span className="color--primary">`[jvm]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `resolves`
 
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_JVM_RESOLVES'
-  default_repr={`{
-  "jvm-default": "3rdparty/jvm/default.lock"
-}`}
+  default_repr={`{\n  "jvm-default": "3rdparty/jvm/default.lock"\n}`}
 >
 
 A dictionary mapping resolve names to the path of their lockfile.
@@ -65,7 +62,6 @@ For example, if you want to attach a remote debugger, use something like [&#x27;
 </Option>
 
 ## Advanced options
-
 
 ### `tool_jdk`
 
@@ -144,5 +140,8 @@ Options set here will be used by any JVM processes required by Pants, with the e
 
 None
 
+## Related subsystems
+
+None
 
 </span>

@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options to control the overall behavior of Pants.
 
-Backend: <span className="color--primary"></span>
-Config section: <span className="color--primary">[GLOBAL]</span>
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[GLOBAL]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `level`
 
@@ -104,7 +103,6 @@ Run goals continuously as file changes are detected. Alpha feature.
 </Option>
 
 ## Advanced options
-
 
 ### `backend_packages`
 
@@ -297,9 +295,7 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`[
-  "/tmp/tmp.MpwSc5OGVo/pants.toml"
-]`}
+  default_repr={`[\n  "<buildroot>/tmp.MpwSc5OGVo/pants.toml"\n]`}
 >
 
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
@@ -986,7 +982,6 @@ Interval in seconds between when streaming workunit event receivers will be poll
 
 ## Deprecated options
 
-
 ### `pants_bootstrapdir`
 
 <Option
@@ -1043,5 +1038,8 @@ Use this option to name Subsystems which will receive streaming workunit events.
 
 </Option>
 
+## Related subsystems
+
+None
 
 </span>
