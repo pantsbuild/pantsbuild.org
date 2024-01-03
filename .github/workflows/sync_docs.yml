@@ -60,8 +60,8 @@ jobs:
           echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" | tee -a "${GITHUB_OUTPUT}"
       - run: |
           rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
-          mkdir "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
-          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+          mkdir -p "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
+          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
 
       # Generate reference docs
       - name: Setup Node
