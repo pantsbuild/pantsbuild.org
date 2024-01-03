@@ -73,6 +73,7 @@ If a string is provided, represents a path that is relative to the BUILD file&#x
 If an `http_source` is provided, represents the network location to download the source from. The downloaded file will exist in the sandbox in the same directory as the target.
 
 `http_source` has the following signature:
+
 ```
 http_source(url: str, *, len: int, sha256: str, filename: str = "")
 

@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script in the workspace, with all dependencies packaged/copied into a chroot.
 
 Example BUILD file:
+
 ```
 run_shell_command(
     command="./scripts/my-script.sh --data-files-dir={chroot}",
@@ -103,10 +104,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
 
 </Field>
 

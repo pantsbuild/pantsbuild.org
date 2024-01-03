@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Execute any external tool for its side effects.
 
 Example BUILD file:
+
 ```
 shell_command(
     command="./my-script.sh --flag",
@@ -194,10 +195,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
 
 </Field>
 ## `experimental_named_caches`
@@ -225,10 +226,10 @@ Adjusts the location of files output by this target, when consumed as a dependen
 
 Values are relative to the build root, except in the following cases:
 
-  * `.` specifies the location of the `BUILD` file.
-  * Values beginning with `./` are relative to the location of the `BUILD` file.
-  * `/` or the empty string specifies the build root.
-  * Values beginning with `/` are also relative to the build root.
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
 
 </Field>
 ## `environment`

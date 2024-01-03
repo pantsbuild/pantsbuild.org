@@ -7,7 +7,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for Go tests.
 
 Backend: <span className="color--primary">pants.backend.experimental.go</span>
@@ -16,7 +15,6 @@ Config section: <span className="color--primary">[go-test]</span>
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `args`
 
@@ -43,9 +41,9 @@ Known Go test options will be transformed into the form expected by the test bin
 
 Coverage mode to use when running Go tests with coverage analysis enabled via `--test-use-coverage`. Valid values are `set`, `count`, and `atomic`:
 
-  * `set`: bool: does this statement run?
-  * `count`: int: how many times does this statement run?
-  * `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
+- `set`: bool: does this statement run?
+- `count`: int: how many times does this statement run?
+- `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
 
 </Option>
 
@@ -197,7 +195,6 @@ Capture an execution trace from the execution of the test runner. The trace will
 
 ## Advanced options
 
-
 ### `coverage_output_dir`
 
 <Option
@@ -210,12 +207,12 @@ Path to write the Go coverage reports to. Must be relative to the build root.
 
 Replacements:
 
-  - `{distdir}` is replaced with the Pants `distdir`.
-  - `{target_spec}` is replaced with the address of the applicable `go_package` target with `/`
+- `{distdir}` is replaced with the Pants `distdir`.
+- `{target_spec}` is replaced with the address of the applicable `go_package` target with `/`
   characters replaced with dots (`.`).
-  - `{import_path}` is replaced with the applicable package&#x27;s import path. Subdirectories will be made
+- `{import_path}` is replaced with the applicable package&#x27;s import path. Subdirectories will be made
   for any path components separated by `/` characters.
-  - `{import_path_escaped}` is replaced with the applicable package&#x27;s import path but with
+- `{import_path_escaped}` is replaced with the applicable package&#x27;s import path but with
   slashes converted to underscores. This is deprecated and only exists to support behavior from
   earlier versions.
 
@@ -238,6 +235,5 @@ This is similar to the `go test -c` option, but will still run the underlying te
 ## Deprecated options
 
 None
-
 
 </span>

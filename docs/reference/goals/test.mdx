@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[test]</span>
 
 ## Basic options
 
-
 ### `debug`
 
 <Option
@@ -155,7 +154,6 @@ Additional environment variables to include in test processes. Entries are strin
 
 ## Advanced options
 
-
 ### `report`
 
 <Option
@@ -216,9 +214,9 @@ The target maximum number of files to be included in each run of batch-enabled t
 
 Some test runners can execute tests from multiple files in a single run. Test implementations will return all tests that _can_ run together as a single group - and then this may be further divided into smaller batches, based on this option. This is done:
 
-  1. to avoid OS argument length limits (in processes which don&#x27;t support argument files)
-  2. to support more stable cache keys than would be possible if all files were operated on in a single batch
-  3. to allow for parallelism in test runners which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
+1. to avoid OS argument length limits (in processes which don&#x27;t support argument files)
+2. to support more stable cache keys than would be possible if all files were operated on in a single batch
+3. to allow for parallelism in test runners which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
 
 In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &#x22;target&#x22; max batch size (rather than an exact value).
 
@@ -229,6 +227,5 @@ NOTE: This parameter has no effect on test runners/plugins that do not implement
 ## Deprecated options
 
 None
-
 
 </span>

@@ -89,6 +89,7 @@ Any entry points, such as `console_scripts` and `gui_scripts`.
 Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (`"path.to.module:func"`) or a Pants target address to a `pex_binary` target.
 
 Example:
+
 ```
 entry_points={
   "console_scripts": {

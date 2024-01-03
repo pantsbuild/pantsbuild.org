@@ -14,6 +14,7 @@ Allows you to relocate the files at runtime to something more convenient than th
 For example, you can relocate `src/resources/project1/data.json` to instead be `resources/data.json`. Your other target types can then add this target to their `dependencies` field, rather than using the original `files` target.
 
 To remove a prefix:
+
 ```
 # Results in `data.json`.
 relocated_files(
