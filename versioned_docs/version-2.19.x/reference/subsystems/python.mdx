@@ -55,7 +55,7 @@ The Python interpreters your codebase is compatible with.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
-Specify with requirement syntax, e.g. `'CPython>=2.7,<3'` (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or `'PyPy'` (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. `'CPython>=2.7,<3'` (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or `'PyPy'` (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 </Option>
 
@@ -100,7 +100,7 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{"python-default": "3rdparty/python/default.lock"}`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
@@ -445,5 +445,9 @@ This only applies when resolving user requirements, rather than tools you run li
 Usually this option should be enabled because it can result in far fewer resolves.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>
