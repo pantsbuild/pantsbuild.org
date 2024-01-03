@@ -6,8 +6,8 @@ import Option from "@site/src/components/reference/Option";
 import styles from "@site/src/components/reference/styles.module.css";
 
 ---
-
 {{#is_goal}}
+
 ```
 pants {{scope}} [args]
 ```
@@ -15,41 +15,51 @@ pants {{scope}} [args]
 
 {{{description}}}
 
-Backend: <span className="color--primary">{{provider}}</span>
-Config section: <span className="color--primary">[{{scope}}{{^scope}}GLOBAL{{/scope}}]</span>
+Backend: <span className="color--primary">`{{provider}}`</span>
+
+Config section: <span className="color--primary">`[{{scope}}{{^scope}}GLOBAL{{/scope}}]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 {{#basic}}
 {{> option}}
 {{/basic}}
 {{^basic}}
+
 None
 {{/basic}}
 
 ## Advanced options
-
 {{#advanced}}
 {{> option}}
 {{/advanced}}
 {{^advanced}}
+
 None
 {{/advanced}}
 
 ## Deprecated options
-
 {{#deprecated}}
 {{> option}}
 {{/deprecated}}
 {{^deprecated}}
+
 None
 {{/deprecated}}
 
-{{#comma_separated_consumed_scopes}}
 ## Related subsystems
-{{comma_separated_consumed_scopes}}
-{{/comma_separated_consumed_scopes}}
+
+{{#related_subsystems}}
+{{#is_goal}}
+- [{{scope}}](../goals/{{scope}}.mdx)
+{{/is_goal}}
+{{^is_goal}}
+- [{{scope}}](../subsystems/{{scope}}.mdx)
+{{/is_goal}}
+{{/related_subsystems}}
+{{^related_subsystems}}
+None
+{{/related_subsystems}}
 
 </span>
