@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.core`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -26,11 +27,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -38,11 +39,11 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 A list of files and globs that belong to this target.
@@ -52,11 +53,11 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
-
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `resource` targets.
@@ -65,13 +66,13 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 
-```
-overrides={
-  "foo.json": {"description": "our customer model"]},
-  "bar.json": {"description": "our product model"]},
-  ("foo.json", "bar.json"): {"tags": ["overridden"]},
-}
-```
+`&#x60;`
+overrides=&#123;
+  &#x22;foo.json&#x22;: &#123;&#x22;description&#x22;: &#x22;our customer model&#x22;]&#125;,
+  &#x22;bar.json&#x22;: &#123;&#x22;description&#x22;: &#x22;our product model&#x22;]&#125;,
+  (&#x22;foo.json&#x22;, &#x22;bar.json&#x22;): &#123;&#x22;tags&#x22;: [&#x22;overridden&#x22;]&#125;,
+&#125;
+`&#x60;`
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
@@ -80,11 +81,11 @@ If you&#x27;d like to override a field&#x27;s value for every `resource` target 
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].

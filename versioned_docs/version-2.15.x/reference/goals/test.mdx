@@ -13,13 +13,13 @@ pants test [args]
 
 Run tests.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[test]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[test]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `debug`
 
@@ -106,7 +106,7 @@ If a coverage report file is generated, open it on the local system if the syste
   default_repr={``}
 >
 
-A shard specification of the form &quot;k/N&quot;, where N is a positive integer and k is a non-negative integer less than N.
+A shard specification of the form &#x22;k/N&#x22;, where N is a positive integer and k is a non-negative integer less than N.
 
 If set, the request input targets will be deterministically partitioned into N disjoint subsets of roughly equal size, and only the k&#x27;th subset will be used, with all others discarded.
 
@@ -142,6 +142,7 @@ Additional environment variables to include in test processes. Entries are strin
 </Option>
 
 ## Advanced options
+
 
 ### `report`
 
@@ -202,11 +203,11 @@ The maximum timeout (in seconds) that may be used on a test target.
 The target maximum number of files to be included in each run of batch-enabled test runners.
 
 Some test runners can execute tests from multiple files in a single run. Test implementations will return all tests that _can_ run together as a single group - and then this may be further divided into smaller batches, based on this option. This is done:
-
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch
 3. to allow for parallelism in test runners which don't have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
+
 ```
 
 In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a "target" max batch size (rather than an exact value).
@@ -219,10 +220,5 @@ NOTE: This parameter has no effect on test runners/plugins that do not implement
 
 None
 
-## Related subsystems
-
-- [debug-adapter](../subsystems/debug-adapter.mdx)
-- [environments-preview](../subsystems/environments-preview.mdx)
-- [filter](../subsystems/filter.mdx)
 
 </span>

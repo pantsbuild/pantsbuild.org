@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -26,11 +27,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -38,11 +39,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*_test.sh', 'test_*.sh', 'tests.sh')`}
 >
 
@@ -53,11 +53,11 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -71,11 +71,11 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -83,32 +83,31 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, the test will never time out.
 
 </Field>
-
 ## `skip_tests`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
-
 ## `shell`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'bash' | 'dash' | 'ksh' | 'pdksh' | 'sh' | 'zsh' | None`}
+    default_repr={`None`}
 >
 
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
 
 </Field>
-
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
@@ -118,11 +117,11 @@ Pants will build the artifacts as if you had run `./pants package`. It will incl
 You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
 
 </Field>
-
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `shunit2_test` targets.
@@ -131,13 +130,13 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 
-```
-overrides={
-  "foo_test.sh": {"timeout": 120]},
-  "bar_test.sh": {"timeout": 200]},
-  ("foo_test.sh", "bar_test.sh"): {"tags": ["slow_tests"]},
-}
-```
+`&#x60;`
+overrides=&#123;
+  &#x22;foo_test.sh&#x22;: &#123;&#x22;timeout&#x22;: 120]&#125;,
+  &#x22;bar_test.sh&#x22;: &#123;&#x22;timeout&#x22;: 200]&#125;,
+  (&#x22;foo_test.sh&#x22;, &#x22;bar_test.sh&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
+&#125;
+`&#x60;`
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
@@ -146,11 +145,10 @@ If you&#x27;d like to override a field&#x27;s value for every `shunit2_test` tar
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
-
 ## `skip_shellcheck`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.shell.lint.shellcheck"
 >
@@ -158,11 +156,10 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
-
 ## `skip_shfmt`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.shell.lint.shfmt"
 >

@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -28,11 +29,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -40,22 +41,21 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -67,11 +67,11 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -85,31 +85,31 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `main`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
 
 </Field>
-
 ## `jdk`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
-
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[jvm].resolves` to use when compiling this target.
@@ -117,11 +117,10 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
-
 ## `duplicate_policy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[pants.jvm.target_types.DeployJarDuplicateRule] | None`}
     default_repr={`(duplicate_rule(pattern='^META-INF/services/', action='concat_text'), duplicate_rule(pattern='^META-INF/LICENSE', action='skip'))`}
 >
 
@@ -130,47 +129,46 @@ A list of the rules to apply when duplicate file entries are found in the final 
 When defining a duplicate policy, just add `duplicate_rule` directives to this field as follows:
 
 Example:
-
 ```
 duplicate_policy=[
     duplicate_rule(pattern="^META-INF/services", action="concat_text"),
     duplicate_rule(pattern="^reference\.conf", action="concat_text"),
     duplicate_rule(pattern="^org/apache/commons", action="throw"),
 ]
+
 ```
 
 Where:
 
-- The `pattern` field is treated as a regular expression
-- The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
+* The `pattern` field is treated as a regular expression
+* The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
 
 Note that the order in which the rules are listed is relevant.
 
 </Field>
-
 ## `shading_rules`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[pants.jvm.target_types.JvmShadingRule] | None`}
+    default_repr={`None`}
 >
 
 Shading rules to be applied to the final JAR artifact.
 
 There are 4 possible shading rules available, which are as follows:
-
-- `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
-- `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
-- `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
-- `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
+  * `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
+  * `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
+  * `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
+  * `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
 
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 
 </Field>
-
 ## `exclude_files`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 A list of patterns to exclude from the final jar.

@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The PEX (Python EXecutable) tool (https://github.com/pantsbuild/pex).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[download-pex-bin]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[download-pex-bin]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[download-pex-bin]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -41,20 +42,19 @@ Use this version of pex.
   default_repr={`[\n  "v2.1.42|darwin|69d6b1b1009b00dd14a3a9f19b72cff818a713ca44b3186c9b12074b2a31e51f|3613838",\n  "v2.1.42|linux|69d6b1b1009b00dd14a3a9f19b72cff818a713ca44b3186c9b12074b2a31e51f|3613838"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [darwin,linux],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [darwin,linux],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```
@@ -62,6 +62,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|darwin|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -98,5 +99,6 @@ For example, if you define `{"darwin": "apple-darwin", "linux": "unknown-linux"}
 ## Deprecated options
 
 None
+
 
 </span>

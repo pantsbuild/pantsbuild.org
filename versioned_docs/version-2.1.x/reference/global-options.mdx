@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options to control the overall behavior of Pants.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[GLOBAL]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[GLOBAL]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `level`
 
@@ -104,6 +105,7 @@ Run goals continuously as file changes are detected. Alpha feature.
 
 ## Advanced options
 
+
 ### `backend_packages`
 
 <Option
@@ -174,7 +176,7 @@ Display the target where a log message originates in that log message&#x27;s out
   default_repr={`{}`}
 >
 
-Set a more specific logging level for one or more logging targets. The names of logging targets are specified in log strings when the --show-log-target option is set. The logging levels are one of: &quot;error&quot;, &quot;warn&quot;, &quot;info&quot;, &quot;debug&quot;, &quot;trace&quot;. All logging targets not specified here use the global log level set with --level. For example, you can set `--log-levels-by-target='{"workunit_store": "info", "pants.engine.rules": "warn"}'`.
+Set a more specific logging level for one or more logging targets. The names of logging targets are specified in log strings when the --show-log-target option is set. The logging levels are one of: &#x22;error&#x22;, &#x22;warn&#x22;, &#x22;info&#x22;, &#x22;debug&#x22;, &#x22;trace&#x22;. All logging targets not specified here use the global log level set with --level. For example, you can set `--log-levels-by-target='{"workunit_store": "info", "pants.engine.rules": "warn"}'`.
 
 </Option>
 
@@ -198,7 +200,7 @@ Whether to show/hide logging done by 3rdparty Rust crates used by the Pants engi
   default_repr={`[]`}
 >
 
-Regexps matching warning strings to ignore, e.g. [&quot;DEPRECATED: the option `--my-opt` will be removed&quot;]. The regex patterns will be matched from the start of the warning string, and are case-insensitive.
+Regexps matching warning strings to ignore, e.g. [&#x22;DEPRECATED: the option `--my-opt` will be removed&#x22;]. The regex patterns will be matched from the start of the warning string, and are case-insensitive.
 
 </Option>
 
@@ -259,7 +261,7 @@ Unused. Will be deprecated in 2.2.0.
 <Option
   cli_repr={`--pants-workdir=<dir>`}
   env_repr='PANTS_WORKDIR'
-  default_repr={`<buildroot>/.pants.d`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pants.d`}
 >
 
 Write intermediate logs and output files to this dir.
@@ -283,7 +285,7 @@ When set, a base directory in which to store `--pants-workdir` contents. If this
 <Option
   cli_repr={`--pants-supportdir=<dir>`}
   env_repr='PANTS_SUPPORTDIR'
-  default_repr={`<buildroot>/build-support`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/build-support`}
 >
 
 Unused. Will be deprecated in 2.2.0.
@@ -295,7 +297,7 @@ Unused. Will be deprecated in 2.2.0.
 <Option
   cli_repr={`--pants-distdir=<dir>`}
   env_repr='PANTS_DISTDIR'
-  default_repr={`<buildroot>/dist`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/dist`}
 >
 
 Write end products, such as the results of `./pants package`, to this dir.
@@ -307,7 +309,7 @@ Write end products, such as the results of `./pants package`, to this dir.
 <Option
   cli_repr={`--pants-subprocessdir=<str>`}
   env_repr='PANTS_SUBPROCESSDIR'
-  default_repr={`<buildroot>/.pids`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pids`}
 >
 
 The directory to use for tracking subprocess metadata. This should live outside of the dir used by `pants_workdir` to allow for tracking subprocesses that outlive the workdir data.
@@ -319,7 +321,9 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`["/tmp/tmp.MpwSc5OGVo/pants.toml"]`}
+  default_repr={`[
+  "/tmp/tmp.MpwSc5OGVo/pants.toml"
+]`}
 >
 
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
@@ -547,7 +551,7 @@ Directory to use for named global caches for tools and processes with trusted, c
 <Option
   cli_repr={`--local-execution-root-dir=<str>`}
   env_repr='PANTS_LOCAL_EXECUTION_ROOT_DIR'
-  default_repr={`/tmp`}
+  default_repr={`<buildroot>`}
 >
 
 Directory to use for local process execution sandboxing. The path may be absolute or relative. If the directory is within the build root, be sure to include it in `--pants-ignore`.
@@ -634,7 +638,7 @@ The cache namespace for process execution. Change this value to invalidate every
   default_repr={`1.0`}
 >
 
-Number of seconds to wait before speculating a second request for a slow process. see `--process-execution-speculation-strategy`
+Number of seconds to wait before speculating a second request for a slow process.  see `--process-execution-speculation-strategy`
 
 </Option>
 
@@ -1000,11 +1004,12 @@ Interval in seconds between when streaming workunit event receivers will be poll
   default_repr={`[]`}
 >
 
-Use this option to name Subsystems which will receive streaming workunit events. For instance, `--streaming-workunits-handlers="['pants.reporting.workunit.Workunits']"` will register a Subsystem called Workunits defined in the module &quot;pants.reporting.workunit&quot;.
+Use this option to name Subsystems which will receive streaming workunit events. For instance, `--streaming-workunits-handlers="['pants.reporting.workunit.Workunits']"` will register a Subsystem called Workunits defined in the module &#x22;pants.reporting.workunit&#x22;.
 
 </Option>
 
 ## Deprecated options
+
 
 ### `pants_distdir_legacy_paths`
 
@@ -1033,5 +1038,6 @@ If true, will write paths for artifacts built with `./pants package` using only 
 The cache namespace for remote process execution. Bump this to invalidate every artifact&#x27;s remote execution. This is the remote execution equivalent of the legacy cache-key-gen-version flag.
 
 </Option>
+
 
 </span>

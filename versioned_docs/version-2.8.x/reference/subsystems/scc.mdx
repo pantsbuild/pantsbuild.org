@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Succinct Code Counter, aka `scc` (https://github.com/boyter/scc).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[scc]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[scc]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `args`
 
@@ -30,6 +31,7 @@ Arguments to pass directly to SCC, e.g. `--count-loc-args="--no-cocomo"`. Refer 
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -51,20 +53,19 @@ Use this version of succinctcodecounter.
   default_repr={`[\n  "3.0.0|macos_arm64 |846cb1b25025a0794d455719bc17cfb3f588576a58af1d95036f6c654e294f98|2006145",\n  "3.0.0|macos_x86_64|9c3064e477ab36e16204ad34f649372034bca4df669615eff5de4aa05b2ddf1a|2048134",\n  "3.0.0|linux_arm64 |04f9e797b70a678833e49df5e744f95080dfb7f963c0cd34f5b5d4712d290f33|1768037",\n  "3.0.0|linux_x86_64|13ca47ce00b5bd032f97f3af7aa8eb3c717b8972b404b155a378b09110e4aa0c|1948341"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```
@@ -72,6 +73,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -84,9 +86,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of succinctcodecounter is not supported.
 
 Supported succinctcodecounter versions: unspecified
+
 
 </Option>
 
@@ -123,5 +127,6 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 ## Deprecated options
 
 None
+
 
 </span>

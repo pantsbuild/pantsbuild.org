@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Google Java Format (https://github.com/google/google-java-format)
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[google-java-format]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[google-java-format]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -37,11 +38,12 @@ Don&#x27;t use Google Java Format when running `/home/josh/work/scie-pants/dist/
   default_repr={`False`}
 >
 
-Use AOSP style instead of Google Style (4-space indentation). (&quot;AOSP&quot; is the Android Open Source Project.)
+Use AOSP style instead of Google Style (4-space indentation). (&#x22;AOSP&#x22; is the Android Open Source Project.)
 
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -60,7 +62,9 @@ Version string for the tool. This is available for substitution in the `[google-
 <Option
   cli_repr={`--google-java-format-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOOGLE_JAVA_FORMAT_ARTIFACTS'
-  default_repr={`["com.google.googlejavaformat:google-java-format:{version}"]`}
+  default_repr={`[
+  "com.google.googlejavaformat:google-java-format:{version}"
+]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[google-java-format].version` option.
@@ -81,10 +85,13 @@ Set to the string `<default>` to use a lockfile provided by Pants, so long as yo
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants jvm-generate-lockfiles --resolve=google-java-format`.
 
+
+
 </Option>
 
 ## Deprecated options
 
 None
+
 
 </span>

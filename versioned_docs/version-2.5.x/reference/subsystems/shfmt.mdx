@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 An autoformatter for shell scripts (https://github.com/mvdan/sh).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[shfmt]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[shfmt]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.&#x27;
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -63,20 +65,19 @@ Use this version of shfmt.
   default_repr={`[\n  "v3.2.4|darwin|43a0461a1b54070ddc04fbbf1b78f7861ee39a65a61f5466d15a39c4aba4f917|2980208",\n  "v3.2.4|linux|3f5a47f8fec27fae3e06d611559a2063f5d27e4b9501171dde9959b8c60a3538|2797568"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [darwin,linux],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [darwin,linux],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```
@@ -84,6 +85,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|darwin|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -132,5 +134,6 @@ If true, Pants will include all relevant `.editorconfig` files during runs. See 
 ## Deprecated options
 
 None
+
 
 </span>

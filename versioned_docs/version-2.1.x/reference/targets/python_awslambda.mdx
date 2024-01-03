@@ -20,77 +20,78 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 A list of files and globs that belong to this target. Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 </Field>
-
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7._&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7._', 'CPython==3.7.\*']`means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option`[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.*&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option `[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located. If undefined, this will use the path to the the BUILD, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`). Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `handler`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 AWS Lambda handler entrypoint (module.dotted.name:handler_func).
 
 </Field>
-
 ## `runtime`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.

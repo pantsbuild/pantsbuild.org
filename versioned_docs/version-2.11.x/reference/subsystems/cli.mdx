@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for configuring CLI behavior, such as command line aliases.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[cli]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[cli]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `alias`
 
@@ -27,11 +28,11 @@ Config section: <span className="color--primary">`[cli]`</span>
 
 Register command line aliases.
 Example:
-
 ```
 [cli.alias]
 green = "fmt lint check"
 all-changed = "--changed-since=HEAD --changed-dependees=transitive"
+
 ```
 
 This would allow you to run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 green all-changed`, which is shorthand for `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt lint check --changed-since=HEAD --changed-dependees=transitive`.
@@ -47,5 +48,6 @@ None
 ## Deprecated options
 
 None
+
 
 </span>

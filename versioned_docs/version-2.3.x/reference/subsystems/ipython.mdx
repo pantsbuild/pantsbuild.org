@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The IPython enhanced REPL (https://ipython.org/).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[ipython]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[ipython]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[ipython]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -69,12 +70,13 @@ Whether to tell IPython not to put the CWD on the import path.
 
 Normally you want this to be True, so that imports come from the hermetic environment Pants creates.
 
-However IPython&lt;7.13.0 doesn&#x27;t support this option, so if you&#x27;re using an earlier version (e.g., because you have Python 2.7 code) then you will need to set this to False, and you may have issues with imports from your CWD shading the hermetic environment.
+However IPython&#x3C;7.13.0 doesn&#x27;t support this option, so if you&#x27;re using an earlier version (e.g., because you have Python 2.7 code) then you will need to set this to False, and you may have issues with imports from your CWD shading the hermetic environment.
 
 </Option>
 
 ## Deprecated options
 
 None
+
 
 </span>

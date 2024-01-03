@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -26,11 +27,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -38,11 +39,11 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -56,11 +57,11 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -74,11 +75,11 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -88,11 +89,11 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
-
 ## `run_goal_use_sandbox`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether to use a sandbox when `run`ning this target. Defaults to `[python].run_goal_use_sandbox`.
@@ -103,16 +104,16 @@ If false, runs of this target with the `run` goal will use the in-repo sources d
 
 Note that this field only applies when running a target with the `run` goal. No other goals (such as `test`, if applicable) consult this field.
 
-The former mode is more hermetic, and is closer to building and running the source as it were packaged in a `pex_binary`. Additionally, it may be necessary if your sources depend transitively on &quot;generated&quot; files which will be materialized in the sandbox in a source root, but are not in-repo.
+The former mode is more hermetic, and is closer to building and running the source as it were packaged in a `pex_binary`. Additionally, it may be necessary if your sources depend transitively on &#x22;generated&#x22; files which will be materialized in the sandbox in a source root, but are not in-repo.
 
 The latter mode is similar to creating, activating, and using a virtual environment when running your files. It may also be necessary if the source being run writes files into the repo and computes their location relative to the executed files. Django&#x27;s `makemigrations` command is an example of such a process.
 
 </Field>
-
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -120,22 +121,20 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
-
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
-
 ## `skip_pytype`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.typecheck.pytype"
 >
@@ -143,11 +142,10 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 If true, don&#x27;t run pytype on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pydocstyle`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pydocstyle"
 >
@@ -155,11 +153,10 @@ If true, don&#x27;t run pytype on this target&#x27;s code.
 If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 </Field>
-
 ## `skip_black`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.black"
 >
@@ -167,11 +164,10 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
-
 ## `skip_ruff`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.lint.ruff"
 >
@@ -179,11 +175,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run ruff on this target&#x27;s code.
 
 </Field>
-
 ## `skip_add_trailing_comma`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
@@ -191,11 +186,10 @@ If true, don&#x27;t run ruff on this target&#x27;s code.
 If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 
 </Field>
-
 ## `skip_flake8`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.flake8"
 >
@@ -203,11 +197,10 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
-
 ## `skip_isort`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.isort"
 >
@@ -215,11 +208,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
-
 ## `skip_bandit`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.bandit"
 >
@@ -227,11 +219,10 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
-
 ## `skip_autoflake`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.autoflake"
 >
@@ -239,11 +230,10 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
-
 ## `skip_mypy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >
@@ -251,11 +241,10 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
-
 ## `skip_docformatter`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.docformatter"
 >
@@ -263,11 +252,10 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pyupgrade`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pyupgrade"
 >
@@ -275,11 +263,10 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
-
 ## `skip_yapf`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.yapf"
 >
@@ -287,11 +274,10 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pylint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pylint"
 >

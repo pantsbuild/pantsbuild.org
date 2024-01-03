@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A formatter for Python files (https://github.com/google/yapf).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[yapf]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[yapf]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -45,6 +46,7 @@ Certain arguments, specifically `--recursive`, `--in-place`, and `--parallel`, w
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -61,7 +63,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `yapf` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `yapf` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -88,7 +90,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--yapf-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAPF_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -150,5 +154,6 @@ Use `[yapf].config` instead if your config is in a non-standard location.
 ## Deprecated options
 
 None
+
 
 </span>

@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The pytest Python test framework (https://docs.pytest.org/).
 
-Backend: <span className="color--primary">`pants.backend.python`</span>
-
-Config section: <span className="color--primary">`[pytest]`</span>
+Backend: <span className="color--primary">pants.backend.python</span>
+Config section: <span className="color--primary">[pytest]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `args`
 
@@ -57,6 +58,7 @@ If true, don&#x27;t use Pytest when running `scie-pants-linux-x86_64 test`.
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -73,7 +75,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `pytest` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pytest` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -171,6 +173,7 @@ Use `[pytest].config` instead if your config is in a non-standard location.
 
 ## Deprecated options
 
+
 ### `version`
 
 <Option
@@ -234,5 +237,6 @@ If true, export a virtual environment with Pytest when running `scie-pants-linux
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
+
 
 </span>

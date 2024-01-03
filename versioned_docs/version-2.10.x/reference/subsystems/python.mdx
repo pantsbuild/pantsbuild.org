@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for Pants&#x27;s Python backend.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[python]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[python]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `macos_big_sur_compatibility`
 
@@ -31,17 +32,20 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 
 ## Advanced options
 
+
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6,<4"]`}
+  default_repr={`[
+  "CPython>=3.6,<4"
+]`}
 >
 
 The Python interpreters your codebase is compatible with.
 
-Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
@@ -62,6 +66,8 @@ This is used by Pants to robustly handle interpreter constraints, such as knowin
 This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/v2.10/docs/python-interpreter-compatibility.
 
 All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or &#x27;3.10&#x27;. Do not include the patch version.
+
+
 
 </Option>
 
@@ -111,13 +117,13 @@ Warning: you may have issues with generating valid lockfiles via the `generate-l
 
 Several users have also had issues with how Poetry&#x27;s lockfile generation handles environment markers for transitive dependencies; certain dependencies end up with nonsensical environment markers which cause the dependency to not be installed, then for Pants/Pex to complain the dependency is missing, even though it&#x27;s in the lockfile. The workaround is to manually create a `python_requirement` target for the problematic transitive dependencies so that they are seen as direct requirements, rather than transitive, then to regenerate the lockfile with `generate-lockfiles`.
 
-We are working to fix these issues by using PEX &amp; pip to generate the lockfile.
+We are working to fix these issues by using PEX &#x26; pip to generate the lockfile.
 
 Outside of the above issues with lockfile generation, we believe this feature is stable. It offers three major benefits compared to `[python].requirement_constraints`:
 
-1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
-2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
-3. Allows you to have multiple resolves in your repository.
+  1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
+  2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
+  3. Allows you to have multiple resolves in your repository.
 
 Mutually exclusive with `[python].requirement_constraints`.
 
@@ -128,7 +134,9 @@ Mutually exclusive with `[python].requirement_constraints`.
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{"python-default": "3rdparty/python/default.lock"}`}
+  default_repr={`{
+  "python-default": "3rdparty/python/default.lock"
+}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
@@ -139,11 +147,11 @@ If you only need a single resolve, run `./pants generate-lockfiles` to generate 
 
 If you need multiple resolves:
 
-1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
-2. Set the default with `[python].default_resolve`.
-3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-4. Run `./pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
-5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
+  1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
+  2. Set the default with `[python].default_resolve`.
+  3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
+  4. Run `./pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+  5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
 If a target can work with multiple resolves, create a distinct target per resolve. This will be made more ergonomic in an upcoming Pants release through a new `parametrize` feature.
 
@@ -227,9 +235,8 @@ If you set this to False, Pants will not attempt to validate the metadata header
 If enabled, when running binaries, tests, and REPLs, Pants will use the entire lockfile file instead of just the relevant subset.
 
 This can improve performance and reduce cache size, but has two consequences:
-
-1. All cached test results will be invalidated if any requirement in the lockfile changes, rather than just those that depend on the changed requirement.
-2. Requirements unneeded by a test/run/repl will be present on the sys.path, which might in rare cases cause their behavior to change.
+  1) All cached test results will be invalidated if any requirement in the lockfile changes, rather than just those that depend on the changed requirement.
+  2) Requirements unneeded by a test/run/repl will be present on the sys.path, which might in rare cases cause their behavior to change.
 
 This option does not affect packaging deployable artifacts, such as PEX files, wheels and cloud functions, which will still use just the exact subset of requirements needed.
 
@@ -287,6 +294,7 @@ Tailor pex_binary() targets for Python entry point files.
 
 ## Deprecated options
 
+
 ### `experimental_lockfile`
 
 <Option
@@ -313,10 +321,11 @@ Deprecated.
 
 The maximum number of concurrent jobs to build wheels with.
 
-Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`.
+Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`. 
 
 Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
 </Option>
+
 
 </span>

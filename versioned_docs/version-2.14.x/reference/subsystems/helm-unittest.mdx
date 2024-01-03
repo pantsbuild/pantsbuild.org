@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 BDD styled unit test framework for Kubernetes Helm charts as a Helm plugin. (https://github.com/quintush/helm-unittest)
 
-Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
-
-Config section: <span className="color--primary">`[helm-unittest]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.helm</span>
+Config section: <span className="color--primary">[helm-unittest]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `color`
 
@@ -44,6 +45,7 @@ Output type used for the test report.
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -64,10 +66,10 @@ Use this version of helmunittestsubsystem.
   default_repr={`[\n  "0.2.8|linux_x86_64|d7c452559ad4406a1197435394fbcffe51198060de1aa9b4cb6feaf876776ba0|18299096",\n  "0.2.8|linux_arm64 |c793e241b063f0540ad9b4acc0a02e5a101bd9daea5bdf4d8562e9b2337fedb2|16943867",\n  "0.2.8|macos_x86_64|1dc95699320894bdebf055c4f4cc084c2cfa0133d3cb7fd6a4c0adca94df5c96|18161928",\n  "0.2.8|macos_arm64 |436e3167c26f71258b96e32c2877b4f97c051064db941de097cf3db2fc861342|17621648"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -75,11 +77,13 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
+
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -92,9 +96,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of helmunittestsubsystem is not supported.
 
 Supported helmunittestsubsystem versions: unspecified
+
 
 </Option>
 
@@ -131,5 +137,6 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 ## Deprecated options
 
 None
+
 
 </span>

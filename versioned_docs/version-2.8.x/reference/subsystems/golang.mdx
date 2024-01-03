@@ -7,29 +7,32 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for Golang support.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[golang]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[golang]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `go_search_paths`
 
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[
+  "<PATH>"
+]`}
 >
 
 A list of paths to search for Go.
 
 Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
 
-The special string &#x27;&lt;PATH&gt;&#x27; will expand to the contents of the PATH env var.
+The special string &#x27;&#x3C;PATH&#x3E;&#x27; will expand to the contents of the PATH env var.
 
 </Option>
 
@@ -56,5 +59,6 @@ None
 ## Deprecated options
 
 None
+
 
 </span>

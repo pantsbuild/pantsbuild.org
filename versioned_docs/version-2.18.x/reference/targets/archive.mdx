@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.core`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -26,11 +27,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -38,11 +39,11 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -54,11 +55,11 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `packages`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to any targets that can be built with `scie-pants-linux-x86_64 package`, e.g. `["project:app"]`.
@@ -68,11 +69,11 @@ Pants will build the assets as if you had run `scie-pants-linux-x86_64 package`.
 You can include anything that can be built by `scie-pants-linux-x86_64 package`, e.g. a `pex_binary`, `python_aws_lambda_function`, or even another `archive`.
 
 </Field>
-
 ## `files`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to any `file`, `files`, or `relocated_files` targets to include in the archive, e.g. `["resources:logo"]`.
@@ -84,11 +85,11 @@ This will ignore any targets that are not `file`, `files`, or `relocated_files` 
 If you instead want those files included in any packages specified in the `packages` field for this target, then use a `resource` or `resources` target and have the original package depend on the resources.
 
 </Field>
-
 ## `format`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'tar' | 'tar.bz2' | 'tar.gz' | 'tar.xz' | 'zip'`}
+    default_repr={`None`}
 >
 
 The type of archive file to be generated.

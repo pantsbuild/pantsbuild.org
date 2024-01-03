@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 shUnit2 is a xUnit framework for Bourne based shell scripts (https://github.com/kward/shunit2)
 
-Backend: <span className="color--primary">`pants.backend.shell`</span>
-
-Config section: <span className="color--primary">`[shunit2]`</span>
+Backend: <span className="color--primary">pants.backend.shell</span>
+Config section: <span className="color--primary">[shunit2]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -30,6 +31,7 @@ If true, don&#x27;t use shunit2 when running `scie-pants-linux-x86_64 test`.
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -51,10 +53,10 @@ Use this version of shunit2.
   default_repr={`[\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -62,11 +64,13 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
+
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -79,9 +83,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of shunit2 is not supported.
 
 Supported shunit2 versions: unspecified
+
 
 </Option>
 
@@ -118,5 +124,6 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 ## Deprecated options
 
 None
+
 
 </span>

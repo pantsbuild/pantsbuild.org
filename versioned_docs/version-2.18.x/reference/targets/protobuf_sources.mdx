@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -26,11 +27,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -38,11 +39,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*.proto',)`}
 >
 
@@ -53,11 +53,11 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.proto', 'new_*.proto', '!old_ignore*.proto']`
 
 </Field>
-
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `protobuf_source` targets.
@@ -65,13 +65,13 @@ Override the field values for generated `protobuf_source` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-
 ```
 overrides={
     "foo.proto": {"grpc": True},
     "bar.proto": {"description": "our user model"},
     ("foo.proto", "bar.proto"): {"tags": ["overridden"]},
 }
+
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -81,11 +81,10 @@ If you&#x27;d like to override a field&#x27;s value for every `protobuf_source` 
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
-
 ## `skip_buf_lint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.codegen.protobuf.lint.buf"
 >
@@ -93,11 +92,11 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 </Field>
-
 ## `python_source_root`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.protobuf.python"
 >
 
@@ -106,22 +105,21 @@ The source root to generate Python sources under.
 If unspecified, the source root the `protobuf_sources` is under will be used.
 
 </Field>
-
 ## `jvm_jdk`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
-
 ## `skip_buf_format`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.codegen.protobuf.lint.buf"
 >
@@ -129,11 +127,11 @@ The major version of the JDK that this target should be built with. If not defin
 If true, don&#x27;t run `buf format` on this target&#x27;s code.
 
 </Field>
-
 ## `python_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.protobuf.python"
 >
 
@@ -144,11 +142,11 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
-
 ## `python_interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.protobuf.python"
 >
 
@@ -163,11 +161,11 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.18/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
-
 ## `go_mod_address`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.codegen.protobuf.go"
 >
 
@@ -178,11 +176,11 @@ This field is similar to the `resolve` field used in the Python and JVM backends
 If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
 
 </Field>
-
 ## `jvm_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
@@ -191,22 +189,21 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
-
 ## `grpc`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 Whether to generate gRPC code or not.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.

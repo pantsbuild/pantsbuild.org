@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -26,11 +27,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -38,31 +39,31 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `chart`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The address of the `helm_chart` or `helm_artifact` that will be used for this deployment.
 
 </Field>
-
 ## `release_name`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Name of the release used in the deployment. If not set, the target name will be used instead.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -76,49 +77,46 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*.yaml', '*.yml')`}
 >
 
 Helm configuration files for a given deployment.
 
 </Field>
-
 ## `namespace`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Kubernetes namespace for the given deployment.
 
 </Field>
-
 ## `skip_crds`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, then does not deploy the Custom Resource Definitions that are defined in the chart.
 
 </Field>
-
 ## `values`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, str] | None`}
+    default_repr={`None`}
 >
 
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
-
 ```
 helm_deployment(
     values={
@@ -126,6 +124,7 @@ helm_deployment(
         "image.pullPolicy": "Always",
     },
 )
+
 ```
 
 Values can be dynamically calculated using interpolation as shown in the following example:
@@ -136,37 +135,37 @@ helm_deployment(
         "configmap.deployedAt": f"{env('DEPLOY_TIME')}",
     },
 )
+
 ```
 
 Check the Helm backend documentation on what are the options available and its caveats when making usage of dynamic values in your deployments.
 
 </Field>
-
 ## `no_hooks`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, none of the lifecycle hooks of the given chart will be included in the deployment.
 
 </Field>
-
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 Timeout in seconds when running a Helm deployment.
 
 </Field>
-
 ## `post_renderers`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 List of runnable targets to be used to post-process the helm chart after being rendered by Helm.
@@ -176,11 +175,10 @@ This is equivalent to the same post-renderer feature already available in Helm w
 When more than one post-renderer is given, they will be combined into a single one in which the input of each of them would be output of the previous one.
 
 </Field>
-
 ## `enable_dns`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

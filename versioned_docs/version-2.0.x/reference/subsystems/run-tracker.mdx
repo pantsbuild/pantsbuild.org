@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Tracks and times the execution of a pants run.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[run-tracker]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[run-tracker]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[run-tracker]`</span>
 None
 
 ## Advanced options
+
 
 ### `stats_local_json_file`
 
@@ -41,11 +42,12 @@ Write stats to this local json file on run completion.
   default_repr={`[]`}
 >
 
-Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
+Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
 
 </Option>
 
 ## Deprecated options
+
 
 ### `stats_upload_urls`
 
@@ -57,7 +59,7 @@ Option scopes to record in stats on run completion. Options may be selected by j
   removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
 >
 
-Upload stats to these URLs on run completion. Value is a map from URL to the name of the auth provider the user must auth against in order to upload stats to that URL, or None/empty string if no auth is required. Currently the auth provider name is only used to provide a more helpful error message.
+Upload stats to these URLs on run completion.  Value is a map from URL to the name of the auth provider the user must auth against in order to upload stats to that URL, or None/empty string if no auth is required.  Currently the auth provider name is only used to provide a more helpful error message.
 
 </Option>
 
@@ -117,5 +119,6 @@ Number of threads for foreground work.
 Number of threads for background work.
 
 </Option>
+
 
 </span>

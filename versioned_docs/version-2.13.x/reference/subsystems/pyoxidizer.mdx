@@ -7,17 +7,18 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The PyOxidizer utility for packaging Python code in a Rust binary (https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer.html).
 
 Used with the `pyoxidizer_binary` target.
 
-Backend: <span className="color--primary">`pants.backend.experimental.python.packaging.pyoxidizer`</span>
-
-Config section: <span className="color--primary">`[pyoxidizer]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.python.packaging.pyoxidizer</span>
+Config section: <span className="color--primary">[pyoxidizer]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `args`
 
@@ -32,6 +33,7 @@ Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args='--release'`.
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -62,7 +64,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.8,<4"]`}
+  default_repr={`[
+  "CPython>=3.8,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -96,5 +100,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 ## Deprecated options
 
 None
+
 
 </span>

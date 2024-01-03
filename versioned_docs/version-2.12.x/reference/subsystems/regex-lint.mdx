@@ -7,19 +7,20 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Lint your code using regex patterns, e.g. to check for copyright headers.
 
 To activate this with the `lint` goal, you must set `[regex-lint].config`.
 
 Unlike other linters, this can run on files not owned by targets, such as BUILD files. To run on those, use `lint '**'` rather than `lint ::`, for example. Unfortunately, `--changed-since=<sha>` does not yet cause this linter to run. We are exploring how to improve both these gotchas.
 
-Backend: <span className="color--primary">`pants.backend.project_info`</span>
-
-Config section: <span className="color--primary">`[regex-lint]`</span>
+Backend: <span className="color--primary">pants.backend.project_info</span>
+Config section: <span className="color--primary">[regex-lint]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `config`
 
@@ -30,7 +31,6 @@ Config section: <span className="color--primary">`[regex-lint]`</span>
 >
 
 Config schema is as follows:
-
 ```
 {
 'required_matches': {
@@ -84,5 +84,6 @@ None
 ## Deprecated options
 
 None
+
 
 </span>

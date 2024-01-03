@@ -13,13 +13,13 @@ pants test [args]
 
 Run tests.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[test]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[test]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `debug`
 
@@ -118,7 +118,7 @@ Additional environment variables to include in test processes. Entries are strin
   default_repr={``}
 >
 
-A shard specification of the form &quot;k/N&quot;, where N is a positive integer and k is a non-negative integer less than N.
+A shard specification of the form &#x22;k/N&#x22;, where N is a positive integer and k is a non-negative integer less than N.
 
 If set, the request input targets will be deterministically partitioned into N disjoint subsets of roughly equal size, and only the k&#x27;th subset will be used, with all others discarded.
 
@@ -129,6 +129,7 @@ Note that the shards are roughly equal in size as measured by number of files. N
 </Option>
 
 ## Advanced options
+
 
 ### `report`
 
@@ -158,9 +159,5 @@ Path to write test reports to. Must be relative to the build root.
 
 None
 
-## Related subsystems
-
-- [debug-adapter](../subsystems/debug-adapter.mdx)
-- [filter](../goals/filter.mdx)
 
 </span>

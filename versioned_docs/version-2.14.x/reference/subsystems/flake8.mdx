@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Flake8 Python linter (https://flake8.pycqa.org/).
 
-Backend: <span className="color--primary">`pants.backend.python.lint.flake8`</span>
-
-Config section: <span className="color--primary">`[flake8]`</span>
+Backend: <span className="color--primary">pants.backend.python.lint.flake8</span>
+Config section: <span className="color--primary">[flake8]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -56,6 +57,7 @@ This can be useful, for example, with IDE integrations to point your editor to t
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -148,7 +150,6 @@ Setting this option will disable `[flake8].config_discovery`. Use this option if
 >
 
 Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
-
 ```
         like including config files for the `flake8-bandit` plugin.
 ```
@@ -184,7 +185,6 @@ You must set the plugin&#x27;s parent directory as a source root. For example, i
 You must also set `[flake8:local-plugins]` in your Flake8 config file.
 
 For example:
-
 ```
 [flake8:local-plugins]
     extension =
@@ -202,5 +202,6 @@ Tip: it&#x27;s often helpful to define a dedicated &#x27;resolve&#x27; via `[pyt
 ## Deprecated options
 
 None
+
 
 </span>

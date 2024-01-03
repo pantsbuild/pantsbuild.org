@@ -24,7 +24,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.python`</s
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,11 +33,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,11 +45,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `tag_regex`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'^(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$'`}
 >
 
@@ -61,11 +61,11 @@ Note that this is unrelated to the tags field and Pants&#x27;s own tags concept.
 See https://github.com/pypa/setuptools_scm for implementation details.
 
 </Field>
-
 ## `generate_to`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Generate the version data to this relative path, using the template field.
@@ -73,11 +73,11 @@ Generate the version data to this relative path, using the template field.
 Note that the generated output will not be written to disk in the source tree, but will be available as a generated dependency to code that depends on this target.
 
 </Field>
-
 ## `template`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Generate the version data using this format string, which takes a version format kwarg.
@@ -85,11 +85,11 @@ Generate the version data using this format string, which takes a version format
 E.g., `'version = "{version}"'`
 
 </Field>
-
 ## `python_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.python"
 >
 

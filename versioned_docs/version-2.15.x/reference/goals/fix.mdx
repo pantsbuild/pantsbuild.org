@@ -13,13 +13,13 @@ pants fix [args]
 
 Autofix source code.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[fix]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[fix]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `only`
 
@@ -53,6 +53,7 @@ FYI: when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fix f
 
 ## Advanced options
 
+
 ### `batch_size`
 
 <Option
@@ -64,11 +65,11 @@ FYI: when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fix f
 The target number of files to be included in each fixer batch.
 
 Fixer processes are batched for a few reasons:
-
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch.
 3. to allow for parallelism in fixer processes which don't have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly.
+
 ```
 
 In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a "target" batch size (rather than an exact value).
@@ -79,9 +80,5 @@ In order to improve cache hit rates (see 2.), batches are created at stable boun
 
 None
 
-## Related subsystems
-
-- [environments-preview](../subsystems/environments-preview.mdx)
-- [filter](../subsystems/filter.mdx)
 
 </span>

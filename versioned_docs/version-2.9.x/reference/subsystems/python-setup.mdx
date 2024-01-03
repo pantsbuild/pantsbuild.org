@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for Pants&#x27;s Python backend.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[python-setup]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[python-setup]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `macos_big_sur_compatibility`
 
@@ -31,17 +32,20 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 
 ## Advanced options
 
+
 ### `interpreter_constraints`
 
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6,<4"]`}
+  default_repr={`[
+  "CPython>=3.6,<4"
+]`}
 >
 
 The Python interpreters your codebase is compatible with.
 
-Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
@@ -62,6 +66,8 @@ This is used by Pants to robustly handle interpreter constraints, such as knowin
 This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/v2.9/docs/python-interpreter-compatibility.
 
 All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or &#x27;3.10&#x27;. Do not include the patch version.
+
+
 
 </Option>
 
@@ -184,7 +190,7 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 
 The maximum number of concurrent jobs to build wheels with.
 
-Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`.
+Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`. 
 
 Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
@@ -230,6 +236,7 @@ Tailor pex_binary() targets for Python entry point files.
 
 ## Deprecated options
 
+
 ### `interpreter_search_paths`
 
 <Option
@@ -246,13 +253,14 @@ You can specify absolute paths to interpreter binaries and/or to directories con
 
 The following special strings are supported:
 
-- `<PATH>`, the contents of the PATH env var
-- `<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-- `<ASDF_LOCAL>`, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
-- `<PYENV>`, all Python versions under $(pyenv root)/versions
-- `<PYENV_LOCAL>`, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-- `<PEXRC>`, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+* `<PATH>`, the contents of the PATH env var
+* `<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+* `<ASDF_LOCAL>`, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
+* `<PYENV>`, all Python versions under $(pyenv root)/versions
+* `<PYENV_LOCAL>`, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+* `<PEXRC>`, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
 
 </Option>
+
 
 </span>

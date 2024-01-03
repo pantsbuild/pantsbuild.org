@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Python import sorter tool (https://pycqa.github.io/isort/).
 
-Backend: <span className="color--primary">`pants.backend.python.lint.isort`</span>
-
-Config section: <span className="color--primary">`[isort]`</span>
+Backend: <span className="color--primary">pants.backend.python.lint.isort</span>
+Config section: <span className="color--primary">[isort]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to isort, e.g. `--isort-args='--case-sensitive --trai
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -59,7 +61,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `isort` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `isort` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +88,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -150,5 +154,6 @@ Use `[isort].config` instead if your config is in a non-standard location.
 ## Deprecated options
 
 None
+
 
 </span>

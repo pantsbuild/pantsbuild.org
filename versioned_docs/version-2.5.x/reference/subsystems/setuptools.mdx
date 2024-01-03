@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Python setuptools library (https://github.com/pypa/setuptools).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[setuptools]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[setuptools]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[setuptools]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -38,7 +39,9 @@ Requirement string for the tool.
 <Option
   cli_repr={`--setuptools-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS'
-  default_repr={`["wheel>=0.35.1,<0.37"]`}
+  default_repr={`[
+  "wheel>=0.35.1,<0.37"
+]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -48,5 +51,6 @@ Any additional requirement strings to use with the tool. This is useful if the t
 ## Deprecated options
 
 None
+
 
 </span>

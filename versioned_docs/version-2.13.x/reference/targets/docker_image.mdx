@@ -16,7 +16,6 @@ By default, will use a Dockerfile from the same directory as the BUILD file this
 Dependencies on upstream/base images defined by another `docker_image` are inferred if referenced by a build argument with a default value of the target address.
 
 Example:
-
 ```
 # src/docker/downstream/Dockerfile
 ARG BASE=src/docker/upstream:image
@@ -33,7 +32,8 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -41,11 +41,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -53,11 +53,10 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `extra_build_args`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -66,11 +65,11 @@ Build arguments (`--build-arg`) to use when building this image. Entries are eit
 Use `[docker].build_args` to set default build args for all images.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -84,11 +83,10 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'Dockerfile'`}
 >
 
@@ -97,11 +95,11 @@ The Dockerfile to use when building the Docker image.
 Use the `instructions` field instead if you prefer not having the Dockerfile in your source tree.
 
 </Field>
-
 ## `instructions`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The `Dockerfile` content, typically one instruction per list item.
@@ -109,7 +107,6 @@ The `Dockerfile` content, typically one instruction per list item.
 Use the `source` field instead if you prefer having the Dockerfile in your source tree.
 
 Example:
-
 ```
 # example/BUILD
 docker_image(
@@ -121,11 +118,11 @@ docker_image(
 ```
 
 </Field>
-
 ## `context_root`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Specify which directory to use as the Docker build context root. This affects the file paths to use for the `COPY` and `ADD` instructions. For example, whether `COPY files/f.txt` should look for the file relative to the build root: `<build root>/files/f.txt` vs relative to the BUILD file: `<build root>/path_to_build_file/files/f.txt`.
@@ -135,13 +132,13 @@ Specify the `context_root` path as `files` for relative to build root, or as `./
 If `context_root` is not specified, it defaults to `[docker].default_context_root`.
 
 </Field>
-
 ## `image_tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('latest',)`}
 >
+
 
 Any tags to apply to the Docker image name (the version is usually applied as a tag).
 
@@ -150,11 +147,10 @@ tag may use placeholders in curly braces to be interpolated. The placeholders ar
 See https://www.pantsbuild.org/v2.13/docs/tagging-docker-images.
 
 </Field>
-
 ## `registries`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('<all default registries>',)`}
 >
 
@@ -165,7 +161,6 @@ The address is a domain name with optional port for your registry, and any regis
 By default, all configured registries with `default = true` are used.
 
 Example:
-
 ```
 # pants.toml
 [docker.registries.my-registry-alias]
@@ -179,19 +174,20 @@ docker_image(
         "myregistrydomain:port",
     ],
 )
+
 ```
 
 The above example shows two valid `registry` options: using an alias to a configured registry and the address to a registry verbatim in the BUILD file.
 
 </Field>
-
 ## `repository`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
-The repository name for the Docker image. e.g. &quot;&lt;repository&gt;/&lt;name&gt;&quot;.
+The repository name for the Docker image. e.g. &#x22;&#x3C;repository&#x3E;/&#x3C;name&#x3E;&#x22;.
 
 It uses the `[docker].default_repository` by default.
 
@@ -204,11 +200,11 @@ Registries may also configure the repository value for specific registries.
 See the documentation for `[docker].default_repository` for more information.
 
 </Field>
-
 ## `image_labels`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, str] | None`}
+    default_repr={`None`}
 >
 
 Provide image metadata.
@@ -218,11 +214,11 @@ label value may use placeholders in curly braces to be interpolated. The placeho
 See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manage-labels-on-objects) for more information.
 
 </Field>
-
 ## `secrets`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, str] | None`}
+    default_repr={`None`}
 >
 
 Secret files to expose to the build (only if BuildKit enabled).
@@ -230,7 +226,6 @@ Secret files to expose to the build (only if BuildKit enabled).
 Secrets may use absolute paths, or paths relative to your build root, or the BUILD file if prefixed with `./`. The id should be valid as used by the Docker build `--secret` option. See [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) for more information.
 
 Example:
-
 ```
 docker_image(
     secrets={
@@ -242,41 +237,39 @@ docker_image(
 ```
 
 </Field>
-
 ## `ssh`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
-SSH agent socket or keys to expose to the build (only if BuildKit enabled) (format: default|&lt;id&gt;[=&lt;socket&gt;|&lt;key&gt;[,&lt;key&gt;]])
+SSH agent socket or keys to expose to the build (only if BuildKit enabled) (format: default|&#x3C;id&#x3E;[=&#x3C;socket&#x3E;|&#x3C;key&#x3E;[,&#x3C;key&#x3E;]])
 
 The exposed agent and/or keys can then be used in your `Dockerfile` by mounting them in your `RUN` instructions:
-
 ```
 RUN --mount=type=ssh ...
+
 ```
 
 See [Docker documentation](https://docs.docker.com/develop/develop-images/build_enhancements/#using-ssh-to-access-private-data-in-builds) for more information.
 
 </Field>
-
 ## `skip_push`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If set to true, do not push this image to registries when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
 
 </Field>
-
 ## `target_stage`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Specify target build stage, rather than building the entire `Dockerfile`.
@@ -286,22 +279,20 @@ When using multi-stage build, you may name your stages, and can target them when
 Read more about [multi-stage Docker builds](https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage)
 
 </Field>
-
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
-
 ## `skip_hadolint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.docker.lint.hadolint"
 >

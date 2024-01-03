@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for Go tests.
 
-Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
-
-Config section: <span className="color--primary">`[go-test]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.go</span>
+Config section: <span className="color--primary">[go-test]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `args`
 
@@ -42,11 +43,11 @@ Known Go test options will be transformed into the form expected by the test bin
 
 Coverage mode to use when running Go tests with coverage analysis enabled via --test-use-coverage. Valid values are `set`, `count`, and `atomic`:
 
-- `set`: bool: does this statement run?
+* `set`: bool: does this statement run?
 
-- `count`: int: how many times does this statement run?
+* `count`: int: how many times does this statement run?
 
-- `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
+* `atomic`: int: count, but correct in multithreaded tests; significantly more expensive.
 
 </Option>
 
@@ -76,6 +77,7 @@ If true, don&#x27;t use Go test binary when running `/home/josh/work/scie-pants/
 
 ## Advanced options
 
+
 ### `coverage_output_dir`
 
 <Option
@@ -91,5 +93,6 @@ Path to write the Go coverage reports to. Must be relative to the build root. `{
 ## Deprecated options
 
 None
+
 
 </span>

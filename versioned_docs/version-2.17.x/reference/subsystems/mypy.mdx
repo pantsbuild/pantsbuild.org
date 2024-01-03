@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The MyPy Python type checker (http://mypy-lang.org/).
 
-Backend: <span className="color--primary">`pants.backend.python.typecheck.mypy`</span>
-
-Config section: <span className="color--primary">`[mypy]`</span>
+Backend: <span className="color--primary">pants.backend.python.typecheck.mypy</span>
+Config section: <span className="color--primary">[mypy]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7 --di
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -59,7 +61,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `mypy` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `mypy` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +88,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -162,6 +166,7 @@ To instead load third-party plugins, set the option `[mypy].extra_requirements` 
 </Option>
 
 ## Deprecated options
+
 
 ### `version`
 
@@ -266,5 +271,6 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 generate-lockfiles --resolve=mypy-extra-type-stubs`.
 
 </Option>
+
 
 </span>

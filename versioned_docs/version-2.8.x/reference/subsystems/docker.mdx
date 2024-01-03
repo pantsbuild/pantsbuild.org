@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for interacting with Docker.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[docker]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[docker]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `registries`
 
@@ -26,7 +27,6 @@ Config section: <span className="color--primary">`[docker]`</span>
 >
 
 Configure Docker registries. The schema for a registry entry is as follows:
-
 ```
 {
     "registry-alias": {
@@ -35,6 +35,7 @@ Configure Docker registries. The schema for a registry entry is as follows:
     },
     ...
 }
+
 ```
 
 If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
@@ -55,9 +56,9 @@ Configure the default repository name used in the Docker image tag.
 
 The value is formatted and may reference these variables:
 
-- name
-- directory
-- parent_directory
+  * name
+  * directory
+  * parent_directory
 
 Example: `--default-repository="{directory}/{name}"`.
 
@@ -86,6 +87,7 @@ Use the `extra_build_args` field on a `docker_image` target for additional image
 
 ## Advanced options
 
+
 ### `env_vars`
 
 <Option
@@ -101,5 +103,6 @@ Environment variables to set for `docker` invocations. Entries are either string
 ## Deprecated options
 
 None
+
 
 </span>

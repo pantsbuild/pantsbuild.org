@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Flake8 Python linter (https://flake8.pycqa.org/).
 
-Backend: <span className="color--primary">`pants.backend.python.lint.flake8`</span>
-
-Config section: <span className="color--primary">`[flake8]`</span>
+Backend: <span className="color--primary">pants.backend.python.lint.flake8</span>
+Config section: <span className="color--primary">[flake8]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456 --
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -59,7 +61,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `flake8` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `flake8` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -128,7 +130,6 @@ Setting this option will disable `[flake8].config_discovery`. Use this option if
 >
 
 Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
-
 ```
         like including config files for the `flake8-bandit` plugin.
 ```
@@ -164,7 +165,6 @@ You must set the plugin&#x27;s parent directory as a source root. For example, i
 You must also set `[flake8:local-plugins]` in your Flake8 config file.
 
 For example:
-
 ```
 [flake8:local-plugins]
     extension =
@@ -180,6 +180,7 @@ Tip: it&#x27;s often helpful to define a dedicated &#x27;resolve&#x27; via `[pyt
 </Option>
 
 ## Deprecated options
+
 
 ### `version`
 
@@ -244,5 +245,6 @@ If true, export a virtual environment with Flake8 when running `scie-pants-linux
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
+
 
 </span>

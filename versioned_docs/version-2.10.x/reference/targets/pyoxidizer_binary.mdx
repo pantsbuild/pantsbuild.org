@@ -22,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,11 +31,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,11 +43,11 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built directory tree should be located.
@@ -60,11 +61,11 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `template`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 If set, will use your custom configuration rather than using Pants&#x27;s default template.
@@ -75,17 +76,17 @@ All parameters must be prefixed by $ or surrounded with $&#123; &#125;.
 
 Available template parameters:
 
-- RUN_MODULE - The re-formatted entry_point passed to this target (or None).
-- NAME - This target&#x27;s name.
-- WHEELS - All python distributions passed to this target (or []).
-- UNCLASSIFIED_RESOURCE_INSTALLATION - This will populate a snippet of code to correctly inject the targets filesystem_resources.
+  * RUN_MODULE - The re-formatted entry_point passed to this target (or None).
+  * NAME - This target&#x27;s name.
+  * WHEELS - All python distributions passed to this target (or []).
+  * UNCLASSIFIED_RESOURCE_INSTALLATION - This will populate a snippet of code to correctly inject the targets filesystem_resources.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 The addresses of `python_distribution` target(s) to include in the binary, e.g. `['src/python/project:dist']`.
@@ -97,11 +98,11 @@ Usually, you only need to specify a single `python_distribution`. However, if th
 Target types other than `python_distribution` will be ignored.
 
 </Field>
-
 ## `entry_point`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app`, to a module. This represents the content of PyOxidizer&#x27;s `python_config.run_module` and leaving this field empty will create a REPL binary.
@@ -111,11 +112,11 @@ It is specified with the full module declared: &#x27;path.to.module&#x27;.
 This field is passed into the PyOxidizer config as-is, and does not undergo validation checking.
 
 </Field>
-
 ## `filesystem_resources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Adds support for listing dependencies that MUST be installed to the filesystem (e.g. Numpy). See https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_packaging_additional_files.html#installing-unclassified-files-on-the-filesystem

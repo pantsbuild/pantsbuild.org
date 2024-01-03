@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Python import sorter tool (https://pycqa.github.io/isort/).
 
-Backend: <span className="color--primary">`pants.backend.python.lint.isort`</span>
-
-Config section: <span className="color--primary">`[isort]`</span>
+Backend: <span className="color--primary">pants.backend.python.lint.isort</span>
+Config section: <span className="color--primary">[isort]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -42,6 +43,7 @@ Arguments to pass directly to isort, e.g. `--isort-args='--case-sensitive --trai
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -72,7 +74,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -156,5 +160,6 @@ Use `[isort].config` instead if your config is in a non-standard location.
 ## Deprecated options
 
 None
+
 
 </span>

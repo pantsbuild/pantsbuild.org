@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -28,11 +29,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -40,11 +41,11 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -58,11 +59,10 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*.go',)`}
 >
 
@@ -73,11 +73,11 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
 
 </Field>
-
 ## `test_extra_env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Additional environment variables to include in test processes.
@@ -87,11 +87,11 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
 This will be merged with and override values from `[test].extra_env_vars`.
 
 </Field>
-
 ## `test_timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -99,11 +99,11 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
-
 ## `test_race`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Enable compiling this package&#x27;s test binary with the Go data race detector.
@@ -111,35 +111,35 @@ Enable compiling this package&#x27;s test binary with the Go data race detector.
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
 
 </Field>
-
 ## `test_msan`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
-Enable interoperation between Go code and the C/C++ &quot;memory sanitizer&quot; when building this package&#x27;s test binary.
+Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer&#x22; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
 </Field>
-
 ## `test_asan`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
-Enable interoperation between Go code and the C/C++ &quot;address sanitizer&quot; when building this package&#x27;s test binary.
+Enable interoperation between Go code and the C/C++ &#x22;address sanitizer&#x22; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
 </Field>
-
 ## `assembler_flags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Extra flags to pass to the Go assembler (i.e., `go tool asm`) when assembling Go-format assembly code.
@@ -157,11 +157,11 @@ This field can be specified on several different target types:
 Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 
 </Field>
-
 ## `compiler_flags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Extra flags to pass to the Go compiler (i.e., `go tool compile`) when compiling Go code.
@@ -177,22 +177,20 @@ This field can be specified on several different target types:
 Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 </Field>
-
 ## `skip_tests`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 If true, don&#x27;t run this package&#x27;s tests.
 
 </Field>
-
 ## `skip_gofmt`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.go"
 >

@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Configuration of the mypy-protobuf type stub generation plugin.
 
-Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
-
-Config section: <span className="color--primary">`[mypy-protobuf]`</span>
+Backend: <span className="color--primary">pants.backend.codegen.protobuf.python</span>
+Config section: <span className="color--primary">[mypy-protobuf]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[mypy-protobuf]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -38,7 +39,9 @@ Requirement string for the tool.
 <Option
   cli_repr={`--mypy-protobuf-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_PROTOBUF_EXTRA_REQUIREMENTS'
-  default_repr={`["protobuf<3.21"]`}
+  default_repr={`[
+  "protobuf<3.21"
+]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -50,7 +53,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--mypy-protobuf-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_PROTOBUF_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -80,5 +85,6 @@ As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-depende
 ## Deprecated options
 
 None
+
 
 </span>

@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The add-trailing-comma Python code formatter (https://github.com/asottile/add-trailing-comma).
 
-Backend: <span className="color--primary">`pants.backend.experimental.python.lint.add_trailing_comma`</span>
-
-Config section: <span className="color--primary">`[add-trailing-comma]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.python.lint.add_trailing_comma</span>
+Config section: <span className="color--primary">[add-trailing-comma]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-arg
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -59,7 +61,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `add-trailing-comma` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `add-trailing-comma` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +88,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--add-trailing-comma-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -120,5 +124,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 ## Deprecated options
 
 None
+
 
 </span>

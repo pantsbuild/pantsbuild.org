@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options for Golang support.
 
-Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
-
-Config section: <span className="color--primary">`[golang]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.go</span>
+Config section: <span className="color--primary">[golang]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `minimum_expected_version`
 
@@ -54,7 +55,9 @@ See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional inform
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[
+  "<PATH>"
+]`}
   target_field_name='golang_go_search_paths'
 >
 
@@ -64,9 +67,9 @@ Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Ear
 
 The following special strings are supported:
 
-- `<PATH>`, the contents of the PATH environment variable
-- `<ASDF>`, all Go versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-- `<ASDF_LOCAL>`, the ASDF binary with the version in BUILD_ROOT/.tool-versions
+* `<PATH>`, the contents of the PATH environment variable
+* `<ASDF>`, all Go versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+* `<ASDF_LOCAL>`, the ASDF binary with the version in BUILD_ROOT/.tool-versions
 
 </Option>
 
@@ -75,7 +78,9 @@ The following special strings are supported:
 <Option
   cli_repr={`--golang-cgo-tool-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_TOOL_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[
+  "<PATH>"
+]`}
   target_field_name='golang_cgo_tool_search_paths'
 >
 
@@ -85,11 +90,12 @@ Specify absolute paths to directories with tools needed by CGo , e.g. `/usr/bin`
 
 The following special strings are supported:
 
-- `<PATH>`, the contents of the PATH environment variable
+* `<PATH>`, the contents of the PATH environment variable
 
 </Option>
 
 ## Advanced options
+
 
 ### `tailor_go_mod_targets`
 
@@ -212,7 +218,7 @@ Name of the tool to use to compile fortran code included via CGo in a Go package
   target_field_name='golang_external_linker_binary_name'
 >
 
-Name of the tool to use as the &quot;external linker&quot; when invoking `go tool link`. Pants will search for the tool using the paths specified by the `[golang].cgo_tool_search_paths` option.
+Name of the tool to use as the &#x22;external linker&#x22; when invoking `go tool link`. Pants will search for the tool using the paths specified by the `[golang].cgo_tool_search_paths` option.
 
 </Option>
 
@@ -271,5 +277,6 @@ Compiler options used when linking native code when Cgo is enabled. Equivalent t
 ## Deprecated options
 
 None
+
 
 </span>

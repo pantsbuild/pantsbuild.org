@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The pytest Python test framework (https://docs.pytest.org/).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[pytest]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[pytest]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `args`
 
@@ -43,6 +44,7 @@ Enable test target timeouts. If timeouts are enabled then test targets with a ti
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -60,7 +62,9 @@ Requirement string for Pytest.
 <Option
   cli_repr={`--pytest-pytest-plugins="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_PYTEST_PLUGINS'
-  default_repr={`["pytest-cov>=2.10.1,<2.12"]`}
+  default_repr={`[
+  "pytest-cov>=2.10.1,<2.12"
+]`}
 >
 
 Requirement strings for any plugins or additional requirements you&#x27;d like to use.
@@ -148,5 +152,6 @@ Refer to https://docs.pytest.org/en/stable/customize.html#initialization-determi
 ## Deprecated options
 
 None
+
 
 </span>

@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A dependency resolver for the Maven ecosystem.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[coursier]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[coursier]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[coursier]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -41,20 +42,19 @@ Use this version of coursier.
   default_repr={`[\n  "v2.0.13|linux_arm64 |8d428bede2d9d0e48ffad8360d49de48bd0c2c3b0e54e82e3a7665019b65e4d0|58622664",\n  "v2.0.13|linux_x86_64|1ae089789cc4b0a4d296d6852b760d7f8bf72805267a6b7571e99b681d5e13b4|59652208",\n  "v2.0.13|macos_arm64 |d74b8fe4ffc2f4e9011d7151722fc8b5ffca8a72b3bc4188c61df3326228c4ef|57625024",\n  "v2.0.13|macos_x86_64|d74b8fe4ffc2f4e9011d7151722fc8b5ffca8a72b3bc4188c61df3326228c4ef|57625024"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emmitted by
-
+  - `length` is the expected length of the download file in bytes, as emmitted by
 ```
 `wc -c`
 ```
@@ -62,6 +62,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -74,9 +75,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of coursier is not supported.
 
 Supported coursier versions: unspecified
+
 
 </Option>
 
@@ -113,5 +116,6 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 ## Deprecated options
 
 None
+
 
 </span>

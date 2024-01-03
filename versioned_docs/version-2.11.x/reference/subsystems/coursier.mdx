@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A dependency resolver for the Maven ecosystem.
 
-Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
-
-Config section: <span className="color--primary">`[coursier]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.java</span>
+Config section: <span className="color--primary">[coursier]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `repos`
 
@@ -32,6 +33,7 @@ Coursier will resolve these repositories in the order in which they are specifed
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -53,10 +55,10 @@ Use this version of coursier.
   default_repr={`[\n  "v2.0.16-169-g194ebc55c|linux_arm64 |da38c97d55967505b8454c20a90370c518044829398b9bce8b637d194d79abb3|18114472",\n  "v2.0.16-169-g194ebc55c|linux_x86_64|4c61a634c4bd2773b4543fe0fc32210afd343692891121cddb447204b48672e8|18486946",\n  "v2.0.16-169-g194ebc55c|macos_arm64 |15bce235d223ef1d022da30b67b4c64e9228d236b876c834b64e029bbe824c6f|17957182",\n  "v2.0.16-169-g194ebc55c|macos_x86_64|15bce235d223ef1d022da30b67b4c64e9228d236b876c834b64e029bbe824c6f|17957182"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -64,11 +66,13 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
+
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -81,9 +85,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of coursier is not supported.
 
 Supported coursier versions: unspecified
+
 
 </Option>
 
@@ -120,5 +126,6 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 ## Deprecated options
 
 None
+
 
 </span>

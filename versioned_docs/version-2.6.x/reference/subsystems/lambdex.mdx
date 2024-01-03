@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A tool for turning .pex files into AWS Lambdas (https://github.com/wickman/lambdex).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[lambdex]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[lambdex]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[lambdex]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -50,7 +51,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6"]`}
+  default_repr={`[
+  "CPython>=3.6"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -84,5 +87,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 ## Deprecated options
 
 None
+
 
 </span>

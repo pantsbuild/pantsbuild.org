@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -28,11 +29,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -40,11 +41,11 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -56,22 +57,21 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `include_requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
 Whether to resolve requirements and include them in the AWS Lambda artifact. This is most useful with Lambda Layers to make code uploads smaller when third-party requirements are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 
 </Field>
-
 ## `runtime`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
@@ -79,11 +79,11 @@ The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs
 N.B.: only one of this and `complete_platforms` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. If you have issues either packaging the AWS Lambda PEX or running it as a deployed AWS Lambda function, you should try using an explicit `complete_platforms` instead.
 
 </Field>
-
 ## `complete_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -99,11 +99,11 @@ See https://www.pantsbuild.org/v2.19/docs/pex for details.
 N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform&#x27;s ambient interpreter, such as when running in an docker environment.
 
 </Field>
-
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -113,11 +113,10 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
-
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 
@@ -128,22 +127,21 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
-
 ## `include_sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
 Whether to resolve first party sources and include them in the AWS Lambda artifact. This is most useful to allow creating a Lambda Layer with only third-party requirements. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.

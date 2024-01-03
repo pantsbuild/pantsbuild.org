@@ -13,13 +13,13 @@ pants export [args]
 
 Export Pants data for use in other tools, such as IDEs.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[export]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[export]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `resolve`
 
@@ -41,7 +41,7 @@ Export the specified resolve(s). The export format is backend-specific, e.g., Py
   default_repr={`False`}
 >
 
-Export a symlink into a cached Python virtualenv. This virtualenv will have no pip binary, and will be immutable. Any attempt to modify it will corrupt the cache! It may, however, take significantly less time to export than a standalone, mutable virtualenv will.
+Export a symlink into a cached Python virtualenv.  This virtualenv will have no pip binary, and will be immutable. Any attempt to modify it will corrupt the cache!  It may, however, take significantly less time to export than a standalone, mutable virtualenv will.
 
 </Option>
 
@@ -53,9 +53,5 @@ None
 
 None
 
-## Related subsystems
-
-- [environments-preview](../subsystems/environments-preview.mdx)
-- [filter](../subsystems/filter.mdx)
 
 </span>

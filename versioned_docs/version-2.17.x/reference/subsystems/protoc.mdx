@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The protocol buffer compiler (https://developers.google.com/protocol-buffers).
 
-Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
-
-Config section: <span className="color--primary">`[protoc]`</span>
+Backend: <span className="color--primary">pants.backend.codegen.protobuf.python</span>
+Config section: <span className="color--primary">[protoc]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `dependency_inference`
 
@@ -30,6 +31,7 @@ Infer Protobuf dependencies on other Protobuf files by analyzing import statemen
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -51,10 +53,10 @@ Use this version of protoc.
   default_repr={`[\n  "3.20.1|linux_arm64 |8a5a51876259f934cd2acc2bc59dba0e9a51bd631a5c37a4b9081d6e4dbc7591|1804837",\n  "3.20.1|linux_x86_64|3a0e900f9556fbcac4c3a913a00d07680f0fdf6b990a341462d822247b265562|1714731",\n  "3.20.1|macos_arm64 |b362acae78542872bb6aac8dba73aaf0dc6e94991b8b0a065d6c3e703fec2a8b|2708249",\n  "3.20.1|macos_x86_64|b4f36b18202d54d343a66eebc9f8ae60809a2a96cc2d1b378137550bbe4cf33c|2708249"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -62,11 +64,13 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
+
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -109,9 +113,11 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of protoc is not supported.
 
 Supported protoc versions: unspecified
+
 
 </Option>
 
@@ -130,5 +136,6 @@ If true, add `protobuf_sources` targets with the `tailor` goal.
 ## Deprecated options
 
 None
+
 
 </span>

@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A linter for Dockerfiles.
 
-Backend: <span className="color--primary">`pants.backend.docker.lint.hadolint`</span>
-
-Config section: <span className="color--primary">`[hadolint]`</span>
+Backend: <span className="color--primary">pants.backend.docker.lint.hadolint</span>
+Config section: <span className="color--primary">[hadolint]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to Hadolint, e.g. `--hadolint-args='--format json'`.&
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -63,20 +65,19 @@ Use this version of hadolint.
   default_repr={`[\n  "v2.8.0|macos_x86_64|27985f257a216ecab06a16e643e8cb0123e7145b5d526cfcb4ce7a31fe99f357|2428944",\n  "v2.8.0|macos_arm64 |27985f257a216ecab06a16e643e8cb0123e7145b5d526cfcb4ce7a31fe99f357|2428944",\n  "v2.8.0|linux_x86_64|9dfc155139a1e1e9b3b28f3de9907736b9dfe7cead1c3a0ae7ff0158f3191674|5895708"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-- `version` is the version string
-- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-- `sha256` is the 64-character hex representation of the expected sha256
-
+  - `version` is the version string
+  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+  - `sha256` is the 64-character hex representation of the expected sha256
 ```
 digest of the download file, as emitted by `shasum -a 256`
 ```
 
-- `length` is the expected length of the download file in bytes, as emitted by
-
+  - `length` is the expected length of the download file in bytes, as emitted by
 ```
 `wc -c`
 ```
@@ -84,6 +85,7 @@ digest of the download file, as emitted by `shasum -a 256`
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -96,9 +98,11 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of hadolint is not supported.
 
 Supported hadolint versions: unspecified
+
 
 </Option>
 
@@ -163,5 +167,6 @@ Use `[hadolint].config` instead if your config is in a non-standard location.
 ## Deprecated options
 
 None
+
 
 </span>

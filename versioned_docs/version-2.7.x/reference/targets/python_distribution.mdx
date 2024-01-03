@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -28,11 +29,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -40,11 +41,11 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -54,19 +55,18 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `entry_points`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Dict[str, str]] | None`}
+    default_repr={`None`}
 >
 
 Any entry points, such as `console_scripts` and `gui_scripts`.
 
-Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&quot;path.to.module:func&quot;) or a Pants target address to a pex_binary target.
+Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&#x22;path.to.module:func&#x22;) or a Pants target address to a pex_binary target.
 
 Example:
-
 ```
 entry_points={
   "console_scripts": {
@@ -74,6 +74,7 @@ entry_points={
     "another-script": "project/subdir:pex_binary_tgt"
   }
 }
+
 ```
 
 Note that Pants will assume that any value that either starts with `:` or has `/` in it, is a target address to a pex_binary target. Otherwise, it will assume it's a setuptools entry point as defined by https://packaging.python.org/specifications/entry-points/#entry-points-specification. Use `//` as a prefix for target addresses if you need to disambiguate.
@@ -82,14 +83,16 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 
 ```
 ./pants dependencies <python_distribution target address>
+
+
 ```
 
 </Field>
-
 ## `provides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`PythonArtifact`}
+    default_repr={`None`}
 >
 
 The setup.py kwargs for the external artifact built from this target.
@@ -99,14 +102,14 @@ You must define `name`. You can also set almost any keyword argument accepted by
 See https://www.pantsbuild.org/v2.7/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
 
 </Field>
-
 ## `setup_py_commands`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-The runtime commands to invoke setup.py with to create the distribution, e.g. [&quot;bdist_wheel&quot;, &quot;--python-tag=py36.py37&quot;, &quot;sdist&quot;].
+The runtime commands to invoke setup.py with to create the distribution, e.g. [&#x22;bdist_wheel&#x22;, &#x22;--python-tag=py36.py37&#x22;, &#x22;sdist&#x22;].
 
 If empty or unspecified, will just create a chroot with a setup() function.
 

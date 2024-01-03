@@ -7,19 +7,20 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Lint your code using regex patterns, e.g. to check for copyright headers.
 
 To activate this with the `lint` goal, you must set `[regex-lint].config`.
 
 Unlike other linters, this can run on files not owned by targets, such as BUILD files. To run on those, use `lint '**'` rather than `lint ::`, for example. Unfortunately, `--changed-since=<sha>` does not yet cause this linter to run. We are exploring how to improve both these gotchas.
 
-Backend: <span className="color--primary">`pants.backend.project_info`</span>
-
-Config section: <span className="color--primary">`[regex-lint]`</span>
+Backend: <span className="color--primary">pants.backend.project_info</span>
+Config section: <span className="color--primary">[regex-lint]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `config`
 
@@ -31,32 +32,42 @@ Config section: <span className="color--primary">`[regex-lint]`</span>
 
 Config schema is as follows:
 
+`&#x60;`
+&#123;
+&#x27;required_matches&#x27;: &#123;
+```
+'path_pattern1': [content_pattern1, content_pattern2],
+'path_pattern2': [content_pattern1, content_pattern3],
+...
+```
+
+},
+&#x27;path_patterns&#x27;: [
 ```
 {
-'required_matches': {
-    'path_pattern1': [content_pattern1, content_pattern2],
-    'path_pattern2': [content_pattern1, content_pattern3],
-    ...
+'name': path_pattern1',
+'pattern': <path regex pattern>,
+'inverted': True|False (defaults to False),
+'content_encoding': <encoding> (defaults to utf8)
 },
-'path_patterns': [
-    {
-    'name': path_pattern1',
-    'pattern': <path regex pattern>,
-    'inverted': True|False (defaults to False),
-    'content_encoding': <encoding> (defaults to utf8)
-    },
-    ...
-],
-'content_patterns': [
-    {
-    'name': 'content_pattern1',
-    'pattern': <content regex pattern>,
-    'inverted': True|False (defaults to False)
-    }
-    ...
-]
-}
+...
 ```
+
+],
+&#x27;content_patterns&#x27;: [
+```
+{
+'name': 'content_pattern1',
+'pattern': <content regex pattern>,
+'inverted': True|False (defaults to False)
+}
+...
+```
+
+]
+&#125;
+`&#x60;`
+
 
 Meaning: if a file matches some path pattern, its content must match all the corresponding content patterns.
 
@@ -84,5 +95,6 @@ None
 ## Deprecated options
 
 None
+
 
 </span>

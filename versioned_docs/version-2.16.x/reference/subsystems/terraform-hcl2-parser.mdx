@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Used to parse Terraform modules to infer their dependencies.
 
-Backend: <span className="color--primary">`pants.backend.experimental.terraform`</span>
-
-Config section: <span className="color--primary">`[terraform-hcl2-parser]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.terraform</span>
+Config section: <span className="color--primary">[terraform-hcl2-parser]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[terraform-hcl2-parser]`</span
 None
 
 ## Advanced options
+
 
 ### `install_from_resolve`
 
@@ -37,7 +38,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `terraform-hcl2-parser` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `terraform-hcl2-parser` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -64,7 +65,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--terraform-hcl2-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -72,6 +75,7 @@ Python interpreter constraints for this tool.
 </Option>
 
 ## Deprecated options
+
 
 ### `version`
 
@@ -122,5 +126,6 @@ To use a custom lockfile, set this option to a file path relative to the build r
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
 
 </Option>
+
 
 </span>

@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Black Python code formatter (https://black.readthedocs.io/).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[black]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[black]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to Black, e.g. `--black-args='--target-version=py37 -
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -59,7 +61,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `black` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `black` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +88,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--black-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -147,6 +151,7 @@ Use `[black].config` instead if your config is in a non-standard location.
 
 ## Deprecated options
 
+
 ### `version`
 
 <Option
@@ -166,7 +171,9 @@ Requirement string for the tool.
 <Option
   cli_repr={`--black-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_EXTRA_REQUIREMENTS'
-  default_repr={`["typing-extensions>=3.10.0.0; python_version < \"3.10\""]`}
+  default_repr={`[
+  "typing-extensions>=3.10.0.0; python_version < \"3.10\""
+]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
 >
@@ -210,5 +217,6 @@ If true, export a virtual environment with Black when running `scie-pants-linux-
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
+
 
 </span>

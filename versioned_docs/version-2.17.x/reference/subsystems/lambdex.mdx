@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A tool for turning .pex files into Function-as-a-Service artifacts (https://github.com/pantsbuild/lambdex).
 
-Backend: <span className="color--primary">`pants.backend.awslambda.python`</span>
-
-Config section: <span className="color--primary">`[lambdex]`</span>
+Backend: <span className="color--primary">pants.backend.awslambda.python</span>
+Config section: <span className="color--primary">[lambdex]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `layout`
 
@@ -31,6 +32,7 @@ Explicitly control the layout used for `python_awslambda` and `python_google_clo
 </Option>
 
 ## Advanced options
+
 
 ### `install_from_resolve`
 
@@ -48,7 +50,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -75,7 +77,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<3.12"]`}
+  default_repr={`[
+  "CPython>=3.7,<3.12"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -107,6 +111,7 @@ The entry point for the tool. Generally you only want to use this option if the 
 </Option>
 
 ## Deprecated options
+
 
 ### `version`
 
@@ -155,5 +160,6 @@ To use a custom lockfile, set this option to a file path relative to the build r
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
 
 </Option>
+
 
 </span>

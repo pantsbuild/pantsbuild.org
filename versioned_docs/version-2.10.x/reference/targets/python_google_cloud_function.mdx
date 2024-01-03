@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.google_cloud_function.p
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -28,11 +29,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -40,11 +41,11 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -56,11 +57,11 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -74,11 +75,11 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `handler`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Entry point to the Google Cloud Function handler.
@@ -88,21 +89,21 @@ You can specify a full module like &#x27;path.to.module:handler_func&#x27; or us
 You must use the file name shorthand for file arguments to work with this target.
 
 </Field>
-
 ## `runtime`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'python37' | 'python38' | 'python39' | None`}
+    default_repr={`None`}
 >
 
 The identifier of the Google Cloud Function runtime to target (pythonXY). See https://cloud.google.com/functions/docs/concepts/python-runtime.
 
 </Field>
-
 ## `complete_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -114,21 +115,21 @@ You can give a list of multiple complete platforms to create a multiplatform PEX
 Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
 </Field>
-
 ## `type`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'event' | 'http'`}
+    default_repr={`None`}
 >
 
 The trigger type of the cloud function. Can either be &#x27;event&#x27; or &#x27;http&#x27;. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to --trigger-http.
 
 </Field>
-
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.

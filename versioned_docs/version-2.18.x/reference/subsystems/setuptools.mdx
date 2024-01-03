@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Python setuptools, used to package `python_distribution` targets.
 
-Backend: <span className="color--primary">`pants.backend.python`</span>
-
-Config section: <span className="color--primary">`[setuptools]`</span>
+Backend: <span className="color--primary">pants.backend.python</span>
+Config section: <span className="color--primary">[setuptools]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[setuptools]`</span>
 None
 
 ## Advanced options
+
 
 ### `install_from_resolve`
 
@@ -37,7 +38,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `setuptools` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `setuptools` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -62,5 +63,6 @@ If unspecified, install the entire lockfile.
 ## Deprecated options
 
 None
+
 
 </span>

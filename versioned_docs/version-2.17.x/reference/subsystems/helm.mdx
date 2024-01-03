@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Helm command line (https://helm.sh)
 
-Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
-
-Config section: <span className="color--primary">`[helm]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.helm</span>
+Config section: <span className="color--primary">[helm]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `registries`
 
@@ -26,7 +27,6 @@ Config section: <span className="color--primary">`[helm]`</span>
 >
 
 Configure Helm OCI registries. The schema for a registry entry is as follows:
-
 ```
 {
     "registry-alias": {
@@ -35,6 +35,7 @@ Configure Helm OCI registries. The schema for a registry entry is as follows:
     },
     ...
 }
+
 ```
 
 If no registries are provided in either a `helm_chart` target, then all default addresses will be used, if any.
@@ -89,26 +90,27 @@ Only a subset of Helm arguments are considered valid as passthrough arguments as
 
 The list of valid arguments is as folows:
 
-- --atomic
-- --cleanup-on-fail
-- --debug
-- --dry-run
-- --force
-- --wait
-- --wait-for-jobs
-- --kubeconfig
-- --kube-context
-- --kube-apiserver
-- --kube-as-group
-- --kube-as-user
-- --kube-ca-file
-- --kube-token
+  * --atomic
+  * --cleanup-on-fail
+  * --debug
+  * --dry-run
+  * --force
+  * --wait
+  * --wait-for-jobs
+  * --kubeconfig
+  * --kube-context
+  * --kube-apiserver
+  * --kube-as-group
+  * --kube-as-user
+  * --kube-ca-file
+  * --kube-token
 
 Before attempting to use passthrough arguments, check the refence of each of the available target types to see what fields are accepted in each of them.
 
 </Option>
 
 ## Advanced options
+
 
 ### `version`
 
@@ -130,10 +132,10 @@ Use this version of helmsubsystem.
   default_repr={`[\n  "3.11.1|linux_arm64 |919173e8fb7a3b54d76af9feb92e49e86d5a80c5185020bae8c393fa0f0de1e8|13484900",\n  "3.11.1|linux_x86_64|0b1be96b66fab4770526f136f5f1a385a47c41923d33aab0dcb500e0f6c1bf7c|15023104",\n  "3.11.1|macos_arm64 |43d0198a7a2ea2639caafa81bb0596c97bee2d4e40df50b36202343eb4d5c46b|14934852",\n  "3.11.1|macos_x86_64|2548a90e5cc957ccc5016b47060665a9d2cd4d5b4d61dcc32f5de3144d103826|15757902",\n  "3.10.0|linux_arm64 |3b72f5f8a60772fb156d0a4ab93272e8da7ef4d18e6421a7020d7c019f521fc1|13055719",\n  "3.10.0|linux_x86_64|bf56beb418bb529b5e0d6d43d56654c5a03f89c98400b409d1013a33d9586474|14530566",\n  "3.10.0|macos_arm64 |f7f6558ebc8211824032a7fdcf0d55ad064cb33ec1eeec3d18057b9fe2e04dbe|14446277",\n  "3.10.0|macos_x86_64|1e7fd528482ac2ef2d79fe300724b3e07ff6f846a2a9b0b0fe6f5fa05691786b|15237557",\n  "3.8.0|linux_arm64 |23e08035dc0106fe4e0bd85800fd795b2b9ecd9f32187aa16c49b0a917105161|12324642",\n  "3.8.0|linux_x86_64|8408c91e846c5b9ba15eb6b1a5a79fc22dd4d33ac6ea63388e5698d1b2320c8b|13626774",\n  "3.8.0|macos_arm64 |751348f1a4a876ffe089fd68df6aea310fd05fe3b163ab76aa62632e327122f3|14078604",\n  "3.8.0|macos_x86_64|532ddd6213891084873e5c2dcafa577f425ca662a6594a3389e288fc48dc2089|14318316"\n]`}
 >
 
+
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
-
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -141,11 +143,13 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emitted by
 `wc -c`
+
 ```
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
 
 </Option>
 
@@ -188,9 +192,11 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   default_repr={`error`}
 >
 
+
 What action to take in case the requested version of helmsubsystem is not supported.
 
 Supported helmsubsystem versions: unspecified
+
 
 </Option>
 
@@ -221,5 +227,6 @@ If true, add `helm_chart` targets with the `tailor` goal.
 ## Deprecated options
 
 None
+
 
 </span>

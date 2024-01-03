@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A tool for turning .pex files into AWS Lambdas (https://github.com/wickman/lambdex).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[lambdex]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[lambdex]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[lambdex]`</span>
 None
 
 ## Advanced options
+
 
 ### `version`
 
@@ -38,7 +39,9 @@ Requirement string for the tool.
 <Option
   cli_repr={`--lambdex-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_EXTRA_REQUIREMENTS'
-  default_repr={`["setuptools>=50.3.0,<50.4"]`}
+  default_repr={`[
+  "setuptools>=50.3.0,<50.4"
+]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -62,7 +65,9 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.5"]`}
+  default_repr={`[
+  "CPython>=3.5"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -72,5 +77,6 @@ Python interpreter constraints for this tool.
 ## Deprecated options
 
 None
+
 
 </span>

@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The MyPy Python type checker (http://mypy-lang.org/).
 
-Backend: <span className="color--primary">`pants.backend.python.typecheck.mypy`</span>
-
-Config section: <span className="color--primary">`[mypy]`</span>
+Backend: <span className="color--primary">pants.backend.python.typecheck.mypy</span>
+Config section: <span className="color--primary">[mypy]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -57,6 +58,7 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -86,7 +88,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -218,5 +222,6 @@ To use a lockfile, set this option to a file path relative to the build root, th
 ## Deprecated options
 
 None
+
 
 </span>

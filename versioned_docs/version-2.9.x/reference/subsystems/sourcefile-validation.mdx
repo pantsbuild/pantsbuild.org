@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Configuration for source file validation.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[sourcefile-validation]`</span>
+Backend: <span className="color--primary"></span>
+Config section: <span className="color--primary">[sourcefile-validation]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `config`
 
@@ -26,7 +27,6 @@ Config section: <span className="color--primary">`[sourcefile-validation]`</span
 >
 
 Config schema is as follows:
-
 ```
 {
   'required_matches': {
@@ -52,10 +52,12 @@ Config schema is as follows:
     ...
   ]
 }
+
 ```
 
 Meaning: if a file matches some path pattern, its content must match all
 the corresponding content patterns.
+
 
 </Option>
 
@@ -66,5 +68,6 @@ None
 ## Deprecated options
 
 None
+
 
 </span>

@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A linter for YAML files (https://yamllint.readthedocs.io)
 
-Backend: <span className="color--primary">`pants.backend.experimental.tools.yamllint`</span>
-
-Config section: <span className="color--primary">`[yamllint]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.tools.yamllint</span>
+Config section: <span className="color--primary">[yamllint]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `include`
 
@@ -67,6 +68,7 @@ If true, don&#x27;t use Yamllint when running `scie-pants-linux-x86_64 lint`.
 
 ## Advanced options
 
+
 ### `install_from_resolve`
 
 <Option
@@ -83,7 +85,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `yamllint` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `yamllint` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -110,7 +112,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--yamllint-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAMLLINT_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -154,6 +158,7 @@ Name of a config file understood by yamllint (https://yamllint.readthedocs.io/en
 </Option>
 
 ## Deprecated options
+
 
 ### `version`
 
@@ -220,5 +225,6 @@ If true, export a virtual environment with Yamllint when running `scie-pants-lin
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
+
 
 </span>

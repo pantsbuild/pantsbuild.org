@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 A formatter for Python files (https://github.com/google/yapf).
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[yapf]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[yapf]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -45,6 +46,7 @@ Certain arguments, specifically `--recursive`, `--in-place`, and `--parallel`, w
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -62,7 +64,9 @@ Requirement string for the tool.
 <Option
   cli_repr={`--yapf-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAPF_EXTRA_REQUIREMENTS'
-  default_repr={`["toml"]`}
+  default_repr={`[
+  "toml"
+]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -74,7 +78,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--yapf-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAPF_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -155,6 +161,7 @@ Use `[yapf].config` instead if your config is in a non-standard location.
 
 ## Deprecated options
 
+
 ### `export`
 
 <Option
@@ -170,5 +177,6 @@ If true, export a virtual environment with yapf when running `/home/josh/work/sc
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
+
 
 </span>

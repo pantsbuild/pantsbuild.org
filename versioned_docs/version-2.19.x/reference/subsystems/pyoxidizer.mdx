@@ -7,17 +7,18 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The PyOxidizer utility for packaging Python code in a Rust binary (https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer.html).
 
 Used with the `pyoxidizer_binary` target.
 
-Backend: <span className="color--primary">`pants.backend.experimental.python.packaging.pyoxidizer`</span>
-
-Config section: <span className="color--primary">`[pyoxidizer]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.python.packaging.pyoxidizer</span>
+Config section: <span className="color--primary">[pyoxidizer]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `args`
 
@@ -32,6 +33,7 @@ Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args='--release'`.
 </Option>
 
 ## Advanced options
+
 
 ### `install_from_resolve`
 
@@ -49,7 +51,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `pyoxidizer` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pyoxidizer` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -76,7 +78,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.8,<4"]`}
+  default_repr={`[
+  "CPython>=3.8,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -110,5 +114,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 ## Deprecated options
 
 None
+
 
 </span>

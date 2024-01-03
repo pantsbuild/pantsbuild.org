@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The utility for publishing Python distributions to PyPi and other Python repositories.
 
-Backend: <span className="color--primary">`pants.backend.experimental.python`</span>
-
-Config section: <span className="color--primary">`[twine]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.python</span>
+Config section: <span className="color--primary">[twine]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip`
 
@@ -43,6 +44,7 @@ Arguments to pass directly to Twine, e.g. `--twine-args='--skip-existing'`.&#x27
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -60,7 +62,9 @@ Requirement string for the tool.
 <Option
   cli_repr={`--twine-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TWINE_EXTRA_REQUIREMENTS'
-  default_repr={`["colorama>=0.4.3"]`}
+  default_repr={`[
+  "colorama>=0.4.3"
+]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -72,7 +76,9 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--twine-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TWINE_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6"]`}
+  default_repr={`[
+  "CPython>=3.6"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -168,5 +174,6 @@ Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to no
 ## Deprecated options
 
 None
+
 
 </span>

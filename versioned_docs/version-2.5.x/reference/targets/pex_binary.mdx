@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -28,11 +29,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -40,11 +41,11 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -56,16 +57,16 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
 
-Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
+Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.*&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;.
 
 Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
 
@@ -74,11 +75,11 @@ If the field is not set, it will default to the option `[python-setup].interpret
 See (https://www.pantsbuild.org/v2.5/docs/python-interpreter-compatibility).
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -88,49 +89,49 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `entry_point`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The entry point for the binary, i.e. what gets run when executing `./my_binary.pex`.
 
 You can specify a full module like &#x27;path.to.module&#x27; and &#x27;path.to.module:func&#x27;, or use a shorthand to specify a file name, using the same syntax as the `sources` field:
 
-1. &#x27;app.py&#x27;, Pants will convert into the module `path.to.app`;
-2. &#x27;app.py:func&#x27;, Pants will convert into `path.to.app:func`.
+  1) &#x27;app.py&#x27;, Pants will convert into the module `path.to.app`;
+  2) &#x27;app.py:func&#x27;, Pants will convert into `path.to.app:func`.
 
 You must use the file name shorthand for file arguments to work with this target.
 
-To leave off an entry point, set to &#x27;&lt;none&gt;&#x27;.
+To leave off an entry point, set to &#x27;&#x3C;none&#x3E;&#x27;.
 
 </Field>
-
 ## `platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
 
 This defaults to the current platform, but can be overridden to different platforms. You can give a list of multiple platforms to create a multiplatform PEX.
 
-To use wheels for specific interpreter/platform tags, you can append them to the platform with hyphens like: PLATFORM-IMPL-PYVER-ABI (e.g. &quot;linux_x86_64-cp-27-cp27mu&quot;, &quot;macosx_10.12_x86_64-cp-36-cp36m&quot;):
+To use wheels for specific interpreter/platform tags, you can append them to the platform with hyphens like: PLATFORM-IMPL-PYVER-ABI (e.g. &#x22;linux_x86_64-cp-27-cp27mu&#x22;, &#x22;macosx_10.12_x86_64-cp-36-cp36m&#x22;):
 
-- PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
-- IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot;, &quot;pp&quot;, &quot;jp&quot;.
-- PYVER: a two-digit string representing the Python version, e.g. &quot;27&quot;, &quot;36&quot;.
-- ABI: the ABI tag, e.g. &quot;cp36m&quot;, &quot;cp27mu&quot;, &quot;abi3&quot;, &quot;none&quot;.
+  - PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
+  - IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22;, &#x22;pp&#x22;, &#x22;jp&#x22;.
+  - PYVER: a two-digit string representing the Python version, e.g. &#x22;27&#x22;, &#x22;36&#x22;.
+  - ABI: the ABI tag, e.g. &#x22;cp36m&#x22;, &#x22;cp27mu&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
 
 </Field>
-
 ## `inherit_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'fallback' | 'false' | 'prefer' | None`}
+    default_repr={`None`}
 >
 
 Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
@@ -138,11 +139,10 @@ Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the b
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
-
 ## `zip_safe`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -151,33 +151,31 @@ Whether or not this binary is safe to run in compacted (zip-file) form.
 If the PEX is not zip safe, it will be written to disk prior to execution. You may need to mark `zip_safe=False` if you&#x27;re having issues loading your code.
 
 </Field>
-
 ## `always_write_cache`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 Whether PEX should always write the .deps cache of the .pex file to disk or not. This can use less memory in RAM-constrained environments.
 
 </Field>
-
 ## `ignore_errors`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 Should PEX ignore when it cannot resolve dependencies?
 
 </Field>
-
 ## `shebang`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints.
@@ -185,11 +183,11 @@ Set the generated PEX to use this shebang, rather than the default of PEX choosi
 This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
 
 </Field>
-
 ## `emit_warnings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether or not to emit PEX warnings at runtime.
@@ -197,11 +195,10 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
-
 ## `execution_mode`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'unzip' | 'venv' | 'zipapp' | None`}
     default_repr={`'zipapp'`}
 >
 
@@ -212,11 +209,10 @@ The traditional PEX file runs in &#x27;zipapp&#x27; mode (See: https://www.pytho
 The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
 
 </Field>
-
 ## `include_tools`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

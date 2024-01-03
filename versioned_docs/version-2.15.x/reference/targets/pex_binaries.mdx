@@ -22,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,11 +31,11 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,11 +43,11 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `entry_points`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The entry points for each binary, i.e. what gets run when when executing `./my_app.pex.`
@@ -56,11 +57,11 @@ Use a file name, relative to the BUILD file, like `app.py`. You can also set the
 If you want the entry point to be for a third-party dependency or to use a console script, use the `pex_binary` target directly.
 
 </Field>
-
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `pex_binary` targets.
@@ -68,7 +69,6 @@ Override the field values for generated `pex_binary` targets.
 Expects a dictionary mapping values from the `entry_points` field to a dictionary for their overrides. You may either use a single string or a tuple of strings to override multiple targets.
 
 For example:
-
 ```
 overrides={
   "foo.py": {"execution_mode": "venv"]},
@@ -84,11 +84,10 @@ If you&#x27;d like to override a field&#x27;s value for every `pex_binary` targe
 You can specify the same entry_point in multiple keys, so long as you don&#x27;t override the same field more than one time for the entry_point.
 
 </Field>
-
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 
@@ -99,11 +98,11 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
-
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -117,11 +116,11 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.15/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
-
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -131,11 +130,11 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
-
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -149,11 +148,11 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The abbreviated platforms the built PEX should be compatible with.
@@ -162,21 +161,21 @@ There must be built wheels available for all of the foreign platforms, rather th
 
 You can give a list of multiple platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
 
-Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &quot;linux_x86_64-cp-37-cp37m&quot;, &quot;macosx_10.12_x86_64-cp-310-cp310&quot;):
+Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &#x22;linux_x86_64-cp-37-cp37m&#x22;, &#x22;macosx_10.12_x86_64-cp-310-cp310&#x22;):
 
-- PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
-- IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot; or &quot;pp&quot;.
-- PYVER: a two or more digit string representing the python major/minor version (e.g., &quot;37&quot; or &quot;310&quot;) or else a component dotted version string (e.g., &quot;3.7&quot; or &quot;3.10.1&quot;).
-- ABI: the ABI tag, e.g. &quot;cp37m&quot;, &quot;cp310&quot;, &quot;abi3&quot;, &quot;none&quot;.
+  - PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
+  - IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22; or &#x22;pp&#x22;.
+  - PYVER: a two or more digit string representing the python major/minor version (e.g., &#x22;37&#x22; or &#x22;310&#x22;) or else a component dotted version string (e.g., &#x22;3.7&#x22; or &#x22;3.10.1&#x22;).
+  - ABI: the ABI tag, e.g. &#x22;cp37m&#x22;, &#x22;cp310&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
 
 Note that using an abbreviated platform means that certain resolves will fail when they encounter environment markers that cannot be deduced from the abbreviated platform string. A common example of this is &#x27;python_full_version&#x27; which requires knowing the patch level version of the foreign Python interpreter. To remedy this you should use a 3-component dotted version for PYVER. If your resolves fail due to more esoteric undefined environment markers, you should switch to specifying `complete_platforms` instead.
 
 </Field>
-
 ## `complete_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -188,11 +187,11 @@ You can give a list of multiple complete platforms to create a multiplatform PEX
 Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
 </Field>
-
 ## `resolve_local_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 For each of the `platforms` specified, attempt to find a local interpreter that matches.
@@ -200,11 +199,11 @@ For each of the `platforms` specified, attempt to find a local interpreter that 
 If a matching interpreter is found, use the interpreter to resolve distributions and build any that are only available in source distribution form. If no matching interpreter is found (or if this option is `False`), resolve for the platform by accepting only pre-built binary distributions (wheels).
 
 </Field>
-
 ## `inherit_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'fallback' | 'false' | 'prefer' | None`}
+    default_repr={`None`}
 >
 
 Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
@@ -212,11 +211,10 @@ Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the b
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
-
 ## `strip_pex_env`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -225,22 +223,21 @@ Whether or not to strip the PEX runtime environment of `PEX*` environment variab
 Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
 
 </Field>
-
 ## `ignore_errors`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
 Should PEX ignore when it cannot resolve dependencies?
 
 </Field>
-
 ## `shebang`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints.
@@ -248,11 +245,11 @@ Set the generated PEX to use this shebang, rather than the default of PEX choosi
 This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
 
 </Field>
-
 ## `emit_warnings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether or not to emit PEX warnings at runtime.
@@ -260,11 +257,10 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
-
 ## `layout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'loose' | 'packed' | 'zipapp' | None`}
     default_repr={`'zipapp'`}
 >
 
@@ -279,11 +275,10 @@ A loose layout PEX is similar to a packed PEX, except that neither the Pex boots
 Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose apps by default before executing, but these layouts compose with `execution_mode='zipapp'` as well.
 
 </Field>
-
 ## `execution_mode`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'venv' | 'zipapp' | None`}
     default_repr={`'zipapp'`}
 >
 
@@ -294,33 +289,30 @@ The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https:
 The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
 
 </Field>
-
 ## `include_requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
 Whether to include the third party requirements the binary depends on in the packaged PEX file.
 
 </Field>
-
 ## `include_sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
 Whether to include your first party sources the binary uses in the packaged PEX file.
 
 </Field>
-
 ## `include_tools`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -329,11 +321,10 @@ Whether to include Pex tools in the PEX bootstrap code.
 With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
 
 </Field>
-
 ## `venv_site_packages_copies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -342,11 +333,10 @@ If execution_mode is venv, populate the venv site packages using hard links or c
 This can be used to work around problems with tools or libraries that are confused by symlinked source files.
 
 </Field>
-
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
