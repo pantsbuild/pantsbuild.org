@@ -6,11 +6,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
-  const version = parseInt(
-    lastReleasedVersion.replace("2.", "").replace(".x", ""),
-    10
-  );
-  return `2.${version + 1}.x`;
+  const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
+  return `2.${version + 1}`;
 }
 
 // Controls for how much to build:
