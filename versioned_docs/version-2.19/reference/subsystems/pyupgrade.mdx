@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[pyupgrade]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use pyupgrade when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use pyupgrade when running `pants fmt` and `pants lint`.
 
 </Option>
 
@@ -59,7 +59,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `pyupgrade` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pyupgrade` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +86,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pyupgrade-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYUPGRADE_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -118,6 +118,10 @@ The entry point for the tool. Generally you only want to use this option if the 
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

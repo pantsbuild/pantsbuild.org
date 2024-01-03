@@ -55,7 +55,7 @@ The Python interpreters your codebase is compatible with.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
-Specify with requirement syntax, e.g. `'CPython>=2.7,<3'` (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or `'PyPy'` (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. `'CPython>=2.7,<3'` (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or `'PyPy'` (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 </Option>
 
@@ -100,21 +100,21 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{"python-default": "3rdparty/python/default.lock"}`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
 
 Many organizations only need a single resolve for their whole project, which is a good default and often the simplest thing to do. However, you may need multiple resolves, such as if you use two conflicting versions of a requirement in your repository.
 
-If you only need a single resolve, run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile.
+If you only need a single resolve, run `pants generate-lockfiles` to generate the lockfile.
 
 If you need multiple resolves:
 
 1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
 2. Set the default with `[python].default_resolve`.
 3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-4. Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+4. Run `pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
 5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
 If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/v2.19/docs/targets for information about `parametrize`.
@@ -417,7 +417,7 @@ If another targets address is in conflict with the created lockfile target, it w
   env_repr='PANTS_PYTHON_REQUIREMENT_CONSTRAINTS'
   default_repr={`None`}
   removal_version='3.0.0.dev0'
-  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `scie-pants-linux-x86_64 generate-lockfiles`.'}
+  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `pants generate-lockfiles`.'}
 >
 
 When resolving third-party requirements for your own code (vs. tools you run), use this constraints file to determine which versions to use.
@@ -437,7 +437,7 @@ This only applies when resolving user requirements, rather than tools you run li
   env_repr='PANTS_PYTHON_RESOLVE_ALL_CONSTRAINTS'
   default_repr={`True`}
   removal_version='3.0.0.dev0'
-  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `scie-pants-linux-x86_64 generate-lockfiles`.'}
+  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `pants generate-lockfiles`.'}
 >
 
 (Only relevant when using `[python].requirement_constraints.`) If enabled, when resolving requirements, Pants will first resolve your entire constraints file as a single global resolve. Then, if the code uses a subset of your constraints file, Pants will extract the relevant requirements from that global resolve so that only what&#x27;s actually needed gets used. If disabled, Pants will not use a global resolve and will resolve each subset of your requirements independently.
@@ -445,5 +445,9 @@ This only applies when resolving user requirements, rather than tools you run li
 Usually this option should be enabled because it can result in far fewer resolves.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

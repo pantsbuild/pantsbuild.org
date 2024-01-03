@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[pylint]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Pylint when running `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Pylint when running `pants lint`.
 
 </Option>
 
@@ -59,7 +59,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `pylint` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pylint` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -154,6 +154,10 @@ To instead load third-party plugins, add them to a custom resolve alongside pyli
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

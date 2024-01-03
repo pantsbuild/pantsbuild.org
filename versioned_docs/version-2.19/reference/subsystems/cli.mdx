@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options for configuring CLI behavior, such as command line aliases.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[cli]`</span>
 
@@ -35,7 +35,7 @@ green = "fmt lint check"
 all-changed = "--changed-since=HEAD --changed-dependents=transitive"
 ```
 
-This would allow you to run `scie-pants-linux-x86_64 green all-changed`, which is shorthand for `scie-pants-linux-x86_64 fmt lint check --changed-since=HEAD --changed-dependents=transitive`.
+This would allow you to run `pants green all-changed`, which is shorthand for `pants fmt lint check --changed-since=HEAD --changed-dependents=transitive`.
 
 Notice: this option must be placed in a config file (e.g. `pants.toml` or `pantsrc`) to have any effect.
 
@@ -46,6 +46,10 @@ Notice: this option must be placed in a config file (e.g. `pants.toml` or `pants
 None
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

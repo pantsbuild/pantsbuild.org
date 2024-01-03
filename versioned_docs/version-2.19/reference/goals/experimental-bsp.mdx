@@ -74,18 +74,22 @@ Run the Build Server Protocol server. Pants will receive BSP RPC requests via th
 <Option
   cli_repr={`--experimental-bsp-runner-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_EXPERIMENTAL_BSP_RUNNER_ENV_VARS'
-  default_repr={`["PATH"]`}
+  default_repr={`[\n  "PATH"\n]`}
 >
 
 Environment variables to set in the BSP runner script when setting up BSP in a repository. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27; own environment when the experimental-bsp goal was run.
 
-This option only takes effect when the BSP runner script is written. If the option changes, you must run `scie-pants-linux-x86_64 experimental-bsp` again to write a new copy of the BSP runner script.
+This option only takes effect when the BSP runner script is written. If the option changes, you must run `pants experimental-bsp` again to write a new copy of the BSP runner script.
 
 Note: The environment variables passed to the Pants BSP server will be those set for your IDE and not your shell. For example, on macOS, the IDE is generally launched by `launchd` after clicking on a Dock icon, and not from the shell. Thus, any environment variables set for your shell will likely not be seen by the Pants BSP server. At the very least, on macOS consider writing an explicit PATH into the BSP runner script via this option.
 
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[pydocstyle]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Pydocstyle when running `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Pydocstyle when running `pants lint`.
 
 </Option>
 
@@ -59,7 +59,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `pydocstyle` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pydocstyle` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +86,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pydocstyle-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYDOCSTYLE_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -139,13 +139,17 @@ Path to a Pydocstyle config file (http://www.pydocstyle.org/en/stable/usage.html
 
 If true, Pants will include any relevant config files during runs (`setup.cfg`, `tox.ini`, `.pydocstyle`, `.pydocstyle.ini`, `.pydocstylerc`, `.pydocstylerc.ini`, and `pyproject.toml`) searching for the configuration file in this particular order.
 
-Please note that even though `pydocstyle` keeps looking for a configuration file up the directory tree until one is found, Pants will only search for the config files in the repository root (from where you would normally run the `<function bin_name at 0x7f469f249b80>` command).
+Please note that even though `pydocstyle` keeps looking for a configuration file up the directory tree until one is found, Pants will only search for the config files in the repository root (from where you would normally run the `<function bin_name at 0x7f7ed59ebb80>` command).
 
 Use `[pydocstyle].config` instead if your config is in a non-standard location.
 
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

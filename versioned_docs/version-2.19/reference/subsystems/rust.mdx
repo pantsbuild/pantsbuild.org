@@ -1,0 +1,58 @@
+---
+title: rust
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for Rust support.
+
+Backend: <span className="color--primary">`pants.backend.experimental.rust`</span>
+
+Config section: <span className="color--primary">`[rust]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `toolchain`
+
+<Option
+  cli_repr={`--rust-toolchain=<str>`}
+  env_repr='PANTS_RUST_TOOLCHAIN'
+  default_repr={`stable`}
+>
+
+Name of a Rust toolchain to use for all builds. The toolchain name will be provided to Rustup to find the Toolchain.
+
+</Option>
+
+### `rustup_search_paths`
+
+<Option
+  cli_repr={`--rust-rustup-search-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUST_RUSTUP_SEARCH_PATHS'
+  default_repr={`[\n  "<PATH>"\n]`}
+>
+
+A list of paths to search for Rustup.
+
+Specify absolute paths to directories with the `rustup` binary, e.g. `/usr/bin`. Earlier entries will be searched first. The special string &#x27;&#x3C;PATH&#x3E;&#x27; will expand to the contents of the PATH env var.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

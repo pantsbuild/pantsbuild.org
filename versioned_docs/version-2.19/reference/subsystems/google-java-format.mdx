@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[google-java-format]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Google Java Format when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Google Java Format when running `pants fmt` and `pants lint`.
 
 </Option>
 
@@ -37,7 +37,7 @@ If true, don&#x27;t use Google Java Format when running `scie-pants-linux-x86_64
   default_repr={`False`}
 >
 
-Use AOSP style instead of Google Style (4-space indentation). (&quot;AOSP&quot; is the Android Open Source Project.)
+Use AOSP style instead of Google Style (4-space indentation). (&#x22;AOSP&#x22; is the Android Open Source Project.)
 
 </Option>
 
@@ -60,7 +60,7 @@ Version string for the tool. This is available for substitution in the `[google-
 <Option
   cli_repr={`--google-java-format-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOOGLE_JAVA_FORMAT_ARTIFACTS'
-  default_repr={`["com.google.googlejavaformat:google-java-format:{version}"]`}
+  default_repr={`[\n  "com.google.googlejavaformat:google-java-format:{version}"\n]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[google-java-format].version` option.
@@ -79,7 +79,7 @@ Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.19.0rc1/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.
 
-To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 jvm-generate-lockfiles --resolve=google-java-format`.
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=google-java-format`.
 
 </Option>
 
@@ -98,6 +98,10 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

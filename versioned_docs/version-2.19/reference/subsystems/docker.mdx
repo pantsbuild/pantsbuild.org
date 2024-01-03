@@ -214,7 +214,7 @@ Additional arguments to use for `docker run` invocations.
 Example:
 
 ```
-$ scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
+$ pants run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
 ```
 
 To provide the top-level options to the `docker` client, use `[docker].env_vars` to configure the [Environment variables](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) as appropriate.
@@ -256,7 +256,7 @@ If true, add `docker_image` targets with the `tailor` goal.
 <Option
   cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='docker_executable_search_paths'
 >
 
@@ -280,6 +280,10 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

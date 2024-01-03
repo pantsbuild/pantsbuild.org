@@ -20,38 +20,41 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
 
-Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
 
 If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
 
-When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
@@ -60,7 +63,7 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `include_requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -71,7 +74,8 @@ Whether to resolve requirements and include them in the AWS Lambda artifact. Thi
 ## `runtime`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
@@ -83,7 +87,8 @@ N.B.: only one of this and `complete_platforms` can be set. If `runtime` is set,
 ## `complete_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -103,7 +108,8 @@ N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default 
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -117,7 +123,7 @@ All dependencies must share the same value for their `resolve` field.
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 
@@ -132,7 +138,7 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 ## `include_sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -143,14 +149,15 @@ Whether to resolve first party sources and include them in the AWS Lambda artifa
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 

@@ -1,0 +1,44 @@
+---
+title: java-thrift
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options specific to generating Java from Thrift using the Apache Thrift generator
+
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.thrift.apache.java`</span>
+
+Config section: <span className="color--primary">`[java-thrift]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `options`
+
+<Option
+  cli_repr={`--java-thrift-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JAVA_THRIFT_OPTIONS'
+  default_repr={`[]`}
+>
+
+Code generation options specific to the Java code generator to pass to the Apache `thrift` binary via the `-gen java` argument. See `thrift -help` for supported values.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

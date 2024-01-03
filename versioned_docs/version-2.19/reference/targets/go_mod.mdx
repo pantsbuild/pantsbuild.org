@@ -22,31 +22,34 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
 
-Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
 ## `cgo_enabled`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Enable Cgo support, which allows Go and C code to interact. This option must be enabled for any packages making use of Cgo to actually be compiled with Cgo support.
@@ -60,7 +63,8 @@ See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional inform
 ## `race`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Enable compiling the binary with the Go data race detector.
@@ -72,10 +76,11 @@ See https://go.dev/doc/articles/race_detector for additional information about t
 ## `msan`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
-Enable interoperation between Go code and the C/C++ &quot;memory sanitizer.&quot;
+Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer.&#x22;
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
@@ -84,10 +89,11 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
 ## `asan`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
-Enable interoperation between Go code and the C/C++ &quot;address sanitizer.&quot;
+Enable interoperation between Go code and the C/C++ &#x22;address sanitizer.&#x22;
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
@@ -96,7 +102,8 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
 ## `assembler_flags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Extra flags to pass to the Go assembler (i.e., `go tool asm`) when assembling Go-format assembly code.
@@ -118,7 +125,8 @@ Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 ## `compiler_flags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Extra flags to pass to the Go compiler (i.e., `go tool compile`) when compiling Go code.
@@ -138,7 +146,8 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 ## `linker_flags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Extra flags to pass to the Go linker (i.e., `go tool link`) when linking Go binaries.
