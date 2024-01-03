@@ -42,7 +42,7 @@ For local paths, you may want to use the option `[python-repos].path_mappings`.
 <Option
   cli_repr={`--python-repos-indexes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_INDEXES'
-  default_repr={`[\n  "https://pypi.org/simple/"\n]`}
+  default_repr={`["https://pypi.org/simple/"]`}
 >
 
 URLs of [PEP-503 compatible](https://peps.python.org/pep-0503/) code repository indexes to look for requirements.
@@ -86,9 +86,5 @@ Note: Only takes effect if using Pex lockfiles, i.e. using the `generate-lockfil
 URLs of code repositories to look for requirements. In Pip and Pex, this option corresponds to the `--find-links` option.
 
 </Option>
-
-## Related subsystems
-
-None
 
 </span>

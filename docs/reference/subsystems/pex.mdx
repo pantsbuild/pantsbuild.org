@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 How Pants uses Pex to run Python subprocesses.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[pex]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[pex]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[pex]`</span>
 None
 
 ## Advanced options
+
 
 ### `verbosity`
 
@@ -52,7 +53,9 @@ Enabling this can save space in the `--named-caches-dir` directory and lead to s
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`[\n  "<PATH>"\n]`}
+  default_repr={`[
+  "<PATH>"
+]`}
   target_field_name='pex_executable_search_paths'
 >
 
@@ -66,8 +69,5 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 
 None
 
-## Related subsystems
-
-None
 
 </span>

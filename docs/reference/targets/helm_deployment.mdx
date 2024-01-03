@@ -27,7 +27,6 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
@@ -40,7 +39,6 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `chart`
 
 <Field
@@ -51,7 +49,6 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 The address of the `helm_chart` or `helm_artifact` that will be used for this deployment.
 
 </Field>
-
 ## `release_name`
 
 <Field
@@ -62,7 +59,6 @@ The address of the `helm_chart` or `helm_artifact` that will be used for this de
 Name of the release used in the deployment. If not set, the target name will be used instead.
 
 </Field>
-
 ## `dependencies`
 
 <Field
@@ -81,7 +77,6 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `sources`
 
 <Field
@@ -92,7 +87,6 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 Helm configuration files for a given deployment.
 
 </Field>
-
 ## `namespace`
 
 <Field
@@ -103,7 +97,6 @@ Helm configuration files for a given deployment.
 Kubernetes namespace for the given deployment.
 
 </Field>
-
 ## `skip_crds`
 
 <Field
@@ -114,7 +107,6 @@ Kubernetes namespace for the given deployment.
 If true, then does not deploy the Custom Resource Definitions that are defined in the chart.
 
 </Field>
-
 ## `values`
 
 <Field
@@ -125,7 +117,6 @@ If true, then does not deploy the Custom Resource Definitions that are defined i
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
-
 ```
 helm_deployment(
     values={
@@ -133,6 +124,7 @@ helm_deployment(
         "image.pullPolicy": "Always",
     },
 )
+
 ```
 
 Values can be dynamically calculated using interpolation as shown in the following example:
@@ -143,12 +135,12 @@ helm_deployment(
         "configmap.deployedAt": f"{env('DEPLOY_TIME')}",
     },
 )
+
 ```
 
 Check the Helm backend documentation on what are the options available and its caveats when making usage of dynamic values in your deployments.
 
 </Field>
-
 ## `no_hooks`
 
 <Field
@@ -159,7 +151,6 @@ Check the Helm backend documentation on what are the options available and its c
 If true, none of the lifecycle hooks of the given chart will be included in the deployment.
 
 </Field>
-
 ## `timeout`
 
 <Field
@@ -170,7 +161,6 @@ If true, none of the lifecycle hooks of the given chart will be included in the 
 Timeout in seconds when running a Helm deployment.
 
 </Field>
-
 ## `post_renderers`
 
 <Field
@@ -185,7 +175,6 @@ This is equivalent to the same post-renderer feature already available in Helm w
 When more than one post-renderer is given, they will be combined into a single one in which the input of each of them would be output of the previous one.
 
 </Field>
-
 ## `enable_dns`
 
 <Field

@@ -31,8 +31,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -44,8 +43,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -57,8 +55,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `execution_dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The execution dependencies for this command.
@@ -72,8 +69,7 @@ See also `runnable_dependencies`.
 ## `runnable_dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The runnable dependencies for this command.
@@ -87,8 +83,7 @@ See also `execution_dependencies`.
 ## `command`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Shell command to execute.
@@ -100,7 +95,7 @@ The command is executed as `'bash -c <command>'` by default. If you want to invo
 ## `workdir`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'.'`}
 >
 

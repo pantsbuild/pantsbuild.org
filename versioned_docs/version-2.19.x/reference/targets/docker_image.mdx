@@ -33,8 +33,7 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -46,8 +45,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -59,7 +57,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `extra_build_args`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`()`}
 >
 
@@ -72,8 +70,7 @@ Use `[docker].build_args` to set default build args for all images.
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -91,7 +88,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'Dockerfile'`}
 >
 
@@ -104,8 +101,7 @@ Use the `instructions` field instead if you prefer not having the Dockerfile in 
 ## `instructions`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The `Dockerfile` content, typically one instruction per list item.
@@ -129,8 +125,7 @@ docker_image(
 ## `context_root`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Specify which directory to use as the Docker build context root. This affects the file paths to use for the `COPY` and `ADD` instructions. For example, whether `COPY files/f.txt` should look for the file relative to the build root: `<build root>/files/f.txt` vs relative to the BUILD file: `<build root>/path_to_build_file/files/f.txt`.
@@ -144,7 +139,7 @@ If `context_root` is not specified, it defaults to `[docker].default_context_roo
 ## `image_tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`('latest',)`}
 >
 
@@ -159,7 +154,7 @@ See https://www.pantsbuild.org/v2.19/docs/tagging-docker-images.
 ## `registries`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`('<all default registries>',)`}
 >
 
@@ -193,8 +188,7 @@ The above example shows two valid `registry` options: using an alias to a config
 ## `repository`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The repository name for the Docker image. e.g. `"<repository>/<name>"`.
@@ -214,8 +208,7 @@ See the documentation for `[docker].default_repository` for more information.
 ## `image_labels`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Provide image metadata.
@@ -229,8 +222,7 @@ See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manag
 ## `extra_build_hosts`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Extra hosts entries to be added to a container&#x27;s `/etc/hosts` file.
@@ -242,8 +234,7 @@ Use `[docker].build_hosts` to set default host entries for all images.
 ## `secrets`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Secret files to expose to the build (only if BuildKit enabled).
@@ -268,7 +259,7 @@ docker_image(
 ## `ssh`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`()`}
 >
 
@@ -287,7 +278,7 @@ See [Docker documentation](https://docs.docker.com/develop/develop-images/build_
 ## `skip_push`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -298,8 +289,7 @@ If true, do not push this image to registries when running `scie-pants-linux-x86
 ## `target_stage`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Specify target build stage, rather than building the entire `Dockerfile`.
@@ -313,20 +303,20 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 ## `pull`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
 If true, then docker will always attempt to pull a newer version of the image.
 
-NOTE: This option cannot be used on images that build off of &#x22;transitive&#x22; base images referenced by address (i.e. `FROM path/to/your/base/Dockerfile`).
+NOTE: This option cannot be used on images that build off of &quot;transitive&quot; base images referenced by address (i.e. `FROM path/to/your/base/Dockerfile`).
 
 </Field>
 
 ## `squash`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -339,19 +329,17 @@ Note that this option is only supported on a Docker daemon with experimental fea
 ## `build_network`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
-Sets the networking mode for the run commands during build. Supported standard values are: bridge, host, none, and container:&#x3C;name|id&#x3E;. Any other value is taken as a custom network&#x27;s name to which the container should connect to.
+Sets the networking mode for the run commands during build. Supported standard values are: bridge, host, none, and container:&lt;name|id&gt;. Any other value is taken as a custom network&#x27;s name to which the container should connect to.
 
 </Field>
 
 ## `build_platform`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Set the target platform(s) for the build.
@@ -361,8 +349,7 @@ Set the target platform(s) for the build.
 ## `cache_to`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Export image build cache to an external cache destination.
@@ -392,8 +379,7 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 ## `cache_from`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Use an external cache source when building the image.
@@ -423,7 +409,7 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 ## `output`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`FrozenDict({'type': 'docker'})`}
 >
 
@@ -442,8 +428,7 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 ## `output_path`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Where the built asset should be located.
@@ -459,7 +444,7 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `restartable`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -470,7 +455,7 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `skip_hadolint`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.docker.lint.hadolint"
 >

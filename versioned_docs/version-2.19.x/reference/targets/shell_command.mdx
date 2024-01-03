@@ -36,8 +36,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -49,8 +48,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -62,8 +60,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `output_dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Any dependencies that need to be present (as transitive dependencies) whenever the outputs of this target are consumed (including as dependencies).
@@ -75,8 +72,7 @@ See also `execution_dependencies` and `runnable_dependencies`.
 ## `execution_dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The execution dependencies for this command.
@@ -92,8 +88,7 @@ See also `output_dependencies` and `runnable_dependencies`.
 ## `runnable_dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The runnable dependencies for this command.
@@ -107,8 +102,7 @@ See also `output_dependencies` and `execution_dependencies`.
 ## `command`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Shell command to execute.
@@ -120,7 +114,7 @@ The command is executed as `'bash -c <command>'` by default. If you want to invo
 ## `log_output`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -131,7 +125,7 @@ Set to true if you want the output logged to the console.
 ## `output_files`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`()`}
 >
 
@@ -146,7 +140,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 ## `output_directories`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`()`}
 >
 
@@ -161,7 +155,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 ## `timeout`
 
 <Field
-    type_repr={`int | None`}
+    type_repr={`field.type_hint`}
     default_repr={`30`}
 >
 
@@ -172,7 +166,7 @@ Command execution timeout (in seconds).
 ## `tools`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`()`}
 >
 
@@ -185,8 +179,7 @@ Only the tools explicitly provided will be available on the search PATH, and the
 ## `extra_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Additional environment variables to provide to the process.
@@ -198,7 +191,7 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
 ## `workdir`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'.'`}
 >
 
@@ -216,8 +209,7 @@ Values are relative to the build root, except in the following cases:
 ## `experimental_named_caches`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Named caches to construct for the execution. See https://www.pantsbuild.org/docs/reference-global#named_caches_dir.
@@ -231,7 +223,7 @@ NOTE: The named caches MUST be handled with great care. Processes accessing the 
 ## `root_output_directory`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'/'`}
 >
 
@@ -249,7 +241,7 @@ Values are relative to the build root, except in the following cases:
 ## `environment`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
 

@@ -59,7 +59,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `mypy` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `mypy` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -86,7 +86,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+  default_repr={`["CPython>=3.7,<4"]`}
 >
 
 Python interpreter constraints for this tool.
@@ -162,10 +162,6 @@ To instead load third-party plugins, set the option `[mypy].install_from_resolve
 </Option>
 
 ## Deprecated options
-
-None
-
-## Related subsystems
 
 None
 

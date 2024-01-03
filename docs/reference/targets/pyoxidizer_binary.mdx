@@ -31,7 +31,6 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
@@ -44,7 +43,6 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `output_path`
 
 <Field
@@ -63,7 +61,6 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
-
 ## `binary_name`
 
 <Field
@@ -74,7 +71,6 @@ Warning: setting this value risks naming collisions with other package targets y
 The name of the binary that will be output by PyOxidizer. If not set, this will default to the name of this target.
 
 </Field>
-
 ## `template`
 
 <Field
@@ -90,13 +86,12 @@ All parameters must be prefixed by `$` or surrounded with `${ }`.
 
 Available template parameters:
 
-- RUN_MODULE - The re-formatted `entry_point` passed to this target (or None).
-- NAME - This target&#x27;s name.
-- WHEELS - All python distributions passed to this target (or `[]`).
-- UNCLASSIFIED_RESOURCE_INSTALLATION - This will populate a snippet of code to correctly inject the targets `filesystem_resources`.
+  * RUN_MODULE - The re-formatted `entry_point` passed to this target (or None).
+  * NAME - This target&#x27;s name.
+  * WHEELS - All python distributions passed to this target (or `[]`).
+  * UNCLASSIFIED_RESOURCE_INSTALLATION - This will populate a snippet of code to correctly inject the targets `filesystem_resources`.
 
 </Field>
-
 ## `dependencies`
 
 <Field
@@ -113,7 +108,6 @@ Usually, you only need to specify a single `python_distribution`. However, if th
 Target types other than `python_distribution` will be ignored.
 
 </Field>
-
 ## `entry_point`
 
 <Field
@@ -128,7 +122,6 @@ It is specified with the full module declared: `'path.to.module'`.
 This field is passed into the PyOxidizer config as-is, and does not undergo validation checking.
 
 </Field>
-
 ## `filesystem_resources`
 
 <Field
@@ -139,7 +132,6 @@ This field is passed into the PyOxidizer config as-is, and does not undergo vali
 Adds support for listing dependencies that MUST be installed to the filesystem (e.g. Numpy). See https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_packaging_additional_files.html#installing-unclassified-files-on-the-filesystem
 
 </Field>
-
 ## `environment`
 
 <Field

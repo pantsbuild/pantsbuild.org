@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,8 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `registry`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Either registry alias (prefixed by `@`) configured in `[helm.registries]` for the Helm artifact or the full OCI registry URL.
@@ -55,8 +52,7 @@ Either registry alias (prefixed by `@`) configured in `[helm.registries]` for th
 ## `repository`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Either a HTTP(S) URL to a classic repository, or a path inside an OCI registry (when `registry` is provided).
@@ -66,8 +62,7 @@ Either a HTTP(S) URL to a classic repository, or a path inside an OCI registry (
 ## `artifact`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Artifact name of the chart, without version number.
@@ -77,8 +72,7 @@ Artifact name of the chart, without version number.
 ## `version`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The `version` part of a third party Helm chart.

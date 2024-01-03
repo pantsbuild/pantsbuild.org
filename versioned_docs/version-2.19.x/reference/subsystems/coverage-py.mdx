@@ -39,7 +39,7 @@ If you leave this off, the coverage report will include every file in the transi
   cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
   env_repr='PANTS_COVERAGE_PY_REPORT'
   one_of='console, xml, html, raw, json, lcov'
-  default_repr={`[\n  "console"\n]`}
+  default_repr={`["console"]`}
 >
 
 Which coverage report type(s) to emit.
@@ -96,7 +96,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `coverage-py` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `coverage-py` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -123,7 +123,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+  default_repr={`["CPython>=3.7,<4"]`}
 >
 
 Python interpreter constraints for this tool.
@@ -195,10 +195,6 @@ Use `[coverage-py].config` instead if your config is in a non-standard location.
 </Option>
 
 ## Deprecated options
-
-None
-
-## Related subsystems
 
 None
 

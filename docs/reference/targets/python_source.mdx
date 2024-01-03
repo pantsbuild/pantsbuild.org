@@ -27,7 +27,6 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
@@ -40,7 +39,6 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `interpreter_constraints`
 
 <Field
@@ -59,7 +57,6 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.20/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
-
 ## `dependencies`
 
 <Field
@@ -78,7 +75,6 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `resolve`
 
 <Field
@@ -93,7 +89,6 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
-
 ## `run_goal_use_sandbox`
 
 <Field
@@ -114,7 +109,6 @@ The former mode is more hermetic, and is closer to building and running the sour
 The latter mode is similar to creating, activating, and using a virtual environment when running your files. It may also be necessary if the source being run writes files into the repo and computes their location relative to the executed files. Django&#x27;s `makemigrations` command is an example of such a process.
 
 </Field>
-
 ## `source`
 
 <Field
@@ -127,7 +121,6 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
-
 ## `restartable`
 
 <Field
@@ -138,7 +131,6 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
-
 ## `skip_isort`
 
 <Field
@@ -150,7 +142,6 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
-
 ## `skip_mypy`
 
 <Field
@@ -162,7 +153,6 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
-
 ## `skip_autoflake`
 
 <Field
@@ -174,7 +164,6 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
-
 ## `skip_flake8`
 
 <Field
@@ -186,7 +175,6 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
-
 ## `skip_docformatter`
 
 <Field
@@ -198,7 +186,6 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pyupgrade`
 
 <Field
@@ -210,7 +197,6 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
-
 ## `skip_add_trailing_comma`
 
 <Field
@@ -222,7 +208,6 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pytype`
 
 <Field
@@ -234,7 +219,6 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 If true, don&#x27;t run pytype on this target&#x27;s code.
 
 </Field>
-
 ## `skip_bandit`
 
 <Field
@@ -246,7 +230,6 @@ If true, don&#x27;t run pytype on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
-
 ## `skip_ruff`
 
 <Field
@@ -258,7 +241,6 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 If true, don&#x27;t run ruff on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pylint`
 
 <Field
@@ -270,7 +252,6 @@ If true, don&#x27;t run ruff on this target&#x27;s code.
 If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
-
 ## `skip_pydocstyle`
 
 <Field
@@ -282,7 +263,6 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 </Field>
-
 ## `skip_yapf`
 
 <Field
@@ -294,7 +274,6 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
-
 ## `skip_black`
 
 <Field

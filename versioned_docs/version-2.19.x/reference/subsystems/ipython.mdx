@@ -37,7 +37,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `ipython` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `ipython` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -95,15 +95,11 @@ Whether to tell IPython not to put the CWD on the import path.
 
 Normally you want this to be True, so that imports come from the hermetic environment Pants creates.
 
-However IPython&#x3C;7.13.0 doesn&#x27;t support this option, so if you&#x27;re using an earlier version (e.g., because you have Python 2.7 code) then you will need to set this to False, and you may have issues with imports from your CWD shading the hermetic environment.
+However IPython&lt;7.13.0 doesn&#x27;t support this option, so if you&#x27;re using an earlier version (e.g., because you have Python 2.7 code) then you will need to set this to False, and you may have issues with imports from your CWD shading the hermetic environment.
 
 </Option>
 
 ## Deprecated options
-
-None
-
-## Related subsystems
 
 None
 

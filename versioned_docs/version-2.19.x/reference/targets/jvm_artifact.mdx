@@ -22,8 +22,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -35,8 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -48,8 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `group`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
@@ -61,8 +58,7 @@ For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the group is `com.go
 ## `artifact`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
@@ -74,8 +70,7 @@ For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the artifact is `gua
 ## `version`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
@@ -87,8 +82,7 @@ For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the version is `30.1
 ## `packages`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The JVM packages this artifact provides for the purposes of dependency inference.
@@ -104,8 +98,7 @@ The package path may be made recursive to match symbols in subpackages by adding
 ## `url`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A URL that points to the location of this artifact.
@@ -119,8 +112,7 @@ Note that `file:` URLs are not supported. Instead, use the `jar` field for local
 ## `jar`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A local JAR file that provides this artifact to the lockfile resolver, instead of a Maven repository.
@@ -134,8 +126,7 @@ Use the `url` field for remote artifacts.
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[jvm].resolves` that this artifact should be included in.
@@ -149,8 +140,7 @@ When generating a lockfile for a particular resolve via the `coursier-resolve` g
 ## `exclusions`
 
 <Field
-    type_repr={`Iterable[pants.jvm.target_types.JvmArtifactExclusion] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A list of exclusions for unversioned coordinates that should be excluded as dependencies when this artifact is resolved.
@@ -166,8 +156,7 @@ Supported exclusions are:
 ## `jdk`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
@@ -177,8 +166,7 @@ The major version of the JDK that this target should be built with. If not defin
 ## `main`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.

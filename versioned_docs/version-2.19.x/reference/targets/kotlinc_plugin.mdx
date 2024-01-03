@@ -28,8 +28,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -41,8 +40,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -54,8 +52,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `artifact`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The address of a `jvm_artifact` that defines a plugin for `kotlinc`.
@@ -65,8 +62,7 @@ The address of a `jvm_artifact` that defines a plugin for `kotlinc`.
 ## `plugin_id`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The ID for `kotlinc` to use when setting options for the plugin.
@@ -78,8 +74,7 @@ If not set, the plugin ID defaults to the target name.
 ## `plugin_args`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Optional list of argument to pass to the plugin.

@@ -20,8 +20,7 @@ Backend: <span className="color--primary">`pants.backend.google_cloud_function.p
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -33,8 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -46,8 +44,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `output_path`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Where the built asset should be located.
@@ -63,8 +60,7 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -82,8 +78,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `handler`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Entry point to the Google Cloud Function handler.
@@ -97,8 +92,7 @@ This is re-exported at `main.handler` in the resulting package to used as the co
 ## `runtime`
 
 <Field
-    type_repr={`'python310' | 'python311' | 'python37' | 'python38' | 'python39' | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The identifier of the Google Cloud Function runtime to target (pythonXY). See https://cloud.google.com/functions/docs/concepts/python-runtime.
@@ -110,8 +104,7 @@ In general you&#x27;ll want to define either a `runtime` or one `complete_platfo
 ## `complete_platforms`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -131,8 +124,7 @@ N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default 
 ## `type`
 
 <Field
-    type_repr={`'event' | 'http'`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The trigger type of the cloud function. Can either be `'event'` or `'http'`. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to `--trigger-http`.
@@ -142,8 +134,7 @@ The trigger type of the cloud function. Can either be `'event'` or `'http'`. See
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -157,7 +148,7 @@ All dependencies must share the same value for their `resolve` field.
 ## `environment`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
 

@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Configuration of the mypy-protobuf type stub generation plugin.
 
-Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
-
-Config section: <span className="color--primary">`[mypy-protobuf]`</span>
+Backend: <span className="color--primary">pants.backend.codegen.protobuf.python</span>
+Config section: <span className="color--primary">[mypy-protobuf]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[mypy-protobuf]`</span>
 None
 
 ## Advanced options
+
 
 ### `install_from_resolve`
 
@@ -64,7 +65,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--mypy-protobuf-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_PROTOBUF_INTERPRETER_CONSTRAINTS'
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+  default_repr={`[
+  "CPython>=3.7,<4"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -75,8 +78,5 @@ Python interpreter constraints for this tool.
 
 None
 
-## Related subsystems
-
-None
 
 </span>

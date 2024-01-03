@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 The Jar Jar Abrams tool (https://github.com/eed3si9n/jarjar-abrams)
 
-Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
-
-Config section: <span className="color--primary">`[jarjar]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.java</span>
+Config section: <span className="color--primary">[jarjar]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `skip_manifest`
 
@@ -44,6 +45,7 @@ The strategy to use when processing class files that are in the wrong package.
 
 ## Advanced options
 
+
 ### `version`
 
 <Option
@@ -61,7 +63,9 @@ Version string for the tool. This is available for substitution in the `[jarjar]
 <Option
   cli_repr={`--jarjar-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_JARJAR_ARTIFACTS'
-  default_repr={`[\n  "com.eed3si9n.jarjar:jarjar-assembly:{version}"\n]`}
+  default_repr={`[
+  "com.eed3si9n.jarjar:jarjar-assembly:{version}"
+]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[jarjar].version` option.
@@ -102,8 +106,5 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 
 None
 
-## Related subsystems
-
-None
 
 </span>

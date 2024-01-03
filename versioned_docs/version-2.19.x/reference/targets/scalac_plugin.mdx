@@ -22,8 +22,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -35,8 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -48,8 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `artifact`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The address of either a `jvm_artifact` or a `scala_artifact` that defines a plugin for `scalac`.
@@ -59,8 +56,7 @@ The address of either a `jvm_artifact` or a `scala_artifact` that defines a plug
 ## `plugin_name`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The name that `scalac` should use to load the plugin.

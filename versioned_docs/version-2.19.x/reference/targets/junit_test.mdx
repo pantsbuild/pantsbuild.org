@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,8 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `source`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A single file that belongs to this target.
@@ -57,8 +54,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `timeout`
 
 <Field
-    type_repr={`int | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -70,8 +66,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 ## `extra_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Additional environment variables to include in test processes.
@@ -85,8 +80,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -104,8 +98,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[jvm].resolves` to use when compiling this target.
@@ -117,8 +110,7 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `experimental_provides_types`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Signals that the specified types should be fulfilled by these source files during dependency inference.
@@ -132,8 +124,7 @@ If a given type is defined, at least one source file captured by this target mus
 ## `jdk`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.

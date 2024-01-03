@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,8 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -63,8 +60,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A single file that belongs to this target.
@@ -76,8 +72,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `kotlinc_plugins`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The IDs of Kotlin compiler plugins that this source file requires.
@@ -91,8 +86,7 @@ If not specified, this will default to the plugins specified in `[kotlinc].plugi
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[jvm].resolves` to use when compiling this target.
@@ -104,8 +98,7 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `experimental_provides_types`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Signals that the specified types should be fulfilled by these source files during dependency inference.
@@ -119,8 +112,7 @@ If a given type is defined, at least one source file captured by this target mus
 ## `jdk`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
@@ -130,8 +122,7 @@ The major version of the JDK that this target should be built with. If not defin
 ## `main`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.
@@ -141,7 +132,7 @@ The major version of the JDK that this target should be built with. If not defin
 ## `skip_ktlint`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.experimental.kotlin.lint.ktlint"
 >

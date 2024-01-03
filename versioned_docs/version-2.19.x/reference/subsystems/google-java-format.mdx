@@ -37,7 +37,7 @@ If true, don&#x27;t use Google Java Format when running `scie-pants-linux-x86_64
   default_repr={`False`}
 >
 
-Use AOSP style instead of Google Style (4-space indentation). (&#x22;AOSP&#x22; is the Android Open Source Project.)
+Use AOSP style instead of Google Style (4-space indentation). (&quot;AOSP&quot; is the Android Open Source Project.)
 
 </Option>
 
@@ -60,7 +60,7 @@ Version string for the tool. This is available for substitution in the `[google-
 <Option
   cli_repr={`--google-java-format-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOOGLE_JAVA_FORMAT_ARTIFACTS'
-  default_repr={`[\n  "com.google.googlejavaformat:google-java-format:{version}"\n]`}
+  default_repr={`["com.google.googlejavaformat:google-java-format:{version}"]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[google-java-format].version` option.
@@ -98,10 +98,6 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 </Option>
 
 ## Deprecated options
-
-None
-
-## Related subsystems
 
 None
 

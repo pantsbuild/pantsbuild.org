@@ -22,8 +22,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -35,8 +34,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -48,8 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `requirements`
 
 <Field
-    type_repr={`Iterable[str]`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A pip-style requirement string, e.g. `["Django==3.2.8"]`.
@@ -63,8 +60,7 @@ If the requirement depends on some other requirement to work, such as needing `s
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -82,8 +78,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `modules`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The modules this requirement provides (used for dependency inference).
@@ -99,8 +94,7 @@ Mutually exclusive with the `type_stub_modules` field.
 ## `type_stub_modules`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The modules this requirement provides if the requirement is a type stub (used for dependency inference).
@@ -116,8 +110,7 @@ Mutually exclusive with the `modules` field.
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[python].resolves` that this requirement is included in.
@@ -131,8 +124,7 @@ When generating a lockfile for a particular resolve via the `generate-lockfiles`
 ## `entry_point`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a module.

@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Analyses K8S manifests rendered by Helm.
 
-Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
-
-Config section: <span className="color--primary">`[helm-k8s-parser]`</span>
+Backend: <span className="color--primary">pants.backend.experimental.helm</span>
+Config section: <span className="color--primary">[helm-k8s-parser]</span>
 
 <span className={styles.options}>
 
@@ -20,6 +20,7 @@ Config section: <span className="color--primary">`[helm-k8s-parser]`</span>
 None
 
 ## Advanced options
+
 
 ### `install_from_resolve`
 
@@ -64,7 +65,9 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--helm-k8s-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS'
-  default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
+  default_repr={`[
+  "CPython>=3.7,<3.10"
+]`}
 >
 
 Python interpreter constraints for this tool.
@@ -75,8 +78,5 @@ Python interpreter constraints for this tool.
 
 None
 
-## Related subsystems
-
-None
 
 </span>

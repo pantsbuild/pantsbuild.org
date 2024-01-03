@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,7 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `sources`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`('*_test.sh', 'test_*.sh', 'tests.sh')`}
 >
 
@@ -59,8 +57,7 @@ Example: `sources=['test.sh', 'test_*.sh', '!test_ignore.sh']`
 ## `overrides`
 
 <Field
-    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Override the field values for generated `shunit2_test` targets.
@@ -88,7 +85,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_shfmt`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.shell.lint.shfmt"
 >
@@ -100,7 +97,7 @@ If true, don&#x27;t run shfmt on this target&#x27;s code.
 ## `skip_shellcheck`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.shell.lint.shellcheck"
 >
@@ -112,8 +109,7 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -131,8 +127,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `timeout`
 
 <Field
-    type_repr={`int | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -144,7 +139,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 ## `skip_tests`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -155,8 +150,7 @@ If true, don&#x27;t run this target&#x27;s tests.
 ## `shell`
 
 <Field
-    type_repr={`'bash' | 'dash' | 'ksh' | 'pdksh' | 'sh' | 'zsh' | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
@@ -166,8 +160,7 @@ Which shell to run the tests with. If unspecified, Pants will look for a shebang
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to targets that can be built with the `scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.

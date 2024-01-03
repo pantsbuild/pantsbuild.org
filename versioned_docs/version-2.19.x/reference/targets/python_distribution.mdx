@@ -20,8 +20,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -33,8 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -46,8 +44,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The Python interpreters this code is compatible with.
@@ -65,8 +62,7 @@ See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for h
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -84,8 +80,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `entry_points`
 
 <Field
-    type_repr={`Dict[str, Dict[str, str]] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Any entry points, such as `console_scripts` and `gui_scripts`.
@@ -116,8 +111,7 @@ scie-pants-linux-x86_64 dependencies <python_distribution target address>
 ## `provides`
 
 <Field
-    type_repr={`PythonArtifact`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The setup.py kwargs for the external artifact built from this target.
@@ -131,8 +125,7 @@ See https://www.pantsbuild.org/v2.19/docs/plugins-setup-py for how to write a pl
 ## `generate_setup`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Whether to generate setup information for this distribution, based on analyzing sources and dependencies. Set to False to use existing setup information, such as existing `setup.py`, `setup.cfg`, `pyproject.toml` files or similar.
@@ -142,7 +135,7 @@ Whether to generate setup information for this distribution, based on analyzing 
 ## `wheel`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`True`}
 >
 
@@ -153,7 +146,7 @@ Whether to build a wheel for the distribution.
 ## `sdist`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`True`}
 >
 
@@ -164,8 +157,7 @@ Whether to build an sdist for the distribution.
 ## `wheel_config_settings`
 
 <Field
-    type_repr={`Dict[str, Iterable[str]] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 PEP-517 config settings to pass to the build backend when building a wheel.
@@ -175,8 +167,7 @@ PEP-517 config settings to pass to the build backend when building a wheel.
 ## `sdist_config_settings`
 
 <Field
-    type_repr={`Dict[str, Iterable[str]] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 PEP-517 config settings to pass to the build backend when building an sdist.
@@ -186,8 +177,7 @@ PEP-517 config settings to pass to the build backend when building an sdist.
 ## `env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Environment variables to set when running the PEP-517 build backend.
@@ -199,8 +189,7 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 ## `long_description_path`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Path to a file that will be used to fill the `long_description` field in `setup.py`.
@@ -216,7 +205,7 @@ This field won&#x27;t automatically set `long_description_content_type` field fo
 ## `output_path`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`''`}
 >
 
@@ -229,8 +218,7 @@ If undefined, this defaults to the empty path, i.e. the output goes at the top l
 ## `repositories`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
     backend="pants.backend.experimental.python"
 >
 
@@ -245,7 +233,7 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
 ## `skip_twine`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.experimental.python"
 >
@@ -257,7 +245,7 @@ If true, don&#x27;t publish this target&#x27;s packages using Twine.
 ## `uses_mypyc`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >

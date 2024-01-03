@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,7 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `sources`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`('*_test.yaml', '*_test.yml')`}
 >
 
@@ -59,8 +57,7 @@ Example: `sources=['*_test.yaml', '!ignore_test.yaml']`
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -78,8 +75,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `overrides`
 
 <Field
-    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Override the field values for generated `helm_unittest_test` targets.
@@ -106,8 +102,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `strict`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 If set to true, parses the UnitTest suite files strictly.
@@ -117,8 +112,7 @@ If set to true, parses the UnitTest suite files strictly.
 ## `timeout`
 
 <Field
-    type_repr={`int | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.

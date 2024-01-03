@@ -29,7 +29,6 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
-
 ## `description`
 
 <Field
@@ -42,7 +41,6 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
-
 ## `dependencies`
 
 <Field
@@ -61,7 +59,6 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
-
 ## `sources`
 
 <Field
@@ -76,7 +73,6 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
 
 </Field>
-
 ## `test_extra_env_vars`
 
 <Field
@@ -91,7 +87,6 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
 This will be merged with and override values from `[test].extra_env_vars`.
 
 </Field>
-
 ## `test_timeout`
 
 <Field
@@ -104,7 +99,6 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
-
 ## `test_race`
 
 <Field
@@ -117,7 +111,6 @@ Enable compiling this package&#x27;s test binary with the Go data race detector.
 See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
 
 </Field>
-
 ## `test_msan`
 
 <Field
@@ -130,7 +123,6 @@ Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer&#x22;
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
 </Field>
-
 ## `test_asan`
 
 <Field
@@ -143,7 +135,6 @@ Enable interoperation between Go code and the C/C++ &#x22;address sanitizer&#x22
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
 </Field>
-
 ## `assembler_flags`
 
 <Field
@@ -166,7 +157,6 @@ This field can be specified on several different target types:
 Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 
 </Field>
-
 ## `compiler_flags`
 
 <Field
@@ -187,7 +177,6 @@ This field can be specified on several different target types:
 Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 </Field>
-
 ## `skip_tests`
 
 <Field
@@ -198,7 +187,6 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 If true, don&#x27;t run this package&#x27;s tests.
 
 </Field>
-
 ## `skip_gofmt`
 
 <Field

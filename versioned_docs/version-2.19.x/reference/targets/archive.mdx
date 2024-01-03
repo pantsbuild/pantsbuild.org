@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.core`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,8 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `output_path`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Where the built asset should be located.
@@ -61,8 +58,7 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `packages`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to any targets that can be built with `scie-pants-linux-x86_64 package`, e.g. `["project:app"]`.
@@ -76,8 +72,7 @@ You can include anything that can be built by `scie-pants-linux-x86_64 package`,
 ## `files`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to any `file`, `files`, or `relocated_files` targets to include in the archive, e.g. `["resources:logo"]`.
@@ -93,8 +88,7 @@ If you instead want those files included in any packages specified in the `packa
 ## `format`
 
 <Field
-    type_repr={`'tar' | 'tar.bz2' | 'tar.gz' | 'tar.xz' | 'zip'`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The type of archive file to be generated.

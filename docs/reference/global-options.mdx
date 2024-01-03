@@ -7,15 +7,16 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
+
 Options to control the overall behavior of Pants.
 
-Backend: <span className="color--primary">`pants.core`</span>
-
-Config section: <span className="color--primary">`[GLOBAL]`</span>
+Backend: <span className="color--primary">pants.core</span>
+Config section: <span className="color--primary">[GLOBAL]</span>
 
 <span className={styles.options}>
 
 ## Basic options
+
 
 ### `level`
 
@@ -212,6 +213,7 @@ Run goals continuously as file changes are detected.
 
 ## Advanced options
 
+
 ### `backend_packages`
 
 <Option
@@ -297,7 +299,6 @@ Whether to show/hide logging done by 3rdparty Rust crates used by the Pants engi
 Ignore logs and warnings matching these strings.
 
 Normally, Pants will look for literal matches from the start of the log/warning message, but you can prefix the ignore with `$regex$` for Pants to instead treat your string as a regex pattern. For example:
-
 ```
 ignore_warnings = [
     "DEPRECATED: option 'config' in scope 'flake8' will be removed",
@@ -388,7 +389,9 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`[\n  "<buildroot>/pants.toml"\n]`}
+  default_repr={`[
+  "/tmp/tmp.TG08L3iBWC/pants.toml"
+]`}
 >
 
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
@@ -448,10 +451,12 @@ Verify that all config file values correspond to known options.
 <Option
   cli_repr={`--stats-record-option-scopes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_STATS_RECORD_OPTION_SCOPES'
-  default_repr={`[\n  "*"\n]`}
+  default_repr={`[
+  "*"
+]`}
 >
 
-Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
+Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
 
 </Option>
 
@@ -1298,6 +1303,7 @@ If you are using the `remote_environment` target mechanism, set this value as a 
 
 ## Deprecated options
 
+
 ### `process_cleanup`
 
 <Option
@@ -1328,8 +1334,5 @@ If specified, Pants will add a header in the format `authorization: Bearer <toke
 
 </Option>
 
-## Related subsystems
-
-None
 
 </span>

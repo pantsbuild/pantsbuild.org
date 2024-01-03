@@ -7,7 +7,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-A JSR 154 &#x22;web application archive&#x22; (or &#x22;war&#x22;) with first-party and third-party code bundled for deploys in Java Servlet containers.
+A JSR 154 &quot;web application archive&quot; (or &quot;war&quot;) with first-party and third-party code bundled for deploys in Java Servlet containers.
 
 Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
 
@@ -18,8 +18,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -31,8 +30,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -44,8 +42,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[jvm].resolves` to use when compiling this target.
@@ -57,8 +54,7 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `content`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A list of addresses to `resources` and `files` targets with content to place in the document root of this WAR file.
@@ -68,8 +64,7 @@ A list of addresses to `resources` and `files` targets with content to place in 
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -87,8 +82,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `descriptor`
 
 <Field
-    type_repr={`str`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Path to a file containing the descriptor (i.e., `web.xml`) for this WAR file. Defaults to `web.xml`.
@@ -98,8 +92,7 @@ Path to a file containing the descriptor (i.e., `web.xml`) for this WAR file. De
 ## `shading_rules`
 
 <Field
-    type_repr={`Iterable[pants.jvm.target_types.JvmShadingRule] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Shading rules to be applied to the individual JAR artifacts embedded in the `WEB-INF/lib` folder.
@@ -118,8 +111,7 @@ When defining shading rules, just add them in this field using the previously li
 ## `output_path`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Where the built asset should be located.

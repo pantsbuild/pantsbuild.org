@@ -20,8 +20,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -33,8 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -46,7 +44,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `environment`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'__local__'`}
 >
 
@@ -61,8 +59,7 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The Python interpreters this code is compatible with.
@@ -80,8 +77,7 @@ See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for h
 ## `resolve`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -95,8 +91,7 @@ All dependencies must share the same value for their `resolve` field.
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -114,8 +109,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `complete_platforms`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -133,8 +127,7 @@ See https://www.pantsbuild.org/v2.19/docs/pex for details.
 ## `resolve_local_platforms`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 For each of the `platforms` specified, attempt to find a local interpreter that matches.
@@ -146,8 +139,7 @@ If a matching interpreter is found, use the interpreter to resolve distributions
 ## `inherit_path`
 
 <Field
-    type_repr={`'fallback' | 'false' | 'prefer' | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
@@ -159,7 +151,7 @@ Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` afte
 ## `strip_pex_env`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`True`}
 >
 
@@ -172,7 +164,7 @@ Most applications have no need for the `PEX*` environment variables that are use
 ## `ignore_errors`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -183,8 +175,7 @@ Should PEX ignore errors when it cannot resolve dependencies?
 ## `shebang`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints.
@@ -196,8 +187,7 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 ## `emit_warnings`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Whether or not to emit PEX warnings at runtime.
@@ -209,7 +199,7 @@ The default is determined by the option `emit_warnings` in the `[pex-binary-defa
 ## `layout`
 
 <Field
-    type_repr={`'loose' | 'packed' | 'zipapp' | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'zipapp'`}
 >
 
@@ -228,7 +218,7 @@ Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose ap
 ## `execution_mode`
 
 <Field
-    type_repr={`'venv' | 'zipapp' | None`}
+    type_repr={`field.type_hint`}
     default_repr={`'zipapp'`}
 >
 
@@ -243,7 +233,7 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 ## `include_requirements`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`True`}
 >
 
@@ -254,7 +244,7 @@ Whether to include the third party requirements the binary depends on in the pac
 ## `include_sources`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`True`}
 >
 
@@ -265,7 +255,7 @@ Whether to include your first party sources the binary uses in the packaged PEX 
 ## `include_tools`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -278,7 +268,7 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 ## `venv_site_packages_copies`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -291,11 +281,11 @@ This can be used to work around problems with tools or libraries that are confus
 ## `venv_hermetic_scripts`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`True`}
 >
 
-If execution_mode is &#x22;venv&#x22;, emit a hermetic venv `pex` script and hermetic console scripts.
+If execution_mode is &quot;venv&quot;, emit a hermetic venv `pex` script and hermetic console scripts.
 
 The venv `pex` script and the venv console scripts are constructed to be hermetic by default; Python is executed with `-sE` to restrict the `sys.path` to the PEX venv contents only. Setting this field to `False` elides the Python `-sE` restrictions and can be used to interoperate with frameworks that use `PYTHONPATH` manipulation to run code.
 
@@ -304,7 +294,7 @@ The venv `pex` script and the venv console scripts are constructed to be hermeti
 ## `restartable`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -315,8 +305,7 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `entry_point`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a module.
@@ -333,8 +322,7 @@ You may either set this field or the `script` field, but not both. Leave off bot
 ## `script`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
@@ -346,8 +334,7 @@ You may either set this field or the `entry_point` field, but not both. Leave of
 ## `args`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Freeze these command-line args into the PEX. Allows you to run generic entry points on specific arguments without creating a shim file.
@@ -357,8 +344,7 @@ Freeze these command-line args into the PEX. Allows you to run generic entry poi
 ## `env`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Freeze these environment variables into the PEX. Allows you to run generic entry points on a specific environment without creating a shim file.
@@ -368,8 +354,7 @@ Freeze these environment variables into the PEX. Allows you to run generic entry
 ## `output_path`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Where the built asset should be located.

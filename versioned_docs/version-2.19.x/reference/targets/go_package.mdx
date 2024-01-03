@@ -20,8 +20,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 ## `tags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Arbitrary strings to describe a target.
@@ -33,8 +32,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A human-readable description of the target.
@@ -46,8 +44,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -65,7 +62,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `sources`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`field.type_hint`}
     default_repr={`('*.go',)`}
 >
 
@@ -80,8 +77,7 @@ Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
 ## `test_extra_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Additional environment variables to include in test processes.
@@ -95,8 +91,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 ## `test_timeout`
 
 <Field
-    type_repr={`int | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -108,8 +103,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 ## `test_race`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Enable compiling this package&#x27;s test binary with the Go data race detector.
@@ -121,11 +115,10 @@ See https://go.dev/doc/articles/race_detector for additional information about t
 ## `test_msan`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
-Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer&#x22; when building this package&#x27;s test binary.
+Enable interoperation between Go code and the C/C++ &quot;memory sanitizer&quot; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
@@ -134,11 +127,10 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
 ## `test_asan`
 
 <Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
-Enable interoperation between Go code and the C/C++ &#x22;address sanitizer&#x22; when building this package&#x27;s test binary.
+Enable interoperation between Go code and the C/C++ &quot;address sanitizer&quot; when building this package&#x27;s test binary.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
@@ -147,8 +139,7 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
 ## `assembler_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Extra flags to pass to the Go assembler (i.e., `go tool asm`) when assembling Go-format assembly code.
@@ -170,8 +161,7 @@ Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 ## `compiler_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`field.type_hint`}
 >
 
 Extra flags to pass to the Go compiler (i.e., `go tool compile`) when compiling Go code.
@@ -191,7 +181,7 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 ## `skip_tests`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
 >
 
@@ -202,7 +192,7 @@ If true, don&#x27;t run this package&#x27;s tests.
 ## `skip_gofmt`
 
 <Field
-    type_repr={`bool`}
+    type_repr={`field.type_hint`}
     default_repr={`False`}
     backend="pants.backend.experimental.go"
 >
