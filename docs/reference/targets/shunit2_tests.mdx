@@ -27,6 +27,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +40,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +55,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['test.sh', 'test_*.sh', '!test_ignore.sh']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -65,13 +68,13 @@ Override the field values for generated `shunit2_test` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
     "foo_test.sh": {"timeout": 120},
     "bar_test.sh": {"timeout": 200},
     ("foo_test.sh", "bar_test.sh"): {"tags": ["slow_tests"]},
 }
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -81,6 +84,7 @@ If you&#x27;d like to override a field&#x27;s value for every `shunit2_test` tar
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `skip_shfmt`
 
 <Field
@@ -92,6 +96,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run shfmt on this target&#x27;s code.
 
 </Field>
+
 ## `skip_shellcheck`
 
 <Field
@@ -103,6 +108,7 @@ If true, don&#x27;t run shfmt on this target&#x27;s code.
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -121,6 +127,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -133,6 +140,7 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
 ## `skip_tests`
 
 <Field
@@ -143,6 +151,7 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
+
 ## `shell`
 
 <Field
@@ -153,6 +162,7 @@ If true, don&#x27;t run this target&#x27;s tests.
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
 
 </Field>
+
 ## `runtime_package_dependencies`
 
 <Field

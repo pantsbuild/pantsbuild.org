@@ -27,6 +27,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +40,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +55,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.sh', 'new_*.sh', '!old_ignore.sh']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -65,13 +68,13 @@ Override the field values for generated `shell_source` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
     "foo.sh": {"skip_shellcheck": True]},
     "bar.sh": {"skip_shfmt": True]},
     ("foo.sh", "bar.sh"): {"tags": ["linter_disabled"]},
 }
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -81,6 +84,7 @@ If you&#x27;d like to override a field&#x27;s value for every `shell_source` tar
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `skip_shfmt`
 
 <Field
@@ -92,6 +96,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run shfmt on this target&#x27;s code.
 
 </Field>
+
 ## `skip_shellcheck`
 
 <Field
@@ -103,6 +108,7 @@ If true, don&#x27;t run shfmt on this target&#x27;s code.
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
+
 ## `dependencies`
 
 <Field

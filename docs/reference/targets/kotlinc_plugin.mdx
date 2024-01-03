@@ -13,11 +13,11 @@ To enable a `kotlinc` plugin, define a target with this target type, and set the
 
 The standard `kotlinc` plugins are available via the following artifact coordinates and IDs:
 
-* All-open: `org.jetbrains.kotlin:kotlin-allopen:VERSION` (ID: `all-open`)
-* No-arg: `org.jetbrains.kotlin:kotlin-noarg:VERSION` (ID: `no-arg`)
-* SAM with receiver: `org.jetbrains.kotlin:kotlin-sam-with-receiver:VERSION` (ID: `sam-with-receiver`)
-* kapt (annotation processor): `org.jetbrains.kotlin:org.jetbrains.kotlin:kotlin-annotation-processing-embeddable:VERSION` (ID: `kapt3`)
-* Serialization: `org.jetbrains.kotlin:kotlin-serialization:VERSION` (ID: `serialization`)
+- All-open: `org.jetbrains.kotlin:kotlin-allopen:VERSION` (ID: `all-open`)
+- No-arg: `org.jetbrains.kotlin:kotlin-noarg:VERSION` (ID: `no-arg`)
+- SAM with receiver: `org.jetbrains.kotlin:kotlin-sam-with-receiver:VERSION` (ID: `sam-with-receiver`)
+- kapt (annotation processor): `org.jetbrains.kotlin:org.jetbrains.kotlin:kotlin-annotation-processing-embeddable:VERSION` (ID: `kapt3`)
+- Serialization: `org.jetbrains.kotlin:kotlin-serialization:VERSION` (ID: `serialization`)
 
 Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</span>
 
@@ -37,6 +37,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -49,6 +50,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `artifact`
 
 <Field
@@ -59,6 +61,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 The address of a `jvm_artifact` that defines a plugin for `kotlinc`.
 
 </Field>
+
 ## `plugin_id`
 
 <Field
@@ -71,6 +74,7 @@ The ID for `kotlinc` to use when setting options for the plugin.
 If not set, the plugin ID defaults to the target name.
 
 </Field>
+
 ## `plugin_args`
 
 <Field

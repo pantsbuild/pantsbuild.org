@@ -7,11 +7,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 A tool for generating versions from VCS metadata (https://github.com/pypa/setuptools_scm).
 
-Backend: <span className="color--primary">pants.backend.experimental.python</span>
-Config section: <span className="color--primary">[setuptools-scm]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.python`</span>
+
+Config section: <span className="color--primary">`[setuptools-scm]`</span>
 
 <span className={styles.options}>
 
@@ -20,7 +20,6 @@ Config section: <span className="color--primary">[setuptools-scm]</span>
 None
 
 ## Advanced options
-
 
 ### `install_from_resolve`
 
@@ -65,9 +64,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--setuptools-scm-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SETUPTOOLS_SCM_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -102,5 +99,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 
 None
 
+## Related subsystems
+
+None
 
 </span>

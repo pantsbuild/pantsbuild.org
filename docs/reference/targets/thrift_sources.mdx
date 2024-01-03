@@ -27,6 +27,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +40,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +55,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.thrift', 'new_*.thrift', '!old_ignore.thrift']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -65,12 +68,12 @@ Override the field values for generated `thrift_source` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
     "bar.thrift": {"description": "our user model"]},
     ("foo.thrift", "bar.thrift"): {"tags": ["overridden"]},
 }
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -80,6 +83,7 @@ If you&#x27;d like to override a field&#x27;s value for every `thrift_source` ta
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `python_resolve`
 
 <Field
@@ -95,6 +99,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `dependencies`
 
 <Field

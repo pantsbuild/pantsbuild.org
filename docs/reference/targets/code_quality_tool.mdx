@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Configure a runnable to use as a linter, fixer or formatter
 
 Example BUILD file:
+
 ```
 code_quality_tool(
     runnable=":flake8_req",
@@ -36,6 +37,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -48,6 +50,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `runnable`
 
 <Field
@@ -58,6 +61,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 Address to a target that can be invoked by the `run` goal (and does not set `run_in_sandbox_behavior=NOT_SUPPORTED`). This will be executed along with any arguments specified by `args`, in a sandbox with that target&#x27;s transitive dependencies, along with the transitive dependencies specified by `execution_dependencies`.
 
 </Field>
+
 ## `args`
 
 <Field
@@ -68,6 +72,7 @@ Address to a target that can be invoked by the `run` goal (and does not set `run
 Extra arguments to pass into the `runnable` field before the list of source files
 
 </Field>
+
 ## `execution_dependencies`
 
 <Field
@@ -78,6 +83,7 @@ Extra arguments to pass into the `runnable` field before the list of source file
 Additional dependencies that need to be available when running the tool. Typically used to point to config files.
 
 </Field>
+
 ## `runnable_dependencies`
 
 <Field
@@ -92,6 +98,7 @@ Dependencies specified here are those required to exist on the `PATH` to make th
 See also `execution_dependencies`.
 
 </Field>
+
 ## `file_glob_include`
 
 <Field
@@ -104,6 +111,7 @@ Globs that identify files that can be processed by this tool
 A file matching any of the supplied globs is eligible for processing. Example: [&#x22;**/*.py&#x22;]
 
 </Field>
+
 ## `file_glob_exclude`
 
 <Field

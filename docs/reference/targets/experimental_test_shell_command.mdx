@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script as a test via the `test` goal, with all dependencies packaged/copied available in the chroot.
 
 Example BUILD file:
+
 ```
 experimental_test_shell_command(
     name="test",
@@ -17,7 +18,6 @@ experimental_test_shell_command(
     command="test -r $CHROOT/some-data-file.txt",
     execution_dependencies=["src/project/files:data"],
 )
-
 ```
 
 The `command` may use either `{chroot}` on the command line, or the `$CHROOT` environment variable to get the root directory for where any dependencies are located.
@@ -42,6 +42,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -54,6 +55,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `execution_dependencies`
 
 <Field
@@ -70,6 +72,7 @@ If this field is specified, dependencies from `output_dependencies` will not be 
 See also `output_dependencies` and `runnable_dependencies`.
 
 </Field>
+
 ## `command`
 
 <Field
@@ -82,6 +85,7 @@ Shell command to execute.
 The command is executed as `'bash -c <command>'` by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
 
 </Field>
+
 ## `log_output`
 
 <Field
@@ -92,6 +96,7 @@ The command is executed as `'bash -c <command>'` by default. If you want to invo
 Set to true if you want the output logged to the console.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -102,6 +107,7 @@ Set to true if you want the output logged to the console.
 Command execution timeout (in seconds).
 
 </Field>
+
 ## `tools`
 
 <Field
@@ -114,6 +120,7 @@ Specify required executable tools that might be used.
 Only the tools explicitly provided will be available on the search PATH, and these tools must be found on the paths provided by `[shell-setup].executable_search_paths` (which defaults to the system PATH).
 
 </Field>
+
 ## `extra_env_vars`
 
 <Field
@@ -126,6 +133,7 @@ Additional environment variables to provide to the process.
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 </Field>
+
 ## `environment`
 
 <Field
@@ -140,6 +148,7 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
 ## `skip_tests`
 
 <Field
@@ -150,6 +159,7 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 If true, don&#x27;t run this tests for target.
 
 </Field>
+
 ## `workdir`
 
 <Field
@@ -161,10 +171,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
 
 </Field>
 

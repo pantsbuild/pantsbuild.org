@@ -33,6 +33,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -45,6 +46,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `group`
 
 <Field
@@ -57,6 +59,7 @@ The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party JAR
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the group is `com.google.guava`.
 
 </Field>
+
 ## `artifact`
 
 <Field
@@ -69,6 +72,7 @@ The &#x27;artifact&#x27; part of a Maven-compatible Scala-versioned coordinate t
 For the JAR coordinate `org.typelevel:cats-core_2.13:2.9.0`, the artifact is `cats-core`.
 
 </Field>
+
 ## `version`
 
 <Field
@@ -81,6 +85,7 @@ The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party J
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the version is `30.1.1-jre`.
 
 </Field>
+
 ## `packages`
 
 <Field
@@ -97,6 +102,7 @@ Usually you can leave this field off. If unspecified, Pants will fall back to th
 The package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `["org.junit.**"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.
 
 </Field>
+
 ## `crossversion`
 
 <Field
@@ -109,6 +115,7 @@ Whether to use the full Scala version or the partial one to determine the artifa
 Default is `binary`.
 
 </Field>
+
 ## `exclusions`
 
 <Field
@@ -121,10 +128,12 @@ A list of exclusions for unversioned coordinates that should be excluded as depe
 This does not prevent this artifact from being included in the resolve as a dependency of other artifacts that depend on it, and is currently intended as a way to resolve version conflicts in complex resolves.
 
 Supported exclusions are:
-  * `jvm_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`.
-  * `scala_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`. You can also use the `crossversion` field to help resolve the final artifact name.
+
+- `jvm_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`.
+- `scala_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`. You can also use the `crossversion` field to help resolve the final artifact name.
 
 </Field>
+
 ## `url`
 
 <Field
@@ -139,6 +148,7 @@ If specified, Pants will not fetch this artifact from default Maven repositories
 Note that `file:` URLs are not supported. Instead, use the `jar` field for local artifacts.
 
 </Field>
+
 ## `jar`
 
 <Field
@@ -153,6 +163,7 @@ Path is relative to the BUILD file.
 Use the `url` field for remote artifacts.
 
 </Field>
+
 ## `main`
 
 <Field
@@ -163,6 +174,7 @@ Use the `url` field for remote artifacts.
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -177,6 +189,7 @@ If not defined, will default to `[jvm].default_resolve`.
 When generating a lockfile for a particular resolve via the `coursier-resolve` goal, it will include all artifacts that are declared compatible with that resolve. First-party targets like `java_source` and `scala_source` also declare which resolve they use via the `resolve` field; so, for your first-party code to use a particular `jvm_artifact` target, that artifact must be included in the resolve used by that code.
 
 </Field>
+
 ## `jdk`
 
 <Field

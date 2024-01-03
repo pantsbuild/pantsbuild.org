@@ -10,12 +10,12 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script in the workspace, with all dependencies packaged/copied into a chroot.
 
 Example BUILD file:
+
 ```
 run_shell_command(
     command="./scripts/my-script.sh --data-files-dir={chroot}",
     execution_dependencies=["src/project/files:data"],
 )
-
 ```
 
 The `command` may use either `{chroot}` on the command line, or the `$CHROOT` environment variable to get the root directory for where any dependencies are located.
@@ -40,6 +40,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -52,6 +53,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `execution_dependencies`
 
 <Field
@@ -66,6 +68,7 @@ Dependencies specified here are those required to make the command complete succ
 See also `runnable_dependencies`.
 
 </Field>
+
 ## `runnable_dependencies`
 
 <Field
@@ -80,6 +83,7 @@ Dependencies specified here are those required to exist on the `PATH` to make th
 See also `execution_dependencies`.
 
 </Field>
+
 ## `command`
 
 <Field
@@ -92,6 +96,7 @@ Shell command to execute.
 The command is executed as `'bash -c <command>'` by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
 
 </Field>
+
 ## `workdir`
 
 <Field
@@ -103,10 +108,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
 
 </Field>
 

@@ -7,16 +7,15 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options controlling which dependencies will be inferred for javascript targets.
 
-Backend: <span className="color--primary">pants.backend.experimental.openapi.lint.spectral</span>
-Config section: <span className="color--primary">[nodejs-infer]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.openapi.lint.spectral`</span>
+
+Config section: <span className="color--primary">`[nodejs-infer]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `imports`
 
@@ -45,9 +44,7 @@ Infer a `package_json`&#x27;s dependencies by parsing entry point statements fro
 To ignore a false positive, you can put `!{bad_address}` in the `dependencies` field of the `package_json` target.
 
 See https://nodejs.org/api/packages.html#package-entry-points and
-```
 https://docs.npmjs.com/cli/v9/configuring-npm/package-json#browser.
-```
 
 </Option>
 
@@ -59,5 +56,8 @@ None
 
 None
 
+## Related subsystems
+
+None
 
 </span>
