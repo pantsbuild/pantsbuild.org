@@ -140,11 +140,11 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-fs.mkdirSync(reference_dir);
+fs.mkdirSync(reference_dir, { recursive: true });
 process.chdir(reference_dir);
-fs.mkdirSync("goals");
-fs.mkdirSync("subsystems");
-fs.mkdirSync("targets");
+fs.mkdirSync("goals", { recursive: true });
+fs.mkdirSync("subsystems", { recursive: true });
+fs.mkdirSync("targets", { recursive: true });
 
 // Global Options
 fs.writeFileSync(
