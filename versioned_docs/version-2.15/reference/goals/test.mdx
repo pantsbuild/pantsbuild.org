@@ -202,6 +202,7 @@ The maximum timeout (in seconds) that may be used on a test target.
 The target maximum number of files to be included in each run of batch-enabled test runners.
 
 Some test runners can execute tests from multiple files in a single run. Test implementations will return all tests that _can_ run together as a single group - and then this may be further divided into smaller batches, based on this option. This is done:
+
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch

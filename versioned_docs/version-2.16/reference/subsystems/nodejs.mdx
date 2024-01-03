@@ -41,10 +41,10 @@ Use this version of nodejs.
   default_repr={`[\n  "v16.15.0|macos_arm64|ad8d8fc5330ef47788f509c2af398c8060bb59acbe914070d0df684cd2d8d39b|29126014",\n  "v16.15.0|macos_x86_64|a6bb12bbf979d32137598e49d56d61bcddf8a8596c3442b44a9b3ace58dd4de8|30561503",\n  "v16.15.0|linux_arm64|b4080b86562c5397f32da7a0723b95b1df523cab4c757688a184e3f733a7df56|21403276",\n  "v16.15.0|linux_x86_64|ebdf4dc9d992d19631f0931cca2fc33c6d0d382543639bc6560d31d5060a8372|22031988"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -58,7 +58,6 @@ E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
 
-
 </Option>
 
 ### `use_unsupported_version`
@@ -70,11 +69,9 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
-
 What action to take in case the requested version of nodejs is not supported.
 
 Supported nodejs versions: unspecified
-
 
 </Option>
 

@@ -19,7 +19,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -145,6 +144,7 @@ If this field is left unset on a target, the target is assumed to be incompatibl
 If this field is set on a target, and its value is different from the value on some other `python_test`, then the two targets are explicitly incompatible and are guaranteed to not run in the same `pytest` process.
 
 If this field is set on a target, and its value is the same as the value on some other `python_test`, then the two targets are explicitly compatible and _may_ run in the same `pytest` process. Compatible tests may not end up in the same `pytest` batch if:
+
 ```
 * There are "too many" compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
 * Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).

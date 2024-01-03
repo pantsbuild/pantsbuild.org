@@ -41,7 +41,7 @@ Write stats to this local json file on run completion.
   default_repr={`[]`}
 >
 
-Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
+Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
 
 </Option>
 
@@ -57,7 +57,7 @@ Option scopes to record in stats on run completion. Options may be selected by j
   removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
 >
 
-Upload stats to these URLs on run completion.  Value is a map from URL to the name of the auth provider the user must auth against in order to upload stats to that URL, or None/empty string if no auth is required.  Currently the auth provider name is only used to provide a more helpful error message.
+Upload stats to these URLs on run completion. Value is a map from URL to the name of the auth provider the user must auth against in order to upload stats to that URL, or None/empty string if no auth is required. Currently the auth provider name is only used to provide a more helpful error message.
 
 </Option>
 

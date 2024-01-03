@@ -15,7 +15,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -97,6 +96,7 @@ Override the field values for generated `python_requirement` targets.
 Expects a dictionary of requirements to a dictionary for the overrides. You may either use a string for a single requirement, or a string tuple for multiple requirements. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
     "django": {"dependencies": ["#setuptools"]},

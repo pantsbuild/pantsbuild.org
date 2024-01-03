@@ -26,6 +26,7 @@ Config section: <span className="color--primary">`[docker]`</span>
 >
 
 Configure Docker registries. The schema for a registry entry is as follows:
+
 ```
 {
     "registry-alias": {
@@ -62,9 +63,9 @@ Configure the default repository name used in the Docker image tag.
 
 The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
 
-  * name
-  * directory
-  * parent_directory
+- name
+- directory
+- parent_directory
 
 Example: `--default-repository="{directory}/{name}"`.
 
@@ -89,6 +90,7 @@ Provide a default Docker build context root path for `docker_image` targets that
 The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
 
 Examples:
+
 ```
 --default-context-root=src/docker
 --default-context-root=./relative_to_the_build_file
@@ -109,6 +111,7 @@ Global build arguments (for Docker `--build-arg` options) to use for all `docker
 Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
 Example:
+
 ```
 [docker]
 build_args = ["VAR1=value", "VAR2"]
@@ -155,6 +158,7 @@ Whether to log the Docker output to the console. If false, only the image ID is 
 Additional arguments to use for `docker run` invocations.
 
 Example:
+
 ```
 $ /home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
 ```

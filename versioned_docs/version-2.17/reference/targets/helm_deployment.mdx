@@ -15,7 +15,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -115,6 +114,7 @@ If true, then does not deploy the Custom Resource Definitions that are defined i
 Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
+
 ```
 helm_deployment(
     values={
@@ -125,6 +125,7 @@ helm_deployment(
 ```
 
 Values can be dynamically calculated using interpolation as shown in the following example:
+
 ```
 helm_deployment(
     values={

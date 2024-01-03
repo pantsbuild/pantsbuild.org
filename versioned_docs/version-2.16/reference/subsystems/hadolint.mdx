@@ -63,10 +63,10 @@ Use this version of Hadolint.
   default_repr={`[\n  "v2.10.0|macos_x86_64|59f0523069a857ae918b8ac0774230013f7bcc00c1ea28119c2311353120867a|2514960",\n  "v2.10.0|macos_arm64 |59f0523069a857ae918b8ac0774230013f7bcc00c1ea28119c2311353120867a|2514960",\n  "v2.10.0|linux_x86_64|8ee6ff537341681f9e91bae2d5da451b15c575691e33980893732d866d3cefc4|2301804",\n  "v2.10.0|linux_arm64 |b53d5ab10707a585c9e72375d51b7357522300b5329cfa3f91e482687176e128|27954520"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -80,7 +80,6 @@ E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
 
-
 </Option>
 
 ### `use_unsupported_version`
@@ -92,11 +91,9 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
-
 What action to take in case the requested version of Hadolint is not supported.
 
 Supported Hadolint versions: unspecified
-
 
 </Option>
 

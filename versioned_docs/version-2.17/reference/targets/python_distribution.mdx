@@ -17,7 +17,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -94,6 +93,7 @@ Any entry points, such as `console_scripts` and `gui_scripts`.
 Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (`"path.to.module:func"`) or a Pants target address to a `pex_binary` target.
 
 Example:
+
 ```
 entry_points={
   "console_scripts": {
@@ -106,6 +106,7 @@ entry_points={
 Note that Pants will assume that any value that either starts with `:` or has `/` in it, is a target address to a `pex_binary` target. Otherwise, it will assume it's a setuptools entry point as defined by https://packaging.python.org/specifications/entry-points/#entry-points-specification. Use `//` as a prefix for target addresses if you need to disambiguate.
 
 Pants will attempt to infer dependencies, which you can confirm by running:
+
 ```
 scie-pants-linux-x86_64 dependencies <python_distribution target address>
 ```

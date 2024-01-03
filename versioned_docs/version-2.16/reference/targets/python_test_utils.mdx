@@ -17,7 +17,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -71,11 +70,11 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-    overrides=&#123;
-        &#x22;foo.py&#x22;: &#123;&#x22;skip_pylint&#x22;: True]&#125;,
-        &#x22;bar.py&#x22;: &#123;&#x22;skip_flake8&#x22;: True]&#125;,
-        (&#x22;foo.py&#x22;, &#x22;bar.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;linter_disabled&#x22;]&#125;,
-    &#125;&#x22;
+overrides=&#123;
+&#x22;foo.py&#x22;: &#123;&#x22;skip_pylint&#x22;: True]&#125;,
+&#x22;bar.py&#x22;: &#123;&#x22;skip_flake8&#x22;: True]&#125;,
+(&#x22;foo.py&#x22;, &#x22;bar.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;linter_disabled&#x22;]&#125;,
+&#125;&#x22;
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 

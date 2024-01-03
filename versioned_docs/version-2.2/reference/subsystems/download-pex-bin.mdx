@@ -41,21 +41,19 @@ Use this version of pex.
   default_repr={`[\n  "v2.1.34|darwin|9b1a959ccb61b3deb64ffeed43a735c7115e414f4de6f96e66adc9e7fc7a757f|3597768",\n  "v2.1.34|linux|9b1a959ccb61b3deb64ffeed43a735c7115e414f4de6f96e66adc9e7fc7a757f|3597768"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-  - `version` is the version string
-  - `platform` is one of [darwin,linux],
-  - `sha256` is the 64-character hex representation of the expected sha256
-    digest of the download file, as emitted by `shasum -a 256`
-  - `length` is the expected length of the download file in bytes
+- `version` is the version string
+- `platform` is one of [darwin,linux],
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes
 
 E.g., `3.1.2|darwin|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
-
 
 </Option>
 

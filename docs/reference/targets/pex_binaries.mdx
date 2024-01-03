@@ -19,7 +19,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -73,6 +72,7 @@ Override the field values for generated `pex_binary` targets.
 Expects a dictionary mapping values from the `entry_points` field to a dictionary for their overrides. You may either use a single string or a tuple of strings to override multiple targets.
 
 For example:
+
 ```
 overrides={
   "foo.py": {"execution_mode": "venv"]},

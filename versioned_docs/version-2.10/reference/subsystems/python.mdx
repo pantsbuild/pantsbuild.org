@@ -63,8 +63,6 @@ This does not control which interpreter your code will use. Instead, to set your
 
 All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or &#x27;3.10&#x27;. Do not include the patch version.
 
-
-
 </Option>
 
 ### `requirement_constraints`
@@ -117,9 +115,9 @@ We are working to fix these issues by using PEX &#x26; pip to generate the lockf
 
 Outside of the above issues with lockfile generation, we believe this feature is stable. It offers three major benefits compared to `[python].requirement_constraints`:
 
-  1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
-  2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
-  3. Allows you to have multiple resolves in your repository.
+1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
+2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
+3. Allows you to have multiple resolves in your repository.
 
 Mutually exclusive with `[python].requirement_constraints`.
 
@@ -141,11 +139,11 @@ If you only need a single resolve, run `./pants generate-lockfiles` to generate 
 
 If you need multiple resolves:
 
-  1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
-  2. Set the default with `[python].default_resolve`.
-  3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-  4. Run `./pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
-  5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
+1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
+2. Set the default with `[python].default_resolve`.
+3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
+4. Run `./pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
 If a target can work with multiple resolves, create a distinct target per resolve. This will be made more ergonomic in an upcoming Pants release through a new `parametrize` feature.
 
@@ -229,8 +227,9 @@ If you set this to False, Pants will not attempt to validate the metadata header
 If enabled, when running binaries, tests, and REPLs, Pants will use the entire lockfile file instead of just the relevant subset.
 
 This can improve performance and reduce cache size, but has two consequences:
-  1) All cached test results will be invalidated if any requirement in the lockfile changes, rather than just those that depend on the changed requirement.
-  2) Requirements unneeded by a test/run/repl will be present on the sys.path, which might in rare cases cause their behavior to change.
+
+1. All cached test results will be invalidated if any requirement in the lockfile changes, rather than just those that depend on the changed requirement.
+2. Requirements unneeded by a test/run/repl will be present on the sys.path, which might in rare cases cause their behavior to change.
 
 This option does not affect packaging deployable artifacts, such as PEX files, wheels and cloud functions, which will still use just the exact subset of requirements needed.
 
@@ -314,7 +313,7 @@ Deprecated.
 
 The maximum number of concurrent jobs to build wheels with.
 
-Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`. 
+Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`.
 
 Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 

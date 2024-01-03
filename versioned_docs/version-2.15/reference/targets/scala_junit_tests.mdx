@@ -15,7 +15,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -69,11 +68,11 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-    overrides=&#123;
-        &#x22;Foo.scala&#x22;: &#123;&#x22;dependencies&#x22;: [&#x22;:files&#x22;]&#125;,
-        &#x22;Bar.scala&#x22;: &#123;&#x22;skip_scalafmt&#x22;: True&#125;,
-        (&#x22;Foo.scala&#x22;, &#x22;Bar.scala&#x22;): &#123;&#x22;tags&#x22;: [&#x22;linter_disabled&#x22;]&#125;,
-    &#125;&#x22;
+overrides=&#123;
+&#x22;Foo.scala&#x22;: &#123;&#x22;dependencies&#x22;: [&#x22;:files&#x22;]&#125;,
+&#x22;Bar.scala&#x22;: &#123;&#x22;skip_scalafmt&#x22;: True&#125;,
+(&#x22;Foo.scala&#x22;, &#x22;Bar.scala&#x22;): &#123;&#x22;tags&#x22;: [&#x22;linter_disabled&#x22;]&#125;,
+&#125;&#x22;
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 

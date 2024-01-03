@@ -78,6 +78,7 @@ FYI: when running `scie-pants-linux-x86_64 fix lint ::`, there should be diminis
 The target number of files to be included in each linter batch.
 
 Linter processes are batched for a few reasons:
+
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch.

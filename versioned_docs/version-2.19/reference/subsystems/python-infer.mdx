@@ -171,6 +171,7 @@ Unowned imports that should be ignored.
 If there are any unowned import statements and adding the `# pants: no-infer-dep` to the lines of the import is impractical, you can instead provide a list of imports that Pants should ignore. You can declare a specific import or a path to a package if you would like any of the package imports to be ignored.
 
 For example, you could ignore all the following imports of the code
+
 ```
 import src.generated.app
 from src.generated.app import load

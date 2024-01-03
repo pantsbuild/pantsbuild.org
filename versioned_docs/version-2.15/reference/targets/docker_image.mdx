@@ -16,6 +16,7 @@ By default, will use a Dockerfile from the same directory as the BUILD file this
 Dependencies on upstream/base images defined by another `docker_image` are inferred if referenced by a build argument with a default value of the target address.
 
 Example:
+
 ```
 # src/docker/downstream/Dockerfile
 ARG BASE=src/docker/upstream:image
@@ -28,7 +29,6 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 ---
 
 <span className={styles.options}>
-
 
 ## `tags`
 
@@ -113,6 +113,7 @@ The `Dockerfile` content, typically one instruction per list item.
 Use the `source` field instead if you prefer having the Dockerfile in your source tree.
 
 Example:
+
 ```
 # example/BUILD
 docker_image(
@@ -147,7 +148,6 @@ If `context_root` is not specified, it defaults to `[docker].default_context_roo
     default_repr={`('latest',)`}
 >
 
-
 Any tags to apply to the Docker image name (the version is usually applied as a tag).
 
 tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
@@ -170,6 +170,7 @@ The address is a domain name with optional port for your registry, and any regis
 By default, all configured registries with `default = true` are used.
 
 Example:
+
 ```
 # pants.toml
 [docker.registries.my-registry-alias]
@@ -237,6 +238,7 @@ Secret files to expose to the build (only if BuildKit enabled).
 Secrets may use absolute paths, or paths relative to your build root, or the BUILD file if prefixed with `./`. The id should be valid as used by the Docker build `--secret` option. See [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) for more information.
 
 Example:
+
 ```
 docker_image(
     secrets={
@@ -259,6 +261,7 @@ docker_image(
 SSH agent socket or keys to expose to the build (only if BuildKit enabled) (format: default|&#x3C;id&#x3E;[=&#x3C;socket&#x3E;|&#x3C;key&#x3E;[,&#x3C;key&#x3E;]])
 
 The exposed agent and/or keys can then be used in your `Dockerfile` by mounting them in your `RUN` instructions:
+
 ```
 RUN --mount=type=ssh ...
 ```

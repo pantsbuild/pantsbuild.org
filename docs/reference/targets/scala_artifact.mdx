@@ -21,7 +21,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -129,8 +128,9 @@ A list of exclusions for unversioned coordinates that should be excluded as depe
 This does not prevent this artifact from being included in the resolve as a dependency of other artifacts that depend on it, and is currently intended as a way to resolve version conflicts in complex resolves.
 
 Supported exclusions are:
-  * `jvm_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`.
-  * `scala_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`. You can also use the `crossversion` field to help resolve the final artifact name.
+
+- `jvm_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`.
+- `scala_exclude`: Exclude the given `artifact` and `group`, or all artifacts from the given `group`. You can also use the `crossversion` field to help resolve the final artifact name.
 
 </Field>
 

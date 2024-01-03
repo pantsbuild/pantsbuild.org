@@ -17,7 +17,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -138,6 +137,7 @@ A list of the rules to apply when duplicate file entries are found in the final 
 When defining a duplicate policy, just add `duplicate_rule` directives to this field as follows:
 
 Example:
+
 ```
 duplicate_policy=[
     duplicate_rule(pattern="^META-INF/services", action="concat_text"),
@@ -148,8 +148,8 @@ duplicate_policy=[
 
 Where:
 
-* The `pattern` field is treated as a regular expression
-* The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
+- The `pattern` field is treated as a regular expression
+- The `action` field must be one of `['skip', 'replace', 'concat', 'concat_text', 'throw']`.
 
 Note that the order in which the rules are listed is relevant.
 
@@ -165,10 +165,11 @@ Note that the order in which the rules are listed is relevant.
 Shading rules to be applied to the final JAR artifact.
 
 There are 4 possible shading rules available, which are as follows:
-  * `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
-  * `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
-  * `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
-  * `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
+
+- `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
+- `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
+- `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
+- `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
 
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 

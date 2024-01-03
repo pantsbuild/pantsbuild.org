@@ -43,12 +43,13 @@ Export the specified resolve(s). The export format is backend-specific, e.g., Py
 >
 
 Export Python resolves using this format. Options are:
-  - mutable_virtualenv: Export a standalone mutable virtualenv that you can
-    further modify.
-  - symlinked_immutable_virtualenv: Export a symlink into a cached Python virtualenv.
-    This virtualenv will have no pip binary, and will be immutable. Any attempt to
-    modify it will corrupt the cache! It may, however, take significantly less time
-    to export than a standalone, mutable virtualenv.
+
+- mutable_virtualenv: Export a standalone mutable virtualenv that you can
+  further modify.
+- symlinked_immutable_virtualenv: Export a symlink into a cached Python virtualenv.
+  This virtualenv will have no pip binary, and will be immutable. Any attempt to
+  modify it will corrupt the cache! It may, however, take significantly less time
+  to export than a standalone, mutable virtualenv.
 
 </Option>
 
@@ -84,7 +85,7 @@ NOTE: If you are using legacy exports (not using the &#x27;--resolve&#x27; optio
   removal_hint={'Set the `[export].py_resolve_format` option to \'symlinked_immutable_virtualenv\''}
 >
 
-Export a symlink into a cached Python virtualenv.  This virtualenv will have no pip binary, and will be immutable. Any attempt to modify it will corrupt the cache!  It may, however, take significantly less time to export than a standalone, mutable virtualenv will.
+Export a symlink into a cached Python virtualenv. This virtualenv will have no pip binary, and will be immutable. Any attempt to modify it will corrupt the cache! It may, however, take significantly less time to export than a standalone, mutable virtualenv will.
 
 </Option>
 

@@ -167,7 +167,8 @@ When multiple sources provide the same symbol, how to choose the provider to use
 >
 
 Unowned imports that should be ignored.
-```
+
+````
         If there are any unowned import statements and adding the `# pants: no-infer-dep`
         to the lines of the import is impractical, you can instead provide a list of imports
         that Pants should ignore. You can declare a specific import or a path to a package
@@ -183,7 +184,7 @@ Unowned imports that should be ignored.
             ```
 
         by setting `ignored-unowned-imports=["src.generated.app", "src.generated.client.connect"]`.
-```
+````
 
 </Option>
 

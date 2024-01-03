@@ -15,7 +15,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -69,11 +68,11 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-    overrides=&#123;
-        &#x22;foo_test.py&#x22;: &#123;&#x22;timeout&#x22;: 120&#125;,
-        &#x22;bar_test.py&#x22;: &#123;&#x22;timeout&#x22;: 200&#125;,
-        (&#x22;foo_test.py&#x22;, &#x22;bar_test.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
-    &#125;
+overrides=&#123;
+&#x22;foo_test.py&#x22;: &#123;&#x22;timeout&#x22;: 120&#125;,
+&#x22;bar_test.py&#x22;: &#123;&#x22;timeout&#x22;: 200&#125;,
+(&#x22;foo_test.py&#x22;, &#x22;bar_test.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
+&#125;
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
@@ -314,6 +313,7 @@ If this field is left unset on a target, the target is assumed to be incompatibl
 If this field is set on a target, and its value is different from the value on some other `python_test`, then the two targets are explicitly incompatible and are guaranteed to not run in the same `pytest` process.
 
 If this field is set on a target, and its value is the same as the value on some other `python_test`, then the two targets are explicitly compatible and _may_ run in the same `pytest` process. Compatible tests may not end up in the same `pytest` batch if:
+
 ```
 * There are "too many" compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
 * Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).

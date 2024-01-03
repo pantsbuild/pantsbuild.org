@@ -51,22 +51,20 @@ Use this version of succinctcodecounter.
   default_repr={`[\n  "2.12.0|darwin|70b7002cd1e4541cb37b7b9cbc0eeedd13ceacb49628e82ab46332bb2e65a5a6|1842530",\n  "2.12.0|linux|8eca3e98fe8a78d417d3779a51724515ac4459760d3ec256295f80954a0da044|1753059"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-  - `version` is the version string
-  - `platform` is one of [darwin,linux],
-  - `sha256` is the 64-character hex representation of the expected sha256
-    digest of the download file, as emitted by `shasum -a 256`
-  - `length` is the expected length of the download file in bytes, as emmitted by
-    `wc -c`
+- `version` is the version string
+- `platform` is one of [darwin,linux],
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emmitted by
+  `wc -c`
 
 E.g., `3.1.2|darwin|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
-
 
 </Option>
 

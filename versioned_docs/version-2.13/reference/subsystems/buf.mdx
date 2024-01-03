@@ -87,10 +87,10 @@ Use this version of Buf.
   default_repr={`[\n  "v1.3.0|linux_arm64 |fbfd53c501451b36900247734bfa4cbe86ae05d0f51bc298de8711d5ee374ee5|13940828",\n  "v1.3.0|linux_x86_64|e29c4283b1cd68ada41fa493171c41d7605750d258fcd6ecdf692a63fae95213|15267162",\n  "v1.3.0|macos_arm64 |147985d7f2816a545792e38b26178ff4027bf16cd3712f6e387a4e3692a16deb|15391890",\n  "v1.3.0|macos_x86_64|3b6bd2e5a5dd758178aee01fb067261baf5d31bfebe93336915bfdf7b21928c4|15955291"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -104,7 +104,6 @@ E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
 
-
 </Option>
 
 ### `use_unsupported_version`
@@ -116,11 +115,9 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
-
 What action to take in case the requested version of Buf is not supported.
 
 Supported Buf versions: unspecified
-
 
 </Option>
 

@@ -63,22 +63,20 @@ Use this version of shfmt.
   default_repr={`[\n  "v3.2.4|macos_arm64 |e70fc42e69debe3e400347d4f918630cdf4bf2537277d672bbc43490387508ec|2998546",\n  "v3.2.4|macos_x86_64|43a0461a1b54070ddc04fbbf1b78f7861ee39a65a61f5466d15a39c4aba4f917|2980208",\n  "v3.2.4|linux_arm64 |6474d9cc08a1c9fe2ef4be7a004951998e3067d46cf55a011ddd5ff7bfab3de6|2752512",\n  "v3.2.4|linux_x86_64|3f5a47f8fec27fae3e06d611559a2063f5d27e4b9501171dde9959b8c60a3538|2797568"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-  - `version` is the version string
-  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-  - `sha256` is the 64-character hex representation of the expected sha256
-    digest of the download file, as emitted by `shasum -a 256`
-  - `length` is the expected length of the download file in bytes, as emitted by
-    `wc -c`
+- `version` is the version string
+- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
-
 
 </Option>
 
@@ -91,11 +89,9 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
-
 What action to take in case the requested version of shfmt is not supported.
 
 Supported shfmt versions: unspecified
-
 
 </Option>
 

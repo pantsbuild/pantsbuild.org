@@ -89,9 +89,9 @@ Set to true to enable lockfiles for user code. See `[python].resolves` for an ex
 
 This option is mutually exclusive with `[python].requirement_constraints`. We strongly recommend using this option because it:
 
-  1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
-  2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
-  3. Allows you to have multiple lockfiles in your repository.
+1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
+2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
+3. Allows you to have multiple lockfiles in your repository.
 
 </Option>
 
@@ -111,15 +111,16 @@ If you only need a single resolve, run `scie-pants-linux-x86_64 generate-lockfil
 
 If you need multiple resolves:
 
-  1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
-  2. Set the default with `[python].default_resolve`.
-  3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-  4. Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
-  5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
+1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
+2. Set the default with `[python].default_resolve`.
+3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
+4. Run `scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
 If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/v2.16/docs/targets for information about `parametrize`.
 
 For example:
+
 ```
 python_sources(
     resolve=parametrize("data-science", "web-app"),
@@ -287,9 +288,8 @@ If enabled, when running binaries, tests, and repls, Pants will use the entire l
 If you are using Pex lockfiles, we generally do not recommend this. You will already get similar performance benefits to this option, without the downsides.
 
 Otherwise, this option can improve performance and reduce cache size. But it has two consequences: 1) All cached test results will be invalidated if any requirement in the lockfile
-   changes, rather than just those that depend on the changed requirement.
-2) Requirements unneeded by a test/run/repl will be present on the sys.path, which
-   might in rare cases cause their behavior to change.
+changes, rather than just those that depend on the changed requirement. 2) Requirements unneeded by a test/run/repl will be present on the sys.path, which
+might in rare cases cause their behavior to change.
 
 This option does not affect packaging deployable artifacts, such as PEX files, wheels and cloud functions, which will still use just the exact subset of requirements needed.
 

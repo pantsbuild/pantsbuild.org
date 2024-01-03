@@ -17,6 +17,7 @@ For example, you can relocate `src/resources/project1/data.json` to instead be
 `dependencies` field, rather than using the original `files` target.
 
 To remove a prefix:
+
 ```
 # Results in `data.json`.
 relocated_files(
@@ -27,6 +28,7 @@ relocated_files(
 ```
 
 To add a prefix:
+
 ```
 # Results in `images/logo.svg`.
 relocated_files(
@@ -37,6 +39,7 @@ relocated_files(
 ```
 
 To replace a prefix:
+
 ```
 # Results in `new_prefix/project1/data.json`.
 relocated_files(
@@ -51,7 +54,6 @@ Backend: <span className="color--primary">``</span>
 ---
 
 <span className={styles.options}>
-
 
 ## `tags`
 

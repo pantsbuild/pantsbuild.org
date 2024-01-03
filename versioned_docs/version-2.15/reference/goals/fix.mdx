@@ -64,6 +64,7 @@ FYI: when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fix f
 The target number of files to be included in each fixer batch.
 
 Fixer processes are batched for a few reasons:
+
 ```
 1. to avoid OS argument length limits (in processes which don't support argument files)
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch.

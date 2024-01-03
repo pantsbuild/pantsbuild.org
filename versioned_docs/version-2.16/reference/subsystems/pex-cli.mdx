@@ -43,10 +43,10 @@ Supported pex versions: &#x3E;=2.1.134,&#x3C;3.0
   default_repr={`[\n  "v2.1.134|macos_arm64|82b24645769c19483c1306c1ba7a888471a5e1df3a2b538788bc7e0d1b20dbf0|4085867",\n  "v2.1.134|macos_x86_64|82b24645769c19483c1306c1ba7a888471a5e1df3a2b538788bc7e0d1b20dbf0|4085867",\n  "v2.1.134|linux_x86_64|82b24645769c19483c1306c1ba7a888471a5e1df3a2b538788bc7e0d1b20dbf0|4085867",\n  "v2.1.134|linux_arm64|82b24645769c19483c1306c1ba7a888471a5e1df3a2b538788bc7e0d1b20dbf0|4085867"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
+
 ```
 - `version` is the version string
 - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
@@ -60,7 +60,6 @@ E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
 
-
 </Option>
 
 ### `use_unsupported_version`
@@ -72,11 +71,9 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
-
 What action to take in case the requested version of pex is not supported.
 
 Supported pex versions: &#x3E;=2.1.134,&#x3C;3.0
-
 
 </Option>
 

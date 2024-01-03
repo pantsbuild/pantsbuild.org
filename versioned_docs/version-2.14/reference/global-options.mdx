@@ -299,6 +299,7 @@ Whether to show/hide logging done by 3rdparty Rust crates used by the Pants engi
 Ignore logs and warnings matching these strings.
 
 Normally, Pants will look for literal matches from the start of the log/warning message, but you can prefix the ignore with `$regex$` for Pants to instead treat your string as a regex pattern. For example:
+
 ```
 ignore_warnings = [
     "DEPRECATED: option 'config' in scope 'flake8' will be removed",
@@ -452,7 +453,7 @@ Verify that all config file values correspond to known options.
   default_repr={`[\n  "*"\n]`}
 >
 
-Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
+Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
 
 </Option>
 

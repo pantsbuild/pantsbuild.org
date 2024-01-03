@@ -19,7 +19,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -76,9 +75,9 @@ For example:
 
 `&#x60;`
 overrides=&#123;
-  &#x22;foo.py&#x22;: &#123;&#x22;execution_mode&#x22;: &#x22;venv&#x22;]&#125;,
-  &#x22;bar.py:main&#x22;: &#123;&#x22;restartable&#x22;: True]&#125;,
-  (&#x22;foo.py&#x22;, &#x22;bar.py:main&#x22;): &#123;&#x22;tags&#x22;: [&#x22;legacy&#x22;]&#125;,
+&#x22;foo.py&#x22;: &#123;&#x22;execution_mode&#x22;: &#x22;venv&#x22;]&#125;,
+&#x22;bar.py:main&#x22;: &#123;&#x22;restartable&#x22;: True]&#125;,
+(&#x22;foo.py&#x22;, &#x22;bar.py:main&#x22;): &#123;&#x22;tags&#x22;: [&#x22;legacy&#x22;]&#125;,
 &#125;
 `&#x60;`
 
@@ -158,10 +157,10 @@ You can give a list of multiple platforms to create a multiplatform PEX, meaning
 
 Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &#x22;linux_x86_64-cp-37-cp37m&#x22;, &#x22;macosx_10.12_x86_64-cp-310-cp310&#x22;):
 
-  - PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
-  - IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22; or &#x22;pp&#x22;.
-  - PYVER: a two or more digit string representing the python major/minor version (e.g., &#x22;37&#x22; or &#x22;310&#x22;) or else a component dotted version string (e.g.,&#x22;3.7&#x22; or &#x22;3.10.1&#x22;).
-  - ABI: the ABI tag, e.g. &#x22;cp37m&#x22;, &#x22;cp310&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
+- PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
+- IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22; or &#x22;pp&#x22;.
+- PYVER: a two or more digit string representing the python major/minor version (e.g., &#x22;37&#x22; or &#x22;310&#x22;) or else a component dotted version string (e.g.,&#x22;3.7&#x22; or &#x22;3.10.1&#x22;).
+- ABI: the ABI tag, e.g. &#x22;cp37m&#x22;, &#x22;cp310&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
 
 Note that using an abbreviated platform means that certain resolves will fail when they encounter environment markers that cannot be deduced from the abbreviated platform string. A common example of this is &#x27;python_full_version&#x27; which requires knowing the patch level version of the foreign Python interpreter. To remedy this you should use a 3-component dotted version for PYVER. If your resolves fail due to more esoteric undefined environment markers, you should switch to specifying `complete_platforms` instead.
 

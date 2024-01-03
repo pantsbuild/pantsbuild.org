@@ -61,7 +61,7 @@ Mutually exclusive with `--requirement-constraints-target`.
   default_repr={`None`}
 >
 
-When resolving third-party requirements, use this _python_constraints target to determine which versions to use.
+When resolving third-party requirements, use this \_python_constraints target to determine which versions to use.
 
 This is primarily intended for macros (for now). Normally, use `--requirement-constraints` instead with a constraints file.
 
@@ -78,11 +78,11 @@ See https://pip.pypa.io/en/stable/user_guide/#constraints-files for more informa
   default_repr={`nondeployables`}
 >
 
-If set, and the requirements of the code being operated on are a subset of the constraints file, then the entire constraints file will be used instead of the subset. If unset, or any requirement of the code being operated on is not in the constraints file, each subset will be independently resolved as needed, which is more correct - work is only invalidated if a requirement it actually depends on changes - but also a lot slower, due to the extra resolving. 
+If set, and the requirements of the code being operated on are a subset of the constraints file, then the entire constraints file will be used instead of the subset. If unset, or any requirement of the code being operated on is not in the constraints file, each subset will be independently resolved as needed, which is more correct - work is only invalidated if a requirement it actually depends on changes - but also a lot slower, due to the extra resolving.
 
-* `never` will always use proper subsets, regardless of the goal being run.
-* `nondeployables` will use proper subsets for `./pants package`, but otherwise attempt to use a single resolve.
-* `always` will always attempt to use a single resolve.
+- `never` will always use proper subsets, regardless of the goal being run.
+- `nondeployables` will use proper subsets for `./pants package`, but otherwise attempt to use a single resolve.
+- `always` will always attempt to use a single resolve.
 
 Requires [python-setup].requirement_constraints to be set.
 
@@ -98,10 +98,10 @@ Requires [python-setup].requirement_constraints to be set.
 
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
-* &#x22;&#x3C;PATH&#x3E;&#x22;, the contents of the PATH env var
-* &#x22;&#x3C;PYENV&#x3E;&#x22;, all Python versions under $(pyenv root)/versions
-* &#x22;&#x3C;PYENV_LOCAL&#x3E;&#x22;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-* &#x22;&#x3C;PEXRC&#x3E;&#x22;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+- &#x22;&#x3C;PATH&#x3E;&#x22;, the contents of the PATH env var
+- &#x22;&#x3C;PYENV&#x3E;&#x22;, all Python versions under $(pyenv root)/versions
+- &#x22;&#x3C;PYENV_LOCAL&#x3E;&#x22;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+- &#x22;&#x3C;PEXRC&#x3E;&#x22;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
 
 </Option>
 

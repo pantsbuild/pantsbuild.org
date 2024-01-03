@@ -10,6 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 Run a script as a test via the `test` goal, with all dependencies packaged/copied available in the chroot.
 
 Example BUILD file:
+
 ```
 experimental_test_shell_command(
     name="test",
@@ -28,7 +29,6 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ---
 
 <span className={styles.options}>
-
 
 ## `tags`
 
@@ -171,10 +171,10 @@ Sets the working directory for the process.
 
 Values are relative to the build root, except in the following cases:
 
-* `.` specifies the location of the `BUILD` file.
-* Values beginning with `./` are relative to the location of the `BUILD` file.
-* `/` or the empty string specifies the build root.
-* Values beginning with `/` are also relative to the build root.
+- `.` specifies the location of the `BUILD` file.
+- Values beginning with `./` are relative to the location of the `BUILD` file.
+- `/` or the empty string specifies the build root.
+- Values beginning with `/` are also relative to the build root.
 
 </Field>
 

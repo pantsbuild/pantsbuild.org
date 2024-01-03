@@ -63,22 +63,20 @@ Use this version of shellcheck.
   default_repr={`[\n  "v0.8.0|macos_arm64 |e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|macos_x86_64|e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|linux_arm64 |9f47bbff5624babfa712eb9d64ece14c6c46327122d0c54983f627ae3a30a4ac|2996468",\n  "v0.8.0|linux_x86_64|ab6ee1b178f014d1b86d1e24da20d1139656c8b0ed34d2867fbb834dad02bf0a|1403852"\n]`}
 >
 
-
 Known versions to verify downloads against.
 
 Each element is a pipe-separated string of `version|platform|sha256|length`, where:
 
-  - `version` is the version string
-  - `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
-  - `sha256` is the 64-character hex representation of the expected sha256
-    digest of the download file, as emitted by `shasum -a 256`
-  - `length` is the expected length of the download file in bytes, as emitted by
-    `wc -c`
+- `version` is the version string
+- `platform` is one of [linux_arm64,linux_x86_64,macos_arm64,macos_x86_64],
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
 
 E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
-
 
 </Option>
 
@@ -91,11 +89,9 @@ Values are space-stripped, so pipes can be indented for readability if necessary
   default_repr={`error`}
 >
 
-
 What action to take in case the requested version of shellcheck is not supported.
 
 Supported shellcheck versions: unspecified
-
 
 </Option>
 

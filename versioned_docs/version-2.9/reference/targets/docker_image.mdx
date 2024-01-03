@@ -19,7 +19,6 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -103,6 +102,7 @@ The `Dockerfile` content, typically one instruction per list item.
 Use the `source` field instead if you prefer having the Dockerfile in your project source tree.
 
 Example:
+
 ```
 # example/BUILD
 docker_image(
@@ -144,6 +144,7 @@ The address is a domain name with optional port for your registry, and any regis
 By default, all configured registries with `default = true` are used.
 
 Example:
+
 ```
 # pants.toml
 [docker.registries.my-registry-alias]
@@ -188,6 +189,7 @@ Secret files to expose to the build (only if BuildKit enabled).
 Secrets may use absolute paths, or paths relative to your project build root, or the BUILD file if prefixed with `./`. The id should be valid as used by the Docker build `--secret` option. See [Docker secrets](https://docs.docker.com/engine/swarm/secrets/) for more information.
 
 Example:
+
 ```
 docker_image(
     secrets={

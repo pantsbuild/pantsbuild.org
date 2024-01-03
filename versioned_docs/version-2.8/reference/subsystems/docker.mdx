@@ -26,6 +26,7 @@ Config section: <span className="color--primary">`[docker]`</span>
 >
 
 Configure Docker registries. The schema for a registry entry is as follows:
+
 ```
 {
     "registry-alias": {
@@ -54,9 +55,9 @@ Configure the default repository name used in the Docker image tag.
 
 The value is formatted and may reference these variables:
 
-  * name
-  * directory
-  * parent_directory
+- name
+- directory
+- parent_directory
 
 Example: `--default-repository="{directory}/{name}"`.
 

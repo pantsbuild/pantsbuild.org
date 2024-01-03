@@ -17,7 +17,6 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -123,8 +122,8 @@ Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a modu
 
 You can specify a full module like &#x27;path.to.module&#x27; and &#x27;path.to.module:func&#x27;, or use a shorthand to specify a file name, using the same syntax as the `sources` field:
 
-  1) &#x27;app.py&#x27;, Pants will convert into the module `path.to.app`;
-  2) &#x27;app.py:func&#x27;, Pants will convert into `path.to.app:func`.
+1. &#x27;app.py&#x27;, Pants will convert into the module `path.to.app`;
+2. &#x27;app.py:func&#x27;, Pants will convert into `path.to.app:func`.
 
 You must use the file name shorthand for file arguments to work with this target.
 
@@ -160,10 +159,10 @@ You can give a list of multiple platforms to create a multiplatform PEX, meaning
 
 Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &#x22;linux_x86_64-cp-27-cp27mu&#x22;, &#x22;macosx_10.12_x86_64-cp-36-cp36m&#x22;):
 
-  - PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
-  - IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22;, &#x22;pp&#x22;, &#x22;jp&#x22;.
-  - PYVER: a two-digit string representing the Python version, e.g. &#x22;27&#x22;, &#x22;36&#x22;.
-  - ABI: the ABI tag, e.g. &#x22;cp36m&#x22;, &#x22;cp27mu&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
+- PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
+- IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22;, &#x22;pp&#x22;, &#x22;jp&#x22;.
+- PYVER: a two-digit string representing the Python version, e.g. &#x22;27&#x22;, &#x22;36&#x22;.
+- ABI: the ABI tag, e.g. &#x22;cp36m&#x22;, &#x22;cp27mu&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
 
 </Field>
 

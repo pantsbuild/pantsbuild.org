@@ -26,6 +26,7 @@ Config section: <span className="color--primary">`[docker]`</span>
 >
 
 Configure Docker registries. The schema for a registry entry is as follows:
+
 ```
 {
     "registry-alias": {
@@ -54,9 +55,9 @@ Configure the default repository name used in the Docker image tag.
 
 The value is formatted and may reference these variables:
 
-  * name
-  * directory
-  * parent_directory
+- name
+- directory
+- parent_directory
 
 Example: `--default-repository="{directory}/{name}"`.
 
@@ -80,6 +81,7 @@ Global build arguments (for Docker `--build-arg` options) to use for all `docker
 Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
 Example:
+
 ```
 [docker]
 build_args = ["VAR1=value", "VAR2"]
@@ -114,6 +116,7 @@ This is useful to provide from the command line, to specify the target stage to 
 Additional arguments to use for `docker run` invocations.
 
 Example:
+
 ```
 $ ./pants run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
 ```

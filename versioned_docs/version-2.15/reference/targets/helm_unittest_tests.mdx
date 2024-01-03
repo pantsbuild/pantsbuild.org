@@ -15,7 +15,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
-
 ## `tags`
 
 <Field
@@ -88,10 +87,10 @@ Override the field values for generated `{generated_target_name}` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
-    overrides=&#123;
-        &#x22;configmap_test.yaml&#x22;: &#123;&#x22;timeout&#x22;: 120&#125;,
-        (&#x22;deployment_test.yaml&#x22;, &#x22;pod_test.yaml&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
-    &#125;
+overrides=&#123;
+&#x22;configmap_test.yaml&#x22;: &#123;&#x22;timeout&#x22;: 120&#125;,
+(&#x22;deployment_test.yaml&#x22;, &#x22;pod_test.yaml&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
+&#125;
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
