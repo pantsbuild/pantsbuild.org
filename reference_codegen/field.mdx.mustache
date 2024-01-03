@@ -1,3 +1,22 @@
+{{!  NB. we include headings emulating what the old readme site had,
+so that old links with a #code<some field alias>code fragment still
+work. These aren't shown to users.
+
+We seem to have to use proper markdown headings or else the page
+scroll position doesn't account for page's sticky nav bar. For
+instance, using <a id="..." /> will scroll so that the alias heading
+is hidden by the nav bar. Given we have to use proper headings, we
+don't want them to be shown to users (hence `visibility: hidden`), and
+don't want to leave space for that invisible element (`height:
+0`). NB. removing them from the document flow completely with
+`display: none` stops them working as URL fragments.
+
+TODO: omit them for new-enough docs for which there's no old-style
+links. }}
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#code{{ alias }}code}
+</div>
 
 ## `{{ alias }}`
 
