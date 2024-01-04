@@ -302,8 +302,8 @@ Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a modu
 
 You can specify a full module like `'path.to.module'` and `'path.to.module:func'`, or use a shorthand to specify a file name, using the same syntax as the `sources` field:
 
-  1) `'app.py'`, Pants will convert into the module `path.to.app`;
-  2) `'app.py:func'`, Pants will convert into `path.to.app:func`.
+1. `'app.py'`, Pants will convert into the module `path.to.app`;
+2. `'app.py:func'`, Pants will convert into `path.to.app:func`.
 
 You may either set this field or the `script` field, but not both. Leave off both fields to have no entry point.
 

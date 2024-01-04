@@ -7,7 +7,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options for interacting with Docker.
 
 Backend: <span className="color--primary">pants.backend.docker</span>
@@ -16,7 +15,6 @@ Config section: <span className="color--primary">[docker]</span>
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `registries`
 
@@ -27,6 +25,7 @@ Config section: <span className="color--primary">[docker]</span>
 >
 
 Configure Docker registries. The schema for a registry entry is as follows:
+
 ```
 {
     "registry-alias": {
@@ -70,10 +69,10 @@ Configure the default repository name used in the Docker image tag.
 
 The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
 
-  * name
-  * directory
-  * parent_directory
-  * target_repository
+- name
+- directory
+- parent_directory
+- target_repository
 
 Example: `--default-repository="{directory}/{name}"`.
 
@@ -100,6 +99,7 @@ Provide a default Docker build context root path for `docker_image` targets that
 The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
 
 Examples:
+
 ```
 --default-context-root=src/docker
 --default-context-root=./relative_to_the_build_file
@@ -132,6 +132,7 @@ Global build arguments (for Docker `--build-arg` options) to use for all `docker
 Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
 Example:
+
 ```
 [docker]
 build_args = ["VAR1=value", "VAR2"]
@@ -167,6 +168,7 @@ This is useful to provide from the command line, to specify the target stage to 
 Hosts entries to be added to the `/etc/hosts` file in all built images.
 
 Example:
+
 ```
 [docker]
 build_hosts = {"docker": "10.180.0.1", "docker2": "10.180.0.2"}
@@ -212,6 +214,7 @@ Whether to log the Docker output to the console. If false, only the image ID is 
 Additional arguments to use for `docker run` invocations.
 
 Example:
+
 ```
 $ scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
 
@@ -226,7 +229,6 @@ Defaults to `--interactive --tty` when stdout is connected to a terminal.
 </Option>
 
 ## Advanced options
-
 
 ### `tools`
 
@@ -285,6 +287,5 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 ## Deprecated options
 
 None
-
 
 </span>

@@ -7,7 +7,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Formats files with a preamble, with the preamble looked up based on path.
 
 This is useful for things such as copyright headers or shebang lines.
@@ -20,7 +19,6 @@ Config section: <span className="color--primary">[preamble]</span>
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `skip`
 
@@ -45,6 +43,7 @@ If true, don&#x27;t use preamble when running `scie-pants-linux-x86_64 fmt`.
 Which preamble template to use based on the path globs (relative to the build root).
 
 Example:
+
 ```
 {
     '*.rs': '// Copyright (c) $year\n// Line 2\n'
@@ -64,6 +63,5 @@ None
 ## Deprecated options
 
 None
-
 
 </span>

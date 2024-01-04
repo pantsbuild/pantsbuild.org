@@ -99,10 +99,11 @@ Path to a file containing the descriptor (i.e., `web.xml`) for this WAR file. De
 Shading rules to be applied to the individual JAR artifacts embedded in the `WEB-INF/lib` folder.
 
 There are 4 possible shading rules available, which are as follows:
-  * `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
-  * `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
-  * `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
-  * `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
+
+- `shading_relocate`: Relocates the classes under the given `package` into the new package name. The default target package is `__shaded_by_pants__` if none provided in the `into` parameter.
+- `shading_rename`: Renames all occurrences of the given `pattern` by the `replacement`.
+- `shading_zap`: Removes from the final artifact the occurrences of the `pattern`.
+- `shading_keep`: Keeps in the final artifact the occurrences of the `pattern` (and removes anything else).
 
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 

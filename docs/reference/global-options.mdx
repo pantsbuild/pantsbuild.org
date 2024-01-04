@@ -7,7 +7,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-
 Options to control the overall behavior of Pants.
 
 Backend: <span className="color--primary">pants.core</span>
@@ -16,7 +15,6 @@ Config section: <span className="color--primary">[GLOBAL]</span>
 <span className={styles.options}>
 
 ## Basic options
-
 
 ### `level`
 
@@ -213,7 +211,6 @@ Run goals continuously as file changes are detected.
 
 ## Advanced options
 
-
 ### `backend_packages`
 
 <Option
@@ -299,6 +296,7 @@ Whether to show/hide logging done by 3rdparty Rust crates used by the Pants engi
 Ignore logs and warnings matching these strings.
 
 Normally, Pants will look for literal matches from the start of the log/warning message, but you can prefix the ignore with `$regex$` for Pants to instead treat your string as a regex pattern. For example:
+
 ```
 ignore_warnings = [
     "DEPRECATED: option 'config' in scope 'flake8' will be removed",
@@ -456,7 +454,7 @@ Verify that all config file values correspond to known options.
 ]`}
 >
 
-Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;*&#x27; to the list to capture all known scopes.
+Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
 
 </Option>
 
@@ -1303,7 +1301,6 @@ If you are using the `remote_environment` target mechanism, set this value as a 
 
 ## Deprecated options
 
-
 ### `process_cleanup`
 
 <Option
@@ -1333,6 +1330,5 @@ Path to a file containing an oauth token to use for gGRPC connections to `[GLOBA
 If specified, Pants will add a header in the format `authorization: Bearer <token>`. You can also manually add this header via `[GLOBAL].remote_execution_headers` and `[GLOBAL].remote_store_headers`, or use `[GLOBAL].remote_auth_plugin` to provide a plugin to dynamically set the relevant headers. Otherwise, no authorization will be performed.
 
 </Option>
-
 
 </span>

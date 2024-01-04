@@ -54,11 +54,11 @@ Most goals require arguments to know what to work on.
 
 You can use several argument types:
 
-| Argument type                   | Semantics                                   | Example                       |
-| ------------------------------- | ------------------------------------------- | ----------------------------- |
-| File path                       | Match the file                              | `pants test project/tests.py` |
-| Directory path                  | Match everything in the directory           | `pants test project/utils`    |
-| `::` globs                      | Match everything in the directory and below | `pants test project::`        |
+| Argument type                                     | Semantics                                   | Example                       |
+| ------------------------------------------------- | ------------------------------------------- | ----------------------------- |
+| File path                                         | Match the file                              | `pants test project/tests.py` |
+| Directory path                                    | Match everything in the directory           | `pants test project/utils`    |
+| `::` globs                                        | Match everything in the directory and below | `pants test project::`        |
 | [Target addresses](./targets-and-build-files.mdx) | Match the target                            | `pants package project:tests` |
 
 You can combine argument types, e.g. `pants fmt src/go:: src/py/app.py`.

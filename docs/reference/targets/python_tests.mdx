@@ -65,6 +65,7 @@ Override the field values for generated `python_test` targets.
 Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
 
 For example:
+
 ```
 overrides={
     "foo_test.py": {"timeout": 120},
@@ -351,8 +352,8 @@ If this field is set on a target, and its value is different from the value on s
 
 If this field is set on a target, and its value is the same as the value on some other `python_test`, then the two targets are explicitly compatible and _may_ run in the same test runner process. Compatible tests may not end up in the same test runner batch if:
 
-  * There are &#x22;too many&#x22; compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
-  * Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).
+- There are &#x22;too many&#x22; compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
+- Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).
 
 When tests with the same `batch_compatibility_tag` have incompatibilities in some other Pants metadata, they will be automatically split into separate batches. This way you can set a high-level `batch_compatibility_tag` using `__defaults__` and then have tests continue to work as you tweak BUILD metadata on specific targets.
 
