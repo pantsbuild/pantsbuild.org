@@ -1,4 +1,6 @@
 name: Sync the Docs
+run-name: >-
+  Sync the Docs: version ${{ inputs.version }}
 
 on:
   workflow_dispatch:
