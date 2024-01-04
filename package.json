@@ -14,7 +14,7 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "format-all": "prettier --write .",
     "format": "prettier --write",
-    "check-formatting": "prettier .",
+    "check-formatting": "prettier --check .",
     "generate-reference": "node reference_codegen/generate.js"
   },
   "dependencies": {
