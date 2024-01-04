@@ -10,7 +10,7 @@
       "className": "margin-vert--none"
     },
     {
-      "type": "doc",
+      "type": "ref",
       "id": "reference/global-options",
       "label": "Reference"
     }
@@ -26,8 +26,8 @@
       "className": "margin-vert--none"
     },
     {
-      "type": "doc",
-      "id": "docs/introduction/welcome-to-pants",
+      "type": "ref",
+      "id": "docs/learn-about-pants/welcome-to-pants",
       "label": "Docs"
     }
   ]

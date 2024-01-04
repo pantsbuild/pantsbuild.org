@@ -7,7 +7,7 @@ const sidebars = {
       className: "margin-vert--none",
     },
     {
-      type: "doc",
+      type: "ref",
       id: "reference/global-options",
       label: "Reference",
     },
@@ -20,7 +20,7 @@ const sidebars = {
       className: "margin-vert--none",
     },
     {
-      type: "doc",
+      type: "ref",
       id: "docs/introduction/how-does-pants-work",
       label: "Docs",
     },
