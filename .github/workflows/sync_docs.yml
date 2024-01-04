@@ -51,21 +51,19 @@ jobs:
           path: pantsbuild.org
 
       # Calculate destination
-      - name: Calculate branch name
-        id: get-branch-name
-        run: echo "BRANCH_NAME=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2.x/')" >> "${GITHUB_OUTPUT}"
       - name: Calculate destination
         id: get-destination-dir
         run: |
-          DESTINATION_DIR="versioned_docs/version-${{ steps.get-branch-name.outputs.BRANCH_NAME }}"
+          BASE_VERSION=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2/')
+          DESTINATION_DIR="versioned_docs/version-$BASE_VERSION"
           if [ ! -d "pantsbuild.org/$DESTINATION_DIR" ]; then
             DESTINATION_DIR="docs"
           fi
-          echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" >> "${GITHUB_OUTPUT}"
+          echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" | tee -a "${GITHUB_OUTPUT}"
       - run: |
           rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
-          mkdir "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
-          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+          mkdir -p "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
+          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
 
       # Generate reference docs
       - name: Setup Node
