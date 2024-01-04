@@ -49,9 +49,12 @@ export default function Option({
         )}
         {children}
         {target_field_name && (
-          <span>Can be overriden by field
-            <code>{target_field_name}</code> on <code>local_environment</code>, <code>docker_environment</code>,
-            or <code>remote_environment</code> targets.</span>
+          <span>
+            Can be overriden by field
+            <code>{target_field_name}</code> on <code>local_environment</code>,{" "}
+            <code>docker_environment</code>, or <code>remote_environment</code>{" "}
+            targets.
+          </span>
         )}
       </div>
     </div>
