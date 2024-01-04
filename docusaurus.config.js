@@ -33,7 +33,7 @@ const config = {
   tagline: "The ergonomic build system",
   favicon: "img/favicon.ico",
 
-  url: "https://pantsbuild.github.io",
+  url: "https://docs.pantsbuild.org",
   baseUrl: "/",
   trailingSlash: false,
 
