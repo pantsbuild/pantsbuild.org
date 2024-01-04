@@ -244,7 +244,7 @@ If true, add `docker_image` targets with the `tailor` goal.
 <Option
   cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='docker_executable_search_paths'
 >
 
@@ -268,6 +268,10 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

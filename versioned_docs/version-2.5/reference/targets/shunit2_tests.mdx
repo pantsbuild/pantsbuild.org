@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -60,7 +63,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*_test.sh', 'test_*.sh', 'tests.sh')`}
 >
 
@@ -75,7 +78,8 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target. If unset, the test will never time out.
@@ -85,7 +89,8 @@ A timeout (in seconds) used by each test file belonging to this target. If unset
 ## `shell`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'bash' | 'dash' | 'ksh' | 'pdksh' | 'sh' | 'zsh' | None`}
+    default_repr={`None`}
 >
 
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
@@ -95,7 +100,8 @@ Which shell to run the tests with. If unspecified, Pants will look for a shebang
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
@@ -109,7 +115,7 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 ## `skip_shellcheck`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -120,7 +126,7 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `skip_shfmt`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

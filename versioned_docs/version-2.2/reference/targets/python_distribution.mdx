@@ -18,7 +18,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -56,7 +59,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `provides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`PythonArtifact`}
+    default_repr={`None`}
 >
 
 The setup.py kwargs for the external artifact built from this target.
@@ -68,10 +72,11 @@ See https://www.pantsbuild.org/v2.2/docs/python-distributions.
 ## `setup_py_commands`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-The runtime commands to invoke setup.py with to create the distribution, e.g. [&quot;bdist_wheel&quot;, &quot;--python-tag=py36.py37&quot;, &quot;sdist&quot;].
+The runtime commands to invoke setup.py with to create the distribution, e.g. [&#x22;bdist_wheel&#x22;, &#x22;--python-tag=py36.py37&#x22;, &#x22;sdist&#x22;].
 
 If empty or unspecified, will just create a chroot with a setup() function.
 

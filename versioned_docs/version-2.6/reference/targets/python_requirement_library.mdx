@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -60,7 +63,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 A sequence of pip-style requirement strings, e.g. `['foo==1.8', "bar<=3 ; python_version<'3'"]`.
@@ -70,14 +74,15 @@ A sequence of pip-style requirement strings, e.g. `['foo==1.8', "bar<=3 ; python
 ## `module_mapping`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 A mapping of requirement names to a list of the modules they provide.
 
 For example, `{"ansicolors": ["colors"]}`.
 
-Any unspecified requirements will use the requirement name as the default module, e.g. &quot;Django&quot; will default to `["django"]`.
+Any unspecified requirements will use the requirement name as the default module, e.g. &#x22;Django&#x22; will default to `["django"]`.
 
 This is used to infer dependencies.
 
@@ -86,14 +91,15 @@ This is used to infer dependencies.
 ## `type_stubs_module_mapping`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 A mapping of type-stub requirement names to a list of the modules they provide.
 
 For example, `{"types-requests": ["requests"]}`.
 
-If the requirement is not specified _and_ it starts with `types-` or ends with `-types`, the requirement will be treated as a type stub for the corresponding module, e.g. &quot;types-request&quot; has the module &quot;requests&quot;. Otherwise, the requirement is treated like a normal dependency (see the field module_mapping).
+If the requirement is not specified _and_ it starts with `types-` or ends with `-types`, the requirement will be treated as a type stub for the corresponding module, e.g. &#x22;types-request&#x22; has the module &#x22;requests&#x22;. Otherwise, the requirement is treated like a normal dependency (see the field module_mapping).
 
 This is used to infer dependencies for type stubs.
 

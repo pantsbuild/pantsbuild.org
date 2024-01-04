@@ -13,8 +13,9 @@ This is useful for things such as copyright headers or shebang lines.
 
 Pants substitutes the following identifiers (following Python&#x27;s `string.Template` substitutions): - $year: The current year (only used when actually writing the year to the file).
 
-Backend: <span className="color--primary">pants.backend.tools.preamble</span>
-Config section: <span className="color--primary">[preamble]</span>
+Backend: <span className="color--primary">`pants.backend.tools.preamble`</span>
+
+Config section: <span className="color--primary">`[preamble]`</span>
 
 <span className={styles.options}>
 
@@ -49,7 +50,6 @@ Example:
     '*.rs': '// Copyright (c) $year\n// Line 2\n'
     '*.py:!__init__.py': '# Copyright (c) $year\n# Line 2\n',
 }
-
 ```
 
 It might be helpful to load this config from a JSON or YAML file. To do that, set `[preamble].config = '@path/to/config.yaml'`, for example.
@@ -61,6 +61,10 @@ It might be helpful to load this config from a JSON or YAML file. To do that, se
 None
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

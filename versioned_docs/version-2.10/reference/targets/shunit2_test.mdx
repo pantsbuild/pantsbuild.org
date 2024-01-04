@@ -22,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -58,7 +61,8 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -76,7 +80,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -88,7 +93,7 @@ If unset, the test will never time out.
 ## `skip_tests`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -99,7 +104,8 @@ If true, don&#x27;t run this target&#x27;s tests.
 ## `shell`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'bash' | 'dash' | 'ksh' | 'pdksh' | 'sh' | 'zsh' | None`}
+    default_repr={`None`}
 >
 
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
@@ -109,7 +115,8 @@ Which shell to run the tests with. If unspecified, Pants will look for a shebang
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
@@ -123,7 +130,7 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 ## `skip_shellcheck`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.shell.lint.shellcheck"
 >
@@ -135,7 +142,7 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `skip_shfmt`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.shell.lint.shfmt"
 >

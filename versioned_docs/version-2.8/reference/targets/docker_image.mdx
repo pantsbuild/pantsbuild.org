@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,7 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `extra_build_args`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -57,7 +59,8 @@ Use `[docker].build_args` to set default build args for all images.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -71,7 +74,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'Dockerfile'`}
 >
 
@@ -82,7 +85,7 @@ The Dockerfile to use when building the Docker image.
 ## `image_tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('latest',)`}
 >
 
@@ -97,7 +100,7 @@ See &#123;doc_url(&#x27;tagging-docker-images&#x27;)&#125;.
 ## `registries`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('<all default registries>',)`}
 >
 
@@ -135,10 +138,11 @@ The above example shows two valid `registry` options: using an alias to a config
 ## `repository`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
-The repository name for the Docker image. e.g. &quot;&lt;repository&gt;/&lt;name&gt;&quot;.
+The repository name for the Docker image. e.g. &#x22;&#x3C;repository&#x3E;/&#x3C;name&#x3E;&#x22;.
 
 It uses the `[docker].default_repository` by default.This field value may contain format strings that will be interpolated at runtime. See the documentation for `[docker].default_repository` for details.
 
@@ -147,7 +151,7 @@ It uses the `[docker].default_repository` by default.This field value may contai
 ## `skip_push`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -158,7 +162,7 @@ If set to true, do not push this image to registries when running `./pants publi
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

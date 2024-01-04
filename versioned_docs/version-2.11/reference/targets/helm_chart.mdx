@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `chart`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'Chart.yaml'`}
 >
 
@@ -53,7 +55,7 @@ The chart definition file
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('values.yaml', 'templates/*.yaml', 'templates/*.tpl')`}
 >
 
@@ -68,7 +70,8 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -86,7 +89,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built directory tree should be located.
@@ -104,7 +108,8 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `lint_strict`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 If set to true, enables strict linting of this Helm chart
@@ -114,7 +119,7 @@ If set to true, enables strict linting of this Helm chart
 ## `skip_push`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

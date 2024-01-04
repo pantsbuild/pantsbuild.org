@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -58,12 +61,13 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `entry_points`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Dict[str, str]] | None`}
+    default_repr={`None`}
 >
 
 Any entry points, such as `console_scripts` and `gui_scripts`.
 
-Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&quot;path.to.module:func&quot;) or a Pants target address to a pex_binary target.
+Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&#x22;path.to.module:func&#x22;) or a Pants target address to a pex_binary target.
 
 Example:
 
@@ -82,6 +86,7 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 
 ```
 ./pants dependencies <python_distribution target address>
+
 ```
 
 </Field>
@@ -89,7 +94,8 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 ## `provides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`PythonArtifact`}
+    default_repr={`None`}
 >
 
 The setup.py kwargs for the external artifact built from this target.
@@ -103,7 +109,8 @@ See https://www.pantsbuild.org/v2.8/docs/plugins-setup-py for how to write a plu
 ## `generate_setup`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether to generate setup information for this distribution, based on analyzing sources and dependencies. Set to False to use existing setup information, such as existing setup.py, setup.cfg, pyproject.toml files or similar.
@@ -113,7 +120,7 @@ Whether to generate setup information for this distribution, based on analyzing 
 ## `wheel`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -124,7 +131,7 @@ Whether to build a wheel for the distribution.
 ## `sdist`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -135,7 +142,8 @@ Whether to build an sdist for the distribution.
 ## `wheel_config_settings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 PEP-517 config settings to pass to the build backend when building a wheel.
@@ -145,7 +153,8 @@ PEP-517 config settings to pass to the build backend when building a wheel.
 ## `sdist_config_settings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 PEP-517 config settings to pass to the build backend when building an sdist.
@@ -155,7 +164,8 @@ PEP-517 config settings to pass to the build backend when building an sdist.
 ## `pypi_repositories`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 List of PyPi repositories to publish the target package to.
@@ -165,7 +175,7 @@ List of PyPi repositories to publish the target package to.
 ## `skip_twine`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

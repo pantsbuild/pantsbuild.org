@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Configuration for Python test coverage measurement.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[coverage-py]`</span>
 
@@ -35,7 +35,7 @@ A list of Python modules to use in the coverage report, e.g. `['helloworld_test'
   cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
   env_repr='PANTS_COVERAGE_PY_REPORT'
   one_of='console, xml, html, raw, json'
-  default_repr={`["console"]`}
+  default_repr={`[\n  "console"\n]`}
 >
 
 Which coverage report type(s) to emit.
@@ -85,7 +85,7 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6"]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -117,6 +117,10 @@ Path to `.coveragerc` or alternative coverage config file
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

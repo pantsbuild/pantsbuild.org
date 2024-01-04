@@ -35,7 +35,8 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -47,7 +48,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -59,7 +61,8 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -77,19 +80,20 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `command`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Shell command to execute.
 
-The command is executed as &#x27;bash -c &lt;command&gt;&#x27; by default.
+The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 
 </Field>
 
 ## `log_output`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -100,7 +104,8 @@ Set to true if you want the output from the command logged to the console.
 ## `outputs`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Specify the shell command output files and directories.
@@ -112,7 +117,7 @@ Use a trailing slash on directory names, i.e. `my_dir/`.
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
     default_repr={`30`}
 >
 
@@ -123,7 +128,8 @@ Command execution timeout (in seconds).
 ## `tools`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 Specify required executable tools that might be used.
@@ -135,7 +141,8 @@ Only the tools explicitly provided will be available on the search PATH, and the
 ## `extra_env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Additional environment variables to include in the shell process. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
@@ -145,7 +152,7 @@ Additional environment variables to include in the shell process. Entries are st
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 

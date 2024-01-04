@@ -38,7 +38,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--setuptools-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS'
-  default_repr={`["wheel>=0.35.1,<0.38"]`}
+  default_repr={`[\n  "wheel>=0.35.1,<0.38"\n]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -66,6 +66,10 @@ As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-depende
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

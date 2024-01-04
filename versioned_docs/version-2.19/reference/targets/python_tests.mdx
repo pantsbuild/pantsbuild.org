@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('test_*.py', '*_test.py', 'tests.py')`}
 >
 
@@ -57,7 +59,8 @@ Example: `sources=['test_*.py', '*_test.py', 'tests.py']`
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `python_test` targets.
@@ -85,7 +88,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_pytype`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.typecheck.pytype"
 >
@@ -97,7 +100,7 @@ If true, don&#x27;t run pytype on this target&#x27;s code.
 ## `skip_pydocstyle`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pydocstyle"
 >
@@ -109,7 +112,7 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 ## `skip_black`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.black"
 >
@@ -121,7 +124,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 ## `skip_ruff`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.lint.ruff"
 >
@@ -133,7 +136,7 @@ If true, don&#x27;t run ruff on this target&#x27;s code.
 ## `skip_add_trailing_comma`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
@@ -145,7 +148,7 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 ## `skip_flake8`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.flake8"
 >
@@ -157,7 +160,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 ## `skip_isort`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.isort"
 >
@@ -169,7 +172,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 ## `skip_bandit`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.bandit"
 >
@@ -181,7 +184,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 ## `skip_autoflake`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.autoflake"
 >
@@ -193,7 +196,8 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 ## `stevedore_namespaces`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.python.framework.stevedore"
 >
 
@@ -201,7 +205,7 @@ List the stevedore namespaces required by this target.
 
 Code for all `entry_points` on `python_distribution` targets with these namespaces will be added as dependencies so that they are available on PYTHONPATH during tests. Note that this is only a subset of the `python_distribution`s dependencies, so the `entry_points` only need to be defined on one `python_distribution` even if the test only needs some of the `entry_points` namespaces on it.
 
-Plus, an `entry_points.txt` file will be generated in the sandbox so that each of the `python_distribution`s appear to be &quot;installed&quot;. The `entry_points.txt` file will only include the namespaces requested on this field. Without this, stevedore would not be able to look up plugins in the setuptools `entry_points` metadata.
+Plus, an `entry_points.txt` file will be generated in the sandbox so that each of the `python_distribution`s appear to be &#x22;installed&#x22;. The `entry_points.txt` file will only include the namespaces requested on this field. Without this, stevedore would not be able to look up plugins in the setuptools `entry_points` metadata.
 
 NOTE: Each `python_distribution` must opt-in to being included in this repo-wide inference by tagging the namespaces with `stevedore_namespace("my.stevedore.extension")`.
 
@@ -212,7 +216,7 @@ The stevedore namespace format (`my.stevedore.extension`) is similar to a Python
 ## `skip_mypy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >
@@ -224,7 +228,7 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 ## `skip_docformatter`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.docformatter"
 >
@@ -236,7 +240,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 ## `skip_pyupgrade`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pyupgrade"
 >
@@ -248,7 +252,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 ## `skip_yapf`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.yapf"
 >
@@ -260,7 +264,7 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 ## `skip_pylint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pylint"
 >
@@ -272,7 +276,8 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -290,7 +295,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -304,7 +310,8 @@ All dependencies must share the same value for their `resolve` field.
 ## `run_goal_use_sandbox`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether to use a sandbox when `run`ning this target. Defaults to `[python].run_goal_use_sandbox`.
@@ -315,7 +322,7 @@ If false, runs of this target with the `run` goal will use the in-repo sources d
 
 Note that this field only applies when running a target with the `run` goal. No other goals (such as `test`, if applicable) consult this field.
 
-The former mode is more hermetic, and is closer to building and running the source as it were packaged in a `pex_binary`. Additionally, it may be necessary if your sources depend transitively on &quot;generated&quot; files which will be materialized in the sandbox in a source root, but are not in-repo.
+The former mode is more hermetic, and is closer to building and running the source as it were packaged in a `pex_binary`. Additionally, it may be necessary if your sources depend transitively on &#x22;generated&#x22; files which will be materialized in the sandbox in a source root, but are not in-repo.
 
 The latter mode is similar to creating, activating, and using a virtual environment when running your files. It may also be necessary if the source being run writes files into the repo and computes their location relative to the executed files. Django&#x27;s `makemigrations` command is an example of such a process.
 
@@ -324,7 +331,8 @@ The latter mode is similar to creating, activating, and using a virtual environm
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -336,7 +344,8 @@ If unset, will default to `[test].timeout_default`; if that option is also unset
 ## `xdist_concurrency`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 Maximum number of CPUs to allocate to run each test file belonging to this target.
@@ -352,7 +361,8 @@ Set this field to `0` to explicitly disable use of `pytest-xdist` for a target.
 ## `batch_compatibility_tag`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 An arbitrary value used to mark the test files belonging to this target as valid for batched execution.
@@ -365,7 +375,7 @@ If this field is set on a target, and its value is different from the value on s
 
 If this field is set on a target, and its value is the same as the value on some other `python_test`, then the two targets are explicitly compatible and _may_ run in the same test runner process. Compatible tests may not end up in the same test runner batch if:
 
-- There are &quot;too many&quot; compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
+- There are &#x22;too many&#x22; compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
 - Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).
 
 When tests with the same `batch_compatibility_tag` have incompatibilities in some other Pants metadata, they will be automatically split into separate batches. This way you can set a high-level `batch_compatibility_tag` using `__defaults__` and then have tests continue to work as you tweak BUILD metadata on specific targets.
@@ -375,7 +385,8 @@ When tests with the same `batch_compatibility_tag` have incompatibilities in som
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.
@@ -389,7 +400,8 @@ You can include anything that can be built by `scie-pants-linux-x86_64 package`,
 ## `extra_env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Additional environment variables to include in test processes.
@@ -403,7 +415,8 @@ This will be merged with and override values from `[test].extra_env_vars`.
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -421,7 +434,7 @@ See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for h
 ## `skip_tests`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -432,7 +445,7 @@ If true, don&#x27;t run this target&#x27;s tests.
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 

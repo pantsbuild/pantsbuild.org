@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options to control the overall behavior of Pants.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[GLOBAL]`</span>
 
@@ -164,7 +164,7 @@ Display the target where a log message originates in that log message&#x27;s out
   default_repr={`{}`}
 >
 
-Set a more specific logging level for one or more logging targets. The names of logging targets are specified in log strings when the --show-log-target option is set. The logging levels are one of: &quot;error&quot;, &quot;warn&quot;, &quot;info&quot;, &quot;debug&quot;, &quot;trace&quot;. All logging targets not specified here use the global log level set with --level. For example, you can set `--log-levels-by-target='{"workunit_store": "info", "pants.engine.rules": "warn"}'`.
+Set a more specific logging level for one or more logging targets. The names of logging targets are specified in log strings when the --show-log-target option is set. The logging levels are one of: &#x22;error&#x22;, &#x22;warn&#x22;, &#x22;info&#x22;, &#x22;debug&#x22;, &#x22;trace&#x22;. All logging targets not specified here use the global log level set with --level. For example, you can set `--log-levels-by-target='{"workunit_store": "info", "pants.engine.rules": "warn"}'`.
 
 </Option>
 
@@ -234,7 +234,7 @@ The name of the script or binary used to invoke Pants. Useful when printing help
 <Option
   cli_repr={`--pants-workdir=<dir>`}
   env_repr='PANTS_WORKDIR'
-  default_repr={`<buildroot>/.pants.d`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pants.d`}
 >
 
 Write intermediate logs and output files to this dir.
@@ -258,7 +258,7 @@ When set, a base directory in which to store `--pants-workdir` contents. If this
 <Option
   cli_repr={`--pants-supportdir=<dir>`}
   env_repr='PANTS_SUPPORTDIR'
-  default_repr={`<buildroot>/build-support`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/build-support`}
   removal_version='2.9.0.dev0'
   removal_hint={'Unused: this option has no necessary equivalent in v2.'}
 >
@@ -272,7 +272,7 @@ Used only for templating in `pants.toml`.
 <Option
   cli_repr={`--pants-distdir=<dir>`}
   env_repr='PANTS_DISTDIR'
-  default_repr={`<buildroot>/dist`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/dist`}
 >
 
 Write end products, such as the results of `./pants package`, to this dir.
@@ -284,7 +284,7 @@ Write end products, such as the results of `./pants package`, to this dir.
 <Option
   cli_repr={`--pants-subprocessdir=<str>`}
   env_repr='PANTS_SUBPROCESSDIR'
-  default_repr={`<buildroot>/.pids`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pids`}
 >
 
 The directory to use for tracking subprocess metadata. This should live outside of the dir used by `pants_workdir` to allow for tracking subprocesses that outlive the workdir data.
@@ -296,7 +296,7 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`["/tmp/tmp.MpwSc5OGVo/pants.toml"]`}
+  default_repr={`[\n  "<buildroot>/tmp.MpwSc5OGVo/pants.toml"\n]`}
 >
 
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
@@ -356,7 +356,7 @@ Verify that all config file values correspond to known options.
 <Option
   cli_repr={`--stats-record-option-scopes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_STATS_RECORD_OPTION_SCOPES'
-  default_repr={`["*"]`}
+  default_repr={`[\n  "*"\n]`}
 >
 
 Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
@@ -618,7 +618,7 @@ The path may be absolute or relative. If the directory is within the build root,
 <Option
   cli_repr={`--local-execution-root-dir=<str>`}
   env_repr='PANTS_LOCAL_EXECUTION_ROOT_DIR'
-  default_repr={`/tmp`}
+  default_repr={`<buildroot>`}
 >
 
 Directory to use for local process execution sandboxing.
@@ -842,7 +842,7 @@ Format: `scheme://host:port`. The supported schemes are `grpc` and `grpcs`, i.e.
 <Option
   cli_repr={`--remote-store-headers="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_REMOTE_STORE_HEADERS'
-  default_repr={`{"user-agent": "pants/2.7.2"}`}
+  default_repr={`{\n  "user-agent": "pants/2.7.2"\n}`}
 >
 
 Headers to set on remote store requests.
@@ -987,7 +987,7 @@ Platform properties to set on remote execution requests. Format: property=value.
 <Option
   cli_repr={`--remote-execution-headers="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_REMOTE_EXECUTION_HEADERS'
-  default_repr={`{"user-agent": "pants/2.7.2"}`}
+  default_repr={`{\n  "user-agent": "pants/2.7.2"\n}`}
 >
 
 Headers to set on remote execution requests. Format: header=value. Pants may add additional headers.
@@ -1157,5 +1157,9 @@ True if stats recording should be allowed to complete asynchronously when `pants
 A directory to write execution and rule graphs to as `dot` files. The contents of the directory will be overwritten if any filenames collide.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

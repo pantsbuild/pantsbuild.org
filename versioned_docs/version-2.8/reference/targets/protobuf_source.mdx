@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -58,7 +61,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -70,7 +74,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `grpc`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -81,7 +85,8 @@ Whether to generate gRPC code or not.
 ## `python_interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -99,7 +104,8 @@ See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for ho
 ## `python_source_root`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The source root to generate Python sources under.

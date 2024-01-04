@@ -9,8 +9,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Google Java Format (https://github.com/google/google-java-format)
 
-Backend: <span className="color--primary">pants.backend.experimental.java.lint.google_java_format</span>
-Config section: <span className="color--primary">[google-java-format]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.java.lint.google_java_format`</span>
+
+Config section: <span className="color--primary">`[google-java-format]`</span>
 
 <span className={styles.options}>
 
@@ -59,9 +60,7 @@ Version string for the tool. This is available for substitution in the `[google-
 <Option
   cli_repr={`--google-java-format-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOOGLE_JAVA_FORMAT_ARTIFACTS'
-  default_repr={`[
-  "com.google.googlejavaformat:google-java-format:{version}"
-]`}
+  default_repr={`[\n  "com.google.googlejavaformat:google-java-format:{version}"\n]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[google-java-format].version` option.
@@ -99,6 +98,10 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

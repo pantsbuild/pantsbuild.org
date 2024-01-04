@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -62,7 +65,8 @@ See https://www.pantsbuild.org/v2.14/docs/python-interpreter-compatibility for h
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -80,12 +84,13 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `entry_points`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Dict[str, str]] | None`}
+    default_repr={`None`}
 >
 
 Any entry points, such as `console_scripts` and `gui_scripts`.
 
-Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&quot;path.to.module:func&quot;) or a Pants target address to a pex_binary target.
+Specify as a nested dictionary, with a dictionary for each type of entry point, e.g. `console_scripts` vs. `gui_scripts`. Each dictionary maps the entry point name to either a setuptools entry point (&#x22;path.to.module:func&#x22;) or a Pants target address to a pex_binary target.
 
 ```
 Example:
@@ -111,7 +116,8 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 ## `provides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`PythonArtifact`}
+    default_repr={`None`}
 >
 
 The setup.py kwargs for the external artifact built from this target.
@@ -125,7 +131,8 @@ See https://www.pantsbuild.org/v2.14/docs/plugins-setup-py for how to write a pl
 ## `generate_setup`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether to generate setup information for this distribution, based on analyzing sources and dependencies. Set to False to use existing setup information, such as existing setup.py, setup.cfg, pyproject.toml files or similar.
@@ -135,7 +142,7 @@ Whether to generate setup information for this distribution, based on analyzing 
 ## `wheel`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -146,7 +153,7 @@ Whether to build a wheel for the distribution.
 ## `sdist`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -157,7 +164,8 @@ Whether to build an sdist for the distribution.
 ## `wheel_config_settings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 PEP-517 config settings to pass to the build backend when building a wheel.
@@ -167,7 +175,8 @@ PEP-517 config settings to pass to the build backend when building a wheel.
 ## `sdist_config_settings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 PEP-517 config settings to pass to the build backend when building an sdist.
@@ -177,7 +186,8 @@ PEP-517 config settings to pass to the build backend when building an sdist.
 ## `env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Environment variables to set when running the PEP-517 build backend.
@@ -189,7 +199,8 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 ## `long_description_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Path to a file that will be used to fill the long_description field in setup.py.
@@ -205,7 +216,8 @@ This field won&#x27;t automatically set `long_description_content_type` field fo
 ## `repositories`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.python"
 >
 
@@ -220,7 +232,7 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
 ## `uses_mypyc`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >
@@ -236,7 +248,7 @@ You will typically set this field on distributions whose setup.py uses mypyc.bui
 ## `skip_twine`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python"
 >

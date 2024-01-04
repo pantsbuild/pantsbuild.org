@@ -11,8 +11,9 @@ Lightweight static analysis for many languages. Find bug variants with patterns 
 
 Pants automatically finds config files (`.semgrep.yml`, `.semgrep.yaml`, and `.yml` or `.yaml` files within `.semgrep/` directories), and runs semgrep against all _targets_ known to Pants.
 
-Backend: <span className="color--primary">pants.backend.experimental.tools.semgrep</span>
-Config section: <span className="color--primary">[semgrep]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.tools.semgrep`</span>
+
+Config section: <span className="color--primary">`[semgrep]`</span>
 
 <span className={styles.options}>
 
@@ -23,9 +24,7 @@ Config section: <span className="color--primary">[semgrep]</span>
 <Option
   cli_repr={`--semgrep-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SEMGREP_ARGS'
-  default_repr={`[
-  "--quiet"
-]`}
+  default_repr={`[\n  "--quiet"\n]`}
 >
 
 Arguments to pass directly to Semgrep, e.g. `--semgrep-args='--verbose'`.
@@ -91,9 +90,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--semgrep-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SEMGREP_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -137,6 +134,10 @@ If true, semgrep is always run, even if the input files haven&#x27;t changed. Th
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

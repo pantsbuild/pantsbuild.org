@@ -25,7 +25,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
@@ -35,7 +36,8 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
@@ -45,17 +47,18 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7._&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7._', 'CPython==3.7.\*']`means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option`[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7._&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7._', 'CPython==3.7.\*']`means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option`[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
 
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('test_*.py', '*_test.py', 'tests.py', 'conftest.py', 'test_*.pyi', '*_test.pyi', 'tests.pyi')`}
 >
 
@@ -66,7 +69,8 @@ A list of files and globs that belong to this target. Paths are relative to the 
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
@@ -76,7 +80,8 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `./pants package` goal and whose resulting assets should be included in the test run. Pants will build the assets as if you had run `./pants package`. It will include the results in your archive using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`). You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
@@ -86,7 +91,8 @@ Addresses to targets that can be built with the `./pants package` goal and whose
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) which covers the total runtime of all tests in this target. This only applies if the option `--pytest-timeouts` is set to True.

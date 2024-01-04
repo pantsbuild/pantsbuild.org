@@ -9,8 +9,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 An implementation of the Debug Adapter Protocol for Python (https://github.com/microsoft/debugpy).
 
-Backend: <span className="color--primary">pants.backend.python</span>
-Config section: <span className="color--primary">[debugpy]</span>
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[debugpy]`</span>
 
 <span className={styles.options}>
 
@@ -73,9 +74,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--debugpy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DEBUGPY_INTERPRETER_CONSTRAINTS'
-  default_repr={`[
-  "CPython>=3.7,<4"
-]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -107,6 +106,10 @@ The entry point for the tool. Generally you only want to use this option if the 
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

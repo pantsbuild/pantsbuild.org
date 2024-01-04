@@ -56,7 +56,7 @@ See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional inform
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='golang_go_search_paths'
 >
 
@@ -77,7 +77,7 @@ The following special strings are supported:
 <Option
   cli_repr={`--golang-cgo-tool-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_TOOL_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='golang_cgo_tool_search_paths'
 >
 
@@ -258,6 +258,10 @@ Compiler options used when linking native code when Cgo is enabled. Equivalent t
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

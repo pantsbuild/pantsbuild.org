@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -60,12 +63,13 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
 
-Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
+Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;.
 
 Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
 
@@ -78,7 +82,8 @@ See https://www.pantsbuild.org/v2.2/docs/python-interpreter-compatibility.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -92,7 +97,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `handler`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Entry point to the AWS Lambda handler.
@@ -106,7 +112,8 @@ You must use the file name shorthand for file arguments to work with this target
 ## `runtime`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.

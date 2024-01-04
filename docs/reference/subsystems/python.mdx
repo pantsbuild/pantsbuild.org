@@ -9,8 +9,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options for Pants&#x27;s Python backend.
 
-Backend: <span className="color--primary">pants.core</span>
-Config section: <span className="color--primary">[python]</span>
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[python]`</span>
 
 <span className={styles.options}>
 
@@ -99,9 +100,7 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{
-  "python-default": "3rdparty/python/default.lock"
-}`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
@@ -126,7 +125,6 @@ For example:
 python_sources(
     resolve=parametrize("data-science", "web-app"),
 )
-
 ```
 
 You can name the lockfile paths what you would like; Pants does not expect a certain file extension or location.
@@ -447,5 +445,9 @@ This only applies when resolving user requirements, rather than tools you run li
 Usually this option should be enabled because it can result in far fewer resolves.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -60,7 +63,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
     backend="pants.backend.experimental.java.lint.google_java_format"
 >
 
@@ -73,7 +77,8 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `compatible_resolves`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The set of resolves from `[jvm].resolves` that this target is compatible with.
@@ -85,7 +90,8 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `experimental_provides_types`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Signals that the specified types should be fulfilled by these source files during dependency inference.
@@ -99,7 +105,8 @@ If a given type is defined, at least one source file captured by this target mus
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
     backend="pants.backend.experimental.java.lint.google_java_format"
 >
 

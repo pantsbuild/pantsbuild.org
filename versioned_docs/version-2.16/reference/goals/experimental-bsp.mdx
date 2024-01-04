@@ -74,7 +74,7 @@ Run the Build Server Protocol server. Pants will receive BSP RPC requests via th
 <Option
   cli_repr={`--experimental-bsp-runner-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_EXPERIMENTAL_BSP_RUNNER_ENV_VARS'
-  default_repr={`["PATH"]`}
+  default_repr={`[\n  "PATH"\n]`}
 >
 
 Environment variables to set in the BSP runner script when setting up BSP in a repository. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27; own environment when the experimental-bsp goal was run.
@@ -86,6 +86,10 @@ Note: The environment variables passed to the Pants BSP server will be those set
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options for Pants&#x27;s Python support.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[python-setup]`</span>
 
@@ -36,12 +36,12 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6,<4"]`}
+  default_repr={`[\n  "CPython>=3.6,<4"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
 
-Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
@@ -238,6 +238,10 @@ Tailor pex_binary() targets for Python entry point files.
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

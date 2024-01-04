@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.core`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -62,7 +65,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | http_source | pants.core.target_types.per_platform[pants.core.target_types.http_source]`}
+    default_repr={`None`}
 >
 
 The source of this target.

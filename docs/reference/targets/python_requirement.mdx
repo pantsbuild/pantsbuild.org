@@ -31,6 +31,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -43,6 +44,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `requirements`
 
 <Field
@@ -57,6 +59,7 @@ You can specify multiple requirements for the same project in order to use envir
 If the requirement depends on some other requirement to work, such as needing `setuptools` to be built, use the `dependencies` field instead.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -75,6 +78,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `modules`
 
 <Field
@@ -91,6 +95,7 @@ Usually you can leave this field off. If unspecified, Pants will first look at t
 Mutually exclusive with the `type_stub_modules` field.
 
 </Field>
+
 ## `type_stub_modules`
 
 <Field
@@ -107,6 +112,7 @@ Usually you can leave this field off. If unspecified, Pants will first look at t
 Mutually exclusive with the `modules` field.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -121,6 +127,7 @@ If not defined, will default to `[python].default_resolve`.
 When generating a lockfile for a particular resolve via the `generate-lockfiles` goal, it will include all requirements that are declared with that resolve. First-party targets like `python_source` and `pex_binary` then declare which resolve they use via their `resolve` field; so, for your first-party code to use a particular `python_requirement` target, that requirement must be included in the resolve used by that code.
 
 </Field>
+
 ## `entry_point`
 
 <Field

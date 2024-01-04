@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `artifact`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The address of a `jvm_artifact` that defines a plugin for `scalac`.
@@ -56,7 +59,8 @@ The address of a `jvm_artifact` that defines a plugin for `scalac`.
 ## `plugin_name`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The name that `scalac` should use to load the plugin.

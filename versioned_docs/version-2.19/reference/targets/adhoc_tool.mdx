@@ -32,7 +32,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.adhoc`</sp
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -44,7 +45,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -56,7 +58,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `runnable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Address to a target that can be invoked by the `run` goal (and does not set `run_in_sandbox_behavior=NOT_SUPPORTED`). This will be executed along with any arguments specified by `args`, in a sandbox with that target&#x27;s transitive dependencies, along with the transitive dependencies specified by `execution_dependencies`.
@@ -66,7 +69,7 @@ Address to a target that can be invoked by the `run` goal (and does not set `run
 ## `args`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -77,7 +80,8 @@ Extra arguments to pass into the `runnable` field.
 ## `execution_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The execution dependencies for this command.
@@ -93,7 +97,8 @@ See also `output_dependencies` and `runnable_dependencies`.
 ## `output_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Any dependencies that need to be present (as transitive dependencies) whenever the outputs of this target are consumed (including as dependencies).
@@ -105,7 +110,8 @@ See also `execution_dependencies` and `runnable_dependencies`.
 ## `runnable_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The runnable dependencies for this command.
@@ -119,7 +125,7 @@ See also `output_dependencies` and `execution_dependencies`.
 ## `log_output`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -130,7 +136,7 @@ Set to true if you want the output logged to the console.
 ## `output_files`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -145,7 +151,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 ## `output_directories`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -160,7 +166,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
     default_repr={`30`}
 >
 
@@ -171,7 +177,8 @@ Command execution timeout (in seconds).
 ## `extra_env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Additional environment variables to provide to the process.
@@ -183,7 +190,7 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
 ## `workdir`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'.'`}
 >
 
@@ -201,7 +208,7 @@ Values are relative to the build root, except in the following cases:
 ## `root_output_directory`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'/'`}
 >
 
@@ -219,7 +226,8 @@ Values are relative to the build root, except in the following cases:
 ## `stdout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A filename to capture the contents of `stdout` to. Relative paths are relative to the value of `workdir`, absolute paths start at the build root.
@@ -229,7 +237,8 @@ A filename to capture the contents of `stdout` to. Relative paths are relative t
 ## `stderr`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A filename to capture the contents of `stderr` to. Relative paths are relative to the value of `workdir`, absolute paths start at the build root.
@@ -239,7 +248,7 @@ A filename to capture the contents of `stderr` to. Relative paths are relative t
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 

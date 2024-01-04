@@ -27,6 +27,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +40,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +55,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.proto', 'new_*.proto', '!old_ignore*.proto']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -72,7 +75,6 @@ overrides={
     "bar.proto": {"description": "our user model"},
     ("foo.proto", "bar.proto"): {"tags": ["overridden"]},
 }
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -82,6 +84,7 @@ If you&#x27;d like to override a field&#x27;s value for every `protobuf_source` 
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `go_mod_address`
 
 <Field
@@ -97,6 +100,7 @@ This field is similar to the `resolve` field used in the Python and JVM backends
 If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
 
 </Field>
+
 ## `jvm_jdk`
 
 <Field
@@ -108,6 +112,7 @@ If there is a single `go_mod` target in the repository, then this field defaults
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
+
 ## `skip_buf_lint`
 
 <Field
@@ -119,6 +124,7 @@ The major version of the JDK that this target should be built with. If not defin
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 </Field>
+
 ## `skip_buf_format`
 
 <Field
@@ -130,6 +136,7 @@ If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 If true, don&#x27;t run `buf format` on this target&#x27;s code.
 
 </Field>
+
 ## `jvm_resolve`
 
 <Field
@@ -143,6 +150,7 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
+
 ## `python_source_root`
 
 <Field
@@ -155,6 +163,7 @@ The source root to generate Python sources under.
 If unspecified, the source root the `protobuf_sources` is under will be used.
 
 </Field>
+
 ## `python_interpreter_constraints`
 
 <Field
@@ -173,6 +182,7 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.20/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
 ## `python_resolve`
 
 <Field
@@ -187,6 +197,7 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
 ## `grpc`
 
 <Field
@@ -197,6 +208,7 @@ All dependencies must share the same value for their `resolve` field.
 Whether to generate gRPC code or not.
 
 </Field>
+
 ## `dependencies`
 
 <Field

@@ -10,10 +10,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 A single Thrift file used to generate various languages.
 
 See language-specific docs:
-
-```
 Python: https://www.pantsbuild.org/v2.14/docs/thrift-python
-```
 
 Backend: <span className="color--primary">`pants.backend.codegen.thrift.apache.python`</span>
 
@@ -24,7 +21,8 @@ Backend: <span className="color--primary">`pants.backend.codegen.thrift.apache.p
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -36,7 +34,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -48,7 +47,8 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -66,7 +66,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -78,7 +79,8 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `python_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.thrift.apache.python"
 >
 

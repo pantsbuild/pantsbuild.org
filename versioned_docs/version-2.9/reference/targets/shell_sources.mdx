@@ -18,7 +18,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -60,7 +63,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*.sh', '!*_test.sh', '!test_*.sh', '!tests.sh')`}
 >
 
@@ -75,7 +78,8 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `shell_source` targets.
@@ -84,13 +88,13 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 
-```
-overrides={
-  "foo.sh": {"skip_shellcheck": True]},
-  "bar.sh": {"skip_shfmt": True]},
-  ("foo.sh", "bar.sh"): {"tags": ["linter_disabled"]},
-}
-```
+`&#x60;`
+overrides=&#123;
+&#x22;foo.sh&#x22;: &#123;&#x22;skip_shellcheck&#x22;: True]&#125;,
+&#x22;bar.sh&#x22;: &#123;&#x22;skip_shfmt&#x22;: True]&#125;,
+(&#x22;foo.sh&#x22;, &#x22;bar.sh&#x22;): &#123;&#x22;tags&#x22;: [&#x22;linter_disabled&#x22;]&#125;,
+&#125;
+`&#x60;`
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
@@ -103,7 +107,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_shellcheck`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -114,7 +118,7 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 ## `skip_shfmt`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

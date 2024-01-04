@@ -27,6 +27,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +40,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -53,6 +55,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['*Test.scala', '!TestIgnore.scala']`
 
 </Field>
+
 ## `overrides`
 
 <Field
@@ -72,7 +75,6 @@ overrides={
     "Bar.scala": {"skip_scalafmt": True},
     ("Foo.scala", "Bar.scala"): {"tags": ["linter_disabled"]},
 }"
-
 ```
 
 File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
@@ -82,6 +84,7 @@ If you&#x27;d like to override a field&#x27;s value for every `scala_junit_tests
 You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -94,6 +97,7 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -112,6 +116,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `scalac_plugins`
 
 <Field
@@ -126,6 +131,7 @@ The plugin must be defined by a corresponding `scalac_plugin` AND `jvm_artifact`
 If not specified, this will default to the plugins specified in `[scalac].plugins_for_resolve` for this target&#x27;s resolve.
 
 </Field>
+
 ## `timeout`
 
 <Field
@@ -138,6 +144,7 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
 ## `extra_env_vars`
 
 <Field
@@ -152,6 +159,7 @@ Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_
 This will be merged with and override values from `[test].extra_env_vars`.
 
 </Field>
+
 ## `jdk`
 
 <Field
@@ -162,6 +170,7 @@ This will be merged with and override values from `[test].extra_env_vars`.
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
+
 ## `experimental_provides_types`
 
 <Field
@@ -176,6 +185,7 @@ This allows for specific types within packages that are otherwise inferred as be
 If a given type is defined, at least one source file captured by this target must actually provide that symbol.
 
 </Field>
+
 ## `resolve`
 
 <Field

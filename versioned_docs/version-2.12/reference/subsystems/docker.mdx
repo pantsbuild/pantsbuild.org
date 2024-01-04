@@ -192,7 +192,7 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 <Option
   cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
 >
 
 The PATH value that will be used to find the Docker client and any tools required.
@@ -214,6 +214,10 @@ List any additional executable tools required for Docker to work. The paths to t
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

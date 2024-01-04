@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -60,7 +63,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 A pip-style requirement string, e.g. `["Django==3.2.8"]`.
@@ -74,7 +78,8 @@ If the requirement depends on some other requirement to work, such as needing `s
 ## `modules`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The modules this requirement provides (used for dependency inference).
@@ -90,7 +95,8 @@ Mutually exclusive with the `type_stub_modules` field.
 ## `type_stub_modules`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The modules this requirement provides if the requirement is a type stub (used for dependency inference).

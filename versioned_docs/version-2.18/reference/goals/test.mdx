@@ -106,7 +106,7 @@ If a coverage report file is generated, open it on the local system if the syste
   default_repr={``}
 >
 
-A shard specification of the form &quot;k/N&quot;, where N is a positive integer and k is a non-negative integer less than N.
+A shard specification of the form &#x22;k/N&#x22;, where N is a positive integer and k is a non-negative integer less than N.
 
 If set, the request input targets will be deterministically partitioned into N disjoint subsets of roughly equal size, and only the k&#x27;th subset will be used, with all others discarded.
 
@@ -207,7 +207,7 @@ Some test runners can execute tests from multiple files in a single run. Test im
 2. to support more stable cache keys than would be possible if all files were operated on in a single batch
 3. to allow for parallelism in test runners which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
 
-In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &quot;target&quot; max batch size (rather than an exact value).
+In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &#x22;target&#x22; max batch size (rather than an exact value).
 
 NOTE: This parameter has no effect on test runners/plugins that do not implement support for batched testing.
 

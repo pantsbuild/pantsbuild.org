@@ -37,7 +37,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -64,7 +64,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<3.12"]`}
+  default_repr={`[\n  "CPython>=3.7,<3.12"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -111,5 +111,9 @@ The entry point for the tool. Generally you only want to use this option if the 
 Explicitly control the layout used for `python_aws_lambda_function` (formerly `python_awslambda`) and `python_google_cloud_function` targets. This option exists for the transition from Lambdex-based layout to the plain zip layout, as recommended by cloud vendors.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

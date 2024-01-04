@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Used to generate lockfiles for third-party Python dependencies.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[poetry]`</span>
 
@@ -50,7 +50,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--poetry-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_POETRY_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6"]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -58,6 +58,10 @@ Python interpreter constraints for this tool.
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

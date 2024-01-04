@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The pytest Python test framework (https://docs.pytest.org/).
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[pytest]`</span>
 
@@ -60,7 +60,7 @@ Requirement string for Pytest.
 <Option
   cli_repr={`--pytest-pytest-plugins="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_PYTEST_PLUGINS'
-  default_repr={`["pytest-cov>=2.10.1,<2.12"]`}
+  default_repr={`[\n  "pytest-cov>=2.10.1,<2.12"\n]`}
 >
 
 Requirement strings for any plugins or additional requirements you&#x27;d like to use.
@@ -128,6 +128,10 @@ If a non-empty string, the process execution slot id (an integer) will be expose
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

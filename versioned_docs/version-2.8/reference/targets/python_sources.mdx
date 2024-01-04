@@ -20,7 +20,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -62,7 +65,8 @@ See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for ho
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -76,7 +80,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')`}
 >
 
@@ -91,7 +95,8 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `python_source` targets.
@@ -100,13 +105,13 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 
-```
-overrides={
-  "foo.py": {"skip_pylint": True]},
-  "bar.py": {"skip_flake8": True]},
-  ("foo.py", "bar.py"): {"tags": ["linter_disabled"]},
-}
-```
+`&#x60;`
+overrides=&#123;
+&#x22;foo.py&#x22;: &#123;&#x22;skip_pylint&#x22;: True]&#125;,
+&#x22;bar.py&#x22;: &#123;&#x22;skip_flake8&#x22;: True]&#125;,
+(&#x22;foo.py&#x22;, &#x22;bar.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;linter_disabled&#x22;]&#125;,
+&#125;
+`&#x60;`
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
@@ -119,7 +124,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_autoflake`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -130,7 +135,7 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 ## `skip_black`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -141,7 +146,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 ## `skip_docformatter`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -152,7 +157,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 ## `skip_flake8`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -163,7 +168,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 ## `skip_isort`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -174,7 +179,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 ## `skip_mypy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -185,7 +190,7 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 ## `skip_pyupgrade`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -196,7 +201,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 ## `skip_bandit`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -207,7 +212,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 ## `skip_pylint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -218,7 +223,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 ## `skip_yapf`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

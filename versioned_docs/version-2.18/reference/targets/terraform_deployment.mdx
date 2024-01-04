@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.terraform`
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -60,7 +63,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `root_module`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The Terraform module to use as the root module.
@@ -72,7 +76,8 @@ Example: `root_module=":my_module"`
 ## `backend_config`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Configuration to be merged with what is in the configuration file&#x27;s &#x27;backend&#x27; block
@@ -82,7 +87,8 @@ Configuration to be merged with what is in the configuration file&#x27;s &#x27;b
 ## `var_files`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 A list of files and globs that belong to this target.

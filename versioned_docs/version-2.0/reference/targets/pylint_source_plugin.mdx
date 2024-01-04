@@ -48,7 +48,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
@@ -58,7 +59,8 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
@@ -68,7 +70,8 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 ## `compatibility`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, this will default to the option `interpreter_constraints` in the [python-setup] scope. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
@@ -78,7 +81,8 @@ A string for Python interpreter constraints on this target. This should be writt
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this plugin depends on. Due to restrictions with Pylint plugins, these targets must either be third-party Python dependencies (https://www.pantsbuild.org/docs/python-third-party-dependencies) or be located within this target&#x27;s same directory or a subdirectory.
@@ -88,7 +92,8 @@ Addresses to other targets that this plugin depends on. Due to restrictions with
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 A list of files and globs that belong to this target. Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.

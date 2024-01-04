@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -55,7 +57,8 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -71,7 +74,8 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -89,7 +93,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `main`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
@@ -99,7 +104,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `jdk`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
@@ -109,7 +115,8 @@ The major version of the JDK that this target should be built with. If not defin
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[jvm].resolves` to use when compiling this target.
@@ -121,7 +128,7 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `duplicate_policy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[pants.jvm.target_types.DeployJarDuplicateRule] | None`}
     default_repr={`(duplicate_rule(pattern='^META-INF/services/', action='concat_text'), duplicate_rule(pattern='^META-INF/LICENSE', action='skip'))`}
 >
 
@@ -151,7 +158,8 @@ Note that the order in which the rules are listed is relevant.
 ## `shading_rules`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[pants.jvm.target_types.JvmShadingRule] | None`}
+    default_repr={`None`}
 >
 
 Shading rules to be applied to the final JAR artifact.

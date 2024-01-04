@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -60,22 +63,24 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
-A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&lt;=3 ; python_version&lt;&#x27;3&#x27;].
+A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&#x3C;=3 ; python_version&#x3C;&#x27;3&#x27;].
 
 </Field>
 
 ## `module_mapping`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
 >
 
 A mapping of requirement names to a list of the modules they provide.
 
-For example, `{"ansicolors": ["colors"]}`. Any unspecified requirements will use the requirement name as the default module, e.g. &quot;Django&quot; will default to `["django"]`.
+For example, `{"ansicolors": ["colors"]}`. Any unspecified requirements will use the requirement name as the default module, e.g. &#x22;Django&#x22; will default to `["django"]`.
 
 This is used for Pants to be able to infer dependencies in BUILD files.
 

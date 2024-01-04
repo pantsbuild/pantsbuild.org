@@ -68,13 +68,13 @@ If true, then convert coverage reports to HTML format and write a `coverage.html
   default_repr={`[]`}
 >
 
-A list of &quot;import path patterns&quot; for determining which import paths will be instrumented for code coverage.
+A list of &#x22;import path patterns&#x22; for determining which import paths will be instrumented for code coverage.
 
 From `go help packages`:
 
-An import path is a pattern if it includes one or more &quot;...&quot; wildcards, each of which can match any string, including the empty string and strings containing slashes. Such a pattern expands to all package directories found in the GOPATH trees with names matching the patterns.
+An import path is a pattern if it includes one or more &#x22;...&#x22; wildcards, each of which can match any string, including the empty string and strings containing slashes. Such a pattern expands to all package directories found in the GOPATH trees with names matching the patterns.
 
-To make common patterns more convenient, there are two special cases. First, /... at the end of the pattern can match an empty string, so that net/... matches both net and packages in its subdirectories, like net/http. Second, any slash-separated pattern element containing a wildcard never participates in a match of the &quot;vendor&quot; element in the path of a vendored package, so that ./... does not match packages in subdirectories of ./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do. Note, however, that a directory named vendor that itself contains code is not a vendored package: cmd/vendor would be a command named vendor, and the pattern cmd/... matches it. See golang.org/s/go15vendor for more about vendoring.
+To make common patterns more convenient, there are two special cases. First, /... at the end of the pattern can match an empty string, so that net/... matches both net and packages in its subdirectories, like net/http. Second, any slash-separated pattern element containing a wildcard never participates in a match of the &#x22;vendor&#x22; element in the path of a vendored package, so that ./... does not match packages in subdirectories of ./vendor or ./mycode/vendor, but ./vendor/... and ./mycode/vendor/... do. Note, however, that a directory named vendor that itself contains code is not a vendored package: cmd/vendor would be a command named vendor, and the pattern cmd/... matches it. See golang.org/s/go15vendor for more about vendoring.
 
 This option is similar to the `go test -coverpkg` option, but without support currently for reserved import path patterns like `std` and `all`.
 
@@ -114,7 +114,7 @@ See https://go.dev/doc/articles/race_detector for additional information about t
   default_repr={`False`}
 >
 
-If true, then always enable interoperation between Go and the C/C++ &quot;memory sanitizer&quot; when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
+If true, then always enable interoperation between Go and the C/C++ &#x22;memory sanitizer&#x22; when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
 
 See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
@@ -128,7 +128,7 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
   default_repr={`False`}
 >
 
-If true, then always enable interoperation between Go and the C/C++ &quot;address sanitizer&quot; when running tests regardless of the test-by-test `asan` field on the relevant `go_package` target.
+If true, then always enable interoperation between Go and the C/C++ &#x22;address sanitizer&#x22; when running tests regardless of the test-by-test `asan` field on the relevant `go_package` target.
 
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
@@ -234,6 +234,10 @@ This is similar to the `go test -c` option, but will still run the underlying te
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

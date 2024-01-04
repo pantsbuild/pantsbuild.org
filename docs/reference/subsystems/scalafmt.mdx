@@ -9,8 +9,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 scalafmt (https://scalameta.org/scalafmt/)
 
-Backend: <span className="color--primary">pants.backend.experimental.scala.lint.scalafmt</span>
-Config section: <span className="color--primary">[scalafmt]</span>
+Backend: <span className="color--primary">`pants.backend.experimental.scala.lint.scalafmt`</span>
+
+Config section: <span className="color--primary">`[scalafmt]`</span>
 
 <span className={styles.options}>
 
@@ -47,9 +48,7 @@ Version string for the tool. This is available for substitution in the `[scalafm
 <Option
   cli_repr={`--scalafmt-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAFMT_ARTIFACTS'
-  default_repr={`[
-  "org.scalameta:scalafmt-cli_2.13:{version}"
-]`}
+  default_repr={`[\n  "org.scalameta:scalafmt-cli_2.13:{version}"\n]`}
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalafmt].version` option.
@@ -87,6 +86,10 @@ Options set here will be added to those set in `[jvm].global_options`. Please ch
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

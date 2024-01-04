@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `chart`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'Chart.yaml'`}
 >
 
@@ -53,7 +55,7 @@ The chart definition file.
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('values.yaml', 'values.yml', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'crds/*.yaml', 'crds/*.yml')`}
 >
 
@@ -68,7 +70,8 @@ Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -86,7 +89,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built directory tree should be located.
@@ -104,7 +108,8 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `lint_strict`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 If set to true, enables strict linting of this Helm chart.
@@ -114,7 +119,8 @@ If set to true, enables strict linting of this Helm chart.
 ## `repository`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Repository to use in the Helm registry where this chart is going to be published.
@@ -126,7 +132,7 @@ If no value is given and `[helm].default-registry-repository` is undefined too, 
 ## `registries`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('<ALL DEFAULT HELM REGISTRIES>',)`}
 >
 
@@ -160,7 +166,7 @@ The above example shows two valid `registry` options: using an alias to a config
 ## `skip_push`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -171,7 +177,7 @@ If set to true, do not push this Helm chart to registries when running `scie-pan
 ## `skip_lint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

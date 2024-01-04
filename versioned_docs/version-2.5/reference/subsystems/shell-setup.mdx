@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options for Pants&#x27;s Shell support.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[shell-setup]`</span>
 
@@ -26,12 +26,12 @@ None
 <Option
   cli_repr={`--shell-setup-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
 >
 
 The PATH value that will be used to find shells and to run certain processes like the shunit2 test runner.
 
-The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the PATH env var.
+The special string &#x22;&#x3C;PATH&#x3E;&#x22; will expand to the contents of the PATH env var.
 
 </Option>
 
@@ -48,6 +48,10 @@ Infer Shell dependencies on other Shell files by analyzing `source` statements.
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

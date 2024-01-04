@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.
@@ -60,7 +63,7 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `include_requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -71,7 +74,8 @@ Whether to resolve requirements and include them in the AWS Lambda artifact. Thi
 ## `runtime`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
@@ -83,7 +87,8 @@ N.B.: only one of this and `complete_platforms` can be set. If `runtime` is set,
 ## `complete_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -101,7 +106,8 @@ N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default 
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -115,7 +121,7 @@ All dependencies must share the same value for their `resolve` field.
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 
@@ -130,7 +136,8 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -148,7 +155,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `handler`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Entry point to the AWS Lambda handler.

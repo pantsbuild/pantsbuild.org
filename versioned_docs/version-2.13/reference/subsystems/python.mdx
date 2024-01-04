@@ -72,14 +72,14 @@ Note: Only takes effect if you use Pex lockfiles. Set `[python].lockfile_generat
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
-Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 </Option>
 
@@ -128,7 +128,7 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{"python-default": "3rdparty/python/default.lock"}`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
@@ -408,5 +408,9 @@ Solitary `__init__.py` files usually exist as import scaffolding rather than tru
 Set to false if you commonly have packages containing real code in `__init__.py` without other `.py` files in the package.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

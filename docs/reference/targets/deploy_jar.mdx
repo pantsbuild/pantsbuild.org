@@ -29,6 +29,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -41,6 +42,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `restartable`
 
 <Field
@@ -51,6 +53,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -67,6 +70,7 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -85,6 +89,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `main`
 
 <Field
@@ -95,6 +100,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
 
 </Field>
+
 ## `jdk`
 
 <Field
@@ -105,6 +111,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
+
 ## `resolve`
 
 <Field
@@ -117,6 +124,7 @@ The resolve from `[jvm].resolves` to use when compiling this target.
 If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
+
 ## `duplicate_policy`
 
 <Field
@@ -136,7 +144,6 @@ duplicate_policy=[
     duplicate_rule(pattern="^reference\.conf", action="concat_text"),
     duplicate_rule(pattern="^org/apache/commons", action="throw"),
 ]
-
 ```
 
 Where:
@@ -147,6 +154,7 @@ Where:
 Note that the order in which the rules are listed is relevant.
 
 </Field>
+
 ## `shading_rules`
 
 <Field
@@ -166,6 +174,7 @@ There are 4 possible shading rules available, which are as follows:
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 
 </Field>
+
 ## `exclude_files`
 
 <Field

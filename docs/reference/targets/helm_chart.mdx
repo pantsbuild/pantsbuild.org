@@ -27,6 +27,7 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
 ## `description`
 
 <Field
@@ -39,6 +40,7 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
 ## `chart`
 
 <Field
@@ -49,6 +51,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 The chart definition file.
 
 </Field>
+
 ## `sources`
 
 <Field
@@ -63,6 +66,7 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
 
 </Field>
+
 ## `dependencies`
 
 <Field
@@ -81,6 +85,7 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
 ## `output_path`
 
 <Field
@@ -99,6 +104,7 @@ When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `-
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
 ## `lint_strict`
 
 <Field
@@ -109,6 +115,7 @@ Warning: setting this value risks naming collisions with other package targets y
 If set to true, enables strict linting of this Helm chart.
 
 </Field>
+
 ## `repository`
 
 <Field
@@ -121,6 +128,7 @@ Repository to use in the Helm registry where this chart is going to be published
 If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
 
 </Field>
+
 ## `version`
 
 <Field
@@ -133,6 +141,7 @@ Version number for the given Helm chart.
 When specified, the version provided in the source Chart.yaml file will be overriden by the value given to this field.
 
 </Field>
+
 ## `registries`
 
 <Field
@@ -161,12 +170,12 @@ helm_chart(
         "oci://myregistrydomain:port",
     ],
 )
-
 ```
 
 The above example shows two valid `registry` options: using an alias to a configured registry and the address to a registry verbatim in the BUILD file.
 
 </Field>
+
 ## `skip_push`
 
 <Field
@@ -177,6 +186,7 @@ The above example shows two valid `registry` options: using an alias to a config
 If set to true, do not push this Helm chart to registries when running `scie-pants-linux-x86_64 publish`.
 
 </Field>
+
 ## `skip_lint`
 
 <Field

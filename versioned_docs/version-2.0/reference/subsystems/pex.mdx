@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 How Pants uses Pex to run Python subprocesses.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[pex]`</span>
 
@@ -26,10 +26,10 @@ None
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
 >
 
-The PATH value that will be used by the PEX subprocess and any subprocesses it spawns. The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the PATH env var.
+The PATH value that will be used by the PEX subprocess and any subprocesses it spawns. The special string &#x22;&#x3C;PATH&#x3E;&#x22; will expand to the contents of the PATH env var.
 
 </Option>
 
@@ -58,6 +58,10 @@ Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

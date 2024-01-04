@@ -22,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.adhoc`</sp
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `binary_name`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The name of the binary to find.
@@ -56,7 +59,7 @@ The name of the binary to find.
 ## `extra_search_paths`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -67,7 +70,8 @@ Extra search paths to look for the binary. These take priority over Pants&#x27; 
 ## `fingerprint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A regular expression which will be used to match the fingerprint outputs from candidate binaries found during the search process.
@@ -77,7 +81,7 @@ A regular expression which will be used to match the fingerprint outputs from ca
 ## `fingerprint_args`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -88,7 +92,8 @@ Specifies arguments that will be used to run the binary during the search proces
 ## `fingerprint_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Specifies any runnable dependencies that need to be available on the `PATH` when the binary is run, so that the search process may complete successfully. The name of the target must be the name of the runnable dependency that is called by this binary.

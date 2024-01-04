@@ -24,7 +24,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.python`</s
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -36,7 +37,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -48,7 +50,7 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `tag_regex`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'^(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$'`}
 >
 
@@ -65,7 +67,8 @@ See https://github.com/pypa/setuptools_scm for implementation details.
 ## `generate_to`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Generate the version data to this relative path, using the template field.
@@ -77,19 +80,21 @@ Note that the generated output will not be written to disk in the source tree, b
 ## `template`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 Generate the version data using this format string, which takes a version format kwarg.
 
-E.g., &#x27;version = &quot;&#123;version&#125;&quot;&#x27;
+E.g., &#x27;version = &#x22;&#123;version&#125;&#x22;&#x27;
 
 </Field>
 
 ## `python_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.python"
 >
 

@@ -18,7 +18,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -30,7 +31,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -42,7 +44,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('test_*.py', '*_test.py', 'tests.py')`}
 >
 
@@ -57,7 +59,8 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `python_test` targets.
@@ -66,13 +69,13 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 
-```
-overrides={
-  "foo_test.py": {"timeout": 120]},
-  "bar_test.py": {"timeout": 200]},
-  ("foo_test.py", "bar_test.py"): {"tags": ["slow_tests"]},
-}
-```
+`&#x60;`
+overrides=&#123;
+&#x22;foo_test.py&#x22;: &#123;&#x22;timeout&#x22;: 120]&#125;,
+&#x22;bar_test.py&#x22;: &#123;&#x22;timeout&#x22;: 200]&#125;,
+(&#x22;foo_test.py&#x22;, &#x22;bar_test.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
+&#125;
+`&#x60;`
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
@@ -85,7 +88,7 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 ## `skip_autoflake`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.lint.autoflake"
 >
@@ -97,7 +100,7 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 ## `skip_pyupgrade`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.experimental.python.lint.pyupgrade"
 >
@@ -109,7 +112,7 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 ## `skip_bandit`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.bandit"
 >
@@ -121,7 +124,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 ## `skip_black`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.black"
 >
@@ -133,7 +136,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 ## `skip_docformatter`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.docformatter"
 >
@@ -145,7 +148,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 ## `skip_flake8`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.flake8"
 >
@@ -157,7 +160,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 ## `skip_isort`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.isort"
 >
@@ -169,7 +172,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 ## `skip_pylint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.pylint"
 >
@@ -181,7 +184,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 ## `skip_yapf`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.lint.yapf"
 >
@@ -193,7 +196,7 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 ## `skip_mypy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.python.typecheck.mypy"
 >
@@ -205,7 +208,8 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -223,7 +227,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -237,7 +242,8 @@ All dependencies must share the same value for their `resolve` field.
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -249,7 +255,8 @@ If unset, will default to `[pytest].timeout_default`; if that option is also uns
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.
@@ -263,7 +270,8 @@ You can include anything that can be built by `/home/josh/work/scie-pants/dist/s
 ## `extra_env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
@@ -273,7 +281,8 @@ Additional environment variables to include in test processes. Entries are strin
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -291,7 +300,7 @@ See https://www.pantsbuild.org/v2.12/docs/python-interpreter-compatibility for h
 ## `skip_tests`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

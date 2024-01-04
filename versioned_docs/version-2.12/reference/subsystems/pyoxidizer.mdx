@@ -62,7 +62,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.8,<4"]`}
+  default_repr={`[\n  "CPython>=3.8,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -94,6 +94,10 @@ The entry point for the tool. Generally you only want to use this option if the 
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

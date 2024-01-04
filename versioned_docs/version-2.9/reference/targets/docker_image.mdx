@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,7 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `extra_build_args`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`()`}
 >
 
@@ -59,7 +61,8 @@ Use `[docker].build_args` to set default build args for all images.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -77,7 +80,7 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'Dockerfile'`}
 >
 
@@ -90,7 +93,8 @@ Use the `instructions` field instead if you prefer not having the Dockerfile in 
 ## `instructions`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The `Dockerfile` content, typically one instruction per list item.
@@ -114,7 +118,7 @@ docker_image(
 ## `image_tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('latest',)`}
 >
 
@@ -129,7 +133,7 @@ See https://www.pantsbuild.org/v2.9/docs/tagging-docker-images.
 ## `registries`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('<all default registries>',)`}
 >
 
@@ -163,10 +167,11 @@ The above example shows two valid `registry` options: using an alias to a config
 ## `repository`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
-The repository name for the Docker image. e.g. &quot;&lt;repository&gt;/&lt;name&gt;&quot;.
+The repository name for the Docker image. e.g. &#x22;&#x3C;repository&#x3E;/&#x3C;name&#x3E;&#x22;.
 
 It uses the `[docker].default_repository` by default.This field value may contain format strings that will be interpolated at runtime. See the documentation for `[docker].default_repository` for details.
 
@@ -175,7 +180,8 @@ It uses the `[docker].default_repository` by default.This field value may contai
 ## `secrets`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, str] | None`}
+    default_repr={`None`}
 >
 
 Secret files to expose to the build (only if BuildKit enabled).
@@ -199,7 +205,7 @@ docker_image(
 ## `skip_push`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -210,7 +216,8 @@ If set to true, do not push this image to registries when running `./pants publi
 ## `target_stage`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Specify target build stage, rather than building the entire `Dockerfile`.
@@ -224,7 +231,7 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -235,7 +242,7 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `skip_hadolint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

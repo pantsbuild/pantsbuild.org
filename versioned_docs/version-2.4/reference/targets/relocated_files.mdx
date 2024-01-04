@@ -55,7 +55,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -67,7 +68,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -79,7 +81,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `files_targets`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 Addresses to the original `files()` targets that you want to relocate, such as `['//:json_files']`.
@@ -91,24 +94,26 @@ Every target will be relocated using the same mapping. This means that every tar
 ## `src`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The original prefix that you want to replace, such as `src/resources`.
 
-You can set this field to ``to preserve the original path; the value in the`dest` field will then be added to the beginning of this original path.
+You can set this field to `&#x60; to preserve the original path; the value in the `dest` field will then be added to the beginning of this original path.
 
 </Field>
 
 ## `dest`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The new prefix that you want to add to the beginning of the path, such as `data`.
 
-You can set this field to &quot;&quot; to avoid adding any new values to the path; the value in the `src` field will then be stripped, rather than replaced.
+You can set this field to &#x22;&#x22; to avoid adding any new values to the path; the value in the `src` field will then be stripped, rather than replaced.
 
 </Field>
 

@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Options for Pants&#x27;s Python support.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[python-setup]`</span>
 
@@ -26,12 +26,12 @@ None
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6,<4"]`}
+  default_repr={`[\n  "CPython>=3.6,<4"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
 
-Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
@@ -132,12 +132,12 @@ We recommend keeping the default of `error` for CI builds.
 
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
-- &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
-- &quot;&lt;ASDF&gt;&quot;, all Python versions currently configured by ASDF (asdf shell, $&#123;HOME&#125;/.tool-versions), with a fallback to all installed versions
-- &quot;&lt;ASDF_LOCAL&gt;&quot;, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
-- &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
-- &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-- &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+- &#x22;&#x3C;PATH&#x3E;&#x22;, the contents of the PATH env var
+- &#x22;&#x3C;ASDF&#x3E;&#x22;, all Python versions currently configured by ASDF (asdf shell, $&#123;HOME&#125;/.tool-versions), with a fallback to all installed versions
+- &#x22;&#x3C;ASDF_LOCAL&#x3E;&#x22;, the ASDF interpreter with the version in BUILD_ROOT/.tool-versions
+- &#x22;&#x3C;PYENV&#x3E;&#x22;, all Python versions under $(pyenv root)/versions
+- &#x22;&#x3C;PYENV_LOCAL&#x3E;&#x22;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+- &#x22;&#x3C;PEXRC&#x3E;&#x22;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
 
 </Option>
 
@@ -196,6 +196,10 @@ Tailor pex_binary() targets for Python entry point files.
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

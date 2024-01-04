@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The Flake8 Python linter (https://flake8.pycqa.org/).
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[flake8]`</span>
 
@@ -60,7 +60,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
-  default_repr={`["setuptools<45"]`}
+  default_repr={`[\n  "setuptools<45"\n]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -92,6 +92,10 @@ Path to `.flake8` or alternative Flake8 config file
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

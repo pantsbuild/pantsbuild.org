@@ -22,7 +22,7 @@ Config section: <span className="color--primary">`[jvm]`</span>
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_JVM_RESOLVES'
-  default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
+  default_repr={`{\n  "jvm-default": "3rdparty/jvm/default.lock"\n}`}
 >
 
 A dictionary mapping resolve names to the path of their lockfile.
@@ -76,6 +76,10 @@ If the string &#x27;system&#x27; is passed, Coursier&#x27;s `--system-jvm` optio
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

@@ -26,7 +26,7 @@ Config section: <span className="color--primary">`[jvm]`</span>
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_JVM_RESOLVES'
-  default_repr={`{"jvm-default": "3rdparty/jvm/default.lock"}`}
+  default_repr={`{\n  "jvm-default": "3rdparty/jvm/default.lock"\n}`}
 >
 
 A dictionary mapping resolve names to the path of their lockfile.
@@ -136,6 +136,10 @@ This setting allows for trading off waiting for potentially slow cache entries a
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

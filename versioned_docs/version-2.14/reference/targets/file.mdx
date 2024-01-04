@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.core`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -62,7 +65,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | HTTPSource`}
+    default_repr={`None`}
 >
 
 The source of this target.
@@ -70,16 +74,9 @@ The source of this target.
 If a string is provided, represents a path that is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 If an http_source is provided, represents the network location to download the source from. The downloaded file will exist in the sandbox in the same directory as the target. `http_source` has the following signature:
-
-```
-http_source(url: str, *, len: int, sha256: str, filename: str = "")
-```
-
+http_source(url: str, \*, len: int, sha256: str, filename: str = &#x22;&#x22;)
 The filename defaults to the last part of the URL path (E.g. `example.ext`), but can also be specified if you wish to have control over the file name. You cannot, however, specify a path separator to download the file into a subdirectory (you must declare a target in desired subdirectory). You can easily get the len and checksum with the following command:
-
-```
 `curl -L $URL | tee >(wc -c) >(shasum -a 256) >/dev/null`
-```
 
 </Field>
 

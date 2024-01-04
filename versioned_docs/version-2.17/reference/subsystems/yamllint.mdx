@@ -83,7 +83,7 @@ The resolve&#x27;s entire lockfile will be installed, unless specific requiremen
 
 If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `yamllint` &quot;tool lockfile&quot; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `yamllint` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
@@ -110,7 +110,7 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--yamllint-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAMLLINT_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -218,5 +218,9 @@ If true, export a virtual environment with Yamllint when running `scie-pants-lin
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

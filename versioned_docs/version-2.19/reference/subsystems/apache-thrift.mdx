@@ -38,7 +38,7 @@ Do not include the patch version.
 <Option
   cli_repr={`--apache-thrift-thrift-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_APACHE_THRIFT_THRIFT_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='apache_thrift_thrift_search_paths'
 >
 
@@ -55,6 +55,10 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 None
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

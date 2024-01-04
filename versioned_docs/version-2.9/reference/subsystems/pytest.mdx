@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The pytest Python test framework (https://docs.pytest.org/).
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[pytest]`</span>
 
@@ -60,7 +60,7 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
-  default_repr={`["pytest-cov>=2.12,!=2.12.1,<3.1"]`}
+  default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1"\n]`}
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
@@ -172,6 +172,10 @@ If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`)
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

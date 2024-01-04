@@ -22,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built directory tree should be located.
@@ -64,7 +67,8 @@ Warning: setting this value risks naming collisions with other package targets y
 ## `binary_name`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The name of the binary that will be output by PyOxidizer. If not set, this will default to the name of this target.
@@ -74,7 +78,8 @@ The name of the binary that will be output by PyOxidizer. If not set, this will 
 ## `template`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 If set, will use your custom configuration rather than using Pants&#x27;s default template.
@@ -95,7 +100,8 @@ Available template parameters:
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 The addresses of `python_distribution` target(s) to include in the binary, e.g. `['src/python/project:dist']`.
@@ -111,7 +117,8 @@ Target types other than `python_distribution` will be ignored.
 ## `entry_point`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app`, to a module. This represents the content of PyOxidizer&#x27;s `python_config.run_module` and leaving this field empty will create a REPL binary.
@@ -125,7 +132,8 @@ This field is passed into the PyOxidizer config as-is, and does not undergo vali
 ## `filesystem_resources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Adds support for listing dependencies that MUST be installed to the filesystem (e.g. Numpy). See https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_packaging_additional_files.html#installing-unclassified-files-on-the-filesystem
@@ -135,7 +143,7 @@ Adds support for listing dependencies that MUST be installed to the filesystem (
 ## `environment`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'__local__'`}
 >
 

@@ -26,12 +26,12 @@ None
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
 >
 
 The PATH value that will be used by the PEX subprocess and any subprocesses it spawns.
 
-The special string &quot;&lt;PATH&gt;&quot; will expand to the contents of the PATH env var.
+The special string &#x22;&#x3C;PATH&#x3E;&#x22; will expand to the contents of the PATH env var.
 
 </Option>
 
@@ -62,6 +62,10 @@ Enabling this can save space in the `--named-caches-dir` directory and lead to s
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

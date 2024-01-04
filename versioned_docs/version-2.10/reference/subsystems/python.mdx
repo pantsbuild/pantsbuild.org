@@ -36,12 +36,12 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6,<4"]`}
+  default_repr={`[\n  "CPython>=3.6,<4"\n]`}
 >
 
 The Python interpreters your codebase is compatible with.
 
-Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
+Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3) or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together.
 
 These constraints are used as the default value for the `interpreter_constraints` field of Python targets.
 
@@ -111,7 +111,7 @@ Warning: you may have issues with generating valid lockfiles via the `generate-l
 
 Several users have also had issues with how Poetry&#x27;s lockfile generation handles environment markers for transitive dependencies; certain dependencies end up with nonsensical environment markers which cause the dependency to not be installed, then for Pants/Pex to complain the dependency is missing, even though it&#x27;s in the lockfile. The workaround is to manually create a `python_requirement` target for the problematic transitive dependencies so that they are seen as direct requirements, rather than transitive, then to regenerate the lockfile with `generate-lockfiles`.
 
-We are working to fix these issues by using PEX &amp; pip to generate the lockfile.
+We are working to fix these issues by using PEX &#x26; pip to generate the lockfile.
 
 Outside of the above issues with lockfile generation, we believe this feature is stable. It offers three major benefits compared to `[python].requirement_constraints`:
 
@@ -128,7 +128,7 @@ Mutually exclusive with `[python].requirement_constraints`.
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
-  default_repr={`{"python-default": "3rdparty/python/default.lock"}`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
 A mapping of logical names to lockfile paths used in your project.
@@ -318,5 +318,9 @@ Because Pants can run multiple subprocesses in parallel, the maximum total paral
 Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

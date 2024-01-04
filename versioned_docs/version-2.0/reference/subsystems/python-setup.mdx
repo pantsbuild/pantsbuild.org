@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A Python environment.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[python-setup]`</span>
 
@@ -26,10 +26,10 @@ None
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.6"]`}
+  default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
-Constrain the selected Python interpreter. Specify with requirement syntax, e.g. &#x27;CPython&gt;=2.7,&lt;3&#x27; (A CPython interpreter with version &gt;=2.7 AND version &lt;3)or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together. These constraints are used as the default value for the `compatibility` field of Python targets.
+Constrain the selected Python interpreter. Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A CPython interpreter with version &#x3E;=2.7 AND version &#x3C;3)or &#x27;PyPy&#x27; (A pypy interpreter of any version). Multiple constraint strings will be ORed together. These constraints are used as the default value for the `compatibility` field of Python targets.
 
 </Option>
 
@@ -74,10 +74,10 @@ Requires [python-setup].requirement_constraints to be set.
 
 A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
 
-- &quot;&lt;PATH&gt;&quot;, the contents of the PATH env var
-- &quot;&lt;PYENV&gt;&quot;, all Python versions under $(pyenv root)/versions
-- &quot;&lt;PYENV_LOCAL&gt;&quot;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-- &quot;&lt;PEXRC&gt;&quot;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+- &#x22;&#x3C;PATH&#x3E;&#x22;, the contents of the PATH env var
+- &#x22;&#x3C;PYENV&#x3E;&#x22;, all Python versions under $(pyenv root)/versions
+- &#x22;&#x3C;PYENV_LOCAL&#x3E;&#x22;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+- &#x22;&#x3C;PEXRC&#x3E;&#x22;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
 
 </Option>
 
@@ -124,7 +124,7 @@ The maximum time (in seconds) for items in the HTTP cache. When the cache expire
 <Option
   cli_repr={`--python-setup-platforms="[<platform>, <platform>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_PLATFORMS'
-  default_repr={`["current"]`}
+  default_repr={`[\n  "current"\n]`}
   removal_version='2.1.0.dev0'
   removal_hint={'The option `--python-setup-platforms` does not do anything anymore. Instead, explicitly set the `platforms` field on each `pex_binary` target.'}
 >
@@ -174,5 +174,9 @@ The parent directory for the requirement resolver cache. If unspecified, a stand
 Whether to include pre-releases when resolving requirements.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

@@ -20,7 +20,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -32,7 +33,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -44,7 +46,8 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -62,7 +65,8 @@ See https://www.pantsbuild.org/v2.11/docs/python-interpreter-compatibility for h
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` to use.
@@ -76,7 +80,8 @@ All dependencies must share the same value for their `resolve` field.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
@@ -94,7 +99,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The abbreviated platforms the built PEX should be compatible with.
@@ -103,12 +109,12 @@ There must be built wheels available for all of the foreign platforms, rather th
 
 You can give a list of multiple platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
 
-Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &quot;linux_x86_64-cp-37-cp37m&quot;, &quot;macosx_10.12_x86_64-cp-310-cp310&quot;):
+Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#platform), i.e. PLATFORM-IMPL-PYVER-ABI (e.g. &#x22;linux_x86_64-cp-37-cp37m&#x22;, &#x22;macosx_10.12_x86_64-cp-310-cp310&#x22;):
 
-- PLATFORM: the host platform, e.g. &quot;linux-x86_64&quot;, &quot;macosx-10.12-x86_64&quot;.
-- IMPL: the Python implementation abbreviation, e.g. &quot;cp&quot; or &quot;pp&quot;.
-- PYVER: a two or more digit string representing the python major/minor version (e.g., &quot;37&quot; or &quot;310&quot;) or else a component dotted version string (e.g.,&quot;3.7&quot; or &quot;3.10.1&quot;).
-- ABI: the ABI tag, e.g. &quot;cp37m&quot;, &quot;cp310&quot;, &quot;abi3&quot;, &quot;none&quot;.
+- PLATFORM: the host platform, e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;.
+- IMPL: the Python implementation abbreviation, e.g. &#x22;cp&#x22; or &#x22;pp&#x22;.
+- PYVER: a two or more digit string representing the python major/minor version (e.g., &#x22;37&#x22; or &#x22;310&#x22;) or else a component dotted version string (e.g.,&#x22;3.7&#x22; or &#x22;3.10.1&#x22;).
+- ABI: the ABI tag, e.g. &#x22;cp37m&#x22;, &#x22;cp310&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;.
 
 Note that using an abbreviated platform means that certain resolves will fail when they encounter environment markers that cannot be deduced from the abbreviated platform string. A common example of this is &#x27;python_full_version&#x27; which requires knowing the patch level version of the foreign Python interpreter. To remedy this you should use a 3-component dotted version for PYVER. If your resolves fail due to more esoteric undefined environment markers, you should switch to specifying `complete_platforms` instead.
 
@@ -117,7 +123,8 @@ Note that using an abbreviated platform means that certain resolves will fail wh
 ## `complete_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The platforms the built PEX should be compatible with.
@@ -133,7 +140,8 @@ Complete platforms should be addresses of `file` targets that point to files tha
 ## `resolve_local_platforms`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 For each of the `platforms` specified, attempt to find a local interpreter that matches.
@@ -145,7 +153,8 @@ If a matching interpreter is found, use the interpreter to resolve distributions
 ## `inherit_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'fallback' | 'false' | 'prefer' | None`}
+    default_repr={`None`}
 >
 
 Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
@@ -157,7 +166,7 @@ Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` afte
 ## `strip_pex_env`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -170,7 +179,7 @@ Most applications have no need for the `PEX*` environment variables that are use
 ## `ignore_errors`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -181,7 +190,8 @@ Should PEX ignore when it cannot resolve dependencies?
 ## `shebang`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints.
@@ -193,7 +203,8 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 ## `emit_warnings`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool | None`}
+    default_repr={`None`}
 >
 
 Whether or not to emit PEX warnings at runtime.
@@ -205,7 +216,7 @@ The default is determined by the option `emit_warnings` in the `[pex-binary-defa
 ## `layout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'loose' | 'packed' | 'zipapp' | None`}
     default_repr={`'zipapp'`}
 >
 
@@ -224,7 +235,7 @@ Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose ap
 ## `execution_mode`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`'venv' | 'zipapp' | None`}
     default_repr={`'zipapp'`}
 >
 
@@ -239,7 +250,7 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 ## `include_requirements`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`True`}
 >
 
@@ -250,7 +261,7 @@ Whether to include the third party requirements the binary depends on in the pac
 ## `include_tools`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -263,7 +274,7 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 ## `restartable`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -274,7 +285,8 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `entry_point`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a module.
@@ -293,7 +305,8 @@ You may either set this field or the `script` field, but not both. Leave off bot
 ## `script`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
@@ -305,7 +318,8 @@ You may either set this field or the `entry_point` field, but not both. Leave of
 ## `output_path`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 Where the built asset should be located.

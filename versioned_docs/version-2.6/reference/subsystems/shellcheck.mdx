@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A linter for shell scripts.
 
-Backend: <span className="color--primary">`pants.core`</span>
+Backend: <span className="color--primary">``</span>
 
 Config section: <span className="color--primary">`[shellcheck]`</span>
 
@@ -70,16 +70,9 @@ Each element is a pipe-separated string of `version|platform|sha256|length`, whe
 - `version` is the version string
 - `platform` is one of [darwin,linux],
 - `sha256` is the 64-character hex representation of the expected sha256
-
-```
-digest of the download file, as emitted by `shasum -a 256`
-```
-
+  digest of the download file, as emitted by `shasum -a 256`
 - `length` is the expected length of the download file in bytes, as emmitted by
-
-```
-`wc -c`
-```
+  `wc -c`
 
 E.g., `3.1.2|darwin|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
 
@@ -130,6 +123,10 @@ If true, Pants will include all relevant `.shellcheckrc` and `shellcheckrc` file
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

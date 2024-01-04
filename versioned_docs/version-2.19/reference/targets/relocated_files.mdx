@@ -55,7 +55,8 @@ Backend: <span className="color--primary">`pants.core`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -67,7 +68,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -79,7 +81,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `files_targets`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str]`}
+    default_repr={`None`}
 >
 
 Addresses to the original `file` and `files` targets that you want to relocate, such as `['//:json_files']`.
@@ -91,7 +94,8 @@ Every target will be relocated using the same mapping. This means that every tar
 ## `src`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The original prefix that you want to replace, such as `src/resources`.
@@ -103,7 +107,8 @@ You can set this field to the empty string to preserve the original path; the va
 ## `dest`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 The new prefix that you want to add to the beginning of the path, such as `data`.

@@ -22,7 +22,7 @@ Config section: <span className="color--primary">`[golang]`</span>
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
 >
 
 A list of paths to search for Go.
@@ -120,5 +120,9 @@ Pants will only use Go distributions from `--go-search-paths` that have the expe
 Do not include the patch version.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

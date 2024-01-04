@@ -101,7 +101,7 @@ Pants will log their location so that you can inspect the chroot, and run the `_
   default_repr={`3.0`}
 >
 
-The time in seconds to wait for still-running &quot;session end&quot; tasks to complete before finishing completion of a Pants invocation. &quot;Session end&quot; tasks include, for example, writing data that was generated during the applicable Pants invocation to a configured remote cache.
+The time in seconds to wait for still-running &#x22;session end&#x22; tasks to complete before finishing completion of a Pants invocation. &#x22;Session end&#x22; tasks include, for example, writing data that was generated during the applicable Pants invocation to a configured remote cache.
 
 </Option>
 
@@ -270,7 +270,7 @@ Display the target where a log message originates in that log message&#x27;s out
   default_repr={`{}`}
 >
 
-Set a more specific logging level for one or more logging targets. The names of logging targets are specified in log strings when the --show-log-target option is set. The logging levels are one of: &quot;error&quot;, &quot;warn&quot;, &quot;info&quot;, &quot;debug&quot;, &quot;trace&quot;. All logging targets not specified here use the global log level set with --level. For example, you can set `--log-levels-by-target='{"workunit_store": "info", "pants.engine.rules": "warn"}'`.
+Set a more specific logging level for one or more logging targets. The names of logging targets are specified in log strings when the --show-log-target option is set. The logging levels are one of: &#x22;error&#x22;, &#x22;warn&#x22;, &#x22;info&#x22;, &#x22;debug&#x22;, &#x22;trace&#x22;. All logging targets not specified here use the global log level set with --level. For example, you can set `--log-levels-by-target='{"workunit_store": "info", "pants.engine.rules": "warn"}'`.
 
 </Option>
 
@@ -340,7 +340,7 @@ The name of the script or binary used to invoke Pants. Useful when printing help
 <Option
   cli_repr={`--pants-workdir=<dir>`}
   env_repr='PANTS_WORKDIR'
-  default_repr={`<buildroot>/.pants.d`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pants.d`}
 >
 
 Write intermediate logs and output files to this dir.
@@ -364,7 +364,7 @@ When set, a base directory in which to store `--pants-workdir` contents. If this
 <Option
   cli_repr={`--pants-distdir=<dir>`}
   env_repr='PANTS_DISTDIR'
-  default_repr={`<buildroot>/dist`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/dist`}
 >
 
 Write end products, such as the results of `pants package`, to this dir.
@@ -376,7 +376,7 @@ Write end products, such as the results of `pants package`, to this dir.
 <Option
   cli_repr={`--pants-subprocessdir=<str>`}
   env_repr='PANTS_SUBPROCESSDIR'
-  default_repr={`<buildroot>/.pids`}
+  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pids`}
 >
 
 The directory to use for tracking subprocess metadata. This should live outside of the dir used by `pants_workdir` to allow for tracking subprocesses that outlive the workdir data.
@@ -388,7 +388,7 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`["/tmp/tmp.MpwSc5OGVo/pants.toml"]`}
+  default_repr={`[\n  "<buildroot>/tmp.MpwSc5OGVo/pants.toml"\n]`}
 >
 
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
@@ -448,7 +448,7 @@ Verify that all config file values correspond to known options.
 <Option
   cli_repr={`--stats-record-option-scopes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_STATS_RECORD_OPTION_SCOPES'
-  default_repr={`["*"]`}
+  default_repr={`[\n  "*"\n]`}
 >
 
 Option scopes to record in stats on run completion. Options may be selected by joining the scope and the option with a ^ character, i.e. to get option `pantsd` in the GLOBAL scope, you&#x27;d pass `GLOBAL^pantsd`. Add a &#x27;\*&#x27; to the list to capture all known scopes.
@@ -716,9 +716,9 @@ Controls how the content of cache entries is handled during process execution.
 
 When using a remote cache, the `fetch` behavior will fetch remote cache content from the remote store before considering the cache lookup a hit, while the `validate` behavior will only validate (for either a local or remote cache) that the content exists, without fetching it.
 
-The `defer` behavior, on the other hand, will neither fetch nor validate the cache content before calling a cache hit a hit. This &quot;defers&quot; actually fetching the cache entry until Pants needs it (which may be never).
+The `defer` behavior, on the other hand, will neither fetch nor validate the cache content before calling a cache hit a hit. This &#x22;defers&#x22; actually fetching the cache entry until Pants needs it (which may be never).
 
-The `defer` mode is the most network efficient (because it will completely skip network requests in many cases), followed by the `validate` mode (since it can still skip fetching the content if no consumer ends up needing it). But both the `validate` and `defer` modes rely on an experimental feature called &quot;backtracking&quot; to attempt to recover if content later turns out to be missing (`validate` has a much narrower window for backtracking though, since content would need to disappear between validation and consumption: generally, within one `pantsd` session).
+The `defer` mode is the most network efficient (because it will completely skip network requests in many cases), followed by the `validate` mode (since it can still skip fetching the content if no consumer ends up needing it). But both the `validate` and `defer` modes rely on an experimental feature called &#x22;backtracking&#x22; to attempt to recover if content later turns out to be missing (`validate` has a much narrower window for backtracking though, since content would need to disappear between validation and consumption: generally, within one `pantsd` session).
 
 </Option>
 
@@ -746,7 +746,7 @@ This option cannot be overridden via environment targets, so if you need a diffe
   default_repr={`None`}
 >
 
-The maximum memory usage for all &quot;pooled&quot; child processes.
+The maximum memory usage for all &#x22;pooled&#x22; child processes.
 
 When set, this value participates in precomputing the pool size of child processes used by Pants (pooling is currently used only for the JVM). When not set, Pants will default to spawning `2 * --process-execution-local-parallelism` pooled processes.
 
@@ -766,7 +766,7 @@ You can suffix with `GiB`, `MiB`, `KiB`, or `B` to indicate the unit, e.g. `2GiB
   default_repr={`512MiB`}
 >
 
-The default memory usage for a single &quot;pooled&quot; child process.
+The default memory usage for a single &#x22;pooled&#x22; child process.
 
 Check the documentation for the `--process-total-child-memory-usage` for advice on how to choose an appropriate value for this option.
 
@@ -1299,5 +1299,9 @@ Timeout (in seconds) for uploads of individual chunks to the remote file store.
 Timeout value for remote cache lookups in milliseconds.
 
 </Option>
+
+## Related subsystems
+
+None
 
 </span>

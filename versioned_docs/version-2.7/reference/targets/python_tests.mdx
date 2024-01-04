@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,8 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
@@ -64,7 +67,7 @@ See https://www.pantsbuild.org/v2.7/docs/python-interpreter-compatibility for ho
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('test_*.py', '*_test.py', 'tests.py', 'conftest.py', 'test_*.pyi', '*_test.pyi', 'tests.pyi')`}
 >
 
@@ -79,7 +82,8 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -93,7 +97,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) used by each test file belonging to this target.
@@ -105,7 +110,8 @@ This only applies if the option `--pytest-timeouts` is set to True.
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
@@ -119,7 +125,8 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 ## `extra_env_vars`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
@@ -129,7 +136,7 @@ Additional environment variables to include in test processes. Entries are strin
 ## `skip_tests`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -140,7 +147,7 @@ If true, don&#x27;t run this target&#x27;s tests.
 ## `skip_black`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -151,7 +158,7 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 ## `skip_docformatter`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -162,7 +169,7 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 ## `skip_flake8`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -173,7 +180,7 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 ## `skip_isort`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -184,7 +191,7 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 ## `skip_mypy`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -195,7 +202,7 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 ## `skip_bandit`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -206,7 +213,7 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 ## `skip_pylint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -217,7 +224,7 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 ## `skip_yapf`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 

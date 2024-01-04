@@ -22,7 +22,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,12 +48,13 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 ## `interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 The Python interpreters this code is compatible with.
 
-Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&gt;=3.6,&lt;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&gt;=2.7&#x27; will be expanded to &#x27;CPython&gt;=2.7&#x27;.
+Each element should be written in pip-style format, e.g. &#x27;CPython==2.7.\*&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;.
 
 Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
 
@@ -64,7 +67,7 @@ See https://www.pantsbuild.org/v2.4/docs/python-interpreter-compatibility.
 ## `sources`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`('test_*.py', '*_test.py', 'tests.py', 'conftest.py', 'test_*.pyi', '*_test.pyi', 'tests.pyi')`}
 >
 
@@ -79,7 +82,8 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
@@ -93,7 +97,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `runtime_package_dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
@@ -107,7 +112,8 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 ## `timeout`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
 A timeout (in seconds) which covers the total runtime of all tests in this target.

@@ -10,11 +10,8 @@ import styles from "@site/src/components/reference/styles.module.css";
 A single Protobuf file used to generate various languages.
 
 See language-specific docs:
-
-```
 Python: https://www.pantsbuild.org/v2.19/docs/protobuf-python
 Go: https://www.pantsbuild.org/v2.19/docs/protobuf-go
-```
 
 Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
 
@@ -25,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -37,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -49,7 +48,8 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
@@ -67,7 +67,8 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str`}
+    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -79,7 +80,7 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `grpc`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
 >
 
@@ -90,7 +91,8 @@ Whether to generate gRPC code or not.
 ## `python_interpreter_constraints`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.protobuf.python"
 >
 
@@ -109,7 +111,8 @@ See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for h
 ## `go_mod_address`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.codegen.protobuf.go"
 >
 
@@ -124,7 +127,8 @@ If there is a single `go_mod` target in the repository, then this field defaults
 ## `jvm_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
@@ -137,7 +141,7 @@ If not defined, will default to `[jvm].default_resolve`.
 ## `skip_buf_format`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.codegen.protobuf.lint.buf"
 >
@@ -149,7 +153,8 @@ If true, don&#x27;t run `buf format` on this target&#x27;s code.
 ## `jvm_jdk`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
@@ -160,7 +165,8 @@ The major version of the JDK that this target should be built with. If not defin
 ## `python_source_root`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.protobuf.python"
 >
 
@@ -173,7 +179,7 @@ If unspecified, the source root the `protobuf_sources` is under will be used.
 ## `skip_buf_lint`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`bool`}
     default_repr={`False`}
     backend="pants.backend.codegen.protobuf.lint.buf"
 >
@@ -185,7 +191,8 @@ If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 ## `python_resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.codegen.protobuf.python"
 >
 

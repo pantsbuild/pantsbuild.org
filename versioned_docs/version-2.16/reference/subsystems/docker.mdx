@@ -226,7 +226,7 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 <Option
   cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
-  default_repr={`["<PATH>"]`}
+  default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='docker_executable_search_paths'
 >
 
@@ -237,6 +237,10 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 

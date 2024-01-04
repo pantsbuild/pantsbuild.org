@@ -18,7 +18,8 @@ Backend: <span className="color--primary">``</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
@@ -28,7 +29,8 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
@@ -38,7 +40,8 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 ## `dependencies`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
@@ -48,7 +51,8 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 ## `provides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`PythonArtifact`}
+    default_repr={`None`}
 >
 
 The setup.py kwargs for the external artifact built from this target. See https://www.pantsbuild.org/docs/python-setup-py-goal.
@@ -58,10 +62,11 @@ The setup.py kwargs for the external artifact built from this target. See https:
 ## `setup_py_commands`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-The runtime commands to invoke setup.py with to create the distribution. E.g., [&quot;bdist_wheel&quot;, &quot;--python-tag=py36.py37&quot;, &quot;sdist&quot;] If empty or unspecified, will just create a chroot with a setup() function. See https://www.pantsbuild.org/docs/python-setup-py-goal.
+The runtime commands to invoke setup.py with to create the distribution. E.g., [&#x22;bdist_wheel&#x22;, &#x22;--python-tag=py36.py37&#x22;, &#x22;sdist&#x22;] If empty or unspecified, will just create a chroot with a setup() function. See https://www.pantsbuild.org/docs/python-setup-py-goal.
 
 </Field>
 

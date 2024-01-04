@@ -22,7 +22,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 ## `tags`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
 Arbitrary strings to describe a target.
@@ -34,7 +35,8 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `description`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 A human-readable description of the target.
@@ -46,7 +48,7 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 ## `module_mapping`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]]`}
     default_repr={`FrozenDict({})`}
 >
 
@@ -61,7 +63,7 @@ Any unspecified requirements will use a default. See the `modules` field from th
 ## `type_stubs_module_mapping`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[str, Iterable[str]]`}
     default_repr={`FrozenDict({})`}
 >
 
@@ -76,7 +78,7 @@ If the requirement is not specified _and_ its name looks like a type stub, Pants
 ## `source`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
     default_repr={`'requirements.txt'`}
 >
 
@@ -89,7 +91,8 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 ## `overrides`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`Dict[Union[str, Tuple[str, ...]], Dict[str, Any]] | None`}
+    default_repr={`None`}
 >
 
 Override the field values for generated `python_requirement` targets.
@@ -115,7 +118,8 @@ You can specify the same requirement in multiple keys, so long as you don&#x27;t
 ## `resolve`
 
 <Field
-    type_repr={`field.type_hint`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
 The resolve from `[python].resolves` that this requirement is included in.

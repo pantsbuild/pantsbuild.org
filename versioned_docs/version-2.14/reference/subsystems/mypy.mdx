@@ -86,7 +86,7 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
-  default_repr={`["CPython>=3.7,<4"]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -216,6 +216,10 @@ To use a lockfile, set this option to a file path relative to the build root, th
 </Option>
 
 ## Deprecated options
+
+None
+
+## Related subsystems
 
 None
 
