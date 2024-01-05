@@ -221,13 +221,30 @@ await Promise.all(
 // `_category_.json` files
 await writeFile(
   "goals/_category_.json",
-  '{\n  "label": "Goals",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/goals",\n    "title": "Goals"\n  }\n}\n'
+  JSON.stringify({
+    label: "Goals",
+    link: { type: "generated-index", slug: "/reference/goals", title: "Goals" },
+  })
 );
 await writeFile(
   "subsystems/_category_.json",
-  '{\n  "label": "Subsystems",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/subsystems",\n    "title": "Subsystems"\n  }\n}\n'
+  JSON.stringify({
+    label: "Subsystems",
+    link: {
+      type: "generated-index",
+      slug: "/reference/subsystems",
+      title: "Subsystems",
+    },
+  })
 );
 await writeFile(
   "targets/_category_.json",
-  '{\n  "label": "Targets",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/targets",\n    "title": "Targets"\n  }\n}\n'
+  JSON.stringify({
+    label: "Targets",
+    link: {
+      type: "generated-index",
+      slug: "/reference/targets",
+      title: "Targets",
+    },
+  })
 );
