@@ -1,7 +1,8 @@
-const Mustache = require("mustache");
-const fs = require("fs");
-const path = require("path");
-const he = require("he");
+import Mustache from "mustache";
+import fs from "fs";
+import fsPromises from "fs/promises";
+import path from "path";
+import he from "he";
 
 const reference_dir = path.join(process.argv[2], "reference");
 const helpAll = JSON.parse(
