@@ -185,15 +185,14 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   ensureEmptyDirectory(name)
 );
 
-// Global Options
-await writeFile(
-  "global-options.mdx",
-  renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
-);
-
-// Subsystems
-await Promise.all(
-  Object.entries(helpAll.scope_to_help_info).map(async ([scope, info]) => {
+await Promise.all([
+  // Global Options
+  writeFile(
+    "global-options.mdx",
+    renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
+  ),
+  // Subsystems
+  ...Object.entries(helpAll.scope_to_help_info).map(async ([scope, info]) => {
     if (scope === "") return;
 
     info.description = convertDescription(info.description);
@@ -202,49 +201,52 @@ await Promise.all(
       path.join(parent, `${info.scope}.mdx`),
       renderSubsystemTemplate(info, helpAll)
     );
-  })
-);
+  }),
 
-// Targets
-await Promise.all(
-  Object.entries(helpAll.name_to_target_type_info).map(async ([name, info]) => {
-    if (info.alias.startsWith("_")) return;
+  // Targets
+  ...Object.entries(helpAll.name_to_target_type_info).map(
+    async ([name, info]) => {
+      if (info.alias.startsWith("_")) return;
 
-    info.description = convertDescription(info.description);
-    await writeFile(
-      path.join("targets", `${info.alias}.mdx`),
-      renderTargetTemplate(info)
-    );
-  })
-);
-
-// `_category_.json` files
-await writeFile(
-  "goals/_category_.json",
-  JSON.stringify({
-    label: "Goals",
-    link: { type: "generated-index", slug: "/reference/goals", title: "Goals" },
-  })
-);
-await writeFile(
-  "subsystems/_category_.json",
-  JSON.stringify({
-    label: "Subsystems",
-    link: {
-      type: "generated-index",
-      slug: "/reference/subsystems",
-      title: "Subsystems",
-    },
-  })
-);
-await writeFile(
-  "targets/_category_.json",
-  JSON.stringify({
-    label: "Targets",
-    link: {
-      type: "generated-index",
-      slug: "/reference/targets",
-      title: "Targets",
-    },
-  })
-);
+      info.description = convertDescription(info.description);
+      await writeFile(
+        path.join("targets", `${info.alias}.mdx`),
+        renderTargetTemplate(info)
+      );
+    }
+  ),
+  // `_category_.json` files
+  writeFile(
+    "goals/_category_.json",
+    JSON.stringify({
+      label: "Goals",
+      link: {
+        type: "generated-index",
+        slug: "/reference/goals",
+        title: "Goals",
+      },
+    })
+  ),
+  writeFile(
+    "subsystems/_category_.json",
+    JSON.stringify({
+      label: "Subsystems",
+      link: {
+        type: "generated-index",
+        slug: "/reference/subsystems",
+        title: "Subsystems",
+      },
+    })
+  ),
+  writeFile(
+    "targets/_category_.json",
+    JSON.stringify({
+      label: "Targets",
+      link: {
+        type: "generated-index",
+        slug: "/reference/targets",
+        title: "Targets",
+      },
+    })
+  ),
+]);
