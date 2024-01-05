@@ -3,6 +3,7 @@ import fs from "fs";
 import fsPromises from "fs/promises";
 import path from "path";
 import he from "he";
+import prettier from "prettier";
 
 // Load the relevant data
 const reference_dir = path.join(process.argv[2], "reference");
@@ -15,8 +16,14 @@ function pathify(file) {
   return path.join(reference_dir, file);
 }
 
+const prettierConfig = JSON.parse(fs.readFileSync(".prettierrc"));
 async function writeFile(file, contents) {
-  await fsPromises.writeFile(pathify(file), contents);
+  const parser = path.extname(file).slice(1);
+  const formatted = await prettier.format(contents, {
+    ...prettierConfig,
+    parser,
+  });
+  await fsPromises.writeFile(pathify(file), formatted);
 }
 
 function ensureEmptyDirectory(name) {
