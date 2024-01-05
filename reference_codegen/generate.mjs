@@ -1,12 +1,38 @@
-const Mustache = require("mustache");
-const fs = require("fs");
-const path = require("path");
-const he = require("he");
+import Mustache from "mustache";
+import fs from "fs";
+import fsPromises from "fs/promises";
+import path from "path";
+import he from "he";
+import prettier from "prettier";
 
+// Load the relevant data
 const reference_dir = path.join(process.argv[2], "reference");
 const helpAll = JSON.parse(
   fs.readFileSync(path.join(reference_dir, "help-all.json"), "utf8")
 );
+
+// Helpers for writing files to reference_dir
+function pathify(file) {
+  return path.join(reference_dir, file);
+}
+
+const prettierConfig = JSON.parse(fs.readFileSync(".prettierrc"));
+async function writeFile(file, contents) {
+  const parser = path.extname(file).slice(1);
+  const formatted = await prettier.format(contents, {
+    ...prettierConfig,
+    parser,
+  });
+  await fsPromises.writeFile(pathify(file), formatted);
+}
+
+function ensureEmptyDirectory(name) {
+  const path = pathify(name);
+  fs.rmSync(path, { recursive: true, force: true });
+  fs.mkdirSync(path, { recursive: true });
+}
+
+// Templates
 const subsystemTemplate = fs.readFileSync(
   "reference_codegen/subsystem.mdx.mustache",
   "utf8"
@@ -155,54 +181,72 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-fs.mkdirSync(reference_dir, { recursive: true });
-process.chdir(reference_dir, { recursive: true });
-fs.rmSync("goals", { recursive: true, force: true });
-fs.mkdirSync("goals");
-fs.rmSync("subsystems", { recursive: true, force: true });
-fs.mkdirSync("subsystems");
-fs.rmSync("targets", { recursive: true, force: true });
-fs.mkdirSync("targets");
-
-// Global Options
-fs.writeFileSync(
-  "global-options.mdx",
-  renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
+["goals", "subsystems", "targets"].forEach((name) =>
+  ensureEmptyDirectory(name)
 );
 
-// Subsystems
-Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
-  if (scope === "") return;
+await Promise.all([
+  // Global Options
+  writeFile(
+    "global-options.mdx",
+    renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
+  ),
+  // Subsystems
+  ...Object.entries(helpAll.scope_to_help_info).map(async ([scope, info]) => {
+    if (scope === "") return;
 
-  info.description = convertDescription(info.description);
-  const parent = info.is_goal ? "goals" : "subsystems";
-  fs.writeFileSync(
-    path.join(parent, `${info.scope}.mdx`),
-    renderSubsystemTemplate(info, helpAll)
-  );
-});
+    info.description = convertDescription(info.description);
+    const parent = info.is_goal ? "goals" : "subsystems";
+    await writeFile(
+      path.join(parent, `${info.scope}.mdx`),
+      renderSubsystemTemplate(info, helpAll)
+    );
+  }),
 
-// Targets
-Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
-  if (info.alias.startsWith("_")) return;
+  // Targets
+  ...Object.entries(helpAll.name_to_target_type_info).map(
+    async ([name, info]) => {
+      if (info.alias.startsWith("_")) return;
 
-  info.description = convertDescription(info.description);
-  fs.writeFileSync(
-    path.join("targets", `${info.alias}.mdx`),
-    renderTargetTemplate(info)
-  );
-});
-
-// `_category_.json` files
-fs.writeFileSync(
-  "goals/_category_.json",
-  '{\n  "label": "Goals",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/goals",\n    "title": "Goals"\n  }\n}\n'
-);
-fs.writeFileSync(
-  "subsystems/_category_.json",
-  '{\n  "label": "Subsystems",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/subsystems",\n    "title": "Subsystems"\n  }\n}\n'
-);
-fs.writeFileSync(
-  "targets/_category_.json",
-  '{\n  "label": "Targets",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/targets",\n    "title": "Targets"\n  }\n}\n'
-);
+      info.description = convertDescription(info.description);
+      await writeFile(
+        path.join("targets", `${info.alias}.mdx`),
+        renderTargetTemplate(info)
+      );
+    }
+  ),
+  // `_category_.json` files
+  writeFile(
+    "goals/_category_.json",
+    JSON.stringify({
+      label: "Goals",
+      link: {
+        type: "generated-index",
+        slug: "/reference/goals",
+        title: "Goals",
+      },
+    })
+  ),
+  writeFile(
+    "subsystems/_category_.json",
+    JSON.stringify({
+      label: "Subsystems",
+      link: {
+        type: "generated-index",
+        slug: "/reference/subsystems",
+        title: "Subsystems",
+      },
+    })
+  ),
+  writeFile(
+    "targets/_category_.json",
+    JSON.stringify({
+      label: "Targets",
+      link: {
+        type: "generated-index",
+        slug: "/reference/targets",
+        title: "Targets",
+      },
+    })
+  ),
+]);

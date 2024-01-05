@@ -15,7 +15,7 @@
     "format-all": "prettier --write .",
     "format": "prettier --write",
     "check-formatting": "prettier --check .",
-    "generate-reference": "node reference_codegen/generate.js",
+    "generate-reference": "node reference_codegen/generate.mjs",
     "generate-reference-all": "for d in docs versioned_docs/*; do npm run generate-reference $d; done"
   },
   "dependencies": {
