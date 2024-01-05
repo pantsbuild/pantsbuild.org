@@ -15,8 +15,8 @@ function pathify(file) {
   return path.join(reference_dir, file);
 }
 
-function writeFile(file, contents) {
-  fs.writeFileSync(pathify(file), contents);
+async function writeFile(file, contents) {
+  await fsPromises.writeFile(pathify(file), contents);
 }
 
 function ensureEmptyDirectory(name) {
@@ -179,44 +179,48 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
 );
 
 // Global Options
-writeFile(
+await writeFile(
   "global-options.mdx",
   renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
 );
 
 // Subsystems
-Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
-  if (scope === "") return;
+await Promise.all(
+  Object.entries(helpAll.scope_to_help_info).map(async ([scope, info]) => {
+    if (scope === "") return;
 
-  info.description = convertDescription(info.description);
-  const parent = info.is_goal ? "goals" : "subsystems";
-  writeFile(
-    path.join(parent, `${info.scope}.mdx`),
-    renderSubsystemTemplate(info, helpAll)
-  );
-});
+    info.description = convertDescription(info.description);
+    const parent = info.is_goal ? "goals" : "subsystems";
+    await writeFile(
+      path.join(parent, `${info.scope}.mdx`),
+      renderSubsystemTemplate(info, helpAll)
+    );
+  })
+);
 
 // Targets
-Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
-  if (info.alias.startsWith("_")) return;
+await Promise.all(
+  Object.entries(helpAll.name_to_target_type_info).map(async ([name, info]) => {
+    if (info.alias.startsWith("_")) return;
 
-  info.description = convertDescription(info.description);
-  writeFile(
-    path.join("targets", `${info.alias}.mdx`),
-    renderTargetTemplate(info)
-  );
-});
+    info.description = convertDescription(info.description);
+    await writeFile(
+      path.join("targets", `${info.alias}.mdx`),
+      renderTargetTemplate(info)
+    );
+  })
+);
 
 // `_category_.json` files
-writeFile(
+await writeFile(
   "goals/_category_.json",
   '{\n  "label": "Goals",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/goals",\n    "title": "Goals"\n  }\n}\n'
 );
-writeFile(
+await writeFile(
   "subsystems/_category_.json",
   '{\n  "label": "Subsystems",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/subsystems",\n    "title": "Subsystems"\n  }\n}\n'
 );
-writeFile(
+await writeFile(
   "targets/_category_.json",
   '{\n  "label": "Targets",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/targets",\n    "title": "Targets"\n  }\n}\n'
 );
