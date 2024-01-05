@@ -51,7 +51,7 @@ const config = {
         debug: process.env.NODE_ENV !== "production",
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          routeBasePath: "/",
+          routeBasePath: "/docs",
           disableVersioning,
           onlyIncludeVersions,
           lastVersion: onlyIncludeVersions ? undefined : versions[1],
