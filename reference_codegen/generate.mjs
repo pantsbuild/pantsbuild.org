@@ -4,10 +4,28 @@ import fsPromises from "fs/promises";
 import path from "path";
 import he from "he";
 
+// Load the relevant data
 const reference_dir = path.join(process.argv[2], "reference");
 const helpAll = JSON.parse(
   fs.readFileSync(path.join(reference_dir, "help-all.json"), "utf8")
 );
+
+// Helpers for writing files to reference_dir
+function pathify(file) {
+  return path.join(reference_dir, file);
+}
+
+function writeFile(file, contents) {
+  fs.writeFileSync(pathify(file), contents);
+}
+
+function ensureEmptyDirectory(name) {
+  const path = pathify(name);
+  fs.rmSync(path, { recursive: true, force: true });
+  fs.mkdirSync(path, { recursive: true });
+}
+
+// Templates
 const subsystemTemplate = fs.readFileSync(
   "reference_codegen/subsystem.mdx.mustache",
   "utf8"
@@ -156,17 +174,12 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-fs.mkdirSync(reference_dir, { recursive: true });
-process.chdir(reference_dir, { recursive: true });
-fs.rmSync("goals", { recursive: true, force: true });
-fs.mkdirSync("goals");
-fs.rmSync("subsystems", { recursive: true, force: true });
-fs.mkdirSync("subsystems");
-fs.rmSync("targets", { recursive: true, force: true });
-fs.mkdirSync("targets");
+["goals", "subsystems", "targets"].forEach((name) =>
+  ensureEmptyDirectory(name)
+);
 
 // Global Options
-fs.writeFileSync(
+writeFile(
   "global-options.mdx",
   renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
 );
@@ -177,7 +190,7 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
 
   info.description = convertDescription(info.description);
   const parent = info.is_goal ? "goals" : "subsystems";
-  fs.writeFileSync(
+  writeFile(
     path.join(parent, `${info.scope}.mdx`),
     renderSubsystemTemplate(info, helpAll)
   );
@@ -188,22 +201,22 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   if (info.alias.startsWith("_")) return;
 
   info.description = convertDescription(info.description);
-  fs.writeFileSync(
+  writeFile(
     path.join("targets", `${info.alias}.mdx`),
     renderTargetTemplate(info)
   );
 });
 
 // `_category_.json` files
-fs.writeFileSync(
+writeFile(
   "goals/_category_.json",
   '{\n  "label": "Goals",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/goals",\n    "title": "Goals"\n  }\n}\n'
 );
-fs.writeFileSync(
+writeFile(
   "subsystems/_category_.json",
   '{\n  "label": "Subsystems",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/subsystems",\n    "title": "Subsystems"\n  }\n}\n'
 );
-fs.writeFileSync(
+writeFile(
   "targets/_category_.json",
   '{\n  "label": "Targets",\n  "link": {\n    "type": "generated-index",\n    "slug": "/reference/targets",\n    "title": "Targets"\n  }\n}\n'
 );
