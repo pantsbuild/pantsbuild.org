@@ -32,8 +32,6 @@ const currentVersion = getCurrentVersion();
 const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
 
 const formatCopyright = () => {
-  const year = new Date().getFullYear();
-
   const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
 
   const repoUrl = `https://github.com/${organizationName}/${projectName}`;
@@ -45,7 +43,7 @@ const formatCopyright = () => {
     ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
     : "local";
 
-  return `Copyright © ${year} Pants project contributors. ${repoLink} @ ${commitLink}.`;
+  return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
 };
 
 const config = {
