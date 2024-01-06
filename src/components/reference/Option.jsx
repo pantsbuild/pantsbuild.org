@@ -4,6 +4,7 @@ export default function Option({
   env_repr,
   one_of,
   default_repr,
+  target_field_name,
   removal_version,
   removal_hint,
 }) {
@@ -47,6 +48,14 @@ export default function Option({
           </span>
         )}
         {children}
+        {target_field_name && (
+          <span>
+            Can be overriden by field
+            <code>{target_field_name}</code> on <code>local_environment</code>,{" "}
+            <code>docker_environment</code>, or <code>remote_environment</code>{" "}
+            targets.
+          </span>
+        )}
       </div>
     </div>
   );
