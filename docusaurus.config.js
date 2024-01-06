@@ -4,6 +4,9 @@ import captionedCode from "./src/remark/captioned-code.js";
 
 import { themes as prismThemes } from "prism-react-renderer";
 
+const organizationName = "pantsbuild";
+const projectName = "pantsbuild.org";
+
 function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
   const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
@@ -28,6 +31,21 @@ const onlyIncludeVersions = isDev
 const currentVersion = getCurrentVersion();
 const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
 
+const formatCopyright = () => {
+  const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
+
+  const repoUrl = `https://github.com/${organizationName}/${projectName}`;
+  const repoLink = makeLink(repoUrl, "Website source");
+
+  // Only set by CI, so fallback to just `local` for local dev
+  const docsCommit = process.env.GITHUB_SHA;
+  const commitLink = docsCommit
+    ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
+    : "local";
+
+  return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
+};
+
 const config = {
   title: "Pantsbuild",
   tagline: "The ergonomic build system",
@@ -37,8 +55,8 @@ const config = {
   baseUrl: "/",
   trailingSlash: false,
 
-  organizationName: "pantsbuild",
-  projectName: "pantsbuild.org",
+  organizationName,
+  projectName,
 
   // @TODO: This should throw on prod
   onBrokenLinks: isDev ? "warn" : "warn",
@@ -251,7 +269,7 @@ const config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Pants project contributors. Built with Docusaurus.`,
+      copyright: formatCopyright(),
     },
     algolia: {
       appId: "QD9KY1TRVK",
