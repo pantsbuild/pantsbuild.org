@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[flake8]`</span>
 <Option
   cli_repr={`--[no-]flake8-skip`}
   env_repr='PANTS_FLAKE8_SKIP'
+  toml_repr={`[flake8]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Flake8 when running `scie-pants-linux-x86_64 lint`.
 <Option
   cli_repr={`--flake8-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_FLAKE8_ARGS'
+  toml_repr={`[flake8]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456 --
 <Option
   cli_repr={`--flake8-install-from-resolve=<str>`}
   env_repr='PANTS_FLAKE8_INSTALL_FROM_RESOLVE'
+  toml_repr={`[flake8]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--flake8-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FLAKE8_REQUIREMENTS'
+  toml_repr={`[flake8]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,8 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--flake8-console-script=<str>`}
   env_repr='PANTS_FLAKE8_CONSOLE_SCRIPT'
+  toml_repr={`[flake8]
+console_script = <str>`}
   default_repr={`flake8`}
 >
 
@@ -98,6 +116,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--flake8-entry-point=<str>`}
   env_repr='PANTS_FLAKE8_ENTRY_POINT'
+  toml_repr={`[flake8]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -110,6 +130,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--flake8-config=<file_option>`}
   env_repr='PANTS_FLAKE8_CONFIG'
+  toml_repr={`[flake8]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -124,6 +146,12 @@ Setting this option will disable `[flake8].config_discovery`. Use this option if
 <Option
   cli_repr={`--flake8-extra-files="[<file_option>, <file_option>, ...]"`}
   env_repr='PANTS_FLAKE8_EXTRA_FILES'
+  toml_repr={`[flake8]
+extra_files = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -137,6 +165,8 @@ like including config files for the `flake8-bandit` plugin.
 <Option
   cli_repr={`--[no-]flake8-config-discovery`}
   env_repr='PANTS_FLAKE8_CONFIG_DISCOVERY'
+  toml_repr={`[flake8]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 
@@ -151,6 +181,12 @@ Use `[flake8].config` instead if your config is in a non-standard location.
 <Option
   cli_repr={`--flake8-source-plugins="[<target_option>, <target_option>, ...]"`}
   env_repr='PANTS_FLAKE8_SOURCE_PLUGINS'
+  toml_repr={`[flake8]
+source_plugins = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -183,6 +219,8 @@ Tip: it&#x27;s often helpful to define a dedicated &#x27;resolve&#x27; via `[pyt
 <Option
   cli_repr={`--flake8-version=<str>`}
   env_repr='PANTS_FLAKE8_VERSION'
+  toml_repr={`[flake8]
+version = <str>`}
   default_repr={`flake8>=5.0.4,<7`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -197,6 +235,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
+  toml_repr={`[flake8]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -211,6 +255,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--flake8-lockfile=<str>`}
   env_repr='PANTS_FLAKE8_LOCKFILE'
+  toml_repr={`[flake8]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[flake8].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced flake8`.'}
@@ -231,6 +277,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--[no-]flake8-export`}
   env_repr='PANTS_FLAKE8_EXPORT'
+  toml_repr={`[flake8]
+export = <bool>`}
   default_repr={`True`}
   removal_version='2.18.0.dev0'
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}

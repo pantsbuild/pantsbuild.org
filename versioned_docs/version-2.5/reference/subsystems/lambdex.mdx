@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--lambdex-version=<str>`}
   env_repr='PANTS_LAMBDEX_VERSION'
+  toml_repr={`[lambdex]
+version = <str>`}
   default_repr={`lambdex==0.1.4`}
 >
 
@@ -38,6 +40,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--lambdex-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_EXTRA_REQUIREMENTS'
+  toml_repr={`[lambdex]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +58,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[lambdex]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
@@ -62,6 +76,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--lambdex-console-script=<str>`}
   env_repr='PANTS_LAMBDEX_CONSOLE_SCRIPT'
+  toml_repr={`[lambdex]
+console_script = <str>`}
   default_repr={`lambdex`}
 >
 
@@ -74,6 +90,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--lambdex-entry-point=<str>`}
   env_repr='PANTS_LAMBDEX_ENTRY_POINT'
+  toml_repr={`[lambdex]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

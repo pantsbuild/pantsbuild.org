@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--python-native-code-cpp-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_NATIVE_CODE_CPP_FLAGS'
+  toml_repr={`[python-native-code]
+cpp_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,12 @@ Override the `CPPFLAGS` environment variable for any forked subprocesses.
 <Option
   cli_repr={`--python-native-code-ld-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_NATIVE_CODE_LD_FLAGS'
+  toml_repr={`[python-native-code]
+ld_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[export]`</span>
 <Option
   cli_repr={`--export-resolve="['<str>', '<str>', ...]"`}
   env_repr='PANTS_EXPORT_RESOLVE'
+  toml_repr={`[export]
+resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,8 @@ Export the specified resolve(s). The export format is backend-specific, e.g., Py
 <Option
   cli_repr={`--export-py-resolve-format=<PythonResolveExportFormat>`}
   env_repr='PANTS_EXPORT_PY_RESOLVE_FORMAT'
+  toml_repr={`[export]
+py_resolve_format = <PythonResolveExportFormat>`}
   one_of='mutable_virtualenv, symlinked_immutable_virtualenv'
   default_repr={`mutable_virtualenv`}
 >
@@ -60,6 +68,12 @@ Export Python resolves using this format. Options are:
 <Option
   cli_repr={`--export-py-editable-in-resolve="['<str>', '<str>', ...]"`}
   env_repr='PANTS_EXPORT_PY_EDITABLE_IN_RESOLVE'
+  toml_repr={`[export]
+py_editable_in_resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -80,6 +94,8 @@ NOTE: If you are using legacy exports (not using the &#x27;--resolve&#x27; optio
 <Option
   cli_repr={`--[no-]export-symlink-python-virtualenv`}
   env_repr='PANTS_EXPORT_SYMLINK_PYTHON_VIRTUALENV'
+  toml_repr={`[export]
+symlink_python_virtualenv = <bool>`}
   default_repr={`False`}
   removal_version='2.20.0.dev0'
   removal_hint={'Set the `[export].py_resolve_format` option to \'symlinked_immutable_virtualenv\''}

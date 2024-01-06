@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[shellcheck]`</span>
 <Option
   cli_repr={`--[no-]shellcheck-skip`}
   env_repr='PANTS_SHELLCHECK_SKIP'
+  toml_repr={`[shellcheck]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Shellcheck when running `scie-pants-linux-x86_64 lint`.
 <Option
   cli_repr={`--shellcheck-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SHELLCHECK_ARGS'
+  toml_repr={`[shellcheck]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e SC20529'`.
 <Option
   cli_repr={`--shellcheck-version=<str>`}
   env_repr='PANTS_SHELLCHECK_VERSION'
+  toml_repr={`[shellcheck]
+version = <str>`}
   default_repr={`v0.8.0`}
 >
 
@@ -60,6 +70,12 @@ Use this version of Shellcheck.
 <Option
   cli_repr={`--shellcheck-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SHELLCHECK_KNOWN_VERSIONS'
+  toml_repr={`[shellcheck]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v0.8.0|macos_arm64 |e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|macos_x86_64|e065d4afb2620cc8c1d420a9b3e6243c84ff1a693c1ff0e38f279c8f31e86634|4049756",\n  "v0.8.0|linux_arm64 |9f47bbff5624babfa712eb9d64ece14c6c46327122d0c54983f627ae3a30a4ac|2996468",\n  "v0.8.0|linux_x86_64|ab6ee1b178f014d1b86d1e24da20d1139656c8b0ed34d2867fbb834dad02bf0a|1403852"\n]`}
 >
 
@@ -87,6 +103,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--shellcheck-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_SHELLCHECK_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[shellcheck]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -102,6 +120,8 @@ Supported Shellcheck versions: unspecified
 <Option
   cli_repr={`--shellcheck-url-template=<str>`}
   env_repr='PANTS_SHELLCHECK_URL_TEMPLATE'
+  toml_repr={`[shellcheck]
+url_template = <str>`}
   default_repr={`https://github.com/koalaman/shellcheck/releases/download/{version}/shellcheck-{version}.{platform}.tar.xz`}
 >
 
@@ -116,6 +136,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--shellcheck-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SHELLCHECK_URL_PLATFORM_MAPPING'
+  toml_repr={`[shellcheck.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "linux.aarch64",\n  "linux_x86_64": "linux.x86_64",\n  "macos_arm64": "darwin.x86_64",\n  "macos_x86_64": "darwin.x86_64"\n}`}
 >
 
@@ -132,6 +156,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--[no-]shellcheck-config-discovery`}
   env_repr='PANTS_SHELLCHECK_CONFIG_DISCOVERY'
+  toml_repr={`[shellcheck]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

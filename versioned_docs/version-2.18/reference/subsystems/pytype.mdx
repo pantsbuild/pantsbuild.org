@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[pytype]`</span>
 <Option
   cli_repr={`--[no-]pytype-skip`}
   env_repr='PANTS_PYTYPE_SKIP'
+  toml_repr={`[pytype]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Pytype when running `scie-pants-linux-x86_64 check`.
 <Option
   cli_repr={`--pytype-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_PYTYPE_ARGS'
+  toml_repr={`[pytype]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -46,6 +54,8 @@ Arguments to pass directly to Pytype, e.g. `--pytype-args='--version'`.
 <Option
   cli_repr={`--pytype-config=<file_option>`}
   env_repr='PANTS_PYTYPE_CONFIG'
+  toml_repr={`[pytype]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -60,6 +70,8 @@ Path to an toml config file understood by Pytype (https://github.com/google/pyty
 <Option
   cli_repr={`--pytype-install-from-resolve=<str>`}
   env_repr='PANTS_PYTYPE_INSTALL_FROM_RESOLVE'
+  toml_repr={`[pytype]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -80,6 +92,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--pytype-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTYPE_REQUIREMENTS'
+  toml_repr={`[pytype]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -98,6 +116,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pytype-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTYPE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[pytype]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
 >
 
@@ -110,6 +134,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--pytype-console-script=<str>`}
   env_repr='PANTS_PYTYPE_CONSOLE_SCRIPT'
+  toml_repr={`[pytype]
+console_script = <str>`}
   default_repr={`pytype`}
 >
 
@@ -122,6 +148,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pytype-entry-point=<str>`}
   env_repr='PANTS_PYTYPE_ENTRY_POINT'
+  toml_repr={`[pytype]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

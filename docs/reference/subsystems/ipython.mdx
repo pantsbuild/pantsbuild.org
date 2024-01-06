@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--ipython-install-from-resolve=<str>`}
   env_repr='PANTS_IPYTHON_INSTALL_FROM_RESOLVE'
+  toml_repr={`[ipython]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -46,6 +48,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--ipython-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_IPYTHON_REQUIREMENTS'
+  toml_repr={`[ipython]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -64,6 +72,8 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--ipython-console-script=<str>`}
   env_repr='PANTS_IPYTHON_CONSOLE_SCRIPT'
+  toml_repr={`[ipython]
+console_script = <str>`}
   default_repr={`ipython`}
 >
 
@@ -76,6 +86,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--ipython-entry-point=<str>`}
   env_repr='PANTS_IPYTHON_ENTRY_POINT'
+  toml_repr={`[ipython]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -88,6 +100,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--[no-]ipython-ignore-cwd`}
   env_repr='PANTS_IPYTHON_IGNORE_CWD'
+  toml_repr={`[ipython]
+ignore_cwd = <bool>`}
   default_repr={`True`}
 >
 

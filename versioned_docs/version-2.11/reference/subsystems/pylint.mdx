@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[pylint]`</span>
 <Option
   cli_repr={`--[no-]pylint-skip`}
   env_repr='PANTS_PYLINT_SKIP'
+  toml_repr={`[pylint]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use Pylint when running `/home/josh/work/scie-pants/dist/scie-pants-l
 <Option
   cli_repr={`--pylint-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_PYLINT_ARGS'
+  toml_repr={`[pylint]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Pylint, e.g. `--pylint-args='--ignore=foo.py,bar.p
 <Option
   cli_repr={`--pylint-version=<str>`}
   env_repr='PANTS_PYLINT_VERSION'
+  toml_repr={`[pylint]
+version = <str>`}
   default_repr={`pylint>=2.11.0,<2.12`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pylint-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYLINT_EXTRA_REQUIREMENTS'
+  toml_repr={`[pylint]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -72,6 +88,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pylint-lockfile=<str>`}
   env_repr='PANTS_PYLINT_LOCKFILE'
+  toml_repr={`[pylint]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -92,6 +110,8 @@ As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-depende
 <Option
   cli_repr={`--pylint-console-script=<str>`}
   env_repr='PANTS_PYLINT_CONSOLE_SCRIPT'
+  toml_repr={`[pylint]
+console_script = <str>`}
   default_repr={`pylint`}
 >
 
@@ -104,6 +124,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pylint-entry-point=<str>`}
   env_repr='PANTS_PYLINT_ENTRY_POINT'
+  toml_repr={`[pylint]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -116,6 +138,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--pylint-config=<file_option>`}
   env_repr='PANTS_PYLINT_CONFIG'
+  toml_repr={`[pylint]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -130,6 +154,8 @@ Setting this option will disable `[pylint].config_discovery`. Use this option if
 <Option
   cli_repr={`--[no-]pylint-config-discovery`}
   env_repr='PANTS_PYLINT_CONFIG_DISCOVERY'
+  toml_repr={`[pylint]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 
@@ -144,6 +170,12 @@ Use `[pylint].config` instead if your config is in a non-standard location.
 <Option
   cli_repr={`--pylint-source-plugins="[<target_option>, <target_option>, ...]"`}
   env_repr='PANTS_PYLINT_SOURCE_PLUGINS'
+  toml_repr={`[pylint]
+source_plugins = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 

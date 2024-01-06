@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[scalafmt]`</span>
 <Option
   cli_repr={`--[no-]scalafmt-skip`}
   env_repr='PANTS_SCALAFMT_SKIP'
+  toml_repr={`[scalafmt]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -36,6 +38,8 @@ Don&#x27;t use `scalafmt` when running `/home/josh/work/scie-pants/dist/scie-pan
 <Option
   cli_repr={`--scalafmt-version=<str>`}
   env_repr='PANTS_SCALAFMT_VERSION'
+  toml_repr={`[scalafmt]
+version = <str>`}
   default_repr={`3.2.1`}
 >
 
@@ -48,6 +52,12 @@ Version string for the tool. This is available for substitution in the `[scalafm
 <Option
   cli_repr={`--scalafmt-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAFMT_ARTIFACTS'
+  toml_repr={`[scalafmt]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "org.scalameta:scalafmt-cli_2.13:{version}"\n]`}
 >
 
@@ -60,6 +70,8 @@ Artifact requirements for this tool using specified as either the address of a `
 <Option
   cli_repr={`--scalafmt-lockfile=<str>`}
   env_repr='PANTS_SCALAFMT_LOCKFILE'
+  toml_repr={`[scalafmt]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 

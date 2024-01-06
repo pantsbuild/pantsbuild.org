@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[golang]`</span>
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
+  toml_repr={`[golang]
+go_search_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -38,6 +44,8 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 <Option
   cli_repr={`--golang-expected-version=<str>`}
   env_repr='PANTS_GOLANG_EXPECTED_VERSION'
+  toml_repr={`[golang]
+expected_version = <str>`}
   default_repr={`1.17`}
 >
 
@@ -56,6 +64,12 @@ Do not include the patch version.
 <Option
   cli_repr={`--golang-subprocess-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_SUBPROCESS_ENV_VARS'
+  toml_repr={`[golang]
+subprocess_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "PATH"\n]`}
 >
 

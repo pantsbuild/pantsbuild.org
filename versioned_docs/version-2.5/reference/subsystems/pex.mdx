@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[pex]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -40,6 +46,12 @@ The special string &#x22;&#x3C;PATH&#x3E;&#x22; will expand to the contents of t
 <Option
   cli_repr={`--pex-bootstrap-interpreter-names="[<bootstrap-python-names>, <bootstrap-python-names>, ...]"`}
   env_repr='PANTS_PEX_BOOTSTRAP_INTERPRETER_NAMES'
+  toml_repr={`[pex]
+bootstrap_interpreter_names = [
+    <bootstrap-python-names>,
+    <bootstrap-python-names>,
+    ...,
+]`}
   default_repr={`[\n  "python",\n  "python3",\n  "python2"\n]`}
 >
 
@@ -54,6 +66,8 @@ This does not impact which Python interpreter is used to run your code, only wha
 <Option
   cli_repr={`--pex-verbosity=<int>`}
   env_repr='PANTS_PEX_VERBOSITY'
+  toml_repr={`[pex]
+verbosity = <int>`}
   default_repr={`0`}
 >
 

@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--dockerfile-parser-install-from-resolve=<str>`}
   env_repr='PANTS_DOCKERFILE_PARSER_INSTALL_FROM_RESOLVE'
+  toml_repr={`[dockerfile-parser]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -46,6 +48,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--dockerfile-parser-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCKERFILE_PARSER_REQUIREMENTS'
+  toml_repr={`[dockerfile-parser]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -64,6 +72,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--dockerfile-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCKERFILE_PARSER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[dockerfile-parser]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 

@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--helm-k8s-parser-version=<str>`}
   env_repr='PANTS_HELM_K8S_PARSER_VERSION'
+  toml_repr={`[helm-k8s-parser]
+version = <str>`}
   default_repr={`hikaru==0.11.0b`}
 >
 
@@ -38,6 +40,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--helm-k8s-parser-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_K8S_PARSER_EXTRA_REQUIREMENTS'
+  toml_repr={`[helm-k8s-parser]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +58,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--helm-k8s-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[helm-k8s-parser]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
 >
 
@@ -62,6 +76,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--helm-k8s-parser-lockfile=<str>`}
   env_repr='PANTS_HELM_K8S_PARSER_LOCKFILE'
+  toml_repr={`[helm-k8s-parser]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 

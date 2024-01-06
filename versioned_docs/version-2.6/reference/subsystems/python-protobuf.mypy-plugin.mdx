@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[python-protobuf.mypy-plugin]`
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_RUNTIME_DEPENDENCIES'
+  toml_repr={`[python-protobuf.mypy-plugin]
+runtime_dependencies = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -34,6 +40,8 @@ A list of addresses to `python_requirement_library` targets for the runtime depe
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin-mypy-plugin`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf.mypy-plugin]
+mypy_plugin = <bool>`}
   default_repr={`False`}
 >
 
@@ -48,6 +56,8 @@ Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to als
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
+  toml_repr={`[python-protobuf.mypy-plugin]
+version = <str>`}
   default_repr={`mypy-protobuf==2.4`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_EXTRA_REQUIREMENTS'
+  toml_repr={`[python-protobuf.mypy-plugin]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -72,6 +88,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python-protobuf.mypy-plugin]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 

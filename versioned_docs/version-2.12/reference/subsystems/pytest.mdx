@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[pytest]`</span>
 <Option
   cli_repr={`--pytest-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_PYTEST_ARGS'
+  toml_repr={`[pytest]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -34,6 +40,8 @@ Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo --quiet'`
 <Option
   cli_repr={`--[no-]pytest-timeouts`}
   env_repr='PANTS_PYTEST_TIMEOUTS'
+  toml_repr={`[pytest]
+timeouts = <bool>`}
   default_repr={`True`}
 >
 
@@ -46,6 +54,8 @@ Enable test target timeouts. If timeouts are enabled then test targets with a ti
 <Option
   cli_repr={`--[no-]pytest-export`}
   env_repr='PANTS_PYTEST_EXPORT'
+  toml_repr={`[pytest]
+export = <bool>`}
   default_repr={`True`}
 >
 
@@ -62,6 +72,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 <Option
   cli_repr={`--pytest-version=<str>`}
   env_repr='PANTS_PYTEST_VERSION'
+  toml_repr={`[pytest]
+version = <str>`}
   default_repr={`pytest==7.0.1`}
 >
 
@@ -74,6 +86,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
+  toml_repr={`[pytest]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1"\n]`}
 >
 
@@ -86,6 +104,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pytest-lockfile=<str>`}
   env_repr='PANTS_PYTEST_LOCKFILE'
+  toml_repr={`[pytest]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -106,6 +126,8 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
 <Option
   cli_repr={`--pytest-console-script=<str>`}
   env_repr='PANTS_PYTEST_CONSOLE_SCRIPT'
+  toml_repr={`[pytest]
+console_script = <str>`}
   default_repr={`pytest`}
 >
 
@@ -118,6 +140,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pytest-entry-point=<str>`}
   env_repr='PANTS_PYTEST_ENTRY_POINT'
+  toml_repr={`[pytest]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -130,6 +154,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--pytest-timeout-default=<int>`}
   env_repr='PANTS_PYTEST_TIMEOUT_DEFAULT'
+  toml_repr={`[pytest]
+timeout_default = <int>`}
   default_repr={`None`}
 >
 
@@ -142,6 +168,8 @@ The default timeout (in seconds) for a test target if the `timeout` field is not
 <Option
   cli_repr={`--pytest-timeout-maximum=<int>`}
   env_repr='PANTS_PYTEST_TIMEOUT_MAXIMUM'
+  toml_repr={`[pytest]
+timeout_maximum = <int>`}
   default_repr={`None`}
 >
 
@@ -154,6 +182,8 @@ The maximum timeout (in seconds) that may be used on a `python_tests` target.
 <Option
   cli_repr={`--pytest-junit-family=<str>`}
   env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  toml_repr={`[pytest]
+junit_family = <str>`}
   default_repr={`xunit2`}
 >
 
@@ -166,6 +196,8 @@ The format of generated junit XML files. See https://docs.pytest.org/en/latest/r
 <Option
   cli_repr={`--pytest-execution-slot-var=<str>`}
   env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
+  toml_repr={`[pytest]
+execution_slot_var = <str>`}
   default_repr={`None`}
 >
 
@@ -178,6 +210,8 @@ If a non-empty string, the process execution slot id (an integer) will be expose
 <Option
   cli_repr={`--[no-]pytest-config-discovery`}
   env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
+  toml_repr={`[pytest]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

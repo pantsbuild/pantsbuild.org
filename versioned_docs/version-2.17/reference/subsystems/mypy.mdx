@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[mypy]`</span>
 <Option
   cli_repr={`--[no-]mypy-skip`}
   env_repr='PANTS_MYPY_SKIP'
+  toml_repr={`[mypy]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use MyPy when running `scie-pants-linux-x86_64 check`.
 <Option
   cli_repr={`--mypy-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_MYPY_ARGS'
+  toml_repr={`[mypy]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7 --di
 <Option
   cli_repr={`--mypy-install-from-resolve=<str>`}
   env_repr='PANTS_MYPY_INSTALL_FROM_RESOLVE'
+  toml_repr={`[mypy]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--mypy-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_REQUIREMENTS'
+  toml_repr={`[mypy]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--mypy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[mypy]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--mypy-console-script=<str>`}
   env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
+  toml_repr={`[mypy]
+console_script = <str>`}
   default_repr={`mypy`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--mypy-entry-point=<str>`}
   env_repr='PANTS_MYPY_ENTRY_POINT'
+  toml_repr={`[mypy]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -122,6 +148,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--mypy-config=<file_option>`}
   env_repr='PANTS_MYPY_CONFIG'
+  toml_repr={`[mypy]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -136,6 +164,8 @@ Setting this option will disable `[mypy].config_discovery`. Use this option if t
 <Option
   cli_repr={`--[no-]mypy-config-discovery`}
   env_repr='PANTS_MYPY_CONFIG_DISCOVERY'
+  toml_repr={`[mypy]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 
@@ -150,6 +180,12 @@ Use `[mypy].config` instead if your config is in a non-standard location.
 <Option
   cli_repr={`--mypy-source-plugins="[<target_option>, <target_option>, ...]"`}
   env_repr='PANTS_MYPY_SOURCE_PLUGINS'
+  toml_repr={`[mypy]
+source_plugins = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -168,6 +204,8 @@ To instead load third-party plugins, set the option `[mypy].extra_requirements` 
 <Option
   cli_repr={`--mypy-version=<str>`}
   env_repr='PANTS_MYPY_VERSION'
+  toml_repr={`[mypy]
+version = <str>`}
   default_repr={`mypy==1.1.1`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -182,6 +220,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--mypy-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_EXTRA_REQUIREMENTS'
+  toml_repr={`[mypy]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -196,6 +240,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--mypy-lockfile=<str>`}
   env_repr='PANTS_MYPY_LOCKFILE'
+  toml_repr={`[mypy]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[mypy].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced mypy`.'}
@@ -216,6 +262,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--[no-]mypy-export`}
   env_repr='PANTS_MYPY_EXPORT'
+  toml_repr={`[mypy]
+export = <bool>`}
   default_repr={`True`}
   removal_version='2.18.0.dev0'
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
@@ -232,6 +280,12 @@ This can be useful, for example, with IDE integrations to point your editor to t
 <Option
   cli_repr={`--mypy-extra-type-stubs="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_EXTRA_TYPE_STUBS'
+  toml_repr={`[mypy]
+extra_type_stubs = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0dev0'
   removal_hint={'Extra type stubs are now installed from a named resolve, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -254,6 +308,8 @@ We recommend also enabling `[mypy].extra_type_stubs_lockfile` for a more reprodu
 <Option
   cli_repr={`--mypy-extra-type-stubs-lockfile=<str>`}
   env_repr='PANTS_MYPY_EXTRA_TYPE_STUBS_LOCKFILE'
+  toml_repr={`[mypy]
+extra_type_stubs_lockfile = <str>`}
   default_repr={`<none>`}
   removal_version='2.18.0dev0'
   removal_hint={'Extra type stubs are now installed from a named resolve, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}

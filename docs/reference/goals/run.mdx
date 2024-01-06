@@ -30,6 +30,12 @@ Config section: <span className="color--primary">`[run]`</span>
 <Option
   cli_repr={`--run-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_RUN_ARGS'
+  toml_repr={`[run]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -42,6 +48,8 @@ Arguments to pass directly to the executed target, e.g. `--run-args='val1 val2 -
 <Option
   cli_repr={`--[no-]run-debug-adapter`}
   env_repr='PANTS_RUN_DEBUG_ADAPTER'
+  toml_repr={`[run]
+debug_adapter = <bool>`}
   default_repr={`False`}
 >
 

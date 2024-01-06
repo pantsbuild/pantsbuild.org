@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[coursier]`</span>
 <Option
   cli_repr={`--coursier-repos="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COURSIER_REPOS'
+  toml_repr={`[coursier]
+repos = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "https://maven-central.storage-download.googleapis.com/maven2",\n  "https://repo1.maven.org/maven2"\n]`}
 >
 
@@ -38,6 +44,8 @@ Coursier will resolve these repositories in the order in which they are specifed
 <Option
   cli_repr={`--coursier-version=<str>`}
   env_repr='PANTS_COURSIER_VERSION'
+  toml_repr={`[coursier]
+version = <str>`}
   default_repr={`v2.0.16-169-g194ebc55c`}
 >
 
@@ -50,6 +58,12 @@ Use this version of coursier.
 <Option
   cli_repr={`--coursier-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COURSIER_KNOWN_VERSIONS'
+  toml_repr={`[coursier]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v2.0.16-169-g194ebc55c|linux_arm64 |da38c97d55967505b8454c20a90370c518044829398b9bce8b637d194d79abb3|18114472",\n  "v2.0.16-169-g194ebc55c|linux_x86_64|4c61a634c4bd2773b4543fe0fc32210afd343692891121cddb447204b48672e8|18486946",\n  "v2.0.16-169-g194ebc55c|macos_arm64 |15bce235d223ef1d022da30b67b4c64e9228d236b876c834b64e029bbe824c6f|17957182",\n  "v2.0.16-169-g194ebc55c|macos_x86_64|15bce235d223ef1d022da30b67b4c64e9228d236b876c834b64e029bbe824c6f|17957182"\n]`}
 >
 
@@ -75,6 +89,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--coursier-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_COURSIER_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[coursier]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -90,6 +106,8 @@ Supported coursier versions: unspecified
 <Option
   cli_repr={`--coursier-url-template=<str>`}
   env_repr='PANTS_COURSIER_URL_TEMPLATE'
+  toml_repr={`[coursier]
+url_template = <str>`}
   default_repr={`https://github.com/coursier/coursier/releases/download/{version}/cs-{platform}.gz`}
 >
 
@@ -104,6 +122,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--coursier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_COURSIER_URL_PLATFORM_MAPPING'
+  toml_repr={`[coursier.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "aarch64-pc-linux",\n  "linux_x86_64": "x86_64-pc-linux",\n  "macos_arm64": "x86_64-apple-darwin",\n  "macos_x86_64": "x86_64-apple-darwin"\n}`}
 >
 

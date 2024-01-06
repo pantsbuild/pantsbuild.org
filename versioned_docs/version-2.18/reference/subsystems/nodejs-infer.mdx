@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[nodejs-infer]`</span>
 <Option
   cli_repr={`--[no-]nodejs-infer-imports`}
   env_repr='PANTS_NODEJS_INFER_IMPORTS'
+  toml_repr={`[nodejs-infer]
+imports = <bool>`}
   default_repr={`True`}
 >
 
@@ -36,6 +38,8 @@ To ignore a false positive, you can either put `// pants: no-infer-dep` on the l
 <Option
   cli_repr={`--[no-]nodejs-infer-package-json-entry-points`}
   env_repr='PANTS_NODEJS_INFER_PACKAGE_JSON_ENTRY_POINTS'
+  toml_repr={`[nodejs-infer]
+package_json_entry_points = <bool>`}
   default_repr={`True`}
 >
 

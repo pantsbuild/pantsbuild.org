@@ -28,6 +28,8 @@ Config section: <span className="color--primary">`[tailor]`</span>
 <Option
   cli_repr={`--[no-]tailor-check`}
   env_repr='PANTS_TAILOR_CHECK'
+  toml_repr={`[tailor]
+check = <bool>`}
   default_repr={`False`}
 >
 
@@ -42,6 +44,8 @@ Do not write changes to disk, only write back what would change. Return code 0 m
 <Option
   cli_repr={`--tailor-build-file-name=<str>`}
   env_repr='PANTS_TAILOR_BUILD_FILE_NAME'
+  toml_repr={`[tailor]
+build_file_name = <str>`}
   default_repr={`BUILD`}
 >
 
@@ -56,6 +60,8 @@ This must be compatible with `[GLOBAL].build_patterns`.
 <Option
   cli_repr={`--tailor-build-file-header=<str>`}
   env_repr='PANTS_TAILOR_BUILD_FILE_HEADER'
+  toml_repr={`[tailor]
+build_file_header = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +74,8 @@ A header, e.g., a copyright notice, to add to the content of created BUILD files
 <Option
   cli_repr={`--tailor-build-file-indent=<str>`}
   env_repr='PANTS_TAILOR_BUILD_FILE_INDENT'
+  toml_repr={`[tailor]
+build_file_indent = <str>`}
   default_repr={`    `}
 >
 
@@ -80,6 +88,10 @@ The indent to use when auto-editing BUILD files.
 <Option
   cli_repr={`--tailor-alias-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_TAILOR_ALIAS_MAPPING'
+  toml_repr={`[tailor.alias_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -92,6 +104,12 @@ A mapping from standard target type to custom type to use instead. The custom ty
 <Option
   cli_repr={`--tailor-ignore-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TAILOR_IGNORE_PATHS'
+  toml_repr={`[tailor]
+ignore_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -108,6 +126,12 @@ This augments the option `[GLOBAL].build_ignore`, which tells Pants to also not 
 <Option
   cli_repr={`--tailor-ignore-adding-targets="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TAILOR_IGNORE_ADDING_TARGETS'
+  toml_repr={`[tailor]
+ignore_adding_targets = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

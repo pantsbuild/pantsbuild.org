@@ -24,6 +24,12 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
 <Option
   cli_repr={`--pyoxidizer-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_PYOXIDIZER_ARGS'
+  toml_repr={`[pyoxidizer]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,8 @@ Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args='--release'`.
 <Option
   cli_repr={`--pyoxidizer-install-from-resolve=<str>`}
   env_repr='PANTS_PYOXIDIZER_INSTALL_FROM_RESOLVE'
+  toml_repr={`[pyoxidizer]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -58,6 +66,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--pyoxidizer-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_REQUIREMENTS'
+  toml_repr={`[pyoxidizer]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -76,6 +90,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[pyoxidizer]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.8,<4"\n]`}
 >
 
@@ -88,6 +108,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--pyoxidizer-console-script=<str>`}
   env_repr='PANTS_PYOXIDIZER_CONSOLE_SCRIPT'
+  toml_repr={`[pyoxidizer]
+console_script = <str>`}
   default_repr={`pyoxidizer`}
 >
 
@@ -100,6 +122,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pyoxidizer-entry-point=<str>`}
   env_repr='PANTS_PYOXIDIZER_ENTRY_POINT'
+  toml_repr={`[pyoxidizer]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

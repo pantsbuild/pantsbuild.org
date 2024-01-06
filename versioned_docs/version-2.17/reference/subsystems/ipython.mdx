@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--ipython-install-from-resolve=<str>`}
   env_repr='PANTS_IPYTHON_INSTALL_FROM_RESOLVE'
+  toml_repr={`[ipython]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -46,6 +48,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--ipython-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_IPYTHON_REQUIREMENTS'
+  toml_repr={`[ipython]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -64,6 +72,8 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--ipython-console-script=<str>`}
   env_repr='PANTS_IPYTHON_CONSOLE_SCRIPT'
+  toml_repr={`[ipython]
+console_script = <str>`}
   default_repr={`ipython`}
 >
 
@@ -76,6 +86,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--ipython-entry-point=<str>`}
   env_repr='PANTS_IPYTHON_ENTRY_POINT'
+  toml_repr={`[ipython]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -88,6 +100,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--[no-]ipython-ignore-cwd`}
   env_repr='PANTS_IPYTHON_IGNORE_CWD'
+  toml_repr={`[ipython]
+ignore_cwd = <bool>`}
   default_repr={`True`}
 >
 
@@ -106,6 +120,8 @@ However IPython&#x3C;7.13.0 doesn&#x27;t support this option, so if you&#x27;re 
 <Option
   cli_repr={`--ipython-version=<str>`}
   env_repr='PANTS_IPYTHON_VERSION'
+  toml_repr={`[ipython]
+version = <str>`}
   default_repr={`ipython>=7.34,<8`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -120,6 +136,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--ipython-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_IPYTHON_EXTRA_REQUIREMENTS'
+  toml_repr={`[ipython]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -134,6 +156,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--ipython-lockfile=<str>`}
   env_repr='PANTS_IPYTHON_LOCKFILE'
+  toml_repr={`[ipython]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[ipython].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced ipython`.'}

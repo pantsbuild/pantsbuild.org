@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[debugpy]`</span>
 <Option
   cli_repr={`--debugpy-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DEBUGPY_ARGS'
+  toml_repr={`[debugpy]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,8 @@ Arguments to pass directly to debugpy, e.g. `--debugpy-args='--log-to-stderr'`.
 <Option
   cli_repr={`--debugpy-version=<str>`}
   env_repr='PANTS_DEBUGPY_VERSION'
+  toml_repr={`[debugpy]
+version = <str>`}
   default_repr={`debugpy==1.6.0`}
 >
 
@@ -48,6 +56,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--debugpy-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DEBUGPY_EXTRA_REQUIREMENTS'
+  toml_repr={`[debugpy]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -60,6 +74,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--debugpy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DEBUGPY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[debugpy]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7"\n]`}
 >
 
@@ -72,6 +92,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--debugpy-lockfile=<str>`}
   env_repr='PANTS_DEBUGPY_LOCKFILE'
+  toml_repr={`[debugpy]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -92,6 +114,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--debugpy-console-script=<str>`}
   env_repr='PANTS_DEBUGPY_CONSOLE_SCRIPT'
+  toml_repr={`[debugpy]
+console_script = <str>`}
   default_repr={`None`}
 >
 
@@ -104,6 +128,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--debugpy-entry-point=<str>`}
   env_repr='PANTS_DEBUGPY_ENTRY_POINT'
+  toml_repr={`[debugpy]
+entry_point = <str>`}
   default_repr={`debugpy`}
 >
 

@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[lint]`</span>
 <Option
   cli_repr={`--lint-only="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LINT_ONLY'
+  toml_repr={`[lint]
+only = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -42,6 +48,8 @@ You can repeat this option, e.g. `lint --only=flake8 --only=shellcheck` or `lint
 <Option
   cli_repr={`--[no-]lint-skip-formatters`}
   env_repr='PANTS_LINT_SKIP_FORMATTERS'
+  toml_repr={`[lint]
+skip_formatters = <bool>`}
   default_repr={`False`}
 >
 
@@ -56,6 +64,8 @@ FYI: when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt l
 <Option
   cli_repr={`--[no-]lint-skip-fixers`}
   env_repr='PANTS_LINT_SKIP_FIXERS'
+  toml_repr={`[lint]
+skip_fixers = <bool>`}
   default_repr={`False`}
 >
 
@@ -72,6 +82,8 @@ FYI: when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fix l
 <Option
   cli_repr={`--lint-batch-size=<int>`}
   env_repr='PANTS_LINT_BATCH_SIZE'
+  toml_repr={`[lint]
+batch_size = <int>`}
   default_repr={`128`}
 >
 

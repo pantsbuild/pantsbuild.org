@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[pex]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -38,6 +44,12 @@ The PATH value that will be used by the PEX subprocess and any subprocesses it s
 <Option
   cli_repr={`--pex-bootstrap-interpreter-names="[<bootstrap-python-names>, <bootstrap-python-names>, ...]"`}
   env_repr='PANTS_PEX_BOOTSTRAP_INTERPRETER_NAMES'
+  toml_repr={`[pex]
+bootstrap_interpreter_names = [
+    <bootstrap-python-names>,
+    <bootstrap-python-names>,
+    ...,
+]`}
   default_repr={`[\n  "python",\n  "python3",\n  "python2"\n]`}
 >
 
@@ -50,6 +62,8 @@ The names of Python binaries to search for to bootstrap PEX files with. This doe
 <Option
   cli_repr={`--pex-verbosity=<int>`}
   env_repr='PANTS_PEX_VERBOSITY'
+  toml_repr={`[pex]
+verbosity = <int>`}
   default_repr={`0`}
 >
 

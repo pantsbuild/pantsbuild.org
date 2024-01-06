@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--ipython-version=<str>`}
   env_repr='PANTS_IPYTHON_VERSION'
+  toml_repr={`[ipython]
+version = <str>`}
   default_repr={`ipython==7.16.1`}
 >
 
@@ -38,6 +40,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--ipython-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_IPYTHON_EXTRA_REQUIREMENTS'
+  toml_repr={`[ipython]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +58,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--ipython-entry-point=<str>`}
   env_repr='PANTS_IPYTHON_ENTRY_POINT'
+  toml_repr={`[ipython]
+entry_point = <str>`}
   default_repr={`IPython:start_ipython`}
 >
 
@@ -62,6 +72,8 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--[no-]ipython-ignore-cwd`}
   env_repr='PANTS_IPYTHON_IGNORE_CWD'
+  toml_repr={`[ipython]
+ignore_cwd = <bool>`}
   default_repr={`True`}
 >
 

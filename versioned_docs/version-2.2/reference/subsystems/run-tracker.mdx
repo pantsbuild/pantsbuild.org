@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--run-tracker-stats-local-json-file=<str>`}
   env_repr='PANTS_RUN_TRACKER_STATS_LOCAL_JSON_FILE'
+  toml_repr={`[run-tracker]
+stats_local_json_file = <str>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,12 @@ Write stats to this local json file on run completion.
 <Option
   cli_repr={`--run-tracker-stats-option-scopes-to-record="['<str>', '<str>', ...]"`}
   env_repr='PANTS_RUN_TRACKER_STATS_OPTION_SCOPES_TO_RECORD'
+  toml_repr={`[run-tracker]
+stats_option_scopes_to_record = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "*"\n]`}
 >
 

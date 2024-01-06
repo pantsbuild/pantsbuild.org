@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[list]`</span>
 <Option
   cli_repr={`--list-output-file=<path>`}
   env_repr='PANTS_LIST_OUTPUT_FILE'
+  toml_repr={`[list]
+output_file = <path>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 <Option
   cli_repr={`--list-sep=<separator>`}
   env_repr='PANTS_LIST_SEP'
+  toml_repr={`[list]
+sep = <separator>`}
   default_repr={`\\n`}
 >
 
@@ -50,6 +54,8 @@ String to use to separate lines in line-oriented output.
 <Option
   cli_repr={`--[no-]list-provides`}
   env_repr='PANTS_LIST_PROVIDES'
+  toml_repr={`[list]
+provides = <bool>`}
   default_repr={`False`}
 >
 
@@ -62,6 +68,8 @@ List only targets that provide an artifact, displaying the columns specified by 
 <Option
   cli_repr={`--[no-]list-documented`}
   env_repr='PANTS_LIST_DOCUMENTED'
+  toml_repr={`[list]
+documented = <bool>`}
   default_repr={`False`}
 >
 
@@ -80,6 +88,8 @@ None
 <Option
   cli_repr={`--list-provides-columns=<str>`}
   env_repr='PANTS_LIST_PROVIDES_COLUMNS'
+  toml_repr={`[list]
+provides_columns = <str>`}
   default_repr={`address,artifact_id`}
   removal_version='2.1.0.dev0'
   removal_hint={'The option `--provides-columns` no longer does anything. It was specific to the JVM backend, so no longer makes sense with Pants 2.0 initially only supporting Python.'}

@@ -26,6 +26,10 @@ Config section: <span className="color--primary">`[jvm]`</span>
 <Option
   cli_repr={`--jvm-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_JVM_RESOLVES'
+  toml_repr={`[jvm.resolves]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "jvm-default": "3rdparty/jvm/default.lock"\n}`}
 >
 
@@ -38,6 +42,8 @@ A dictionary mapping resolve names to the path of their lockfile.
 <Option
   cli_repr={`--jvm-default-resolve=<str>`}
   env_repr='PANTS_JVM_DEFAULT_RESOLVE'
+  toml_repr={`[jvm]
+default_resolve = <str>`}
   default_repr={`jvm-default`}
 >
 
@@ -52,6 +58,12 @@ The name must be defined as a resolve in `[jvm].resolves`.
 <Option
   cli_repr={`--jvm-debug-args="['<str>', '<str>', ...]"`}
   env_repr='PANTS_JVM_DEBUG_ARGS'
+  toml_repr={`[jvm]
+debug_args = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -68,6 +80,8 @@ For example, if you want to attach a remote debugger, use something like [&#x27;
 <Option
   cli_repr={`--jvm-tool-jdk=<str>`}
   env_repr='PANTS_JVM_TOOL_JDK'
+  toml_repr={`[jvm]
+tool_jdk = <str>`}
   default_repr={`adopt:1.11`}
 >
 
@@ -80,6 +94,8 @@ The JDK to use when building and running Pants&#x27; internal JVM support code a
 <Option
   cli_repr={`--jvm-jdk=<str>`}
   env_repr='PANTS_JVM_JDK'
+  toml_repr={`[jvm]
+jdk = <str>`}
   default_repr={`adopt:1.11`}
 >
 

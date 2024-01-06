@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[apache-thrift]`</span>
 <Option
   cli_repr={`--apache-thrift-thrift-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_APACHE_THRIFT_THRIFT_SEARCH_PATHS'
+  toml_repr={`[apache-thrift]
+thrift_search_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -38,6 +44,8 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 <Option
   cli_repr={`--apache-thrift-expected-version=<str>`}
   env_repr='PANTS_APACHE_THRIFT_EXPECTED_VERSION'
+  toml_repr={`[apache-thrift]
+expected_version = <str>`}
   default_repr={`0.15`}
 >
 

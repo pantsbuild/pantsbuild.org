@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[yapf]`</span>
 <Option
   cli_repr={`--[no-]yapf-skip`}
   env_repr='PANTS_YAPF_SKIP'
+  toml_repr={`[yapf]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use yapf when running `/home/josh/work/scie-pants/dist/scie-pants-lin
 <Option
   cli_repr={`--yapf-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_YAPF_ARGS'
+  toml_repr={`[yapf]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +58,8 @@ Certain arguments, specifically `--recursive`, `--in-place`, and `--parallel`, w
 <Option
   cli_repr={`--yapf-version=<str>`}
   env_repr='PANTS_YAPF_VERSION'
+  toml_repr={`[yapf]
+version = <str>`}
   default_repr={`yapf==0.32.0`}
 >
 
@@ -62,6 +72,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--yapf-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAPF_EXTRA_REQUIREMENTS'
+  toml_repr={`[yapf]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "toml"\n]`}
 >
 
@@ -74,6 +90,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--yapf-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAPF_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[yapf]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -86,6 +108,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--yapf-lockfile=<str>`}
   env_repr='PANTS_YAPF_LOCKFILE'
+  toml_repr={`[yapf]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -106,6 +130,8 @@ As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-depende
 <Option
   cli_repr={`--yapf-console-script=<str>`}
   env_repr='PANTS_YAPF_CONSOLE_SCRIPT'
+  toml_repr={`[yapf]
+console_script = <str>`}
   default_repr={`yapf`}
 >
 
@@ -118,6 +144,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--yapf-entry-point=<str>`}
   env_repr='PANTS_YAPF_ENTRY_POINT'
+  toml_repr={`[yapf]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -130,6 +158,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--yapf-config=<file_option>`}
   env_repr='PANTS_YAPF_CONFIG'
+  toml_repr={`[yapf]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -144,6 +174,8 @@ Setting this option will disable `[yapf].config_discovery`. Use this option if t
 <Option
   cli_repr={`--[no-]yapf-config-discovery`}
   env_repr='PANTS_YAPF_CONFIG_DISCOVERY'
+  toml_repr={`[yapf]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

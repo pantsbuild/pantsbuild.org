@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[pytest]`</span>
 <Option
   cli_repr={`--pytest-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_PYTEST_ARGS'
+  toml_repr={`[pytest]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -34,6 +40,8 @@ Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo --quiet'`
 <Option
   cli_repr={`--[no-]pytest-xdist-enabled`}
   env_repr='PANTS_PYTEST_XDIST_ENABLED'
+  toml_repr={`[pytest]
+xdist_enabled = <bool>`}
   default_repr={`False`}
 >
 
@@ -48,6 +56,8 @@ NOTE: Enabling `pytest-xdist` can cause high-level scoped fixtures (for example 
 <Option
   cli_repr={`--[no-]pytest-skip`}
   env_repr='PANTS_PYTEST_SKIP'
+  toml_repr={`[pytest]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -62,6 +72,8 @@ If true, don&#x27;t use Pytest when running `scie-pants-linux-x86_64 test`.
 <Option
   cli_repr={`--pytest-install-from-resolve=<str>`}
   env_repr='PANTS_PYTEST_INSTALL_FROM_RESOLVE'
+  toml_repr={`[pytest]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -82,6 +94,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--pytest-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_REQUIREMENTS'
+  toml_repr={`[pytest]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -100,6 +118,8 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pytest-console-script=<str>`}
   env_repr='PANTS_PYTEST_CONSOLE_SCRIPT'
+  toml_repr={`[pytest]
+console_script = <str>`}
   default_repr={`pytest`}
 >
 
@@ -112,6 +132,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pytest-entry-point=<str>`}
   env_repr='PANTS_PYTEST_ENTRY_POINT'
+  toml_repr={`[pytest]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -124,6 +146,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--pytest-junit-family=<str>`}
   env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  toml_repr={`[pytest]
+junit_family = <str>`}
   default_repr={`xunit2`}
 >
 
@@ -136,6 +160,8 @@ The format of generated junit XML files. See https://docs.pytest.org/en/latest/r
 <Option
   cli_repr={`--pytest-execution-slot-var=<str>`}
   env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
+  toml_repr={`[pytest]
+execution_slot_var = <str>`}
   default_repr={`None`}
 >
 
@@ -148,6 +174,8 @@ If a non-empty string, the process execution slot id (an integer) will be expose
 <Option
   cli_repr={`--pytest-config=<file_option>`}
   env_repr='PANTS_PYTEST_CONFIG'
+  toml_repr={`[pytest]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -160,6 +188,8 @@ Path to a config file understood by Pytest (https://docs.pytest.org/en/latest/re
 <Option
   cli_repr={`--[no-]pytest-config-discovery`}
   env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
+  toml_repr={`[pytest]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 
@@ -176,6 +206,8 @@ Use `[pytest].config` instead if your config is in a non-standard location.
 <Option
   cli_repr={`--pytest-version=<str>`}
   env_repr='PANTS_PYTEST_VERSION'
+  toml_repr={`[pytest]
+version = <str>`}
   default_repr={`pytest==7.0.1`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -190,6 +222,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
+  toml_repr={`[pytest]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1",\n  "pytest-xdist>=2.5,<3"\n]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -204,6 +242,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pytest-lockfile=<str>`}
   env_repr='PANTS_PYTEST_LOCKFILE'
+  toml_repr={`[pytest]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[pytest].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced pytest`.'}
@@ -224,6 +264,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--[no-]pytest-export`}
   env_repr='PANTS_PYTEST_EXPORT'
+  toml_repr={`[pytest]
+export = <bool>`}
   default_repr={`True`}
   removal_version='2.18.0.dev0'
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}

@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[check]`</span>
 <Option
   cli_repr={`--check-only="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CHECK_ONLY'
+  toml_repr={`[check]
+only = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

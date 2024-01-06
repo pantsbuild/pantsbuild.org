@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[preamble]`</span>
 <Option
   cli_repr={`--[no-]preamble-skip`}
   env_repr='PANTS_PREAMBLE_SKIP'
+  toml_repr={`[preamble]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -38,6 +40,10 @@ If true, don&#x27;t use preamble when running `scie-pants-linux-x86_64 fmt`.
 <Option
   cli_repr={`--preamble-template-by-globs="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PREAMBLE_TEMPLATE_BY_GLOBS'
+  toml_repr={`[preamble.template_by_globs]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 

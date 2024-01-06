@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[scalac]`</span>
 <Option
   cli_repr={`--scalac-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SCALAC_ARGS'
+  toml_repr={`[scalac]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -34,6 +40,10 @@ Arguments to pass directly to scalac, e.g. `--scalac-args='-encoding UTF-8'`.
 <Option
   cli_repr={`--scalac-plugins-for-resolve="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SCALAC_PLUGINS_FOR_RESOLVE'
+  toml_repr={`[scalac.plugins_for_resolve]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -52,6 +62,12 @@ None
 <Option
   cli_repr={`--scalac-plugins-global="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAC_PLUGINS_GLOBAL'
+  toml_repr={`[scalac]
+plugins_global = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.12.0.dev0'
   removal_hint={'Use `--scalac-plugins-for-resolve` instead to use user resolves'}
@@ -68,6 +84,8 @@ If you set this, you must also set `[scalac].plugins_global_lockfile`.
 <Option
   cli_repr={`--scalac-plugins-global-lockfile=<str>`}
   env_repr='PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE'
+  toml_repr={`[scalac]
+plugins_global_lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.12.0.dev0'
   removal_hint={'Use `--scalac-plugins-for-resolve` instead, which will add plugin dependencies to JVM user resolves.'}

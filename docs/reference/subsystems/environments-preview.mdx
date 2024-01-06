@@ -22,6 +22,10 @@ Config section: <span className="color--primary">`[environments-preview]`</span>
 <Option
   cli_repr={`--environments-preview-names="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_ENVIRONMENTS_PREVIEW_NAMES'
+  toml_repr={`[environments-preview.names]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 

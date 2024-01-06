@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--protobuf-java-grpc-version=<str>`}
   env_repr='PANTS_PROTOBUF_JAVA_GRPC_VERSION'
+  toml_repr={`[protobuf-java-grpc]
+version = <str>`}
   default_repr={`1.48.0`}
 >
 
@@ -38,6 +40,12 @@ Version string for the tool. This is available for substitution in the `[protobu
 <Option
   cli_repr={`--protobuf-java-grpc-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PROTOBUF_JAVA_GRPC_ARTIFACTS'
+  toml_repr={`[protobuf-java-grpc]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "io.grpc:protoc-gen-grpc-java:exe:linux-aarch_64:{version}",\n  "io.grpc:protoc-gen-grpc-java:exe:linux-x86_64:{version}",\n  "io.grpc:protoc-gen-grpc-java:exe:osx-aarch_64:{version}",\n  "io.grpc:protoc-gen-grpc-java:exe:osx-x86_64:{version}"\n]`}
 >
 
@@ -50,6 +58,8 @@ Artifact requirements for this tool using specified as either the address of a `
 <Option
   cli_repr={`--protobuf-java-grpc-lockfile=<str>`}
   env_repr='PANTS_PROTOBUF_JAVA_GRPC_LOCKFILE'
+  toml_repr={`[protobuf-java-grpc]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -66,6 +76,12 @@ To use a custom lockfile, set this option to a file path relative to the build r
 <Option
   cli_repr={`--protobuf-java-grpc-jvm-options="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PROTOBUF_JAVA_GRPC_JVM_OPTIONS'
+  toml_repr={`[protobuf-java-grpc]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[peek]`</span>
 <Option
   cli_repr={`--peek-output-file=<path>`}
   env_repr='PANTS_PEEK_OUTPUT_FILE'
+  toml_repr={`[peek]
+output_file = <path>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 <Option
   cli_repr={`--peek-output=<OutputOptions>`}
   env_repr='PANTS_PEEK_OUTPUT'
+  toml_repr={`[peek]
+output = <OutputOptions>`}
   one_of='raw, json'
   default_repr={`json`}
 >
@@ -51,6 +55,8 @@ Which output style peek should use: `json` will show each target as a seperate e
 <Option
   cli_repr={`--[no-]peek-exclude-defaults`}
   env_repr='PANTS_PEEK_EXCLUDE_DEFAULTS'
+  toml_repr={`[peek]
+exclude_defaults = <bool>`}
   default_repr={`False`}
 >
 

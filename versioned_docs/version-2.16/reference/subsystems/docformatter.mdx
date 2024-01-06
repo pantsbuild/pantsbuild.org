@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[docformatter]`</span>
 <Option
   cli_repr={`--[no-]docformatter-skip`}
   env_repr='PANTS_DOCFORMATTER_SKIP'
+  toml_repr={`[docformatter]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use docformatter when running `scie-pants-linux-x86_64 fmt` 
 <Option
   cli_repr={`--docformatter-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DOCFORMATTER_ARGS'
+  toml_repr={`[docformatter]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to docformatter, e.g. `--docformatter-args='--wrap-su
 <Option
   cli_repr={`--docformatter-install-from-resolve=<str>`}
   env_repr='PANTS_DOCFORMATTER_INSTALL_FROM_RESOLVE'
+  toml_repr={`[docformatter]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--docformatter-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCFORMATTER_REQUIREMENTS'
+  toml_repr={`[docformatter]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--docformatter-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCFORMATTER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[docformatter]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--docformatter-console-script=<str>`}
   env_repr='PANTS_DOCFORMATTER_CONSOLE_SCRIPT'
+  toml_repr={`[docformatter]
+console_script = <str>`}
   default_repr={`docformatter`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--docformatter-entry-point=<str>`}
   env_repr='PANTS_DOCFORMATTER_ENTRY_POINT'
+  toml_repr={`[docformatter]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -124,6 +150,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--docformatter-version=<str>`}
   env_repr='PANTS_DOCFORMATTER_VERSION'
+  toml_repr={`[docformatter]
+version = <str>`}
   default_repr={`docformatter>=1.4,<1.5`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -138,6 +166,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--docformatter-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCFORMATTER_EXTRA_REQUIREMENTS'
+  toml_repr={`[docformatter]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -152,6 +186,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--docformatter-lockfile=<str>`}
   env_repr='PANTS_DOCFORMATTER_LOCKFILE'
+  toml_repr={`[docformatter]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[docformatter].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced docformatter`.'}
@@ -174,6 +210,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--[no-]docformatter-export`}
   env_repr='PANTS_DOCFORMATTER_EXPORT'
+  toml_repr={`[docformatter]
+export = <bool>`}
   default_repr={`True`}
   removal_version='2.18.0.dev0'
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}

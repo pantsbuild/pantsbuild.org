@@ -24,6 +24,12 @@ Config section: <span className="color--primary">`[semgrep]`</span>
 <Option
   cli_repr={`--semgrep-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SEMGREP_ARGS'
+  toml_repr={`[semgrep]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[\n  "--quiet"\n]`}
 >
 
@@ -38,6 +44,8 @@ This includes --quiet by default to reduce the volume of output.
 <Option
   cli_repr={`--[no-]semgrep-skip`}
   env_repr='PANTS_SEMGREP_SKIP'
+  toml_repr={`[semgrep]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -52,6 +60,8 @@ If true, don&#x27;t use Semgrep when running `scie-pants-linux-x86_64 lint`.
 <Option
   cli_repr={`--semgrep-install-from-resolve=<str>`}
   env_repr='PANTS_SEMGREP_INSTALL_FROM_RESOLVE'
+  toml_repr={`[semgrep]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -72,6 +82,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--semgrep-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SEMGREP_REQUIREMENTS'
+  toml_repr={`[semgrep]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -90,6 +106,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--semgrep-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SEMGREP_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[semgrep]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -102,6 +124,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--semgrep-console-script=<str>`}
   env_repr='PANTS_SEMGREP_CONSOLE_SCRIPT'
+  toml_repr={`[semgrep]
+console_script = <str>`}
   default_repr={`semgrep`}
 >
 
@@ -114,6 +138,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--semgrep-entry-point=<str>`}
   env_repr='PANTS_SEMGREP_ENTRY_POINT'
+  toml_repr={`[semgrep]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -126,6 +152,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--[no-]semgrep-force`}
   env_repr='PANTS_SEMGREP_FORCE'
+  toml_repr={`[semgrep]
+force = <bool>`}
   default_repr={`False`}
 >
 

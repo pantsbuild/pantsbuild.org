@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[hadolint]`</span>
 <Option
   cli_repr={`--[no-]hadolint-skip`}
   env_repr='PANTS_HADOLINT_SKIP'
+  toml_repr={`[hadolint]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use Hadolint when running `/home/josh/work/scie-pants/dist/scie-pants
 <Option
   cli_repr={`--hadolint-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_HADOLINT_ARGS'
+  toml_repr={`[hadolint]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Hadolint, e.g. `--hadolint-args='--format json'`.
 <Option
   cli_repr={`--hadolint-version=<str>`}
   env_repr='PANTS_HADOLINT_VERSION'
+  toml_repr={`[hadolint]
+version = <str>`}
   default_repr={`v2.10.0`}
 >
 
@@ -60,6 +70,12 @@ Use this version of Hadolint.
 <Option
   cli_repr={`--hadolint-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HADOLINT_KNOWN_VERSIONS'
+  toml_repr={`[hadolint]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v2.10.0|macos_x86_64|59f0523069a857ae918b8ac0774230013f7bcc00c1ea28119c2311353120867a|2514960",\n  "v2.10.0|macos_arm64 |59f0523069a857ae918b8ac0774230013f7bcc00c1ea28119c2311353120867a|2514960",\n  "v2.10.0|linux_x86_64|8ee6ff537341681f9e91bae2d5da451b15c575691e33980893732d866d3cefc4|2301804",\n  "v2.10.0|linux_arm64 |b53d5ab10707a585c9e72375d51b7357522300b5329cfa3f91e482687176e128|27954520"\n]`}
 >
 
@@ -87,6 +103,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--hadolint-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_HADOLINT_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[hadolint]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -102,6 +120,8 @@ Supported Hadolint versions: unspecified
 <Option
   cli_repr={`--hadolint-url-template=<str>`}
   env_repr='PANTS_HADOLINT_URL_TEMPLATE'
+  toml_repr={`[hadolint]
+url_template = <str>`}
   default_repr={`https://github.com/hadolint/hadolint/releases/download/{version}/hadolint-{platform}`}
 >
 
@@ -116,6 +136,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--hadolint-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_HADOLINT_URL_PLATFORM_MAPPING'
+  toml_repr={`[hadolint.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "Linux-arm64",\n  "linux_x86_64": "Linux-x86_64",\n  "macos_arm64": "Darwin-x86_64",\n  "macos_x86_64": "Darwin-x86_64"\n}`}
 >
 
@@ -132,6 +156,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--hadolint-config=<file_option>`}
   env_repr='PANTS_HADOLINT_CONFIG'
+  toml_repr={`[hadolint]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -146,6 +172,8 @@ Setting this option will disable `[hadolint].config_discovery`. Use this option 
 <Option
   cli_repr={`--[no-]hadolint-config-discovery`}
   env_repr='PANTS_HADOLINT_CONFIG_DISCOVERY'
+  toml_repr={`[hadolint]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

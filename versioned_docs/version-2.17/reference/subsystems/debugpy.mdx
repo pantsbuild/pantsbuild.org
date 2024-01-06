@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[debugpy]`</span>
 <Option
   cli_repr={`--debugpy-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DEBUGPY_ARGS'
+  toml_repr={`[debugpy]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,8 @@ Arguments to pass directly to debugpy, e.g. `--debugpy-args='--log-to-stderr'`.
 <Option
   cli_repr={`--debugpy-install-from-resolve=<str>`}
   env_repr='PANTS_DEBUGPY_INSTALL_FROM_RESOLVE'
+  toml_repr={`[debugpy]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -56,6 +64,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--debugpy-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DEBUGPY_REQUIREMENTS'
+  toml_repr={`[debugpy]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -74,6 +88,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--debugpy-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DEBUGPY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[debugpy]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -86,6 +106,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--debugpy-console-script=<str>`}
   env_repr='PANTS_DEBUGPY_CONSOLE_SCRIPT'
+  toml_repr={`[debugpy]
+console_script = <str>`}
   default_repr={`None`}
 >
 
@@ -98,6 +120,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--debugpy-entry-point=<str>`}
   env_repr='PANTS_DEBUGPY_ENTRY_POINT'
+  toml_repr={`[debugpy]
+entry_point = <str>`}
   default_repr={`debugpy`}
 >
 
@@ -112,6 +136,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--debugpy-version=<str>`}
   env_repr='PANTS_DEBUGPY_VERSION'
+  toml_repr={`[debugpy]
+version = <str>`}
   default_repr={`debugpy>=1.6.5,<1.7`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -126,6 +152,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--debugpy-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DEBUGPY_EXTRA_REQUIREMENTS'
+  toml_repr={`[debugpy]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
@@ -140,6 +172,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--debugpy-lockfile=<str>`}
   env_repr='PANTS_DEBUGPY_LOCKFILE'
+  toml_repr={`[debugpy]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[debugpy].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced debugpy`.'}

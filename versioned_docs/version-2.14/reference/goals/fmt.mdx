@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[fmt]`</span>
 <Option
   cli_repr={`--fmt-only="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FMT_ONLY'
+  toml_repr={`[fmt]
+only = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -44,6 +50,8 @@ You can repeat this option, e.g. `fmt --only=isort --only=shfmt` or `fmt --only=
 <Option
   cli_repr={`--fmt-batch-size=<int>`}
   env_repr='PANTS_FMT_BATCH_SIZE'
+  toml_repr={`[fmt]
+batch_size = <int>`}
   default_repr={`128`}
 >
 

@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[autoflake]`</span>
 <Option
   cli_repr={`--[no-]autoflake-skip`}
   env_repr='PANTS_AUTOFLAKE_SKIP'
+  toml_repr={`[autoflake]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Autoflake when running `scie-pants-linux-x86_64 fmt` and
 <Option
   cli_repr={`--autoflake-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_AUTOFLAKE_ARGS'
+  toml_repr={`[autoflake]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[\n  "--remove-all-unused-imports"\n]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Autoflake, e.g. `--autoflake-args='--remove-all-un
 <Option
   cli_repr={`--autoflake-install-from-resolve=<str>`}
   env_repr='PANTS_AUTOFLAKE_INSTALL_FROM_RESOLVE'
+  toml_repr={`[autoflake]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--autoflake-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_AUTOFLAKE_REQUIREMENTS'
+  toml_repr={`[autoflake]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--autoflake-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_AUTOFLAKE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[autoflake]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--autoflake-console-script=<str>`}
   env_repr='PANTS_AUTOFLAKE_CONSOLE_SCRIPT'
+  toml_repr={`[autoflake]
+console_script = <str>`}
   default_repr={`autoflake`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--autoflake-entry-point=<str>`}
   env_repr='PANTS_AUTOFLAKE_ENTRY_POINT'
+  toml_repr={`[autoflake]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

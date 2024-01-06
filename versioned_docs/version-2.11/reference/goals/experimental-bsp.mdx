@@ -30,6 +30,8 @@ None
 <Option
   cli_repr={`--[no-]experimental-bsp-server`}
   env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
+  toml_repr={`[experimental-bsp]
+server = <bool>`}
   default_repr={`False`}
 >
 
@@ -42,6 +44,12 @@ Run the Build Server Protocol server. Pants will receive BSP RPC requests via th
 <Option
   cli_repr={`--experimental-bsp-runner-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_EXPERIMENTAL_BSP_RUNNER_ENV_VARS'
+  toml_repr={`[experimental-bsp]
+runner_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "PATH"\n]`}
 >
 

@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[golang]`</span>
 <Option
   cli_repr={`--golang-minimum-expected-version=<str>`}
   env_repr='PANTS_GOLANG_MINIMUM_EXPECTED_VERSION'
+  toml_repr={`[golang]
+minimum_expected_version = <str>`}
   default_repr={`1.17`}
 >
 
@@ -40,6 +42,8 @@ Do not include the patch version.
 <Option
   cli_repr={`--[no-]golang-cgo-enabled`}
   env_repr='PANTS_GOLANG_CGO_ENABLED'
+  toml_repr={`[golang]
+cgo_enabled = <bool>`}
   default_repr={`True`}
 >
 
@@ -56,6 +60,12 @@ See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional inform
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
+  toml_repr={`[golang]
+go_search_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='golang_go_search_paths'
 >
@@ -77,6 +87,12 @@ The following special strings are supported:
 <Option
   cli_repr={`--golang-cgo-tool-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_TOOL_SEARCH_PATHS'
+  toml_repr={`[golang]
+cgo_tool_search_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='golang_cgo_tool_search_paths'
 >
@@ -98,6 +114,8 @@ The following special strings are supported:
 <Option
   cli_repr={`--[no-]golang-tailor-go-mod-targets`}
   env_repr='PANTS_GOLANG_TAILOR_GO_MOD_TARGETS'
+  toml_repr={`[golang]
+tailor_go_mod_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -110,6 +128,8 @@ If true, add a `go_mod` target with the `tailor` goal wherever there is a `go.mo
 <Option
   cli_repr={`--[no-]golang-tailor-package-targets`}
   env_repr='PANTS_GOLANG_TAILOR_PACKAGE_TARGETS'
+  toml_repr={`[golang]
+tailor_package_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -122,6 +142,8 @@ If true, add a `go_package` target with the `tailor` goal in every directory wit
 <Option
   cli_repr={`--[no-]golang-tailor-binary-targets`}
   env_repr='PANTS_GOLANG_TAILOR_BINARY_TARGETS'
+  toml_repr={`[golang]
+tailor_binary_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -134,6 +156,8 @@ If true, add a `go_binary` target with the `tailor` goal in every directory with
 <Option
   cli_repr={`--golang-asdf-tool-name=<str>`}
   env_repr='PANTS_GOLANG_ASDF_TOOL_NAME'
+  toml_repr={`[golang]
+asdf_tool_name = <str>`}
   default_repr={`go-sdk`}
 >
 
@@ -146,6 +170,8 @@ The ASDF tool name to use when searching for installed Go distributions using th
 <Option
   cli_repr={`--golang-asdf-bin-relpath=<str>`}
   env_repr='PANTS_GOLANG_ASDF_BIN_RELPATH'
+  toml_repr={`[golang]
+asdf_bin_relpath = <str>`}
   default_repr={`bin`}
 >
 
@@ -158,6 +184,12 @@ The path relative to an ASDF install directory to use to find the `bin` director
 <Option
   cli_repr={`--golang-subprocess-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_SUBPROCESS_ENV_VARS'
+  toml_repr={`[golang]
+subprocess_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "PATH"\n]`}
   target_field_name='golang_subprocess_env_vars'
 >
@@ -171,6 +203,8 @@ Environment variables to set when invoking the `go` tool. Entries are either str
 <Option
   cli_repr={`--golang-cgo-gcc-binary-name=<str>`}
   env_repr='PANTS_GOLANG_CGO_GCC_BINARY_NAME'
+  toml_repr={`[golang]
+cgo_gcc_binary_name = <str>`}
   default_repr={`gcc`}
   target_field_name='golang_cgo_gcc_binary_name'
 >
@@ -184,6 +218,8 @@ Name of the tool to use to compile C code included via CGo in a Go package.
 <Option
   cli_repr={`--golang-cgo-gxx-binary-name=<str>`}
   env_repr='PANTS_GOLANG_CGO_GXX_BINARY_NAME'
+  toml_repr={`[golang]
+cgo_gxx_binary_name = <str>`}
   default_repr={`g++`}
   target_field_name='golang_cgo_gxx_binary_name'
 >
@@ -197,6 +233,8 @@ Name of the tool to use to compile C++ code included via CGo in a Go package.
 <Option
   cli_repr={`--golang-cgo-fortran-binary-name=<str>`}
   env_repr='PANTS_GOLANG_CGO_FORTRAN_BINARY_NAME'
+  toml_repr={`[golang]
+cgo_fortran_binary_name = <str>`}
   default_repr={`gfortran`}
   target_field_name='golang_cgo_fortran_binary_name'
 >
@@ -210,6 +248,12 @@ Name of the tool to use to compile fortran code included via CGo in a Go package
 <Option
   cli_repr={`--golang-cgo-c-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_C_FLAGS'
+  toml_repr={`[golang]
+cgo_c_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_c_flags'
 >
@@ -223,6 +267,12 @@ Compiler options used when compiling C code when Cgo is enabled. Equivalent to s
 <Option
   cli_repr={`--golang-cgo-cxx-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_CXX_FLAGS'
+  toml_repr={`[golang]
+cgo_cxx_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_cxx_flags'
 >
@@ -236,6 +286,12 @@ Compiler options used when compiling C++ code when Cgo is enabled. Equivalent to
 <Option
   cli_repr={`--golang-cgo-fortran-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_FORTRAN_FLAGS'
+  toml_repr={`[golang]
+cgo_fortran_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_fortran_flags'
 >
@@ -249,6 +305,12 @@ Compiler options used when compiling Fortran code when Cgo is enabled. Equivalen
 <Option
   cli_repr={`--golang-cgo-linker-flags="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_CGO_LINKER_FLAGS'
+  toml_repr={`[golang]
+cgo_linker_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "-g",\n  "-O2"\n]`}
   target_field_name='golang_cgo_linker_flags'
 >

@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--coursier-version=<str>`}
   env_repr='PANTS_COURSIER_VERSION'
+  toml_repr={`[coursier]
+version = <str>`}
   default_repr={`v2.0.13`}
 >
 
@@ -38,6 +40,12 @@ Use this version of coursier.
 <Option
   cli_repr={`--coursier-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COURSIER_KNOWN_VERSIONS'
+  toml_repr={`[coursier]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v2.0.13|linux_arm64 |8d428bede2d9d0e48ffad8360d49de48bd0c2c3b0e54e82e3a7665019b65e4d0|58622664",\n  "v2.0.13|linux_x86_64|1ae089789cc4b0a4d296d6852b760d7f8bf72805267a6b7571e99b681d5e13b4|59652208",\n  "v2.0.13|macos_arm64 |d74b8fe4ffc2f4e9011d7151722fc8b5ffca8a72b3bc4188c61df3326228c4ef|57625024",\n  "v2.0.13|macos_x86_64|d74b8fe4ffc2f4e9011d7151722fc8b5ffca8a72b3bc4188c61df3326228c4ef|57625024"\n]`}
 >
 
@@ -63,6 +71,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--coursier-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_COURSIER_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[coursier]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -78,6 +88,8 @@ Supported coursier versions: unspecified
 <Option
   cli_repr={`--coursier-url-template=<str>`}
   env_repr='PANTS_COURSIER_URL_TEMPLATE'
+  toml_repr={`[coursier]
+url_template = <str>`}
   default_repr={`https://github.com/coursier/coursier/releases/download/{version}/cs-{platform}`}
 >
 
@@ -92,6 +104,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--coursier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_COURSIER_URL_PLATFORM_MAPPING'
+  toml_repr={`[coursier.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "aarch64-pc-linux",\n  "linux_x86_64": "x86_64-pc-linux",\n  "macos_arm64": "x86_64-apple-darwin",\n  "macos_x86_64": "x86_64-apple-darwin"\n}`}
 >
 

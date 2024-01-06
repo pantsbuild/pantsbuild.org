@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[python-infer]`</span>
 <Option
   cli_repr={`--[no-]python-infer-imports`}
   env_repr='PANTS_PYTHON_INFER_IMPORTS'
+  toml_repr={`[python-infer]
+imports = <bool>`}
   default_repr={`True`}
 >
 
@@ -36,6 +38,8 @@ To ignore a false positive, you can either put `# pants: no-infer-dep` on the li
 <Option
   cli_repr={`--[no-]python-infer-string-imports`}
   env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS'
+  toml_repr={`[python-infer]
+string_imports = <bool>`}
   default_repr={`False`}
 >
 
@@ -50,6 +54,8 @@ To ignore a false positive, you can either put `# pants: no-infer-dep` on the li
 <Option
   cli_repr={`--python-infer-string-imports-min-dots=<int>`}
   env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS_MIN_DOTS'
+  toml_repr={`[python-infer]
+string_imports_min_dots = <int>`}
   default_repr={`2`}
 >
 
@@ -62,6 +68,8 @@ If --string-imports is True, treat valid-looking strings with at least this many
 <Option
   cli_repr={`--[no-]python-infer-assets`}
   env_repr='PANTS_PYTHON_INFER_ASSETS'
+  toml_repr={`[python-infer]
+assets = <bool>`}
   default_repr={`False`}
 >
 
@@ -76,6 +84,8 @@ To ignore a false positive, you can either put `# pants: no-infer-dep` on the li
 <Option
   cli_repr={`--python-infer-assets-min-slashes=<int>`}
   env_repr='PANTS_PYTHON_INFER_ASSETS_MIN_SLASHES'
+  toml_repr={`[python-infer]
+assets_min_slashes = <int>`}
   default_repr={`1`}
 >
 
@@ -88,6 +98,8 @@ If --assets is True, treat valid-looking strings with at least this many forward
 <Option
   cli_repr={`--python-infer-init-files=<InitFilesInference>`}
   env_repr='PANTS_PYTHON_INFER_INIT_FILES'
+  toml_repr={`[python-infer]
+init_files = <InitFilesInference>`}
   one_of='always, content_only, never'
   default_repr={`content_only`}
 >
@@ -105,6 +117,8 @@ By default, Pants only adds a &#x22;proper&#x22; dependency if there is content 
 <Option
   cli_repr={`--[no-]python-infer-conftests`}
   env_repr='PANTS_PYTHON_INFER_CONFTESTS'
+  toml_repr={`[python-infer]
+conftests = <bool>`}
   default_repr={`True`}
 >
 
@@ -117,6 +131,8 @@ Infer a test target&#x27;s dependencies on any conftest.py files in the current 
 <Option
   cli_repr={`--[no-]python-infer-entry-points`}
   env_repr='PANTS_PYTHON_INFER_ENTRY_POINTS'
+  toml_repr={`[python-infer]
+entry_points = <bool>`}
   default_repr={`True`}
 >
 
@@ -129,6 +145,8 @@ Infer dependencies on targets&#x27; entry points, e.g. `pex_binary`&#x27;s `entr
 <Option
   cli_repr={`--python-infer-unowned-dependency-behavior=<UnownedDependencyUsage>`}
   env_repr='PANTS_PYTHON_INFER_UNOWNED_DEPENDENCY_BEHAVIOR'
+  toml_repr={`[python-infer]
+unowned_dependency_behavior = <UnownedDependencyUsage>`}
   one_of='error, warning, ignore'
   default_repr={`warning`}
 >
@@ -146,6 +164,8 @@ To ignore any false positives, either add `# pants: no-infer-dep` to the line of
 <Option
   cli_repr={`--python-infer-ambiguity-resolution=<AmbiguityResolution>`}
   env_repr='PANTS_PYTHON_INFER_AMBIGUITY_RESOLUTION'
+  toml_repr={`[python-infer]
+ambiguity_resolution = <AmbiguityResolution>`}
   one_of='none, by_source_root'
   default_repr={`none`}
 >
@@ -163,6 +183,12 @@ When multiple sources provide the same symbol, how to choose the provider to use
 <Option
   cli_repr={`--python-infer-ignored-unowned-imports="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_INFER_IGNORED_UNOWNED_IMPORTS'
+  toml_repr={`[python-infer]
+ignored_unowned_imports = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

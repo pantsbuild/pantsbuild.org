@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[isort]`</span>
 <Option
   cli_repr={`--[no-]isort-skip`}
   env_repr='PANTS_ISORT_SKIP'
+  toml_repr={`[isort]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use isort when running `/home/josh/work/scie-pants/dist/scie-pants-li
 <Option
   cli_repr={`--isort-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_ISORT_ARGS'
+  toml_repr={`[isort]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to isort, e.g. `--isort-args="--case-sensitive --trai
 <Option
   cli_repr={`--isort-version=<str>`}
   env_repr='PANTS_ISORT_VERSION'
+  toml_repr={`[isort]
+version = <str>`}
   default_repr={`isort[pyproject]>=5.5.1,<5.6`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--isort-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_EXTRA_REQUIREMENTS'
+  toml_repr={`[isort]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "setuptools"\n]`}
 >
 
@@ -72,6 +88,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--isort-entry-point=<str>`}
   env_repr='PANTS_ISORT_ENTRY_POINT'
+  toml_repr={`[isort]
+entry_point = <str>`}
   default_repr={`isort.main`}
 >
 
@@ -84,6 +102,12 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[isort]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
@@ -96,6 +120,12 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--isort-config="[<file_option>, <file_option>, ...]"`}
   env_repr='PANTS_ISORT_CONFIG'
+  toml_repr={`[isort]
+config = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 

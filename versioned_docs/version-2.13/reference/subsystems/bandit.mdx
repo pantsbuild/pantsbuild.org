@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[bandit]`</span>
 <Option
   cli_repr={`--[no-]bandit-skip`}
   env_repr='PANTS_BANDIT_SKIP'
+  toml_repr={`[bandit]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use Bandit when running `/home/josh/work/scie-pants/dist/scie-pants-l
 <Option
   cli_repr={`--bandit-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_BANDIT_ARGS'
+  toml_repr={`[bandit]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -46,6 +54,8 @@ Arguments to pass directly to Bandit, e.g. `--bandit-args='--skip B101,B308 --co
 <Option
   cli_repr={`--[no-]bandit-export`}
   env_repr='PANTS_BANDIT_EXPORT'
+  toml_repr={`[bandit]
+export = <bool>`}
   default_repr={`True`}
 >
 
@@ -62,6 +72,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 <Option
   cli_repr={`--bandit-version=<str>`}
   env_repr='PANTS_BANDIT_VERSION'
+  toml_repr={`[bandit]
+version = <str>`}
   default_repr={`bandit>=1.7.0,<1.8`}
 >
 
@@ -74,6 +86,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--bandit-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BANDIT_EXTRA_REQUIREMENTS'
+  toml_repr={`[bandit]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "setuptools",\n  "GitPython==3.1.18"\n]`}
 >
 
@@ -86,6 +104,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--bandit-lockfile=<str>`}
   env_repr='PANTS_BANDIT_LOCKFILE'
+  toml_repr={`[bandit]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -106,6 +126,8 @@ As explained at https://www.pantsbuild.org/v2.13/docs/python-third-party-depende
 <Option
   cli_repr={`--bandit-console-script=<str>`}
   env_repr='PANTS_BANDIT_CONSOLE_SCRIPT'
+  toml_repr={`[bandit]
+console_script = <str>`}
   default_repr={`bandit`}
 >
 
@@ -118,6 +140,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--bandit-entry-point=<str>`}
   env_repr='PANTS_BANDIT_ENTRY_POINT'
+  toml_repr={`[bandit]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -130,6 +154,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--bandit-config=<file_option>`}
   env_repr='PANTS_BANDIT_CONFIG'
+  toml_repr={`[bandit]
+config = <file_option>`}
   default_repr={`None`}
 >
 

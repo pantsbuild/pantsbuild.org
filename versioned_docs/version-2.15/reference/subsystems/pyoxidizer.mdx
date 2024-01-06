@@ -24,6 +24,12 @@ Config section: <span className="color--primary">`[pyoxidizer]`</span>
 <Option
   cli_repr={`--pyoxidizer-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_PYOXIDIZER_ARGS'
+  toml_repr={`[pyoxidizer]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,8 @@ Arguments to pass directly to PyOxidizer, e.g. `--pyoxidizer-args='--release'`.
 <Option
   cli_repr={`--pyoxidizer-version=<str>`}
   env_repr='PANTS_PYOXIDIZER_VERSION'
+  toml_repr={`[pyoxidizer]
+version = <str>`}
   default_repr={`pyoxidizer==0.18.0`}
 >
 
@@ -50,6 +58,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pyoxidizer-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_EXTRA_REQUIREMENTS'
+  toml_repr={`[pyoxidizer]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -62,6 +76,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pyoxidizer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYOXIDIZER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[pyoxidizer]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.8,<4"\n]`}
 >
 
@@ -74,6 +94,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--pyoxidizer-lockfile=<str>`}
   env_repr='PANTS_PYOXIDIZER_LOCKFILE'
+  toml_repr={`[pyoxidizer]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -94,6 +116,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--pyoxidizer-console-script=<str>`}
   env_repr='PANTS_PYOXIDIZER_CONSOLE_SCRIPT'
+  toml_repr={`[pyoxidizer]
+console_script = <str>`}
   default_repr={`pyoxidizer`}
 >
 
@@ -106,6 +130,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pyoxidizer-entry-point=<str>`}
   env_repr='PANTS_PYOXIDIZER_ENTRY_POINT'
+  toml_repr={`[pyoxidizer]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
