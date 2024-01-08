@@ -33,7 +33,7 @@ Only generate lockfiles for the specified resolve(s).
 
 Resolves are the logical names for the different lockfiles used in your project. For your own code&#x27;s dependencies, these come from backend-specific configuration such as `[python].resolves`. For tool lockfiles, resolve names are the options scope for that tool such as `black`, `pytest`, and `mypy-protobuf`.
 
-For example, you can run `scie-pants-linux-x86_64 generate-lockfiles --resolve=black --resolve=pytest --resolve=data-science` to only generate lockfiles for those two tools and your resolve named `data-science`.
+For example, you can run `pants generate-lockfiles --resolve=black --resolve=pytest --resolve=data-science` to only generate lockfiles for those two tools and your resolve named `data-science`.
 
 If you specify an invalid resolve name, like &#x27;fake&#x27;, Pants will output all possible values.
 
@@ -75,7 +75,7 @@ Include unchanged distributions in the diff summary output. Implies `diff=true`.
   default_repr={`None`}
 >
 
-If set, lockfile headers will say to run this command to regenerate the lockfile, rather than running `scie-pants-linux-x86_64 generate-lockfiles --resolve=<name>` like normal.
+If set, lockfile headers will say to run this command to regenerate the lockfile, rather than running `pants generate-lockfiles --resolve=<name>` like normal.
 
 </Option>
 

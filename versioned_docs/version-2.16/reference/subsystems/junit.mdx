@@ -37,7 +37,7 @@ Arguments to pass directly to JUnit, e.g. `--junit-args='--disable-ansi-colors'`
   default_repr={`False`}
 >
 
-If true, don&#x27;t use JUnit when running `scie-pants-linux-x86_64 test`.
+If true, don&#x27;t use JUnit when running `pants test`.
 
 </Option>
 
@@ -79,7 +79,7 @@ Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.16.1rc4/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.
 
-To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 jvm-generate-lockfiles --resolve=junit`.
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=junit`.
 
 </Option>
 

@@ -149,7 +149,7 @@ Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.17.1rc3/src/python/pants/backend/python/subsystems/debugpy.lock for the default lockfile contents.
 
-To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 generate-lockfiles --resolve=debugpy`.
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=debugpy`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
 

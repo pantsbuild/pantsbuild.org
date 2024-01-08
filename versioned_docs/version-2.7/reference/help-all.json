@@ -1649,7 +1649,7 @@
               {
                 "details": "from env var PANTS_BIN_NAME",
                 "rank": "ENVIRONMENT",
-                "value": "/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64"
+                "value": "/home/josh/work/scie-pants/dist/pants"
               }
             ]
           }
@@ -4391,7 +4391,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]bandit-skip"],
           "env_var": "PANTS_BANDIT_SKIP",
-          "help": "Don't use Bandit when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`",
+          "help": "Don't use Bandit when running `/home/josh/work/scie-pants/dist/pants lint`",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--bandit-skip", "--no-bandit-skip"],
@@ -4706,7 +4706,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]black-skip"],
           "env_var": "PANTS_BLACK_SKIP",
-          "help": "Don't use Black when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`",
+          "help": "Don't use Black when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--black-skip", "--no-black-skip"],
@@ -5736,7 +5736,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]docformatter-skip"],
           "env_var": "PANTS_DOCFORMATTER_SKIP",
-          "help": "Don't use docformatter when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.",
+          "help": "Don't use docformatter when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -6552,7 +6552,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]flake8-skip"],
           "env_var": "PANTS_FLAKE8_SKIP",
-          "help": "Don't use Flake8 when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`",
+          "help": "Don't use Flake8 when running `/home/josh/work/scie-pants/dist/pants lint`",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--flake8-skip", "--no-flake8-skip"],
@@ -7558,7 +7558,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]isort-skip"],
           "env_var": "PANTS_ISORT_SKIP",
-          "help": "Don't use isort when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.",
+          "help": "Don't use isort when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--isort-skip", "--no-isort-skip"],
@@ -8297,7 +8297,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]mypy-skip"],
           "env_var": "PANTS_MYPY_SKIP",
-          "help": "Don't use MyPy when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 typecheck`.",
+          "help": "Don't use MyPy when running `/home/josh/work/scie-pants/dist/pants typecheck`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--mypy-skip", "--no-mypy-skip"],
@@ -9403,7 +9403,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]pylint-skip"],
           "env_var": "PANTS_PYLINT_SKIP",
-          "help": "Don't use Pylint when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`",
+          "help": "Don't use Pylint when running `/home/josh/work/scie-pants/dist/pants lint`",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--pylint-skip", "--no-pylint-skip"],
@@ -12707,7 +12707,7 @@
           "deprecation_active": false,
           "display_args": ["--[no-]yapf-skip"],
           "env_var": "PANTS_YAPF_SKIP",
-          "help": "Don't use yapf when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt` and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 lint`.",
+          "help": "Don't use yapf when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": ["--yapf-skip", "--no-yapf-skip"],

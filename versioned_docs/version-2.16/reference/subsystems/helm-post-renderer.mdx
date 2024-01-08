@@ -117,7 +117,7 @@ Set to the string `<default>` to use a lockfile provided by Pants, so long as yo
 
 Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds and supply-chain security.
 
-To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 generate-lockfiles --resolve=helm-post-renderer`.
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=helm-post-renderer`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
 

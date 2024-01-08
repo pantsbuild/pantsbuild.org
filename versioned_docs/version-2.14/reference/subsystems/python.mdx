@@ -99,14 +99,14 @@ A mapping of logical names to lockfile paths used in your project.
 
 Many organizations only need a single resolve for their whole project, which is a good default and often the simplest thing to do. However, you may need multiple resolves, such as if you use two conflicting versions of a requirement in your repository.
 
-If you only need a single resolve, run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile.
+If you only need a single resolve, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfile.
 
 If you need multiple resolves:
 
 1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
 2. Set the default with `[python].default_resolve`.
 3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-4. Run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+4. Run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
 5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
 If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/v2.14/docs/targets for information about `parametrize`.
@@ -370,7 +370,7 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
   one_of='pex, poetry'
   default_repr={`pex`}
   removal_version='2.15.0.dev0'
-  removal_hint={'Pants will soon only support generating lockfiles via the Pex format, as Poetry-generated lockfiles mismatch with Pants\'s pip-based approach.<br /><br />If you do not want to use Pex lockfiles, you will still be able to manually generate lockfiles, e.g. by manually running `poetry export --dev` on your `poetry.lock`. See https://www.pantsbuild.org/v2.14/docs/python-third-party-dependencies#manually-generating-lockfiles for more information.<br /><br />While Pex generates locks in a proprietary JSON format, you can use the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export` goal for Pants to create a virtual environment for interoperability with tools like IDEs.<br /><br />Please open a GitHub issue or reach out on Slack if you encounter issues while migrating: https://www.pantsbuild.org/v2.14/docs/getting-help<br /><br />Tip: you can incrementally migrate one lockfile at-a-time by dynamically setting the option `--python-lockfile-generator`. For example:<br /><br />  /home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --python-lockfile-generator=pex generate-lockfiles --resolve=black --resolve=isort<br />  /home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --python-lockfile-generator=poetry generate-lockfiles --resolve=python-default'}
+  removal_hint={'Pants will soon only support generating lockfiles via the Pex format, as Poetry-generated lockfiles mismatch with Pants\'s pip-based approach.<br /><br />If you do not want to use Pex lockfiles, you will still be able to manually generate lockfiles, e.g. by manually running `poetry export --dev` on your `poetry.lock`. See https://www.pantsbuild.org/v2.14/docs/python-third-party-dependencies#manually-generating-lockfiles for more information.<br /><br />While Pex generates locks in a proprietary JSON format, you can use the `/home/josh/work/scie-pants/dist/pants export` goal for Pants to create a virtual environment for interoperability with tools like IDEs.<br /><br />Please open a GitHub issue or reach out on Slack if you encounter issues while migrating: https://www.pantsbuild.org/v2.14/docs/getting-help<br /><br />Tip: you can incrementally migrate one lockfile at-a-time by dynamically setting the option `--python-lockfile-generator`. For example:<br /><br />  /home/josh/work/scie-pants/dist/pants --python-lockfile-generator=pex generate-lockfiles --resolve=black --resolve=isort<br />  /home/josh/work/scie-pants/dist/pants --python-lockfile-generator=poetry generate-lockfiles --resolve=python-default'}
 >
 
 Whether to use Pex or Poetry with the `generate-lockfiles` goal.
@@ -389,7 +389,7 @@ Finally, installing from a Poetry-generated lockfile is slower than installing f
 
 However, Pex lockfile generation is a new feature. Given how vast the Python packaging ecosystem is, it is possible you may experience edge cases / bugs we haven&#x27;t yet covered. Bug reports are appreciated! https://github.com/pantsbuild/pants/issues/new/choose
 
-Note that while Pex generates locks in a proprietary JSON format, you can use the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export` goal for Pants to create a virtual environment for interoperability with tools like IDEs.
+Note that while Pex generates locks in a proprietary JSON format, you can use the `/home/josh/work/scie-pants/dist/pants export` goal for Pants to create a virtual environment for interoperability with tools like IDEs.
 
 </Option>
 
@@ -400,7 +400,7 @@ Note that while Pex generates locks in a proprietary JSON format, you can use th
   env_repr='PANTS_PYTHON_REQUIREMENT_CONSTRAINTS'
   default_repr={`None`}
   removal_version='3.0.0.dev0'
-  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles`.'}
+  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles`.'}
 >
 
 When resolving third-party requirements for your own code (vs. tools you run), use this constraints file to determine which versions to use.
@@ -420,7 +420,7 @@ This only applies when resolving user requirements, rather than tools you run li
   env_repr='PANTS_PYTHON_RESOLVE_ALL_CONSTRAINTS'
   default_repr={`True`}
   removal_version='3.0.0.dev0'
-  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles`.'}
+  removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles`.'}
 >
 
 (Only relevant when using `[python].requirement_constraints.`) If enabled, when resolving requirements, Pants will first resolve your entire constraints file as a single global resolve. Then, if the code uses a subset of your constraints file, Pants will extract the relevant requirements from that global resolve so that only what&#x27;s actually needed gets used. If disabled, Pants will not use a global resolve and will resolve each subset of your requirements independently.

@@ -34,7 +34,7 @@ green = "fmt lint check"
 all-changed = "--changed-since=HEAD --changed-dependees=transitive"
 ```
 
-This would allow you to run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 green all-changed`, which is shorthand for `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 fmt lint check --changed-since=HEAD --changed-dependees=transitive`.
+This would allow you to run `/home/josh/work/scie-pants/dist/pants green all-changed`, which is shorthand for `/home/josh/work/scie-pants/dist/pants fmt lint check --changed-since=HEAD --changed-dependees=transitive`.
 
 Notice: this option must be placed in a config file (e.g. `pants.toml` or `pantsrc`) to have any effect.
 
