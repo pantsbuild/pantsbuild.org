@@ -5,5 +5,4 @@ export function onRouteUpdate({ location, previousLocation }) {
       window.location.replace(location.pathname + `#${matches[1]}`);
     }
   }
-  console.log(location);
 }
