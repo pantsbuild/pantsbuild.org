@@ -1,0 +1,56 @@
+---
+title: visibility
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for the visibility rules implementation of the dependency rules API.
+
+Backend: <span className="color--primary">`pants.backend.experimental.visibility`</span>
+
+Config section: <span className="color--primary">`[visibility]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]visibility-skip`}
+  env_repr='PANTS_VISIBILITY_SKIP'
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Visibility Rules when running `pants lint`.
+
+</Option>
+
+### `enforce`
+
+<Option
+  cli_repr={`--[no-]visibility-enforce`}
+  env_repr='PANTS_VISIBILITY_ENFORCE'
+  default_repr={`True`}
+>
+
+Visibility rules are enforced whenever dependencies are calculated unless `enforce` is set to false.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
