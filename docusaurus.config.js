@@ -273,7 +273,7 @@ const config = {
     },
     algolia: {
       appId: "QD9KY1TRVK",
-      apiKey: "633f6891a9c1a7db671ce285a5a63819",
+      apiKey: "487e5f50fad326e6126bf593c06b3310",
       indexName: "pantsbuild",
       contextualSearch: true,
     },
