@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[pydocstyle]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Pydocstyle when running `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Pydocstyle when running `pants lint`.
 
 </Option>
 
@@ -139,7 +139,7 @@ Path to a Pydocstyle config file (http://www.pydocstyle.org/en/stable/usage.html
 
 If true, Pants will include any relevant config files during runs (`setup.cfg`, `tox.ini`, `.pydocstyle`, `.pydocstyle.ini`, `.pydocstylerc`, `.pydocstylerc.ini`, and `pyproject.toml`) searching for the configuration file in this particular order.
 
-Please note that even though `pydocstyle` keeps looking for a configuration file up the directory tree until one is found, Pants will only search for the config files in the repository root (from where you would normally run the `<function bin_name at 0x7f469f249b80>` command).
+Please note that even though `pydocstyle` keeps looking for a configuration file up the directory tree until one is found, Pants will only search for the config files in the repository root (from where you would normally run the `<function bin_name at 0x7fbb5d76bb80>` command).
 
 Use `[pydocstyle].config` instead if your config is in a non-standard location.
 

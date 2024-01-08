@@ -30,7 +30,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -43,7 +43,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 A human-readable description of the target.
 
-Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -97,7 +97,7 @@ The JVM packages this artifact provides for the purposes of dependency inference
 
 For example, the JVM artifact `junit:junit` might provide `["org.junit.**"]`.
 
-Usually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.19.0rc1/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `["io.confluent.**"]`.
+Usually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.19.0rc3/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `["io.confluent.**"]`.
 
 The package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `["org.junit.**"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.
 

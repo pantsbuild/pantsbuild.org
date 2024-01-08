@@ -24,7 +24,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -37,7 +37,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 A human-readable description of the target.
 
-Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -69,9 +69,9 @@ See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for h
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -139,126 +139,6 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 
 </Field>
 
-## `skip_pytype`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.typecheck.pytype"
->
-
-If true, don&#x27;t run pytype on this target&#x27;s code.
-
-</Field>
-
-## `skip_pydocstyle`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.pydocstyle"
->
-
-If true, don&#x27;t run pydocstyle on this target&#x27;s code.
-
-</Field>
-
-## `skip_black`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.black"
->
-
-If true, don&#x27;t run Black on this target&#x27;s code.
-
-</Field>
-
-## `skip_ruff`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.ruff"
->
-
-If true, don&#x27;t run ruff on this target&#x27;s code.
-
-</Field>
-
-## `skip_add_trailing_comma`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.add_trailing_comma"
->
-
-If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
-
-</Field>
-
-## `skip_flake8`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.flake8"
->
-
-If true, don&#x27;t run Flake8 on this target&#x27;s code.
-
-</Field>
-
-## `skip_isort`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.isort"
->
-
-If true, don&#x27;t run isort on this target&#x27;s code.
-
-</Field>
-
-## `skip_bandit`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.bandit"
->
-
-If true, don&#x27;t run Bandit on this target&#x27;s code.
-
-</Field>
-
-## `skip_autoflake`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.autoflake"
->
-
-If true, don&#x27;t run Autoflake on this target&#x27;s code.
-
-</Field>
-
-## `skip_mypy`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.typecheck.mypy"
->
-
-If true, don&#x27;t run MyPy on this target&#x27;s code.
-
-</Field>
-
 ## `skip_docformatter`
 
 <Field
@@ -271,15 +151,15 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
 
-## `skip_pyupgrade`
+## `skip_pytype`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.pyupgrade"
+    backend="pants.backend.experimental.python.typecheck.pytype"
 >
 
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+If true, don&#x27;t run pytype on this target&#x27;s code.
 
 </Field>
 
@@ -295,6 +175,30 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
 
+## `skip_flake8`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.flake8"
+>
+
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyright`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.typecheck.pyright"
+>
+
+If true, don&#x27;t run Pyright on this target&#x27;s code.
+
+</Field>
+
 ## `skip_pylint`
 
 <Field
@@ -304,6 +208,114 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_pydocstyle`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pydocstyle"
+>
+
+If true, don&#x27;t run pydocstyle on this target&#x27;s code.
+
+</Field>
+
+## `skip_mypy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
+## `skip_autoflake`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.autoflake"
+>
+
+If true, don&#x27;t run Autoflake on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pyupgrade"
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+</Field>
+
+## `skip_add_trailing_comma`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.add_trailing_comma"
+>
+
+If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
+
+</Field>
+
+## `skip_bandit`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.bandit"
+>
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
+</Field>
+
+## `skip_black`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.black"
+>
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
+</Field>
+
+## `skip_isort`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.isort"
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
+</Field>
+
+## `skip_ruff`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.ruff"
+>
+
+If true, don&#x27;t run ruff on this target&#x27;s code.
 
 </Field>
 
