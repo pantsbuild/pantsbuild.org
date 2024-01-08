@@ -1,5 +1,7 @@
 ---
 title: kotlin_junit_test
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -28,6 +34,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -40,6 +50,10 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -60,6 +74,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcecode}
+</div>
+
 ## `source`
 
 <Field
@@ -72,6 +90,10 @@ A single file that belongs to this target.
 Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codekotlinc_pluginscode}
+</div>
 
 ## `kotlinc_plugins`
 
@@ -88,6 +110,10 @@ If not specified, this will default to the plugins specified in `[kotlinc].plugi
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -100,6 +126,10 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_env_varscode}
+</div>
 
 ## `extra_env_vars`
 
@@ -116,6 +146,10 @@ This will be merged with and override values from `[test].extra_env_vars`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -129,6 +163,10 @@ If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codejdkcode}
+</div>
+
 ## `jdk`
 
 <Field
@@ -139,6 +177,10 @@ If not defined, will default to `[jvm].default_resolve`.
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexperimental_provides_typescode}
+</div>
 
 ## `experimental_provides_types`
 

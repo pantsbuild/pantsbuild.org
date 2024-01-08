@@ -1,5 +1,7 @@
 ---
 title: pex_binaries
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -32,6 +38,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -44,6 +54,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeentry_pointscode}
+</div>
 
 ## `entry_points`
 
@@ -59,6 +73,10 @@ Use a file name, relative to the BUILD file, like `app.py`. You can also set the
 If you want the entry point to be for a third-party dependency or to use a console script, use the `pex_binary` target directly.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoverridescode}
+</div>
 
 ## `overrides`
 
@@ -89,6 +107,10 @@ You can specify the same `entry_point` in multiple keys, so long as you don&#x27
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeenvironmentcode}
+</div>
+
 ## `environment`
 
 <Field
@@ -103,6 +125,10 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -123,6 +149,10 @@ See https://www.pantsbuild.org/v2.20/docs/python-interpreter-compatibility for h
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -137,6 +167,10 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -157,6 +191,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecomplete_platformscode}
+</div>
+
 ## `complete_platforms`
 
 <Field
@@ -176,6 +214,10 @@ See https://www.pantsbuild.org/v2.20/docs/pex for details.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolve_local_platformscode}
+</div>
+
 ## `resolve_local_platforms`
 
 <Field
@@ -188,6 +230,10 @@ For each of the `platforms` specified, attempt to find a local interpreter that 
 If a matching interpreter is found, use the interpreter to resolve distributions and build any that are only available in source distribution form. If no matching interpreter is found (or if this option is `False`), resolve for the platform by accepting only pre-built binary distributions (wheels).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinherit_pathcode}
+</div>
 
 ## `inherit_path`
 
@@ -202,6 +248,10 @@ Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` afte
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codestrip_pex_envcode}
+</div>
+
 ## `strip_pex_env`
 
 <Field
@@ -215,6 +265,10 @@ Most applications have no need for the `PEX*` environment variables that are use
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeignore_errorscode}
+</div>
+
 ## `ignore_errors`
 
 <Field
@@ -225,6 +279,10 @@ Most applications have no need for the `PEX*` environment variables that are use
 Should PEX ignore errors when it cannot resolve dependencies?
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshebangcode}
+</div>
 
 ## `shebang`
 
@@ -239,6 +297,10 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeemit_warningscode}
+</div>
+
 ## `emit_warnings`
 
 <Field
@@ -251,6 +313,10 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codelayoutcode}
+</div>
 
 ## `layout`
 
@@ -271,6 +337,10 @@ Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose ap
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_modecode}
+</div>
+
 ## `execution_mode`
 
 <Field
@@ -286,6 +356,10 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_requirementscode}
+</div>
+
 ## `include_requirements`
 
 <Field
@@ -297,6 +371,10 @@ Whether to include the third party requirements the binary depends on in the pac
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_sourcescode}
+</div>
+
 ## `include_sources`
 
 <Field
@@ -307,6 +385,10 @@ Whether to include the third party requirements the binary depends on in the pac
 Whether to include your first party sources the binary uses in the packaged PEX file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_toolscode}
+</div>
 
 ## `include_tools`
 
@@ -321,6 +403,10 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codevenv_site_packages_copiescode}
+</div>
+
 ## `venv_site_packages_copies`
 
 <Field
@@ -334,6 +420,10 @@ This can be used to work around problems with tools or libraries that are confus
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codevenv_hermetic_scriptscode}
+</div>
+
 ## `venv_hermetic_scripts`
 
 <Field
@@ -346,6 +436,10 @@ If execution_mode is &#x22;venv&#x22;, emit a hermetic venv `pex` script and her
 The venv `pex` script and the venv console scripts are constructed to be hermetic by default; Python is executed with `-sE` to restrict the `sys.path` to the PEX venv contents only. Setting this field to `False` elides the Python `-sE` restrictions and can be used to interoperate with frameworks that use `PYTHONPATH` manipulation to run code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderestartablecode}
+</div>
 
 ## `restartable`
 

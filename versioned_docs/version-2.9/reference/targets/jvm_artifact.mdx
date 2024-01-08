@@ -1,5 +1,7 @@
 ---
 title: jvm_artifact
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -31,6 +37,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -45,6 +55,10 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegroupcode}
+</div>
+
 ## `group`
 
 <Field
@@ -57,6 +71,10 @@ The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party JAR
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the group is `com.google.guava`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeartifactcode}
+</div>
 
 ## `artifact`
 
@@ -71,6 +89,10 @@ For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the artifact is `gua
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeversioncode}
+</div>
+
 ## `version`
 
 <Field
@@ -83,6 +105,10 @@ The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party J
 For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the version is `30.1.1-jre`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepackagescode}
+</div>
 
 ## `packages`
 
@@ -101,6 +127,10 @@ The package path may be made recursive to match symbols in subpackages by adding
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeurlcode}
+</div>
+
 ## `url`
 
 <Field
@@ -116,6 +146,10 @@ Note that `file:` URLs are not supported. Instead, use the `jar` field for local
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codejarcode}
+</div>
+
 ## `jar`
 
 <Field
@@ -130,6 +164,10 @@ Path is relative to the BUILD file.
 Use the `url` field for remote artifacts.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecompatible_resolvescode}
+</div>
 
 ## `compatible_resolves`
 

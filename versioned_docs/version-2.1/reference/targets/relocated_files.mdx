@@ -1,5 +1,7 @@
 ---
 title: relocated_files
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -55,6 +57,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -65,6 +71,10 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -77,6 +87,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codefiles_targetscode}
+</div>
+
 ## `files_targets`
 
 <Field
@@ -88,6 +102,10 @@ Addresses to the original `files()` targets that you want to relocate, such as `
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesrccode}
+</div>
+
 ## `src`
 
 <Field
@@ -98,6 +116,10 @@ Addresses to the original `files()` targets that you want to relocate, such as `
 The original prefix that you want to replace, such as `src/resources`. You can set this field to `""` to preserve the original path; the value in the `dest` field will then be added to the beginning of this original path.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedestcode}
+</div>
 
 ## `dest`
 

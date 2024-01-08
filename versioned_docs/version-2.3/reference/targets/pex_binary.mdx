@@ -1,5 +1,7 @@
 ---
 title: pex_binary
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 
@@ -59,6 +73,10 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -79,6 +97,10 @@ See https://www.pantsbuild.org/v2.3/docs/python-interpreter-compatibility.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
+
 ## `dependencies`
 
 <Field
@@ -93,6 +115,10 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeentry_pointcode}
+</div>
 
 ## `entry_point`
 
@@ -114,6 +140,10 @@ To leave off an entry point, set to &#x27;&#x3C;none&#x3E;&#x27;.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplatformscode}
+</div>
+
 ## `platforms`
 
 <Field
@@ -134,6 +164,10 @@ To use wheels for specific interpreter/platform tags, you can append them to the
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinherit_pathcode}
+</div>
+
 ## `inherit_path`
 
 <Field
@@ -146,6 +180,10 @@ Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the b
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codezip_safecode}
+</div>
 
 ## `zip_safe`
 
@@ -160,6 +198,10 @@ If the PEX is not zip safe, it will be written to disk prior to execution. You m
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codealways_write_cachecode}
+</div>
+
 ## `always_write_cache`
 
 <Field
@@ -171,6 +213,10 @@ Whether PEX should always write the .deps cache of the .pex file to disk or not.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeignore_errorscode}
+</div>
+
 ## `ignore_errors`
 
 <Field
@@ -181,6 +227,10 @@ Whether PEX should always write the .deps cache of the .pex file to disk or not.
 Should PEX ignore when it cannot resolve dependencies?
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshebangcode}
+</div>
 
 ## `shebang`
 
@@ -195,6 +245,10 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeemit_warningscode}
+</div>
+
 ## `emit_warnings`
 
 <Field
@@ -207,6 +261,10 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_modecode}
+</div>
 
 ## `execution_mode`
 
@@ -222,6 +280,10 @@ The traditional PEX file runs in &#x27;zipapp&#x27; mode (See: https://www.pytho
 The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_toolscode}
+</div>
 
 ## `include_tools`
 

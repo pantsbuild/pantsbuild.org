@@ -1,5 +1,7 @@
 ---
 title: shell_source
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -28,6 +34,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -40,6 +50,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -60,6 +74,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcecode}
+</div>
+
 ## `source`
 
 <Field
@@ -73,6 +91,10 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_shellcheckcode}
+</div>
+
 ## `skip_shellcheck`
 
 <Field
@@ -84,6 +106,10 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_shfmtcode}
+</div>
 
 ## `skip_shfmt`
 

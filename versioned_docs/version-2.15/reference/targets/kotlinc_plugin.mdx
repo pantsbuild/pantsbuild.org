@@ -1,5 +1,7 @@
 ---
 title: kotlinc_plugin
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -24,6 +26,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -36,6 +42,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -50,6 +60,10 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeartifactcode}
+</div>
+
 ## `artifact`
 
 <Field
@@ -60,6 +74,10 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 The address of a `jvm_artifact` that defines a plugin for `kotlinc`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplugin_idcode}
+</div>
 
 ## `plugin_id`
 
@@ -73,6 +91,10 @@ The ID for `kotlinc` to use when setting options for the plugin.
 If not set, the plugin ID defaults to the target name.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplugin_argscode}
+</div>
 
 ## `plugin_args`
 

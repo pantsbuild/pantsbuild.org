@@ -1,5 +1,7 @@
 ---
 title: docker_image
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -30,6 +32,10 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -42,6 +48,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -56,6 +66,10 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_build_argscode}
+</div>
+
 ## `extra_build_args`
 
 <Field
@@ -68,6 +82,10 @@ Build arguments (`--build-arg`) to use when building this image. Entries are eit
 Use `[docker].build_args` to set default build args for all images.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -88,6 +106,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcecode}
+</div>
+
 ## `source`
 
 <Field
@@ -100,6 +122,10 @@ The Dockerfile to use when building the Docker image.
 Use the `instructions` field instead if you prefer not having the Dockerfile in your source tree.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinstructionscode}
+</div>
 
 ## `instructions`
 
@@ -126,6 +152,10 @@ docker_image(
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecontext_rootcode}
+</div>
+
 ## `context_root`
 
 <Field
@@ -141,6 +171,10 @@ If `context_root` is not specified, it defaults to `[docker].default_context_roo
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeimage_tagscode}
+</div>
+
 ## `image_tags`
 
 <Field
@@ -155,6 +189,10 @@ tag may use placeholders in curly braces to be interpolated. The placeholders ar
 See https://www.pantsbuild.org/v2.13/docs/tagging-docker-images.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderegistriescode}
+</div>
 
 ## `registries`
 
@@ -190,6 +228,10 @@ The above example shows two valid `registry` options: using an alias to a config
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderepositorycode}
+</div>
+
 ## `repository`
 
 <Field
@@ -211,6 +253,10 @@ See the documentation for `[docker].default_repository` for more information.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeimage_labelscode}
+</div>
+
 ## `image_labels`
 
 <Field
@@ -225,6 +271,10 @@ label value may use placeholders in curly braces to be interpolated. The placeho
 See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manage-labels-on-objects) for more information.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesecretscode}
+</div>
 
 ## `secrets`
 
@@ -251,6 +301,10 @@ docker_image(
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesshcode}
+</div>
+
 ## `ssh`
 
 <Field
@@ -270,6 +324,10 @@ See [Docker documentation](https://docs.docker.com/develop/develop-images/build_
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pushcode}
+</div>
+
 ## `skip_push`
 
 <Field
@@ -280,6 +338,10 @@ See [Docker documentation](https://docs.docker.com/develop/develop-images/build_
 If set to true, do not push this image to registries when running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 publish`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetarget_stagecode}
+</div>
 
 ## `target_stage`
 
@@ -296,6 +358,10 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderestartablecode}
+</div>
+
 ## `restartable`
 
 <Field
@@ -306,6 +372,10 @@ Read more about [multi-stage Docker builds](https://docs.docker.com/develop/deve
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_hadolintcode}
+</div>
 
 ## `skip_hadolint`
 

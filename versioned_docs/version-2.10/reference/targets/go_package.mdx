@@ -1,5 +1,7 @@
 ---
 title: go_package
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -62,6 +76,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -77,6 +95,10 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_timeoutcode}
+</div>
+
 ## `test_timeout`
 
 <Field
@@ -90,6 +112,10 @@ If this field is not set, the test will never time out.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_testscode}
+</div>
+
 ## `skip_tests`
 
 <Field
@@ -100,6 +126,10 @@ If this field is not set, the test will never time out.
 If true, don&#x27;t run this package&#x27;s tests.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_gofmtcode}
+</div>
 
 ## `skip_gofmt`
 

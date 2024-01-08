@@ -1,5 +1,7 @@
 ---
 title: python_tests
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -32,6 +38,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -44,6 +54,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -64,6 +78,10 @@ See (https://www.pantsbuild.org/v2.5/docs/python-interpreter-compatibility).
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -78,6 +96,10 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -94,6 +116,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -106,6 +132,10 @@ A timeout (in seconds) used by each test file belonging to this target.
 This only applies if the option `--pytest-timeouts` is set to True.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderuntime_package_dependenciescode}
+</div>
 
 ## `runtime_package_dependencies`
 
@@ -122,6 +152,10 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_env_varscode}
+</div>
+
 ## `extra_env_vars`
 
 <Field
@@ -132,6 +166,10 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_blackcode}
+</div>
 
 ## `skip_black`
 
@@ -144,6 +182,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_docformattercode}
+</div>
+
 ## `skip_docformatter`
 
 <Field
@@ -154,6 +196,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_flake8code}
+</div>
 
 ## `skip_flake8`
 
@@ -166,6 +212,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_isortcode}
+</div>
+
 ## `skip_isort`
 
 <Field
@@ -176,6 +226,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_mypycode}
+</div>
 
 ## `skip_mypy`
 
@@ -188,6 +242,10 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_banditcode}
+</div>
+
 ## `skip_bandit`
 
 <Field
@@ -198,6 +256,10 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pylintcode}
+</div>
 
 ## `skip_pylint`
 

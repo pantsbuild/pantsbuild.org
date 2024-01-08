@@ -1,5 +1,7 @@
 ---
 title: experimental_shell_command
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -32,6 +34,10 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -45,6 +51,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -57,6 +67,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -77,6 +91,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecommandcode}
+</div>
+
 ## `command`
 
 <Field
@@ -90,6 +108,10 @@ The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codelog_outputcode}
+</div>
+
 ## `log_output`
 
 <Field
@@ -100,6 +122,10 @@ The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 Set to true if you want the output from the command logged to the console.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutputscode}
+</div>
 
 ## `outputs`
 
@@ -114,6 +140,10 @@ Use a trailing slash on directory names, i.e. `my_dir/`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -124,6 +154,10 @@ Use a trailing slash on directory names, i.e. `my_dir/`.
 Command execution timeout (in seconds).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetoolscode}
+</div>
 
 ## `tools`
 

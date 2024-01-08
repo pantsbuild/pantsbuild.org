@@ -1,5 +1,7 @@
 ---
 title: pex_binary
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -62,6 +76,10 @@ See https://www.pantsbuild.org/v2.12/docs/python-interpreter-compatibility for h
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -76,6 +94,10 @@ If not defined, will default to `[python].default_resolve`.
 All dependencies must share the same value for their `resolve` field.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -95,6 +117,10 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplatformscode}
+</div>
 
 ## `platforms`
 
@@ -120,6 +146,10 @@ Note that using an abbreviated platform means that certain resolves will fail wh
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecomplete_platformscode}
+</div>
+
 ## `complete_platforms`
 
 <Field
@@ -137,6 +167,10 @@ Complete platforms should be addresses of `file` targets that point to files tha
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolve_local_platformscode}
+</div>
+
 ## `resolve_local_platforms`
 
 <Field
@@ -149,6 +183,10 @@ For each of the `platforms` specified, attempt to find a local interpreter that 
 If a matching interpreter is found, use the interpreter to resolve distributions and build any that are only available in source distribution form. If no matching interpreter is found (or if this option is `False`), resolve for the platform by accepting only pre-built binary distributions (wheels).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinherit_pathcode}
+</div>
 
 ## `inherit_path`
 
@@ -163,6 +201,10 @@ Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` afte
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codestrip_pex_envcode}
+</div>
+
 ## `strip_pex_env`
 
 <Field
@@ -176,6 +218,10 @@ Most applications have no need for the `PEX*` environment variables that are use
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeignore_errorscode}
+</div>
+
 ## `ignore_errors`
 
 <Field
@@ -186,6 +232,10 @@ Most applications have no need for the `PEX*` environment variables that are use
 Should PEX ignore when it cannot resolve dependencies?
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshebangcode}
+</div>
 
 ## `shebang`
 
@@ -200,6 +250,10 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeemit_warningscode}
+</div>
+
 ## `emit_warnings`
 
 <Field
@@ -212,6 +266,10 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codelayoutcode}
+</div>
 
 ## `layout`
 
@@ -232,6 +290,10 @@ Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose ap
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_modecode}
+</div>
+
 ## `execution_mode`
 
 <Field
@@ -247,6 +309,10 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_requirementscode}
+</div>
+
 ## `include_requirements`
 
 <Field
@@ -257,6 +323,10 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 Whether to include the third party requirements the binary depends on in the packaged PEX file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_toolscode}
+</div>
 
 ## `include_tools`
 
@@ -271,6 +341,10 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderestartablecode}
+</div>
+
 ## `restartable`
 
 <Field
@@ -281,6 +355,10 @@ With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <p
 If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeentry_pointcode}
+</div>
 
 ## `entry_point`
 
@@ -302,6 +380,10 @@ You may either set this field or the `script` field, but not both. Leave off bot
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codescriptcode}
+</div>
+
 ## `script`
 
 <Field
@@ -314,6 +396,10 @@ Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a scri
 You may either set this field or the `entry_point` field, but not both. Leave off both fields to have no entry point.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 

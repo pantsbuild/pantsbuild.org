@@ -1,5 +1,7 @@
 ---
 title: go_package
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -62,6 +76,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -76,6 +94,10 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_extra_env_varscode}
+</div>
 
 ## `test_extra_env_vars`
 
@@ -92,6 +114,10 @@ This will be merged with and override values from `[test].extra_env_vars`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_timeoutcode}
+</div>
+
 ## `test_timeout`
 
 <Field
@@ -104,6 +130,10 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_racecode}
+</div>
 
 ## `test_race`
 
@@ -118,6 +148,10 @@ See https://go.dev/doc/articles/race_detector for additional information about t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_msancode}
+</div>
+
 ## `test_msan`
 
 <Field
@@ -131,6 +165,10 @@ See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional inf
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_asancode}
+</div>
+
 ## `test_asan`
 
 <Field
@@ -143,6 +181,10 @@ Enable interoperation between Go code and the C/C++ &#x22;address sanitizer&#x22
 See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeassembler_flagscode}
+</div>
 
 ## `assembler_flags`
 
@@ -167,6 +209,10 @@ Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecompiler_flagscode}
+</div>
+
 ## `compiler_flags`
 
 <Field
@@ -188,6 +234,10 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_testscode}
+</div>
+
 ## `skip_tests`
 
 <Field
@@ -198,6 +248,10 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 If true, don&#x27;t run this package&#x27;s tests.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_gofmtcode}
+</div>
 
 ## `skip_gofmt`
 

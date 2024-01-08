@@ -1,5 +1,7 @@
 ---
 title: run_shell_command
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -28,6 +30,10 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -41,6 +47,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -53,6 +63,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_dependenciescode}
+</div>
 
 ## `execution_dependencies`
 
@@ -69,6 +83,10 @@ See also `runnable_dependencies`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderunnable_dependenciescode}
+</div>
+
 ## `runnable_dependencies`
 
 <Field
@@ -84,6 +102,10 @@ See also `execution_dependencies`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecommandcode}
+</div>
+
 ## `command`
 
 <Field
@@ -96,6 +118,10 @@ Shell command to execute.
 The command is executed as `'bash -c <command>'` by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeworkdircode}
+</div>
 
 ## `workdir`
 

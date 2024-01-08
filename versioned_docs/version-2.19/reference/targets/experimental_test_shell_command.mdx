@@ -1,5 +1,7 @@
 ---
 title: experimental_test_shell_command
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -30,6 +32,10 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -43,6 +49,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -55,6 +65,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_dependenciescode}
+</div>
 
 ## `execution_dependencies`
 
@@ -73,6 +87,10 @@ See also `output_dependencies` and `runnable_dependencies`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecommandcode}
+</div>
+
 ## `command`
 
 <Field
@@ -86,6 +104,10 @@ The command is executed as `'bash -c <command>'` by default. If you want to invo
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codelog_outputcode}
+</div>
+
 ## `log_output`
 
 <Field
@@ -97,6 +119,10 @@ Set to true if you want the output logged to the console.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -107,6 +133,10 @@ Set to true if you want the output logged to the console.
 Command execution timeout (in seconds).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetoolscode}
+</div>
 
 ## `tools`
 
@@ -121,6 +151,10 @@ Only the tools explicitly provided will be available on the search PATH, and the
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_env_varscode}
+</div>
+
 ## `extra_env_vars`
 
 <Field
@@ -133,6 +167,10 @@ Additional environment variables to provide to the process.
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeenvironmentcode}
+</div>
 
 ## `environment`
 
@@ -149,6 +187,10 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_testscode}
+</div>
+
 ## `skip_tests`
 
 <Field
@@ -159,6 +201,10 @@ You can specify multiple valid environments by using `parametrize`. If `__local_
 If true, don&#x27;t run this tests for target.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeworkdircode}
+</div>
 
 ## `workdir`
 

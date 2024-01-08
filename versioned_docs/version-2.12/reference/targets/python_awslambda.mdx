@@ -1,5 +1,7 @@
 ---
 title: python_awslambda
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 
@@ -59,6 +73,10 @@ When running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -79,6 +97,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codehandlercode}
+</div>
+
 ## `handler`
 
 <Field
@@ -94,6 +116,10 @@ You must use the file name shorthand for file arguments to work with this target
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_requirementscode}
+</div>
+
 ## `include_requirements`
 
 <Field
@@ -105,6 +131,10 @@ Whether to resolve requirements and include them in the Pex. This is most useful
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderuntimecode}
+</div>
+
 ## `runtime`
 
 <Field
@@ -115,6 +145,10 @@ Whether to resolve requirements and include them in the Pex. This is most useful
 The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecomplete_platformscode}
+</div>
 
 ## `complete_platforms`
 
@@ -132,6 +166,10 @@ You can give a list of multiple complete platforms to create a multiplatform PEX
 Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
 
 ## `resolve`
 

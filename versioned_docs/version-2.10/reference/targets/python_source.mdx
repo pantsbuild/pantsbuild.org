@@ -1,5 +1,7 @@
 ---
 title: python_source
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -28,6 +34,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -40,6 +50,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -60,6 +74,10 @@ See https://www.pantsbuild.org/v2.10/docs/python-interpreter-compatibility for h
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
+
 ## `dependencies`
 
 <Field
@@ -79,6 +97,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -94,6 +116,10 @@ All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcecode}
+</div>
+
 ## `source`
 
 <Field
@@ -107,6 +133,10 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_autoflakecode}
+</div>
+
 ## `skip_autoflake`
 
 <Field
@@ -118,6 +148,10 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pyupgradecode}
+</div>
 
 ## `skip_pyupgrade`
 
@@ -131,6 +165,10 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_banditcode}
+</div>
+
 ## `skip_bandit`
 
 <Field
@@ -142,6 +180,10 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_blackcode}
+</div>
 
 ## `skip_black`
 
@@ -155,6 +197,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_docformattercode}
+</div>
+
 ## `skip_docformatter`
 
 <Field
@@ -166,6 +212,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_flake8code}
+</div>
 
 ## `skip_flake8`
 
@@ -179,6 +229,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_isortcode}
+</div>
+
 ## `skip_isort`
 
 <Field
@@ -190,6 +244,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pylintcode}
+</div>
 
 ## `skip_pylint`
 
@@ -203,6 +261,10 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_yapfcode}
+</div>
+
 ## `skip_yapf`
 
 <Field
@@ -214,6 +276,10 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_mypycode}
+</div>
 
 ## `skip_mypy`
 

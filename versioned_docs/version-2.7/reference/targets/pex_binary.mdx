@@ -1,5 +1,7 @@
 ---
 title: pex_binary
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 
@@ -59,6 +73,10 @@ When running `./pants package`, this path will be prefixed by `--distdir` (e.g. 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -79,6 +97,10 @@ See https://www.pantsbuild.org/v2.7/docs/python-interpreter-compatibility for ho
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
+
 ## `dependencies`
 
 <Field
@@ -93,6 +115,10 @@ Alternatively, you may include file names. Pants will find which target owns tha
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeentry_pointcode}
+</div>
 
 ## `entry_point`
 
@@ -113,6 +139,10 @@ You must use the file name shorthand for file arguments to work with this target
 To leave off an entry point, set to &#x27;&#x3C;none&#x3E;&#x27;.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplatformscode}
+</div>
 
 ## `platforms`
 
@@ -136,6 +166,10 @@ Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinherit_pathcode}
+</div>
+
 ## `inherit_path`
 
 <Field
@@ -148,6 +182,10 @@ Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the b
 Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codestrip_pex_envcode}
+</div>
 
 ## `strip_pex_env`
 
@@ -162,6 +200,10 @@ Most applications have no need for the `PEX*` environment variables that are use
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeignore_errorscode}
+</div>
+
 ## `ignore_errors`
 
 <Field
@@ -172,6 +214,10 @@ Most applications have no need for the `PEX*` environment variables that are use
 Should PEX ignore when it cannot resolve dependencies?
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshebangcode}
+</div>
 
 ## `shebang`
 
@@ -186,6 +232,10 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeemit_warningscode}
+</div>
+
 ## `emit_warnings`
 
 <Field
@@ -198,6 +248,10 @@ Whether or not to emit PEX warnings at runtime.
 The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_modecode}
+</div>
 
 ## `execution_mode`
 
@@ -215,6 +269,10 @@ The fastest execution mode in the steady state is &#x27;venv&#x27;, which genera
 The &#x27;unzip&#x27; mode is deprecated since the default &#x27;zipapp&#x27; mode now executes this way.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_toolscode}
+</div>
 
 ## `include_tools`
 

@@ -1,5 +1,7 @@
 ---
 title: adhoc_tool
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -29,6 +31,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.adhoc`</sp
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -41,6 +47,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -55,6 +65,10 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderunnablecode}
+</div>
+
 ## `runnable`
 
 <Field
@@ -66,6 +80,10 @@ Address to a target that can be invoked by the `run` goal (and does not set `run
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeargscode}
+</div>
+
 ## `args`
 
 <Field
@@ -76,6 +94,10 @@ Address to a target that can be invoked by the `run` goal (and does not set `run
 Extra arguments to pass into the `runnable` field.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeexecution_dependenciescode}
+</div>
 
 ## `execution_dependencies`
 
@@ -94,6 +116,10 @@ See also `output_dependencies` and `runnable_dependencies`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_dependenciescode}
+</div>
+
 ## `output_dependencies`
 
 <Field
@@ -106,6 +132,10 @@ Any dependencies that need to be present (as transitive dependencies) whenever t
 See also `execution_dependencies` and `runnable_dependencies`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderunnable_dependenciescode}
+</div>
 
 ## `runnable_dependencies`
 
@@ -122,6 +152,10 @@ See also `output_dependencies` and `execution_dependencies`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codelog_outputcode}
+</div>
+
 ## `log_output`
 
 <Field
@@ -132,6 +166,10 @@ See also `output_dependencies` and `execution_dependencies`.
 Set to true if you want the output logged to the console.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_filescode}
+</div>
 
 ## `output_files`
 
@@ -148,6 +186,10 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_directoriescode}
+</div>
+
 ## `output_directories`
 
 <Field
@@ -163,6 +205,10 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -173,6 +219,10 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 Command execution timeout (in seconds).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_env_varscode}
+</div>
 
 ## `extra_env_vars`
 
@@ -186,6 +236,10 @@ Additional environment variables to provide to the process.
 Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeworkdircode}
+</div>
 
 ## `workdir`
 
@@ -205,6 +259,10 @@ Values are relative to the build root, except in the following cases:
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderoot_output_directorycode}
+</div>
+
 ## `root_output_directory`
 
 <Field
@@ -223,6 +281,10 @@ Values are relative to the build root, except in the following cases:
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codestdoutcode}
+</div>
+
 ## `stdout`
 
 <Field
@@ -234,6 +296,10 @@ A filename to capture the contents of `stdout` to. Relative paths are relative t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codestderrcode}
+</div>
+
 ## `stderr`
 
 <Field
@@ -244,6 +310,10 @@ A filename to capture the contents of `stdout` to. Relative paths are relative t
 A filename to capture the contents of `stderr` to. Relative paths are relative to the value of `workdir`, absolute paths start at the build root.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeenvironmentcode}
+</div>
 
 ## `environment`
 

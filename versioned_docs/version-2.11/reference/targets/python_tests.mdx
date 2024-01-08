@@ -1,5 +1,7 @@
 ---
 title: python_tests
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -28,6 +34,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -40,6 +50,10 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
 
 ## `sources`
 
@@ -55,6 +69,10 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoverridescode}
+</div>
 
 ## `overrides`
 
@@ -85,6 +103,10 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_autoflakecode}
+</div>
+
 ## `skip_autoflake`
 
 <Field
@@ -96,6 +118,10 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pyupgradecode}
+</div>
 
 ## `skip_pyupgrade`
 
@@ -109,6 +135,10 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_banditcode}
+</div>
+
 ## `skip_bandit`
 
 <Field
@@ -120,6 +150,10 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_blackcode}
+</div>
 
 ## `skip_black`
 
@@ -133,6 +167,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_docformattercode}
+</div>
+
 ## `skip_docformatter`
 
 <Field
@@ -144,6 +182,10 @@ If true, don&#x27;t run Black on this target&#x27;s code.
 If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_flake8code}
+</div>
 
 ## `skip_flake8`
 
@@ -157,6 +199,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_isortcode}
+</div>
+
 ## `skip_isort`
 
 <Field
@@ -168,6 +214,10 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pylintcode}
+</div>
 
 ## `skip_pylint`
 
@@ -181,6 +231,10 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_yapfcode}
+</div>
+
 ## `skip_yapf`
 
 <Field
@@ -193,6 +247,10 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_mypycode}
+</div>
+
 ## `skip_mypy`
 
 <Field
@@ -204,6 +262,10 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -224,6 +286,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -239,6 +305,10 @@ All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -251,6 +321,10 @@ A timeout (in seconds) used by each test file belonging to this target.
 If unset, will default to `[pytest].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[pytest].timeout_maximum`. Only applies if the option `--pytest-timeouts` is set to true (the default).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderuntime_package_dependenciescode}
+</div>
 
 ## `runtime_package_dependencies`
 
@@ -267,6 +341,10 @@ You can include anything that can be built by `/home/josh/work/scie-pants/dist/s
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_env_varscode}
+</div>
+
 ## `extra_env_vars`
 
 <Field
@@ -277,6 +355,10 @@ You can include anything that can be built by `/home/josh/work/scie-pants/dist/s
 Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -296,6 +378,10 @@ If the field is not set, it will default to the option `[python].interpreter_con
 See https://www.pantsbuild.org/v2.11/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_testscode}
+</div>
 
 ## `skip_tests`
 

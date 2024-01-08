@@ -1,5 +1,7 @@
 ---
 title: jvm_war
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -27,6 +33,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -41,6 +51,10 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -54,6 +68,10 @@ If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecontentcode}
+</div>
+
 ## `content`
 
 <Field
@@ -64,6 +82,10 @@ If not defined, will default to `[jvm].default_resolve`.
 A list of addresses to `resources` and `files` targets with content to place in the document root of this WAR file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -84,6 +106,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptorcode}
+</div>
+
 ## `descriptor`
 
 <Field
@@ -94,6 +120,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 Path to a file containing the descriptor (i.e., `web.xml`) for this WAR file. Defaults to `web.xml`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshading_rulescode}
+</div>
 
 ## `shading_rules`
 
@@ -114,6 +144,10 @@ There are 4 possible shading rules available, which are as follows:
 When defining shading rules, just add them in this field using the previously listed rule alias and passing along the required parameters.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 

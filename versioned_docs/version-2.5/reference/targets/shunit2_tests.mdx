@@ -1,5 +1,7 @@
 ---
 title: shunit2_tests
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -32,6 +38,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -44,6 +54,10 @@ A human-readable description of the target.
 Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -60,6 +74,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -75,6 +93,10 @@ Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
+
 ## `timeout`
 
 <Field
@@ -86,6 +108,10 @@ A timeout (in seconds) used by each test file belonging to this target. If unset
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshellcode}
+</div>
+
 ## `shell`
 
 <Field
@@ -96,6 +122,10 @@ A timeout (in seconds) used by each test file belonging to this target. If unset
 Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderuntime_package_dependenciescode}
+</div>
 
 ## `runtime_package_dependencies`
 
@@ -112,6 +142,10 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_shellcheckcode}
+</div>
+
 ## `skip_shellcheck`
 
 <Field
@@ -122,6 +156,10 @@ You can include anything that can be built by `./pants package`, e.g. a `pex_bin
 If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_shfmtcode}
+</div>
 
 ## `skip_shfmt`
 

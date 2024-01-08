@@ -1,5 +1,7 @@
 ---
 title: protobuf_library
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -27,6 +33,10 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -39,6 +49,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
+
 ## `dependencies`
 
 <Field
@@ -49,6 +63,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
 
 ## `sources`
 
@@ -61,6 +79,10 @@ A list of files and globs that belong to this target. Paths are relative to the 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegrpccode}
+</div>
+
 ## `grpc`
 
 <Field
@@ -72,6 +94,10 @@ Whether to generate gRPC code or not.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepython_compatibilitycode}
+</div>
+
 ## `python_compatibility`
 
 <Field
@@ -82,6 +108,10 @@ Whether to generate gRPC code or not.
 A string for Python interpreter constraints on this target. This should be written in Requirement-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. As a shortcut, you can leave off `CPython`, e.g. `>=2.7` will be expanded to `CPython>=2.7`. If this is left off, this will default to the option `interpreter_constraints` in the [python-setup] scope. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepython_source_rootcode}
+</div>
 
 ## `python_source_root`
 

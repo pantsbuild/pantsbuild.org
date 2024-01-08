@@ -1,5 +1,7 @@
 ---
 title: helm_unittest_tests
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -28,6 +34,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -40,6 +50,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
 
 ## `sources`
 
@@ -55,6 +69,10 @@ Paths are relative to the BUILD file&#x27;s directory. You can ignore files/glob
 Example: `sources=['*_test.yaml', '!ignore_test.yaml']`
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -74,6 +92,10 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoverridescode}
+</div>
 
 ## `overrides`
 
@@ -103,6 +125,10 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codestrictcode}
+</div>
+
 ## `strict`
 
 <Field
@@ -113,6 +139,10 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 If set to true, parses the UnitTest suite files strictly.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
 
 ## `timeout`
 

@@ -1,5 +1,7 @@
 ---
 title: pyoxidizer_binary
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -32,6 +38,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -44,6 +54,10 @@ A human-readable description of the target.
 Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 
@@ -63,6 +77,10 @@ When running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetemplatecode}
+</div>
 
 ## `template`
 
@@ -86,6 +104,10 @@ Available template parameters:
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
+
 ## `dependencies`
 
 <Field
@@ -103,6 +125,10 @@ Target types other than `python_distribution` will be ignored.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeentry_pointcode}
+</div>
+
 ## `entry_point`
 
 <Field
@@ -117,6 +143,10 @@ It is specified with the full module declared: &#x27;path.to.module&#x27;.
 This field is passed into the PyOxidizer config as-is, and does not undergo validation checking.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codefilesystem_resourcescode}
+</div>
 
 ## `filesystem_resources`
 

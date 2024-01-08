@@ -1,5 +1,7 @@
 ---
 title: python_awslambda
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -27,6 +33,10 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -39,6 +49,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -49,6 +63,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 A list of files and globs that belong to this target. Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
 
 ## `interpreter_constraints`
 
@@ -61,6 +79,10 @@ The Python interpreters this code is compatible with. Each element should be wri
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
+
 ## `output_path`
 
 <Field
@@ -71,6 +93,10 @@ The Python interpreters this code is compatible with. Each element should be wri
 Where the built asset should be located. If undefined, this will use the path to the the BUILD, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`). Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -83,6 +109,10 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codehandlercode}
+</div>
+
 ## `handler`
 
 <Field
@@ -93,6 +123,10 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 AWS Lambda handler entrypoint (module.dotted.name:handler_func).
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderuntimecode}
+</div>
 
 ## `runtime`
 

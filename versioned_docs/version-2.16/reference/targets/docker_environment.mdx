@@ -1,5 +1,7 @@
 ---
 title: docker_environment
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">`pants.core`</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -32,6 +38,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -44,6 +54,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeimagecode}
+</div>
 
 ## `image`
 
@@ -60,6 +74,10 @@ The choice of image ID can affect the reproducibility of builds. Consider using 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplatformcode}
+</div>
+
 ## `platform`
 
 <Field
@@ -72,6 +90,10 @@ If set, Docker will always use the specified platform when pulling and running t
 If unset, Pants will default to the CPU architecture of your local host machine. For example, if you are running on Apple Silicon, it will use `linux_arm64`, whereas running on Intel macOS will use `linux_x86_64`. This mirrors Docker&#x27;s behavior when `--platform` is left off.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codefallback_environmentcode}
+</div>
 
 ## `fallback_environment`
 
@@ -86,6 +108,10 @@ Must be an environment name from the option `[environments-preview].names`, the 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_fortran_flagscode}
+</div>
+
 ## `golang_cgo_fortran_flags`
 
 <Field
@@ -97,6 +123,10 @@ Must be an environment name from the option `[environments-preview].names`, the 
 Overrides the default value from the option `[golang].cgo_fortran_flags` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_go_search_pathscode}
+</div>
 
 ## `golang_go_search_paths`
 
@@ -110,6 +140,10 @@ Overrides the default value from the option `[golang].go_search_paths` when this
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_fortran_binary_namecode}
+</div>
+
 ## `golang_cgo_fortran_binary_name`
 
 <Field
@@ -121,6 +155,10 @@ Overrides the default value from the option `[golang].go_search_paths` when this
 Overrides the default value from the option `[golang].cgo_fortran_binary_name` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_c_flagscode}
+</div>
 
 ## `golang_cgo_c_flags`
 
@@ -134,6 +172,10 @@ Overrides the default value from the option `[golang].cgo_c_flags` when this env
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_gcc_binary_namecode}
+</div>
+
 ## `golang_cgo_gcc_binary_name`
 
 <Field
@@ -145,6 +187,10 @@ Overrides the default value from the option `[golang].cgo_c_flags` when this env
 Overrides the default value from the option `[golang].cgo_gcc_binary_name` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetest_extra_env_varscode}
+</div>
 
 ## `test_extra_env_vars`
 
@@ -158,6 +204,10 @@ Overrides the default value from the option `[test].extra_env_vars` when this en
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepython_native_code_cpp_flagscode}
+</div>
+
 ## `python_native_code_cpp_flags`
 
 <Field
@@ -169,6 +219,10 @@ Overrides the default value from the option `[test].extra_env_vars` when this en
 Overrides the default value from the option `[python-native-code].cpp_flags` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedocker_executable_search_pathscode}
+</div>
 
 ## `docker_executable_search_paths`
 
@@ -182,6 +236,10 @@ Overrides the default value from the option `[docker].executable_search_paths` w
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesubprocess_environment_env_varscode}
+</div>
+
 ## `subprocess_environment_env_vars`
 
 <Field
@@ -193,6 +251,10 @@ Overrides the default value from the option `[docker].executable_search_paths` w
 Overrides the default value from the option `[subprocess-environment].env_vars` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepython_bootstrap_search_pathcode}
+</div>
 
 ## `python_bootstrap_search_path`
 
@@ -206,6 +268,10 @@ Overrides the default value from the option `[python-bootstrap].search_path` whe
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_subprocess_env_varscode}
+</div>
+
 ## `golang_subprocess_env_vars`
 
 <Field
@@ -217,6 +283,10 @@ Overrides the default value from the option `[python-bootstrap].search_path` whe
 Overrides the default value from the option `[golang].subprocess_env_vars` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_linker_flagscode}
+</div>
 
 ## `golang_cgo_linker_flags`
 
@@ -230,6 +300,10 @@ Overrides the default value from the option `[golang].cgo_linker_flags` when thi
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_cxx_flagscode}
+</div>
+
 ## `golang_cgo_cxx_flags`
 
 <Field
@@ -241,6 +315,10 @@ Overrides the default value from the option `[golang].cgo_linker_flags` when thi
 Overrides the default value from the option `[golang].cgo_cxx_flags` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_gxx_binary_namecode}
+</div>
 
 ## `golang_cgo_gxx_binary_name`
 
@@ -254,6 +332,10 @@ Overrides the default value from the option `[golang].cgo_gxx_binary_name` when 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_external_linker_binary_namecode}
+</div>
+
 ## `golang_external_linker_binary_name`
 
 <Field
@@ -265,6 +347,10 @@ Overrides the default value from the option `[golang].cgo_gxx_binary_name` when 
 Overrides the default value from the option `[golang].external_linker_binary_name` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codegolang_cgo_tool_search_pathscode}
+</div>
 
 ## `golang_cgo_tool_search_paths`
 
@@ -278,6 +364,10 @@ Overrides the default value from the option `[golang].cgo_tool_search_paths` whe
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepython_bootstrap_namescode}
+</div>
+
 ## `python_bootstrap_names`
 
 <Field
@@ -289,6 +379,10 @@ Overrides the default value from the option `[golang].cgo_tool_search_paths` whe
 Overrides the default value from the option `[python-bootstrap].names` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codejvm_global_optionscode}
+</div>
 
 ## `jvm_global_options`
 
@@ -302,6 +396,10 @@ Overrides the default value from the option `[jvm].global_options` when this env
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeapache_thrift_thrift_search_pathscode}
+</div>
+
 ## `apache_thrift_thrift_search_paths`
 
 <Field
@@ -313,6 +411,10 @@ Overrides the default value from the option `[jvm].global_options` when this env
 Overrides the default value from the option `[apache-thrift].thrift_search_paths` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedocker_env_varscode}
+</div>
 
 ## `docker_env_vars`
 
@@ -326,6 +428,10 @@ Overrides the default value from the option `[docker].env_vars` when this enviro
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepython_native_code_ld_flagscode}
+</div>
+
 ## `python_native_code_ld_flags`
 
 <Field
@@ -337,6 +443,10 @@ Overrides the default value from the option `[docker].env_vars` when this enviro
 Overrides the default value from the option `[python-native-code].ld_flags` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshell_setup_executable_search_pathcode}
+</div>
 
 ## `shell_setup_executable_search_path`
 
@@ -350,6 +460,10 @@ Overrides the default value from the option `[shell-setup].executable_search_pat
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codego_generate_env_varscode}
+</div>
+
 ## `go_generate_env_vars`
 
 <Field
@@ -361,6 +475,10 @@ Overrides the default value from the option `[shell-setup].executable_search_pat
 Overrides the default value from the option `[go-generate].env_vars` when this environment target is active.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepex_executable_search_pathscode}
+</div>
 
 ## `pex_executable_search_paths`
 

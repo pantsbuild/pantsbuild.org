@@ -1,5 +1,7 @@
 ---
 title: helm_deployment
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -27,6 +33,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -41,6 +51,10 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderelease_namecode}
+</div>
+
 ## `release_name`
 
 <Field
@@ -51,6 +65,10 @@ Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented :
 Name of the release used in the deployment. If not set, the target name will be used instead.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -71,6 +89,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -81,6 +103,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 Helm configuration files for a given deployment.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codenamespacecode}
+</div>
 
 ## `namespace`
 
@@ -93,6 +119,10 @@ Kubernetes namespace for the given deployment.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_crdscode}
+</div>
+
 ## `skip_crds`
 
 <Field
@@ -103,6 +133,10 @@ Kubernetes namespace for the given deployment.
 If true, then does not deploy the Custom Resource Definitions that are defined in the chart.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codevaluescode}
+</div>
 
 ## `values`
 
@@ -134,6 +168,10 @@ Check the Helm backend documentation on what are the options available and its c
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecreate_namespacecode}
+</div>
+
 ## `create_namespace`
 
 <Field
@@ -145,6 +183,10 @@ If true, the namespace will be created if it doesn&#x27;t exist.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeno_hookscode}
+</div>
+
 ## `no_hooks`
 
 <Field
@@ -155,6 +197,10 @@ If true, the namespace will be created if it doesn&#x27;t exist.
 If true, none of the lifecycle hooks of the given chart will be included in the deployment.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetimeoutcode}
+</div>
 
 ## `timeout`
 

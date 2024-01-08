@@ -1,5 +1,7 @@
 ---
 title: docker_image
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -29,6 +35,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -43,6 +53,10 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeextra_build_argscode}
+</div>
+
 ## `extra_build_args`
 
 <Field
@@ -55,6 +69,10 @@ Build arguments (`--build-arg`) to use when building this image. Entries are eit
 Use `[docker].build_args` to set default build args for all images.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -71,6 +89,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcecode}
+</div>
+
 ## `source`
 
 <Field
@@ -81,6 +103,10 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 The Dockerfile to use when building the Docker image.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeimage_tagscode}
+</div>
 
 ## `image_tags`
 
@@ -96,6 +122,10 @@ Each tag may use placeholders in curly braces to be interpolated. The placeholde
 See &#123;doc_url(&#x27;tagging-docker-images&#x27;)&#125;.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderegistriescode}
+</div>
 
 ## `registries`
 
@@ -135,6 +165,10 @@ The above example shows two valid `registry` options: using an alias to a config
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderepositorycode}
+</div>
+
 ## `repository`
 
 <Field
@@ -148,6 +182,10 @@ It uses the `[docker].default_repository` by default.This field value may contai
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeskip_pushcode}
+</div>
+
 ## `skip_push`
 
 <Field
@@ -158,6 +196,10 @@ It uses the `[docker].default_repository` by default.This field value may contai
 If set to true, do not push this image to registries when running `./pants publish`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderestartablecode}
+</div>
 
 ## `restartable`
 

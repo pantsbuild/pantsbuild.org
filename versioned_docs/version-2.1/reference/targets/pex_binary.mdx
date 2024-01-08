@@ -1,5 +1,7 @@
 ---
 title: pex_binary
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -18,6 +20,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -28,6 +34,10 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -40,6 +50,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinterpreter_constraintscode}
+</div>
+
 ## `interpreter_constraints`
 
 <Field
@@ -50,6 +64,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 The Python interpreters this code is compatible with. Each element should be written in pip-style format, e.g. &#x27;CPython==2.7._&#x27; or &#x27;CPython&#x3E;=3.6,&#x3C;4&#x27;. You can leave off `CPython` as a shorthand, e.g. &#x27;&#x3E;=2.7&#x27; will be expanded to &#x27;CPython&#x3E;=2.7&#x27;. Specify more than one element to OR the constraints, e.g. `['PyPy==3.7._', 'CPython==3.7.\*']`means either PyPy 3.7 _or_ CPython 3.7. If the field is not set, it will default to the option`[python-setup].interpreter_constraints]`. See https://www.pantsbuild.org/docs/python-interpreter-compatibility.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 
@@ -62,6 +80,10 @@ Where the built asset should be located. If undefined, this will use the path to
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codesourcescode}
+</div>
+
 ## `sources`
 
 <Field
@@ -72,6 +94,10 @@ Where the built asset should be located. If undefined, this will use the path to
 A single file containing the executable, such as [&#x27;app.py&#x27;]. You can leave this off if you include the executable file in one of this target&#x27;s `dependencies` and explicitly set this target&#x27;s `entry_point`. This must have 0 or 1 files, but no more. If you depend on more files, put them in a `python_library` target and include that target in the `dependencies` field.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -84,6 +110,10 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeentry_pointcode}
+</div>
+
 ## `entry_point`
 
 <Field
@@ -94,6 +124,10 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 The entry point for the binary. If omitted, Pants will use the module name from the `sources` field, e.g. `project/app.py` will become the entry point `project.app` .
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplatformscode}
+</div>
 
 ## `platforms`
 
@@ -106,6 +140,10 @@ The platforms the built PEX should be compatible with. This defaults to the curr
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinherit_pathcode}
+</div>
+
 ## `inherit_path`
 
 <Field
@@ -116,6 +154,10 @@ The platforms the built PEX should be compatible with. This defaults to the curr
 Whether to inherit the `sys.path` of the environment that the binary runs in. Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codezip_safecode}
+</div>
 
 ## `zip_safe`
 
@@ -128,6 +170,10 @@ Whether or not this binary is safe to run in compacted (zip-file) form. If the P
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codealways_write_cachecode}
+</div>
+
 ## `always_write_cache`
 
 <Field
@@ -138,6 +184,10 @@ Whether or not this binary is safe to run in compacted (zip-file) form. If the P
 Whether PEX should always write the .deps cache of the .pex file to disk or not. This can use less memory in RAM constrained environments.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeignore_errorscode}
+</div>
 
 ## `ignore_errors`
 
@@ -150,6 +200,10 @@ Should we ignore when PEX cannot resolve dependencies?
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeshebangcode}
+</div>
+
 ## `shebang`
 
 <Field
@@ -160,6 +214,10 @@ Should we ignore when PEX cannot resolve dependencies?
 Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints. This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeemit_warningscode}
+</div>
 
 ## `emit_warnings`
 

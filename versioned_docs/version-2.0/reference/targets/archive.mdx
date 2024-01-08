@@ -1,5 +1,7 @@
 ---
 title: archive
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -15,6 +17,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -25,6 +31,10 @@ Backend: <span className="color--primary">``</span>
 Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -37,6 +47,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
+
 ## `output_path`
 
 <Field
@@ -47,6 +61,10 @@ A human-readable description of the target. Use `./pants list --documented ::` t
 Where the built asset should be located. If undefined, this will use the path to the the BUILD, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`). Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codepackagescode}
+</div>
 
 ## `packages`
 
@@ -59,6 +77,10 @@ Addresses to any targets that can be built with `./pants package`. Pants will bu
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codefilescode}
+</div>
+
 ## `files`
 
 <Field
@@ -69,6 +91,10 @@ Addresses to any targets that can be built with `./pants package`. Pants will bu
 Addresses to any `files` or `relocated_files` targets to include in the archive, e.g. `["resources:logo"]`. This is useful to include any loose files, like data files, image assets, or config files. This will ignore any targets that are not `files` or `relocated_files` targets. If you instead want those files included in any packages specified in the `packages` field for this target, then use a `resources` target and have the original package depend on the resources.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeformatcode}
+</div>
 
 ## `format`
 

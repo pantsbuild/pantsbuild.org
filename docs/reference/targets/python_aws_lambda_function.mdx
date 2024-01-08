@@ -1,5 +1,7 @@
 ---
 title: python_aws_lambda_function
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -17,6 +19,10 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -30,6 +36,10 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
+
 ## `description`
 
 <Field
@@ -42,6 +52,10 @@ A human-readable description of the target.
 Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeoutput_pathcode}
+</div>
 
 ## `output_path`
 
@@ -60,6 +74,10 @@ Warning: setting this value risks naming collisions with other package targets y
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeinclude_requirementscode}
+</div>
+
 ## `include_requirements`
 
 <Field
@@ -70,6 +88,10 @@ Warning: setting this value risks naming collisions with other package targets y
 Whether to resolve requirements and include them in the AWS Lambda artifact. This is most useful with Lambda Layers to make code uploads smaller when third-party requirements are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderuntimecode}
+</div>
 
 ## `runtime`
 
@@ -83,6 +105,10 @@ The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs
 N.B.: only one of this and `complete_platforms` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. If you have issues either packaging the AWS Lambda PEX or running it as a deployed AWS Lambda function, you should try using an explicit `complete_platforms` instead.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codecomplete_platformscode}
+</div>
 
 ## `complete_platforms`
 
@@ -105,6 +131,10 @@ N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default 
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#coderesolvecode}
+</div>
+
 ## `resolve`
 
 <Field
@@ -120,6 +150,10 @@ All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeenvironmentcode}
+</div>
+
 ## `environment`
 
 <Field
@@ -134,6 +168,10 @@ Once environments are defined in `[environments-preview].names`, you can specify
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedependenciescode}
+</div>
 
 ## `dependencies`
 
@@ -153,6 +191,10 @@ If the target is in the same BUILD file, you can leave off the BUILD file path, 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codehandlercode}
+</div>
 
 ## `handler`
 

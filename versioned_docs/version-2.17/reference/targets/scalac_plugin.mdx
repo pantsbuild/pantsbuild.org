@@ -1,5 +1,7 @@
 ---
 title: scalac_plugin
+# The old-style `code...code` anchors are heading level 6, and shouldn't be visible in ToC
+toc_max_heading_level: 5
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -19,6 +21,10 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 <span className={styles.options}>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codetagscode}
+</div>
+
 ## `tags`
 
 <Field
@@ -31,6 +37,10 @@ Arbitrary strings to describe a target.
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codedescriptioncode}
+</div>
 
 ## `description`
 
@@ -45,6 +55,10 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 
 </Field>
 
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeartifactcode}
+</div>
+
 ## `artifact`
 
 <Field
@@ -55,6 +69,10 @@ Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descr
 The address of a `jvm_artifact` that defines a plugin for `scalac`.
 
 </Field>
+
+<div aria-hidden="true" style={ { visibility: 'hidden', height: 0 } }>
+###### {#codeplugin_namecode}
+</div>
 
 ## `plugin_name`
 
