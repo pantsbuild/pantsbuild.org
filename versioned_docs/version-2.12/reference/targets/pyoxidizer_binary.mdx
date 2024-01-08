@@ -28,7 +28,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -41,7 +41,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 A human-readable description of the target.
 
-Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -58,7 +58,7 @@ If undefined, this will use the path to the BUILD file, followed by the target n
 
 Regardless of whether you use the default or set this field, the path will end with PyOxidizer&#x27;s file format of `<platform>/{debug,release}/install/<binary_name>`, where `platform` is a Rust platform triplet like `aarch-64-apple-darwin` and `binary_name` is the `name` of the `pyoxidizer_target`. So, using the default for this field, the target `src/python/project:bin` might have a final path like `src.python.project/bin/aarch-64-apple-darwin/release/bin`.
 
-When running `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+When running `/home/josh/work/scie-pants/dist/pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
 

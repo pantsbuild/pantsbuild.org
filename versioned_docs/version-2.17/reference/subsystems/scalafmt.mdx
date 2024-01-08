@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[scalafmt]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use scalafmt when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use scalafmt when running `pants fmt` and `pants lint`.
 
 </Option>
 
@@ -67,7 +67,7 @@ Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.17.1rc3/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.
 
-To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 jvm-generate-lockfiles --resolve=scalafmt`.
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=scalafmt`.
 
 </Option>
 

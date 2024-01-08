@@ -24,7 +24,7 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -37,7 +37,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 A human-readable description of the target.
 
-Use `scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -76,9 +76,9 @@ Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
 
 Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `scie-pants-linux-x86_64 dependencies` or `scie-pants-linux-x86_64 peek` on this target to get the final result.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/v2.20/docs/targets for more about how addresses are formed, including for generated targets. You can also run `scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/v2.20/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -99,7 +99,7 @@ If undefined, this will use the path to the BUILD file, For example, `src/charts
 
 Regardless of whether you use the default or set this field, the path will end with Helms&#x27;s file format of `<chart_name>-<chart_version>.tgz`, where `chart_name` and `chart_version` are the values extracted from the Chart.yaml file. So, using the default for this field, the target `src/charts/mychart:tgt_name` might have a final path like `src.charts.mychart/tgt_name/mychart-0.1.0.tgz`.
 
-When running `scie-pants-linux-x86_64 package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
 
@@ -183,7 +183,7 @@ The above example shows two valid `registry` options: using an alias to a config
     default_repr={`False`}
 >
 
-If set to true, do not push this Helm chart to registries when running `scie-pants-linux-x86_64 publish`.
+If set to true, do not push this Helm chart to registries when running `pants publish`.
 
 </Field>
 
@@ -194,7 +194,7 @@ If set to true, do not push this Helm chart to registries when running `scie-pan
     default_repr={`False`}
 >
 
-If set to true, do not run any linting in this Helm chart when running `scie-pants-linux-x86_64 lint`.
+If set to true, do not run any linting in this Helm chart when running `pants lint`.
 
 </Field>
 

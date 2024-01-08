@@ -89,14 +89,14 @@ A mapping of logical names to lockfile paths used in your project.
 
 Many organizations only need a single resolve for their whole project, which is a good default and often the simplest thing to do. However, you may need multiple resolves, such as if you use two conflicting versions of a requirement in your repository.
 
-If you only need a single resolve, run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfile.
+If you only need a single resolve, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfile.
 
 If you need multiple resolves:
 
 1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
 2. Set the default with `[python].default_resolve`.
 3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-4. Run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+4. Run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
 5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
 If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/v2.11/docs/targets for information about `parametrize`. For example:
@@ -189,7 +189,7 @@ Finally, installing from a Poetry-generated lockfile is slower than installing f
 
 However, Pex lockfile generation is a beta feature. Given how vast the Python packaging ecosystem is, it is possible you may experience edge cases / bugs we haven&#x27;t yet covered. Bug reports are appreciated! https://github.com/pantsbuild/pants/issues/new/choose
 
-Note that while Pex generates locks in a proprietary JSON format, you can use the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 export` goal for Pants to create a virtual environment for interoperability with tools like IDEs.
+Note that while Pex generates locks in a proprietary JSON format, you can use the `/home/josh/work/scie-pants/dist/pants export` goal for Pants to create a virtual environment for interoperability with tools like IDEs.
 
 </Option>
 

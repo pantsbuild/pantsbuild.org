@@ -220,13 +220,13 @@ Run goals continuously as file changes are detected.
   default_repr={`True`}
 >
 
-If true, Pants will use the old, deprecated semantics for directory arguments like `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 test dir`: directories are shorthand for the target `dir:dir`, i.e. the target that leaves off `name=`.
+If true, Pants will use the old, deprecated semantics for directory arguments like `/home/josh/work/scie-pants/dist/pants test dir`: directories are shorthand for the target `dir:dir`, i.e. the target that leaves off `name=`.
 
-If false, Pants will use the new semantics: directory arguments will match all files and targets in the directory, e.g. `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 test dir` will run all tests in `dir`.
+If false, Pants will use the new semantics: directory arguments will match all files and targets in the directory, e.g. `/home/josh/work/scie-pants/dist/pants test dir` will run all tests in `dir`.
 
 The new semantics will become the default in Pants 2.14, and the old semantics will be removed in 2.15.
 
-This also impacts the behavior of the `tailor` goal. If this option is true, `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 tailor` without additional arguments will run over the whole project, and `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 tailor dir` will run over `dir` and all recursive sub-directories. If false, you must specify arguments, like `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 tailor ::` to run over the whole project; specifying a directory will only add targets for that directory.
+This also impacts the behavior of the `tailor` goal. If this option is true, `/home/josh/work/scie-pants/dist/pants tailor` without additional arguments will run over the whole project, and `/home/josh/work/scie-pants/dist/pants tailor dir` will run over `dir` and all recursive sub-directories. If false, you must specify arguments, like `/home/josh/work/scie-pants/dist/pants tailor ::` to run over the whole project; specifying a directory will only add targets for that directory.
 
 </Option>
 
@@ -353,9 +353,9 @@ ignore_warnings = [
 
 Use this Pants version. Note that Pants only uses this to verify that you are using the requested version, as Pants cannot dynamically change the version it is using once the program is already running.
 
-If you use the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64` script from https://www.pantsbuild.org/v2.13/docs/installation, however, changing the value in your `pants.toml` will cause the new version to be installed and run automatically.
+If you use the `/home/josh/work/scie-pants/dist/pants` script from https://www.pantsbuild.org/v2.13/docs/installation, however, changing the value in your `pants.toml` will cause the new version to be installed and run automatically.
 
-Run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --version` to check what is being used.
+Run `/home/josh/work/scie-pants/dist/pants --version` to check what is being used.
 
 </Option>
 
@@ -856,7 +856,7 @@ Whether or not to use nailgun to run JVM requests that are marked as supporting 
   default_repr={`3`}
 >
 
-The time in seconds to wait when gracefully shutting down an interactive process (such as one opened using `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 run`) before killing it.
+The time in seconds to wait when gracefully shutting down an interactive process (such as one opened using `/home/josh/work/scie-pants/dist/pants run`) before killing it.
 
 </Option>
 

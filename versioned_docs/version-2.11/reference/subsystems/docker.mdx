@@ -151,7 +151,7 @@ Additional arguments to use for `docker run` invocations.
 Example:
 
 ```
-$ /home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
+$ /home/josh/work/scie-pants/dist/pants run --docker-run-args="-p 127.0.0.1:80:8080/tcp --name demo" src/example:image -- [image entrypoint args]
 ```
 
 To provide the top-level options to the `docker` client, use `[docker].env_vars` to configure the [Environment variables](https://docs.docker.com/engine/reference/commandline/cli/#environment-variables) as appropriate.

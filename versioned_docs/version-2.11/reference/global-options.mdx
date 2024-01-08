@@ -314,9 +314,9 @@ ignore_warnings = [
 
 Use this Pants version. Note that Pants only uses this to verify that you are using the requested version, as Pants cannot dynamically change the version it is using once the program is already running.
 
-If you use the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64` script from https://www.pantsbuild.org/v2.11/docs/installation, however, changing the value in your `pants.toml` will cause the new version to be installed and run automatically.
+If you use the `/home/josh/work/scie-pants/dist/pants` script from https://www.pantsbuild.org/v2.11/docs/installation, however, changing the value in your `pants.toml` will cause the new version to be installed and run automatically.
 
-Run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --version` to check what is being used.
+Run `/home/josh/work/scie-pants/dist/pants --version` to check what is being used.
 
 </Option>
 
@@ -1183,7 +1183,7 @@ True if stats recording should be allowed to complete asynchronously when `pants
   env_repr='PANTS_USE_DEPRECATED_PYTHON_MACROS'
   default_repr={`False`}
   removal_version='2.12.0.dev0'
-  removal_hint={'In Pants 2.12, the deprecated Python macros like `python_requirements` will be replaced with improved target generators, which are now enabled by default.<br /><br />If you already migrated by setting `use_deprecated_python_macros = false`, simply delete the option.<br /><br />Otherwise, when you are ready to upgrade, follow these steps:<br /><br />  1. Run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 update-build-files --fix-python-macros`<br />  2. Check the logs for an ERROR log to see if you have to manually add `name=` anywhere.<br />  3. Remove `use_deprecated_python_macros = true` from `[GLOBAL]` in pants.toml.<br /><br />(Why upgrade from the old macro mechanism to target generation? Among other benefits, it makes sure that the Pants daemon is properly invalidated when you change `requirements.txt` and `pyproject.toml`.)'}
+  removal_hint={'In Pants 2.12, the deprecated Python macros like `python_requirements` will be replaced with improved target generators, which are now enabled by default.<br /><br />If you already migrated by setting `use_deprecated_python_macros = false`, simply delete the option.<br /><br />Otherwise, when you are ready to upgrade, follow these steps:<br /><br />  1. Run `/home/josh/work/scie-pants/dist/pants update-build-files --fix-python-macros`<br />  2. Check the logs for an ERROR log to see if you have to manually add `name=` anywhere.<br />  3. Remove `use_deprecated_python_macros = true` from `[GLOBAL]` in pants.toml.<br /><br />(Why upgrade from the old macro mechanism to target generation? Among other benefits, it makes sure that the Pants daemon is properly invalidated when you change `requirements.txt` and `pyproject.toml`.)'}
 >
 
 If true, use Pants&#x27;s deprecated macro system for `python_requirements`, `poetry_requirements`, and `pipenv_requirements` rather than target generation.

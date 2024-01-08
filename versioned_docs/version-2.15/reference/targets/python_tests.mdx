@@ -24,7 +24,7 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 Arbitrary strings to describe a target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 --tag='integration_test' test ::` to only run on targets with that tag.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -37,7 +37,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 
 A human-readable description of the target.
 
-Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list --documented ::` to see all targets with descriptions.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -223,9 +223,9 @@ If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 dependencies` or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 peek` on this target to get the final result.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/v2.15/docs/targets for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/v2.15/docs/targets for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -330,11 +330,11 @@ When tests with the same `batch_compatibility_tag` have incompatibilities in som
     default_repr={`None`}
 >
 
-Addresses to targets that can be built with the `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package` goal and whose resulting artifacts should be included in the test run.
+Addresses to targets that can be built with the `/home/josh/work/scie-pants/dist/pants package` goal and whose resulting artifacts should be included in the test run.
 
-Pants will build the artifacts as if you had run `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+Pants will build the artifacts as if you had run `/home/josh/work/scie-pants/dist/pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
 
-You can include anything that can be built by `/home/josh/work/scie-pants/dist/scie-pants-linux-x86_64 package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+You can include anything that can be built by `/home/josh/work/scie-pants/dist/pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
 
 </Field>
 

@@ -25,7 +25,7 @@ Config section: <span className="color--primary">`[black]`</span>
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Black when running `scie-pants-linux-x86_64 fmt` and `scie-pants-linux-x86_64 lint`.
+If true, don&#x27;t use Black when running `pants fmt` and `pants lint`.
 
 </Option>
 
@@ -189,7 +189,7 @@ Path to a lockfile used for installing the tool.
 
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.17.1rc3/src/python/pants/backend/python/lint/black/black.lock for the default lockfile contents.
 
-To use a custom lockfile, set this option to a file path relative to the build root, then run `scie-pants-linux-x86_64 generate-lockfiles --resolve=black`.
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=black`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
 
@@ -205,7 +205,7 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
 >
 
-If true, export a virtual environment with Black when running `scie-pants-linux-x86_64 export`.
+If true, export a virtual environment with Black when running `pants export`.
 
 This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
