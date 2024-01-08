@@ -101,7 +101,12 @@ const config = {
                 }, {})),
           },
           remarkPlugins: [captionedCode],
-          editUrl: "https://github.com/pantsbuild/pantsbuild.org/edit/main/",
+          editUrl: ({ docPath }) => {
+            if (docPath.startsWith("reference/")) {
+              return undefined;
+            }
+            return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
+          },
         },
         blog: includeBlog && {
           showReadingTime: true,
