@@ -1,3 +1,5 @@
+import Link from '@docusaurus/Link';
+
 export default function Option({
   children,
   cli_repr,
@@ -51,8 +53,10 @@ export default function Option({
         {target_field_name && (
           <span>
             Can be overriden by field
-            <code>{target_field_name}</code> on <code>local_environment</code>,{" "}
-            <code>docker_environment</code>, or <code>remote_environment</code>{" "}
+            <code>{target_field_name}</code> on{" "}
+            <Link to="../targets/local_environment"><code>local_environment</code></Link>,{" "}
+            <Link to="../targets/docker_environment"><code>docker_environment</code></Link>,{" "}
+            or <Link to="../targets/remote_environment"><code>remote_environment</code></Link>
             targets.
           </span>
         )}
