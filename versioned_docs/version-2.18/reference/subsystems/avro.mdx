@@ -1,0 +1,46 @@
+---
+title: avro
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+General Avro codegen settings.
+
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.avro.java`</span>
+
+Config section: <span className="color--primary">`[avro]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `tailor`
+
+<Option
+  cli_repr={`--[no-]avro-tailor`}
+  env_repr='PANTS_AVRO_TAILOR'
+  toml_repr={`[avro]
+tailor = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `avro_sources` targets with the `tailor` goal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

@@ -56,6 +56,32 @@ Example: `sources=['openapi.json']`
 
 </Field>
 
+## `jvm_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.java"
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
 ## `skip_spectral`
 
 <Field
@@ -65,6 +91,42 @@ Example: `sources=['openapi.json']`
 >
 
 If true, don&#x27;t run `spectral lint` on this target&#x27;s code.
+
+</Field>
+
+## `skip_java`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.openapi.codegen.java"
+>
+
+If true, skips generation of Java sources from this target
+
+</Field>
+
+## `java_api_package`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.java"
+>
+
+Root package for generated API code
+
+</Field>
+
+## `java_model_package`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.java"
+>
+
+Root package for generated model code
 
 </Field>
 
