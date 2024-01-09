@@ -160,8 +160,8 @@ helpAll.scope_to_help_info[""].advanced.forEach((option) => {
     cachedir = option.default.split("/").slice(0, -2).join("/");
   }
 });
-// NB: The default changes depending on the environment, so hardcode.
 helpAll.scope_to_help_info[""].basic.forEach((option) => {
+  // NB: The default changes depending on the environment, so hardcode.
   if (option.config_key === "dynamic_ui") {
     option.default = true;
   }
