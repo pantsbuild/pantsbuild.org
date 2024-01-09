@@ -223,8 +223,8 @@ function generateTomlRepr(option, scope) {
 let buildroot = "";
 let cachedir = "";
 helpAll.scope_to_help_info[globalScopeInternal].advanced.forEach((option) => {
-  if (option.config_key === "pants_workdir") {
-    buildroot = option.default.split("/").slice(0, -2).join("/");
+  if (option.config_key === "pants_distdir") {
+    buildroot = option.default.split("/").slice(0, -1).join("/");
   }
   if (option.config_key === "local_store_dir") {
     cachedir = option.default.split("/").slice(0, -2).join("/");
