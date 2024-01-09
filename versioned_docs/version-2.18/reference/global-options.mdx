@@ -340,7 +340,7 @@ The name of the script or binary used to invoke Pants. Useful when printing help
 <Option
   cli_repr={`--pants-workdir=<dir>`}
   env_repr='PANTS_WORKDIR'
-  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pants.d`}
+  default_repr={`<buildroot>/.pants.d`}
 >
 
 Write intermediate logs and output files to this dir.
@@ -364,7 +364,7 @@ When set, a base directory in which to store `--pants-workdir` contents. If this
 <Option
   cli_repr={`--pants-distdir=<dir>`}
   env_repr='PANTS_DISTDIR'
-  default_repr={`<buildroot>/tmp.MpwSc5OGVo/dist`}
+  default_repr={`<buildroot>/dist`}
 >
 
 Write end products, such as the results of `pants package`, to this dir.
@@ -376,7 +376,7 @@ Write end products, such as the results of `pants package`, to this dir.
 <Option
   cli_repr={`--pants-subprocessdir=<str>`}
   env_repr='PANTS_SUBPROCESSDIR'
-  default_repr={`<buildroot>/tmp.MpwSc5OGVo/.pids`}
+  default_repr={`<buildroot>/.pids`}
 >
 
 The directory to use for tracking subprocess metadata. This should live outside of the dir used by `pants_workdir` to allow for tracking subprocesses that outlive the workdir data.
@@ -388,7 +388,7 @@ The directory to use for tracking subprocess metadata. This should live outside 
 <Option
   cli_repr={`--pants-config-files="['<str>', '<str>', ...]"`}
   env_repr='PANTS_CONFIG_FILES'
-  default_repr={`[\n  "<buildroot>/tmp.MpwSc5OGVo/pants.toml"\n]`}
+  default_repr={`[\n  "<buildroot>/pants.toml"\n]`}
 >
 
 Paths to Pants config files. This may only be set through the environment variable `PANTS_CONFIG_FILES` and the command line argument `--pants-config-files`; it will be ignored if in a config file like `pants.toml`.
