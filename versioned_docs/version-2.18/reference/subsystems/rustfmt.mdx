@@ -1,0 +1,46 @@
+---
+title: rustfmt
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Rustfmt-specific options.
+
+Backend: <span className="color--primary">`pants.backend.experimental.rust`</span>
+
+Config section: <span className="color--primary">`[rustfmt]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]rustfmt-skip`}
+  env_repr='PANTS_RUSTFMT_SKIP'
+  toml_repr={`[rustfmt]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use rustfmt when running `pants fmt` and `pants lint`.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

@@ -88,72 +88,6 @@ Whether to generate gRPC code or not.
 
 </Field>
 
-## `skip_buf_lint`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.codegen.protobuf.lint.buf"
->
-
-If true, don&#x27;t run `buf lint` on this target&#x27;s code.
-
-</Field>
-
-## `python_source_root`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The source root to generate Python sources under.
-
-If unspecified, the source root the `protobuf_sources` is under will be used.
-
-</Field>
-
-## `jvm_jdk`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
->
-
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
-
-</Field>
-
-## `skip_buf_format`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.codegen.protobuf.lint.buf"
->
-
-If true, don&#x27;t run `buf format` on this target&#x27;s code.
-
-</Field>
-
-## `python_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
-
-</Field>
-
 ## `python_interpreter_constraints`
 
 <Field
@@ -190,6 +124,34 @@ If there is a single `go_mod` target in the repository, then this field defaults
 
 </Field>
 
+## `python_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `skip_buf_lint`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
+>
+
+If true, don&#x27;t run `buf lint` on this target&#x27;s code.
+
+</Field>
+
 ## `jvm_resolve`
 
 <Field
@@ -201,6 +163,44 @@ If there is a single `go_mod` target in the repository, then this field defaults
 The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `skip_buf_format`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
+>
+
+If true, don&#x27;t run `buf format` on this target&#x27;s code.
+
+</Field>
+
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
+## `python_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The source root to generate Python sources under.
+
+If unspecified, the source root the `protobuf_sources` is under will be used.
 
 </Field>
 

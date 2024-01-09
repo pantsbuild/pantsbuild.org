@@ -127,18 +127,6 @@ You can include anything that can be built by `pants package`, e.g. a `pex_binar
 
 </Field>
 
-## `skip_shellcheck`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.shell.lint.shellcheck"
->
-
-If true, don&#x27;t run Shellcheck on this target&#x27;s code.
-
-</Field>
-
 ## `skip_shfmt`
 
 <Field
@@ -148,6 +136,18 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
+
+</Field>
+
+## `skip_shellcheck`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shellcheck"
+>
+
+If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
 

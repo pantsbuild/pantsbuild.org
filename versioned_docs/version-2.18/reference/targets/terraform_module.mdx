@@ -79,4 +79,16 @@ Example: `sources=['example.tf', 'new_*.tf', '!old_ignore.tf']`
 
 </Field>
 
+## `skip_tfsec`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.terraform.lint.tfsec"
+>
+
+If true, don&#x27;t run tfsec on this target&#x27;s Terraform files.
+
+</Field>
+
 </span>
