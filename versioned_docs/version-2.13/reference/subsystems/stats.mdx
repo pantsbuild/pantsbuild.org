@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--[no-]stats-log`}
   env_repr='PANTS_STATS_LOG'
+  toml_repr={`[stats]
+log = <bool>`}
   default_repr={`False`}
 >
 
@@ -40,6 +42,8 @@ For histogram summaries to work, you must add `hdrhistogram` to `[GLOBAL].plugin
 <Option
   cli_repr={`--[no-]stats-memory-summary`}
   env_repr='PANTS_STATS_MEMORY_SUMMARY'
+  toml_repr={`[stats]
+memory_summary = <bool>`}
   default_repr={`False`}
 >
 

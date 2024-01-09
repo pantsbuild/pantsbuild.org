@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[python]`</span>
 <Option
   cli_repr={`--[no-]python-default-run-goal-use-sandbox`}
   env_repr='PANTS_PYTHON_DEFAULT_RUN_GOAL_USE_SANDBOX'
+  toml_repr={`[python]
+default_run_goal_use_sandbox = <bool>`}
   default_repr={`True`}
 >
 
@@ -36,6 +38,12 @@ The default value used for the `run_goal_use_sandbox` field of Python targets. S
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python]
+interpreter_constraints = [
+    <requirement>,
+    <requirement>,
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -52,6 +60,12 @@ Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A C
 <Option
   cli_repr={`--python-interpreter-versions-universe="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_VERSIONS_UNIVERSE'
+  toml_repr={`[python]
+interpreter_versions_universe = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "2.7",\n  "3.5",\n  "3.6",\n  "3.7",\n  "3.8",\n  "3.9",\n  "3.10",\n  "3.11"\n]`}
 >
 
@@ -70,6 +84,8 @@ All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or
 <Option
   cli_repr={`--[no-]python-enable-resolves`}
   env_repr='PANTS_PYTHON_ENABLE_RESOLVES'
+  toml_repr={`[python]
+enable_resolves = <bool>`}
   default_repr={`False`}
 >
 
@@ -88,6 +104,10 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
+  toml_repr={`[python.resolves]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
@@ -126,6 +146,8 @@ Only applies if `[python].enable_resolves` is true.
 <Option
   cli_repr={`--python-default-resolve=<str>`}
   env_repr='PANTS_PYTHON_DEFAULT_RESOLVE'
+  toml_repr={`[python]
+default_resolve = <str>`}
   default_repr={`python-default`}
 >
 
@@ -140,6 +162,10 @@ The name must be defined as a resolve in `[python].resolves`.
 <Option
   cli_repr={`--python-resolves-to-interpreter-constraints="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES_TO_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python.resolves_to_interpreter_constraints]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -160,6 +186,10 @@ The keys must be defined as resolves in `[python].resolves`. To change the inter
 <Option
   cli_repr={`--python-resolves-to-constraints-file="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES_TO_CONSTRAINTS_FILE'
+  toml_repr={`[python.resolves_to_constraints_file]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -178,6 +208,10 @@ You can use the key `__default__` to set a default value for all resolves.
 <Option
   cli_repr={`--python-resolves-to-no-binary="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES_TO_NO_BINARY'
+  toml_repr={`[python.resolves_to_no_binary]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -198,6 +232,10 @@ Note that some packages are tricky to compile and may fail to install when this 
 <Option
   cli_repr={`--python-resolves-to-only-binary="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES_TO_ONLY_BINARY'
+  toml_repr={`[python.resolves_to_only_binary]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -218,6 +256,8 @@ Packages without binary distributions will fail to install when this option is u
 <Option
   cli_repr={`--python-invalid-lockfile-behavior=<InvalidLockfileBehavior>`}
   env_repr='PANTS_PYTHON_INVALID_LOCKFILE_BEHAVIOR'
+  toml_repr={`[python]
+invalid_lockfile_behavior = <InvalidLockfileBehavior>`}
   one_of='error, ignore, warn'
   default_repr={`error`}
 >
@@ -237,6 +277,8 @@ Use `ignore` to avoid needing a lockfile header at all, e.g. if you are manually
 <Option
   cli_repr={`--[no-]python-resolves-generate-lockfiles`}
   env_repr='PANTS_PYTHON_RESOLVES_GENERATE_LOCKFILES'
+  toml_repr={`[python]
+resolves_generate_lockfiles = <bool>`}
   default_repr={`True`}
 >
 
@@ -255,6 +297,8 @@ Warning: it will likely be slower to install manually generated user lockfiles t
 <Option
   cli_repr={`--[no-]python-run-against-entire-lockfile`}
   env_repr='PANTS_PYTHON_RUN_AGAINST_ENTIRE_LOCKFILE'
+  toml_repr={`[python]
+run_against_entire_lockfile = <bool>`}
   default_repr={`False`}
 >
 
@@ -273,6 +317,8 @@ This option does not affect packaging deployable artifacts, such as PEX files, w
 <Option
   cli_repr={`--python-resolver-manylinux=<str>`}
   env_repr='PANTS_PYTHON_RESOLVER_MANYLINUX'
+  toml_repr={`[python]
+resolver_manylinux = <str>`}
   default_repr={`manylinux2014`}
 >
 
@@ -285,6 +331,8 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 <Option
   cli_repr={`--[no-]python-tailor-source-targets`}
   env_repr='PANTS_PYTHON_TAILOR_SOURCE_TARGETS'
+  toml_repr={`[python]
+tailor_source_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -297,6 +345,8 @@ If true, add `python_sources`, `python_tests`, and `python_test_utils` targets w
 <Option
   cli_repr={`--[no-]python-tailor-ignore-empty-init-files`}
   env_repr='PANTS_PYTHON_TAILOR_IGNORE_EMPTY_INIT_FILES'
+  toml_repr={`[python]
+tailor_ignore_empty_init_files = <bool>`}
   default_repr={`True`}
 >
 
@@ -315,6 +365,8 @@ If you set to false, you may also want to set `[python-infer].init_files = "alwa
 <Option
   cli_repr={`--[no-]python-tailor-requirements-targets`}
   env_repr='PANTS_PYTHON_TAILOR_REQUIREMENTS_TARGETS'
+  toml_repr={`[python]
+tailor_requirements_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -331,6 +383,8 @@ If true, add `python_requirements`, `poetry_requirements`, and `pipenv_requireme
 <Option
   cli_repr={`--[no-]python-tailor-pex-binary-targets`}
   env_repr='PANTS_PYTHON_TAILOR_PEX_BINARY_TARGETS'
+  toml_repr={`[python]
+tailor_pex_binary_targets = <bool>`}
   default_repr={`False`}
 >
 
@@ -343,6 +397,8 @@ If true, add `pex_binary` targets for Python files named `__main__.py` or with a
 <Option
   cli_repr={`--[no-]python-macos-big-sur-compatibility`}
   env_repr='PANTS_PYTHON_MACOS_BIG_SUR_COMPATIBILITY'
+  toml_repr={`[python]
+macos_big_sur_compatibility = <bool>`}
   default_repr={`False`}
 >
 
@@ -355,6 +411,8 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 <Option
   cli_repr={`--[no-]python-enable-lockfile-targets`}
   env_repr='PANTS_PYTHON_ENABLE_LOCKFILE_TARGETS'
+  toml_repr={`[python]
+enable_lockfile_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -373,6 +431,8 @@ If another targets address is in conflict with the created lockfile target, it w
 <Option
   cli_repr={`--python-requirement-constraints=<file_option>`}
   env_repr='PANTS_PYTHON_REQUIREMENT_CONSTRAINTS'
+  toml_repr={`[python]
+requirement_constraints = <file_option>`}
   default_repr={`None`}
   removal_version='3.0.0.dev0'
   removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles`.'}
@@ -393,6 +453,8 @@ This only applies when resolving user requirements, rather than tools you run li
 <Option
   cli_repr={`--[no-]python-resolve-all-constraints`}
   env_repr='PANTS_PYTHON_RESOLVE_ALL_CONSTRAINTS'
+  toml_repr={`[python]
+resolve_all_constraints = <bool>`}
   default_repr={`True`}
   removal_version='3.0.0.dev0'
   removal_hint={'We encourage instead migrating to `[python].enable_resolves` and `[python].resolves`, which is an improvement over this option. The `[python].resolves` feature ensures that your lockfiles are fully comprehensive, i.e. include all transitive dependencies; uses hashes for better supply chain security; and supports advanced features like VCS and local requirements, along with options `[python].resolves_to_only_binary`.<br /><br />To migrate, stop setting `[python].requirement_constraints` and `[python].resolve_all_constraints`, and instead set `[python].enable_resolves` to `true`. Then, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles`.'}

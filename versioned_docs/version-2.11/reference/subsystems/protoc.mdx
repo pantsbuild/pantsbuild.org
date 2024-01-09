@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[protoc]`</span>
 <Option
   cli_repr={`--[no-]protoc-dependency-inference`}
   env_repr='PANTS_PROTOC_DEPENDENCY_INFERENCE'
+  toml_repr={`[protoc]
+dependency_inference = <bool>`}
   default_repr={`True`}
 >
 
@@ -36,6 +38,8 @@ Infer Protobuf dependencies on other Protobuf files by analyzing import statemen
 <Option
   cli_repr={`--protoc-version=<str>`}
   env_repr='PANTS_PROTOC_VERSION'
+  toml_repr={`[protoc]
+version = <str>`}
   default_repr={`3.11.4`}
 >
 
@@ -48,6 +52,12 @@ Use this version of protoc.
 <Option
   cli_repr={`--protoc-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PROTOC_KNOWN_VERSIONS'
+  toml_repr={`[protoc]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "3.11.4|linux_arm64 |f24c9fa1fc4a7770b8a5da66e515cb8a638d086ad2afa633abb97137c5f029a8|1481946",\n  "3.11.4|linux_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c8caecb1367bbbe409b45e28514f5be|1591191",\n  "3.11.4|macos_arm64 |8c6af11e1058efe953830ecb38324c0e0fd2fb67df3891896d138c535932e7db|2482119",\n  "3.11.4|macos_x86_64|8c6af11e1058efe953830ecb38324c0e0fd2fb67df3891896d138c535932e7db|2482119"\n]`}
 >
 
@@ -75,6 +85,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--protoc-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_PROTOC_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[protoc]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -90,6 +102,8 @@ Supported protoc versions: unspecified
 <Option
   cli_repr={`--protoc-url-template=<str>`}
   env_repr='PANTS_PROTOC_URL_TEMPLATE'
+  toml_repr={`[protoc]
+url_template = <str>`}
   default_repr={`https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-{platform}.zip`}
 >
 
@@ -104,6 +118,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--protoc-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PROTOC_URL_PLATFORM_MAPPING'
+  toml_repr={`[protoc.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "linux-aarch_64",\n  "linux_x86_64": "linux-x86_64",\n  "macos_arm64": "osx-x86_64",\n  "macos_x86_64": "osx-x86_64"\n}`}
 >
 

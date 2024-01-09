@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[docformatter]`</span>
 <Option
   cli_repr={`--[no-]docformatter-skip`}
   env_repr='PANTS_DOCFORMATTER_SKIP'
+  toml_repr={`[docformatter]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use docformatter when running `/home/josh/work/scie-pants/dist/pants 
 <Option
   cli_repr={`--docformatter-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DOCFORMATTER_ARGS'
+  toml_repr={`[docformatter]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to docformatter, e.g. `--docformatter-args="--wrap-su
 <Option
   cli_repr={`--docformatter-version=<str>`}
   env_repr='PANTS_DOCFORMATTER_VERSION'
+  toml_repr={`[docformatter]
+version = <str>`}
   default_repr={`docformatter>=1.4,<1.5`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--docformatter-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCFORMATTER_EXTRA_REQUIREMENTS'
+  toml_repr={`[docformatter]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -72,6 +88,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--docformatter-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCFORMATTER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[docformatter]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
@@ -84,6 +106,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--docformatter-console-script=<str>`}
   env_repr='PANTS_DOCFORMATTER_CONSOLE_SCRIPT'
+  toml_repr={`[docformatter]
+console_script = <str>`}
   default_repr={`docformatter`}
 >
 
@@ -96,6 +120,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--docformatter-entry-point=<str>`}
   env_repr='PANTS_DOCFORMATTER_ENTRY_POINT'
+  toml_repr={`[docformatter]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

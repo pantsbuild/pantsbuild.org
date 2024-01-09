@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[coverage-py]`</span>
 <Option
   cli_repr={`--coverage-py-filter="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_FILTER'
+  toml_repr={`[coverage-py]
+filter = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,12 @@ If you leave this off, the coverage report will include every file in the transi
 <Option
   cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
   env_repr='PANTS_COVERAGE_PY_REPORT'
+  toml_repr={`[coverage-py]
+report = [
+    <CoverageReportType>,
+    <CoverageReportType>,
+    ...,
+]`}
   one_of='console, xml, html, raw, json'
   default_repr={`[\n  "console"\n]`}
 >
@@ -51,6 +63,8 @@ Which coverage report type(s) to emit.
 <Option
   cli_repr={`--[no-]coverage-py-global-report`}
   env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  toml_repr={`[coverage-py]
+global_report = <bool>`}
   default_repr={`False`}
 >
 
@@ -65,6 +79,8 @@ The global report will include all Python source files in the workspace and not 
 <Option
   cli_repr={`--coverage-py-fail-under=<float>`}
   env_repr='PANTS_COVERAGE_PY_FAIL_UNDER'
+  toml_repr={`[coverage-py]
+fail_under = <float>`}
   default_repr={`None`}
 >
 
@@ -85,6 +101,8 @@ Note also that if you specify a non-integral value, you must also set [report] p
 <Option
   cli_repr={`--coverage-py-version=<str>`}
   env_repr='PANTS_COVERAGE_PY_VERSION'
+  toml_repr={`[coverage-py]
+version = <str>`}
   default_repr={`coverage[toml]>=5.5,<5.6`}
 >
 
@@ -97,6 +115,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--coverage-py-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_EXTRA_REQUIREMENTS'
+  toml_repr={`[coverage-py]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -109,6 +133,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[coverage-py]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -121,6 +151,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--coverage-py-lockfile=<str>`}
   env_repr='PANTS_COVERAGE_PY_LOCKFILE'
+  toml_repr={`[coverage-py]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -141,6 +173,8 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
 <Option
   cli_repr={`--coverage-py-console-script=<str>`}
   env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
+  toml_repr={`[coverage-py]
+console_script = <str>`}
   default_repr={`coverage`}
 >
 
@@ -153,6 +187,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--coverage-py-entry-point=<str>`}
   env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  toml_repr={`[coverage-py]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -165,6 +201,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--coverage-py-output-dir=<str>`}
   env_repr='PANTS_COVERAGE_PY_OUTPUT_DIR'
+  toml_repr={`[coverage-py]
+output_dir = <str>`}
   default_repr={`{distdir}/coverage/python`}
 >
 
@@ -177,6 +215,8 @@ Path to write the Pytest Coverage report to. Must be relative to the build root.
 <Option
   cli_repr={`--coverage-py-config=<file_option>`}
   env_repr='PANTS_COVERAGE_PY_CONFIG'
+  toml_repr={`[coverage-py]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -191,6 +231,8 @@ Setting this option will disable `[coverage-py].config_discovery`. Use this opti
 <Option
   cli_repr={`--[no-]coverage-py-config-discovery`}
   env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
+  toml_repr={`[coverage-py]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

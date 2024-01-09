@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--terraform-hcl2-parser-install-from-resolve=<str>`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_INSTALL_FROM_RESOLVE'
+  toml_repr={`[terraform-hcl2-parser]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -46,6 +48,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--terraform-hcl2-parser-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_REQUIREMENTS'
+  toml_repr={`[terraform-hcl2-parser]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -64,6 +72,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--terraform-hcl2-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[terraform-hcl2-parser]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -78,6 +92,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--terraform-hcl2-parser-version=<str>`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_VERSION'
+  toml_repr={`[terraform-hcl2-parser]
+version = <str>`}
   default_repr={`python-hcl2==4.3.0`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -92,6 +108,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--terraform-hcl2-parser-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_EXTRA_REQUIREMENTS'
+  toml_repr={`[terraform-hcl2-parser]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -106,6 +128,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--terraform-hcl2-parser-lockfile=<str>`}
   env_repr='PANTS_TERRAFORM_HCL2_PARSER_LOCKFILE'
+  toml_repr={`[terraform-hcl2-parser]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[terraform-hcl2-parser].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced terraform-hcl2-parser`.'}

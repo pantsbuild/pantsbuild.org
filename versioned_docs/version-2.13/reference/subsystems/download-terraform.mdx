@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--download-terraform-version=<str>`}
   env_repr='PANTS_DOWNLOAD_TERRAFORM_VERSION'
+  toml_repr={`[download-terraform]
+version = <str>`}
   default_repr={`1.0.7`}
 >
 
@@ -38,6 +40,12 @@ Use this version of terraform.
 <Option
   cli_repr={`--download-terraform-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOWNLOAD_TERRAFORM_KNOWN_VERSIONS'
+  toml_repr={`[download-terraform]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "1.0.7|macos_arm64 |cbab9aca5bc4e604565697355eed185bb699733811374761b92000cc188a7725|32071346",\n  "1.0.7|macos_x86_64|80ae021d6143c7f7cbf4571f65595d154561a2a25fd934b7a8ccc1ebf3014b9b|33020029",\n  "1.0.7|linux_x86_64|bc79e47649e2529049a356f9e60e06b47462bf6743534a10a4c16594f443be7b|32671441"\n]`}
 >
 
@@ -65,6 +73,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--download-terraform-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_DOWNLOAD_TERRAFORM_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[download-terraform]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -80,6 +90,8 @@ Supported terraform versions: unspecified
 <Option
   cli_repr={`--download-terraform-url-template=<str>`}
   env_repr='PANTS_DOWNLOAD_TERRAFORM_URL_TEMPLATE'
+  toml_repr={`[download-terraform]
+url_template = <str>`}
   default_repr={`https://releases.hashicorp.com/terraform/{version}/terraform_{version}_{platform}.zip`}
 >
 
@@ -94,6 +106,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--download-terraform-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_DOWNLOAD_TERRAFORM_URL_PLATFORM_MAPPING'
+  toml_repr={`[download-terraform.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_x86_64": "linux_amd64",\n  "macos_arm64": "darwin_arm64",\n  "macos_x86_64": "darwin_amd64"\n}`}
 >
 
@@ -110,6 +126,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--[no-]download-terraform-tailor`}
   env_repr='PANTS_DOWNLOAD_TERRAFORM_TAILOR'
+  toml_repr={`[download-terraform]
+tailor = <bool>`}
   default_repr={`True`}
 >
 

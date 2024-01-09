@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--download-pex-bin-version=<str>`}
   env_repr='PANTS_DOWNLOAD_PEX_BIN_VERSION'
+  toml_repr={`[download-pex-bin]
+version = <str>`}
   default_repr={`v2.1.24`}
 >
 
@@ -38,6 +40,12 @@ Use this version of pex.
 <Option
   cli_repr={`--download-pex-bin-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOWNLOAD_PEX_BIN_KNOWN_VERSIONS'
+  toml_repr={`[download-pex-bin]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v2.1.24|darwin|561da5a7c76a8a88567a306fa60dfcb5c6924bb71c18b892080d5c2b3eea7133|2936466",\n  "v2.1.24|linux|561da5a7c76a8a88567a306fa60dfcb5c6924bb71c18b892080d5c2b3eea7133|2936466"\n]`}
 >
 
@@ -62,6 +70,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--download-pex-bin-url-template=<str>`}
   env_repr='PANTS_DOWNLOAD_PEX_BIN_URL_TEMPLATE'
+  toml_repr={`[download-pex-bin]
+url_template = <str>`}
   default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
 >
 
@@ -74,6 +84,10 @@ URL to download the tool, either as a single binary file or a compressed file (e
 <Option
   cli_repr={`--download-pex-bin-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_DOWNLOAD_PEX_BIN_URL_PLATFORM_MAPPING'
+  toml_repr={`[download-pex-bin.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 

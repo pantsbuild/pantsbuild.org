@@ -24,6 +24,12 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 <Option
   cli_repr={`--python-protobuf-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
   env_repr='PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES'
+  toml_repr={`[python-protobuf]
+runtime_dependencies = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,8 @@ A list of addresses to `python_requirement_library` targets for the runtime depe
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf]
+mypy_plugin = <bool>`}
   default_repr={`False`}
 >
 
@@ -50,6 +58,8 @@ Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to als
 <Option
   cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
+  toml_repr={`[python-protobuf]
+mypy_plugin_version = <str>`}
   default_repr={`None`}
 >
 

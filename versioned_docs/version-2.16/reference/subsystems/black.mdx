@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[black]`</span>
 <Option
   cli_repr={`--[no-]black-skip`}
   env_repr='PANTS_BLACK_SKIP'
+  toml_repr={`[black]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Black when running `pants fmt` and `pants lint`.
 <Option
   cli_repr={`--black-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_BLACK_ARGS'
+  toml_repr={`[black]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Black, e.g. `--black-args='--target-version=py37 -
 <Option
   cli_repr={`--black-install-from-resolve=<str>`}
   env_repr='PANTS_BLACK_INSTALL_FROM_RESOLVE'
+  toml_repr={`[black]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--black-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_REQUIREMENTS'
+  toml_repr={`[black]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--black-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[black]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--black-console-script=<str>`}
   env_repr='PANTS_BLACK_CONSOLE_SCRIPT'
+  toml_repr={`[black]
+console_script = <str>`}
   default_repr={`black`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--black-entry-point=<str>`}
   env_repr='PANTS_BLACK_ENTRY_POINT'
+  toml_repr={`[black]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -122,6 +148,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--black-config=<file_option>`}
   env_repr='PANTS_BLACK_CONFIG'
+  toml_repr={`[black]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -136,6 +164,8 @@ Setting this option will disable `[black].config_discovery`. Use this option if 
 <Option
   cli_repr={`--[no-]black-config-discovery`}
   env_repr='PANTS_BLACK_CONFIG_DISCOVERY'
+  toml_repr={`[black]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 
@@ -152,6 +182,8 @@ Use `[black].config` instead if your config is in a non-standard location.
 <Option
   cli_repr={`--black-version=<str>`}
   env_repr='PANTS_BLACK_VERSION'
+  toml_repr={`[black]
+version = <str>`}
   default_repr={`black>=22.6.0,<24`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -166,6 +198,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--black-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_EXTRA_REQUIREMENTS'
+  toml_repr={`[black]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "typing-extensions>=3.10.0.0; python_version < \"3.10\""\n]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -180,6 +218,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--black-lockfile=<str>`}
   env_repr='PANTS_BLACK_LOCKFILE'
+  toml_repr={`[black]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[black].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced black`.'}
@@ -202,6 +242,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--[no-]black-export`}
   env_repr='PANTS_BLACK_EXPORT'
+  toml_repr={`[black]
+export = <bool>`}
   default_repr={`True`}
   removal_version='2.18.0.dev0'
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}

@@ -26,6 +26,10 @@ Config section: <span className="color--primary">`[sourcefile-validation]`</span
 <Option
   cli_repr={`--sourcefile-validation-config="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SOURCEFILE_VALIDATION_CONFIG'
+  toml_repr={`[sourcefile-validation.config]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -69,6 +73,8 @@ It&#x27;s often helpful to load this config from a JSON or YAML file. To do that
 <Option
   cli_repr={`--sourcefile-validation-detail-level=<DetailLevel>`}
   env_repr='PANTS_SOURCEFILE_VALIDATION_DETAIL_LEVEL'
+  toml_repr={`[sourcefile-validation]
+detail_level = <DetailLevel>`}
   one_of='none, summary, nonmatching, names, all'
   default_repr={`nonmatching`}
 >

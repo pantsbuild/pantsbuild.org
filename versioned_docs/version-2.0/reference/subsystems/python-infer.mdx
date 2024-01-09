@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[python-infer]`</span>
 <Option
   cli_repr={`--[no-]python-infer-imports`}
   env_repr='PANTS_PYTHON_INFER_IMPORTS'
+  toml_repr={`[python-infer]
+imports = <bool>`}
   default_repr={`True`}
 >
 
@@ -34,6 +36,8 @@ Infer a target&#x27;s imported dependencies by parsing import statements from so
 <Option
   cli_repr={`--[no-]python-infer-string-imports`}
   env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS'
+  toml_repr={`[python-infer]
+string_imports = <bool>`}
   default_repr={`False`}
 >
 
@@ -46,6 +50,8 @@ Infer a target&#x27;s dependencies based on strings that look like dynamic depen
 <Option
   cli_repr={`--[no-]python-infer-inits`}
   env_repr='PANTS_PYTHON_INFER_INITS'
+  toml_repr={`[python-infer]
+inits = <bool>`}
   default_repr={`False`}
 >
 
@@ -58,6 +64,8 @@ Infer a target&#x27;s dependencies on any **init**.py files existing for the pac
 <Option
   cli_repr={`--[no-]python-infer-conftests`}
   env_repr='PANTS_PYTHON_INFER_CONFTESTS'
+  toml_repr={`[python-infer]
+conftests = <bool>`}
   default_repr={`True`}
 >
 

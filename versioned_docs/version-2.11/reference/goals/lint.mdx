@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[lint]`</span>
 <Option
   cli_repr={`--lint-only="['<str>', '<str>', ...]"`}
   env_repr='PANTS_LINT_ONLY'
+  toml_repr={`[lint]
+only = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -44,6 +50,8 @@ You can repeat this option, e.g. `lint --only=flake8 --only=shellcheck` or `lint
 <Option
   cli_repr={`--lint-batch-size=<int>`}
   env_repr='PANTS_LINT_BATCH_SIZE'
+  toml_repr={`[lint]
+batch_size = <int>`}
   default_repr={`128`}
 >
 

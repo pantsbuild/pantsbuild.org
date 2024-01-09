@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--[no-]anonymous-telemetry-enabled`}
   env_repr='PANTS_ANONYMOUS_TELEMETRY_ENABLED'
+  toml_repr={`[anonymous-telemetry]
+enabled = <bool>`}
   default_repr={`False`}
 >
 
@@ -42,6 +44,8 @@ See https://www.pantsbuild.org/v2.12/docs/anonymous-telemetry for details.
 <Option
   cli_repr={`--anonymous-telemetry-repo-id=<str>`}
   env_repr='PANTS_ANONYMOUS_TELEMETRY_REPO_ID'
+  toml_repr={`[anonymous-telemetry]
+repo_id = <str>`}
   default_repr={`None`}
 >
 

@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--subprocess-environment-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SUBPROCESS_ENVIRONMENT_ENV_VARS'
+  toml_repr={`[subprocess-environment]
+env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL"\n]`}
 >
 
@@ -42,6 +48,8 @@ Each ENV_VAR must be one of `LANG`, `LC_CTYPE`, `LC_ALL`, `http_proxy`, `https_p
 <Option
   cli_repr={`--subprocess-environment-lang=<str>`}
   env_repr='PANTS_SUBPROCESS_ENVIRONMENT_LANG'
+  toml_repr={`[subprocess-environment]
+lang = <str>`}
   default_repr={`en_US.UTF-8`}
   removal_version='2.1.0.dev0'
   removal_hint={'Use the env_vars option in this scope instead.'}
@@ -56,6 +64,8 @@ Override the `LANG` environment variable for any forked subprocesses.
 <Option
   cli_repr={`--subprocess-environment-lc-all=<str>`}
   env_repr='PANTS_SUBPROCESS_ENVIRONMENT_LC_ALL'
+  toml_repr={`[subprocess-environment]
+lc_all = <str>`}
   default_repr={`None`}
   removal_version='2.1.0.dev0'
   removal_hint={'Use the env_vars option in this scope instead.'}

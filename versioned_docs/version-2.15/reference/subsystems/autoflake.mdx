@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[autoflake]`</span>
 <Option
   cli_repr={`--[no-]autoflake-skip`}
   env_repr='PANTS_AUTOFLAKE_SKIP'
+  toml_repr={`[autoflake]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Autoflake when running `/home/josh/work/scie-pants/dist/
 <Option
   cli_repr={`--autoflake-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_AUTOFLAKE_ARGS'
+  toml_repr={`[autoflake]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[\n  "--remove-all-unused-imports"\n]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Autoflake, e.g. `--autoflake-args='--remove-all-un
 <Option
   cli_repr={`--autoflake-version=<str>`}
   env_repr='PANTS_AUTOFLAKE_VERSION'
+  toml_repr={`[autoflake]
+version = <str>`}
   default_repr={`autoflake==1.4`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--autoflake-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_AUTOFLAKE_EXTRA_REQUIREMENTS'
+  toml_repr={`[autoflake]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -72,6 +88,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--autoflake-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_AUTOFLAKE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[autoflake]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -84,6 +106,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--autoflake-lockfile=<str>`}
   env_repr='PANTS_AUTOFLAKE_LOCKFILE'
+  toml_repr={`[autoflake]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -104,6 +128,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--autoflake-console-script=<str>`}
   env_repr='PANTS_AUTOFLAKE_CONSOLE_SCRIPT'
+  toml_repr={`[autoflake]
+console_script = <str>`}
   default_repr={`autoflake`}
 >
 
@@ -116,6 +142,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--autoflake-entry-point=<str>`}
   env_repr='PANTS_AUTOFLAKE_ENTRY_POINT'
+  toml_repr={`[autoflake]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -130,6 +158,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--[no-]autoflake-export`}
   env_repr='PANTS_AUTOFLAKE_EXPORT'
+  toml_repr={`[autoflake]
+export = <bool>`}
   default_repr={`True`}
   removal_version='2.23.0.dev0'
   removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}

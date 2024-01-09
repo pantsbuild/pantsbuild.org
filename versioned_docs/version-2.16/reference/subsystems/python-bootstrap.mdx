@@ -28,6 +28,10 @@ None
 <Option
   cli_repr={`--python-bootstrap-internal-python-build-standalone-info="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_BOOTSTRAP_INTERNAL_PYTHON_BUILD_STANDALONE_INFO'
+  toml_repr={`[python-bootstrap.internal_python_build_standalone_info]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-aarch64-unknown-linux-gnu-install_only.tar.gz",\n    "1ba520c0db431c84305677f56eb9a4254f5097430ed443e92fc8617f8fba973d",\n    23873387\n  ],\n  "linux_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-x86_64-unknown-linux-gnu-install_only.tar.gz",\n    "7ba397787932393e65fc2fb9fcfabf54f2bb6751d5da2b45913cb25b2d493758",\n    26129729\n  ],\n  "macos_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-aarch64-apple-darwin-install_only.tar.gz",\n    "d732d212d42315ac27c6da3e0b69636737a8d72086c980daf844344c010cab80",\n    17084463\n  ],\n  "macos_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-x86_64-apple-darwin-install_only.tar.gz",\n    "3948384af5e8d4ee7e5ccc648322b99c1c5cf4979954ed5e6b3382c69d6db71e",\n    17059474\n  ]\n}`}
 >
 
@@ -46,6 +50,12 @@ The schema is &#x3C;string platform key&#x3E;: (&#x3C;string url&#x3E;, &#x3C;st
 <Option
   cli_repr={`--python-bootstrap-search-path="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PYTHON_BOOTSTRAP_SEARCH_PATH'
+  toml_repr={`[python-bootstrap]
+search_path = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PYENV>",\n  "<PATH>"\n]`}
   target_field_name='python_bootstrap_search_path'
 >
@@ -77,6 +87,12 @@ When the environment is a `local_environment` target:
 <Option
   cli_repr={`--python-bootstrap-names="[<python-binary-names>, <python-binary-names>, ...]"`}
   env_repr='PANTS_PYTHON_BOOTSTRAP_NAMES'
+  toml_repr={`[python-bootstrap]
+names = [
+    <python-binary-names>,
+    <python-binary-names>,
+    ...,
+]`}
   default_repr={`[\n  "python",\n  "python3"\n]`}
   target_field_name='python_bootstrap_names'
 >

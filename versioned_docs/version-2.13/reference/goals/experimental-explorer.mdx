@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[experimental-explorer]`</span
 <Option
   cli_repr={`--experimental-explorer-address=<str>`}
   env_repr='PANTS_EXPERIMENTAL_EXPLORER_ADDRESS'
+  toml_repr={`[experimental-explorer]
+address = <str>`}
   default_repr={`localhost`}
 >
 
@@ -38,6 +40,8 @@ Server address to bind to.
 <Option
   cli_repr={`--experimental-explorer-port=<int>`}
   env_repr='PANTS_EXPERIMENTAL_EXPLORER_PORT'
+  toml_repr={`[experimental-explorer]
+port = <int>`}
   default_repr={`8000`}
 >
 

@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[yamllint]`</span>
 <Option
   cli_repr={`--yamllint-include="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAMLLINT_INCLUDE'
+  toml_repr={`[yamllint]
+include = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "**/*.yml",\n  "**/*.yaml"\n]`}
 >
 
@@ -34,6 +40,12 @@ Glob for which YAML files to lint.
 <Option
   cli_repr={`--yamllint-exclude="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAMLLINT_EXCLUDE'
+  toml_repr={`[yamllint]
+exclude = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -46,6 +58,12 @@ Glob for which YAML files to exclude from linting.
 <Option
   cli_repr={`--yamllint-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_YAMLLINT_ARGS'
+  toml_repr={`[yamllint]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -58,6 +76,8 @@ Arguments to pass directly to Yamllint, e.g. `--yamllint-args='-d relaxed'`.
 <Option
   cli_repr={`--[no-]yamllint-skip`}
   env_repr='PANTS_YAMLLINT_SKIP'
+  toml_repr={`[yamllint]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -72,6 +92,8 @@ If true, don&#x27;t use Yamllint when running `pants lint`.
 <Option
   cli_repr={`--yamllint-install-from-resolve=<str>`}
   env_repr='PANTS_YAMLLINT_INSTALL_FROM_RESOLVE'
+  toml_repr={`[yamllint]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -92,6 +114,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--yamllint-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAMLLINT_REQUIREMENTS'
+  toml_repr={`[yamllint]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -110,6 +138,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--yamllint-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_YAMLLINT_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[yamllint]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -122,6 +156,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--yamllint-console-script=<str>`}
   env_repr='PANTS_YAMLLINT_CONSOLE_SCRIPT'
+  toml_repr={`[yamllint]
+console_script = <str>`}
   default_repr={`yamllint`}
 >
 
@@ -134,6 +170,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--yamllint-entry-point=<str>`}
   env_repr='PANTS_YAMLLINT_ENTRY_POINT'
+  toml_repr={`[yamllint]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -146,6 +184,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--yamllint-config-file-name=<str>`}
   env_repr='PANTS_YAMLLINT_CONFIG_FILE_NAME'
+  toml_repr={`[yamllint]
+config_file_name = <str>`}
   default_repr={`.yamllint`}
 >
 

@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[isort]`</span>
 <Option
   cli_repr={`--[no-]isort-skip`}
   env_repr='PANTS_ISORT_SKIP'
+  toml_repr={`[isort]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use isort when running `pants fmt` and `pants lint`.
 <Option
   cli_repr={`--isort-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_ISORT_ARGS'
+  toml_repr={`[isort]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to isort, e.g. `--isort-args='--case-sensitive --trai
 <Option
   cli_repr={`--isort-install-from-resolve=<str>`}
   env_repr='PANTS_ISORT_INSTALL_FROM_RESOLVE'
+  toml_repr={`[isort]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--isort-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_REQUIREMENTS'
+  toml_repr={`[isort]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[isort]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--isort-console-script=<str>`}
   env_repr='PANTS_ISORT_CONSOLE_SCRIPT'
+  toml_repr={`[isort]
+console_script = <str>`}
   default_repr={`isort`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--isort-entry-point=<str>`}
   env_repr='PANTS_ISORT_ENTRY_POINT'
+  toml_repr={`[isort]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -122,6 +148,12 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--isort-config="[<file_option>, <file_option>, ...]"`}
   env_repr='PANTS_ISORT_CONFIG'
+  toml_repr={`[isort]
+config = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -138,6 +170,8 @@ If using isort 5+ and you specify only 1 config file, Pants will configure isort
 <Option
   cli_repr={`--[no-]isort-config-discovery`}
   env_repr='PANTS_ISORT_CONFIG_DISCOVERY'
+  toml_repr={`[isort]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

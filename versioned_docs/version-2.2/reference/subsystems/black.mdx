@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[black]`</span>
 <Option
   cli_repr={`--[no-]black-skip`}
   env_repr='PANTS_BLACK_SKIP'
+  toml_repr={`[black]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/pants fmt` an
 <Option
   cli_repr={`--black-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_BLACK_ARGS'
+  toml_repr={`[black]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Black, e.g. `--black-args="--target-version=py37 -
 <Option
   cli_repr={`--black-version=<str>`}
   env_repr='PANTS_BLACK_VERSION'
+  toml_repr={`[black]
+version = <str>`}
   default_repr={`black==20.8b1`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--black-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_EXTRA_REQUIREMENTS'
+  toml_repr={`[black]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "setuptools"\n]`}
 >
 
@@ -72,6 +88,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--black-entry-point=<str>`}
   env_repr='PANTS_BLACK_ENTRY_POINT'
+  toml_repr={`[black]
+entry_point = <str>`}
   default_repr={`black:patched_main`}
 >
 
@@ -84,6 +102,12 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--black-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BLACK_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[black]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
@@ -96,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--black-config=<file_option>`}
   env_repr='PANTS_BLACK_CONFIG'
+  toml_repr={`[black]
+config = <file_option>`}
   default_repr={`None`}
 >
 

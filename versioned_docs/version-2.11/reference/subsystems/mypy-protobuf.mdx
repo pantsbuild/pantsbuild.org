@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--mypy-protobuf-version=<str>`}
   env_repr='PANTS_MYPY_PROTOBUF_VERSION'
+  toml_repr={`[mypy-protobuf]
+version = <str>`}
   default_repr={`mypy-protobuf==2.10`}
 >
 
@@ -38,6 +40,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--mypy-protobuf-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_PROTOBUF_EXTRA_REQUIREMENTS'
+  toml_repr={`[mypy-protobuf]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +58,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--mypy-protobuf-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_MYPY_PROTOBUF_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[mypy-protobuf]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -62,6 +76,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--mypy-protobuf-lockfile=<str>`}
   env_repr='PANTS_MYPY_PROTOBUF_LOCKFILE'
+  toml_repr={`[mypy-protobuf]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 

@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--[no-]pex-binary-defaults-emit-warnings`}
   env_repr='PANTS_PEX_BINARY_DEFAULTS_EMIT_WARNINGS'
+  toml_repr={`[pex-binary-defaults]
+emit_warnings = <bool>`}
   default_repr={`True`}
 >
 
@@ -40,6 +42,8 @@ Can be overridden by specifying the `emit_warnings` parameter of individual `pex
 <Option
   cli_repr={`--[no-]pex-binary-defaults-resolve-local-platforms`}
   env_repr='PANTS_PEX_BINARY_DEFAULTS_RESOLVE_LOCAL_PLATFORMS'
+  toml_repr={`[pex-binary-defaults]
+resolve_local_platforms = <bool>`}
   default_repr={`False`}
 >
 

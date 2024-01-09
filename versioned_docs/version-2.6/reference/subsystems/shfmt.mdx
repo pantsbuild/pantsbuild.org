@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[shfmt]`</span>
 <Option
   cli_repr={`--[no-]shfmt-skip`}
   env_repr='PANTS_SHFMT_SKIP'
+  toml_repr={`[shfmt]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use shfmt when running `./pants fmt` and `./pants lint`.
 <Option
   cli_repr={`--shfmt-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SHFMT_ARGS'
+  toml_repr={`[shfmt]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.&#x27;
 <Option
   cli_repr={`--shfmt-version=<str>`}
   env_repr='PANTS_SHFMT_VERSION'
+  toml_repr={`[shfmt]
+version = <str>`}
   default_repr={`v3.2.4`}
 >
 
@@ -60,6 +70,12 @@ Use this version of shfmt.
 <Option
   cli_repr={`--shfmt-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SHFMT_KNOWN_VERSIONS'
+  toml_repr={`[shfmt]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v3.2.4|darwin|43a0461a1b54070ddc04fbbf1b78f7861ee39a65a61f5466d15a39c4aba4f917|2980208",\n  "v3.2.4|linux|3f5a47f8fec27fae3e06d611559a2063f5d27e4b9501171dde9959b8c60a3538|2797568"\n]`}
 >
 
@@ -85,6 +101,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--shfmt-url-template=<str>`}
   env_repr='PANTS_SHFMT_URL_TEMPLATE'
+  toml_repr={`[shfmt]
+url_template = <str>`}
   default_repr={`https://github.com/mvdan/sh/releases/download/{version}/shfmt_{version}_{platform}_amd64`}
 >
 
@@ -99,6 +117,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--shfmt-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SHFMT_URL_PLATFORM_MAPPING'
+  toml_repr={`[shfmt.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "darwin": "darwin",\n  "linux": "linux"\n}`}
 >
 
@@ -115,6 +137,8 @@ For example, if you define `{"darwin": "apple-darwin", "linux": "unknown-linux"}
 <Option
   cli_repr={`--[no-]shfmt-config-discovery`}
   env_repr='PANTS_SHFMT_CONFIG_DISCOVERY'
+  toml_repr={`[shfmt]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

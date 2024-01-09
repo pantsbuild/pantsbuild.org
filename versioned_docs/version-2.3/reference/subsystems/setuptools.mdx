@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--setuptools-version=<str>`}
   env_repr='PANTS_SETUPTOOLS_VERSION'
+  toml_repr={`[setuptools]
+version = <str>`}
   default_repr={`setuptools>=50.3.0,<54.0`}
 >
 
@@ -38,6 +40,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--setuptools-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SETUPTOOLS_EXTRA_REQUIREMENTS'
+  toml_repr={`[setuptools]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "wheel>=0.35.1,<0.37"\n]`}
 >
 
@@ -52,6 +60,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--setuptools-entry-point=<str>`}
   env_repr='PANTS_SETUPTOOLS_ENTRY_POINT'
+  toml_repr={`[setuptools]
+entry_point = <str>`}
   default_repr={`None`}
   removal_version='2.5.0.dev0'
   removal_hint={'This option was never used.'}
@@ -66,6 +76,12 @@ DEPRECATED: Unused.
 <Option
   cli_repr={`--setuptools-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SETUPTOOLS_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[setuptools]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.5.0.dev0'
   removal_hint={'Interpreter constraints for setup.py execution are now derived from the `python_distribution` being packaged so this option is not needed.'}

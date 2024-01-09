@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[bandit]`</span>
 <Option
   cli_repr={`--[no-]bandit-skip`}
   env_repr='PANTS_BANDIT_SKIP'
+  toml_repr={`[bandit]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Bandit when running `pants lint`.
 <Option
   cli_repr={`--bandit-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_BANDIT_ARGS'
+  toml_repr={`[bandit]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Bandit, e.g. `--bandit-args='--skip B101,B308 --co
 <Option
   cli_repr={`--bandit-install-from-resolve=<str>`}
   env_repr='PANTS_BANDIT_INSTALL_FROM_RESOLVE'
+  toml_repr={`[bandit]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--bandit-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BANDIT_REQUIREMENTS'
+  toml_repr={`[bandit]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,8 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--bandit-console-script=<str>`}
   env_repr='PANTS_BANDIT_CONSOLE_SCRIPT'
+  toml_repr={`[bandit]
+console_script = <str>`}
   default_repr={`bandit`}
 >
 
@@ -98,6 +116,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--bandit-entry-point=<str>`}
   env_repr='PANTS_BANDIT_ENTRY_POINT'
+  toml_repr={`[bandit]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -110,6 +130,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--bandit-config=<file_option>`}
   env_repr='PANTS_BANDIT_CONFIG'
+  toml_repr={`[bandit]
+config = <file_option>`}
   default_repr={`None`}
 >
 

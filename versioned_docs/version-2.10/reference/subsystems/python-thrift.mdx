@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[python-thrift]`</span>
 <Option
   cli_repr={`--python-thrift-options="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_THRIFT_OPTIONS'
+  toml_repr={`[python-thrift]
+options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,8 @@ Code generation options specific to the Python code generator to pass to the Apa
 <Option
   cli_repr={`--[no-]python-thrift-infer-runtime-dependency`}
   env_repr='PANTS_PYTHON_THRIFT_INFER_RUNTIME_DEPENDENCY'
+  toml_repr={`[python-thrift]
+infer_runtime_dependency = <bool>`}
   default_repr={`True`}
 >
 

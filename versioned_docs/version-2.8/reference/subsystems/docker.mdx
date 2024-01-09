@@ -22,6 +22,10 @@ Config section: <span className="color--primary">`[docker]`</span>
 <Option
   cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_DOCKER_REGISTRIES'
+  toml_repr={`[docker.registries]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -48,6 +52,8 @@ A configured registry is marked as default either by setting `default = true` or
 <Option
   cli_repr={`--docker-default-repository=<str>`}
   env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
+  toml_repr={`[docker]
+default_repository = <str>`}
   default_repr={`{name}`}
 >
 
@@ -73,6 +79,12 @@ Any registries or tags are added to the image name as required, and should not b
 <Option
   cli_repr={`--docker-build-args="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCKER_BUILD_ARGS'
+  toml_repr={`[docker]
+build_args = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -91,6 +103,12 @@ Use the `extra_build_args` field on a `docker_image` target for additional image
 <Option
   cli_repr={`--docker-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCKER_ENV_VARS'
+  toml_repr={`[docker]
+env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

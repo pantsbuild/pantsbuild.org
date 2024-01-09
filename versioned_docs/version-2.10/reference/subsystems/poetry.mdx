@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--poetry-version=<str>`}
   env_repr='PANTS_POETRY_VERSION'
+  toml_repr={`[poetry]
+version = <str>`}
   default_repr={`poetry==1.1.8`}
 >
 
@@ -38,6 +40,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--poetry-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_POETRY_EXTRA_REQUIREMENTS'
+  toml_repr={`[poetry]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +58,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--poetry-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_POETRY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[poetry]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 

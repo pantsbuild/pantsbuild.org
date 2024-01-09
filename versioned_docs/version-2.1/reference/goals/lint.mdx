@@ -30,6 +30,8 @@ None
 <Option
   cli_repr={`--[no-]lint-per-file-caching`}
   env_repr='PANTS_LINT_PER_FILE_CACHING'
+  toml_repr={`[lint]
+per_file_caching = <bool>`}
   default_repr={`False`}
 >
 
@@ -42,6 +44,8 @@ Rather than linting all files in a single batch, lint each file as a separate pr
 <Option
   cli_repr={`--lint-reports-dir=<DIR>`}
   env_repr='PANTS_LINT_REPORTS_DIR'
+  toml_repr={`[lint]
+reports_dir = <DIR>`}
   default_repr={`None`}
 >
 

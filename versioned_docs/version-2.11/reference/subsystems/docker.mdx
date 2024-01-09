@@ -22,6 +22,10 @@ Config section: <span className="color--primary">`[docker]`</span>
 <Option
   cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_DOCKER_REGISTRIES'
+  toml_repr={`[docker.registries]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -48,6 +52,8 @@ A configured registry is marked as default either by setting `default = true` or
 <Option
   cli_repr={`--docker-default-repository=<str>`}
   env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
+  toml_repr={`[docker]
+default_repository = <str>`}
   default_repr={`{name}`}
 >
 
@@ -73,6 +79,8 @@ Any registries or tags are added to the image name as required, and should not b
 <Option
   cli_repr={`--docker-default-context-root=<workspace_path>`}
   env_repr='PANTS_DOCKER_DEFAULT_CONTEXT_ROOT'
+  toml_repr={`[docker]
+default_context_root = <workspace_path>`}
   default_repr={``}
 >
 
@@ -94,6 +102,12 @@ Examples:
 <Option
   cli_repr={`--docker-build-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DOCKER_BUILD_ARGS'
+  toml_repr={`[docker]
+build_args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -117,6 +131,8 @@ Use the `extra_build_args` field on a `docker_image` target for additional image
 <Option
   cli_repr={`--docker-build-target-stage=<str>`}
   env_repr='PANTS_DOCKER_BUILD_TARGET_STAGE'
+  toml_repr={`[docker]
+build_target_stage = <str>`}
   default_repr={`None`}
 >
 
@@ -131,6 +147,8 @@ This is useful to provide from the command line, to specify the target stage to 
 <Option
   cli_repr={`--[no-]docker-build-verbose`}
   env_repr='PANTS_DOCKER_BUILD_VERBOSE'
+  toml_repr={`[docker]
+build_verbose = <bool>`}
   default_repr={`False`}
 >
 
@@ -143,6 +161,12 @@ Whether to log the Docker output to the console. If false, only the image ID is 
 <Option
   cli_repr={`--docker-run-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DOCKER_RUN_ARGS'
+  toml_repr={`[docker]
+run_args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -169,6 +193,12 @@ Defaults to `--interactive --tty` when stdout is connected to a terminal.
 <Option
   cli_repr={`--docker-env-vars="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_DOCKER_ENV_VARS'
+  toml_repr={`[docker]
+env_vars = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -183,6 +213,12 @@ Entries are either strings in the form `ENV_VAR=value` to set an explicit value;
 <Option
   cli_repr={`--docker-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_DOCKER_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[docker]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -197,6 +233,12 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 <Option
   cli_repr={`--docker-tools="['<str>', '<str>', ...]"`}
   env_repr='PANTS_DOCKER_TOOLS'
+  toml_repr={`[docker]
+tools = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

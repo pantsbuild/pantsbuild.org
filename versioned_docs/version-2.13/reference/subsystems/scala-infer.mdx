@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[scala-infer]`</span>
 <Option
   cli_repr={`--[no-]scala-infer-imports`}
   env_repr='PANTS_SCALA_INFER_IMPORTS'
+  toml_repr={`[scala-infer]
+imports = <bool>`}
   default_repr={`True`}
 >
 
@@ -34,6 +36,8 @@ Infer a target&#x27;s dependencies by parsing import statements from sources.
 <Option
   cli_repr={`--[no-]scala-infer-consumed-types`}
   env_repr='PANTS_SCALA_INFER_CONSUMED_TYPES'
+  toml_repr={`[scala-infer]
+consumed_types = <bool>`}
   default_repr={`True`}
 >
 
@@ -46,6 +50,8 @@ Infer a target&#x27;s dependencies by parsing consumed types from sources.
 <Option
   cli_repr={`--[no-]scala-infer-package-objects`}
   env_repr='PANTS_SCALA_INFER_PACKAGE_OBJECTS'
+  toml_repr={`[scala-infer]
+package_objects = <bool>`}
   default_repr={`True`}
 >
 
@@ -58,6 +64,8 @@ Add dependency on the package object to every target.
 <Option
   cli_repr={`--[no-]scala-infer-force-add-siblings-as-dependencies`}
   env_repr='PANTS_SCALA_INFER_FORCE_ADD_SIBLINGS_AS_DEPENDENCIES'
+  toml_repr={`[scala-infer]
+force_add_siblings_as_dependencies = <bool>`}
   default_repr={`True`}
 >
 

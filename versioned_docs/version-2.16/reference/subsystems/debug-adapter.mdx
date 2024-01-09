@@ -24,6 +24,8 @@ Config section: <span className="color--primary">`[debug-adapter]`</span>
 <Option
   cli_repr={`--debug-adapter-host=<str>`}
   env_repr='PANTS_DEBUG_ADAPTER_HOST'
+  toml_repr={`[debug-adapter]
+host = <str>`}
   default_repr={`127.0.0.1`}
 >
 
@@ -36,6 +38,8 @@ The hostname to use when launching the server.
 <Option
   cli_repr={`--debug-adapter-port=<int>`}
   env_repr='PANTS_DEBUG_ADAPTER_PORT'
+  toml_repr={`[debug-adapter]
+port = <int>`}
   default_repr={`5678`}
 >
 

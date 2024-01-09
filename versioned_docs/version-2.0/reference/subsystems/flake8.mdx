@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[flake8]`</span>
 <Option
   cli_repr={`--[no-]flake8-skip`}
   env_repr='PANTS_FLAKE8_SKIP'
+  toml_repr={`[flake8]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use Flake8 when running `/home/josh/work/scie-pants/dist/pants lint`
 <Option
   cli_repr={`--flake8-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_FLAKE8_ARGS'
+  toml_repr={`[flake8]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Flake8, e.g. `--flake8-args="--ignore E123,W456 --
 <Option
   cli_repr={`--flake8-version=<str>`}
   env_repr='PANTS_FLAKE8_VERSION'
+  toml_repr={`[flake8]
+version = <str>`}
   default_repr={`flake8>=3.7.9,<3.9`}
 >
 
@@ -60,6 +70,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--flake8-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FLAKE8_EXTRA_REQUIREMENTS'
+  toml_repr={`[flake8]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "setuptools<45"\n]`}
 >
 
@@ -72,6 +88,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--flake8-entry-point=<str>`}
   env_repr='PANTS_FLAKE8_ENTRY_POINT'
+  toml_repr={`[flake8]
+entry_point = <str>`}
   default_repr={`flake8`}
 >
 
@@ -84,6 +102,8 @@ The main module for the tool. Usually, you will not want to change this from the
 <Option
   cli_repr={`--flake8-config=<file_option>`}
   env_repr='PANTS_FLAKE8_CONFIG'
+  toml_repr={`[flake8]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -98,6 +118,12 @@ Path to `.flake8` or alternative Flake8 config file
 <Option
   cli_repr={`--flake8-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FLAKE8_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[flake8]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.1.0.dev0'
   removal_hint={'This option no longer does anything, as Pants auto-configures the interpreter constraints for flake8 based on your code\'s interpreter constraints.'}

@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[isort]`</span>
 <Option
   cli_repr={`--[no-]isort-skip`}
   env_repr='PANTS_ISORT_SKIP'
+  toml_repr={`[isort]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use isort when running `/home/josh/work/scie-pants/dist/pant
 <Option
   cli_repr={`--isort-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_ISORT_ARGS'
+  toml_repr={`[isort]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -46,6 +54,8 @@ Arguments to pass directly to isort, e.g. `--isort-args='--case-sensitive --trai
 <Option
   cli_repr={`--[no-]isort-export`}
   env_repr='PANTS_ISORT_EXPORT'
+  toml_repr={`[isort]
+export = <bool>`}
   default_repr={`True`}
 >
 
@@ -62,6 +72,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 <Option
   cli_repr={`--isort-version=<str>`}
   env_repr='PANTS_ISORT_VERSION'
+  toml_repr={`[isort]
+version = <str>`}
   default_repr={`isort[pyproject,colors]>=5.9.3,<6.0`}
 >
 
@@ -74,6 +86,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--isort-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_EXTRA_REQUIREMENTS'
+  toml_repr={`[isort]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +104,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[isort]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +122,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--isort-lockfile=<str>`}
   env_repr='PANTS_ISORT_LOCKFILE'
+  toml_repr={`[isort]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -118,6 +144,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--isort-console-script=<str>`}
   env_repr='PANTS_ISORT_CONSOLE_SCRIPT'
+  toml_repr={`[isort]
+console_script = <str>`}
   default_repr={`isort`}
 >
 
@@ -130,6 +158,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--isort-entry-point=<str>`}
   env_repr='PANTS_ISORT_ENTRY_POINT'
+  toml_repr={`[isort]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -142,6 +172,12 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--isort-config="[<file_option>, <file_option>, ...]"`}
   env_repr='PANTS_ISORT_CONFIG'
+  toml_repr={`[isort]
+config = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -158,6 +194,8 @@ If using isort 5+ and you specify only 1 config file, Pants will configure isort
 <Option
   cli_repr={`--[no-]isort-config-discovery`}
   env_repr='PANTS_ISORT_CONFIG_DISCOVERY'
+  toml_repr={`[isort]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

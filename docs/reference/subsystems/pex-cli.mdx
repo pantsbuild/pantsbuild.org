@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--pex-cli-version=<str>`}
   env_repr='PANTS_PEX_CLI_VERSION'
+  toml_repr={`[pex-cli]
+version = <str>`}
   default_repr={`v2.1.152`}
 >
 
@@ -40,6 +42,12 @@ Supported pex versions: &#x3E;=2.1.135,&#x3C;3.0
 <Option
   cli_repr={`--pex-cli-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PEX_CLI_KNOWN_VERSIONS'
+  toml_repr={`[pex-cli]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v2.1.152|macos_arm64|64640336f60ec06c52ffa174f1b59b39ae1e3894d475ea0ae0abc62c0dda9fac|4205187",\n  "v2.1.152|macos_x86_64|64640336f60ec06c52ffa174f1b59b39ae1e3894d475ea0ae0abc62c0dda9fac|4205187",\n  "v2.1.152|linux_x86_64|64640336f60ec06c52ffa174f1b59b39ae1e3894d475ea0ae0abc62c0dda9fac|4205187",\n  "v2.1.152|linux_arm64|64640336f60ec06c52ffa174f1b59b39ae1e3894d475ea0ae0abc62c0dda9fac|4205187"\n]`}
 >
 
@@ -69,6 +77,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--pex-cli-url-template=<str>`}
   env_repr='PANTS_PEX_CLI_URL_TEMPLATE'
+  toml_repr={`[pex-cli]
+url_template = <str>`}
   default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
 >
 
@@ -83,6 +93,10 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
 <Option
   cli_repr={`--pex-cli-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PEX_CLI_URL_PLATFORM_MAPPING'
+  toml_repr={`[pex-cli.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -99,6 +113,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--pex-cli-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_PEX_CLI_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[pex-cli]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >

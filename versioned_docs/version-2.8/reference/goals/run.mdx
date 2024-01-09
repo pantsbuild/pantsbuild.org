@@ -30,6 +30,12 @@ Config section: <span className="color--primary">`[run]`</span>
 <Option
   cli_repr={`--run-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_RUN_ARGS'
+  toml_repr={`[run]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
