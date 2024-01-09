@@ -62,6 +62,7 @@ const config = {
   onBrokenLinks: isDev ? "warn" : "warn",
   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
+  clientModules: ["./src/js/redirectCodeFragment.js"],
   presets: [
     [
       "@docusaurus/preset-classic",
