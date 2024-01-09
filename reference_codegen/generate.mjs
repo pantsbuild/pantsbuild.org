@@ -160,6 +160,12 @@ helpAll.scope_to_help_info[""].advanced.forEach((option) => {
     cachedir = option.default.split("/").slice(0, -2).join("/");
   }
 });
+// NB: The default changes depending on the environment, so hardcode.
+helpAll.scope_to_help_info[""].basic.forEach((option) => {
+  if (option.config_key === "dynamic_ui") {
+    option.default = true;
+  }
+});
 
 Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
   ["basic", "advanced", "deprecated"].forEach((optionsType) => {
