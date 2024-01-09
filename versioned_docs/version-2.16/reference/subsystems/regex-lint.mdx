@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[regex-lint]`</span>
 <Option
   cli_repr={`--[no-]regex-lint-skip`}
   env_repr='PANTS_REGEX_LINT_SKIP'
+  toml_repr={`[regex-lint]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -38,6 +40,10 @@ If true, don&#x27;t use regex-lint when running `pants lint`.
 <Option
   cli_repr={`--regex-lint-config="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_REGEX_LINT_CONFIG'
+  toml_repr={`[regex-lint.config]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -81,6 +87,8 @@ It&#x27;s often helpful to load this config from a JSON or YAML file. To do that
 <Option
   cli_repr={`--regex-lint-detail-level=<DetailLevel>`}
   env_repr='PANTS_REGEX_LINT_DETAIL_LEVEL'
+  toml_repr={`[regex-lint]
+detail_level = <DetailLevel>`}
   one_of='none, summary, nonmatching, names, all'
   default_repr={`nonmatching`}
 >

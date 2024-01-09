@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[setup-py]`</span>
 <Option
   cli_repr={`--setup-py-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_SETUP_PY_ARGS'
+  toml_repr={`[setup-py]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,8 @@ Arguments to pass directly to setup.py, e.g. `--setup-py-args='bdist_wheel --pyt
 <Option
   cli_repr={`--[no-]setup-py-transitive`}
   env_repr='PANTS_SETUP_PY_TRANSITIVE'
+  toml_repr={`[setup-py]
+transitive = <bool>`}
   default_repr={`False`}
 >
 

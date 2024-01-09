@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[test]`</span>
 <Option
   cli_repr={`--[no-]test-debug`}
   env_repr='PANTS_TEST_DEBUG'
+  toml_repr={`[test]
+debug = <bool>`}
   default_repr={`False`}
 >
 
@@ -38,6 +40,8 @@ Run tests sequentially in an interactive process. This is necessary, for example
 <Option
   cli_repr={`--[no-]test-debug-adapter`}
   env_repr='PANTS_TEST_DEBUG_ADAPTER'
+  toml_repr={`[test]
+debug_adapter = <bool>`}
   default_repr={`False`}
 >
 
@@ -54,6 +58,8 @@ This option implies `--debug`.
 <Option
   cli_repr={`--[no-]test-force`}
   env_repr='PANTS_TEST_FORCE'
+  toml_repr={`[test]
+force = <bool>`}
   default_repr={`False`}
 >
 
@@ -66,6 +72,8 @@ Force the tests to run, even if they could be satisfied from cache.
 <Option
   cli_repr={`--test-output=<ShowOutput>`}
   env_repr='PANTS_TEST_OUTPUT'
+  toml_repr={`[test]
+output = <ShowOutput>`}
   one_of='all, failed, none'
   default_repr={`failed`}
 >
@@ -79,6 +87,8 @@ Show stdout/stderr for these tests.
 <Option
   cli_repr={`--[no-]test-use-coverage`}
   env_repr='PANTS_TEST_USE_COVERAGE'
+  toml_repr={`[test]
+use_coverage = <bool>`}
   default_repr={`False`}
 >
 
@@ -91,6 +101,8 @@ Generate a coverage report if the test runner supports it.
 <Option
   cli_repr={`--[no-]test-open-coverage`}
   env_repr='PANTS_TEST_OPEN_COVERAGE'
+  toml_repr={`[test]
+open_coverage = <bool>`}
   default_repr={`False`}
 >
 
@@ -103,6 +115,8 @@ If a coverage report file is generated, open it on the local system if the syste
 <Option
   cli_repr={`--test-shard=<str>`}
   env_repr='PANTS_TEST_SHARD'
+  toml_repr={`[test]
+shard = <str>`}
   default_repr={``}
 >
 
@@ -121,6 +135,8 @@ Note that the shards are roughly equal in size as measured by number of files. N
 <Option
   cli_repr={`--[no-]test-timeouts`}
   env_repr='PANTS_TEST_TIMEOUTS'
+  toml_repr={`[test]
+timeouts = <bool>`}
   default_repr={`True`}
 >
 
@@ -133,6 +149,8 @@ Enable test target timeouts. If timeouts are enabled then test targets with a `t
 <Option
   cli_repr={`--test-attempts-default=<int>`}
   env_repr='PANTS_TEST_ATTEMPTS_DEFAULT'
+  toml_repr={`[test]
+attempts_default = <int>`}
   default_repr={`1`}
 >
 
@@ -145,6 +163,12 @@ The number of attempts to run tests, in case of a test failure. Tests that were 
 <Option
   cli_repr={`--test-extra-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_TEST_EXTRA_ENV_VARS'
+  toml_repr={`[test]
+extra_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   target_field_name='test_extra_env_vars'
 >
@@ -160,6 +184,8 @@ Additional environment variables to include in test processes. Entries are strin
 <Option
   cli_repr={`--[no-]test-report`}
   env_repr='PANTS_TEST_REPORT'
+  toml_repr={`[test]
+report = <bool>`}
   default_repr={`False`}
 >
 
@@ -172,6 +198,8 @@ Write test reports to `--report-dir`.
 <Option
   cli_repr={`--test-report-dir=<str>`}
   env_repr='PANTS_TEST_REPORT_DIR'
+  toml_repr={`[test]
+report_dir = <str>`}
   default_repr={`{distdir}/test/reports`}
 >
 
@@ -184,6 +212,8 @@ Path to write test reports to. Must be relative to the build root.
 <Option
   cli_repr={`--test-timeout-default=<int>`}
   env_repr='PANTS_TEST_TIMEOUT_DEFAULT'
+  toml_repr={`[test]
+timeout_default = <int>`}
   default_repr={`None`}
 >
 
@@ -196,6 +226,8 @@ The default timeout (in seconds) for a test target if the `timeout` field is not
 <Option
   cli_repr={`--test-timeout-maximum=<int>`}
   env_repr='PANTS_TEST_TIMEOUT_MAXIMUM'
+  toml_repr={`[test]
+timeout_maximum = <int>`}
   default_repr={`None`}
 >
 
@@ -208,6 +240,8 @@ The maximum timeout (in seconds) that may be used on a test target.
 <Option
   cli_repr={`--test-batch-size=<int>`}
   env_repr='PANTS_TEST_BATCH_SIZE'
+  toml_repr={`[test]
+batch_size = <int>`}
   default_repr={`128`}
 >
 

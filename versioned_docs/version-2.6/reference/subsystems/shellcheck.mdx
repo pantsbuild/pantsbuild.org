@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[shellcheck]`</span>
 <Option
   cli_repr={`--[no-]shellcheck-skip`}
   env_repr='PANTS_SHELLCHECK_SKIP'
+  toml_repr={`[shellcheck]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ Don&#x27;t use Shellcheck when running `./pants lint`.
 <Option
   cli_repr={`--shellcheck-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SHELLCHECK_ARGS'
+  toml_repr={`[shellcheck]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e SC20529'`.
 <Option
   cli_repr={`--shellcheck-version=<str>`}
   env_repr='PANTS_SHELLCHECK_VERSION'
+  toml_repr={`[shellcheck]
+version = <str>`}
   default_repr={`v0.7.1`}
 >
 
@@ -60,6 +70,12 @@ Use this version of shellcheck.
 <Option
   cli_repr={`--shellcheck-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SHELLCHECK_KNOWN_VERSIONS'
+  toml_repr={`[shellcheck]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v0.7.1|darwin|b080c3b659f7286e27004aa33759664d91e15ef2498ac709a452445d47e3ac23|1348272",\n  "v0.7.1|linux|64f17152d96d7ec261ad3086ed42d18232fcb65148b44571b564d688269d36c8|1443836"\n]`}
 >
 
@@ -85,6 +101,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--shellcheck-url-template=<str>`}
   env_repr='PANTS_SHELLCHECK_URL_TEMPLATE'
+  toml_repr={`[shellcheck]
+url_template = <str>`}
   default_repr={`https://github.com/koalaman/shellcheck/releases/download/{version}/shellcheck-{version}.{platform}.x86_64.tar.xz`}
 >
 
@@ -99,6 +117,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--shellcheck-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SHELLCHECK_URL_PLATFORM_MAPPING'
+  toml_repr={`[shellcheck.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "darwin": "darwin",\n  "linux": "linux"\n}`}
 >
 
@@ -115,6 +137,8 @@ For example, if you define `{"darwin": "apple-darwin", "linux": "unknown-linux"}
 <Option
   cli_repr={`--[no-]shellcheck-config-discovery`}
   env_repr='PANTS_SHELLCHECK_CONFIG_DISCOVERY'
+  toml_repr={`[shellcheck]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

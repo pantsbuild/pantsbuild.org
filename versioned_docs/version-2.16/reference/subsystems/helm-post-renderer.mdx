@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--helm-post-renderer-install-from-resolve=<str>`}
   env_repr='PANTS_HELM_POST_RENDERER_INSTALL_FROM_RESOLVE'
+  toml_repr={`[helm-post-renderer]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -46,6 +48,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--helm-post-renderer-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_POST_RENDERER_REQUIREMENTS'
+  toml_repr={`[helm-post-renderer]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -64,6 +72,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--helm-post-renderer-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_POST_RENDERER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[helm-post-renderer]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
 >
 
@@ -78,6 +92,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--helm-post-renderer-version=<str>`}
   env_repr='PANTS_HELM_POST_RENDERER_VERSION'
+  toml_repr={`[helm-post-renderer]
+version = <str>`}
   default_repr={`yamlpath>=3.7.0,<4`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -92,6 +108,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--helm-post-renderer-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_POST_RENDERER_EXTRA_REQUIREMENTS'
+  toml_repr={`[helm-post-renderer]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "ruamel.yaml>=0.15.96,!=0.17.0,!=0.17.1,!=0.17.2,!=0.17.5,<=0.17.21"\n]`}
   removal_version='2.18.0.dev1'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
@@ -106,6 +128,8 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--helm-post-renderer-lockfile=<str>`}
   env_repr='PANTS_HELM_POST_RENDERER_LOCKFILE'
+  toml_repr={`[helm-post-renderer]
+lockfile = <str>`}
   default_repr={`<default>`}
   removal_version='2.18.0.dev0'
   removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.<br /><br />1. If you have an existing resolve that includes the requirements for this tool,<br />    you can set `[helm-post-renderer].install_from_resolve = "<resolve name>".<br />    This may be the case if the tool also provides a runtime library, and you want<br />    to specify the version in just one place.<br />2. If not, you can set up a new resolve as described at the link above.<br /><br />Either way, the resolve you choose should provide the requirements currently set by the `version` and `extra-requirements` options for this tool, which you can see by running `pants help-advanced helm-post-renderer`.'}

@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[workunit-logger]`</span>
 <Option
   cli_repr={`--[no-]workunit-logger-enabled`}
   env_repr='PANTS_WORKUNIT_LOGGER_ENABLED'
+  toml_repr={`[workunit-logger]
+enabled = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,8 @@ Whether to enable workunit logging.
 <Option
   cli_repr={`--workunit-logger-logdir=<str>`}
   env_repr='PANTS_WORKUNIT_LOGGER_LOGDIR'
+  toml_repr={`[workunit-logger]
+logdir = <str>`}
   default_repr={`.pants.d`}
 >
 

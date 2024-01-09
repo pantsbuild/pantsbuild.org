@@ -26,6 +26,16 @@ None
 <Option
   cli_repr={`--source-root-patterns="[["pattern1", "pattern2", ...], ["pattern1", "pattern2", ...], ...]"`}
   env_repr='PANTS_SOURCE_ROOT_PATTERNS'
+  toml_repr={`[source]
+root_patterns = [
+    ["pattern1",
+    "pattern2",
+    ...],
+    ["pattern1",
+    "pattern2",
+    ...],
+    ...,
+]`}
   default_repr={`[\n  "/",\n  "src",\n  "src/python",\n  "src/py",\n  "src/thrift",\n  "src/protobuf",\n  "src/protos",\n  "src/scala",\n  "src/java"\n]`}
 >
 
@@ -48,6 +58,12 @@ See https://www.pantsbuild.org/v2.18/docs/source-roots.
 <Option
   cli_repr={`--source-marker-filenames="[filename, filename, ...]"`}
   env_repr='PANTS_SOURCE_MARKER_FILENAMES'
+  toml_repr={`[source]
+marker_filenames = [
+    filename,
+    filename,
+    ...,
+]`}
   default_repr={`[]`}
 >
 

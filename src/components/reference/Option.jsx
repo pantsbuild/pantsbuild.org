@@ -1,9 +1,11 @@
+import CodeBlock from "@theme/CodeBlock";
 import Link from "@docusaurus/Link";
 
 export default function Option({
   children,
   cli_repr,
   env_repr,
+  toml_repr,
   one_of,
   default_repr,
   target_field_name,
@@ -20,6 +22,9 @@ export default function Option({
         {env_repr}
       </code>
       <br />
+      <CodeBlock language="toml" title="pants.toml">
+        {toml_repr}
+      </CodeBlock>
       <div style={{ paddingLeft: "2em" }}>
         <span>
           {one_of && (

@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--nodejs-version=<str>`}
   env_repr='PANTS_NODEJS_VERSION'
+  toml_repr={`[nodejs]
+version = <str>`}
   default_repr={`v16.15.0`}
 >
 
@@ -38,6 +40,12 @@ Use this version of nodejs.
 <Option
   cli_repr={`--nodejs-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_NODEJS_KNOWN_VERSIONS'
+  toml_repr={`[nodejs]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v16.15.0|macos_arm64|ad8d8fc5330ef47788f509c2af398c8060bb59acbe914070d0df684cd2d8d39b|29126014",\n  "v16.15.0|macos_x86_64|a6bb12bbf979d32137598e49d56d61bcddf8a8596c3442b44a9b3ace58dd4de8|30561503",\n  "v16.15.0|linux_arm64|b4080b86562c5397f32da7a0723b95b1df523cab4c757688a184e3f733a7df56|21403276",\n  "v16.15.0|linux_x86_64|ebdf4dc9d992d19631f0931cca2fc33c6d0d382543639bc6560d31d5060a8372|22031988"\n]`}
 >
 
@@ -65,6 +73,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--nodejs-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_NODEJS_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[nodejs]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -80,6 +90,8 @@ Supported nodejs versions: unspecified
 <Option
   cli_repr={`--nodejs-url-template=<str>`}
   env_repr='PANTS_NODEJS_URL_TEMPLATE'
+  toml_repr={`[nodejs]
+url_template = <str>`}
   default_repr={`https://nodejs.org/dist/{version}/node-{version}-{platform}.tar`}
 >
 
@@ -94,6 +106,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--nodejs-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_NODEJS_URL_PLATFORM_MAPPING'
+  toml_repr={`[nodejs.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-x64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-x64"\n}`}
 >
 

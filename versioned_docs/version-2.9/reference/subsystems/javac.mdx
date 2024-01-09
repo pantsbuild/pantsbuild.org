@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[javac]`</span>
 <Option
   cli_repr={`--javac-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_JAVAC_ARGS'
+  toml_repr={`[javac]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -40,6 +46,8 @@ None
 <Option
   cli_repr={`--javac-jdk=<str>`}
   env_repr='PANTS_JAVAC_JDK'
+  toml_repr={`[javac]
+jdk = <str>`}
   default_repr={`adopt:1.11`}
   removal_version='2.10.0.dev0'
   removal_hint={'Use `--jvm-jdk`, which behaves the same.'}

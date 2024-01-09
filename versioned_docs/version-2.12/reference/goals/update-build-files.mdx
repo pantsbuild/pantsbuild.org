@@ -30,6 +30,8 @@ Config section: <span className="color--primary">`[update-build-files]`</span>
 <Option
   cli_repr={`--[no-]update-build-files-check`}
   env_repr='PANTS_UPDATE_BUILD_FILES_CHECK'
+  toml_repr={`[update-build-files]
+check = <bool>`}
   default_repr={`False`}
 >
 
@@ -42,6 +44,8 @@ Do not write changes to disk, only write back what would change. Return code 0 m
 <Option
   cli_repr={`--[no-]update-build-files-fmt`}
   env_repr='PANTS_UPDATE_BUILD_FILES_FMT'
+  toml_repr={`[update-build-files]
+fmt = <bool>`}
   default_repr={`True`}
 >
 
@@ -56,6 +60,8 @@ Set `[black].args` / `[yapf].args`, `[black].config` / `[yapf].config` , and `[b
 <Option
   cli_repr={`--update-build-files-formatter=<Formatter>`}
   env_repr='PANTS_UPDATE_BUILD_FILES_FORMATTER'
+  toml_repr={`[update-build-files]
+formatter = <Formatter>`}
   one_of='yapf, black'
   default_repr={`black`}
 >
@@ -69,6 +75,8 @@ Which formatter Pants should use to format BUILD files.
 <Option
   cli_repr={`--[no-]update-build-files-fix-safe-deprecations`}
   env_repr='PANTS_UPDATE_BUILD_FILES_FIX_SAFE_DEPRECATIONS'
+  toml_repr={`[update-build-files]
+fix_safe_deprecations = <bool>`}
   default_repr={`True`}
 >
 
@@ -87,6 +95,8 @@ None
 <Option
   cli_repr={`--[no-]update-build-files-fix-python-macros`}
   env_repr='PANTS_UPDATE_BUILD_FILES_FIX_PYTHON_MACROS'
+  toml_repr={`[update-build-files]
+fix_python_macros = <bool>`}
   default_repr={`False`}
   removal_version='2.13.0.dev0'
   removal_hint={'No longer does anything as the old macros have been removed in favor of target generators.'}

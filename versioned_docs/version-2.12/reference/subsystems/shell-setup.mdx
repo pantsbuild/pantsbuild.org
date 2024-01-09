@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--shell-setup-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[shell-setup]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -40,6 +46,8 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 <Option
   cli_repr={`--[no-]shell-setup-dependency-inference`}
   env_repr='PANTS_SHELL_SETUP_DEPENDENCY_INFERENCE'
+  toml_repr={`[shell-setup]
+dependency_inference = <bool>`}
   default_repr={`True`}
 >
 

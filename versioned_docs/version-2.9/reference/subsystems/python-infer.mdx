@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[python-infer]`</span>
 <Option
   cli_repr={`--[no-]python-infer-imports`}
   env_repr='PANTS_PYTHON_INFER_IMPORTS'
+  toml_repr={`[python-infer]
+imports = <bool>`}
   default_repr={`True`}
 >
 
@@ -34,6 +36,8 @@ Infer a target&#x27;s imported dependencies by parsing import statements from so
 <Option
   cli_repr={`--[no-]python-infer-string-imports`}
   env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS'
+  toml_repr={`[python-infer]
+string_imports = <bool>`}
   default_repr={`False`}
 >
 
@@ -46,6 +50,8 @@ Infer a target&#x27;s dependencies based on strings that look like dynamic depen
 <Option
   cli_repr={`--python-infer-string-imports-min-dots=<int>`}
   env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS_MIN_DOTS'
+  toml_repr={`[python-infer]
+string_imports_min_dots = <int>`}
   default_repr={`2`}
 >
 
@@ -58,6 +64,8 @@ If --string-imports is True, treat valid-looking strings with at least this many
 <Option
   cli_repr={`--[no-]python-infer-inits`}
   env_repr='PANTS_PYTHON_INFER_INITS'
+  toml_repr={`[python-infer]
+inits = <bool>`}
   default_repr={`False`}
 >
 
@@ -74,6 +82,8 @@ If you have empty `__init__.py` files, it&#x27;s safe to leave this option off; 
 <Option
   cli_repr={`--[no-]python-infer-conftests`}
   env_repr='PANTS_PYTHON_INFER_CONFTESTS'
+  toml_repr={`[python-infer]
+conftests = <bool>`}
   default_repr={`True`}
 >
 
@@ -86,6 +96,8 @@ Infer a test target&#x27;s dependencies on any conftest.py files in the current 
 <Option
   cli_repr={`--[no-]python-infer-entry-points`}
   env_repr='PANTS_PYTHON_INFER_ENTRY_POINTS'
+  toml_repr={`[python-infer]
+entry_points = <bool>`}
   default_repr={`True`}
 >
 
@@ -98,6 +110,8 @@ Infer dependencies on targets&#x27; entry points, e.g. `pex_binary`&#x27;s `entr
 <Option
   cli_repr={`--python-infer-unowned-dependency-behavior=<UnownedDependencyUsage>`}
   env_repr='PANTS_PYTHON_INFER_UNOWNED_DEPENDENCY_BEHAVIOR'
+  toml_repr={`[python-infer]
+unowned_dependency_behavior = <UnownedDependencyUsage>`}
   one_of='error, warning, ignore'
   default_repr={`ignore`}
 >

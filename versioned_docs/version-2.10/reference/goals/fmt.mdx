@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[fmt]`</span>
 <Option
   cli_repr={`--fmt-only="['<str>', '<str>', ...]"`}
   env_repr='PANTS_FMT_ONLY'
+  toml_repr={`[fmt]
+only = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -44,6 +50,8 @@ You can repeat this option, e.g. `fmt --only=isort --only=shfmt` or `fmt --only=
 <Option
   cli_repr={`--fmt-batch-size=<int>`}
   env_repr='PANTS_FMT_BATCH_SIZE'
+  toml_repr={`[fmt]
+batch_size = <int>`}
   default_repr={`128`}
 >
 
@@ -66,6 +74,8 @@ In order to improve cache hit rates (see 2.), batches are created at stable boun
 <Option
   cli_repr={`--[no-]fmt-per-file-caching`}
   env_repr='PANTS_FMT_PER_FILE_CACHING'
+  toml_repr={`[fmt]
+per_file_caching = <bool>`}
   default_repr={`False`}
   removal_version='2.11.0.dev0'
   removal_hint={'Formatters are now broken into multiple batches by default using the `--batch-size` argument.<br /><br />To keep (roughly) this option\'s behavior, set [fmt].batch_size = 1. However, you\'ll likely get better performance by using a larger batch size because of reduced overhead launching processes.'}

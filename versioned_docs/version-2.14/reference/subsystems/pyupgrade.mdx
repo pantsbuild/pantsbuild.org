@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[pyupgrade]`</span>
 <Option
   cli_repr={`--[no-]pyupgrade-skip`}
   env_repr='PANTS_PYUPGRADE_SKIP'
+  toml_repr={`[pyupgrade]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use pyupgrade when running `/home/josh/work/scie-pants/dist/
 <Option
   cli_repr={`--pyupgrade-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_PYUPGRADE_ARGS'
+  toml_repr={`[pyupgrade]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -46,6 +54,8 @@ Arguments to pass directly to pyupgrade, e.g. `--pyupgrade-args='--py39-plus --k
 <Option
   cli_repr={`--[no-]pyupgrade-export`}
   env_repr='PANTS_PYUPGRADE_EXPORT'
+  toml_repr={`[pyupgrade]
+export = <bool>`}
   default_repr={`True`}
 >
 
@@ -62,6 +72,8 @@ This can be useful, for example, with IDE integrations to point your editor to t
 <Option
   cli_repr={`--pyupgrade-version=<str>`}
   env_repr='PANTS_PYUPGRADE_VERSION'
+  toml_repr={`[pyupgrade]
+version = <str>`}
   default_repr={`pyupgrade>=2.33.0,<2.35`}
 >
 
@@ -74,6 +86,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--pyupgrade-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYUPGRADE_EXTRA_REQUIREMENTS'
+  toml_repr={`[pyupgrade]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +104,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--pyupgrade-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYUPGRADE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[pyupgrade]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +122,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--pyupgrade-lockfile=<str>`}
   env_repr='PANTS_PYUPGRADE_LOCKFILE'
+  toml_repr={`[pyupgrade]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -118,6 +144,8 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 <Option
   cli_repr={`--pyupgrade-console-script=<str>`}
   env_repr='PANTS_PYUPGRADE_CONSOLE_SCRIPT'
+  toml_repr={`[pyupgrade]
+console_script = <str>`}
   default_repr={`pyupgrade`}
 >
 
@@ -130,6 +158,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pyupgrade-entry-point=<str>`}
   env_repr='PANTS_PYUPGRADE_ENTRY_POINT'
+  toml_repr={`[pyupgrade]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

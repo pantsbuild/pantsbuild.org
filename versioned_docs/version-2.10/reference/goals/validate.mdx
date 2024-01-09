@@ -34,6 +34,8 @@ None
 <Option
   cli_repr={`--validate-detail-level=<DetailLevel>`}
   env_repr='PANTS_VALIDATE_DETAIL_LEVEL'
+  toml_repr={`[validate]
+detail_level = <DetailLevel>`}
   one_of='none, summary, nonmatching, names, all'
   default_repr={`nonmatching`}
   removal_version='2.11.0.dev0'

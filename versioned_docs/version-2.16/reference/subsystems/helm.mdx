@@ -22,6 +22,10 @@ Config section: <span className="color--primary">`[helm]`</span>
 <Option
   cli_repr={`--helm-registries="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_HELM_REGISTRIES'
+  toml_repr={`[helm.registries]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -52,6 +56,8 @@ Registries also participate in resolving third party Helm charts uplodaded to th
 <Option
   cli_repr={`--[no-]helm-lint-strict`}
   env_repr='PANTS_HELM_LINT_STRICT'
+  toml_repr={`[helm]
+lint_strict = <bool>`}
   default_repr={`False`}
 >
 
@@ -64,6 +70,8 @@ Enables strict linting of Helm charts
 <Option
   cli_repr={`--helm-default-registry-repository=<str>`}
   env_repr='PANTS_HELM_DEFAULT_REGISTRY_REPOSITORY'
+  toml_repr={`[helm]
+default_registry_repository = <str>`}
   default_repr={`None`}
 >
 
@@ -78,6 +86,12 @@ If no registry repository is given, charts will be pushed to the root of the OCI
 <Option
   cli_repr={`--helm-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_HELM_ARGS'
+  toml_repr={`[helm]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -115,6 +129,8 @@ Before attempting to use passthrough arguments, check the refence of each of the
 <Option
   cli_repr={`--helm-version=<str>`}
   env_repr='PANTS_HELM_VERSION'
+  toml_repr={`[helm]
+version = <str>`}
   default_repr={`3.10.0`}
 >
 
@@ -127,6 +143,12 @@ Use this version of helmsubsystem.
 <Option
   cli_repr={`--helm-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_KNOWN_VERSIONS'
+  toml_repr={`[helm]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "3.10.0|linux_arm64 |3b72f5f8a60772fb156d0a4ab93272e8da7ef4d18e6421a7020d7c019f521fc1|13055719",\n  "3.10.0|linux_x86_64|bf56beb418bb529b5e0d6d43d56654c5a03f89c98400b409d1013a33d9586474|14530566",\n  "3.10.0|macos_arm64 |f7f6558ebc8211824032a7fdcf0d55ad064cb33ec1eeec3d18057b9fe2e04dbe|14446277",\n  "3.10.0|macos_x86_64|1e7fd528482ac2ef2d79fe300724b3e07ff6f846a2a9b0b0fe6f5fa05691786b|15237557",\n  "3.8.0|linux_arm64 |23e08035dc0106fe4e0bd85800fd795b2b9ecd9f32187aa16c49b0a917105161|12324642",\n  "3.8.0|linux_x86_64|8408c91e846c5b9ba15eb6b1a5a79fc22dd4d33ac6ea63388e5698d1b2320c8b|13626774",\n  "3.8.0|macos_arm64 |751348f1a4a876ffe089fd68df6aea310fd05fe3b163ab76aa62632e327122f3|14078604",\n  "3.8.0|macos_x86_64|532ddd6213891084873e5c2dcafa577f425ca662a6594a3389e288fc48dc2089|14318316"\n]`}
 >
 
@@ -154,6 +176,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--helm-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_HELM_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[helm]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -169,6 +193,8 @@ Supported helmsubsystem versions: unspecified
 <Option
   cli_repr={`--helm-url-template=<str>`}
   env_repr='PANTS_HELM_URL_TEMPLATE'
+  toml_repr={`[helm]
+url_template = <str>`}
   default_repr={`https://get.helm.sh/helm-v{version}-{platform}.tar.gz`}
 >
 
@@ -183,6 +209,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--helm-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_HELM_URL_PLATFORM_MAPPING'
+  toml_repr={`[helm.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
 >
 
@@ -199,6 +229,12 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--helm-extra-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_EXTRA_ENV_VARS'
+  toml_repr={`[helm]
+extra_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -211,6 +247,8 @@ Additional environment variables that would be made available to all Helm proces
 <Option
   cli_repr={`--[no-]helm-tailor`}
   env_repr='PANTS_HELM_TAILOR'
+  toml_repr={`[helm]
+tailor = <bool>`}
   default_repr={`True`}
 >
 

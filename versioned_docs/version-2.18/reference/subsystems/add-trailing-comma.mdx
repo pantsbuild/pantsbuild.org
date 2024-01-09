@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[add-trailing-comma]`</span>
 <Option
   cli_repr={`--[no-]add-trailing-comma-skip`}
   env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
+  toml_repr={`[add-trailing-comma]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use add-trailing-comma when running `pants fmt` and `pants l
 <Option
   cli_repr={`--add-trailing-comma-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_ADD_TRAILING_COMMA_ARGS'
+  toml_repr={`[add-trailing-comma]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-arg
 <Option
   cli_repr={`--add-trailing-comma-install-from-resolve=<str>`}
   env_repr='PANTS_ADD_TRAILING_COMMA_INSTALL_FROM_RESOLVE'
+  toml_repr={`[add-trailing-comma]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--add-trailing-comma-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ADD_TRAILING_COMMA_REQUIREMENTS'
+  toml_repr={`[add-trailing-comma]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--add-trailing-comma-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[add-trailing-comma]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--add-trailing-comma-console-script=<str>`}
   env_repr='PANTS_ADD_TRAILING_COMMA_CONSOLE_SCRIPT'
+  toml_repr={`[add-trailing-comma]
+console_script = <str>`}
   default_repr={`add-trailing-comma`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--add-trailing-comma-entry-point=<str>`}
   env_repr='PANTS_ADD_TRAILING_COMMA_ENTRY_POINT'
+  toml_repr={`[add-trailing-comma]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

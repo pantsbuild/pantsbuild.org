@@ -30,6 +30,8 @@ None
 <Option
   cli_repr={`--[no-]fmt-per-file-caching`}
   env_repr='PANTS_FMT_PER_FILE_CACHING'
+  toml_repr={`[fmt]
+per_file_caching = <bool>`}
   default_repr={`False`}
 >
 
@@ -44,6 +46,8 @@ Rather than formatting all files in a single batch, format each file as a separa
 <Option
   cli_repr={`--[no-]fmt-per-target-caching`}
   env_repr='PANTS_FMT_PER_TARGET_CACHING'
+  toml_repr={`[fmt]
+per_target_caching = <bool>`}
   default_repr={`False`}
   removal_version='2.1.0.dev0'
   removal_hint={'Use the renamed `--per-file-caching` option instead. If this option is set, Pants will now run per every file, rather than per target.'}

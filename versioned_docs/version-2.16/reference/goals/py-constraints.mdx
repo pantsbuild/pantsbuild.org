@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[py-constraints]`</span>
 <Option
   cli_repr={`--py-constraints-output-file=<path>`}
   env_repr='PANTS_PY_CONSTRAINTS_OUTPUT_FILE'
+  toml_repr={`[py-constraints]
+output_file = <path>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 <Option
   cli_repr={`--[no-]py-constraints-summary`}
   env_repr='PANTS_PY_CONSTRAINTS_SUMMARY'
+  toml_repr={`[py-constraints]
+summary = <bool>`}
   default_repr={`False`}
 >
 
@@ -54,6 +58,8 @@ Use a tool like Pandas or Excel to process the CSV. Use the option `--py-constra
 <Option
   cli_repr={`--[no-]py-constraints-summary-use-new-header`}
   env_repr='PANTS_PY_CONSTRAINTS_SUMMARY_USE_NEW_HEADER'
+  toml_repr={`[py-constraints]
+summary_use_new_header = <bool>`}
   default_repr={`True`}
 >
 

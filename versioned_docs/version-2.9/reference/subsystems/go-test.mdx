@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[go-test]`</span>
 <Option
   cli_repr={`--go-test-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_GO_TEST_ARGS'
+  toml_repr={`[go-test]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 

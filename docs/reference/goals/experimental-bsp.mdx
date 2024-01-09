@@ -26,6 +26,12 @@ Config section: <span className="color--primary">`[experimental-bsp]`</span>
 <Option
   cli_repr={`--experimental-bsp-groups-config-files="[<file_option>, <file_option>, ...]"`}
   env_repr='PANTS_EXPERIMENTAL_BSP_GROUPS_CONFIG_FILES'
+  toml_repr={`[experimental-bsp]
+groups_config_files = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -62,6 +68,8 @@ Pants will merge the contents of the config files together. If the same ID is us
 <Option
   cli_repr={`--[no-]experimental-bsp-server`}
   env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
+  toml_repr={`[experimental-bsp]
+server = <bool>`}
   default_repr={`False`}
 >
 
@@ -74,6 +82,12 @@ Run the Build Server Protocol server. Pants will receive BSP RPC requests via th
 <Option
   cli_repr={`--experimental-bsp-runner-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_EXPERIMENTAL_BSP_RUNNER_ENV_VARS'
+  toml_repr={`[experimental-bsp]
+runner_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "PATH"\n]`}
 >
 

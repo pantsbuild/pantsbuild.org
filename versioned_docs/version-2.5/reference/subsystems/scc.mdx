@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[scc]`</span>
 <Option
   cli_repr={`--scc-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_SCC_ARGS'
+  toml_repr={`[scc]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,8 @@ Arguments to pass directly to SCC, e.g. `--count-loc-args="--no-cocomo"`. Refer 
 <Option
   cli_repr={`--scc-version=<str>`}
   env_repr='PANTS_SCC_VERSION'
+  toml_repr={`[scc]
+version = <str>`}
   default_repr={`2.12.0`}
 >
 
@@ -48,6 +56,12 @@ Use this version of succinctcodecounter.
 <Option
   cli_repr={`--scc-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCC_KNOWN_VERSIONS'
+  toml_repr={`[scc]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "2.12.0|darwin|70b7002cd1e4541cb37b7b9cbc0eeedd13ceacb49628e82ab46332bb2e65a5a6|1842530",\n  "2.12.0|linux|8eca3e98fe8a78d417d3779a51724515ac4459760d3ec256295f80954a0da044|1753059"\n]`}
 >
 
@@ -73,6 +87,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--scc-url-template=<str>`}
   env_repr='PANTS_SCC_URL_TEMPLATE'
+  toml_repr={`[scc]
+url_template = <str>`}
   default_repr={`https://github.com/boyter/scc/releases/download/v{version}/scc-{version}-x86_64-{platform}.zip`}
 >
 
@@ -87,6 +103,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--scc-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SCC_URL_PLATFORM_MAPPING'
+  toml_repr={`[scc.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "darwin": "apple-darwin",\n  "linux": "unknown-linux"\n}`}
 >
 

@@ -24,6 +24,12 @@ Config section: <span className="color--primary">`[python-repos]`</span>
 <Option
   cli_repr={`--python-repos-find-links="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_FIND_LINKS'
+  toml_repr={`[python-repos]
+find_links = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -42,6 +48,12 @@ For local paths, you may want to use the option `[python-repos].path_mappings`.
 <Option
   cli_repr={`--python-repos-indexes="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_INDEXES'
+  toml_repr={`[python-repos]
+indexes = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "https://pypi.org/simple/"\n]`}
 >
 
@@ -56,6 +68,12 @@ If set to an empty list, then Pex will use no indexes (meaning it will not use P
 <Option
   cli_repr={`--python-repos-path-mappings="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_PATH_MAPPINGS'
+  toml_repr={`[python-repos]
+path_mappings = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -78,6 +96,12 @@ Note: Only takes effect if you use Pex lockfiles. Use the default `[python].lock
 <Option
   cli_repr={`--python-repos-repos="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_REPOS_REPOS'
+  toml_repr={`[python-repos]
+repos = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='3.0.0.dev0'
   removal_hint={'A deprecated alias for `[python-repos].find_links`.'}

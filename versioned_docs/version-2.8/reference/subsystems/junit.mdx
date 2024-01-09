@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[junit]`</span>
 <Option
   cli_repr={`--junit-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_JUNIT_ARGS'
+  toml_repr={`[junit]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 

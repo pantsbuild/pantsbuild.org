@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[scalac]`</span>
 <Option
   cli_repr={`--scalac-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SCALAC_ARGS'
+  toml_repr={`[scalac]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,12 @@ Global `scalac` compiler flags, e.g. `--scalac-args='-encoding UTF-8'`.
 <Option
   cli_repr={`--scalac-plugins-global="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAC_PLUGINS_GLOBAL'
+  toml_repr={`[scalac]
+plugins_global = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -50,6 +62,8 @@ If you set this, you must also set `[scalac].plugins_global_lockfile`.
 <Option
   cli_repr={`--scalac-plugins-global-lockfile=<str>`}
   env_repr='PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE'
+  toml_repr={`[scalac]
+plugins_global_lockfile = <str>`}
   default_repr={`<default>`}
 >
 

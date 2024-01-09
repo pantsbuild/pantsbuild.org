@@ -150,14 +150,90 @@ function convertDescription(val) {
   return lines.join("\n").replaceAll("\n\n```", "\n```");
 }
 
+const globalScopeInternal = "";
+const globalScopeConfigSection = "GLOBAL";
+
+/** Split `string` at the first instance of `sep`, e.g. string = "a,b,c", sep = , => ["a", "b,c"] */
+function splitFirst(string, sep) {
+  // Emulate `string.split(sep, 1)` in Python, because that exact code in JS has the wrong
+  // behaviour if `sep` appears more than once: the trailing info is dropped (example above
+  // returns ["a", "b"], without the ",c").
+  const firstIndex = string.indexOf(sep);
+  return firstIndex === -1
+    ? [string]
+    : [string.slice(0, firstIndex), string.slice(firstIndex + sep.length)];
+}
+
+function generateTomlRepr(option, scope) {
+  // Generate a toml block for the option to help users fill out their `pants.toml`.  For
+  // scalars and arrays, we put them inline directly in the scope, while for maps we put
+  // them in a nested table. Since the metadata doesn't contain type info, we'll need to
+  // parse command line args a bit.
+
+  const configKey = option.config_key;
+  if (!configKey) {
+    // This options is not configurable
+    return "";
+  }
+
+  if (scope === globalScopeInternal) {
+    // make sure we're rendering with the section name as appears in pants.toml
+    scope = globalScopeConfigSection;
+  }
+
+  const tomlLines = [];
+  const exampleCli = option.display_args[0];
+
+  const val = exampleCli.includes("[no-]")
+    ? "<bool>"
+    : splitFirst(exampleCli, "=")[1];
+
+  const isMap = val.startsWith('"{') && val.endsWith('}"');
+  const isArray = val.startsWith('"[') && val.endsWith(']"');
+
+  if (isMap) {
+    tomlLines.push(`[${scope}.${configKey}]`);
+
+    const pairs = val.slice(2, -2).split(", ");
+    for (const pair of pairs) {
+      if (pair.includes(":")) {
+        let [k, v] = splitFirst(pair, ": ");
+        if (k.startsWith('"') || k.startsWith("'")) {
+          k = k.slice(1, -1);
+        }
+        tomlLines.push(`${k} = ${v}`);
+      } else {
+        // generally just the trailing ...
+        tomlLines.push(pair);
+      }
+    }
+  } else if (isArray) {
+    tomlLines.push(`[${scope}]`, `${configKey} = [`);
+    for (const item of val.slice(2, -2).split(", ")) {
+      tomlLines.push(`    ${item},`);
+    }
+    tomlLines.push("]");
+  } else {
+    tomlLines.push(`[${scope}]`, `${configKey} = ${val}`);
+  }
+
+  return tomlLines.join("\n");
+}
+
 let buildroot = "";
 let cachedir = "";
-helpAll.scope_to_help_info[""].advanced.forEach((option) => {
+helpAll.scope_to_help_info[globalScopeInternal].advanced.forEach((option) => {
   if (option.config_key === "pants_distdir") {
     buildroot = option.default.split("/").slice(0, -1).join("/");
   }
   if (option.config_key === "local_store_dir") {
     cachedir = option.default.split("/").slice(0, -2).join("/");
+  }
+});
+helpAll.scope_to_help_info[""].basic.forEach((option) => {
+  // NB: The default changes depending on the environment, so hardcode.
+  if (option.config_key === "dynamic_ui") {
+    option.default = true;
   }
 });
 
@@ -171,6 +247,7 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
           .replaceAll("\n", "<br />")
           .replaceAll("'", "\\'");
       }
+      option.toml_repr = generateTomlRepr(option, scope);
     });
   });
 });

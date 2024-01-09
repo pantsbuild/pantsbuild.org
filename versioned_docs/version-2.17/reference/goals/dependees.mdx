@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[dependees]`</span>
 <Option
   cli_repr={`--dependees-output-file=<path>`}
   env_repr='PANTS_DEPENDEES_OUTPUT_FILE'
+  toml_repr={`[dependees]
+output_file = <path>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 <Option
   cli_repr={`--dependees-sep=<separator>`}
   env_repr='PANTS_DEPENDEES_SEP'
+  toml_repr={`[dependees]
+sep = <separator>`}
   default_repr={`\\n`}
 >
 
@@ -50,6 +54,8 @@ String to use to separate lines in line-oriented output.
 <Option
   cli_repr={`--[no-]dependees-transitive`}
   env_repr='PANTS_DEPENDEES_TRANSITIVE'
+  toml_repr={`[dependees]
+transitive = <bool>`}
   default_repr={`False`}
 >
 
@@ -62,6 +68,8 @@ List all transitive dependents. If unspecified, list direct dependents only.
 <Option
   cli_repr={`--[no-]dependees-closed`}
   env_repr='PANTS_DEPENDEES_CLOSED'
+  toml_repr={`[dependees]
+closed = <bool>`}
   default_repr={`False`}
 >
 

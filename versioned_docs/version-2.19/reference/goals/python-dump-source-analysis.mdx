@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[python-dump-source-analysis]`
 <Option
   cli_repr={`--python-dump-source-analysis-analysis-flavor=<AnalysisFlavor>`}
   env_repr='PANTS_PYTHON_DUMP_SOURCE_ANALYSIS_ANALYSIS_FLAVOR'
+  toml_repr={`[python-dump-source-analysis]
+analysis_flavor = <AnalysisFlavor>`}
   one_of='raw_dependency_inference, dependency_inference'
   default_repr={`dependency_inference`}
 >

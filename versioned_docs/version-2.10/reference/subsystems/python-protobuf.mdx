@@ -24,6 +24,8 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf]
+mypy_plugin = <bool>`}
   default_repr={`False`}
 >
 
@@ -38,6 +40,8 @@ Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to als
 <Option
   cli_repr={`--[no-]python-protobuf-infer-runtime-dependency`}
   env_repr='PANTS_PYTHON_PROTOBUF_INFER_RUNTIME_DEPENDENCY'
+  toml_repr={`[python-protobuf]
+infer_runtime_dependency = <bool>`}
   default_repr={`True`}
 >
 
@@ -56,6 +60,12 @@ Unless this option is disabled, Pants will error if no relevant target is found 
 <Option
   cli_repr={`--python-protobuf-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
   env_repr='PANTS_PYTHON_PROTOBUF_RUNTIME_DEPENDENCIES'
+  toml_repr={`[python-protobuf]
+runtime_dependencies = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.11.0.dev0'
   removal_hint={'Pants can now infer dependencies on the Protobuf and gRPC runtime libraries for you. Not only is this more convenient, it allows Pants to support the new `[python].resolves` feature.<br /><br />To use Pants\'s new mechanism, simply remove this option. Run `./pants dependencies path/to/f.proto` to confirm that dependencies are still added correctly. You can disable this new dependency inference feature by setting `[python-protobuf].infer_runtime_dependency = false`.'}

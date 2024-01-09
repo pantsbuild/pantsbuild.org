@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[scalac]`</span>
 <Option
   cli_repr={`--scalac-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_SCALAC_ARGS'
+  toml_repr={`[scalac]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,12 @@ Global `scalac` compiler flags, e.g. `--scalac-args='-encoding UTF-8'`.
 <Option
   cli_repr={`--scalac-plugins-global="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAC_PLUGINS_GLOBAL'
+  toml_repr={`[scalac]
+plugins_global = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +60,8 @@ A list of addresses of `scalac_plugin` targets which should be used for compilat
 <Option
   cli_repr={`--scalac-plugins-global-lockfile=<str>`}
   env_repr='PANTS_SCALAC_PLUGINS_GLOBAL_LOCKFILE'
+  toml_repr={`[scalac]
+plugins_global_lockfile = <str>`}
   default_repr={`3rdparty/jvm/global_scalac_plugins.lock`}
 >
 
@@ -62,6 +76,12 @@ The filename of a lockfile for global plugins.
 <Option
   cli_repr={`--scalac-global="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALAC_GLOBAL_ADDRESSES'
+  toml_repr={`[scalac]
+global_addresses = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
   removal_version='2.10.0.dev0'
   removal_hint={'Use `--plugins-global`, which behaves the same.'}
@@ -76,6 +96,8 @@ A list of addresses of `scalac_plugin` targets which should be used for compilat
 <Option
   cli_repr={`--scalac-lockfile=<str>`}
   env_repr='PANTS_SCALAC_LOCKFILE'
+  toml_repr={`[scalac]
+lockfile = <str>`}
   default_repr={`3rdparty/jvm/global_scalac_plugins.lockfile`}
   removal_version='2.10.0.dev0'
   removal_hint={'Use `--plugins-global-lockfile`, which behaves the same.'}

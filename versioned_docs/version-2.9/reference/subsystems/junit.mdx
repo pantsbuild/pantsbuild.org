@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[junit]`</span>
 <Option
   cli_repr={`--junit-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_JUNIT_ARGS'
+  toml_repr={`[junit]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -36,6 +42,8 @@ Arguments to pass directly to JUnit, e.g. `--disable-ansi-colors`
 <Option
   cli_repr={`--junit-version=<str>`}
   env_repr='PANTS_JUNIT_VERSION'
+  toml_repr={`[junit]
+version = <str>`}
   default_repr={`5.7.2`}
 >
 
@@ -48,6 +56,12 @@ Version string for the tool. This is available for substitution in the `[junit].
 <Option
   cli_repr={`--junit-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_JUNIT_ARTIFACTS'
+  toml_repr={`[junit]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "org.junit.platform:junit-platform-console:1.7.2",\n  "org.junit.jupiter:junit-jupiter-engine:{version}",\n  "org.junit.vintage:junit-vintage-engine:{version}"\n]`}
 >
 
@@ -60,6 +74,8 @@ Artifact requirements for this tool using specified as either the address of a `
 <Option
   cli_repr={`--junit-lockfile=<str>`}
   env_repr='PANTS_JUNIT_LOCKFILE'
+  toml_repr={`[junit]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 

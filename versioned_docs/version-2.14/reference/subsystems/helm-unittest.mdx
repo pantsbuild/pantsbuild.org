@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[helm-unittest]`</span>
 <Option
   cli_repr={`--[no-]helm-unittest-color`}
   env_repr='PANTS_HELM_UNITTEST_COLOR'
+  toml_repr={`[helm-unittest]
+color = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,8 @@ Enforce printing colored output even if stdout is not a tty.
 <Option
   cli_repr={`--helm-unittest-output-type=<HelmUnitTestReportFormat>`}
   env_repr='PANTS_HELM_UNITTEST_OUTPUT_TYPE'
+  toml_repr={`[helm-unittest]
+output_type = <HelmUnitTestReportFormat>`}
   one_of='XUnit, NUnit, JUnit'
   default_repr={`XUnit`}
 >
@@ -49,6 +53,8 @@ Output type used for the test report.
 <Option
   cli_repr={`--helm-unittest-version=<str>`}
   env_repr='PANTS_HELM_UNITTEST_VERSION'
+  toml_repr={`[helm-unittest]
+version = <str>`}
   default_repr={`0.2.8`}
 >
 
@@ -61,6 +67,12 @@ Use this version of helmunittestsubsystem.
 <Option
   cli_repr={`--helm-unittest-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_HELM_UNITTEST_KNOWN_VERSIONS'
+  toml_repr={`[helm-unittest]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "0.2.8|linux_x86_64|d7c452559ad4406a1197435394fbcffe51198060de1aa9b4cb6feaf876776ba0|18299096",\n  "0.2.8|linux_arm64 |c793e241b063f0540ad9b4acc0a02e5a101bd9daea5bdf4d8562e9b2337fedb2|16943867",\n  "0.2.8|macos_x86_64|1dc95699320894bdebf055c4f4cc084c2cfa0133d3cb7fd6a4c0adca94df5c96|18161928",\n  "0.2.8|macos_arm64 |436e3167c26f71258b96e32c2877b4f97c051064db941de097cf3db2fc861342|17621648"\n]`}
 >
 
@@ -88,6 +100,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--helm-unittest-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_HELM_UNITTEST_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[helm-unittest]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -103,6 +117,8 @@ Supported helmunittestsubsystem versions: unspecified
 <Option
   cli_repr={`--helm-unittest-url-template=<str>`}
   env_repr='PANTS_HELM_UNITTEST_URL_TEMPLATE'
+  toml_repr={`[helm-unittest]
+url_template = <str>`}
   default_repr={`https://github.com/quintush/helm-unittest/releases/download/v{version}/helm-unittest-{platform}-{version}.tgz`}
 >
 
@@ -117,6 +133,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--helm-unittest-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_HELM_UNITTEST_URL_PLATFORM_MAPPING'
+  toml_repr={`[helm-unittest.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "macos-arm64",\n  "macos_x86_64": "macos-amd64"\n}`}
 >
 

@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[filter]`</span>
 <Option
   cli_repr={`--filter-output-file=<path>`}
   env_repr='PANTS_FILTER_OUTPUT_FILE'
+  toml_repr={`[filter]
+output_file = <path>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 <Option
   cli_repr={`--filter-sep=<separator>`}
   env_repr='PANTS_FILTER_SEP'
+  toml_repr={`[filter]
+sep = <separator>`}
   default_repr={`\\n`}
 >
 
@@ -50,6 +54,12 @@ String to use to separate lines in line-oriented output.
 <Option
   cli_repr={`--filter-target-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
   env_repr='PANTS_FILTER_TARGET_TYPE'
+  toml_repr={`[filter]
+target_type = [
+    [+-]type1,type2,...,
+    [+-]type1,type2,...,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -62,6 +72,8 @@ Filter on these target types, e.g. `resources` or `python_sources`.
 <Option
   cli_repr={`--filter-granularity=<TargetGranularity>`}
   env_repr='PANTS_FILTER_GRANULARITY'
+  toml_repr={`[filter]
+granularity = <TargetGranularity>`}
   one_of='all, file, BUILD'
   default_repr={`all`}
 >
@@ -75,6 +87,12 @@ Filter to rendering only targets declared in BUILD files, only file-level target
 <Option
   cli_repr={`--filter-address-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
   env_repr='PANTS_FILTER_ADDRESS_REGEX'
+  toml_repr={`[filter]
+address_regex = [
+    [+-]regex1,regex2,...,
+    [+-]regex1,regex2,...,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -87,6 +105,12 @@ Filter on target addresses matching these regexes.
 <Option
   cli_repr={`--filter-tag-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
   env_repr='PANTS_FILTER_TAG_REGEX'
+  toml_repr={`[filter]
+tag_regex = [
+    [+-]regex1,regex2,...,
+    [+-]regex1,regex2,...,
+    ...,
+]`}
   default_repr={`[]`}
 >
 

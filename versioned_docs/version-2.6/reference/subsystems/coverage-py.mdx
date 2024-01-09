@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[coverage-py]`</span>
 <Option
   cli_repr={`--coverage-py-filter="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_FILTER'
+  toml_repr={`[coverage-py]
+filter = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,12 @@ If you leave this off, the coverage report will include every file in the transi
 <Option
   cli_repr={`--coverage-py-report="[<CoverageReportType>, <CoverageReportType>, ...]"`}
   env_repr='PANTS_COVERAGE_PY_REPORT'
+  toml_repr={`[coverage-py]
+report = [
+    <CoverageReportType>,
+    <CoverageReportType>,
+    ...,
+]`}
   one_of='console, xml, html, raw, json'
   default_repr={`[\n  "console"\n]`}
 >
@@ -51,6 +63,8 @@ Which coverage report type(s) to emit.
 <Option
   cli_repr={`--[no-]coverage-py-global-report`}
   env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  toml_repr={`[coverage-py]
+global_report = <bool>`}
   default_repr={`False`}
 >
 
@@ -67,6 +81,8 @@ The global report will include all Python source files in the workspace and not 
 <Option
   cli_repr={`--coverage-py-version=<str>`}
   env_repr='PANTS_COVERAGE_PY_VERSION'
+  toml_repr={`[coverage-py]
+version = <str>`}
   default_repr={`coverage[toml]>=5.0.3,<5.1`}
 >
 
@@ -79,6 +95,12 @@ Requirement string for the tool.
 <Option
   cli_repr={`--coverage-py-extra-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_EXTRA_REQUIREMENTS'
+  toml_repr={`[coverage-py]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -91,6 +113,12 @@ Any additional requirement strings to use with the tool. This is useful if the t
 <Option
   cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[coverage-py]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
@@ -103,6 +131,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--coverage-py-console-script=<str>`}
   env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
+  toml_repr={`[coverage-py]
+console_script = <str>`}
   default_repr={`coverage`}
 >
 
@@ -115,6 +145,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--coverage-py-entry-point=<str>`}
   env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  toml_repr={`[coverage-py]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -127,6 +159,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--coverage-py-output-dir=<str>`}
   env_repr='PANTS_COVERAGE_PY_OUTPUT_DIR'
+  toml_repr={`[coverage-py]
+output_dir = <str>`}
   default_repr={`dist/coverage/python`}
 >
 
@@ -139,6 +173,8 @@ Path to write the Pytest Coverage report to. Must be relative to build root.
 <Option
   cli_repr={`--coverage-py-config=<file_option>`}
   env_repr='PANTS_COVERAGE_PY_CONFIG'
+  toml_repr={`[coverage-py]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -155,6 +191,8 @@ To use a TOML config file, you should add the `toml` library to `[pytest].pytest
 <Option
   cli_repr={`--[no-]coverage-py-config-discovery`}
   env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
+  toml_repr={`[coverage-py]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 

@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python-setup]
+interpreter_constraints = [
+    <requirement>,
+    <requirement>,
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6,<4"\n]`}
 >
 
@@ -42,6 +48,12 @@ These constraints are used as the default value for the `interpreter_constraints
 <Option
   cli_repr={`--python-setup-interpreter-versions-universe="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_VERSIONS_UNIVERSE'
+  toml_repr={`[python-setup]
+interpreter_versions_universe = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "2.7",\n  "3.5",\n  "3.6",\n  "3.7",\n  "3.8",\n  "3.9",\n  "3.10"\n]`}
 >
 
@@ -60,6 +72,8 @@ All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or
 <Option
   cli_repr={`--python-setup-requirement-constraints=<file_option>`}
   env_repr='PANTS_PYTHON_SETUP_REQUIREMENT_CONSTRAINTS'
+  toml_repr={`[python-setup]
+requirement_constraints = <file_option>`}
   default_repr={`None`}
 >
 
@@ -78,6 +92,8 @@ Mutually exclusive with `[python-setup].experimental_lockfile`.
 <Option
   cli_repr={`--[no-]python-setup-resolve-all-constraints`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVE_ALL_CONSTRAINTS'
+  toml_repr={`[python-setup]
+resolve_all_constraints = <bool>`}
   default_repr={`True`}
 >
 
@@ -94,6 +110,8 @@ Requires [python-setup].requirement_constraints to be set.
 <Option
   cli_repr={`--python-setup-experimental-lockfile=<file>`}
   env_repr='PANTS_PYTHON_SETUP_EXPERIMENTAL_LOCKFILE'
+  toml_repr={`[python-setup]
+experimental_lockfile = <file>`}
   default_repr={`None`}
 >
 
@@ -112,6 +130,8 @@ Mutually exclusive with `[python-setup].requirement_constraints`.
 <Option
   cli_repr={`--python-setup-invalid-lockfile-behavior=<InvalidLockfileBehavior>`}
   env_repr='PANTS_PYTHON_SETUP_INVALID_LOCKFILE_BEHAVIOR'
+  toml_repr={`[python-setup]
+invalid_lockfile_behavior = <InvalidLockfileBehavior>`}
   one_of='error, ignore, warn'
   default_repr={`error`}
 >
@@ -127,6 +147,12 @@ We recommend keeping the default of `error` for CI builds.
 <Option
   cli_repr={`--python-setup-interpreter-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_SEARCH_PATHS'
+  toml_repr={`[python-setup]
+interpreter_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PYENV>",\n  "<PATH>"\n]`}
 >
 
@@ -146,6 +172,8 @@ A list of paths to search for Python interpreters that match your project&#x27;s
 <Option
   cli_repr={`--python-setup-resolver-manylinux=<str>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX'
+  toml_repr={`[python-setup]
+resolver_manylinux = <str>`}
   default_repr={`manylinux2014`}
 >
 
@@ -158,6 +186,8 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 <Option
   cli_repr={`--python-setup-resolver-jobs=<int>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVER_JOBS'
+  toml_repr={`[python-setup]
+resolver_jobs = <int>`}
   default_repr={`#cores/2`}
 >
 
@@ -174,6 +204,8 @@ Setting this option higher may result in better parallelism, but, if set too hig
 <Option
   cli_repr={`--[no-]python-setup-tailor-ignore-solitary-init-files`}
   env_repr='PANTS_PYTHON_SETUP_TAILOR_IGNORE_SOLITARY_INIT_FILES'
+  toml_repr={`[python-setup]
+tailor_ignore_solitary_init_files = <bool>`}
   default_repr={`True`}
 >
 
@@ -188,6 +220,8 @@ Set to False if you commonly have packages containing real code in **init**.py a
 <Option
   cli_repr={`--[no-]python-setup-tailor-pex-binary-targets`}
   env_repr='PANTS_PYTHON_SETUP_TAILOR_PEX_BINARY_TARGETS'
+  toml_repr={`[python-setup]
+tailor_pex_binary_targets = <bool>`}
   default_repr={`True`}
 >
 

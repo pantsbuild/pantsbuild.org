@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[awslambda]`</span>
 <Option
   cli_repr={`--awslambda-output-file=<path>`}
   env_repr='PANTS_AWSLAMBDA_OUTPUT_FILE'
+  toml_repr={`[awslambda]
+output_file = <path>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 <Option
   cli_repr={`--awslambda-sep=<separator>`}
   env_repr='PANTS_AWSLAMBDA_SEP'
+  toml_repr={`[awslambda]
+sep = <separator>`}
   default_repr={`\\n`}
 >
 

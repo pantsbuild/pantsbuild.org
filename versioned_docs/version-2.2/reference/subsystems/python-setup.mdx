@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--python-setup-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python-setup]
+interpreter_constraints = [
+    <requirement>,
+    <requirement>,
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.6"\n]`}
 >
 
@@ -42,6 +48,8 @@ These constraints are used as the default value for the `interpreter_constraints
 <Option
   cli_repr={`--python-setup-requirement-constraints=<file_option>`}
   env_repr='PANTS_PYTHON_SETUP_REQUIREMENT_CONSTRAINTS'
+  toml_repr={`[python-setup]
+requirement_constraints = <file_option>`}
   default_repr={`None`}
 >
 
@@ -56,6 +64,8 @@ See https://pip.pypa.io/en/stable/user_guide/#constraints-files for more informa
 <Option
   cli_repr={`--python-setup-resolve-all-constraints=<ResolveAllConstraintsOption>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVE_ALL_CONSTRAINTS'
+  toml_repr={`[python-setup]
+resolve_all_constraints = <ResolveAllConstraintsOption>`}
   one_of='never, nondeployables, always'
   default_repr={`nondeployables`}
 >
@@ -75,6 +85,12 @@ Requires [python-setup].requirement_constraints to be set.
 <Option
   cli_repr={`--python-setup-interpreter-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PYTHON_SETUP_INTERPRETER_SEARCH_PATHS'
+  toml_repr={`[python-setup]
+interpreter_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PYENV>",\n  "<PATH>"\n]`}
 >
 
@@ -92,6 +108,8 @@ A list of paths to search for Python interpreters that match your project&#x27;s
 <Option
   cli_repr={`--python-setup-resolver-version=<ResolverVersion>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVER_VERSION'
+  toml_repr={`[python-setup]
+resolver_version = <ResolverVersion>`}
   one_of='pip-legacy-resolver, pip-2020-resolver'
   default_repr={`pip-legacy-resolver`}
   removal_version='2.5.0.dev1'
@@ -109,6 +127,8 @@ Support for the &#x27;pip-legacy-resolver&#x27; will be removed in Pants 2.5; so
 <Option
   cli_repr={`--python-setup-resolver-manylinux=<str>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVER_MANYLINUX'
+  toml_repr={`[python-setup]
+resolver_manylinux = <str>`}
   default_repr={`manylinux2014`}
 >
 
@@ -121,6 +141,8 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 <Option
   cli_repr={`--python-setup-resolver-jobs=<int>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVER_JOBS'
+  toml_repr={`[python-setup]
+resolver_jobs = <int>`}
   default_repr={`32`}
 >
 
@@ -135,6 +157,8 @@ The maximum number of concurrent jobs to build wheels with. Because Pants can ru
 <Option
   cli_repr={`--python-setup-resolver-http-cache-ttl=<int>`}
   env_repr='PANTS_PYTHON_SETUP_RESOLVER_HTTP_CACHE_TTL'
+  toml_repr={`[python-setup]
+resolver_http_cache_ttl = <int>`}
   default_repr={`0`}
   removal_version='2.4.0.dev1'
   removal_hint={'Unused.'}

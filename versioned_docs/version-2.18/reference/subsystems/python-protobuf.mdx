@@ -24,6 +24,8 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 <Option
   cli_repr={`--[no-]python-protobuf-mypy-plugin`}
   env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf]
+mypy_plugin = <bool>`}
   default_repr={`False`}
 >
 
@@ -38,6 +40,8 @@ Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to als
 <Option
   cli_repr={`--[no-]python-protobuf-infer-runtime-dependency`}
   env_repr='PANTS_PYTHON_PROTOBUF_INFER_RUNTIME_DEPENDENCY'
+  toml_repr={`[python-protobuf]
+infer_runtime_dependency = <bool>`}
   default_repr={`True`}
 >
 

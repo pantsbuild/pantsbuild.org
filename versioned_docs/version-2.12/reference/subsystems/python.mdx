@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[python]`</span>
 <Option
   cli_repr={`--python-no-binary="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_NO_BINARY'
+  toml_repr={`[python]
+no_binary = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -40,6 +46,12 @@ Note: Only takes effect if you use Pex lockfiles. Set `[python].lockfile_generat
 <Option
   cli_repr={`--python-only-binary="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_ONLY_BINARY'
+  toml_repr={`[python]
+only_binary = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -60,6 +72,12 @@ Note: Only takes effect if you use Pex lockfiles. Set `[python].lockfile_generat
 <Option
   cli_repr={`--python-interpreter-constraints="[<requirement>, <requirement>, ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python]
+interpreter_constraints = [
+    <requirement>,
+    <requirement>,
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -76,6 +94,12 @@ Specify with requirement syntax, e.g. &#x27;CPython&#x3E;=2.7,&#x3C;3&#x27; (A C
 <Option
   cli_repr={`--python-interpreter-versions-universe="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYTHON_INTERPRETER_VERSIONS_UNIVERSE'
+  toml_repr={`[python]
+interpreter_versions_universe = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "2.7",\n  "3.5",\n  "3.6",\n  "3.7",\n  "3.8",\n  "3.9",\n  "3.10",\n  "3.11"\n]`}
 >
 
@@ -94,6 +118,8 @@ All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or
 <Option
   cli_repr={`--[no-]python-enable-resolves`}
   env_repr='PANTS_PYTHON_ENABLE_RESOLVES'
+  toml_repr={`[python]
+enable_resolves = <bool>`}
   default_repr={`False`}
 >
 
@@ -116,6 +142,10 @@ This option is mutually exclusive with `[python].requirement_constraints`. We st
 <Option
   cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES'
+  toml_repr={`[python.resolves]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
 >
 
@@ -154,6 +184,8 @@ Only applies if `[python].enable_resolves` is true.
 <Option
   cli_repr={`--python-default-resolve=<str>`}
   env_repr='PANTS_PYTHON_DEFAULT_RESOLVE'
+  toml_repr={`[python]
+default_resolve = <str>`}
   default_repr={`python-default`}
 >
 
@@ -168,6 +200,10 @@ The name must be defined as a resolve in `[python].resolves`.
 <Option
   cli_repr={`--python-resolves-to-interpreter-constraints="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PYTHON_RESOLVES_TO_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python.resolves_to_interpreter_constraints]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -188,6 +224,8 @@ The keys must be defined as resolves in `[python].resolves`.
 <Option
   cli_repr={`--python-invalid-lockfile-behavior=<InvalidLockfileBehavior>`}
   env_repr='PANTS_PYTHON_INVALID_LOCKFILE_BEHAVIOR'
+  toml_repr={`[python]
+invalid_lockfile_behavior = <InvalidLockfileBehavior>`}
   one_of='error, ignore, warn'
   default_repr={`error`}
 >
@@ -205,6 +243,8 @@ Note that `warn` will still expect a Pants lockfile header, it only won&#x27;t e
 <Option
   cli_repr={`--python-lockfile-generator=<LockfileGenerator>`}
   env_repr='PANTS_PYTHON_LOCKFILE_GENERATOR'
+  toml_repr={`[python]
+lockfile_generator = <LockfileGenerator>`}
   one_of='pex, poetry'
   default_repr={`pex`}
 >
@@ -234,6 +274,8 @@ Note that while Pex generates locks in a proprietary JSON format, you can use th
 <Option
   cli_repr={`--[no-]python-resolves-generate-lockfiles`}
   env_repr='PANTS_PYTHON_RESOLVES_GENERATE_LOCKFILES'
+  toml_repr={`[python]
+resolves_generate_lockfiles = <bool>`}
   default_repr={`True`}
 >
 
@@ -250,6 +292,8 @@ If you set this to False, Pants will not attempt to validate the metadata header
 <Option
   cli_repr={`--[no-]python-run-against-entire-lockfile`}
   env_repr='PANTS_PYTHON_RUN_AGAINST_ENTIRE_LOCKFILE'
+  toml_repr={`[python]
+run_against_entire_lockfile = <bool>`}
   default_repr={`False`}
 >
 
@@ -268,6 +312,8 @@ This option does not affect packaging deployable artifacts, such as PEX files, w
 <Option
   cli_repr={`--python-requirement-constraints=<file_option>`}
   env_repr='PANTS_PYTHON_REQUIREMENT_CONSTRAINTS'
+  toml_repr={`[python]
+requirement_constraints = <file_option>`}
   default_repr={`None`}
 >
 
@@ -286,6 +332,8 @@ This only applies when resolving user requirements, rather than tools you run li
 <Option
   cli_repr={`--[no-]python-resolve-all-constraints`}
   env_repr='PANTS_PYTHON_RESOLVE_ALL_CONSTRAINTS'
+  toml_repr={`[python]
+resolve_all_constraints = <bool>`}
   default_repr={`True`}
 >
 
@@ -300,6 +348,8 @@ Usually this option should be enabled because it can result in far fewer resolve
 <Option
   cli_repr={`--python-resolver-manylinux=<str>`}
   env_repr='PANTS_PYTHON_RESOLVER_MANYLINUX'
+  toml_repr={`[python]
+resolver_manylinux = <str>`}
   default_repr={`manylinux2014`}
 >
 
@@ -312,6 +362,8 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 <Option
   cli_repr={`--[no-]python-tailor-ignore-solitary-init-files`}
   env_repr='PANTS_PYTHON_TAILOR_IGNORE_SOLITARY_INIT_FILES'
+  toml_repr={`[python]
+tailor_ignore_solitary_init_files = <bool>`}
   default_repr={`True`}
 >
 
@@ -326,6 +378,8 @@ Set to False if you commonly have packages containing real code in `__init__.py`
 <Option
   cli_repr={`--[no-]python-tailor-requirements-targets`}
   env_repr='PANTS_PYTHON_TAILOR_REQUIREMENTS_TARGETS'
+  toml_repr={`[python]
+tailor_requirements_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -338,6 +392,8 @@ Tailor python_requirements() targets for requirements files.
 <Option
   cli_repr={`--[no-]python-tailor-pex-binary-targets`}
   env_repr='PANTS_PYTHON_TAILOR_PEX_BINARY_TARGETS'
+  toml_repr={`[python]
+tailor_pex_binary_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -350,6 +406,8 @@ Tailor pex_binary() targets for Python entry point files.
 <Option
   cli_repr={`--[no-]python-macos-big-sur-compatibility`}
   env_repr='PANTS_PYTHON_MACOS_BIG_SUR_COMPATIBILITY'
+  toml_repr={`[python]
+macos_big_sur_compatibility = <bool>`}
   default_repr={`False`}
 >
 

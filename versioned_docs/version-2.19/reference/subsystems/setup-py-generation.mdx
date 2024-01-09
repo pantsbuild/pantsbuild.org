@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[setup-py-generation]`</span>
 <Option
   cli_repr={`--[no-]setup-py-generation-generate-setup-default`}
   env_repr='PANTS_SETUP_PY_GENERATION_GENERATE_SETUP_DEFAULT'
+  toml_repr={`[setup-py-generation]
+generate_setup_default = <bool>`}
   default_repr={`True`}
 >
 
@@ -34,6 +36,8 @@ The default value for the `generate_setup` field on `python_distribution` target
 <Option
   cli_repr={`--setup-py-generation-first-party-dependency-version-scheme=<FirstPartyDependencyVersionScheme>`}
   env_repr='PANTS_SETUP_PY_GENERATION_FIRST_PARTY_DEPENDENCY_VERSION_SCHEME'
+  toml_repr={`[setup-py-generation]
+first_party_dependency_version_scheme = <FirstPartyDependencyVersionScheme>`}
   one_of='exact, compatible, any'
   default_repr={`exact`}
 >

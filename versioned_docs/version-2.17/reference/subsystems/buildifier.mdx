@@ -29,6 +29,8 @@ Config section: <span className="color--primary">`[buildifier]`</span>
 <Option
   cli_repr={`--[no-]buildifier-skip`}
   env_repr='PANTS_BUILDIFIER_SKIP'
+  toml_repr={`[buildifier]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -41,6 +43,12 @@ If true, don&#x27;t use Buildifier when running `pants fmt`.
 <Option
   cli_repr={`--buildifier-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_BUILDIFIER_ARGS'
+  toml_repr={`[buildifier]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -55,6 +63,8 @@ Arguments to pass directly to Buildifier, e.g. `--buildifier-args='-lint=fix'`.
 <Option
   cli_repr={`--buildifier-version=<str>`}
   env_repr='PANTS_BUILDIFIER_VERSION'
+  toml_repr={`[buildifier]
+version = <str>`}
   default_repr={`5.1.0`}
 >
 
@@ -67,6 +77,12 @@ Use this version of Buildifier.
 <Option
   cli_repr={`--buildifier-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_BUILDIFIER_KNOWN_VERSIONS'
+  toml_repr={`[buildifier]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "5.1.0|macos_x86_64|c9378d9f4293fc38ec54a08fbc74e7a9d28914dae6891334401e59f38f6e65dc|7125968",\n  "5.1.0|macos_arm64 |745feb5ea96cb6ff39a76b2821c57591fd70b528325562486d47b5d08900e2e4|7334498",\n  "5.1.0|linux_x86_64|52bf6b102cb4f88464e197caac06d69793fa2b05f5ad50a7e7bf6fbd656648a3|7226100",\n  "5.1.0|linux_arm64 |917d599dbb040e63ae7a7e1adb710d2057811902fdc9e35cce925ebfd966eeb8|7171938"\n]`}
 >
 
@@ -94,6 +110,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--buildifier-url-template=<str>`}
   env_repr='PANTS_BUILDIFIER_URL_TEMPLATE'
+  toml_repr={`[buildifier]
+url_template = <str>`}
   default_repr={`https://github.com/bazelbuild/buildtools/releases/download/{version}/buildifier-{platform}`}
 >
 
@@ -108,6 +126,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--buildifier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_BUILDIFIER_URL_PLATFORM_MAPPING'
+  toml_repr={`[buildifier.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
 >
 
@@ -124,6 +146,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--buildifier-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_BUILDIFIER_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[buildifier]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >

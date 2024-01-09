@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--pex-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_PEX_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[pex]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -40,6 +46,8 @@ The special string &#x22;&#x3C;PATH&#x3E;&#x22; will expand to the contents of t
 <Option
   cli_repr={`--pex-verbosity=<int>`}
   env_repr='PANTS_PEX_VERBOSITY'
+  toml_repr={`[pex]
+verbosity = <int>`}
   default_repr={`0`}
 >
 
@@ -52,6 +60,8 @@ Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging
 <Option
   cli_repr={`--[no-]pex-venv-use-symlinks`}
   env_repr='PANTS_PEX_VENV_USE_SYMLINKS'
+  toml_repr={`[pex]
+venv_use_symlinks = <bool>`}
   default_repr={`False`}
 >
 
@@ -68,6 +78,12 @@ Enabling this can save space in the `--named-caches-dir` directory and lead to s
 <Option
   cli_repr={`--pex-bootstrap-interpreter-names="[<bootstrap-python-names>, <bootstrap-python-names>, ...]"`}
   env_repr='PANTS_PEX_BOOTSTRAP_INTERPRETER_NAMES'
+  toml_repr={`[pex]
+bootstrap_interpreter_names = [
+    <bootstrap-python-names>,
+    <bootstrap-python-names>,
+    ...,
+]`}
   default_repr={`[\n  "python",\n  "python3",\n  "python2"\n]`}
   removal_version='2.10.0.dev0'
   removal_hint={'Moved to `[python-bootstrap] names`.'}

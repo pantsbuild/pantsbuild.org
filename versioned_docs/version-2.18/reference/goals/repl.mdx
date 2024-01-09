@@ -26,6 +26,8 @@ Config section: <span className="color--primary">`[repl]`</span>
 <Option
   cli_repr={`--repl-shell=<str>`}
   env_repr='PANTS_REPL_SHELL'
+  toml_repr={`[repl]
+shell = <str>`}
   default_repr={`None`}
 >
 
@@ -38,6 +40,8 @@ Override the automatically-detected REPL program for the target(s) specified.
 <Option
   cli_repr={`--[no-]repl-restartable`}
   env_repr='PANTS_REPL_RESTARTABLE'
+  toml_repr={`[repl]
+restartable = <bool>`}
   default_repr={`False`}
 >
 

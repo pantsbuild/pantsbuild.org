@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--[no-]shell-setup-dependency-inference`}
   env_repr='PANTS_SHELL_SETUP_DEPENDENCY_INFERENCE'
+  toml_repr={`[shell-setup]
+dependency_inference = <bool>`}
   default_repr={`True`}
 >
 
@@ -38,6 +40,8 @@ Infer Shell dependencies on other Shell files by analyzing `source` statements.
 <Option
   cli_repr={`--[no-]shell-setup-tailor`}
   env_repr='PANTS_SHELL_SETUP_TAILOR'
+  toml_repr={`[shell-setup]
+tailor = <bool>`}
   default_repr={`True`}
 >
 
@@ -50,6 +54,12 @@ If true, add `shell_sources` and `shunit2_tests` targets with the `tailor` goal.
 <Option
   cli_repr={`--shell-setup-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
   env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[shell-setup]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
   target_field_name='shell_setup_executable_search_paths'
 >

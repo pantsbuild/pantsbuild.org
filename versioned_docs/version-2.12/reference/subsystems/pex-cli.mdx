@@ -26,6 +26,8 @@ None
 <Option
   cli_repr={`--pex-cli-version=<str>`}
   env_repr='PANTS_PEX_CLI_VERSION'
+  toml_repr={`[pex-cli]
+version = <str>`}
   default_repr={`v2.1.90`}
 >
 
@@ -40,6 +42,12 @@ Supported pex versions: &#x3E;=2.1.90,&#x3C;3.0
 <Option
   cli_repr={`--pex-cli-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PEX_CLI_KNOWN_VERSIONS'
+  toml_repr={`[pex-cli]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "v2.1.90|macos_arm64|2781255baf77c2a8fdc85c5e830f7191a6048fd91d2e20b5c7a20e5a0b7beb66|3755345",\n  "v2.1.90|macos_x86_64|2781255baf77c2a8fdc85c5e830f7191a6048fd91d2e20b5c7a20e5a0b7beb66|3755345",\n  "v2.1.90|linux_x86_64|2781255baf77c2a8fdc85c5e830f7191a6048fd91d2e20b5c7a20e5a0b7beb66|3755345"\n]`}
 >
 
@@ -67,6 +75,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--pex-cli-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_PEX_CLI_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[pex-cli]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >
@@ -82,6 +92,8 @@ Supported pex versions: &#x3E;=2.1.90,&#x3C;3.0
 <Option
   cli_repr={`--pex-cli-url-template=<str>`}
   env_repr='PANTS_PEX_CLI_URL_TEMPLATE'
+  toml_repr={`[pex-cli]
+url_template = <str>`}
   default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
 >
 
@@ -96,6 +108,10 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 <Option
   cli_repr={`--pex-cli-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_PEX_CLI_URL_PLATFORM_MAPPING'
+  toml_repr={`[pex-cli.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 

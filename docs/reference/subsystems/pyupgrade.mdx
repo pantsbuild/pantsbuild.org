@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[pyupgrade]`</span>
 <Option
   cli_repr={`--[no-]pyupgrade-skip`}
   env_repr='PANTS_PYUPGRADE_SKIP'
+  toml_repr={`[pyupgrade]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use pyupgrade when running `pants fmt` and `pants lint`.
 <Option
   cli_repr={`--pyupgrade-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_PYUPGRADE_ARGS'
+  toml_repr={`[pyupgrade]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to pyupgrade, e.g. `--pyupgrade-args='--py39-plus --k
 <Option
   cli_repr={`--pyupgrade-install-from-resolve=<str>`}
   env_repr='PANTS_PYUPGRADE_INSTALL_FROM_RESOLVE'
+  toml_repr={`[pyupgrade]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--pyupgrade-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYUPGRADE_REQUIREMENTS'
+  toml_repr={`[pyupgrade]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--pyupgrade-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_PYUPGRADE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[pyupgrade]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--pyupgrade-console-script=<str>`}
   env_repr='PANTS_PYUPGRADE_CONSOLE_SCRIPT'
+  toml_repr={`[pyupgrade]
+console_script = <str>`}
   default_repr={`pyupgrade`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--pyupgrade-entry-point=<str>`}
   env_repr='PANTS_PYUPGRADE_ENTRY_POINT'
+  toml_repr={`[pyupgrade]
+entry_point = <str>`}
   default_repr={`None`}
 >
 

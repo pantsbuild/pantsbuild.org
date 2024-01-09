@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[shunit2]`</span>
 <Option
   cli_repr={`--[no-]shunit2-skip`}
   env_repr='PANTS_SHUNIT2_SKIP'
+  toml_repr={`[shunit2]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -36,6 +38,8 @@ If true, don&#x27;t use shunit2 when running `pants test`.
 <Option
   cli_repr={`--shunit2-version=<str>`}
   env_repr='PANTS_SHUNIT2_VERSION'
+  toml_repr={`[shunit2]
+version = <str>`}
   default_repr={`b9102bb763cc603b3115ed30a5648bf950548097`}
 >
 
@@ -48,6 +52,12 @@ Use this version of shunit2.
 <Option
   cli_repr={`--shunit2-known-versions="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SHUNIT2_KNOWN_VERSIONS'
+  toml_repr={`[shunit2]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|macos_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_x86_64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987",\n  "b9102bb763cc603b3115ed30a5648bf950548097|linux_arm64|1f11477b7948150d1ca50cdd41d89be4ed2acd137e26d2e0fe23966d0e272cc5|40987"\n]`}
 >
 
@@ -77,6 +87,8 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 <Option
   cli_repr={`--shunit2-url-template=<str>`}
   env_repr='PANTS_SHUNIT2_URL_TEMPLATE'
+  toml_repr={`[shunit2]
+url_template = <str>`}
   default_repr={`https://raw.githubusercontent.com/kward/shunit2/{version}/shunit2`}
 >
 
@@ -91,6 +103,10 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
 <Option
   cli_repr={`--shunit2-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
   env_repr='PANTS_SHUNIT2_URL_PLATFORM_MAPPING'
+  toml_repr={`[shunit2.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
   default_repr={`{}`}
 >
 
@@ -107,6 +123,8 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 <Option
   cli_repr={`--shunit2-use-unsupported-version=<UnsupportedVersionUsage>`}
   env_repr='PANTS_SHUNIT2_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[shunit2]
+use_unsupported_version = <UnsupportedVersionUsage>`}
   one_of='error, warning'
   default_repr={`error`}
 >

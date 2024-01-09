@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[golang]`</span>
 <Option
   cli_repr={`--golang-go-search-paths="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_GO_SEARCH_PATHS'
+  toml_repr={`[golang]
+go_search_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "<PATH>"\n]`}
 >
 
@@ -38,6 +44,8 @@ The special string `"<PATH>"` will expand to the contents of the PATH env var.
 <Option
   cli_repr={`--golang-minimum-expected-version=<str>`}
   env_repr='PANTS_GOLANG_MINIMUM_EXPECTED_VERSION'
+  toml_repr={`[golang]
+minimum_expected_version = <str>`}
   default_repr={`1.17`}
 >
 
@@ -58,6 +66,12 @@ Do not include the patch version.
 <Option
   cli_repr={`--golang-subprocess-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_GOLANG_SUBPROCESS_ENV_VARS'
+  toml_repr={`[golang]
+subprocess_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "PATH"\n]`}
 >
 
@@ -70,6 +84,8 @@ Environment variables to set when invoking the `go` tool. Entries are either str
 <Option
   cli_repr={`--[no-]golang-tailor-go-mod-targets`}
   env_repr='PANTS_GOLANG_TAILOR_GO_MOD_TARGETS'
+  toml_repr={`[golang]
+tailor_go_mod_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -82,6 +98,8 @@ If true, add a `go_mod` target with the `tailor` goal wherever there is a `go.mo
 <Option
   cli_repr={`--[no-]golang-tailor-package-targets`}
   env_repr='PANTS_GOLANG_TAILOR_PACKAGE_TARGETS'
+  toml_repr={`[golang]
+tailor_package_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -94,6 +112,8 @@ If true, add a `go_package` target with the `tailor` goal in every directory wit
 <Option
   cli_repr={`--[no-]golang-tailor-binary-targets`}
   env_repr='PANTS_GOLANG_TAILOR_BINARY_TARGETS'
+  toml_repr={`[golang]
+tailor_binary_targets = <bool>`}
   default_repr={`True`}
 >
 
@@ -108,6 +128,8 @@ If true, add a `go_binary` target with the `tailor` goal in every directory with
 <Option
   cli_repr={`--golang-expected-version=<str>`}
   env_repr='PANTS_GOLANG_EXPECTED_VERSION'
+  toml_repr={`[golang]
+expected_version = <str>`}
   default_repr={`1.17`}
   removal_version='2.14.0.dev0'
   removal_hint={'Use `[golang].minimum_expected_version` instead, which is more flexible. Pants will now work if your local Go binary is newer than the expected minimum version; e.g. Go 1.18 works with the version set to `1.17`.'}

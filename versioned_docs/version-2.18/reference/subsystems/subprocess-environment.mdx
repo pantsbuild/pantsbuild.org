@@ -26,6 +26,12 @@ None
 <Option
   cli_repr={`--subprocess-environment-env-vars="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SUBPROCESS_ENVIRONMENT_ENV_VARS'
+  toml_repr={`[subprocess-environment]
+env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "LANG",\n  "LC_CTYPE",\n  "LC_ALL",\n  "SSL_CERT_FILE",\n  "SSL_CERT_DIR"\n]`}
   target_field_name='subprocess_environment_env_vars'
 >

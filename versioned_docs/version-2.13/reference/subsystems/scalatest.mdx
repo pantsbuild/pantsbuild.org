@@ -22,6 +22,12 @@ Config section: <span className="color--primary">`[scalatest]`</span>
 <Option
   cli_repr={`--scalatest-args="[<shell_str>, <shell_str>, ...]", ... -- [<shell_str> [<shell_str> [...]]]`}
   env_repr='PANTS_SCALATEST_ARGS'
+  toml_repr={`[scalatest]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -38,6 +44,8 @@ See https://www.scalatest.org/user_guide/using_the_runner for supported argument
 <Option
   cli_repr={`--scalatest-version=<str>`}
   env_repr='PANTS_SCALATEST_VERSION'
+  toml_repr={`[scalatest]
+version = <str>`}
   default_repr={`3.2.10`}
 >
 
@@ -50,6 +58,12 @@ Version string for the tool. This is available for substitution in the `[scalate
 <Option
   cli_repr={`--scalatest-artifacts="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALATEST_ARTIFACTS'
+  toml_repr={`[scalatest]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "org.scalatest:scalatest_2.13:{version}"\n]`}
 >
 
@@ -62,6 +76,8 @@ Artifact requirements for this tool using specified as either the address of a `
 <Option
   cli_repr={`--scalatest-lockfile=<str>`}
   env_repr='PANTS_SCALATEST_LOCKFILE'
+  toml_repr={`[scalatest]
+lockfile = <str>`}
   default_repr={`<default>`}
 >
 
@@ -78,6 +94,12 @@ To use a custom lockfile, set this option to a file path relative to the build r
 <Option
   cli_repr={`--scalatest-jvm-options="['<str>', '<str>', ...]"`}
   env_repr='PANTS_SCALATEST_JVM_OPTIONS'
+  toml_repr={`[scalatest]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 

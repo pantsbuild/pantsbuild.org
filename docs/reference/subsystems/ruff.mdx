@@ -22,6 +22,8 @@ Config section: <span className="color--primary">`[ruff]`</span>
 <Option
   cli_repr={`--[no-]ruff-skip`}
   env_repr='PANTS_RUFF_SKIP'
+  toml_repr={`[ruff]
+skip = <bool>`}
   default_repr={`False`}
 >
 
@@ -34,6 +36,12 @@ If true, don&#x27;t use Ruff when running `pants fmt` and `pants fix` and `pants
 <Option
   cli_repr={`--ruff-args="[<shell_str>, <shell_str>, ...]"`}
   env_repr='PANTS_RUFF_ARGS'
+  toml_repr={`[ruff]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -48,6 +56,8 @@ Arguments to pass directly to Ruff, e.g. `--ruff-args='--exclude=foo --ignore=E5
 <Option
   cli_repr={`--ruff-install-from-resolve=<str>`}
   env_repr='PANTS_RUFF_INSTALL_FROM_RESOLVE'
+  toml_repr={`[ruff]
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
@@ -68,6 +78,12 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 <Option
   cli_repr={`--ruff-requirements="['<str>', '<str>', ...]"`}
   env_repr='PANTS_RUFF_REQUIREMENTS'
+  toml_repr={`[ruff]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[]`}
 >
 
@@ -86,6 +102,12 @@ If unspecified, install the entire lockfile.
 <Option
   cli_repr={`--ruff-interpreter-constraints="['<str>', '<str>', ...]"`}
   env_repr='PANTS_RUFF_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[ruff]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
   default_repr={`[\n  "CPython>=3.7,<4"\n]`}
 >
 
@@ -98,6 +120,8 @@ Python interpreter constraints for this tool.
 <Option
   cli_repr={`--ruff-console-script=<str>`}
   env_repr='PANTS_RUFF_CONSOLE_SCRIPT'
+  toml_repr={`[ruff]
+console_script = <str>`}
   default_repr={`ruff`}
 >
 
@@ -110,6 +134,8 @@ The console script for the tool. Using this option is generally preferable to (a
 <Option
   cli_repr={`--ruff-entry-point=<str>`}
   env_repr='PANTS_RUFF_ENTRY_POINT'
+  toml_repr={`[ruff]
+entry_point = <str>`}
   default_repr={`None`}
 >
 
@@ -122,6 +148,8 @@ The entry point for the tool. Generally you only want to use this option if the 
 <Option
   cli_repr={`--ruff-config=<file_option>`}
   env_repr='PANTS_RUFF_CONFIG'
+  toml_repr={`[ruff]
+config = <file_option>`}
   default_repr={`None`}
 >
 
@@ -136,6 +164,8 @@ Setting this option will disable `[ruff].config_discovery`. Use this option if t
 <Option
   cli_repr={`--[no-]ruff-config-discovery`}
   env_repr='PANTS_RUFF_CONFIG_DISCOVERY'
+  toml_repr={`[ruff]
+config_discovery = <bool>`}
   default_repr={`True`}
 >
 
