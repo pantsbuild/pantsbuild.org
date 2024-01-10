@@ -104,5 +104,5 @@ jobs:
       - name: Make a PR
         run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" --reviewer "${{ inputs.reviewer || github.actor }}"
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.WORKER_PANTS_PR_PAT }}
         working-directory: pantsbuild.org
