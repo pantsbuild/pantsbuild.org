@@ -68,47 +68,7 @@ const config = {
       "@docusaurus/preset-classic",
       {
         debug: process.env.NODE_ENV !== "production",
-        docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
-          routeBasePath: "/",
-          disableVersioning,
-          onlyIncludeVersions,
-          lastVersion: onlyIncludeVersions ? undefined : versions[1],
-          versions: {
-            current: {
-              label: `${currentVersion} (dev)`,
-              path: currentVersion,
-            },
-            ...(disableVersioning
-              ? {}
-              : versions.reduce((acc, version, index) => {
-                  acc[version] = {
-                    label:
-                      index === 0
-                        ? `${version} (prerelease)`
-                        : index < 3
-                          ? version
-                          : `${version} (deprecated)`,
-                    banner:
-                      index == 0
-                        ? "unreleased"
-                        : index < 3
-                          ? "none"
-                          : "unmaintained",
-                    noIndex: index >= 3,
-                    path: version,
-                  };
-                  return acc;
-                }, {})),
-          },
-          remarkPlugins: [captionedCode],
-          editUrl: ({ docPath }) => {
-            if (docPath.startsWith("reference/")) {
-              return undefined;
-            }
-            return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
-          },
-        },
+        docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
         blog: includeBlog && {
           showReadingTime: true,
           editUrl: "https://github.com/pantsbuild/pantsbuild.org/edit/main/",
@@ -304,6 +264,50 @@ const config = {
     },
   },
   plugins: [
+    [
+      "./src/js/docsPluginWithTopLevel404.js",
+      {
+        sidebarPath: require.resolve("./sidebars.js"),
+        routeBasePath: "/",
+        disableVersioning,
+        onlyIncludeVersions,
+        lastVersion: onlyIncludeVersions ? undefined : versions[1],
+        versions: {
+          current: {
+            label: `${currentVersion} (dev)`,
+            path: currentVersion,
+          },
+          ...(disableVersioning
+            ? {}
+            : versions.reduce((acc, version, index) => {
+                acc[version] = {
+                  label:
+                    index === 0
+                      ? `${version} (prerelease)`
+                      : index < 3
+                        ? version
+                        : `${version} (deprecated)`,
+                  banner:
+                    index == 0
+                      ? "unreleased"
+                      : index < 3
+                        ? "none"
+                        : "unmaintained",
+                  noIndex: index >= 3,
+                  path: version,
+                };
+                return acc;
+              }, {})),
+        },
+        remarkPlugins: [captionedCode],
+        editUrl: ({ docPath }) => {
+          if (docPath.startsWith("reference/")) {
+            return undefined;
+          }
+          return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
+        },
+      },
+    ],
     [
       "@docusaurus/plugin-client-redirects",
       {
