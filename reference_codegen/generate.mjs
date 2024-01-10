@@ -238,6 +238,8 @@ helpAll.scope_to_help_info[""].basic.forEach((option) => {
 });
 
 Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
+  info.description = convertDescription(info.description);
+  info.short_description = info.description.split("\n")[0];
   ["basic", "advanced", "deprecated"].forEach((optionsType) => {
     info[optionsType].forEach((option) => {
       option.default = convertDefault(option.default, option.typ);
@@ -266,13 +268,14 @@ await Promise.all([
   // Global Options
   writeFile(
     "global-options.mdx",
-    renderSubsystemTemplate(helpAll["scope_to_help_info"][""], helpAll)
+    renderSubsystemTemplate(
+      helpAll["scope_to_help_info"][globalScopeInternal],
+      helpAll
+    )
   ),
   // Subsystems
   ...Object.entries(helpAll.scope_to_help_info).map(async ([scope, info]) => {
     if (scope === "") return;
-
-    info.description = convertDescription(info.description);
     const parent = info.is_goal ? "goals" : "subsystems";
     await writeFile(
       path.join(parent, `${info.scope}.mdx`),
@@ -286,6 +289,7 @@ await Promise.all([
       if (info.alias.startsWith("_")) return;
 
       info.description = convertDescription(info.description);
+      info.short_description = info.description.split("\n")[0];
       await writeFile(
         path.join("targets", `${info.alias}.mdx`),
         renderTargetTemplate(info)
