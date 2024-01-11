@@ -1,5 +1,7 @@
 ---
 title: python_requirements
+description: |
+  Generate a `python_requirement` for each entry in a requirements.txt-style or PEP 621 compliant `pyproject.toml` file. The choice of parser for the `source` field is determined by the file name. If the `source` field ends with `pyproject.toml`, then the file is assumed to be a PEP 621 compliant file. Any other file name uses the requirements.txt-style parser.
 ---
 
 import Field from "@site/src/components/reference/Field";
