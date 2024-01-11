@@ -275,7 +275,7 @@ await Promise.all([
   ),
   // Subsystems
   ...Object.entries(helpAll.scope_to_help_info).map(async ([scope, info]) => {
-    if (scope === "") return;
+    if (scope === globalScopeInternal) return;
     const parent = info.is_goal ? "goals" : "subsystems";
     await writeFile(
       path.join(parent, `${info.scope}.mdx`),
