@@ -1,6 +1,7 @@
 import versions from "./versions.json";
 import redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
+import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
 
 import { themes as prismThemes } from "prism-react-renderer";
 
@@ -299,7 +300,7 @@ const config = {
                 return acc;
               }, {})),
         },
-        remarkPlugins: [captionedCode],
+        remarkPlugins: [captionedCode, tabBlocks],
         editUrl: ({ docPath }) => {
           if (docPath.startsWith("reference/")) {
             return undefined;
