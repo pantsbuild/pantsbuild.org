@@ -182,6 +182,10 @@ export default [
     to: "/2.18/docs/writing-plugins/common-plugin-tasks/add-codegen",
   },
   {
+    from: "/docs/plugins-common-subsystem",
+    to: "/2.18/docs/writing-plugins/common-subsystem-tasks",
+  },
+  {
     from: "/docs/plugins-fmt-goal",
     to: "/2.18/docs/writing-plugins/common-plugin-tasks/add-a-formatter",
   },
@@ -1290,6 +1294,10 @@ export default [
   {
     from: "/docs/test-custom-plugin-goal",
     to: "/2.18/docs/tutorials-coming-soon/testing-plugins",
+  },
+  {
+    from: "/docs/terraform-overview",
+    to: "/2.18/docs/terraform/terraform-overview",
   },
   { from: "/docs/testimonials", to: "/spotlight/testimonials" },
   { from: "/docs/the-pants-community", to: "/community/members" },
@@ -11706,6 +11714,10 @@ export default [
     to: "/2.18/docs/writing-plugins/common-plugin-tasks/add-codegen",
   },
   {
+    from: "/v2.18/docs/plugins-common-subsystem",
+    to: "/2.18/docs/writing-plugins/common-subsystem-tasks",
+  },
+  {
     from: "/v2.18/docs/plugins-fmt-goal",
     to: "/2.18/docs/writing-plugins/common-plugin-tasks/add-a-formatter",
   },
@@ -12812,6 +12824,10 @@ export default [
   },
   { from: "/v2.18/docs/team", to: "/community/meet-the-team" },
   {
+    from: "/v2.18/docs/terraform-overview",
+    to: "/2.18/docs/terraform/terraform-overview",
+  },
+  {
     from: "/v2.18/docs/test-custom-plugin-goal",
     to: "/2.18/docs/tutorials-coming-soon/testing-plugins",
   },
@@ -13023,6 +13039,10 @@ export default [
   {
     from: "/v2.19/docs/plugins-codegen",
     to: "/2.19/docs/writing-plugins/common-plugin-tasks/add-codegen",
+  },
+  {
+    from: "/v2.19/docs/plugins-common-subsystem",
+    to: "/2.19/docs/writing-plugins/common-subsystem-tasks",
   },
   {
     from: "/v2.19/docs/plugins-fmt-goal",
@@ -14138,6 +14158,10 @@ export default [
     to: "/2.19/docs/using-pants/key-concepts/targets-and-build-files",
   },
   { from: "/v2.19/docs/team", to: "/community/meet-the-team" },
+  {
+    from: "/v2.19/docs/terraform-overview",
+    to: "/2.19/docs/terraform/terraform-overview",
+  },
   {
     from: "/v2.19/docs/test-custom-plugin-goal",
     to: "/2.19/docs/tutorials-coming-soon/testing-plugins",
