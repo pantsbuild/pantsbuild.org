@@ -298,7 +298,7 @@ $ ./pants paths --from=helloworld/main.py --to=helloworld/translator/translator.
 
 `count-loc` counts the lines of code of the specified files by running the [Succinct Code Counter](https://github.com/boyter/scc) tool.
 
-```shell title="shell"
+```shell tab={"label":"shell"}
 $ ./pants count-loc ::
 ───────────────────────────────────────────────────────────────────────────────
 Language                 Files     Lines   Blanks  Comments     Code Complexity
@@ -322,7 +322,7 @@ Estimated People Required 53.813884
 ───────────────────────────────────────────────────────────────────────────────
 ```
 
-```text title="Shell"
+```text tab={"label":"Shell"}
 $ ./pants count-loc '**/*.py' '**/*.proto'
 ───────────────────────────────────────────────────────────────────────────────
 Language                 Files     Lines   Blanks  Comments     Code Complexity

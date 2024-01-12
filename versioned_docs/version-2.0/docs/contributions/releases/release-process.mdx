@@ -86,7 +86,7 @@ To cherry-pick, for example, from 1.28.x:
 
 1. `git fetch https://github.com/pantsbuild/pants 1.28.x`
 2. `git checkout -b <new-branch-name> FETCH_HEAD`
-3. Find the commit SHA by running `git log master` or looking in GitHub: https://github.com/pantsbuild/pants/commits/master.
+3. Find the commit SHA by running `git log master` or looking in GitHub: [https://github.com/pantsbuild/pants/commits/master](https://github.com/pantsbuild/pants/commits/master).
 4. `git cherry-pick <sha>`, using the SHA from the previous step.
 5. Open a pull request to merge into the release branch, e.g. `1.28.x`.
 
@@ -194,7 +194,7 @@ Ping someone in the #committers Slack channel to be added. Alternatively, you ca
 
 Once you have merged the `VERSION` bump—which will be on `master` for `dev` and `rc0` releases and the release branch for release candidates—CI will start building the wheels you need to finish the release.
 
-Head to https://travis-ci.com/github/pantsbuild/pants/builds and find your relevant build. You need the "Build Linux wheels" and "Build macOS wheels" jobs to go green to move on.
+Head to [https://travis-ci.com/github/pantsbuild/pants/builds](https://travis-ci.com/github/pantsbuild/pants/builds) and find your relevant build. You need the "Build Linux wheels" and "Build macOS wheels" jobs to go green to move on.
 
 To speed things up, you can cancel other jobs in your build so that there's less of a backlog, so long as you restart those jobs after you're done.
 

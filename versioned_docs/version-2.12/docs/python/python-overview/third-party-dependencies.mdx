@@ -50,13 +50,13 @@ The `python_requirements()` target generator parses a [`requirements.txt`-style 
 
 For example:
 
-```text title="requirements.txt"
+```text tab={"label":"requirements.txt"}
 flask>=1.1.2,<1.3
 requests[security]==2.23.0
 dataclasses ; python_version<'3.7'
 ```
 
-```python title="BUILD"
+```python tab={"label":"BUILD"}
 # This will generate three targets:
 #
 #  - //:reqs#flask
@@ -97,7 +97,7 @@ For larger repositories or multilingual repositories, it's often useful to have 
 
 The `poetry_requirements()` target generator parses the [Poetry](https://python-poetry.org/docs/) section in `pyproject.toml` to produce a `python_requirement` target for each entry.
 
-```toml title="pyproject.toml"
+```toml tab={"label":"pyproject.toml"}
 [tool.poetry.dependencies]
 python = "^3.8"
 requests = {extras = ["security"], version = "~1"}
@@ -107,7 +107,7 @@ flask = "~1.12"
 isort = "~5.5"
 ```
 
-```python title="BUILD"
+```python tab={"label":"BUILD"}
 # This will generate three targets:
 #
 #  - //:poetry#flask
@@ -458,7 +458,7 @@ python_requirement(
 
 If you are using the `python_requirements` and `poetry_requirements` target generators, you can use the `overrides` field to do the same thing:
 
-```python title="BUILD"
+```python tab={"label":"BUILD"}
 python_requirements(
     name="reqs",
     overrides={
@@ -467,7 +467,7 @@ python_requirements(
 )
 ```
 
-```text title="requirements.txt"
+```text tab={"label":"requirements.txt"}
 setuptools
 mongomock
 ```
@@ -507,12 +507,12 @@ target@ git+ssh://git@github.com:/myorg/myrepo.git@myhash
 ...you may see errors like:
 
 ```
-Complete output (5 lines):
-git@github.com: Permission denied (publickey).
-fatal: Could not read from remote repository.
-Please make sure you have the correct access rights
-and the repository exists.
-----------------------------------------
+ Complete output (5 lines):
+  git@github.com: Permission denied (publickey).
+  fatal: Could not read from remote repository.
+  Please make sure you have the correct access rights
+  and the repository exists.
+  ----------------------------------------
 ```
 
 To fix this, Pants needs to be configured to pass relevant SSH specific environment variables to processes by adding the following to `pants.toml`:
@@ -520,7 +520,7 @@ To fix this, Pants needs to be configured to pass relevant SSH specific environm
 ```
 [subprocess-environment]
 env_vars.add = [
-"SSH_AUTH_SOCK",
+  "SSH_AUTH_SOCK",
 ]
 ```
 
