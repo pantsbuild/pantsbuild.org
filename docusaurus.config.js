@@ -73,7 +73,7 @@ const config = {
         blog: includeBlog && {
           showReadingTime: true,
           editUrl: "https://github.com/pantsbuild/pantsbuild.org/edit/main/",
-          remarkPlugins: [captionedCode],
+          remarkPlugins: [captionedCode, tabBlocks],
           blogSidebarTitle: "All posts",
           blogSidebarCount: "ALL",
           postsPerPage: "ALL",
