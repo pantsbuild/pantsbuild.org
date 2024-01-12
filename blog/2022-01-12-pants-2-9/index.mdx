@@ -79,11 +79,11 @@ No more thinking to yourself: “Gee, that was even faster than usual! I wonder 
 Among a number of bug fixes and documentation enhancements, there were a few noteworthy improvements to the Docker backend:
 
 - Introduce a new `target_stage` field for the [`docker_image` target](https://www.pantsbuild.org/v2.9/docs/reference-docker_image) as well as the `[docker].build_target_stage` option.
-- Add [`instructions` field](https://www.pantsbuild.org/v2.9/docs/reference-docker_image#codeinstructionscode) to `docker_image` to support generating an anonymous Dockerfile from scratch.
+- Add [`instructions` field](https://www.pantsbuild.org/v2.9/docs/reference-docker_image#instructions) to `docker_image` to support generating an anonymous Dockerfile from scratch.
 - Log suggestions of how to fix the docker build context when a docker build fails.
 - New option for the `[docker]` scope, which allows passing additional options when executing `docker run [OPTIONS] <image>`, in addition to the `--run-args` which are passed to the image entrypoint.
   - For example: `./pants run --docker-run-args="-p 8080/tcp" src/docker:example -- --arg-for-the-image-entrypoint`
-- Add new [`secrets` field](https://www.pantsbuild.org/v2.9/docs/reference-docker_image#codesecretscode) to `docker_image`.
+- Add new [`secrets` field](https://www.pantsbuild.org/v2.9/docs/reference-docker_image#secrets) to `docker_image`.
 - Include `shell_source(s)` in `docker_image` build context.
 - Support interpolating Docker build args into the `repository` field of `docker_image` targets.
 - Allow tailor to create `docker_image` targets for any files with “Dockerfile” in the file name.

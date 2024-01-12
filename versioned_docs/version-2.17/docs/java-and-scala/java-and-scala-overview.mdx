@@ -64,13 +64,13 @@ Pants `2.11.x` adds support for choosing JDK and Scala versions per target in yo
 
 JDKs used by Pants are automatically fetched using [Coursier](https://get-coursier.io/), and are chosen using the [`[jvm].jdk` setting](../../reference/subsystems/jvm.mdx#section-jdk) to set a repository-wide default.
 
-To override the default on a particular target, you can use the [`jdk=` field](../../reference/targets/java_source.mdx#codejdkcode). It can be useful to use the [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `jdk=` field, particularly to run test targets under multiple JDKs.
+To override the default on a particular target, you can use the [`jdk=` field](../../reference/targets/java_source.mdx#jdk). It can be useful to use the [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `jdk=` field, particularly to run test targets under multiple JDKs.
 
 #### Scala version
 
 The Scala version to use is configured on a resolve-by-resolve basis (see the "Third-party dependencies" section below) using the [`[scala].version_for_resolve` option](../../reference/subsystems/scala.mdx#section-version_for_resolve). The default Scala version for your repository will thus be whichever Scala version is configured for the "default" resolve, which is configured by the [`[jvm].default_resolve` option](reference-jvm#section-default-resolve).
 
-To use multiple Scala versions in a repository, you would define multiple resolves, and then adjust the [`resolve` field](../../reference/targets/scalatest_test.mdx#coderesolvecode) of any targets which should be used with the non-`default_resolve` resolve.
+To use multiple Scala versions in a repository, you would define multiple resolves, and then adjust the [`resolve` field](../../reference/targets/scalatest_test.mdx#resolve) of any targets which should be used with the non-`default_resolve` resolve.
 
 To cross-build a set of Scala targets for multiple Scala versions, you can use the [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `resolve=` field of the target and its dependencies.
 
@@ -101,7 +101,7 @@ Pants requires use of a lockfile for thirdparty dependencies. After adding or ed
 :::note Thirdparty symbols and the `packages` argument
 To efficiently determine which symbols are provided by thirdparty code (i.e., without hitting the network in order to compute dependencies in the common case), Pants relies on a static mapping of which artifacts provide which symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
 
-The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#codepackagescode) for more information.
+The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#packages) for more information.
 :::
 
 ### `resource` targets

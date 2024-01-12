@@ -45,7 +45,7 @@ Or you can add them manually, such as:
 docker_image(name="docker")
 ```
 
-Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](../../reference/targets/docker_image.mdx#codeinstructionscode) on your `docker_image` if you don't want to create a `Dockerfile`.
+Alternatively you may provide the Docker build instructions inline in your BUILD file as [`instructions`](../../reference/targets/docker_image.mdx#instructions) on your `docker_image` if you don't want to create a `Dockerfile`.
 
 ```python title="src/docker/app1/BUILD"
 docker_image(
@@ -124,7 +124,7 @@ ARG VAR3=default
 
 ### Target build stage
 
-When your `Dockerfile` is a multi stage build file, you may specify which stage to build with the [`--docker-build-target-stage`](../../reference/subsystems/docker.mdx#section-build-target-stage) for all images, or provide a per image setting with the `docker_image` field [`target_stage`](../../reference/targets/docker_image.mdx#codetarget_stagecode).
+When your `Dockerfile` is a multi stage build file, you may specify which stage to build with the [`--docker-build-target-stage`](../../reference/subsystems/docker.mdx#section-build-target-stage) for all images, or provide a per image setting with the `docker_image` field [`target_stage`](../../reference/targets/docker_image.mdx#target_stage).
 
 ```dockerfile
 FROM python:3.8 AS base
@@ -140,7 +140,7 @@ COPY files /
 
 ### Build time secrets
 
-Secrets are supported for `docker_image` targets with the [`secrets`](../../reference/targets/docker_image.mdx#codesecretscode) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
+Secrets are supported for `docker_image` targets with the [`secrets`](../../reference/targets/docker_image.mdx#secrets) field. The defined secrets may then be mounted in the `Dockerfile` as [usual](https://docs.docker.com/develop/develop-images/build_enhancements/#new-docker-build-secret-information).
 
 ```python title="BUILD"
 docker_image(
@@ -167,7 +167,7 @@ very-secret-value
 :::note Secret file path
 Secrets should not be checked into version control. Use absolute paths to reference a file that is not in the project source tree. However, to keep the BUILD file as hermetic as possible, the files may be placed within the project source tree at build time for instance, and referenced with a path relative to the project root by default, or relative to the directory of the BUILD file when prefixed with `./`.
 
-See the example for the [`secrets`](../../reference/targets/docker_image.mdx#codesecretscode) field.
+See the example for the [`secrets`](../../reference/targets/docker_image.mdx#secrets) field.
 :::
 
 ### Build Docker image example
