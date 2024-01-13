@@ -63,6 +63,30 @@ const config = {
   onBrokenLinks: isDev ? "warn" : "warn",
   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
+  webpack: {
+    jsLoader: (isServer) => ({
+      loader: require.resolve("swc-loader"),
+      options: {
+        jsc: {
+          parser: {
+            syntax: "ecmascript",
+            tsx: false,
+            jsx: true,
+          },
+          transform: {
+            react: {
+              runtime: "automatic",
+            },
+          },
+          target: "es2017",
+        },
+        module: {
+          type: isServer ? "commonjs" : "es6",
+        },
+      },
+    }),
+  },
+
   clientModules: ["./src/js/redirectCodeFragment.js"],
   presets: [
     [
