@@ -150,7 +150,7 @@ export default [
   },
   {
     from: "/docs/jvm-overview",
-    to: "/2.18/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.18/docs/java-and-scala",
   },
   { from: "/docs/kotlin", to: "/2.18/docs/java-and-scala/kotlin" },
   { from: "/docs/macros", to: "/2.18/docs/writing-plugins/macros" },
@@ -3595,7 +3595,7 @@ export default [
   },
   {
     from: "/v2.11/docs/jvm-overview",
-    to: "/2.11/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.11/docs/java-and-scala",
   },
   { from: "/v2.11/docs/macros", to: "/2.11/docs/writing-plugins/macros" },
   { from: "/v2.11/docs/maintainers", to: "/community/maintainers" },
@@ -4608,7 +4608,7 @@ export default [
   },
   {
     from: "/v2.12/docs/jvm-overview",
-    to: "/2.12/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.12/docs/java-and-scala",
   },
   { from: "/v2.12/docs/macros", to: "/2.12/docs/writing-plugins/macros" },
   { from: "/v2.12/docs/maintainers", to: "/community/maintainers" },
@@ -5673,7 +5673,7 @@ export default [
   },
   {
     from: "/v2.13/docs/jvm-overview",
-    to: "/2.13/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.13/docs/java-and-scala",
   },
   { from: "/v2.13/docs/kotlin", to: "/2.13/docs/java-and-scala/kotlin" },
   { from: "/v2.13/docs/macros", to: "/2.13/docs/writing-plugins/macros" },
@@ -6771,7 +6771,7 @@ export default [
   },
   {
     from: "/v2.14/docs/jvm-overview",
-    to: "/2.14/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.14/docs/java-and-scala",
   },
   { from: "/v2.14/docs/kotlin", to: "/2.14/docs/java-and-scala/kotlin" },
   { from: "/v2.14/docs/macros", to: "/2.14/docs/writing-plugins/macros" },
@@ -7905,7 +7905,7 @@ export default [
   },
   {
     from: "/v2.15/docs/jvm-overview",
-    to: "/2.15/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.15/docs/java-and-scala",
   },
   { from: "/v2.15/docs/kotlin", to: "/2.15/docs/java-and-scala/kotlin" },
   { from: "/v2.15/docs/macros", to: "/2.15/docs/writing-plugins/macros" },
@@ -9104,7 +9104,7 @@ export default [
   },
   {
     from: "/v2.16/docs/jvm-overview",
-    to: "/2.16/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.16/docs/java-and-scala",
   },
   { from: "/v2.16/docs/kotlin", to: "/2.16/docs/java-and-scala/kotlin" },
   { from: "/v2.16/docs/macros", to: "/2.16/docs/writing-plugins/macros" },
@@ -10387,7 +10387,7 @@ export default [
   },
   {
     from: "/v2.17/docs/jvm-overview",
-    to: "/2.17/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.17/docs/java-and-scala",
   },
   { from: "/v2.17/docs/kotlin", to: "/2.17/docs/java-and-scala/kotlin" },
   { from: "/v2.17/docs/macros", to: "/2.17/docs/writing-plugins/macros" },
@@ -11682,7 +11682,7 @@ export default [
   },
   {
     from: "/v2.18/docs/jvm-overview",
-    to: "/2.18/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.18/docs/java-and-scala",
   },
   { from: "/v2.18/docs/kotlin", to: "/2.18/docs/java-and-scala/kotlin" },
   { from: "/v2.18/docs/macros", to: "/2.18/docs/writing-plugins/macros" },
@@ -13009,7 +13009,7 @@ export default [
   },
   {
     from: "/v2.19/docs/jvm-overview",
-    to: "/2.19/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.19/docs/java-and-scala",
   },
   { from: "/v2.19/docs/kotlin", to: "/2.19/docs/java-and-scala/kotlin" },
   { from: "/v2.19/docs/macros", to: "/2.19/docs/writing-plugins/macros" },
@@ -19807,7 +19807,7 @@ export default [
   },
   {
     from: "/v2.20/docs/jvm-overview",
-    to: "/2.20/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.20/docs/java-and-scala",
   },
   { from: "/v2.20/docs/kotlin", to: "/2.20/docs/java-and-scala/kotlin" },
   {
