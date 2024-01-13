@@ -52,7 +52,7 @@ const config = {
   tagline: "The ergonomic build system",
   favicon: "img/favicon.ico",
 
-  url: "https://pantsbuild.org",
+  url: "https://docs.pantsbuild.org",
   baseUrl: "/",
   trailingSlash: false,
 
@@ -72,7 +72,7 @@ const config = {
         docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
         blog: includeBlog && {
           showReadingTime: true,
-          editUrl: `https://github.com/${organizationName}/${projectName}/edit/main/`,
+          editUrl: "https://github.com/pantsbuild/pantsbuild.org/edit/main/",
           remarkPlugins: [captionedCode, tabBlocks],
           blogSidebarTitle: "All posts",
           blogSidebarCount: "ALL",
