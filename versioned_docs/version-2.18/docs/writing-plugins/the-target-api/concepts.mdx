@@ -156,11 +156,11 @@ async def example_synthetic_targets(request: SyntheticExampleTargetsRequest) -> 
         request,
         [
             (
-              "BUILD.synthetic-example",
-              (
+                "BUILD.synthetic-example",
+                (
                 TargetAdaptor("<target-type>", "<name>", **target_field_values),
                 ...
-              ),
+                ),
             ),
             ...
         ]
@@ -183,15 +183,13 @@ If the source information is derived from parsing files from the project source 
 
 The mode of operation is declared per union member (i.e. on the subclass of the `SyntheticTargetsRequest` class) by providing a default value to the `path` field:
 
-```python
-@dataclass(frozen=True)
-class SyntheticExamplePerDirectoryTargetsRequest(SyntheticTargetsRequest):
-    path: str = SyntheticTargetsRequest.REQUEST_TARGETS_PER_DIRECTORY
+    @dataclass(frozen=True)
+    class SyntheticExamplePerDirectoryTargetsRequest(SyntheticTargetsRequest):
+        path: str = SyntheticTargetsRequest.REQUEST_TARGETS_PER_DIRECTORY
 
-@dataclass(frozen=True)
-class SyntheticExampleAllTargetsAtOnceRequest(SyntheticTargetsRequest):
-    path: str = SyntheticTargetsRequest.SINGLE_REQUEST_FOR_ALL_TARGETS
-```
+    @dataclass(frozen=True)
+    class SyntheticExampleAllTargetsAtOnceRequest(SyntheticTargetsRequest):
+        path: str = SyntheticTargetsRequest.SINGLE_REQUEST_FOR_ALL_TARGETS
 
 Any other default value for `path` should be considered invalid and yield undefined behaviour. (that is it may change without notice in future versions of Pants.)
 

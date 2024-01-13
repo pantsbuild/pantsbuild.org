@@ -9,7 +9,7 @@ Creating the initial pants.toml config file.
 
 Pants has a robust options system, allowing you to configure hundreds of options. Every Pants option can be set via a command-line flag, an environment variable, or, most commonly, a config file.
 
-The options system is described in detail [here](../../using-pants/key-concepts/options.mdx). This page will set up your initial Pants config file.
+The options system is described in detail [here](../using-pants/key-concepts/options.mdx). This page will set up your initial Pants config file.
 
 ## 1. Create `pants.toml`
 
@@ -26,7 +26,7 @@ where `$PANTS_VERSION` is the version of Pants you want to pin your repo to. Whe
 
 ## 2. Configure source roots
 
-Many languages organize code in a package hierarchy, so that the relative location of a source file on the filesystem corresponds to a logical package name. The directories that correspond to the roots of the language's package hierarchy are referred to as [source roots](../../using-pants/key-concepts/source-roots.mdx). These are the filesystem locations from which import paths are computed.
+Many languages organize code in a package hierarchy, so that the relative location of a source file on the filesystem corresponds to a logical package name. The directories that correspond to the roots of the language's package hierarchy are referred to as [source roots](../using-pants/key-concepts/source-roots.mdx). These are the filesystem locations from which import paths are computed.
 
 For example, if your Python code lives under `src/python`, then `import myorg.myproject.app` will import the code in `src/python/myorg/myproject/app.py`.
 
@@ -34,7 +34,7 @@ In simple cases the root of the repository itself might be your only source root
 
 To work correctly, Pants needs to know about the source roots in your repo. By default, given a source file path, Pants will treat the longest path prefix that ends in `src`, `src/python`, or `src/py` as its source root, falling back to the repo root itself if no such prefix is found.
 
-If your project has a different structure, see [Source roots](../../using-pants/key-concepts/source-roots.mdx) for how to configure them, and for examples of different project structures you can use Pants with.
+If your project has a different structure, see [Source roots](../using-pants/key-concepts/source-roots.mdx) for how to configure them, and for examples of different project structures you can use Pants with.
 
 :::note Golang projects can skip this step
 Golang projects already use `go.mod` to indicate source roots.
@@ -42,7 +42,7 @@ Golang projects already use `go.mod` to indicate source roots.
 
 ## 3. Enable backends
 
-Most Pants functionality is provided via pluggable [_backends_](../../using-pants/key-concepts/backends.mdx), which are activated by adding to the `[GLOBAL].backend_packages` option like this:
+Most Pants functionality is provided via pluggable [_backends_](../using-pants/key-concepts/backends.mdx), which are activated by adding to the `[GLOBAL].backend_packages` option like this:
 
 ```toml title="pants.toml"
 [GLOBAL]
@@ -54,10 +54,10 @@ backend_packages = [
 ]
 ```
 
-See [here](../../using-pants/key-concepts/backends.mdx) for a list of available backends.
+See [here](../using-pants/key-concepts/backends.mdx) for a list of available backends.
 
 ## 4. Generate BUILD files
 
-You use files named [BUILD](../../using-pants/key-concepts/targets-and-build-files.mdx) to inform Pants about the location of your code, and to provide metadata about it. A BUILD file is typically located adjacent to the code it describes. Unlike many other systems, Pants BUILD files are usually very succinct, as most metadata is either inferred from static analysis, assumed from sensible defaults, or generated for you.
+You use files named [BUILD](../using-pants/key-concepts/targets-and-build-files.mdx) to inform Pants about the location of your code, and to provide metadata about it. A BUILD file is typically located adjacent to the code it describes. Unlike many other systems, Pants BUILD files are usually very succinct, as most metadata is either inferred from static analysis, assumed from sensible defaults, or generated for you.
 
 Once you have enabled the backends for the language(s) you'd like to use, run [`./pants tailor`](./create-initial-build-files.mdx) to generate an initial set of BUILD files.

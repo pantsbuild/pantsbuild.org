@@ -48,7 +48,7 @@ Add a `python_awslambda` target and define the `runtime` and `handler` fields. T
 
 For example:
 
-```python title="project/BUILD"
+```python tab={"label":"project/BUILD"}
 # The default `sources` field will include our handler file.
 python_sources(name="lib")
 
@@ -60,7 +60,7 @@ python_awslambda(
 )
 ```
 
-```python title="project/lambda_example.py"
+```python tab={"label":"project/lambda_example.py"}
 def example_handler(event, context):
     print("Hello AWS!")
 ```
@@ -103,7 +103,7 @@ To [deploy a Python lambda function with container images](https://docs.aws.amaz
 
 For example:
 
-```dockerfile title="project/Dockerfile"
+```dockerfile tab={"label":"project/Dockerfile"}
 FROM public.ecr.aws/lambda/python:3.8
 
 RUN yum install unzip -y
@@ -112,7 +112,7 @@ RUN unzip lambda.zip -d "${LAMBDA_TASK_ROOT}"
 CMD ["lambda_function.handler"]
 ```
 
-```python title="project/BUILD"
+```python tab={"label":"project/BUILD"}
 python_sources()
 
 python_awslambda(
@@ -137,7 +137,7 @@ The handler of a `pex_binary` is not re-exported at the fixed `lambda_function.h
 
 For example:
 
-```python title="project/BUILD"
+```python tab={"label":"project/BUILD"}
 python_sources()
 
 pex_binary(
@@ -148,7 +148,7 @@ pex_binary(
 )
 ```
 
-```python title="project/lambda_example.py"
+```python tab={"label":"project/lambda_example.py"}
 def example_handler(event, context):
     print("Hello AWS!")
 ```

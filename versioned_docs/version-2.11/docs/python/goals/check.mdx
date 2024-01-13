@@ -93,12 +93,12 @@ Pants's dependency inference knows to infer a dependency both on the implementat
 
 When writing stubs for third-party libraries, you may need the set up the `[source].root_patterns` option so that [source roots](../../using-pants/key-concepts/source-roots.mdx) are properly stripped. For example:
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [source]
 root_patterns = ["mypy-stubs", "src/python"]
 ```
 
-```python title="mypy-stubs/colors.pyi"
+```python tab={"label":"mypy-stubs/colors.pyi"}
 # Because we set `mypy-stubs` as a source root, this file will be
 # stripped to be simply `colors.pyi`. MyPy will look at this file for
 # imports of the `colors` module.
@@ -106,18 +106,18 @@ root_patterns = ["mypy-stubs", "src/python"]
 def red(s: str) -> str: ...
 ```
 
-```python title="mypy-stubs/BUILD"
+```python tab={"label":"mypy-stubs/BUILD"}
 python_sources(name="lib")
 ```
 
-```python title="src/python/project/app.py"
+```python tab={"label":"src/python/project/app.py"}
 from colors import red
 
 if __name__ == "__main__":
     print(red("I'm red!"))
 ```
 
-```python title="src/python/project/BUILD"
+```python tab={"label":"src/python/project/BUILD"}
 # Pants will infer a dependency both on the `ansicolors` requirement
 # and our type stub.
 python_sources(name="lib")
@@ -138,12 +138,12 @@ extra_type_stubs = ["types-requests==2.25.12"]
 
 Add the plugin to the `extra_requirements` option in the `[mypy]` scope, then update your `mypy.ini` to load the plugin:
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [mypy]
 extra_requirements.add = ["pydantic==1.6.1"]
 ```
 
-```text title="mypy.ini"
+```text tab={"label":"mypy.ini"}
 [mypy]
 plugins =
     pydantic.mypy
@@ -157,7 +157,7 @@ Some MyPy plugins also include type stubs, such as `django-stubs`. For type stub
 
 For example, to fully use the `django-stubs` plugin, your setup might look like this:
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [source]
 root_patterns = ["src/python"]
 
@@ -167,7 +167,7 @@ extra_type_stubs = ["django-stubs==1.5.0"]
 source_plugins = ["src/python/project:django_settings"]
 ```
 
-```text title="mypy.ini"
+```text tab={"label":"mypy.ini"}
 [mypy]
 plugins =
     mypy_django_plugin.main
@@ -176,7 +176,7 @@ plugins =
 django_settings_module = project.django_settings
 ```
 
-```python title="src/python/project/django_settings.py"
+```python tab={"label":"src/python/project/django_settings.py"}
 from django.urls import URLPattern
 
 DEBUG = True
@@ -185,7 +185,7 @@ SECRET_KEY = "not so secret"
 MY_SETTING = URLPattern(pattern="foo", callback=lambda: None)
 ```
 
-```python title="src/python/project/BUILD"
+```python tab={"label":"src/python/project/BUILD"}
 python_source(name="django_settings", source="django_settings.py")
 ```
 
@@ -203,21 +203,21 @@ Finally, set the option `source_plugins` in the `[mypy]` scope to include this t
 
 For example:
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [mypy]
 source_plugins = ["pants-plugins/mypy_plugins:plugin"]
 ```
 
-```text title="mypy.ini"
+```text tab={"label":"mypy.ini"}
 plugins =
     mypy_plugins.change_return_type
 ```
 
-```python title="pants-plugins/mypy_plugins/BUILD"
+```python tab={"label":"pants-plugins/mypy_plugins/BUILD"}
 python_source(name="plugin", source="change_return_type.py")
 ```
 
-```python title="pants-plugins/mypy_plugins/change_return_type.py"
+```python tab={"label":"pants-plugins/mypy_plugins/change_return_type.py"}
 """A contrived plugin that changes the return type of any
 function ending in `__overriden_by_plugin` to return None."""
 

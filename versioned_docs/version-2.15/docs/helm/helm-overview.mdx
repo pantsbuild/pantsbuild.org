@@ -26,14 +26,14 @@ backend_packages = [
 
 If you have more than one Helm chart in the same repository, organise them such that each of them lives in a separate folder with the chart definition file (`Chart.yaml`) at their root. The Helm backend is capable of auto-detecting the root folder of your Helm charts taking the chart definition file `Chart.yaml` as the reference for that root.
 
-```yaml title="src/helm/foo/Chart.yaml"
+```yaml tab={"label":"src/helm/foo/Chart.yaml"}
 apiVersion: v2
 description: Foo Helm chart
 name: foo
 version: 0.1.0
 ```
 
-```yaml title="src/helm/bar/Chart.yaml"
+```yaml tab={"label":"src/helm/bar/Chart.yaml"}
 apiVersion: v2
 description: Bar Helm chart
 name: bar
@@ -84,13 +84,13 @@ pants lint ::
 
 The linting command is non-strict by default. If you want to enforce strict linting it can be either done globally in the `pants.toml` file, or in a per-chart target basis, using one of the two following ways:
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [helm]
 # Enables strict linting globally
 lint_strict = true
 ```
 
-```python title="BUILD"
+```python tab={"label":"BUILD"}
 helm_chart(lint_strict=True)
 ```
 
@@ -115,11 +115,11 @@ The final output folder can customised using the `output_path` field in the `hel
 
 The Helm backend supports running Helm unit tests via the [Helm `unittest` plugin](https://github.com/quintush/helm-unittest). To run unit tests follow the instructions on how to use that plugin and then create a `BUILD` file in the same folder where your tests live with the following target:
 
-```python title="src/helm/example/tests/BUILD"
+```python tab={"label":"src/helm/example/tests/BUILD"}
 helm_unittest_tests()
 ```
 
-```yaml title="src/helm/example/templates/env-configmap.yaml"
+```yaml tab={"label":"src/helm/example/templates/env-configmap.yaml"}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -130,7 +130,7 @@ data:
 {{- end }}
 ```
 
-```yaml title="src/helm/example/tests/env-configmap_test.yaml"
+```yaml tab={"label":"src/helm/example/tests/env-configmap_test.yaml"}
 suite: test env-configmap
 templates:
   - env-configmap.yaml
@@ -163,13 +163,13 @@ pants test ::
 
 In some cases we may want our tests to have access to additional files which are not part of the chart. This can be achieved by setting a dependency between our unit test targets and a `resources` target as follows:
 
-```python title="src/helm/example/tests/BUILD"
+```python tab={"label":"src/helm/example/tests/BUILD"}
 helm_unittest_tests(dependencies=[":extra-values"])
 
 resources(name="extra-values", sources=["extra-values.yml"])
 ```
 
-```yaml title="src/helm/example/templates/env-configmap.yaml"
+```yaml tab={"label":"src/helm/example/templates/env-configmap.yaml"}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -180,13 +180,13 @@ data:
 {{- end }}
 ```
 
-```yaml title="src/helm/example/tests/extra-values.yml"
+```yaml tab={"label":"src/helm/example/tests/extra-values.yml"}
 data:
   VAR1_NAME: var1Value
   var2_name: var2Value
 ```
 
-```yaml title="src/helm/example/tests/env-configmap_test.yaml"
+```yaml tab={"label":"src/helm/example/tests/env-configmap_test.yaml"}
 suite: test env-configmap
 templates:
   - env-configmap.yaml
@@ -209,26 +209,26 @@ In this example, since Helm charts define their source root at the location of t
 
 However, in the following case, we need to reference the extra file relative to the chart root. Note the `../data/extra-values.yml` path in the test suite.
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [source]
 root_patterns=["src/extra"]
 ```
 
-```python title="src/extra/data/BUILD"
+```python tab={"label":"src/extra/data/BUILD"}
 resources(name="extra-values", sources=["extra-values.yml"])
 ```
 
-```yaml title="src/extra/data/extra-values.yml"
+```yaml tab={"label":"src/extra/data/extra-values.yml"}
 data:
   VAR1_NAME: var1Value
   var2_name: var2Value
 ```
 
-```python title="src/helm/example/tests/BUILD"
+```python tab={"label":"src/helm/example/tests/BUILD"}
 helm_unittest_tests(dependencies=["src/extra/data:extra-values"])
 ```
 
-```yaml title="src/helm/example/templates/env-configmap.yaml"
+```yaml tab={"label":"src/helm/example/templates/env-configmap.yaml"}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -239,7 +239,7 @@ data:
 {{- end }}
 ```
 
-```yaml title="src/helm/example/tests/env-configmap_test.yaml"
+```yaml tab={"label":"src/helm/example/tests/env-configmap_test.yaml"}
 suite: test env-configmap
 templates:
   - env-configmap.yaml
@@ -321,7 +321,7 @@ If you have several charts that have to be published into the same registries, y
 
 You can also designate one or more registries as default and then charts that have no explicit `registries` field will use those default registries.
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [helm.registries.company-registry1]
 address = "oci://reg1.company.internal"
 default = true
@@ -330,7 +330,7 @@ default = true
 address = "oci://reg2.company.internal"
 ```
 
-```python title="src/example/BUILD"
+```python tab={"label":"src/example/BUILD"}
 helm_chart(name="demo")
 
 # This is equivalent to the previous target,
@@ -384,18 +384,18 @@ Pants will automatically infer dependencies from the `Chart.yaml` file.
 
 For example, given two charts `foo` and `bar` and a dependency between them:
 
-```yaml title="src/helm/foo/Chart.yaml"
+```yaml tab={"label":"src/helm/foo/Chart.yaml"}
 apiVersion: v2
 description: Foo Helm chart
 name: foo
 version: 0.1.0
 ```
 
-```python title="src/helm/foo/BUILD"
+```python tab={"label":"src/helm/foo/BUILD"}
 helm_chart()
 ```
 
-```yaml title="src/helm/bar/Chart.yaml"
+```yaml tab={"label":"src/helm/bar/Chart.yaml"}
 apiVersion: v2
 description: Bar Helm chart
 name: bar
@@ -404,7 +404,7 @@ dependencies:
   - name: foo
 ```
 
-```python title="src/helm/bar/BUILD"
+```python tab={"label":"src/helm/bar/BUILD"}
 helm_chart()
 ```
 
@@ -419,25 +419,25 @@ src/helm/foo
 
 If you prefer, you can let your BUILD files be the "source of truth" for dependencies, instead of specifying them in `Chart.yaml`:
 
-```yaml title="src/helm/foo/Chart.yaml"
+```yaml tab={"label":"src/helm/foo/Chart.yaml"}
 apiVersion: v2
 description: Foo Helm chart
 name: foo
 version: 0.1.0
 ```
 
-```python title="src/helm/foo/BUILD"
+```python tab={"label":"src/helm/foo/BUILD"}
 helm_chart()
 ```
 
-```yaml title="src/helm/bar/Chart.yaml"
+```yaml tab={"label":"src/helm/bar/Chart.yaml"}
 apiVersion: v2
 description: Bar Helm chart
 name: bar
 version: 0.1.0
 ```
 
-```python title="src/helm/bar/BUILD"
+```python tab={"label":"src/helm/bar/BUILD"}
 helm_chart(dependencies=["//src/helm/foo"])
 ```
 

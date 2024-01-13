@@ -49,7 +49,7 @@ Global options are set using the environment variable `PANTS_{OPTION_NAME}`:
 PANTS_LEVEL=debug ./pants ...
 ```
 
-Subsystem options are set using the environment variable
+Subsystem options are set using the environment variable  
 `PANTS_{SCOPE}_{OPTION_NAME}`:
 
 ```bash
@@ -92,8 +92,8 @@ Additionally, a few special values are pre-populated with the `%(var)s` syntax:
 - `%(buildroot)s`: absolute path to the root of your repository
 - `%(homedir)s`: equivalent to `$HOME` or `~`
 - `%(user)s`: equivalent to `$USER`
-- `%(pants_distdir)s`: absolute path of the global option `--pants-distdir`, which defaults
-  to `{buildroot}/dist/`
+- `%(pants_distdir)s`: absolute path of the global option `--pants-distdir`, which defaults  
+   to `{buildroot}/dist/`
 
 # Option types
 
@@ -310,12 +310,12 @@ will set the value to `{'foo': 42, 'baz': 3}`.
 
 # Reading individual option values from files
 
-If an option value is too large or elaborate to use directly, or if you don't want to hard-code
-values directly in `pants.toml`, you can set the value of any option to the string
-`@relative/path/from/repo/root/to/file` (note the leading `@`), and the value will be read
+If an option value is too large or elaborate to use directly, or if you don't want to hard-code  
+values directly in `pants.toml`, you can set the value of any option to the string  
+`@relative/path/from/repo/root/to/file` (note the leading `@`), and the value will be read  
 from that file.
 
-If the file name ends with `.json` or `.yaml` then the file will be parsed as the relevant
+If the file name ends with `.json` or `.yaml` then the file will be parsed as the relevant  
 format, which is useful for list- and dict-valued options.
 
 Otherwise, the file is parsed as a literal as described above for each option type.

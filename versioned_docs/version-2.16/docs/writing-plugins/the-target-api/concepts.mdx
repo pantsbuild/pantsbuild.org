@@ -156,11 +156,11 @@ async def example_synthetic_targets(request: SyntheticExampleTargetsRequest) -> 
         request,
         [
             (
-                "BUILD.synthetic-example",
-                (
+              "BUILD.synthetic-example",
+              (
                 TargetAdaptor("<target-type>", "<name>", **target_field_values),
                 ...
-                ),
+              ),
             ),
             ...
         ]

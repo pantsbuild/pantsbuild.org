@@ -37,7 +37,7 @@ Add a `python_google_cloud_function` target and define the `runtime`, `handler`,
 
 For example:
 
-```python title="project/BUILD"
+```python tab={"label":"project/BUILD"}
 # The default `sources` field will include our handler file.
 python_sources(name="lib")
 
@@ -50,7 +50,7 @@ python_google_cloud_function(
 )
 ```
 
-```python title="project/google_cloud_function_example.py"
+```python tab={"label":"project/google_cloud_function_example.py"}
 def example_handler(event, context):
     print("Hello Google Cloud Function!")
 ```

@@ -5,7 +5,7 @@
 
 ---
 
-Many Pants operations require extra metadata in the form of [_targets_](../../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx), which are defined in `BUILD` files.
+Many Pants operations require extra metadata in the form of [_targets_](../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx), which are defined in `BUILD` files.
 
 You can generate these BUILD files by running `./pants tailor`:
 
@@ -20,11 +20,11 @@ Created src/go/BUILD:
   - Add go_mod target mod
 ```
 
-Often, this will be all you need for Pants to work, thanks to sensible defaults and inference, like [inferring your dependencies](../../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx). Sometimes, though, you may need to or want to change certain fields, like setting `timeout=120` on a `python_test` target.
+Often, this will be all you need for Pants to work, thanks to sensible defaults and inference, like [inferring your dependencies](../using-pants/key-concepts-to-know-about-pants/targets-and-build-files.mdx). Sometimes, though, you may need to or want to change certain fields, like setting `timeout=120` on a `python_test` target.
 
-You may also need to add some targets that Pants cannot generate, like [`resources` and `files`](../../using-pants/resources-and-archives.mdx) targets.
+You may also need to add some targets that Pants cannot generate, like [`resources` and `files`](../using-pants/resources-and-archives.mdx) targets.
 
-We recommend running `./pants tailor --check` in your [continuous integration](../../using-pants/using-pants-in-ci.mdx) so that you don't forget to add any targets and BUILD files.
+We recommend running `./pants tailor --check` in your [continuous integration](../using-pants/using-pants-in-ci.mdx) so that you don't forget to add any targets and BUILD files.
 
 ```
 ❯ ./pants tailor --check
@@ -34,7 +34,7 @@ Would create scripts/BUILD:
 To fix `tailor` failures, run `./pants tailor`.
 ```
 
-To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](../../../reference/goals/tailor.mdx) for more detail.
+To ignore false positives, set `[tailor].ignore_paths` and `[tailor].ignore_adding_targets`. See [tailor](../../reference/goals/tailor.mdx) for more detail.
 
 ```toml title="pants.toml"
 [tailor]
@@ -53,7 +53,7 @@ Updated scripts/BUILD:
   - Rename `python_library` to `python_sources`
 ```
 
-Like `tailor`, we recommend running `./pants update-build-files --check` in your [continuous integration](../../using-pants/using-pants-in-ci.mdx).
+Like `tailor`, we recommend running `./pants update-build-files --check` in your [continuous integration](../using-pants/using-pants-in-ci.mdx).
 
 ```
 ❯ ./pants update-build-files --check

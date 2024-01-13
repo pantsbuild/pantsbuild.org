@@ -19960,7 +19960,7 @@ export default [
     from: "/v2.20/docs/plugins-common-subsystem",
     to: "/2.20/docs/writing-plugins/common-subsystem-tasks",
   },
-  { from: "/v2.20/docs/changelog", to: "/2.20/docs/releases/changelog" },
+  { from: "/v2.20/docs/changelog", to: "/versions" },
   {
     from: "/v2.20/docs/deprecation-policy",
     to: "/2.20/docs/releases/deprecation-policy",
