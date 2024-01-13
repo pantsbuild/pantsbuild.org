@@ -68,6 +68,10 @@ const config = {
     [
       "@docusaurus/preset-classic",
       {
+        gtag: {
+          trackingID: "G-SEHBXJRF42",
+          anonymizeIP: true,
+        },
         debug: process.env.NODE_ENV !== "production",
         docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
         blog: includeBlog && {
