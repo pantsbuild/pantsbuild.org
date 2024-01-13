@@ -87,16 +87,16 @@ jobs:
             echo "::endgroup::"
 
             cat <<EOF
-            Found changes to files that are synced from https://github.com/pantsbuild/pants:
+          Found changes to files that are synced from https://github.com/pantsbuild/pants:
 
-            $(git diff --name-only FETCH_HEAD HEAD -- "${autogened[@]}")
+          $(git diff --name-only FETCH_HEAD HEAD -- "${autogened[@]}")
 
-            Those files should be changed in https://github.com/pantsbuild/pants, and are
-            automatically synced to this repository after each release.
+          Those files should be changed in https://github.com/pantsbuild/pants, and are
+          automatically synced to this repository after each release.
 
-            (If this change is intentional and you're sure it's appropriate, add the
-            'automation:sync-docs' label.)
-            EOF
+          (If this change is intentional and you're sure it's appropriate, add the
+          'automation:sync-docs' label.)
+          EOF
 
             exit 1
           fi
