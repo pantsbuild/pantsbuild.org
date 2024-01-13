@@ -299,7 +299,7 @@ export default [
   },
   {
     from: "/docs/python",
-    to: "/2.18/docs/python/python-overview",
+    to: "/2.18/docs/python/overview",
   },
   {
     from: "/docs/reference-add-trailing-comma",
@@ -3723,7 +3723,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python",
-    to: "/2.11/docs/python/python-overview",
+    to: "/2.11/docs/python/overview",
   },
   { from: "/v2.11/docs/reference-all-goals", to: "/2.11/reference/goals" },
   {
@@ -4740,7 +4740,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python",
-    to: "/2.12/docs/python/python-overview",
+    to: "/2.12/docs/python/overview",
   },
   { from: "/v2.12/docs/reference-all-goals", to: "/2.12/reference/goals" },
   {
@@ -5806,7 +5806,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python",
-    to: "/2.13/docs/python/python-overview",
+    to: "/2.13/docs/python/overview",
   },
   { from: "/v2.13/docs/reference-all-goals", to: "/2.13/reference/goals" },
   {
@@ -6904,7 +6904,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python",
-    to: "/2.14/docs/python/python-overview",
+    to: "/2.14/docs/python/overview",
   },
   { from: "/v2.14/docs/reference-all-goals", to: "/2.14/reference/goals" },
   {
@@ -8042,7 +8042,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python",
-    to: "/2.15/docs/python/python-overview",
+    to: "/2.15/docs/python/overview",
   },
   {
     from: "/v2.15/docs/reference-add-trailing-comma",
@@ -9245,7 +9245,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python",
-    to: "/2.16/docs/python/python-overview",
+    to: "/2.16/docs/python/overview",
   },
   {
     from: "/v2.16/docs/reference-add-trailing-comma",
@@ -10532,7 +10532,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python",
-    to: "/2.17/docs/python/python-overview",
+    to: "/2.17/docs/python/overview",
   },
   {
     from: "/v2.17/docs/reference-add-trailing-comma",
@@ -11831,7 +11831,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python",
-    to: "/2.18/docs/python/python-overview",
+    to: "/2.18/docs/python/overview",
   },
   {
     from: "/v2.18/docs/reference-add-trailing-comma",
@@ -13158,7 +13158,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python",
-    to: "/2.19/docs/python/python-overview",
+    to: "/2.19/docs/python/overview",
   },
   {
     from: "/v2.19/docs/reference-add-trailing-comma",
@@ -19702,7 +19702,7 @@ export default [
   },
   {
     from: "/v2.20/docs/python",
-    to: "/2.20/docs/python/python-overview",
+    to: "/2.20/docs/python/overview",
   },
   {
     from: "/v2.20/docs/python-backend",
