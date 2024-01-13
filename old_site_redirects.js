@@ -195,7 +195,7 @@ export default [
   },
   {
     from: "/docs/plugins-overview",
-    to: "/2.18/docs/writing-plugins/plugins-overview",
+    to: "/2.18/docs/writing-plugins/overview",
   },
   {
     from: "/docs/plugins-repl-goal",
@@ -3627,7 +3627,7 @@ export default [
   },
   {
     from: "/v2.11/docs/plugins-overview",
-    to: "/2.11/docs/writing-plugins/plugins-overview",
+    to: "/2.11/docs/writing-plugins/overview",
   },
   {
     from: "/v2.11/docs/plugins-repl-goal",
@@ -4644,7 +4644,7 @@ export default [
   },
   {
     from: "/v2.12/docs/plugins-overview",
-    to: "/2.12/docs/writing-plugins/plugins-overview",
+    to: "/2.12/docs/writing-plugins/overview",
   },
   {
     from: "/v2.12/docs/plugins-repl-goal",
@@ -5710,7 +5710,7 @@ export default [
   },
   {
     from: "/v2.13/docs/plugins-overview",
-    to: "/2.13/docs/writing-plugins/plugins-overview",
+    to: "/2.13/docs/writing-plugins/overview",
   },
   {
     from: "/v2.13/docs/plugins-repl-goal",
@@ -6808,7 +6808,7 @@ export default [
   },
   {
     from: "/v2.14/docs/plugins-overview",
-    to: "/2.14/docs/writing-plugins/plugins-overview",
+    to: "/2.14/docs/writing-plugins/overview",
   },
   {
     from: "/v2.14/docs/plugins-repl-goal",
@@ -7942,7 +7942,7 @@ export default [
   },
   {
     from: "/v2.15/docs/plugins-overview",
-    to: "/2.15/docs/writing-plugins/plugins-overview",
+    to: "/2.15/docs/writing-plugins/overview",
   },
   {
     from: "/v2.15/docs/plugins-repl-goal",
@@ -9141,7 +9141,7 @@ export default [
   },
   {
     from: "/v2.16/docs/plugins-overview",
-    to: "/2.16/docs/writing-plugins/plugins-overview",
+    to: "/2.16/docs/writing-plugins/overview",
   },
   {
     from: "/v2.16/docs/plugins-repl-goal",
@@ -10428,7 +10428,7 @@ export default [
   },
   {
     from: "/v2.17/docs/plugins-overview",
-    to: "/2.17/docs/writing-plugins/plugins-overview",
+    to: "/2.17/docs/writing-plugins/overview",
   },
   {
     from: "/v2.17/docs/plugins-repl-goal",
@@ -11727,7 +11727,7 @@ export default [
   },
   {
     from: "/v2.18/docs/plugins-overview",
-    to: "/2.18/docs/writing-plugins/plugins-overview",
+    to: "/2.18/docs/writing-plugins/overview",
   },
   {
     from: "/v2.18/docs/plugins-repl-goal",
@@ -13054,7 +13054,7 @@ export default [
   },
   {
     from: "/v2.19/docs/plugins-overview",
-    to: "/2.19/docs/writing-plugins/plugins-overview",
+    to: "/2.19/docs/writing-plugins/overview",
   },
   {
     from: "/v2.19/docs/plugins-repl-goal",
@@ -19845,7 +19845,7 @@ export default [
   },
   {
     from: "/v2.20/docs/plugins-overview",
-    to: "/2.20/docs/writing-plugins/plugins-overview",
+    to: "/2.20/docs/writing-plugins/overview",
   },
   { from: "/v2.20/docs/macros", to: "/2.20/docs/writing-plugins/macros" },
   {
