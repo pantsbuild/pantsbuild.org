@@ -77,7 +77,7 @@ export default [
     from: "/docs/development",
     to: "/2.18/docs/contributions/development",
   },
-  { from: "/docs/docker", to: "/2.18/docs/docker/docker-overview" },
+  { from: "/docs/docker", to: "/2.18/docs/docker" },
   {
     from: "/docs/enabling-backends",
     to: "/2.18/docs/using-pants/key-concepts/backends",
@@ -3542,7 +3542,7 @@ export default [
     from: "/v2.11/docs/development",
     to: "/2.11/docs/contributions/development",
   },
-  { from: "/v2.11/docs/docker", to: "/2.11/docs/docker/docker-overview" },
+  { from: "/v2.11/docs/docker", to: "/2.11/docs/docker" },
   {
     from: "/v2.11/docs/enabling-backends",
     to: "/2.11/docs/using-pants/key-concepts/backends",
@@ -4551,7 +4551,7 @@ export default [
     from: "/v2.12/docs/development",
     to: "/2.12/docs/contributions/development",
   },
-  { from: "/v2.12/docs/docker", to: "/2.12/docs/docker/docker-overview" },
+  { from: "/v2.12/docs/docker", to: "/2.12/docs/docker" },
   {
     from: "/v2.12/docs/enabling-backends",
     to: "/2.12/docs/using-pants/key-concepts/backends",
@@ -5612,7 +5612,7 @@ export default [
     from: "/v2.13/docs/development",
     to: "/2.13/docs/contributions/development",
   },
-  { from: "/v2.13/docs/docker", to: "/2.13/docs/docker/docker-overview" },
+  { from: "/v2.13/docs/docker", to: "/2.13/docs/docker" },
   {
     from: "/v2.13/docs/enabling-backends",
     to: "/2.13/docs/using-pants/key-concepts/backends",
@@ -6706,7 +6706,7 @@ export default [
     from: "/v2.14/docs/development",
     to: "/2.14/docs/contributions/development",
   },
-  { from: "/v2.14/docs/docker", to: "/2.14/docs/docker/docker-overview" },
+  { from: "/v2.14/docs/docker", to: "/2.14/docs/docker" },
   {
     from: "/v2.14/docs/enabling-backends",
     to: "/2.14/docs/using-pants/key-concepts/backends",
@@ -7836,7 +7836,7 @@ export default [
     from: "/v2.15/docs/development",
     to: "/2.15/docs/contributions/development",
   },
-  { from: "/v2.15/docs/docker", to: "/2.15/docs/docker/docker-overview" },
+  { from: "/v2.15/docs/docker", to: "/2.15/docs/docker" },
   {
     from: "/v2.15/docs/enabling-backends",
     to: "/2.15/docs/using-pants/key-concepts/backends",
@@ -9035,7 +9035,7 @@ export default [
     from: "/v2.16/docs/development",
     to: "/2.16/docs/contributions/development",
   },
-  { from: "/v2.16/docs/docker", to: "/2.16/docs/docker/docker-overview" },
+  { from: "/v2.16/docs/docker", to: "/2.16/docs/docker" },
   {
     from: "/v2.16/docs/enabling-backends",
     to: "/2.16/docs/using-pants/key-concepts/backends",
@@ -10318,7 +10318,7 @@ export default [
     from: "/v2.17/docs/development",
     to: "/2.17/docs/contributions/development",
   },
-  { from: "/v2.17/docs/docker", to: "/2.17/docs/docker/docker-overview" },
+  { from: "/v2.17/docs/docker", to: "/2.17/docs/docker" },
   {
     from: "/v2.17/docs/enabling-backends",
     to: "/2.17/docs/using-pants/key-concepts/backends",
@@ -11609,7 +11609,7 @@ export default [
     from: "/v2.18/docs/development",
     to: "/2.18/docs/contributions/development",
   },
-  { from: "/v2.18/docs/docker", to: "/2.18/docs/docker/docker-overview" },
+  { from: "/v2.18/docs/docker", to: "/2.18/docs/docker" },
   {
     from: "/v2.18/docs/enabling-backends",
     to: "/2.18/docs/using-pants/key-concepts/backends",
@@ -12936,7 +12936,7 @@ export default [
     from: "/v2.19/docs/development",
     to: "/2.19/docs/contributions/development",
   },
-  { from: "/v2.19/docs/docker", to: "/2.19/docs/docker/docker-overview" },
+  { from: "/v2.19/docs/docker", to: "/2.19/docs/docker" },
   {
     from: "/v2.19/docs/enabling-backends",
     to: "/2.19/docs/using-pants/key-concepts/backends",
@@ -19818,7 +19818,7 @@ export default [
     from: "/v2.20/docs/run-shell-commands",
     to: "/2.20/docs/shell/run-shell-commands",
   },
-  { from: "/v2.20/docs/docker", to: "/2.20/docs/docker/docker-overview" },
+  { from: "/v2.20/docs/docker", to: "/2.20/docs/docker" },
   {
     from: "/v2.20/docs/tagging-docker-images",
     to: "/2.20/docs/docker/tagging-docker-images",

@@ -138,7 +138,7 @@ FROM scratch
 
 This way you can specify a version just once, on the base image, and the derived images will automatically acquire the same version.
 
-You may also use any Docker build arguments (when configured as described in [Docker build arguments](./docker-overview.mdx#build-arguments)) for interpolation into the `image_tags` in the corresponding `docker_image`:
+You may also use any Docker build arguments (when configured as described in [Docker build arguments](./index.mdx#build-arguments)) for interpolation into the `image_tags` in the corresponding `docker_image`:
 
 ```python title="src/example/BUILD"
 docker_image(image_tags=["{build_args.ARG_NAME}"])
