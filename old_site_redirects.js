@@ -59,7 +59,7 @@ export default [
   },
   {
     from: "/docs/contributor-overview",
-    to: "/2.18/docs/contributions/contribution-overview",
+    to: "/2.18/docs/contributions",
   },
   {
     from: "/docs/contributor-setup",
@@ -1369,7 +1369,7 @@ export default [
   },
   {
     from: "/v2.0/docs/contributor-overview",
-    to: "/2.0/docs/contributions/contribution-overview",
+    to: "/2.0/docs/contributions",
   },
   {
     from: "/v2.0/docs/contributor-setup",
@@ -1969,7 +1969,7 @@ export default [
   },
   {
     from: "/v2.1/docs/contributor-overview",
-    to: "/2.1/docs/contributions/contribution-overview",
+    to: "/2.1/docs/contributions",
   },
   {
     from: "/v2.1/docs/contributor-setup",
@@ -2550,7 +2550,7 @@ export default [
   },
   {
     from: "/v2.10/docs/contributor-overview",
-    to: "/2.10/docs/contributions/contribution-overview",
+    to: "/2.10/docs/contributions",
   },
   {
     from: "/v2.10/docs/contributor-setup",
@@ -3528,7 +3528,7 @@ export default [
   },
   {
     from: "/v2.11/docs/contributor-overview",
-    to: "/2.11/docs/contributions/contribution-overview",
+    to: "/2.11/docs/contributions",
   },
   {
     from: "/v2.11/docs/contributor-setup",
@@ -4537,7 +4537,7 @@ export default [
   },
   {
     from: "/v2.12/docs/contributor-overview",
-    to: "/2.12/docs/contributions/contribution-overview",
+    to: "/2.12/docs/contributions",
   },
   {
     from: "/v2.12/docs/contributor-setup",
@@ -5598,7 +5598,7 @@ export default [
   },
   {
     from: "/v2.13/docs/contributor-overview",
-    to: "/2.13/docs/contributions/contribution-overview",
+    to: "/2.13/docs/contributions",
   },
   {
     from: "/v2.13/docs/contributor-setup",
@@ -6692,7 +6692,7 @@ export default [
   },
   {
     from: "/v2.14/docs/contributor-overview",
-    to: "/2.14/docs/contributions/contribution-overview",
+    to: "/2.14/docs/contributions",
   },
   {
     from: "/v2.14/docs/contributor-setup",
@@ -7818,7 +7818,7 @@ export default [
   },
   {
     from: "/v2.15/docs/contributor-overview",
-    to: "/2.15/docs/contributions/contribution-overview",
+    to: "/2.15/docs/contributions",
   },
   {
     from: "/v2.15/docs/contributor-setup",
@@ -9017,7 +9017,7 @@ export default [
   },
   {
     from: "/v2.16/docs/contributor-overview",
-    to: "/2.16/docs/contributions/contribution-overview",
+    to: "/2.16/docs/contributions",
   },
   {
     from: "/v2.16/docs/contributor-setup",
@@ -10300,7 +10300,7 @@ export default [
   },
   {
     from: "/v2.17/docs/contributor-overview",
-    to: "/2.17/docs/contributions/contribution-overview",
+    to: "/2.17/docs/contributions",
   },
   {
     from: "/v2.17/docs/contributor-setup",
@@ -11591,7 +11591,7 @@ export default [
   },
   {
     from: "/v2.18/docs/contributor-overview",
-    to: "/2.18/docs/contributions/contribution-overview",
+    to: "/2.18/docs/contributions",
   },
   {
     from: "/v2.18/docs/contributor-setup",
@@ -12918,7 +12918,7 @@ export default [
   },
   {
     from: "/v2.19/docs/contributor-overview",
-    to: "/2.19/docs/contributions/contribution-overview",
+    to: "/2.19/docs/contributions",
   },
   {
     from: "/v2.19/docs/contributor-setup",
@@ -14236,7 +14236,7 @@ export default [
   },
   {
     from: "/v2.2/docs/contributor-overview",
-    to: "/2.2/docs/contributions/contribution-overview",
+    to: "/2.2/docs/contributions",
   },
   {
     from: "/v2.2/docs/contributor-setup",
@@ -14804,7 +14804,7 @@ export default [
   },
   {
     from: "/v2.3/docs/contributor-overview",
-    to: "/2.3/docs/contributions/contribution-overview",
+    to: "/2.3/docs/contributions",
   },
   {
     from: "/v2.3/docs/contributor-setup",
@@ -15392,7 +15392,7 @@ export default [
   },
   {
     from: "/v2.4/docs/contributor-overview",
-    to: "/2.4/docs/contributions/contribution-overview",
+    to: "/2.4/docs/contributions",
   },
   {
     from: "/v2.4/docs/contributor-setup",
@@ -16001,7 +16001,7 @@ export default [
   },
   {
     from: "/v2.5/docs/contributor-overview",
-    to: "/2.5/docs/contributions/contribution-overview",
+    to: "/2.5/docs/contributions",
   },
   {
     from: "/v2.5/docs/contributor-setup",
@@ -16627,7 +16627,7 @@ export default [
   },
   {
     from: "/v2.6/docs/contributor-overview",
-    to: "/2.6/docs/contributions/contribution-overview",
+    to: "/2.6/docs/contributions",
   },
   {
     from: "/v2.6/docs/contributor-setup",
@@ -17253,7 +17253,7 @@ export default [
   },
   {
     from: "/v2.7/docs/contributor-overview",
-    to: "/2.7/docs/contributions/contribution-overview",
+    to: "/2.7/docs/contributions",
   },
   {
     from: "/v2.7/docs/contributor-setup",
@@ -17913,7 +17913,7 @@ export default [
   },
   {
     from: "/v2.8/docs/contributor-overview",
-    to: "/2.8/docs/contributions/contribution-overview",
+    to: "/2.8/docs/contributions",
   },
   {
     from: "/v2.8/docs/contributor-setup",
@@ -18722,7 +18722,7 @@ export default [
   },
   {
     from: "/v2.9/docs/contributor-overview",
-    to: "/2.9/docs/contributions/contribution-overview",
+    to: "/2.9/docs/contributions",
   },
   {
     from: "/v2.9/docs/contributor-setup",
@@ -19971,7 +19971,7 @@ export default [
   },
   {
     from: "/v2.20/docs/contributor-overview",
-    to: "/2.20/docs/contributions/contribution-overview",
+    to: "/2.20/docs/contributions",
   },
   {
     from: "/v2.20/docs/development",
