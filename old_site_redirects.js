@@ -1297,7 +1297,7 @@ export default [
   },
   {
     from: "/docs/terraform-overview",
-    to: "/2.18/docs/terraform/terraform-overview",
+    to: "/2.18/docs/terraform",
   },
   { from: "/docs/testimonials", to: "/spotlight/testimonials" },
   { from: "/docs/the-pants-community", to: "/community/members" },
@@ -12825,7 +12825,7 @@ export default [
   { from: "/v2.18/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.18/docs/terraform-overview",
-    to: "/2.18/docs/terraform/terraform-overview",
+    to: "/2.18/docs/terraform",
   },
   {
     from: "/v2.18/docs/test-custom-plugin-goal",
@@ -14160,7 +14160,7 @@ export default [
   { from: "/v2.19/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.19/docs/terraform-overview",
-    to: "/2.19/docs/terraform/terraform-overview",
+    to: "/2.19/docs/terraform",
   },
   {
     from: "/v2.19/docs/test-custom-plugin-goal",
@@ -19837,7 +19837,7 @@ export default [
   },
   {
     from: "/v2.20/docs/terraform-overview",
-    to: "/2.20/docs/terraform/terraform-overview",
+    to: "/2.20/docs/terraform",
   },
   {
     from: "/v2.20/docs/adhoc-tool",
