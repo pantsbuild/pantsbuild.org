@@ -47,3 +47,45 @@ jobs:
         run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=6144
+
+  no-autogen-diff:
+    name: "No changes to synced files without `automation:sync-docs` label"
+    runs-on: ubuntu-22.04
+
+    # if the label exists, any changes are fine, so no need to check
+    if: >-
+      ! contains(github.event.pull_request.labels.*.name , 'automation:sync-docs')
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Fetch base branch
+        run: |
+          git fetch --depth=1 ${{ github.event.pull_request.base.ref }}
+
+      - name: Compare synced directories between PR and base
+        run: |
+          autogened=(
+             docs/docs
+             docs/reference/help-all.json
+             versioned_docs/*/docs
+             versioned_docs/*/reference/help-all.json
+          )
+          if ! git diff --quiet FETCH_HEAD HEAD -- "${autogened[@]}"; then
+            echo "::group::Full diff"
+            git diff FETCH_HEAD HEAD -- "${autogened[@]}"
+            echo "::endgroup::"
+
+            cat <<EOF
+            Found changes to files that are synced from https://github.com/pantsbuild/pants:
+
+            $(git diff --name-only FETCH_HEAD HEAD -- "${autogened[@]}")
+
+            Those files should be changed in https://github.com/pantsbuild/pants, and are
+            automatically synced to this repository after each release.
+
+            (If this change is intentional and you're sure it's appropriate, add the
+            'automation:sync-docs' label.)
+            EOF
+
+            exit 1
+          fi
