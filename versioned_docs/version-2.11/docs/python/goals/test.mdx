@@ -46,9 +46,9 @@ extra_requirements.add = [
 ]
 ```
 
-If you change either `version` or `extra_requirements`, Pants's default lockfile for Pytest will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx#tool-lockfiles).
+If you change either `version` or `extra_requirements`, Pants's default lockfile for Pytest will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../overview/third-party-dependencies.mdx#tool-lockfiles).
 
-Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_test` / `python_tests` target. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
+Alternatively, if you only want to install the plugin for certain tests, you can add the plugin to the `dependencies` field of your `python_test` / `python_tests` target. See [Third-party dependencies](../overview/third-party-dependencies.mdx) for how to install Python dependencies. For example:
 
 ```text tab={"label":"requirements.txt"}
 pytest-django==3.10.0
