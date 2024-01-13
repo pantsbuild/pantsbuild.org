@@ -204,9 +204,9 @@ You can check this into your repo, for convenience.
 
 Now, use the remote debugger as usual:
 
-1.  Start a Python remote debugging session in PyCharm, say on port 5000.
+1. Start a Python remote debugging session in PyCharm, say on port 5000.
 
-2.  Add the following code at the point where you want execution to pause and connect to the debugger:
+2. Add the following code at the point where you want execution to pause and connect to the debugger:
 
 ```
 import pydevd_pycharm
@@ -368,7 +368,7 @@ $ ./pants test --use-coverage helloworld/util/lang_test.py
 
 Or to permanently use coverage, set in your config file:
 
-```toml tab={"label":"pants.ci.toml"}
+```toml title="pants.ci.toml"
 [test]
 use_coverage = true
 ```
