@@ -107,7 +107,7 @@ export default [
     from: "/docs/go-integrations",
     to: "/2.18/docs/go/integrations",
   },
-  { from: "/docs/go", to: "/2.18/docs/go/go-overview" },
+  { from: "/docs/go", to: "/2.18/docs/go" },
   {
     from: "/docs/goals",
     to: "/2.18/docs/using-pants/key-concepts/goals",
@@ -126,7 +126,7 @@ export default [
   },
   {
     from: "/docs/helm-overview",
-    to: "/2.18/docs/helm/helm-overview",
+    to: "/2.18/docs/helm",
   },
   {
     from: "/docs/how-does-pants-work",
@@ -3564,7 +3564,7 @@ export default [
     from: "/v2.11/docs/go-integrations",
     to: "/2.11/docs/go/integrations",
   },
-  { from: "/v2.11/docs/go", to: "/2.11/docs/go/go-overview" },
+  { from: "/v2.11/docs/go", to: "/2.11/docs/go" },
   {
     from: "/v2.11/docs/goals",
     to: "/2.11/docs/using-pants/key-concepts/goals",
@@ -4573,7 +4573,7 @@ export default [
     from: "/v2.12/docs/go-integrations",
     to: "/2.12/docs/go/integrations",
   },
-  { from: "/v2.12/docs/go", to: "/2.12/docs/go/go-overview" },
+  { from: "/v2.12/docs/go", to: "/2.12/docs/go" },
   {
     from: "/v2.12/docs/goals",
     to: "/2.12/docs/using-pants/key-concepts/goals",
@@ -4584,7 +4584,7 @@ export default [
   },
   {
     from: "/v2.12/docs/helm-overview",
-    to: "/2.12/docs/helm/helm-overview",
+    to: "/2.12/docs/helm",
   },
   {
     from: "/v2.12/docs/how-does-pants-work",
@@ -5638,7 +5638,7 @@ export default [
     from: "/v2.13/docs/go-integrations",
     to: "/2.13/docs/go/integrations",
   },
-  { from: "/v2.13/docs/go", to: "/2.13/docs/go/go-overview" },
+  { from: "/v2.13/docs/go", to: "/2.13/docs/go" },
   {
     from: "/v2.13/docs/goals",
     to: "/2.13/docs/using-pants/key-concepts/goals",
@@ -5649,7 +5649,7 @@ export default [
   },
   {
     from: "/v2.13/docs/helm-overview",
-    to: "/2.13/docs/helm/helm-overview",
+    to: "/2.13/docs/helm",
   },
   {
     from: "/v2.13/docs/how-does-pants-work",
@@ -6732,7 +6732,7 @@ export default [
     from: "/v2.14/docs/go-integrations",
     to: "/2.14/docs/go/integrations",
   },
-  { from: "/v2.14/docs/go", to: "/2.14/docs/go/go-overview" },
+  { from: "/v2.14/docs/go", to: "/2.14/docs/go" },
   {
     from: "/v2.14/docs/goals",
     to: "/2.14/docs/using-pants/key-concepts/goals",
@@ -6747,7 +6747,7 @@ export default [
   },
   {
     from: "/v2.14/docs/helm-overview",
-    to: "/2.14/docs/helm/helm-overview",
+    to: "/2.14/docs/helm",
   },
   {
     from: "/v2.14/docs/how-does-pants-work",
@@ -7866,7 +7866,7 @@ export default [
     from: "/v2.15/docs/go-integrations",
     to: "/2.15/docs/go/integrations",
   },
-  { from: "/v2.15/docs/go", to: "/2.15/docs/go/go-overview" },
+  { from: "/v2.15/docs/go", to: "/2.15/docs/go" },
   {
     from: "/v2.15/docs/goals",
     to: "/2.15/docs/using-pants/key-concepts/goals",
@@ -7881,7 +7881,7 @@ export default [
   },
   {
     from: "/v2.15/docs/helm-overview",
-    to: "/2.15/docs/helm/helm-overview",
+    to: "/2.15/docs/helm",
   },
   {
     from: "/v2.15/docs/how-does-pants-work",
@@ -9065,7 +9065,7 @@ export default [
     from: "/v2.16/docs/go-integrations",
     to: "/2.16/docs/go/integrations",
   },
-  { from: "/v2.16/docs/go", to: "/2.16/docs/go/go-overview" },
+  { from: "/v2.16/docs/go", to: "/2.16/docs/go" },
   {
     from: "/v2.16/docs/goals",
     to: "/2.16/docs/using-pants/key-concepts/goals",
@@ -9080,7 +9080,7 @@ export default [
   },
   {
     from: "/v2.16/docs/helm-overview",
-    to: "/2.16/docs/helm/helm-overview",
+    to: "/2.16/docs/helm",
   },
   {
     from: "/v2.16/docs/how-does-pants-work",
@@ -10348,7 +10348,7 @@ export default [
     from: "/v2.17/docs/go-integrations",
     to: "/2.17/docs/go/integrations",
   },
-  { from: "/v2.17/docs/go", to: "/2.17/docs/go/go-overview" },
+  { from: "/v2.17/docs/go", to: "/2.17/docs/go" },
   {
     from: "/v2.17/docs/goals",
     to: "/2.17/docs/using-pants/key-concepts/goals",
@@ -10363,7 +10363,7 @@ export default [
   },
   {
     from: "/v2.17/docs/helm-overview",
-    to: "/2.17/docs/helm/helm-overview",
+    to: "/2.17/docs/helm",
   },
   {
     from: "/v2.17/docs/how-does-pants-work",
@@ -11639,7 +11639,7 @@ export default [
     from: "/v2.18/docs/go-integrations",
     to: "/2.18/docs/go/integrations",
   },
-  { from: "/v2.18/docs/go", to: "/2.18/docs/go/go-overview" },
+  { from: "/v2.18/docs/go", to: "/2.18/docs/go" },
   {
     from: "/v2.18/docs/goals",
     to: "/2.18/docs/using-pants/key-concepts/goals",
@@ -11658,7 +11658,7 @@ export default [
   },
   {
     from: "/v2.18/docs/helm-overview",
-    to: "/2.18/docs/helm/helm-overview",
+    to: "/2.18/docs/helm",
   },
   {
     from: "/v2.18/docs/how-does-pants-work",
@@ -12966,7 +12966,7 @@ export default [
     from: "/v2.19/docs/go-integrations",
     to: "/2.19/docs/go/integrations",
   },
-  { from: "/v2.19/docs/go", to: "/2.19/docs/go/go-overview" },
+  { from: "/v2.19/docs/go", to: "/2.19/docs/go" },
   {
     from: "/v2.19/docs/goals",
     to: "/2.19/docs/using-pants/key-concepts/goals",
@@ -12985,7 +12985,7 @@ export default [
   },
   {
     from: "/v2.19/docs/helm-overview",
-    to: "/2.19/docs/helm/helm-overview",
+    to: "/2.19/docs/helm",
   },
   {
     from: "/v2.19/docs/how-does-pants-work",
@@ -19796,7 +19796,7 @@ export default [
     from: "/v2.20/docs/jupyter",
     to: "/2.20/docs/python/integrations/jupyter",
   },
-  { from: "/v2.20/docs/go", to: "/2.20/docs/go/go-overview" },
+  { from: "/v2.20/docs/go", to: "/2.20/docs/go" },
   {
     from: "/v2.20/docs/go-integrations",
     to: "/2.20/docs/go/integrations",
@@ -19825,7 +19825,7 @@ export default [
   },
   {
     from: "/v2.20/docs/helm-overview",
-    to: "/2.20/docs/helm/helm-overview",
+    to: "/2.20/docs/helm",
   },
   {
     from: "/v2.20/docs/helm-deployments",
