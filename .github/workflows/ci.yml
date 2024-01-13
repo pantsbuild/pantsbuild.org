@@ -48,7 +48,7 @@ jobs:
             echo "::endgroup::"
 
             cat <<EOF
-          Found changes to files that are synced from <https://github.com/pantsbuild/pants>:
+          Error: found changes to files that are synced from <https://github.com/pantsbuild/pants>:
 
           $(git diff --name-only FETCH_HEAD HEAD -- "${autogened[@]}")
 
@@ -74,7 +74,7 @@ jobs:
             echo "::endgroup::"
 
             cat <<EOF
-          The references have differences between what's committed and what would be
+          Error: the references have differences between what's committed and what would be
           generated. Either:
 
           - if you made changes to the generation scripts, please regenerate with `npm run
