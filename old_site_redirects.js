@@ -1249,7 +1249,7 @@ export default [
     from: "/docs/setting-up-an-ide",
     to: "/2.18/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/docs/shell", to: "/2.18/docs/shell/shell-overview" },
+  { from: "/docs/shell", to: "/2.18/docs/shell" },
   {
     from: "/docs/source-roots",
     to: "/2.18/docs/using-pants/key-concepts/source-roots",
@@ -4424,7 +4424,7 @@ export default [
     from: "/v2.11/docs/setting-up-an-ide",
     to: "/2.11/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.11/docs/shell", to: "/2.11/docs/shell/shell-overview" },
+  { from: "/v2.11/docs/shell", to: "/2.11/docs/shell" },
   {
     from: "/v2.11/docs/source-roots",
     to: "/2.11/docs/using-pants/key-concepts/source-roots",
@@ -5485,7 +5485,7 @@ export default [
     from: "/v2.12/docs/setting-up-an-ide",
     to: "/2.12/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.12/docs/shell", to: "/2.12/docs/shell/shell-overview" },
+  { from: "/v2.12/docs/shell", to: "/2.12/docs/shell" },
   {
     from: "/v2.12/docs/source-roots",
     to: "/2.12/docs/using-pants/key-concepts/source-roots",
@@ -6579,7 +6579,7 @@ export default [
     from: "/v2.13/docs/setting-up-an-ide",
     to: "/2.13/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.13/docs/shell", to: "/2.13/docs/shell/shell-overview" },
+  { from: "/v2.13/docs/shell", to: "/2.13/docs/shell" },
   {
     from: "/v2.13/docs/source-roots",
     to: "/2.13/docs/using-pants/key-concepts/source-roots",
@@ -7701,7 +7701,7 @@ export default [
     from: "/v2.14/docs/setting-up-an-ide",
     to: "/2.14/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.14/docs/shell", to: "/2.14/docs/shell/shell-overview" },
+  { from: "/v2.14/docs/shell", to: "/2.14/docs/shell" },
   {
     from: "/v2.14/docs/source-roots",
     to: "/2.14/docs/using-pants/key-concepts/source-roots",
@@ -8892,7 +8892,7 @@ export default [
     from: "/v2.15/docs/setting-up-an-ide",
     to: "/2.15/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.15/docs/shell", to: "/2.15/docs/shell/shell-overview" },
+  { from: "/v2.15/docs/shell", to: "/2.15/docs/shell" },
   {
     from: "/v2.15/docs/source-roots",
     to: "/2.15/docs/using-pants/key-concepts/source-roots",
@@ -10167,7 +10167,7 @@ export default [
     from: "/v2.16/docs/setting-up-an-ide",
     to: "/2.16/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.16/docs/shell", to: "/2.16/docs/shell/shell-overview" },
+  { from: "/v2.16/docs/shell", to: "/2.16/docs/shell" },
   {
     from: "/v2.16/docs/source-roots",
     to: "/2.16/docs/using-pants/key-concepts/source-roots",
@@ -11458,7 +11458,7 @@ export default [
     from: "/v2.17/docs/setting-up-an-ide",
     to: "/2.17/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.17/docs/shell", to: "/2.17/docs/shell/shell-overview" },
+  { from: "/v2.17/docs/shell", to: "/2.17/docs/shell" },
   {
     from: "/v2.17/docs/source-roots",
     to: "/2.17/docs/using-pants/key-concepts/source-roots",
@@ -12781,7 +12781,7 @@ export default [
     from: "/v2.18/docs/setting-up-an-ide",
     to: "/2.18/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.18/docs/shell", to: "/2.18/docs/shell/shell-overview" },
+  { from: "/v2.18/docs/shell", to: "/2.18/docs/shell" },
   {
     from: "/v2.18/docs/source-roots",
     to: "/2.18/docs/using-pants/key-concepts/source-roots",
@@ -14116,7 +14116,7 @@ export default [
     from: "/v2.19/docs/setting-up-an-ide",
     to: "/2.19/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.19/docs/shell", to: "/2.19/docs/shell/shell-overview" },
+  { from: "/v2.19/docs/shell", to: "/2.19/docs/shell" },
   {
     from: "/v2.19/docs/source-roots",
     to: "/2.19/docs/using-pants/key-concepts/source-roots",
@@ -19812,7 +19812,7 @@ export default [
   { from: "/v2.20/docs/kotlin", to: "/2.20/docs/java-and-scala/kotlin" },
   {
     from: "/v2.20/docs/shell-overview",
-    to: "/2.20/docs/shell/shell-overview",
+    to: "/2.20/docs/shell",
   },
   {
     from: "/v2.20/docs/run-shell-commands",
