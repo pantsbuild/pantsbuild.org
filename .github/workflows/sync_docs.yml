@@ -102,7 +102,7 @@ jobs:
           git push -u origin "automation/sync-${{ inputs.version }}"
         working-directory: pantsbuild.org
       - name: Make a PR
-        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" --reviewer "${{ inputs.reviewer || github.actor }}"
+        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
         env:
           GH_TOKEN: ${{ secrets.WORKER_PANTS_PR_PAT }}
         working-directory: pantsbuild.org
