@@ -29,7 +29,7 @@ $ ./pants check ::
 :::tip Benefit of Pants: typecheck Python 2-only and Python 3-only code at the same time
 MyPy determines which Python version to use based on its `python_version` option. If that's undefined, MyPy uses the interpreter the tool is run with. Because you can only use one config file at a time with MyPy, you cannot normally say to use `2.7` for part of your codebase but `3.6` for the rest; you must choose a single version.
 
-Instead, Pants will group your targets based on their [interpreter constraints](../python-overview/interpreter-compatibility.mdx), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
+Instead, Pants will group your targets based on their [interpreter constraints](../overview/interpreter-compatibility.mdx), and run all the Python 2 targets together and all the Python 3 targets together. It will automatically set `python_version` to the minimum compatible interpreter, such as a constraint like `["==2.7.*", ">3.6"]` using `2.7`.
 
 To turn this off, you can still set `python_version` in `mypy.ini` or `--python-version`/`--py2` in `--mypy-args`; Pants will respect the value you set.
 :::
@@ -54,7 +54,7 @@ Use the `version` option in the `[mypy]` scope:
 version = "mypy==0.910"
 ```
 
-If you change this option, Pants's default lockfile for MyPy will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx#tool-lockfiles).
+If you change this option, Pants's default lockfile for MyPy will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../overview/third-party-dependencies.mdx#tool-lockfiles).
 
 ### Incrementally adopt MyPy with `skip_mypy=True`
 
@@ -125,7 +125,7 @@ python_sources(name="lib")
 
 ### Third-party type stubs
 
-You can install third-party type stubs (e.g. `types-requests`) like [normal Python requirements](../python-overview/third-party-dependencies.mdx). Pants will infer a dependency on both the type stub and the actual dependency, e.g. both `types-requests` and `requests`, which you can confirm by running `./pants dependencies path/to/f.py`.
+You can install third-party type stubs (e.g. `types-requests`) like [normal Python requirements](../overview/third-party-dependencies.mdx). Pants will infer a dependency on both the type stub and the actual dependency, e.g. both `types-requests` and `requests`, which you can confirm by running `./pants dependencies path/to/f.py`.
 
 You can also install the type stub via the option `[mypy].extra_type_stubs`, which ensures the stubs are only used when running MyPy and are not included when, for example, [packaging a PEX](./package.mdx).
 
@@ -149,11 +149,11 @@ plugins =
     pydantic.mypy
 ```
 
-If you change this option, Pants's default lockfile for MyPy will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../python-overview/third-party-dependencies.mdx#tool-lockfiles).
+If you change this option, Pants's default lockfile for MyPy will not work. Either set the `lockfile` option to a custom path or `"<none>"` to opt out. See [Third-party dependencies](../overview/third-party-dependencies.mdx#tool-lockfiles).
 
 For some plugins, like `django-stubs`, you may need to always load certain source files, such as a `settings.py` file. You can make sure that this source file is always used by hijacking the `source_plugins` option, which allows you to specify targets whose `sources` should always be used when running MyPy. See the below section for more information about source plugins.
 
-Some MyPy plugins also include type stubs, such as `django-stubs`. For type stubs to be used, the requirement must either be included in `[mypy].extra_type_stubs` or be loaded like a normal [third-party dependency](../python-overview/third-party-dependencies.mdx), such as including in a `requirements.txt` file.
+Some MyPy plugins also include type stubs, such as `django-stubs`. For type stubs to be used, the requirement must either be included in `[mypy].extra_type_stubs` or be loaded like a normal [third-party dependency](../overview/third-party-dependencies.mdx), such as including in a `requirements.txt` file.
 
 For example, to fully use the `django-stubs` plugin, your setup might look like this:
 

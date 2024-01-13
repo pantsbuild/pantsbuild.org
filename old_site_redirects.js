@@ -167,7 +167,7 @@ export default [
   },
   {
     from: "/docs/pex-files",
-    to: "/2.18/docs/python/python-overview/pex-files",
+    to: "/2.18/docs/python/overview/pex-files",
   },
   {
     from: "/docs/plugin-helpers",
@@ -235,7 +235,7 @@ export default [
   },
   {
     from: "/docs/python-backend",
-    to: "/2.18/docs/python/python-overview/enabling-python-support",
+    to: "/2.18/docs/python/overview/enabling-python-support",
   },
   {
     from: "/docs/python-check-goal",
@@ -243,7 +243,7 @@ export default [
   },
   {
     from: "/docs/python-distributions",
-    to: "/2.18/docs/python/python-overview/building-distributions",
+    to: "/2.18/docs/python/overview/building-distributions",
   },
   {
     from: "/docs/python-fmt-goal",
@@ -259,7 +259,7 @@ export default [
   },
   {
     from: "/docs/python-interpreter-compatibility",
-    to: "/2.18/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.18/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/docs/python-lint-goal",
@@ -267,11 +267,11 @@ export default [
   },
   {
     from: "/docs/python-linters-and-formatters",
-    to: "/2.18/docs/python/python-overview/linters-and-formatters",
+    to: "/2.18/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/docs/python-lockfiles",
-    to: "/2.18/docs/python/python-overview/lockfiles",
+    to: "/2.18/docs/python/overview/lockfiles",
   },
   {
     from: "/docs/python-package-goal",
@@ -295,7 +295,7 @@ export default [
   },
   {
     from: "/docs/python-third-party-dependencies",
-    to: "/2.18/docs/python/python-overview/third-party-dependencies",
+    to: "/2.18/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/docs/python",
@@ -3607,7 +3607,7 @@ export default [
   },
   {
     from: "/v2.11/docs/pex-files",
-    to: "/2.11/docs/python/python-overview/pex-files",
+    to: "/2.11/docs/python/overview/pex-files",
   },
   {
     from: "/v2.11/docs/plugin-upgrade-guide",
@@ -3663,7 +3663,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-backend",
-    to: "/2.11/docs/python/python-overview/enabling-python-support",
+    to: "/2.11/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.11/docs/python-check-goal",
@@ -3671,7 +3671,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-distributions",
-    to: "/2.11/docs/python/python-overview/building-distributions",
+    to: "/2.11/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.11/docs/python-fmt-goal",
@@ -3687,7 +3687,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-interpreter-compatibility",
-    to: "/2.11/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.11/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.11/docs/python-lint-goal",
@@ -3695,7 +3695,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-linters-and-formatters",
-    to: "/2.11/docs/python/python-overview/linters-and-formatters",
+    to: "/2.11/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.11/docs/python-package-goal",
@@ -3719,7 +3719,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-third-party-dependencies",
-    to: "/2.11/docs/python/python-overview/third-party-dependencies",
+    to: "/2.11/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.11/docs/python",
@@ -4624,7 +4624,7 @@ export default [
   },
   {
     from: "/v2.12/docs/pex-files",
-    to: "/2.12/docs/python/python-overview/pex-files",
+    to: "/2.12/docs/python/overview/pex-files",
   },
   {
     from: "/v2.12/docs/plugin-upgrade-guide",
@@ -4680,7 +4680,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-backend",
-    to: "/2.12/docs/python/python-overview/enabling-python-support",
+    to: "/2.12/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.12/docs/python-check-goal",
@@ -4688,7 +4688,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-distributions",
-    to: "/2.12/docs/python/python-overview/building-distributions",
+    to: "/2.12/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.12/docs/python-fmt-goal",
@@ -4704,7 +4704,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-interpreter-compatibility",
-    to: "/2.12/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.12/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.12/docs/python-lint-goal",
@@ -4712,7 +4712,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-linters-and-formatters",
-    to: "/2.12/docs/python/python-overview/linters-and-formatters",
+    to: "/2.12/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.12/docs/python-package-goal",
@@ -4736,7 +4736,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-third-party-dependencies",
-    to: "/2.12/docs/python/python-overview/third-party-dependencies",
+    to: "/2.12/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.12/docs/python",
@@ -5690,7 +5690,7 @@ export default [
   },
   {
     from: "/v2.13/docs/pex-files",
-    to: "/2.13/docs/python/python-overview/pex-files",
+    to: "/2.13/docs/python/overview/pex-files",
   },
   {
     from: "/v2.13/docs/plugin-upgrade-guide",
@@ -5746,7 +5746,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-backend",
-    to: "/2.13/docs/python/python-overview/enabling-python-support",
+    to: "/2.13/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.13/docs/python-check-goal",
@@ -5754,7 +5754,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-distributions",
-    to: "/2.13/docs/python/python-overview/building-distributions",
+    to: "/2.13/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.13/docs/python-fmt-goal",
@@ -5770,7 +5770,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-interpreter-compatibility",
-    to: "/2.13/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.13/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.13/docs/python-lint-goal",
@@ -5778,7 +5778,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-linters-and-formatters",
-    to: "/2.13/docs/python/python-overview/linters-and-formatters",
+    to: "/2.13/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.13/docs/python-package-goal",
@@ -5802,7 +5802,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-third-party-dependencies",
-    to: "/2.13/docs/python/python-overview/third-party-dependencies",
+    to: "/2.13/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.13/docs/python",
@@ -6788,7 +6788,7 @@ export default [
   },
   {
     from: "/v2.14/docs/pex-files",
-    to: "/2.14/docs/python/python-overview/pex-files",
+    to: "/2.14/docs/python/overview/pex-files",
   },
   {
     from: "/v2.14/docs/plugin-upgrade-guide",
@@ -6844,7 +6844,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-backend",
-    to: "/2.14/docs/python/python-overview/enabling-python-support",
+    to: "/2.14/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.14/docs/python-check-goal",
@@ -6852,7 +6852,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-distributions",
-    to: "/2.14/docs/python/python-overview/building-distributions",
+    to: "/2.14/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.14/docs/python-fmt-goal",
@@ -6868,7 +6868,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-interpreter-compatibility",
-    to: "/2.14/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.14/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.14/docs/python-lint-goal",
@@ -6876,7 +6876,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-linters-and-formatters",
-    to: "/2.14/docs/python/python-overview/linters-and-formatters",
+    to: "/2.14/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.14/docs/python-package-goal",
@@ -6900,7 +6900,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-third-party-dependencies",
-    to: "/2.14/docs/python/python-overview/third-party-dependencies",
+    to: "/2.14/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.14/docs/python",
@@ -7922,7 +7922,7 @@ export default [
   },
   {
     from: "/v2.15/docs/pex-files",
-    to: "/2.15/docs/python/python-overview/pex-files",
+    to: "/2.15/docs/python/overview/pex-files",
   },
   {
     from: "/v2.15/docs/plugin-upgrade-guide",
@@ -7982,7 +7982,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-backend",
-    to: "/2.15/docs/python/python-overview/enabling-python-support",
+    to: "/2.15/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.15/docs/python-check-goal",
@@ -7990,7 +7990,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-distributions",
-    to: "/2.15/docs/python/python-overview/building-distributions",
+    to: "/2.15/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.15/docs/python-fmt-goal",
@@ -8006,7 +8006,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-interpreter-compatibility",
-    to: "/2.15/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.15/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.15/docs/python-lint-goal",
@@ -8014,7 +8014,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-linters-and-formatters",
-    to: "/2.15/docs/python/python-overview/linters-and-formatters",
+    to: "/2.15/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.15/docs/python-package-goal",
@@ -8038,7 +8038,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-third-party-dependencies",
-    to: "/2.15/docs/python/python-overview/third-party-dependencies",
+    to: "/2.15/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.15/docs/python",
@@ -9121,7 +9121,7 @@ export default [
   },
   {
     from: "/v2.16/docs/pex-files",
-    to: "/2.16/docs/python/python-overview/pex-files",
+    to: "/2.16/docs/python/overview/pex-files",
   },
   {
     from: "/v2.16/docs/plugin-upgrade-guide",
@@ -9181,7 +9181,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-backend",
-    to: "/2.16/docs/python/python-overview/enabling-python-support",
+    to: "/2.16/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.16/docs/python-check-goal",
@@ -9189,7 +9189,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-distributions",
-    to: "/2.16/docs/python/python-overview/building-distributions",
+    to: "/2.16/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.16/docs/python-fmt-goal",
@@ -9205,7 +9205,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-interpreter-compatibility",
-    to: "/2.16/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.16/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.16/docs/python-lint-goal",
@@ -9213,11 +9213,11 @@ export default [
   },
   {
     from: "/v2.16/docs/python-linters-and-formatters",
-    to: "/2.16/docs/python/python-overview/linters-and-formatters",
+    to: "/2.16/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.16/docs/python-lockfiles",
-    to: "/2.16/docs/python/python-overview/lockfiles",
+    to: "/2.16/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.16/docs/python-package-goal",
@@ -9241,7 +9241,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-third-party-dependencies",
-    to: "/2.16/docs/python/python-overview/third-party-dependencies",
+    to: "/2.16/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.16/docs/python",
@@ -10404,7 +10404,7 @@ export default [
   },
   {
     from: "/v2.17/docs/pex-files",
-    to: "/2.17/docs/python/python-overview/pex-files",
+    to: "/2.17/docs/python/overview/pex-files",
   },
   {
     from: "/v2.17/docs/plugin-helpers",
@@ -10468,7 +10468,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-backend",
-    to: "/2.17/docs/python/python-overview/enabling-python-support",
+    to: "/2.17/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.17/docs/python-check-goal",
@@ -10476,7 +10476,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-distributions",
-    to: "/2.17/docs/python/python-overview/building-distributions",
+    to: "/2.17/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.17/docs/python-fmt-goal",
@@ -10492,7 +10492,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-interpreter-compatibility",
-    to: "/2.17/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.17/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.17/docs/python-lint-goal",
@@ -10500,11 +10500,11 @@ export default [
   },
   {
     from: "/v2.17/docs/python-linters-and-formatters",
-    to: "/2.17/docs/python/python-overview/linters-and-formatters",
+    to: "/2.17/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.17/docs/python-lockfiles",
-    to: "/2.17/docs/python/python-overview/lockfiles",
+    to: "/2.17/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.17/docs/python-package-goal",
@@ -10528,7 +10528,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-third-party-dependencies",
-    to: "/2.17/docs/python/python-overview/third-party-dependencies",
+    to: "/2.17/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.17/docs/python",
@@ -11699,7 +11699,7 @@ export default [
   },
   {
     from: "/v2.18/docs/pex-files",
-    to: "/2.18/docs/python/python-overview/pex-files",
+    to: "/2.18/docs/python/overview/pex-files",
   },
   {
     from: "/v2.18/docs/plugin-helpers",
@@ -11767,7 +11767,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-backend",
-    to: "/2.18/docs/python/python-overview/enabling-python-support",
+    to: "/2.18/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.18/docs/python-check-goal",
@@ -11775,7 +11775,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-distributions",
-    to: "/2.18/docs/python/python-overview/building-distributions",
+    to: "/2.18/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.18/docs/python-fmt-goal",
@@ -11791,7 +11791,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-interpreter-compatibility",
-    to: "/2.18/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.18/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.18/docs/python-lint-goal",
@@ -11799,11 +11799,11 @@ export default [
   },
   {
     from: "/v2.18/docs/python-linters-and-formatters",
-    to: "/2.18/docs/python/python-overview/linters-and-formatters",
+    to: "/2.18/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.18/docs/python-lockfiles",
-    to: "/2.18/docs/python/python-overview/lockfiles",
+    to: "/2.18/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.18/docs/python-package-goal",
@@ -11827,7 +11827,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-third-party-dependencies",
-    to: "/2.18/docs/python/python-overview/third-party-dependencies",
+    to: "/2.18/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.18/docs/python",
@@ -13026,7 +13026,7 @@ export default [
   },
   {
     from: "/v2.19/docs/pex",
-    to: "/2.19/docs/python/python-overview/pex",
+    to: "/2.19/docs/python/overview/pex",
   },
   {
     from: "/v2.19/docs/plugin-helpers",
@@ -13094,7 +13094,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-backend",
-    to: "/2.19/docs/python/python-overview/enabling-python-support",
+    to: "/2.19/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.19/docs/python-check-goal",
@@ -13102,7 +13102,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-distributions",
-    to: "/2.19/docs/python/python-overview/building-distributions",
+    to: "/2.19/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.19/docs/python-fmt-goal",
@@ -13118,7 +13118,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-interpreter-compatibility",
-    to: "/2.19/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.19/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.19/docs/python-lint-goal",
@@ -13126,11 +13126,11 @@ export default [
   },
   {
     from: "/v2.19/docs/python-linters-and-formatters",
-    to: "/2.19/docs/python/python-overview/linters-and-formatters",
+    to: "/2.19/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.19/docs/python-lockfiles",
-    to: "/2.19/docs/python/python-overview/lockfiles",
+    to: "/2.19/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.19/docs/python-package-goal",
@@ -13154,7 +13154,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-third-party-dependencies",
-    to: "/2.19/docs/python/python-overview/third-party-dependencies",
+    to: "/2.19/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.19/docs/python",
@@ -19706,31 +19706,31 @@ export default [
   },
   {
     from: "/v2.20/docs/python-backend",
-    to: "/2.20/docs/python/python-overview/enabling-python-support",
+    to: "/2.20/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.20/docs/python-third-party-dependencies",
-    to: "/2.20/docs/python/python-overview/third-party-dependencies",
+    to: "/2.20/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.20/docs/python-lockfiles",
-    to: "/2.20/docs/python/python-overview/lockfiles",
+    to: "/2.20/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.20/docs/python-interpreter-compatibility",
-    to: "/2.20/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.20/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.20/docs/python-linters-and-formatters",
-    to: "/2.20/docs/python/python-overview/linters-and-formatters",
+    to: "/2.20/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.20/docs/pex",
-    to: "/2.20/docs/python/python-overview/pex",
+    to: "/2.20/docs/python/overview/pex",
   },
   {
     from: "/v2.20/docs/python-distributions",
-    to: "/2.20/docs/python/python-overview/building-distributions",
+    to: "/2.20/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.20/docs/python-goals",

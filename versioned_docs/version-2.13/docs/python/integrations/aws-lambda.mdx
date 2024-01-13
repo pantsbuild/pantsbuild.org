@@ -10,7 +10,7 @@ Create a Lambda with Python code.
 Pants can create a Lambda-compatible zip file from your Python code, allowing you to develop your Lambdas in your repository instead of using the online Cloud9 editor.
 
 :::note FYI: how Pants does this
-Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) project. First, Pants will convert your code into a [Pex file](../python-overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
+Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) project. First, Pants will convert your code into a [Pex file](../overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
 :::
 
 ## Step 1: Activate the Python AWS Lambda backend
