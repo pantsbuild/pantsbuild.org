@@ -84,7 +84,7 @@ export default [
   },
   {
     from: "/docs/environments",
-    to: "/2.18/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.18/docs/using-pants/environments",
   },
   {
     from: "/docs/example-repos",
@@ -7843,7 +7843,7 @@ export default [
   },
   {
     from: "/v2.15/docs/environments",
-    to: "/2.15/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.15/docs/using-pants/environments",
   },
   {
     from: "/v2.15/docs/example-repos",
@@ -9042,7 +9042,7 @@ export default [
   },
   {
     from: "/v2.16/docs/environments",
-    to: "/2.16/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.16/docs/using-pants/environments",
   },
   {
     from: "/v2.16/docs/example-repos",
@@ -10325,7 +10325,7 @@ export default [
   },
   {
     from: "/v2.17/docs/environments",
-    to: "/2.17/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.17/docs/using-pants/environments",
   },
   {
     from: "/v2.17/docs/example-repos",
@@ -11616,7 +11616,7 @@ export default [
   },
   {
     from: "/v2.18/docs/environments",
-    to: "/2.18/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.18/docs/using-pants/environments",
   },
   {
     from: "/v2.18/docs/example-repos",
@@ -12943,7 +12943,7 @@ export default [
   },
   {
     from: "/v2.19/docs/environments",
-    to: "/2.19/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.19/docs/using-pants/environments",
   },
   {
     from: "/v2.19/docs/example-repos",
@@ -19682,7 +19682,7 @@ export default [
   },
   {
     from: "/v2.20/docs/environments",
-    to: "/2.20/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.20/docs/using-pants/environments",
   },
   {
     from: "/v2.20/docs/generating-version-tags",
