@@ -101,7 +101,7 @@ See [String interpolation using placeholder values](./tagging-docker-images.mdx#
 
 When Docker builds images, it can tag them with a set of tags. Pants will apply the tags listed in the `image_tags` field of `docker_image`.
 
-(Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags concept](../../reference/targets/target.mdx#codetagscode), which is unrelated.)
+(Note that the field is named `image_tags` and not just `tags`, because Pants has [its own tags concept](../../reference/targets/target.mdx#tags), which is unrelated.)
 
 ```python title="src/example/BUILD"
 docker_image(

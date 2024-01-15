@@ -85,7 +85,7 @@ them when necessary for particular targets.
 JDKs used by Pants are automatically fetched using [Coursier](https://get-coursier.io/), and are chosen using
 the [`[jvm].jdk` option](../../reference/subsystems/jvm.mdx#section-jdk) to set a repository-wide default.
 
-To override the default on a particular target, you can use the [`jdk=` field](../../reference/targets/kotlin_source.mdx#codejdkcode).
+To override the default on a particular target, you can use the [`jdk=` field](../../reference/targets/kotlin_source.mdx#jdk).
 It can be useful to use the [`parametrize` builtin](../using-pants/key-concepts/targets-and-build-files.mdx#parametrizing-targets) with the `jdk=` field,
 particularly to run test targets under multiple JDKs.
 
@@ -104,7 +104,7 @@ for the resolve in the `[kotlin].version_for_resolve` option:
 - `org.jetbrains.kotlin:kotlin-script-runtime`
 
 To use multiple Kotlin versions in a repository, you would define multiple resolves, and then adjust
-the [`resolve` field](../../reference/targets/kotlin_junit_test.mdx#coderesolvecode) of any targets which should be used with the
+the [`resolve` field](../../reference/targets/kotlin_junit_test.mdx#resolve) of any targets which should be used with the
 non-`default_resolve` resolve.
 
 To cross-build a set of Kotlin targets for multiple Kotlin versions, you can use the
@@ -153,7 +153,7 @@ to compute dependencies in the common case), Pants relies on a static mapping of
 symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
 
 The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the
-[`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#codepackagescode) for more information.
+[`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#packages) for more information.
 :::
 
 #### `resource` targets
@@ -168,20 +168,20 @@ To have your code [load files as "resources"](https://docs.oracle.com/javase/8/d
 
 For example:
 
-```toml title="pants.toml"
+```toml tab={"label":"pants.toml"}
 [source]
 # In order for the resource to be loadable as `org/pantsbuild/example/lib/hello.txt`,
 # the `/src/jvm/ prefix needs to be stripped.
 root_patterns = ["/src/*"]
 ```
 
-```python title="src/jvm/org/pantsbuild/example/lib/BUILD"
+```python tab={"label":"src/jvm/org/pantsbuild/example/lib/BUILD"}
 kotlin_sources(dependencies=[":hello"])
 
 resources(name="hello", sources=["hello.txt"])
 ```
 
-```java title="src/jvm/org/pantsbuild/example/lib/Loader.java"
+```java tab={"label":"src/jvm/org/pantsbuild/example/lib/Loader.java"}
 package org.pantsbuild.example.lib
 
 import com.google.common.io.Resources
@@ -191,7 +191,7 @@ fun load() {
 }
 ```
 
-```text title="src/jvm/org/pantsbuild/example/lib/hello.txt"
+```text tab={"label":"src/jvm/org/pantsbuild/example/lib/hello.txt"}
 Hello world!
 ```
 

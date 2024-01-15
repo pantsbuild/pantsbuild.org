@@ -21,10 +21,10 @@ Sometimes, Black will split code over multiple lines awkwardly. For example:
 
 ```python
 StrOption(
-"--pants-bin-name",
-default="./pants",
-help="The name of the script or binary used to invoke pants. "
-"Useful when printing help messages.",
+    "--pants-bin-name",
+    default="./pants",
+    help="The name of the script or binary used to invoke pants. "
+    "Useful when printing help messages.",
 )
 ```
 
@@ -32,12 +32,12 @@ Often, you can improve Black's formatting by wrapping the expression in parenthe
 
 ```python
 StrOption(
-"--pants-bin-name",
-default="./pants",
-help=(
-"The name of the script or binary used to invoke pants. "
-"Useful when printing help messages."
-),
+    "--pants-bin-name",
+    default="./pants",
+    help=(
+        "The name of the script or binary used to invoke pants. "
+        "Useful when printing help messages."
+    ),
 )
 ```
 

@@ -79,7 +79,7 @@ Pants requires use of a lockfile for thirdparty dependencies. After adding or ed
 :::note Thirdparty symbols and the `packages` argument
 To efficiently determine which symbols are provided by thirdparty code (i.e., without hitting the network in order to compute dependencies in the common case), Pants relies on a static mapping of which artifacts provide which symbols, and defaults to treating each `jvm_artifact` as providing symbols within its `group`.
 
-The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#codepackagescode) for more information.
+The `packages` argument allows you to override which symbols a `jvm_artifact` provides. See the [`jvm_artifact` docs](../../reference/targets/jvm_artifact.mdx#packages) for more information.
 :::
 
 ### `resource` targets

@@ -243,10 +243,10 @@ from pants.util.meta import frozen_after_init
 @frozen_after_init
 @dataclass(unsafe_hash=True)
 class Example:
-args: tuple[str, ...]
+    args: tuple[str, ...]
 
-def __init__(self, args: Iterable[str]) -> None:
-self.args = tuple(args)
+    def __init__(self, args: Iterable[str]) -> None:
+        self.args = tuple(args)
 ```
 
 :::
@@ -298,7 +298,7 @@ You can optionally set the class property `sort_input`, which will often result 
 
 ## Registering rules in `register.py`
 
-To register a new rule, use the `rules()` hook in your [`register.py` file](../plugins-overview.mdx). This function expects a list of functions annotated with `@rule`.
+To register a new rule, use the `rules()` hook in your [`register.py` file](../overview.mdx). This function expects a list of functions annotated with `@rule`.
 
 ```python title="pants-plugins/plugin1/register.py"
 def rules():
@@ -307,14 +307,14 @@ def rules():
 
 Conventionally, each file will have a function called `rules()` and then `register.py` will re-export them. This is meant to make imports more organized. Within each file, you can use `collect_rules()` to automatically find the rules in the file.
 
-```python title="pants-plugins/fortran/register.py"
+```python tab={"label":"pants-plugins/fortran/register.py"}
 from fortran import fmt, test
 
 def rules():
     return [*fmt.rules(), *test.rules()]
 ```
 
-```python title="pants-plugins/fortran/fmt.py"
+```python tab={"label":"pants-plugins/fortran/fmt.py"}
 from pants.engine.rules import collect_rules, rule
 
 @rule
@@ -329,7 +329,7 @@ def rules():
     return collect_rules()
 ```
 
-```python title="pants-plugins/fortran/test.py"
+```python tab={"label":"pants-plugins/fortran/test.py"}
 from pants.engine.rules import collect_rules, rule
 
 @rule

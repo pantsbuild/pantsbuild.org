@@ -10,7 +10,7 @@ Create a Lambda with Python code.
 Pants can create a Lambda-compatible zip file from your Python code, allowing you to develop your Lambdas in your repository instead of using the online Cloud9 editor.
 
 :::note FYI: how Pants does this
-Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) project. First, Pants will convert your code into a [Pex file](../python-overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
+Under-the-hood, Pants uses the [Lambdex](https://github.com/pantsbuild/lambdex) project. First, Pants will convert your code into a [Pex file](../overview/pex-files.mdx). Then, Pants will use Lambdex to convert the Pex into a zip file understood by AWS.
 :::
 
 ## Step 1: Activate the Python AWS Lambda backend
@@ -37,7 +37,7 @@ Add a `python_awslambda` target and define the `runtime` and `handler` fields. T
 
 For example:
 
-```python title="project/BUILD"
+```python tab={"label":"project/BUILD"}
 # The default `sources` field will include our handler file.
 python_sources(name="lib")
 
@@ -49,7 +49,7 @@ python_awslambda(
 )
 ```
 
-```python title="project/lambda_example.py"
+```python tab={"label":"project/lambda_example.py"}
 def example_handler(event, context):
     print("Hello AWS!")
 ```
@@ -89,11 +89,11 @@ You must specify the AWS lambda handler as `lambdex_handler.handler`.
 
 ## Docker Integration
 
-To [deploy a Python lambda function with container images](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html), you can use Pants's [Docker](../../docker/docker-overview.mdx) support.
+To [deploy a Python lambda function with container images](https://docs.aws.amazon.com/lambda/latest/dg/python-image.html), you can use Pants's [Docker](../../docker/index.mdx) support.
 
 For example:
 
-```dockerfile title="project/Dockerfile"
+```dockerfile tab={"label":"project/Dockerfile"}
 FROM public.ecr.aws/lambda/python:3.8
 
 RUN yum install unzip -y
@@ -102,7 +102,7 @@ RUN unzip lambda.zip -d "${LAMBDA_TASK_ROOT}"
 CMD ["lambdex_handler.handler"]
 ```
 
-```python title="project/BUILD"
+```python tab={"label":"project/BUILD"}
 python_sources()
 
 python_awslambda(

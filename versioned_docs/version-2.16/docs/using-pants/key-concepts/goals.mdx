@@ -17,7 +17,7 @@ To see the current list of goals, run:
 
 You'll see more goals activated as you activate more [backends](./backends.mdx).
 
-# Running goals
+## Running goals
 
 For example:
 
@@ -39,7 +39,7 @@ You can also run multiple goals in a single run of Pants, in which case they wil
 ❯ pants fmt test ::
 ```
 
-Finally, Pants supports running goals in a `--loop`. In this mode, all goals specified will run
+Finally, Pants supports running goals in a `--loop`. In this mode, all goals specified will run  
 sequentially, and then Pants will wait until a relevant file has changed to try running them again.
 
 ```bash
@@ -49,7 +49,7 @@ sequentially, and then Pants will wait until a relevant file has changed to try 
 
 Use `Ctrl+C` to exit the `--loop`.
 
-# Goal arguments
+## Goal arguments
 
 Most goals require arguments to know what to work on.
 
@@ -64,8 +64,8 @@ You can use several argument types:
 
 You can combine argument types, e.g. `pants fmt src/go:: src/py/app.py`.
 
-To ignore something, prefix the argument with `-`. For example,
-`pants test :: -project/integration_tests` will run all your tests except for those in the
+To ignore something, prefix the argument with `-`. For example,  
+`pants test :: -project/integration_tests` will run all your tests except for those in the  
 directory `project/integration_tests`.
 
 :::caution Set `[GLOBAL].use_deprecated_directory_cli_args_semantics = false` in `pants.toml`
@@ -76,7 +76,7 @@ This will become the default in Pants 2.14.
 See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 :::
 
-## Goal options
+### Goal options
 
 Many goals also have [options](./options.mdx) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
 
