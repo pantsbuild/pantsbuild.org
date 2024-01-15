@@ -22,7 +22,7 @@ We're pleased to announce Pants 2.13.0, the latest release of Pants, the scalabl
 
 You can update by setting `pants_version = "2.13.0"` in your `pants.toml` file. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips) for more information.
 
-# Making it easier to work with file sets at the command line
+## Making it easier to work with file sets at the command line
 
 We've improved our command line arguments to make it easier to run Pants against multiple files, and making the behavior of different goals more consistent, so they're easier to learn and remember.
 
@@ -37,7 +37,7 @@ You can now easily run Pants against all targets in a directory by [specifying a
 
 Finally, you can now supply files to any Pants goal in the same way! Previously, some goals handled arguments in their own way, making it difficult to switch between goals, or use multiple goals for the same invocation. Now, the `::` glob, or the `--changed-since` command line option works for any goal that needs a list of targets. For example, try `./pants count-loc ::` to get the lines of code in your project (previously, you'd need to use `**`), or `./pants --changed-since=HEAD update-build-files` to only format changed `BUILD` files \[[#15577](https://github.com/pantsbuild/pants/pull/15577)\], \[[#14434](https://github.com/pantsbuild/pants/pull/14434)\]
 
-# Easy parallel execution in CI with test sharding
+## Easy parallel execution in CI with test sharding
 
 One goal of Pants is to make it easier to speed up your build and CI suites. Up until now, Pants' support for speeding up builds with parallelism has been limited to [remote execution](https://www.pantsbuild.org/v2.13/docs/remote-execution) services. Remote execution is highly flexible, at a cost of higher complexity.
 
@@ -45,13 +45,13 @@ For an easier first step into speeding up your test suite in CI, Pants 2.13 adds
 
 To enable, use the `PANTS_TEST_SHARD` environment variable or `--test-shard` command line option. Setting a value of `k/N` will deterministically split your test suite into `N` shards (by number of files only) and run the `k`th subset of that shard. \[[#15417](https://github.com/pantsbuild/pants/pull/15417)\]
 
-# Experimental Kotlin on JVM Support
+## Experimental Kotlin on JVM Support
 
 Fresh after adding support for Java and Scala, we've added initial support for Kotlin on the JVM, which brings all of the features from other JVM languages including multiple lockfile support for third-party dependencies, and JUnit for running your tests, along with integration with popular Kotlin tools including KtLint.
 
 Kotlin support is still work-in-progress, but we'd love for you to try it out and let us know how we can improve it.
 
-# Improved fine-tuning in JVM builds with per-tool options
+## Improved fine-tuning in JVM builds with per-tool options
 
 Following on from our initial experimental JVM support first released last year, Pants 2.13 now allows you to provide per-tool configuration for the underlying steps in your build. This is particularly handy for adjusting memory allocations for [more heavyweight compilers](https://www.scala-lang.org/) without increasing the memory for tools that don't need it.
 
@@ -59,11 +59,11 @@ The end result is that you should be able to run more JVM build steps in paralle
 
 To enable, you can set the `jvm_options` setting in the relevant tool's configuration block in your `pants.toml` file. See, for example, our [JUnit support documentation](https://www.pantsbuild.org/v2.13/docs/reference-junit#jvm_options). \[[#15505](https://github.com/pantsbuild/pants/pull/15505)\]
 
-# Improved IDE support for JVM languages
+## Improved IDE support for JVM languages
 
 Our Build Server Protocol-based IDE support has gained a few more features since the initial release in Pants 2.12. We now support automatic JDK configuration for Scala projects, and it's now possible for IntelliJ to run tests against class files that have been built by Pants \[[#15408](https://github.com/pantsbuild/pants/pull/15408)\], \[[#15347](https://github.com/pantsbuild/pants/pull/15347)\].
 
-# More efficient remote cache access
+## More efficient remote cache access
 
 We've added new behaviors to our [remote cache support](https://www.pantsbuild.org/docs/remote-caching) which can improve the efficiency and performance by optionally skipping downloads of cache entries where possible.
 
@@ -71,7 +71,7 @@ With the new [`[GLOBAL].cache_content_behavior = "validate"`](https://www.pantsb
 
 Because this can change the behavior of builds when a remote cache is flaky or unavailable, `"validate"` mode remains optional behavior, with the old-style `"fetch"` behavior remaining the default.  \[[#16409](https://github.com/pantsbuild/pants/pull/16409)\]
 
-# Lower barriers to adoption for Python open source projects
+## Lower barriers to adoption for Python open source projects
 
 We're also working towards making it easier to adopt pants in Python projects that use the setuptools or distutils workflows. This release adds support for `setuptools_scm` and `mypyc`.
 
@@ -79,7 +79,7 @@ Pants 2.13 [adds support for the `setuptools_scm` tools](https://www.pantsbuild.
 
 We've also started building out initial support for Python build-time requirements, starting with producing dists that use `mypyc` in their existing `setup.py` file \[[#15380](https://github.com/pantsbuild/pants/pull/15380)\].
 
-# Other notable changes
+## Other notable changes
 
 As always, this release brings a [whole pile of smaller features, improvements, and bugfixes](https://github.com/pantsbuild/pants/blob/2.13.x/src/python/pants/notes/2.13.x.md), including:
 
@@ -106,6 +106,6 @@ Try out one of our example repositories:
 
 And let us know what you think in [Slack!](https://www.pantsbuild.org/docs/getting-help)
 
-# Thanks!
+## Thanks!
 
 Pants wouldn't be possible without everyone who contributed to 2.13, including everyone who shared feedback on changes and who tested release candidates! Thank you all!
