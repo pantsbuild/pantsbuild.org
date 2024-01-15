@@ -59,7 +59,7 @@ export default [
   },
   {
     from: "/docs/contributor-overview",
-    to: "/2.18/docs/contributions/contribution-overview",
+    to: "/2.18/docs/contributions",
   },
   {
     from: "/docs/contributor-setup",
@@ -77,14 +77,14 @@ export default [
     from: "/docs/development",
     to: "/2.18/docs/contributions/development",
   },
-  { from: "/docs/docker", to: "/2.18/docs/docker/docker-overview" },
+  { from: "/docs/docker", to: "/2.18/docs/docker" },
   {
     from: "/docs/enabling-backends",
     to: "/2.18/docs/using-pants/key-concepts/backends",
   },
   {
     from: "/docs/environments",
-    to: "/2.18/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.18/docs/using-pants/environments",
   },
   {
     from: "/docs/example-repos",
@@ -107,7 +107,7 @@ export default [
     from: "/docs/go-integrations",
     to: "/2.18/docs/go/integrations",
   },
-  { from: "/docs/go", to: "/2.18/docs/go/go-overview" },
+  { from: "/docs/go", to: "/2.18/docs/go" },
   {
     from: "/docs/goals",
     to: "/2.18/docs/using-pants/key-concepts/goals",
@@ -126,7 +126,7 @@ export default [
   },
   {
     from: "/docs/helm-overview",
-    to: "/2.18/docs/helm/helm-overview",
+    to: "/2.18/docs/helm",
   },
   {
     from: "/docs/how-does-pants-work",
@@ -150,7 +150,7 @@ export default [
   },
   {
     from: "/docs/jvm-overview",
-    to: "/2.18/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.18/docs/java-and-scala",
   },
   { from: "/docs/kotlin", to: "/2.18/docs/java-and-scala/kotlin" },
   { from: "/docs/macros", to: "/2.18/docs/writing-plugins/macros" },
@@ -167,7 +167,7 @@ export default [
   },
   {
     from: "/docs/pex-files",
-    to: "/2.18/docs/python/python-overview/pex-files",
+    to: "/2.18/docs/python/overview/pex-files",
   },
   {
     from: "/docs/plugin-helpers",
@@ -195,7 +195,7 @@ export default [
   },
   {
     from: "/docs/plugins-overview",
-    to: "/2.18/docs/writing-plugins/plugins-overview",
+    to: "/2.18/docs/writing-plugins/overview",
   },
   {
     from: "/docs/plugins-repl-goal",
@@ -235,7 +235,7 @@ export default [
   },
   {
     from: "/docs/python-backend",
-    to: "/2.18/docs/python/python-overview/enabling-python-support",
+    to: "/2.18/docs/python/overview/enabling-python-support",
   },
   {
     from: "/docs/python-check-goal",
@@ -243,7 +243,7 @@ export default [
   },
   {
     from: "/docs/python-distributions",
-    to: "/2.18/docs/python/python-overview/building-distributions",
+    to: "/2.18/docs/python/overview/building-distributions",
   },
   {
     from: "/docs/python-fmt-goal",
@@ -259,7 +259,7 @@ export default [
   },
   {
     from: "/docs/python-interpreter-compatibility",
-    to: "/2.18/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.18/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/docs/python-lint-goal",
@@ -267,11 +267,11 @@ export default [
   },
   {
     from: "/docs/python-linters-and-formatters",
-    to: "/2.18/docs/python/python-overview/linters-and-formatters",
+    to: "/2.18/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/docs/python-lockfiles",
-    to: "/2.18/docs/python/python-overview/lockfiles",
+    to: "/2.18/docs/python/overview/lockfiles",
   },
   {
     from: "/docs/python-package-goal",
@@ -295,11 +295,11 @@ export default [
   },
   {
     from: "/docs/python-third-party-dependencies",
-    to: "/2.18/docs/python/python-overview/third-party-dependencies",
+    to: "/2.18/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/docs/python",
-    to: "/2.18/docs/python/python-overview",
+    to: "/2.18/docs/python/overview",
   },
   {
     from: "/docs/reference-add-trailing-comma",
@@ -1249,7 +1249,7 @@ export default [
     from: "/docs/setting-up-an-ide",
     to: "/2.18/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/docs/shell", to: "/2.18/docs/shell/shell-overview" },
+  { from: "/docs/shell", to: "/2.18/docs/shell" },
   {
     from: "/docs/source-roots",
     to: "/2.18/docs/using-pants/key-concepts/source-roots",
@@ -1297,7 +1297,7 @@ export default [
   },
   {
     from: "/docs/terraform-overview",
-    to: "/2.18/docs/terraform/terraform-overview",
+    to: "/2.18/docs/terraform",
   },
   { from: "/docs/testimonials", to: "/spotlight/testimonials" },
   { from: "/docs/the-pants-community", to: "/community/members" },
@@ -1369,7 +1369,7 @@ export default [
   },
   {
     from: "/v2.0/docs/contributor-overview",
-    to: "/2.0/docs/contributions/contribution-overview",
+    to: "/2.0/docs/contributions",
   },
   {
     from: "/v2.0/docs/contributor-setup",
@@ -1969,7 +1969,7 @@ export default [
   },
   {
     from: "/v2.1/docs/contributor-overview",
-    to: "/2.1/docs/contributions/contribution-overview",
+    to: "/2.1/docs/contributions",
   },
   {
     from: "/v2.1/docs/contributor-setup",
@@ -2550,7 +2550,7 @@ export default [
   },
   {
     from: "/v2.10/docs/contributor-overview",
-    to: "/2.10/docs/contributions/contribution-overview",
+    to: "/2.10/docs/contributions",
   },
   {
     from: "/v2.10/docs/contributor-setup",
@@ -3528,7 +3528,7 @@ export default [
   },
   {
     from: "/v2.11/docs/contributor-overview",
-    to: "/2.11/docs/contributions/contribution-overview",
+    to: "/2.11/docs/contributions",
   },
   {
     from: "/v2.11/docs/contributor-setup",
@@ -3542,7 +3542,7 @@ export default [
     from: "/v2.11/docs/development",
     to: "/2.11/docs/contributions/development",
   },
-  { from: "/v2.11/docs/docker", to: "/2.11/docs/docker/docker-overview" },
+  { from: "/v2.11/docs/docker", to: "/2.11/docs/docker" },
   {
     from: "/v2.11/docs/enabling-backends",
     to: "/2.11/docs/using-pants/key-concepts/backends",
@@ -3564,7 +3564,7 @@ export default [
     from: "/v2.11/docs/go-integrations",
     to: "/2.11/docs/go/integrations",
   },
-  { from: "/v2.11/docs/go", to: "/2.11/docs/go/go-overview" },
+  { from: "/v2.11/docs/go", to: "/2.11/docs/go" },
   {
     from: "/v2.11/docs/goals",
     to: "/2.11/docs/using-pants/key-concepts/goals",
@@ -3595,7 +3595,7 @@ export default [
   },
   {
     from: "/v2.11/docs/jvm-overview",
-    to: "/2.11/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.11/docs/java-and-scala",
   },
   { from: "/v2.11/docs/macros", to: "/2.11/docs/writing-plugins/macros" },
   { from: "/v2.11/docs/maintainers", to: "/community/maintainers" },
@@ -3607,7 +3607,7 @@ export default [
   },
   {
     from: "/v2.11/docs/pex-files",
-    to: "/2.11/docs/python/python-overview/pex-files",
+    to: "/2.11/docs/python/overview/pex-files",
   },
   {
     from: "/v2.11/docs/plugin-upgrade-guide",
@@ -3627,7 +3627,7 @@ export default [
   },
   {
     from: "/v2.11/docs/plugins-overview",
-    to: "/2.11/docs/writing-plugins/plugins-overview",
+    to: "/2.11/docs/writing-plugins/overview",
   },
   {
     from: "/v2.11/docs/plugins-repl-goal",
@@ -3663,7 +3663,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-backend",
-    to: "/2.11/docs/python/python-overview/enabling-python-support",
+    to: "/2.11/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.11/docs/python-check-goal",
@@ -3671,7 +3671,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-distributions",
-    to: "/2.11/docs/python/python-overview/building-distributions",
+    to: "/2.11/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.11/docs/python-fmt-goal",
@@ -3687,7 +3687,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-interpreter-compatibility",
-    to: "/2.11/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.11/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.11/docs/python-lint-goal",
@@ -3695,7 +3695,7 @@ export default [
   },
   {
     from: "/v2.11/docs/python-linters-and-formatters",
-    to: "/2.11/docs/python/python-overview/linters-and-formatters",
+    to: "/2.11/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.11/docs/python-package-goal",
@@ -3719,11 +3719,11 @@ export default [
   },
   {
     from: "/v2.11/docs/python-third-party-dependencies",
-    to: "/2.11/docs/python/python-overview/third-party-dependencies",
+    to: "/2.11/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.11/docs/python",
-    to: "/2.11/docs/python/python-overview",
+    to: "/2.11/docs/python/overview",
   },
   { from: "/v2.11/docs/reference-all-goals", to: "/2.11/reference/goals" },
   {
@@ -4424,7 +4424,7 @@ export default [
     from: "/v2.11/docs/setting-up-an-ide",
     to: "/2.11/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.11/docs/shell", to: "/2.11/docs/shell/shell-overview" },
+  { from: "/v2.11/docs/shell", to: "/2.11/docs/shell" },
   {
     from: "/v2.11/docs/source-roots",
     to: "/2.11/docs/using-pants/key-concepts/source-roots",
@@ -4537,7 +4537,7 @@ export default [
   },
   {
     from: "/v2.12/docs/contributor-overview",
-    to: "/2.12/docs/contributions/contribution-overview",
+    to: "/2.12/docs/contributions",
   },
   {
     from: "/v2.12/docs/contributor-setup",
@@ -4551,7 +4551,7 @@ export default [
     from: "/v2.12/docs/development",
     to: "/2.12/docs/contributions/development",
   },
-  { from: "/v2.12/docs/docker", to: "/2.12/docs/docker/docker-overview" },
+  { from: "/v2.12/docs/docker", to: "/2.12/docs/docker" },
   {
     from: "/v2.12/docs/enabling-backends",
     to: "/2.12/docs/using-pants/key-concepts/backends",
@@ -4573,7 +4573,7 @@ export default [
     from: "/v2.12/docs/go-integrations",
     to: "/2.12/docs/go/integrations",
   },
-  { from: "/v2.12/docs/go", to: "/2.12/docs/go/go-overview" },
+  { from: "/v2.12/docs/go", to: "/2.12/docs/go" },
   {
     from: "/v2.12/docs/goals",
     to: "/2.12/docs/using-pants/key-concepts/goals",
@@ -4584,7 +4584,7 @@ export default [
   },
   {
     from: "/v2.12/docs/helm-overview",
-    to: "/2.12/docs/helm/helm-overview",
+    to: "/2.12/docs/helm",
   },
   {
     from: "/v2.12/docs/how-does-pants-work",
@@ -4608,7 +4608,7 @@ export default [
   },
   {
     from: "/v2.12/docs/jvm-overview",
-    to: "/2.12/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.12/docs/java-and-scala",
   },
   { from: "/v2.12/docs/macros", to: "/2.12/docs/writing-plugins/macros" },
   { from: "/v2.12/docs/maintainers", to: "/community/maintainers" },
@@ -4624,7 +4624,7 @@ export default [
   },
   {
     from: "/v2.12/docs/pex-files",
-    to: "/2.12/docs/python/python-overview/pex-files",
+    to: "/2.12/docs/python/overview/pex-files",
   },
   {
     from: "/v2.12/docs/plugin-upgrade-guide",
@@ -4644,7 +4644,7 @@ export default [
   },
   {
     from: "/v2.12/docs/plugins-overview",
-    to: "/2.12/docs/writing-plugins/plugins-overview",
+    to: "/2.12/docs/writing-plugins/overview",
   },
   {
     from: "/v2.12/docs/plugins-repl-goal",
@@ -4680,7 +4680,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-backend",
-    to: "/2.12/docs/python/python-overview/enabling-python-support",
+    to: "/2.12/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.12/docs/python-check-goal",
@@ -4688,7 +4688,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-distributions",
-    to: "/2.12/docs/python/python-overview/building-distributions",
+    to: "/2.12/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.12/docs/python-fmt-goal",
@@ -4704,7 +4704,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-interpreter-compatibility",
-    to: "/2.12/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.12/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.12/docs/python-lint-goal",
@@ -4712,7 +4712,7 @@ export default [
   },
   {
     from: "/v2.12/docs/python-linters-and-formatters",
-    to: "/2.12/docs/python/python-overview/linters-and-formatters",
+    to: "/2.12/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.12/docs/python-package-goal",
@@ -4736,11 +4736,11 @@ export default [
   },
   {
     from: "/v2.12/docs/python-third-party-dependencies",
-    to: "/2.12/docs/python/python-overview/third-party-dependencies",
+    to: "/2.12/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.12/docs/python",
-    to: "/2.12/docs/python/python-overview",
+    to: "/2.12/docs/python/overview",
   },
   { from: "/v2.12/docs/reference-all-goals", to: "/2.12/reference/goals" },
   {
@@ -5485,7 +5485,7 @@ export default [
     from: "/v2.12/docs/setting-up-an-ide",
     to: "/2.12/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.12/docs/shell", to: "/2.12/docs/shell/shell-overview" },
+  { from: "/v2.12/docs/shell", to: "/2.12/docs/shell" },
   {
     from: "/v2.12/docs/source-roots",
     to: "/2.12/docs/using-pants/key-concepts/source-roots",
@@ -5598,7 +5598,7 @@ export default [
   },
   {
     from: "/v2.13/docs/contributor-overview",
-    to: "/2.13/docs/contributions/contribution-overview",
+    to: "/2.13/docs/contributions",
   },
   {
     from: "/v2.13/docs/contributor-setup",
@@ -5612,7 +5612,7 @@ export default [
     from: "/v2.13/docs/development",
     to: "/2.13/docs/contributions/development",
   },
-  { from: "/v2.13/docs/docker", to: "/2.13/docs/docker/docker-overview" },
+  { from: "/v2.13/docs/docker", to: "/2.13/docs/docker" },
   {
     from: "/v2.13/docs/enabling-backends",
     to: "/2.13/docs/using-pants/key-concepts/backends",
@@ -5638,7 +5638,7 @@ export default [
     from: "/v2.13/docs/go-integrations",
     to: "/2.13/docs/go/integrations",
   },
-  { from: "/v2.13/docs/go", to: "/2.13/docs/go/go-overview" },
+  { from: "/v2.13/docs/go", to: "/2.13/docs/go" },
   {
     from: "/v2.13/docs/goals",
     to: "/2.13/docs/using-pants/key-concepts/goals",
@@ -5649,7 +5649,7 @@ export default [
   },
   {
     from: "/v2.13/docs/helm-overview",
-    to: "/2.13/docs/helm/helm-overview",
+    to: "/2.13/docs/helm",
   },
   {
     from: "/v2.13/docs/how-does-pants-work",
@@ -5673,7 +5673,7 @@ export default [
   },
   {
     from: "/v2.13/docs/jvm-overview",
-    to: "/2.13/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.13/docs/java-and-scala",
   },
   { from: "/v2.13/docs/kotlin", to: "/2.13/docs/java-and-scala/kotlin" },
   { from: "/v2.13/docs/macros", to: "/2.13/docs/writing-plugins/macros" },
@@ -5690,7 +5690,7 @@ export default [
   },
   {
     from: "/v2.13/docs/pex-files",
-    to: "/2.13/docs/python/python-overview/pex-files",
+    to: "/2.13/docs/python/overview/pex-files",
   },
   {
     from: "/v2.13/docs/plugin-upgrade-guide",
@@ -5710,7 +5710,7 @@ export default [
   },
   {
     from: "/v2.13/docs/plugins-overview",
-    to: "/2.13/docs/writing-plugins/plugins-overview",
+    to: "/2.13/docs/writing-plugins/overview",
   },
   {
     from: "/v2.13/docs/plugins-repl-goal",
@@ -5746,7 +5746,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-backend",
-    to: "/2.13/docs/python/python-overview/enabling-python-support",
+    to: "/2.13/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.13/docs/python-check-goal",
@@ -5754,7 +5754,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-distributions",
-    to: "/2.13/docs/python/python-overview/building-distributions",
+    to: "/2.13/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.13/docs/python-fmt-goal",
@@ -5770,7 +5770,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-interpreter-compatibility",
-    to: "/2.13/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.13/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.13/docs/python-lint-goal",
@@ -5778,7 +5778,7 @@ export default [
   },
   {
     from: "/v2.13/docs/python-linters-and-formatters",
-    to: "/2.13/docs/python/python-overview/linters-and-formatters",
+    to: "/2.13/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.13/docs/python-package-goal",
@@ -5802,11 +5802,11 @@ export default [
   },
   {
     from: "/v2.13/docs/python-third-party-dependencies",
-    to: "/2.13/docs/python/python-overview/third-party-dependencies",
+    to: "/2.13/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.13/docs/python",
-    to: "/2.13/docs/python/python-overview",
+    to: "/2.13/docs/python/overview",
   },
   { from: "/v2.13/docs/reference-all-goals", to: "/2.13/reference/goals" },
   {
@@ -6579,7 +6579,7 @@ export default [
     from: "/v2.13/docs/setting-up-an-ide",
     to: "/2.13/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.13/docs/shell", to: "/2.13/docs/shell/shell-overview" },
+  { from: "/v2.13/docs/shell", to: "/2.13/docs/shell" },
   {
     from: "/v2.13/docs/source-roots",
     to: "/2.13/docs/using-pants/key-concepts/source-roots",
@@ -6692,7 +6692,7 @@ export default [
   },
   {
     from: "/v2.14/docs/contributor-overview",
-    to: "/2.14/docs/contributions/contribution-overview",
+    to: "/2.14/docs/contributions",
   },
   {
     from: "/v2.14/docs/contributor-setup",
@@ -6706,7 +6706,7 @@ export default [
     from: "/v2.14/docs/development",
     to: "/2.14/docs/contributions/development",
   },
-  { from: "/v2.14/docs/docker", to: "/2.14/docs/docker/docker-overview" },
+  { from: "/v2.14/docs/docker", to: "/2.14/docs/docker" },
   {
     from: "/v2.14/docs/enabling-backends",
     to: "/2.14/docs/using-pants/key-concepts/backends",
@@ -6732,7 +6732,7 @@ export default [
     from: "/v2.14/docs/go-integrations",
     to: "/2.14/docs/go/integrations",
   },
-  { from: "/v2.14/docs/go", to: "/2.14/docs/go/go-overview" },
+  { from: "/v2.14/docs/go", to: "/2.14/docs/go" },
   {
     from: "/v2.14/docs/goals",
     to: "/2.14/docs/using-pants/key-concepts/goals",
@@ -6747,7 +6747,7 @@ export default [
   },
   {
     from: "/v2.14/docs/helm-overview",
-    to: "/2.14/docs/helm/helm-overview",
+    to: "/2.14/docs/helm",
   },
   {
     from: "/v2.14/docs/how-does-pants-work",
@@ -6771,7 +6771,7 @@ export default [
   },
   {
     from: "/v2.14/docs/jvm-overview",
-    to: "/2.14/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.14/docs/java-and-scala",
   },
   { from: "/v2.14/docs/kotlin", to: "/2.14/docs/java-and-scala/kotlin" },
   { from: "/v2.14/docs/macros", to: "/2.14/docs/writing-plugins/macros" },
@@ -6788,7 +6788,7 @@ export default [
   },
   {
     from: "/v2.14/docs/pex-files",
-    to: "/2.14/docs/python/python-overview/pex-files",
+    to: "/2.14/docs/python/overview/pex-files",
   },
   {
     from: "/v2.14/docs/plugin-upgrade-guide",
@@ -6808,7 +6808,7 @@ export default [
   },
   {
     from: "/v2.14/docs/plugins-overview",
-    to: "/2.14/docs/writing-plugins/plugins-overview",
+    to: "/2.14/docs/writing-plugins/overview",
   },
   {
     from: "/v2.14/docs/plugins-repl-goal",
@@ -6844,7 +6844,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-backend",
-    to: "/2.14/docs/python/python-overview/enabling-python-support",
+    to: "/2.14/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.14/docs/python-check-goal",
@@ -6852,7 +6852,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-distributions",
-    to: "/2.14/docs/python/python-overview/building-distributions",
+    to: "/2.14/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.14/docs/python-fmt-goal",
@@ -6868,7 +6868,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-interpreter-compatibility",
-    to: "/2.14/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.14/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.14/docs/python-lint-goal",
@@ -6876,7 +6876,7 @@ export default [
   },
   {
     from: "/v2.14/docs/python-linters-and-formatters",
-    to: "/2.14/docs/python/python-overview/linters-and-formatters",
+    to: "/2.14/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.14/docs/python-package-goal",
@@ -6900,11 +6900,11 @@ export default [
   },
   {
     from: "/v2.14/docs/python-third-party-dependencies",
-    to: "/2.14/docs/python/python-overview/third-party-dependencies",
+    to: "/2.14/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.14/docs/python",
-    to: "/2.14/docs/python/python-overview",
+    to: "/2.14/docs/python/overview",
   },
   { from: "/v2.14/docs/reference-all-goals", to: "/2.14/reference/goals" },
   {
@@ -7701,7 +7701,7 @@ export default [
     from: "/v2.14/docs/setting-up-an-ide",
     to: "/2.14/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.14/docs/shell", to: "/2.14/docs/shell/shell-overview" },
+  { from: "/v2.14/docs/shell", to: "/2.14/docs/shell" },
   {
     from: "/v2.14/docs/source-roots",
     to: "/2.14/docs/using-pants/key-concepts/source-roots",
@@ -7818,7 +7818,7 @@ export default [
   },
   {
     from: "/v2.15/docs/contributor-overview",
-    to: "/2.15/docs/contributions/contribution-overview",
+    to: "/2.15/docs/contributions",
   },
   {
     from: "/v2.15/docs/contributor-setup",
@@ -7836,14 +7836,14 @@ export default [
     from: "/v2.15/docs/development",
     to: "/2.15/docs/contributions/development",
   },
-  { from: "/v2.15/docs/docker", to: "/2.15/docs/docker/docker-overview" },
+  { from: "/v2.15/docs/docker", to: "/2.15/docs/docker" },
   {
     from: "/v2.15/docs/enabling-backends",
     to: "/2.15/docs/using-pants/key-concepts/backends",
   },
   {
     from: "/v2.15/docs/environments",
-    to: "/2.15/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.15/docs/using-pants/environments",
   },
   {
     from: "/v2.15/docs/example-repos",
@@ -7866,7 +7866,7 @@ export default [
     from: "/v2.15/docs/go-integrations",
     to: "/2.15/docs/go/integrations",
   },
-  { from: "/v2.15/docs/go", to: "/2.15/docs/go/go-overview" },
+  { from: "/v2.15/docs/go", to: "/2.15/docs/go" },
   {
     from: "/v2.15/docs/goals",
     to: "/2.15/docs/using-pants/key-concepts/goals",
@@ -7881,7 +7881,7 @@ export default [
   },
   {
     from: "/v2.15/docs/helm-overview",
-    to: "/2.15/docs/helm/helm-overview",
+    to: "/2.15/docs/helm",
   },
   {
     from: "/v2.15/docs/how-does-pants-work",
@@ -7905,7 +7905,7 @@ export default [
   },
   {
     from: "/v2.15/docs/jvm-overview",
-    to: "/2.15/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.15/docs/java-and-scala",
   },
   { from: "/v2.15/docs/kotlin", to: "/2.15/docs/java-and-scala/kotlin" },
   { from: "/v2.15/docs/macros", to: "/2.15/docs/writing-plugins/macros" },
@@ -7922,7 +7922,7 @@ export default [
   },
   {
     from: "/v2.15/docs/pex-files",
-    to: "/2.15/docs/python/python-overview/pex-files",
+    to: "/2.15/docs/python/overview/pex-files",
   },
   {
     from: "/v2.15/docs/plugin-upgrade-guide",
@@ -7942,7 +7942,7 @@ export default [
   },
   {
     from: "/v2.15/docs/plugins-overview",
-    to: "/2.15/docs/writing-plugins/plugins-overview",
+    to: "/2.15/docs/writing-plugins/overview",
   },
   {
     from: "/v2.15/docs/plugins-repl-goal",
@@ -7982,7 +7982,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-backend",
-    to: "/2.15/docs/python/python-overview/enabling-python-support",
+    to: "/2.15/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.15/docs/python-check-goal",
@@ -7990,7 +7990,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-distributions",
-    to: "/2.15/docs/python/python-overview/building-distributions",
+    to: "/2.15/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.15/docs/python-fmt-goal",
@@ -8006,7 +8006,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-interpreter-compatibility",
-    to: "/2.15/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.15/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.15/docs/python-lint-goal",
@@ -8014,7 +8014,7 @@ export default [
   },
   {
     from: "/v2.15/docs/python-linters-and-formatters",
-    to: "/2.15/docs/python/python-overview/linters-and-formatters",
+    to: "/2.15/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.15/docs/python-package-goal",
@@ -8038,11 +8038,11 @@ export default [
   },
   {
     from: "/v2.15/docs/python-third-party-dependencies",
-    to: "/2.15/docs/python/python-overview/third-party-dependencies",
+    to: "/2.15/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.15/docs/python",
-    to: "/2.15/docs/python/python-overview",
+    to: "/2.15/docs/python/overview",
   },
   {
     from: "/v2.15/docs/reference-add-trailing-comma",
@@ -8892,7 +8892,7 @@ export default [
     from: "/v2.15/docs/setting-up-an-ide",
     to: "/2.15/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.15/docs/shell", to: "/2.15/docs/shell/shell-overview" },
+  { from: "/v2.15/docs/shell", to: "/2.15/docs/shell" },
   {
     from: "/v2.15/docs/source-roots",
     to: "/2.15/docs/using-pants/key-concepts/source-roots",
@@ -9017,7 +9017,7 @@ export default [
   },
   {
     from: "/v2.16/docs/contributor-overview",
-    to: "/2.16/docs/contributions/contribution-overview",
+    to: "/2.16/docs/contributions",
   },
   {
     from: "/v2.16/docs/contributor-setup",
@@ -9035,14 +9035,14 @@ export default [
     from: "/v2.16/docs/development",
     to: "/2.16/docs/contributions/development",
   },
-  { from: "/v2.16/docs/docker", to: "/2.16/docs/docker/docker-overview" },
+  { from: "/v2.16/docs/docker", to: "/2.16/docs/docker" },
   {
     from: "/v2.16/docs/enabling-backends",
     to: "/2.16/docs/using-pants/key-concepts/backends",
   },
   {
     from: "/v2.16/docs/environments",
-    to: "/2.16/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.16/docs/using-pants/environments",
   },
   {
     from: "/v2.16/docs/example-repos",
@@ -9065,7 +9065,7 @@ export default [
     from: "/v2.16/docs/go-integrations",
     to: "/2.16/docs/go/integrations",
   },
-  { from: "/v2.16/docs/go", to: "/2.16/docs/go/go-overview" },
+  { from: "/v2.16/docs/go", to: "/2.16/docs/go" },
   {
     from: "/v2.16/docs/goals",
     to: "/2.16/docs/using-pants/key-concepts/goals",
@@ -9080,7 +9080,7 @@ export default [
   },
   {
     from: "/v2.16/docs/helm-overview",
-    to: "/2.16/docs/helm/helm-overview",
+    to: "/2.16/docs/helm",
   },
   {
     from: "/v2.16/docs/how-does-pants-work",
@@ -9104,7 +9104,7 @@ export default [
   },
   {
     from: "/v2.16/docs/jvm-overview",
-    to: "/2.16/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.16/docs/java-and-scala",
   },
   { from: "/v2.16/docs/kotlin", to: "/2.16/docs/java-and-scala/kotlin" },
   { from: "/v2.16/docs/macros", to: "/2.16/docs/writing-plugins/macros" },
@@ -9121,7 +9121,7 @@ export default [
   },
   {
     from: "/v2.16/docs/pex-files",
-    to: "/2.16/docs/python/python-overview/pex-files",
+    to: "/2.16/docs/python/overview/pex-files",
   },
   {
     from: "/v2.16/docs/plugin-upgrade-guide",
@@ -9141,7 +9141,7 @@ export default [
   },
   {
     from: "/v2.16/docs/plugins-overview",
-    to: "/2.16/docs/writing-plugins/plugins-overview",
+    to: "/2.16/docs/writing-plugins/overview",
   },
   {
     from: "/v2.16/docs/plugins-repl-goal",
@@ -9181,7 +9181,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-backend",
-    to: "/2.16/docs/python/python-overview/enabling-python-support",
+    to: "/2.16/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.16/docs/python-check-goal",
@@ -9189,7 +9189,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-distributions",
-    to: "/2.16/docs/python/python-overview/building-distributions",
+    to: "/2.16/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.16/docs/python-fmt-goal",
@@ -9205,7 +9205,7 @@ export default [
   },
   {
     from: "/v2.16/docs/python-interpreter-compatibility",
-    to: "/2.16/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.16/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.16/docs/python-lint-goal",
@@ -9213,11 +9213,11 @@ export default [
   },
   {
     from: "/v2.16/docs/python-linters-and-formatters",
-    to: "/2.16/docs/python/python-overview/linters-and-formatters",
+    to: "/2.16/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.16/docs/python-lockfiles",
-    to: "/2.16/docs/python/python-overview/lockfiles",
+    to: "/2.16/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.16/docs/python-package-goal",
@@ -9241,11 +9241,11 @@ export default [
   },
   {
     from: "/v2.16/docs/python-third-party-dependencies",
-    to: "/2.16/docs/python/python-overview/third-party-dependencies",
+    to: "/2.16/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.16/docs/python",
-    to: "/2.16/docs/python/python-overview",
+    to: "/2.16/docs/python/overview",
   },
   {
     from: "/v2.16/docs/reference-add-trailing-comma",
@@ -10167,7 +10167,7 @@ export default [
     from: "/v2.16/docs/setting-up-an-ide",
     to: "/2.16/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.16/docs/shell", to: "/2.16/docs/shell/shell-overview" },
+  { from: "/v2.16/docs/shell", to: "/2.16/docs/shell" },
   {
     from: "/v2.16/docs/source-roots",
     to: "/2.16/docs/using-pants/key-concepts/source-roots",
@@ -10300,7 +10300,7 @@ export default [
   },
   {
     from: "/v2.17/docs/contributor-overview",
-    to: "/2.17/docs/contributions/contribution-overview",
+    to: "/2.17/docs/contributions",
   },
   {
     from: "/v2.17/docs/contributor-setup",
@@ -10318,14 +10318,14 @@ export default [
     from: "/v2.17/docs/development",
     to: "/2.17/docs/contributions/development",
   },
-  { from: "/v2.17/docs/docker", to: "/2.17/docs/docker/docker-overview" },
+  { from: "/v2.17/docs/docker", to: "/2.17/docs/docker" },
   {
     from: "/v2.17/docs/enabling-backends",
     to: "/2.17/docs/using-pants/key-concepts/backends",
   },
   {
     from: "/v2.17/docs/environments",
-    to: "/2.17/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.17/docs/using-pants/environments",
   },
   {
     from: "/v2.17/docs/example-repos",
@@ -10348,7 +10348,7 @@ export default [
     from: "/v2.17/docs/go-integrations",
     to: "/2.17/docs/go/integrations",
   },
-  { from: "/v2.17/docs/go", to: "/2.17/docs/go/go-overview" },
+  { from: "/v2.17/docs/go", to: "/2.17/docs/go" },
   {
     from: "/v2.17/docs/goals",
     to: "/2.17/docs/using-pants/key-concepts/goals",
@@ -10363,7 +10363,7 @@ export default [
   },
   {
     from: "/v2.17/docs/helm-overview",
-    to: "/2.17/docs/helm/helm-overview",
+    to: "/2.17/docs/helm",
   },
   {
     from: "/v2.17/docs/how-does-pants-work",
@@ -10387,7 +10387,7 @@ export default [
   },
   {
     from: "/v2.17/docs/jvm-overview",
-    to: "/2.17/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.17/docs/java-and-scala",
   },
   { from: "/v2.17/docs/kotlin", to: "/2.17/docs/java-and-scala/kotlin" },
   { from: "/v2.17/docs/macros", to: "/2.17/docs/writing-plugins/macros" },
@@ -10404,7 +10404,7 @@ export default [
   },
   {
     from: "/v2.17/docs/pex-files",
-    to: "/2.17/docs/python/python-overview/pex-files",
+    to: "/2.17/docs/python/overview/pex-files",
   },
   {
     from: "/v2.17/docs/plugin-helpers",
@@ -10428,7 +10428,7 @@ export default [
   },
   {
     from: "/v2.17/docs/plugins-overview",
-    to: "/2.17/docs/writing-plugins/plugins-overview",
+    to: "/2.17/docs/writing-plugins/overview",
   },
   {
     from: "/v2.17/docs/plugins-repl-goal",
@@ -10468,7 +10468,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-backend",
-    to: "/2.17/docs/python/python-overview/enabling-python-support",
+    to: "/2.17/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.17/docs/python-check-goal",
@@ -10476,7 +10476,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-distributions",
-    to: "/2.17/docs/python/python-overview/building-distributions",
+    to: "/2.17/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.17/docs/python-fmt-goal",
@@ -10492,7 +10492,7 @@ export default [
   },
   {
     from: "/v2.17/docs/python-interpreter-compatibility",
-    to: "/2.17/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.17/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.17/docs/python-lint-goal",
@@ -10500,11 +10500,11 @@ export default [
   },
   {
     from: "/v2.17/docs/python-linters-and-formatters",
-    to: "/2.17/docs/python/python-overview/linters-and-formatters",
+    to: "/2.17/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.17/docs/python-lockfiles",
-    to: "/2.17/docs/python/python-overview/lockfiles",
+    to: "/2.17/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.17/docs/python-package-goal",
@@ -10528,11 +10528,11 @@ export default [
   },
   {
     from: "/v2.17/docs/python-third-party-dependencies",
-    to: "/2.17/docs/python/python-overview/third-party-dependencies",
+    to: "/2.17/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.17/docs/python",
-    to: "/2.17/docs/python/python-overview",
+    to: "/2.17/docs/python/overview",
   },
   {
     from: "/v2.17/docs/reference-add-trailing-comma",
@@ -11458,7 +11458,7 @@ export default [
     from: "/v2.17/docs/setting-up-an-ide",
     to: "/2.17/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.17/docs/shell", to: "/2.17/docs/shell/shell-overview" },
+  { from: "/v2.17/docs/shell", to: "/2.17/docs/shell" },
   {
     from: "/v2.17/docs/source-roots",
     to: "/2.17/docs/using-pants/key-concepts/source-roots",
@@ -11591,7 +11591,7 @@ export default [
   },
   {
     from: "/v2.18/docs/contributor-overview",
-    to: "/2.18/docs/contributions/contribution-overview",
+    to: "/2.18/docs/contributions",
   },
   {
     from: "/v2.18/docs/contributor-setup",
@@ -11609,14 +11609,14 @@ export default [
     from: "/v2.18/docs/development",
     to: "/2.18/docs/contributions/development",
   },
-  { from: "/v2.18/docs/docker", to: "/2.18/docs/docker/docker-overview" },
+  { from: "/v2.18/docs/docker", to: "/2.18/docs/docker" },
   {
     from: "/v2.18/docs/enabling-backends",
     to: "/2.18/docs/using-pants/key-concepts/backends",
   },
   {
     from: "/v2.18/docs/environments",
-    to: "/2.18/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.18/docs/using-pants/environments",
   },
   {
     from: "/v2.18/docs/example-repos",
@@ -11639,7 +11639,7 @@ export default [
     from: "/v2.18/docs/go-integrations",
     to: "/2.18/docs/go/integrations",
   },
-  { from: "/v2.18/docs/go", to: "/2.18/docs/go/go-overview" },
+  { from: "/v2.18/docs/go", to: "/2.18/docs/go" },
   {
     from: "/v2.18/docs/goals",
     to: "/2.18/docs/using-pants/key-concepts/goals",
@@ -11658,7 +11658,7 @@ export default [
   },
   {
     from: "/v2.18/docs/helm-overview",
-    to: "/2.18/docs/helm/helm-overview",
+    to: "/2.18/docs/helm",
   },
   {
     from: "/v2.18/docs/how-does-pants-work",
@@ -11682,7 +11682,7 @@ export default [
   },
   {
     from: "/v2.18/docs/jvm-overview",
-    to: "/2.18/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.18/docs/java-and-scala",
   },
   { from: "/v2.18/docs/kotlin", to: "/2.18/docs/java-and-scala/kotlin" },
   { from: "/v2.18/docs/macros", to: "/2.18/docs/writing-plugins/macros" },
@@ -11699,7 +11699,7 @@ export default [
   },
   {
     from: "/v2.18/docs/pex-files",
-    to: "/2.18/docs/python/python-overview/pex-files",
+    to: "/2.18/docs/python/overview/pex-files",
   },
   {
     from: "/v2.18/docs/plugin-helpers",
@@ -11727,7 +11727,7 @@ export default [
   },
   {
     from: "/v2.18/docs/plugins-overview",
-    to: "/2.18/docs/writing-plugins/plugins-overview",
+    to: "/2.18/docs/writing-plugins/overview",
   },
   {
     from: "/v2.18/docs/plugins-repl-goal",
@@ -11767,7 +11767,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-backend",
-    to: "/2.18/docs/python/python-overview/enabling-python-support",
+    to: "/2.18/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.18/docs/python-check-goal",
@@ -11775,7 +11775,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-distributions",
-    to: "/2.18/docs/python/python-overview/building-distributions",
+    to: "/2.18/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.18/docs/python-fmt-goal",
@@ -11791,7 +11791,7 @@ export default [
   },
   {
     from: "/v2.18/docs/python-interpreter-compatibility",
-    to: "/2.18/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.18/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.18/docs/python-lint-goal",
@@ -11799,11 +11799,11 @@ export default [
   },
   {
     from: "/v2.18/docs/python-linters-and-formatters",
-    to: "/2.18/docs/python/python-overview/linters-and-formatters",
+    to: "/2.18/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.18/docs/python-lockfiles",
-    to: "/2.18/docs/python/python-overview/lockfiles",
+    to: "/2.18/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.18/docs/python-package-goal",
@@ -11827,11 +11827,11 @@ export default [
   },
   {
     from: "/v2.18/docs/python-third-party-dependencies",
-    to: "/2.18/docs/python/python-overview/third-party-dependencies",
+    to: "/2.18/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.18/docs/python",
-    to: "/2.18/docs/python/python-overview",
+    to: "/2.18/docs/python/overview",
   },
   {
     from: "/v2.18/docs/reference-add-trailing-comma",
@@ -12781,7 +12781,7 @@ export default [
     from: "/v2.18/docs/setting-up-an-ide",
     to: "/2.18/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.18/docs/shell", to: "/2.18/docs/shell/shell-overview" },
+  { from: "/v2.18/docs/shell", to: "/2.18/docs/shell" },
   {
     from: "/v2.18/docs/source-roots",
     to: "/2.18/docs/using-pants/key-concepts/source-roots",
@@ -12825,7 +12825,7 @@ export default [
   { from: "/v2.18/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.18/docs/terraform-overview",
-    to: "/2.18/docs/terraform/terraform-overview",
+    to: "/2.18/docs/terraform",
   },
   {
     from: "/v2.18/docs/test-custom-plugin-goal",
@@ -12918,7 +12918,7 @@ export default [
   },
   {
     from: "/v2.19/docs/contributor-overview",
-    to: "/2.19/docs/contributions/contribution-overview",
+    to: "/2.19/docs/contributions",
   },
   {
     from: "/v2.19/docs/contributor-setup",
@@ -12936,14 +12936,14 @@ export default [
     from: "/v2.19/docs/development",
     to: "/2.19/docs/contributions/development",
   },
-  { from: "/v2.19/docs/docker", to: "/2.19/docs/docker/docker-overview" },
+  { from: "/v2.19/docs/docker", to: "/2.19/docs/docker" },
   {
     from: "/v2.19/docs/enabling-backends",
     to: "/2.19/docs/using-pants/key-concepts/backends",
   },
   {
     from: "/v2.19/docs/environments",
-    to: "/2.19/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.19/docs/using-pants/environments",
   },
   {
     from: "/v2.19/docs/example-repos",
@@ -12966,7 +12966,7 @@ export default [
     from: "/v2.19/docs/go-integrations",
     to: "/2.19/docs/go/integrations",
   },
-  { from: "/v2.19/docs/go", to: "/2.19/docs/go/go-overview" },
+  { from: "/v2.19/docs/go", to: "/2.19/docs/go" },
   {
     from: "/v2.19/docs/goals",
     to: "/2.19/docs/using-pants/key-concepts/goals",
@@ -12985,7 +12985,7 @@ export default [
   },
   {
     from: "/v2.19/docs/helm-overview",
-    to: "/2.19/docs/helm/helm-overview",
+    to: "/2.19/docs/helm",
   },
   {
     from: "/v2.19/docs/how-does-pants-work",
@@ -13009,7 +13009,7 @@ export default [
   },
   {
     from: "/v2.19/docs/jvm-overview",
-    to: "/2.19/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.19/docs/java-and-scala",
   },
   { from: "/v2.19/docs/kotlin", to: "/2.19/docs/java-and-scala/kotlin" },
   { from: "/v2.19/docs/macros", to: "/2.19/docs/writing-plugins/macros" },
@@ -13026,7 +13026,7 @@ export default [
   },
   {
     from: "/v2.19/docs/pex",
-    to: "/2.19/docs/python/python-overview/pex",
+    to: "/2.19/docs/python/overview/pex",
   },
   {
     from: "/v2.19/docs/plugin-helpers",
@@ -13054,7 +13054,7 @@ export default [
   },
   {
     from: "/v2.19/docs/plugins-overview",
-    to: "/2.19/docs/writing-plugins/plugins-overview",
+    to: "/2.19/docs/writing-plugins/overview",
   },
   {
     from: "/v2.19/docs/plugins-repl-goal",
@@ -13094,7 +13094,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-backend",
-    to: "/2.19/docs/python/python-overview/enabling-python-support",
+    to: "/2.19/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.19/docs/python-check-goal",
@@ -13102,7 +13102,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-distributions",
-    to: "/2.19/docs/python/python-overview/building-distributions",
+    to: "/2.19/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.19/docs/python-fmt-goal",
@@ -13118,7 +13118,7 @@ export default [
   },
   {
     from: "/v2.19/docs/python-interpreter-compatibility",
-    to: "/2.19/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.19/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.19/docs/python-lint-goal",
@@ -13126,11 +13126,11 @@ export default [
   },
   {
     from: "/v2.19/docs/python-linters-and-formatters",
-    to: "/2.19/docs/python/python-overview/linters-and-formatters",
+    to: "/2.19/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.19/docs/python-lockfiles",
-    to: "/2.19/docs/python/python-overview/lockfiles",
+    to: "/2.19/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.19/docs/python-package-goal",
@@ -13154,11 +13154,11 @@ export default [
   },
   {
     from: "/v2.19/docs/python-third-party-dependencies",
-    to: "/2.19/docs/python/python-overview/third-party-dependencies",
+    to: "/2.19/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.19/docs/python",
-    to: "/2.19/docs/python/python-overview",
+    to: "/2.19/docs/python/overview",
   },
   {
     from: "/v2.19/docs/reference-add-trailing-comma",
@@ -14116,7 +14116,7 @@ export default [
     from: "/v2.19/docs/setting-up-an-ide",
     to: "/2.19/docs/using-pants/setting-up-an-ide",
   },
-  { from: "/v2.19/docs/shell", to: "/2.19/docs/shell/shell-overview" },
+  { from: "/v2.19/docs/shell", to: "/2.19/docs/shell" },
   {
     from: "/v2.19/docs/source-roots",
     to: "/2.19/docs/using-pants/key-concepts/source-roots",
@@ -14160,7 +14160,7 @@ export default [
   { from: "/v2.19/docs/team", to: "/community/meet-the-team" },
   {
     from: "/v2.19/docs/terraform-overview",
-    to: "/2.19/docs/terraform/terraform-overview",
+    to: "/2.19/docs/terraform",
   },
   {
     from: "/v2.19/docs/test-custom-plugin-goal",
@@ -14236,7 +14236,7 @@ export default [
   },
   {
     from: "/v2.2/docs/contributor-overview",
-    to: "/2.2/docs/contributions/contribution-overview",
+    to: "/2.2/docs/contributions",
   },
   {
     from: "/v2.2/docs/contributor-setup",
@@ -14804,7 +14804,7 @@ export default [
   },
   {
     from: "/v2.3/docs/contributor-overview",
-    to: "/2.3/docs/contributions/contribution-overview",
+    to: "/2.3/docs/contributions",
   },
   {
     from: "/v2.3/docs/contributor-setup",
@@ -15392,7 +15392,7 @@ export default [
   },
   {
     from: "/v2.4/docs/contributor-overview",
-    to: "/2.4/docs/contributions/contribution-overview",
+    to: "/2.4/docs/contributions",
   },
   {
     from: "/v2.4/docs/contributor-setup",
@@ -16001,7 +16001,7 @@ export default [
   },
   {
     from: "/v2.5/docs/contributor-overview",
-    to: "/2.5/docs/contributions/contribution-overview",
+    to: "/2.5/docs/contributions",
   },
   {
     from: "/v2.5/docs/contributor-setup",
@@ -16627,7 +16627,7 @@ export default [
   },
   {
     from: "/v2.6/docs/contributor-overview",
-    to: "/2.6/docs/contributions/contribution-overview",
+    to: "/2.6/docs/contributions",
   },
   {
     from: "/v2.6/docs/contributor-setup",
@@ -17253,7 +17253,7 @@ export default [
   },
   {
     from: "/v2.7/docs/contributor-overview",
-    to: "/2.7/docs/contributions/contribution-overview",
+    to: "/2.7/docs/contributions",
   },
   {
     from: "/v2.7/docs/contributor-setup",
@@ -17913,7 +17913,7 @@ export default [
   },
   {
     from: "/v2.8/docs/contributor-overview",
-    to: "/2.8/docs/contributions/contribution-overview",
+    to: "/2.8/docs/contributions",
   },
   {
     from: "/v2.8/docs/contributor-setup",
@@ -18722,7 +18722,7 @@ export default [
   },
   {
     from: "/v2.9/docs/contributor-overview",
-    to: "/2.9/docs/contributions/contribution-overview",
+    to: "/2.9/docs/contributions",
   },
   {
     from: "/v2.9/docs/contributor-setup",
@@ -19682,7 +19682,7 @@ export default [
   },
   {
     from: "/v2.20/docs/environments",
-    to: "/2.20/docs/using-pants/environments:-cross-platform-or-remote-builds",
+    to: "/2.20/docs/using-pants/environments",
   },
   {
     from: "/v2.20/docs/generating-version-tags",
@@ -19702,35 +19702,35 @@ export default [
   },
   {
     from: "/v2.20/docs/python",
-    to: "/2.20/docs/python/python-overview",
+    to: "/2.20/docs/python/overview",
   },
   {
     from: "/v2.20/docs/python-backend",
-    to: "/2.20/docs/python/python-overview/enabling-python-support",
+    to: "/2.20/docs/python/overview/enabling-python-support",
   },
   {
     from: "/v2.20/docs/python-third-party-dependencies",
-    to: "/2.20/docs/python/python-overview/third-party-dependencies",
+    to: "/2.20/docs/python/overview/third-party-dependencies",
   },
   {
     from: "/v2.20/docs/python-lockfiles",
-    to: "/2.20/docs/python/python-overview/lockfiles",
+    to: "/2.20/docs/python/overview/lockfiles",
   },
   {
     from: "/v2.20/docs/python-interpreter-compatibility",
-    to: "/2.20/docs/python/python-overview/interpreter-compatibility",
+    to: "/2.20/docs/python/overview/interpreter-compatibility",
   },
   {
     from: "/v2.20/docs/python-linters-and-formatters",
-    to: "/2.20/docs/python/python-overview/linters-and-formatters",
+    to: "/2.20/docs/python/overview/linters-and-formatters",
   },
   {
     from: "/v2.20/docs/pex",
-    to: "/2.20/docs/python/python-overview/pex",
+    to: "/2.20/docs/python/overview/pex",
   },
   {
     from: "/v2.20/docs/python-distributions",
-    to: "/2.20/docs/python/python-overview/building-distributions",
+    to: "/2.20/docs/python/overview/building-distributions",
   },
   {
     from: "/v2.20/docs/python-goals",
@@ -19796,7 +19796,7 @@ export default [
     from: "/v2.20/docs/jupyter",
     to: "/2.20/docs/python/integrations/jupyter",
   },
-  { from: "/v2.20/docs/go", to: "/2.20/docs/go/go-overview" },
+  { from: "/v2.20/docs/go", to: "/2.20/docs/go" },
   {
     from: "/v2.20/docs/go-integrations",
     to: "/2.20/docs/go/integrations",
@@ -19807,25 +19807,25 @@ export default [
   },
   {
     from: "/v2.20/docs/jvm-overview",
-    to: "/2.20/docs/java-and-scala/java-and-scala-overview",
+    to: "/2.20/docs/java-and-scala",
   },
   { from: "/v2.20/docs/kotlin", to: "/2.20/docs/java-and-scala/kotlin" },
   {
     from: "/v2.20/docs/shell-overview",
-    to: "/2.20/docs/shell/shell-overview",
+    to: "/2.20/docs/shell",
   },
   {
     from: "/v2.20/docs/run-shell-commands",
     to: "/2.20/docs/shell/run-shell-commands",
   },
-  { from: "/v2.20/docs/docker", to: "/2.20/docs/docker/docker-overview" },
+  { from: "/v2.20/docs/docker", to: "/2.20/docs/docker" },
   {
     from: "/v2.20/docs/tagging-docker-images",
     to: "/2.20/docs/docker/tagging-docker-images",
   },
   {
     from: "/v2.20/docs/helm-overview",
-    to: "/2.20/docs/helm/helm-overview",
+    to: "/2.20/docs/helm",
   },
   {
     from: "/v2.20/docs/helm-deployments",
@@ -19837,7 +19837,7 @@ export default [
   },
   {
     from: "/v2.20/docs/terraform-overview",
-    to: "/2.20/docs/terraform/terraform-overview",
+    to: "/2.20/docs/terraform",
   },
   {
     from: "/v2.20/docs/adhoc-tool",
@@ -19845,7 +19845,7 @@ export default [
   },
   {
     from: "/v2.20/docs/plugins-overview",
-    to: "/2.20/docs/writing-plugins/plugins-overview",
+    to: "/2.20/docs/writing-plugins/overview",
   },
   { from: "/v2.20/docs/macros", to: "/2.20/docs/writing-plugins/macros" },
   {
@@ -19971,7 +19971,7 @@ export default [
   },
   {
     from: "/v2.20/docs/contributor-overview",
-    to: "/2.20/docs/contributions/contribution-overview",
+    to: "/2.20/docs/contributions",
   },
   {
     from: "/v2.20/docs/development",
