@@ -17,7 +17,7 @@ To see the current list of goals, run:
 
 You'll see more goals activated as you activate more [backends](./backends.mdx).
 
-# Running goals
+## Running goals
 
 For example:
 
@@ -44,7 +44,7 @@ Finally, Pants supports running goals in a `--loop`: in this mode, all goals spe
 
 Use `Ctrl+C` to exit the `--loop`.
 
-# Goal arguments
+## Goal arguments
 
 Some simple goals—such as the `roots` goal—do not require arguments. But most goals require some arguments to work on.
 
@@ -67,7 +67,7 @@ TOML                         2        65       14        18       33          0
 Note the single-quotes around the file pattern `'**'`. This is so that your shell doesn't attempt to expand the pattern, but instead passes it unaltered to Pants.
 :::
 
-## File arguments vs. target arguments
+### File arguments vs. target arguments
 
 Goal arguments can be of one of two types:
 
@@ -96,7 +96,7 @@ For example, `./pants list ::` will find every target in your project.
 See [Advanced target selection](../advanced-target-selection.mdx) for alternative techniques to specify which files/targets to run on.
 :::
 
-## Goal options
+### Goal options
 
 Many goals also have [options](./options.mdx) to change how they behave. Every option in Pants can be set via an environment variable, config file, and the command line.
 
