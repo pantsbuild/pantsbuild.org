@@ -32,9 +32,11 @@ automatically synced to this repository after each release.
 EOF
 
         exit 1
+    else
+        echo "No changes, all good!"
     fi
 else
-    echo "Labelled with automation:sync-docs, so changes are fine"
+    echo "Labelled with automation:sync-docs, so any changes are fine"
 fi
 
 echo "*** Checking generated reference files are up-to-date ***"
@@ -60,4 +62,6 @@ generated. Either:
 EOF
 
     exit 1
+else
+    echo "No changes, all good!"
 fi
