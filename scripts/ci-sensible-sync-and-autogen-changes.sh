@@ -4,7 +4,7 @@ has_label_automation_sync_docs="$1"
 
 # if the label exists, any changes are fine, so no need to check
 if [[ ${has_label_automation_sync_docs} != true ]]; then
-    autogened=(
+    synced=(
         docs/docs
         docs/reference/help-all.json
         versioned_docs/*/docs
@@ -13,15 +13,15 @@ if [[ ${has_label_automation_sync_docs} != true ]]; then
 
     git fetch --depth=1 origin "${GITHUB_BASE_REF}"
 
-    if ! git diff --quiet FETCH_HEAD HEAD -- "${autogened[@]}"; then
+    if ! git diff --quiet FETCH_HEAD HEAD -- "${synced[@]}"; then
         echo "::group::Full diff"
-        git diff FETCH_HEAD HEAD -- "${autogened[@]}"
+        git diff FETCH_HEAD HEAD -- "${synced[@]}"
         echo "::endgroup::"
 
         cat <<EOF
 Error: found changes to files that are synced from <https://github.com/pantsbuild/pants>:
 
-$(git diff --name-only FETCH_HEAD HEAD -- "${autogened[@]}")
+$(git diff --name-only FETCH_HEAD HEAD -- "${synced[@]}")
 
 Those files should be changed in <https://github.com/pantsbuild/pants>, and are
 automatically synced to this repository after each release.
