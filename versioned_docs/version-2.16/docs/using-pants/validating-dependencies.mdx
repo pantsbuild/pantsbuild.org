@@ -76,7 +76,7 @@ backend_packages.add = [
 This does not mean you should not use it, only that it is in "preview" mode meaning that things may change between releases without following our deprecation policy as we work on stabilizing this feature. See [the stabilization ticket](https://github.com/pantsbuild/pants/issues/17634) for what remains to be done for the visibility backend to graduate out of preview.
 :::
 
-# Dependencies and dependents
+## Dependencies and dependents
 
 The visibility rules operates on the dependency link between two targets. Dependencies are directional, so if target `A` depends on another target `B` the dependency goes from the "origin" target `A` -> `B`, we say that `B` is the **dependency** of `A`, while `A` is the **dependent** of `B`.
 
