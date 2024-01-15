@@ -48,28 +48,28 @@ export default function NotFoundContent({ className }) {
                   </Link>
                 </p>
               ) : (
-              <span>
-                <p>
-                  Try a{" "}
-                  <Link
-                    to={`/search?q=${encodeURIComponent(
-                      estimatedSearchQuery
-                    )}`}
-                  >
-                    search for '{estimatedSearchQuery}'
-                  </Link>
-                  ?
-                </p>;
-                }
-                <p>
-                  Otherwise, if you think this is a mistake, please file an issue
-                  at{" "}
-                  <Link to="https://github.com/pantsbuild/pants">
-                    https://github.com/pantsbuild/pants
-                  </Link>
-                </p>
-              </span>
-            )
+                <span>
+                  <p>
+                    Try a{" "}
+                    <Link
+                      to={`/search?q=${encodeURIComponent(
+                        estimatedSearchQuery
+                      )}`}
+                    >
+                      search for '{estimatedSearchQuery}'
+                    </Link>
+                    ?
+                  </p>
+                  ; }
+                  <p>
+                    Otherwise, if you think this is a mistake, please file an
+                    issue at{" "}
+                    <Link to="https://github.com/pantsbuild/pants">
+                      https://github.com/pantsbuild/pants
+                    </Link>
+                  </p>
+                </span>
+              );
             }}
           </BrowserOnly>
         </div>
