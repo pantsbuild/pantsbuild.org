@@ -95,4 +95,4 @@ Currently, `shell_source` targets are not runnable. In the meantime, it is possi
 - Declare a `system_binary` target referring to your preferred shell (e.g. `bash`, `zsh`, `fish`)
 - Declare an `adhoc_tool`, with the `runnable` field pointing at your `system_binary` target, add your `shell_source` as an `execution_dependency`, and provide your script's path relative to the buildroot as the first value in `args`
 
-This is clearly not as convenient as directly running a `shell_source` target, and we anticipate adding support in a future version of Pants.x
+This is clearly not as convenient as directly running a `shell_source` target, and we anticipate adding support in a future version of Pants.
