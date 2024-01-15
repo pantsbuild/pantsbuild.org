@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+echo "*** Checking files synced from pantsbuild/pants ***"
 has_label_automation_sync_docs="$1"
 
 # if the label exists, any changes are fine, so no need to check
@@ -32,8 +33,11 @@ EOF
 
         exit 1
     fi
+else
+    echo "Labelled with automation:sync-docs, so changes are fine"
 fi
 
+echo "*** Checking generated reference files are up-to-date ***"
 # NB. in future, it would be nice for this to be packaged as a test that one can run
 # locally, e.g. https://github.com/pantsbuild/pants/discussions/18235
 npm run generate-reference-all
