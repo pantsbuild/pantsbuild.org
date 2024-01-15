@@ -47,8 +47,8 @@ if ! git diff --quiet ; then
 Error: the references have differences between what's committed and what would be
 generated. Either:
 
-- if you made changes to the generation scripts, please regenerate with `npm run
-  generate-reference-all` or `npm run generate-reference <specific directory>`.
+- if you made changes to the generation scripts, please regenerate with 'npm run
+  generate-reference-all' or 'npm run generate-reference <specific directory>'.
 
 - if you have edited the files directly, https://github.com/pantsbuild/pants is the
   source of truth: make the changes there and they will be synced here on the next
