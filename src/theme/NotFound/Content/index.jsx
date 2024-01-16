@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import Heading from "@theme/Heading";
 import { useLocation } from "@docusaurus/router";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import Link from "@docusaurus/Link";
 
 // A component of a URL that might be interesting is any sequence of things separated by these punctuations
