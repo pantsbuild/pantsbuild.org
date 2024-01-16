@@ -55,3 +55,12 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+      # See https://www.algolia.com/doc/rest-api/crawler/#reindex-with-a-crawler
+      - name: Kickoff a crawl
+        run: |
+          curl \
+            -H "Content-Type: application/json" \
+            -X POST \
+            --user ${{ secrets.THEJCANNON_ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.THEJCANNON_ALGOLIA_CRAWLER_API_KEY }} \
+            https://crawler.algolia.com/api/1/crawlers/7ae90af1-f627-4806-a2cc-89e7157daa44/reindex
