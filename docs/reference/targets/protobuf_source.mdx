@@ -90,48 +90,6 @@ Whether to generate gRPC code or not.
 
 </Field>
 
-## `go_mod_address`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.go"
->
-
-Address of the `go_mod` target representing the Go module that this target is part of.
-
-This field is similar to the `resolve` field used in the Python and JVM backends. If a codegen target such as `protobuf_sources` will be used in multiple Go modules, then you should use the `parametrize` built-in to parametrize that `protobuf_sources` target for each Go module.
-
-If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
-
-</Field>
-
-## `jvm_jdk`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
->
-
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
-
-</Field>
-
-## `python_source_root`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The source root to generate Python sources under.
-
-If unspecified, the source root the `protobuf_sources` is under will be used.
-
-</Field>
-
 ## `python_resolve`
 
 <Field
@@ -160,6 +118,36 @@ If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 </Field>
 
+## `go_mod_address`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.go"
+>
+
+Address of the `go_mod` target representing the Go module that this target is part of.
+
+This field is similar to the `resolve` field used in the Python and JVM backends. If a codegen target such as `protobuf_sources` will be used in multiple Go modules, then you should use the `parametrize` built-in to parametrize that `protobuf_sources` target for each Go module.
+
+If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
+
+</Field>
+
+## `jvm_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
 ## `python_interpreter_constraints`
 
 <Field
@@ -180,6 +168,32 @@ See https://www.pantsbuild.org/v2.20/docs/python-interpreter-compatibility for h
 
 </Field>
 
+## `python_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The source root to generate Python sources under.
+
+If unspecified, the source root the `protobuf_sources` is under will be used.
+
+</Field>
+
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
 ## `skip_buf_format`
 
 <Field
@@ -189,20 +203,6 @@ See https://www.pantsbuild.org/v2.20/docs/python-interpreter-compatibility for h
 >
 
 If true, don&#x27;t run `buf format` on this target&#x27;s code.
-
-</Field>
-
-## `jvm_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
->
-
-The resolve from `[jvm].resolves` to use when compiling this target.
-
-If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 

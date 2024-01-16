@@ -67,6 +67,20 @@ Enables strict linting of Helm charts
 
 </Option>
 
+### `lint_quiet`
+
+<Option
+  cli_repr={`--[no-]helm-lint-quiet`}
+  env_repr='PANTS_HELM_LINT_QUIET'
+  toml_repr={`[helm]
+lint_quiet = <bool>`}
+  default_repr={`False`}
+>
+
+Only print warnings and errors for Helm charts
+
+</Option>
+
 ### `default_registry_repository`
 
 <Option

@@ -228,6 +228,22 @@ If undefined, this defaults to the empty path, i.e. the output goes at the top l
 
 </Field>
 
+## `repositories`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.python"
+>
+
+List of URL addresses or Twine repository aliases where to publish the Python package.
+
+Twine is used for publishing Python packages, so the address to any kind of repository that Twine supports may be used here.
+
+Aliases are prefixed with `@` to refer to a config section in your Twine configuration, such as a `.pypirc` file. Use `@pypi` to upload to the public PyPi repository, which is the default when using Twine directly.
+
+</Field>
+
 ## `skip_twine`
 
 <Field
@@ -253,22 +269,6 @@ If true, this distribution is built using mypyc.
 In this case, Pants will build the distribution in an environment that includes mypy, as configured in the `[mypy]` subsystem, including plugins, config files, extra type stubs, and the distribution&#x27;s own requirements (which normally would not be needed at build time, but in this case may provide necessary type annotations).
 
 You will typically set this field on distributions whose `setup.py` uses `mypyc.build.mypycify()`. See https://mypyc.readthedocs.io/en/latest/index.html .
-
-</Field>
-
-## `repositories`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.python"
->
-
-List of URL addresses or Twine repository aliases where to publish the Python package.
-
-Twine is used for publishing Python packages, so the address to any kind of repository that Twine supports may be used here.
-
-Aliases are prefixed with `@` to refer to a config section in your Twine configuration, such as a `.pypirc` file. Use `@pypi` to upload to the public PyPi repository, which is the default when using Twine directly.
 
 </Field>
 

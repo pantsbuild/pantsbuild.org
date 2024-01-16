@@ -79,7 +79,7 @@ lockfile = <str>`}
 
 Path to a lockfile used for installing the tool.
 
-Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.20.0.dev2/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.20.0.dev6/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=scalafmt`.
 
@@ -102,6 +102,35 @@ jvm_options = [
 List of JVM options to pass to `scalafmt` JVM processes.
 
 Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `config_file_name`
+
+<Option
+  cli_repr={`--scalafmt-config-file-name=<str>`}
+  env_repr='PANTS_SCALAFMT_CONFIG_FILE_NAME'
+  toml_repr={`[scalafmt]
+config_file_name = <str>`}
+  default_repr={`.scalafmt.conf`}
+>
+
+Name of a config file understood by scalafmt (https://scalameta.org/scalafmt/docs/configuration.html). The plugin will search the ancestors of each directory in which Scala files are found for a config file of this name.
+
+</Option>
+
+### `orphan_files_behavior`
+
+<Option
+  cli_repr={`--scalafmt-orphan-files-behavior=<OrphanFilepathConfigBehavior>`}
+  env_repr='PANTS_SCALAFMT_ORPHAN_FILES_BEHAVIOR'
+  toml_repr={`[scalafmt]
+orphan_files_behavior = <OrphanFilepathConfigBehavior>`}
+  one_of='ignore, error, warn'
+  default_repr={`error`}
+>
+
+Whether to ignore, error or show a warning when files are found that are not covered by the config file provided in `[scalafmt].config_file_name` setting.
 
 </Option>
 

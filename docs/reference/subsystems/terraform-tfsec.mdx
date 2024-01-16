@@ -1,0 +1,162 @@
+---
+title: terraform-tfsec
+description: |
+  tfsec by Aqua Security
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+tfsec by Aqua Security
+
+Backend: <span className="color--primary">`pants.backend.experimental.terraform.lint.tfsec`</span>
+
+Config section: <span className="color--primary">`[terraform-tfsec]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]terraform-tfsec-skip`}
+  env_repr='PANTS_TERRAFORM_TFSEC_SKIP'
+  toml_repr={`[terraform-tfsec]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use tfsec when running `pants lint`.
+
+</Option>
+
+### `args`
+
+<Option
+  cli_repr={`--terraform-tfsec-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_TERRAFORM_TFSEC_ARGS'
+  toml_repr={`[terraform-tfsec]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to tfsec, e.g. `--terraform-tfsec-args='--minimum-severity=MEDIUM'`.
+
+</Option>
+
+## Advanced options
+
+### `version`
+
+<Option
+  cli_repr={`--terraform-tfsec-version=<str>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_VERSION'
+  toml_repr={`[terraform-tfsec]
+version = <str>`}
+  default_repr={`v1.28.1`}
+>
+
+Use this version of tfsec.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--terraform-tfsec-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TERRAFORM_TFSEC_KNOWN_VERSIONS'
+  toml_repr={`[terraform-tfsec]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "v1.28.1|linux_x86_64|57b902b31da3eed12448a4e82a8aca30477e4bcd1bf99e3f65310eae0889f88d|26427634"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
+- (Optional) `url_override` is a specific url to use instead of the normally
+  generated url for this version
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--terraform-tfsec-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[terraform-tfsec]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of tfsec is not supported.
+
+Supported tfsec versions: unspecified
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--terraform-tfsec-config=<file_option>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_CONFIG'
+  toml_repr={`[terraform-tfsec]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the tfsec config file (https://aquasecurity.github.io/tfsec/latest/guides/configuration/config/)
+
+Setting this option will disable `[terraform-tfsec].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]terraform-tfsec-config-discovery`}
+  env_repr='PANTS_TERRAFORM_TFSEC_CONFIG_DISCOVERY'
+  toml_repr={`[terraform-tfsec]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant config files during runs (`.tfsec/config.json` or `.tfsec/config.yml`). Note that you will have to tell Pants to include this file by adding `"!.tfsec/"` to `[global].pants_ignore.add`.
+
+Use `[terraform-tfsec].config` instead if your config is in a non-standard location.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

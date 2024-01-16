@@ -244,27 +244,15 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 </Field>
 
-## `skip_isort`
+## `skip_pytype`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.isort"
+    backend="pants.backend.experimental.python.typecheck.pytype"
 >
 
-If true, don&#x27;t run isort on this target&#x27;s code.
-
-</Field>
-
-## `skip_mypy`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.typecheck.mypy"
->
-
-If true, don&#x27;t run MyPy on this target&#x27;s code.
+If true, don&#x27;t run pytype on this target&#x27;s code.
 
 </Field>
 
@@ -280,18 +268,6 @@ If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
 
-## `skip_flake8`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.flake8"
->
-
-If true, don&#x27;t run Flake8 on this target&#x27;s code.
-
-</Field>
-
 ## `skip_docformatter`
 
 <Field
@@ -304,15 +280,15 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
 
-## `skip_pyupgrade`
+## `skip_isort`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.pyupgrade"
+    backend="pants.backend.python.lint.isort"
 >
 
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
 
@@ -328,39 +304,27 @@ If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 
 </Field>
 
-## `skip_pytype`
+## `skip_mypy`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.experimental.python.typecheck.pytype"
+    backend="pants.backend.python.typecheck.mypy"
 >
 
-If true, don&#x27;t run pytype on this target&#x27;s code.
+If true, don&#x27;t run MyPy on this target&#x27;s code.
 
 </Field>
 
-## `skip_yapf`
+## `skip_pydocstyle`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.yapf"
+    backend="pants.backend.python.lint.pydocstyle"
 >
 
-If true, don&#x27;t run yapf on this target&#x27;s code.
-
-</Field>
-
-## `skip_bandit`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.bandit"
->
-
-If true, don&#x27;t run Bandit on this target&#x27;s code.
+If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 </Field>
 
@@ -376,6 +340,18 @@ If true, don&#x27;t run ruff on this target&#x27;s code.
 
 </Field>
 
+## `skip_bandit`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.bandit"
+>
+
+If true, don&#x27;t run Bandit on this target&#x27;s code.
+
+</Field>
+
 ## `skip_pylint`
 
 <Field
@@ -388,15 +364,15 @@ If true, don&#x27;t run Pylint on this target&#x27;s code.
 
 </Field>
 
-## `skip_pydocstyle`
+## `skip_flake8`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.pydocstyle"
+    backend="pants.backend.python.lint.flake8"
 >
 
-If true, don&#x27;t run pydocstyle on this target&#x27;s code.
+If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
 
@@ -417,6 +393,42 @@ Plus, an `entry_points.txt` file will be generated in the sandbox so that each o
 NOTE: Each `python_distribution` must opt-in to being included in this repo-wide inference by tagging the namespaces with `stevedore_namespace("my.stevedore.extension")`.
 
 The stevedore namespace format (`my.stevedore.extension`) is similar to a Python namespace.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pyupgrade"
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyright`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.typecheck.pyright"
+>
+
+If true, don&#x27;t run Pyright on this target&#x27;s code.
+
+</Field>
+
+## `skip_yapf`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.yapf"
+>
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
 

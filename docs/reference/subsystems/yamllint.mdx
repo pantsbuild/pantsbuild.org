@@ -195,6 +195,21 @@ Name of a config file understood by yamllint (https://yamllint.readthedocs.io/en
 
 </Option>
 
+### `orphan_files_behavior`
+
+<Option
+  cli_repr={`--yamllint-orphan-files-behavior=<OrphanFilepathConfigBehavior>`}
+  env_repr='PANTS_YAMLLINT_ORPHAN_FILES_BEHAVIOR'
+  toml_repr={`[yamllint]
+orphan_files_behavior = <OrphanFilepathConfigBehavior>`}
+  one_of='ignore, error, warn'
+  default_repr={`ignore`}
+>
+
+Whether to ignore, error or show a warning when files are found that are not covered by the config file provided in `[yamllint].config_file_name` setting.
+
+</Option>
+
 ## Deprecated options
 
 None
