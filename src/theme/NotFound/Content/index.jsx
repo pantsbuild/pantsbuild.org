@@ -41,27 +41,28 @@ export default function NotFoundContent({ className }) {
             {() => {
               const location = useLocation();
               const estimatedSearchQuery = estimateSearch(location);
-              location.pathname.startsWith("/v1") ? (
-                <p>
-                  The V1 Pants docs can be found at{" "}
-                  <Link to="https://v1.pantsbuild.org/">
-                    https://v1.pantsbuild.org/
-                  </Link>
-                </p>
-              ) : (
+              return (
                 <span>
-                  <p>
-                    Try a{" "}
-                    <Link
-                      to={`/search?q=${encodeURIComponent(
-                        estimatedSearchQuery
-                      )}`}
-                    >
-                      search for '{estimatedSearchQuery}'
-                    </Link>
-                    ?
-                  </p>
-                  ; }
+                  {location.pathname.startsWith("/v1") ? (
+                    <p>
+                      The V1 Pants docs can be found at{" "}
+                      <Link to="https://v1.pantsbuild.org/">
+                        https://v1.pantsbuild.org/
+                      </Link>
+                    </p>
+                  ) : (
+                    <p>
+                      Try a{" "}
+                      <Link
+                        to={`/search?q=${encodeURIComponent(
+                          estimatedSearchQuery
+                        )}`}
+                      >
+                        search for '{estimatedSearchQuery}'
+                      </Link>
+                      ?
+                    </p>
+                  )}
                   <p>
                     Otherwise, if you think this is a mistake, please file an
                     issue at{" "}
