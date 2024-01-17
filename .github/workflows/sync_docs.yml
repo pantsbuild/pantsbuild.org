@@ -73,7 +73,10 @@ jobs:
         if: endsWith(inputs.version, "a0")
         run: |
           BASE_VERSION=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2/')
-          npm run docusaurus docs:version $BASE_VERSION
+          # Check if the directory already exists, this might be a re-run.
+          if [ ! -d "versioned_docs/version-$BASE_VERSION" ]; then
+            npm run docusaurus docs:version $BASE_VERSION
+          fi
         working-directory: pantsbuild.org
 
       # Calculate destination
