@@ -1,0 +1,63 @@
+---
+title: cue_package
+description: |
+  The `cue_package` target defines a CUE package. Within a module, CUE organizes files grouped by package. A package can be defined within the module or externally. Definitions and constraints can be split across files within a package, and even organized across directories.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The `cue_package` target defines a CUE package. Within a module, CUE organizes files grouped by package. A package can be defined within the module or externally. Definitions and constraints can be split across files within a package, and even organized across directories.
+
+CUE docs: https://cuelang.org/docs/concepts/packages/
+
+Backend: <span className="color--primary">`pants.backend.experimental.cue`</span>
+
+---
+
+<span className={styles.options}>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.cue',)`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['schema.cue', 'lib/**/*.cue']`
+
+</Field>
+
+</span>
