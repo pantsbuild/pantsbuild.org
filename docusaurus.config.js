@@ -40,6 +40,8 @@ const formatCopyright = () => {
 
   // Only set by CI, so fallback to just `local` for local dev
   const docsCommit = process.env.GITHUB_SHA;
+  // NB: The full SHA is grepped by our deployment script to know when the site has been updated "live"
+  //  so it can trigger a reindex of the crawler.
   const commitLink = docsCommit
     ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
     : "local";

@@ -11,12 +11,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   deploy:
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -55,6 +54,32 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+  reindex:
+    runs-on: ubuntu-22.04
+    needs: deploy
+    steps:
+      - name: Wait for deployment to propagate
+        run: |
+          TIMEOUT_S=300
+          SLEEP_S=5
+
+          while [ $TIMEOUT_S -gt 0 ]; do
+            if curl -s http://www.pantsbuild.org | grep -q "$GITHUB_SHA"; then
+              echo "Found ref! Continuing on."
+              break
+            fi
+
+            echo "Ref not found yet, sleeping for $SLEEP_S seconds"
+            sleep $SLEEP_S
+            TIMEOUT_S=$((TIMEOUT_S-SLEEP_S))
+          done
+
+          if [ $TIMEOUT_S -le 0 ]; then
+            echo "TIMEOUT_S reached, failing!"
+            echo "::error::Timeout waiting for deploy"
+            exit 1
+          fi
 
       # See https://www.algolia.com/doc/rest-api/crawler/#reindex-with-a-crawler
       - name: Kickoff a crawl
