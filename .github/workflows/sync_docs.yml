@@ -50,22 +50,7 @@ jobs:
           fetch-depth: 0
           path: pantsbuild.org
 
-      # Calculate destination
-      - name: Calculate destination
-        id: get-destination-dir
-        run: |
-          BASE_VERSION=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2/')
-          DESTINATION_DIR="versioned_docs/version-$BASE_VERSION"
-          if [ ! -d "pantsbuild.org/$DESTINATION_DIR" ]; then
-            DESTINATION_DIR="docs"
-          fi
-          echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" | tee -a "${GITHUB_OUTPUT}"
-      - run: |
-          rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
-          mkdir -p "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
-          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
-
-      # Generate reference docs
+      # Setup `node` and friends
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -82,6 +67,31 @@ jobs:
             ${{ runner.os }}-website-
       - run: yarn install --frozen-lockfile
         working-directory: pantsbuild.org
+
+      # Make a new version, if required
+      - name: Make a new version
+        if: endsWith(inputs.version, "a0")
+        run: |
+          BASE_VERSION=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2/')
+          npm run docusaurus docs:version $BASE_VERSION
+        working-directory: pantsbuild.org
+
+      # Calculate destination
+      - name: Calculate destination
+        id: get-destination-dir
+        run: |
+          BASE_VERSION=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2/')
+          DESTINATION_DIR="versioned_docs/version-$BASE_VERSION"
+          if [ ! -d "pantsbuild.org/$DESTINATION_DIR" ]; then
+            DESTINATION_DIR="docs"
+          fi
+          echo "DESTINATION_DIR=$(echo "$DESTINATION_DIR")" | tee -a "${GITHUB_OUTPUT}"
+      - run: |
+          rm -rf "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+          mkdir -p "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
+          cp help-all.json "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}/reference"
+
+      # Generate reference docs
       - name: Generate reference docs
         run: npm run generate-reference "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
         working-directory: pantsbuild.org
