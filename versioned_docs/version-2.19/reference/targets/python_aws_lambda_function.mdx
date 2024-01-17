@@ -107,6 +107,19 @@ N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default 
 
 </Field>
 
+## `pex3_venv_create_extra_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Any extra arguments to pass to the `pex3 venv create` invocation that is used to create the final zip file.
+
+For example, `pex3_venv_create_extra_args=["--collisions-ok"]`, if using packages that have colliding files that aren&#x27;t required at runtime (errors like &#x22;Encountered collisions populating ...&#x22;).
+
+</Field>
+
 ## `resolve`
 
 <Field

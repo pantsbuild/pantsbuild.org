@@ -435,8 +435,6 @@ This option requires BuildKit to be enabled via the Docker subsystem options.
 
 When using `pants publish` to publish Docker images to a registry, the output type must be &#x27;docker&#x27;, as `publish` expects that the built images exist in the local image store.
 
-Currently, multi-platform images cannot be exported with the &#x27;docker&#x27; export type, although experimental support is available with the [containerd image store](https://docs.docker.com/desktop/containerd/)
-
 Values may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
 </Field>
