@@ -1175,15 +1175,15 @@ export default [
   },
   {
     from: "/docs/remote-caching-execution",
-    to: "/2.18/docs/using-pants/remote-caching-&-execution",
+    to: "/2.18/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/docs/remote-caching",
-    to: "/2.18/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.18/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/docs/remote-execution",
-    to: "/2.18/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.18/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/docs/restricted-internet-access",
@@ -3345,15 +3345,15 @@ export default [
   },
   {
     from: "/v2.10/docs/remote-caching-execution",
-    to: "/2.10/docs/using-pants/remote-caching-&-execution",
+    to: "/2.10/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.10/docs/remote-caching",
-    to: "/2.10/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.10/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.10/docs/remote-execution",
-    to: "/2.10/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.10/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.10/docs/restricted-internet-access",
@@ -4350,15 +4350,15 @@ export default [
   },
   {
     from: "/v2.11/docs/remote-caching-execution",
-    to: "/2.11/docs/using-pants/remote-caching-&-execution",
+    to: "/2.11/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.11/docs/remote-caching",
-    to: "/2.11/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.11/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.11/docs/remote-execution",
-    to: "/2.11/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.11/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.11/docs/restricted-internet-access",
@@ -5411,15 +5411,15 @@ export default [
   },
   {
     from: "/v2.12/docs/remote-caching-execution",
-    to: "/2.12/docs/using-pants/remote-caching-&-execution",
+    to: "/2.12/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.12/docs/remote-caching",
-    to: "/2.12/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.12/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.12/docs/remote-execution",
-    to: "/2.12/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.12/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.12/docs/restricted-internet-access",
@@ -6505,15 +6505,15 @@ export default [
   },
   {
     from: "/v2.13/docs/remote-caching-execution",
-    to: "/2.13/docs/using-pants/remote-caching-&-execution",
+    to: "/2.13/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.13/docs/remote-caching",
-    to: "/2.13/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.13/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.13/docs/remote-execution",
-    to: "/2.13/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.13/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.13/docs/restricted-internet-access",
@@ -7627,15 +7627,15 @@ export default [
   },
   {
     from: "/v2.14/docs/remote-caching-execution",
-    to: "/2.14/docs/using-pants/remote-caching-&-execution",
+    to: "/2.14/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.14/docs/remote-caching",
-    to: "/2.14/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.14/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.14/docs/remote-execution",
-    to: "/2.14/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.14/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.14/docs/restricted-internet-access",
@@ -8818,15 +8818,15 @@ export default [
   },
   {
     from: "/v2.15/docs/remote-caching-execution",
-    to: "/2.15/docs/using-pants/remote-caching-&-execution",
+    to: "/2.15/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.15/docs/remote-caching",
-    to: "/2.15/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.15/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.15/docs/remote-execution",
-    to: "/2.15/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.15/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.15/docs/restricted-internet-access",
@@ -10093,15 +10093,15 @@ export default [
   },
   {
     from: "/v2.16/docs/remote-caching-execution",
-    to: "/2.16/docs/using-pants/remote-caching-&-execution",
+    to: "/2.16/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.16/docs/remote-caching",
-    to: "/2.16/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.16/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.16/docs/remote-execution",
-    to: "/2.16/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.16/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.16/docs/restricted-internet-access",
@@ -11384,15 +11384,15 @@ export default [
   },
   {
     from: "/v2.17/docs/remote-caching-execution",
-    to: "/2.17/docs/using-pants/remote-caching-&-execution",
+    to: "/2.17/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.17/docs/remote-caching",
-    to: "/2.17/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.17/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.17/docs/remote-execution",
-    to: "/2.17/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.17/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.17/docs/restricted-internet-access",
@@ -12707,15 +12707,15 @@ export default [
   },
   {
     from: "/v2.18/docs/remote-caching-execution",
-    to: "/2.18/docs/using-pants/remote-caching-&-execution",
+    to: "/2.18/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.18/docs/remote-caching",
-    to: "/2.18/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.18/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.18/docs/remote-execution",
-    to: "/2.18/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.18/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.18/docs/restricted-internet-access",
@@ -14042,15 +14042,15 @@ export default [
   },
   {
     from: "/v2.19/docs/remote-caching-execution",
-    to: "/2.19/docs/using-pants/remote-caching-&-execution",
+    to: "/2.19/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.19/docs/remote-caching",
-    to: "/2.19/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.19/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.19/docs/remote-execution",
-    to: "/2.19/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.19/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.19/docs/restricted-internet-access",
@@ -15235,15 +15235,15 @@ export default [
   },
   {
     from: "/v2.3/docs/remote-caching-execution",
-    to: "/2.3/docs/using-pants/remote-caching-&-execution",
+    to: "/2.3/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.3/docs/remote-caching",
-    to: "/2.3/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.3/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.3/docs/remote-execution",
-    to: "/2.3/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.3/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.3/docs/resources",
@@ -15843,15 +15843,15 @@ export default [
   },
   {
     from: "/v2.4/docs/remote-caching-execution",
-    to: "/2.4/docs/using-pants/remote-caching-&-execution",
+    to: "/2.4/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.4/docs/remote-caching",
-    to: "/2.4/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.4/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.4/docs/remote-execution",
-    to: "/2.4/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.4/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.4/docs/resources",
@@ -16464,15 +16464,15 @@ export default [
   },
   {
     from: "/v2.5/docs/remote-caching-execution",
-    to: "/2.5/docs/using-pants/remote-caching-&-execution",
+    to: "/2.5/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.5/docs/remote-caching",
-    to: "/2.5/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.5/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.5/docs/remote-execution",
-    to: "/2.5/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.5/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.5/docs/resources",
@@ -17090,15 +17090,15 @@ export default [
   },
   {
     from: "/v2.6/docs/remote-caching-execution",
-    to: "/2.6/docs/using-pants/remote-caching-&-execution",
+    to: "/2.6/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.6/docs/remote-caching",
-    to: "/2.6/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.6/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.6/docs/remote-execution",
-    to: "/2.6/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.6/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.6/docs/resources",
@@ -17746,15 +17746,15 @@ export default [
   },
   {
     from: "/v2.7/docs/remote-caching-execution",
-    to: "/2.7/docs/using-pants/remote-caching-&-execution",
+    to: "/2.7/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.7/docs/remote-caching",
-    to: "/2.7/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.7/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.7/docs/remote-execution",
-    to: "/2.7/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.7/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.7/docs/resources",
@@ -18551,15 +18551,15 @@ export default [
   },
   {
     from: "/v2.8/docs/remote-caching-execution",
-    to: "/2.8/docs/using-pants/remote-caching-&-execution",
+    to: "/2.8/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.8/docs/remote-caching",
-    to: "/2.8/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.8/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.8/docs/remote-execution",
-    to: "/2.8/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.8/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.8/docs/resources",
@@ -19440,15 +19440,15 @@ export default [
   },
   {
     from: "/v2.9/docs/remote-caching-execution",
-    to: "/2.9/docs/using-pants/remote-caching-&-execution",
+    to: "/2.9/docs/using-pants/remote-caching-execution",
   },
   {
     from: "/v2.9/docs/remote-caching",
-    to: "/2.9/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.9/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.9/docs/remote-execution",
-    to: "/2.9/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.9/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.9/docs/resources",
@@ -19674,11 +19674,11 @@ export default [
   },
   {
     from: "/v2.20/docs/remote-caching",
-    to: "/2.20/docs/using-pants/remote-caching-&-execution/remote-caching",
+    to: "/2.20/docs/using-pants/remote-caching-execution/remote-caching",
   },
   {
     from: "/v2.20/docs/remote-execution",
-    to: "/2.20/docs/using-pants/remote-caching-&-execution/remote-execution",
+    to: "/2.20/docs/using-pants/remote-caching-execution/remote-execution",
   },
   {
     from: "/v2.20/docs/environments",
