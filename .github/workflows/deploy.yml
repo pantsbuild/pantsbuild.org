@@ -55,6 +55,9 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v2
 
+  # NB: We use a separate job so we don't hog the single spot dedicated to building/deploying
+  # (since we set `concurrency` on that job). As more things merge, they can start building/deploying
+  # while this spins.
   reindex:
     runs-on: ubuntu-22.04
     needs: deploy
