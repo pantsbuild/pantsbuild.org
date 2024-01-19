@@ -87,18 +87,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
-## `skip_pytype`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.typecheck.pytype"
->
-
-If true, don&#x27;t run pytype on this target&#x27;s code.
-
-</Field>
-
 ## `skip_pydocstyle`
 
 <Field
@@ -111,39 +99,15 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 </Field>
 
-## `skip_black`
+## `skip_autoflake`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.black"
+    backend="pants.backend.python.lint.autoflake"
 >
 
-If true, don&#x27;t run Black on this target&#x27;s code.
-
-</Field>
-
-## `skip_ruff`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.ruff"
->
-
-If true, don&#x27;t run ruff on this target&#x27;s code.
-
-</Field>
-
-## `skip_add_trailing_comma`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.add_trailing_comma"
->
-
-If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
+If true, don&#x27;t run Autoflake on this target&#x27;s code.
 
 </Field>
 
@@ -159,15 +123,15 @@ If true, don&#x27;t run Flake8 on this target&#x27;s code.
 
 </Field>
 
-## `skip_isort`
+## `skip_pytype`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.isort"
+    backend="pants.backend.experimental.python.typecheck.pytype"
 >
 
-If true, don&#x27;t run isort on this target&#x27;s code.
+If true, don&#x27;t run pytype on this target&#x27;s code.
 
 </Field>
 
@@ -183,15 +147,111 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
 
-## `skip_autoflake`
+## `skip_pylint`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.autoflake"
+    backend="pants.backend.python.lint.pylint"
 >
 
-If true, don&#x27;t run Autoflake on this target&#x27;s code.
+If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_mypy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
+## `skip_add_trailing_comma`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.add_trailing_comma"
+>
+
+If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
+
+</Field>
+
+## `skip_black`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.black"
+>
+
+If true, don&#x27;t run Black on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pyupgrade"
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+</Field>
+
+## `skip_ruff`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.ruff"
+>
+
+If true, don&#x27;t run ruff on this target&#x27;s code.
+
+</Field>
+
+## `skip_yapf`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.yapf"
+>
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
+
+</Field>
+
+## `skip_isort`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.isort"
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
+</Field>
+
+## `skip_docformatter`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.docformatter"
+>
+
+If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
 
@@ -215,63 +275,15 @@ The stevedore namespace format (`my.stevedore.extension`) is similar to a Python
 
 </Field>
 
-## `skip_mypy`
+## `skip_pyright`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.typecheck.mypy"
+    backend="pants.backend.experimental.python.typecheck.pyright"
 >
 
-If true, don&#x27;t run MyPy on this target&#x27;s code.
-
-</Field>
-
-## `skip_docformatter`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.docformatter"
->
-
-If true, don&#x27;t run Docformatter on this target&#x27;s code.
-
-</Field>
-
-## `skip_pyupgrade`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.pyupgrade"
->
-
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
-
-</Field>
-
-## `skip_yapf`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.yapf"
->
-
-If true, don&#x27;t run yapf on this target&#x27;s code.
-
-</Field>
-
-## `skip_pylint`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.pylint"
->
-
-If true, don&#x27;t run Pylint on this target&#x27;s code.
+If true, don&#x27;t run Pyright on this target&#x27;s code.
 
 </Field>
 
