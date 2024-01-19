@@ -40,6 +40,14 @@ jobs:
           key: ${{ runner.os }}-website-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-website-
+      - name: Cache Docusaurus Build
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache/webpack
+          key: docusaurus-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            docusaurus-${{ github.ref_name }}
+            docusaurus-main
 
       - run: yarn install --frozen-lockfile
       - run: npm run build
