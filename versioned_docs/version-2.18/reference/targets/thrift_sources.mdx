@@ -86,6 +86,32 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
+## `finagle`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.codegen.thrift.scrooge.java"
+>
+
+If True, then also generate Finagle classes for services when using Scrooge as the Thrift generator.
+
+</Field>
+
+## `jvm_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.thrift.apache.java"
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
 ## `python_resolve`
 
 <Field
@@ -99,6 +125,18 @@ The resolve from `[python].resolves` to use.
 If not defined, will default to `[python].default_resolve`.
 
 All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.thrift.apache.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
 

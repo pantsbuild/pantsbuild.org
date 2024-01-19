@@ -228,18 +228,6 @@ If undefined, this defaults to the empty path, i.e. the output goes at the top l
 
 </Field>
 
-## `skip_twine`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python"
->
-
-If true, don&#x27;t publish this target&#x27;s packages using Twine.
-
-</Field>
-
 ## `uses_mypyc`
 
 <Field
@@ -253,6 +241,18 @@ If true, this distribution is built using mypyc.
 In this case, Pants will build the distribution in an environment that includes mypy, as configured in the `[mypy]` subsystem, including plugins, config files, extra type stubs, and the distribution&#x27;s own requirements (which normally would not be needed at build time, but in this case may provide necessary type annotations).
 
 You will typically set this field on distributions whose `setup.py` uses `mypyc.build.mypycify()`. See https://mypyc.readthedocs.io/en/latest/index.html .
+
+</Field>
+
+## `skip_twine`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python"
+>
+
+If true, don&#x27;t publish this target&#x27;s packages using Twine.
 
 </Field>
 
