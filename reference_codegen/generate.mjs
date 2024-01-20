@@ -240,6 +240,13 @@ helpAll.scope_to_help_info[""].basic.forEach((option) => {
 Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
   info.description = convertDescription(info.description);
   info.short_description = info.description.split("\n")[0];
+
+  if (scope === "environments-preview") {
+    // NB: Workaround a bug in Pants' generation.
+    // See https://github.com/pantsbuild/pantsbuild.org/pull/128#discussion_r1454429425
+    info.provider = "pants.core";
+  }
+
   ["basic", "advanced", "deprecated"].forEach((optionsType) => {
     info[optionsType].forEach((option) => {
       option.default = convertDefault(option.default, option.typ);
