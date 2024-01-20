@@ -101,4 +101,16 @@ Example: `var_files=['common.tfvars', 'prod.tfvars']`
 
 </Field>
 
+## `skip_terraform_validate`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.terraform"
+>
+
+If true, don&#x27;t run `terraform validate` on this target&#x27;s code. If this target is a module, `terraform validate might still be run on a `terraform_deployment that references this module.
+
+</Field>
+
 </span>

@@ -87,18 +87,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
-## `skip_shellcheck`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.shell.lint.shellcheck"
->
-
-If true, don&#x27;t run Shellcheck on this target&#x27;s code.
-
-</Field>
-
 ## `skip_shfmt`
 
 <Field
@@ -108,6 +96,18 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
+
+</Field>
+
+## `skip_shellcheck`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.shell.lint.shellcheck"
+>
+
+If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 
 </Field>
 

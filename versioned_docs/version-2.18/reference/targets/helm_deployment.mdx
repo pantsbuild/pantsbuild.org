@@ -199,4 +199,88 @@ Enables DNS lookups when using the `getHostByName` template function.
 
 </Field>
 
+## `kubeconform_kubernetes_version`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Kubernetes version to use for the validation.
+
+</Field>
+
+## `skip_kubeconform`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+If set to true, do not run any kubeconform checking in this Helm target when running `pants check`.
+
+</Field>
+
+## `kubeconform_reject_kinds`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+List of kinds or GVKs to reject.
+
+</Field>
+
+## `kubeconform_strict`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Run Kubeconform in strict mode.
+
+</Field>
+
+## `kubeconform_skip_kinds`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+List of kinds or GVKs to ignore.
+
+</Field>
+
+## `kubeconform_ignore_missing_schemas`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Whether to fail if there are missing schemas for custom resources.
+
+</Field>
+
+## `kubeconform_ignore_sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Regular expression patterns specifying paths to ignore.
+
+</Field>
+
 </span>

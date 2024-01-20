@@ -1,0 +1,184 @@
+---
+title: cc
+description: |
+  Options for a system-discovered `cc` toolchain.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for a system-discovered `cc` toolchain.
+
+Backend: <span className="color--primary">`pants.backend.experimental.cc`</span>
+
+Config section: <span className="color--primary">`[cc]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `include_directories`
+
+<Option
+  cli_repr={`--cc-include-directories="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_INCLUDE_DIRECTORIES'
+  toml_repr={`[cc]
+include_directories = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+A list of include directories passed to the compiler. Will be prefixed by -I at the command line. These flags are merged with the target-level includes, with the target-level includes taking precedence.
+
+</Option>
+
+### `c_compiler_flags`
+
+<Option
+  cli_repr={`--cc-c-compiler-flags="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_C_COMPILER_FLAGS'
+  toml_repr={`[cc]
+c_compiler_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "-std=c11"\n]`}
+>
+
+Flags passed to the C compiler. These flags are merged with the target-level defines, with the target-level flags taking precedence.
+
+</Option>
+
+### `c_definitions`
+
+<Option
+  cli_repr={`--cc-c-definitions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_C_DEFINITIONS'
+  toml_repr={`[cc]
+c_definitions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+A list of strings to define in the C preprocessor. Will be prefixed by -D at the command line. These defines are merged with the target-level defines, with the target-level definitions taking precedence.
+
+</Option>
+
+### `cxx_compiler_flags`
+
+<Option
+  cli_repr={`--cc-cxx-compiler-flags="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_CXX_COMPILER_FLAGS'
+  toml_repr={`[cc]
+cxx_compiler_flags = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "-std=c++11"\n]`}
+>
+
+Flags passed to the C++ compiler. These flags are merged with the target-level defines, with the target-level flags taking precedence.
+
+</Option>
+
+### `cxx_definitions`
+
+<Option
+  cli_repr={`--cc-cxx-definitions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_CXX_DEFINITIONS'
+  toml_repr={`[cc]
+cxx_definitions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+A list of strings to define in the C++ preprocessor. Will be prefixed by -D at the command line. These defines are merged with the target-level defines, with the target-level definitions taking precedence.
+
+</Option>
+
+### `c_executable`
+
+<Option
+  cli_repr={`--cc-c-executable="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_C_EXECUTABLE'
+  toml_repr={`[cc]
+c_executable = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "clang",\n  "gcc"\n]`}
+>
+
+A list of binary names for the C compiler (in the `search_paths`). The list is searched in order until a compiler is found.
+
+</Option>
+
+### `cxx_executable`
+
+<Option
+  cli_repr={`--cc-cxx-executable="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_CXX_EXECUTABLE'
+  toml_repr={`[cc]
+cxx_executable = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "clang++",\n  "g++"\n]`}
+>
+
+A list of binary names for the C compiler (in the `search_paths`). The list is searched in order until a compiler is found.
+
+</Option>
+
+### `search_paths`
+
+<Option
+  cli_repr={`--cc-search-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_SEARCH_PATHS'
+  toml_repr={`[cc]
+search_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "<PATH>"\n]`}
+>
+
+A list of paths to search for CC toolchain binaries.
+
+Specify absolute paths to directories, e.g. `/usr/bin`. Earlier entries will be searched first.
+
+The following special strings are supported:
+
+- `<PATH>`, the contents of the PATH environment variable
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
