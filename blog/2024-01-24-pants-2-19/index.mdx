@@ -5,9 +5,9 @@
 
 # Pants 2.19.0 is released!
 
-
 <CaptionedImg src={require("./splash.jpeg").default}>
-  Photo by [Erol Ahmed](https://unsplash.com/@erol?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+  Photo by [Erol
+  Ahmed](https://unsplash.com/@erol?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
   /
   [Unsplash](https://unsplash.com/photos/mountains-covered-with-snow-d3pTF3r_hwY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 </CaptionedImg>
@@ -16,18 +16,17 @@
 
 We're pleased to announce Pants 2.19.0, the latest release of [Pantsbuild, the scalable and ergonomic build system](https://www.pantsbuild.org/). To update, set `pants_version = "2.19.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](https://www.pantsbuild.org/docs/getting-started).
 
-
-*Highlights in 2.19 include*:
+_Highlights in 2.19 include_:
 
 - New backends: `semgrep` and `openapi-format`
 - Test retries for flaky Python tests
 - `buildx` support in the Docker backend
 - Using `parametrize` to set multiple fields in tandem
--  And lots of smaller features, bugfixes, and general improvements
+- And lots of smaller features, bugfixes, and general improvements
 
 Keep reading to see more, or check the [full changelog](https://github.com/pantsbuild/pants/tree/main/src/python/pants/notes/2.19.x.md). Pants is an open-source project, and the below changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a contributor.
 
-We also offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/sponsorship), as well as individual sponsorships via [GitHub](https://github.com/sponsors/pantsbuild).  These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+We also offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/sponsorship), as well as individual sponsorships via [GitHub](https://github.com/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
 
 ### New backends and subsystems
 
@@ -45,7 +44,6 @@ Python tests can now be [attempted multiple times](https://www.pantsbuild.org/2.
 
 This functionality can be added to any other language with fairly little work. Do you want automatic retries for Scala, Go, or another language Pants supports? Come chat to us in [#development with Slack](https://pantsbuild.slack.com).
 
-
 ### Docker improvements
 
 The [docker backend](https://www.pantsbuild.org/2.19/docs/docker) now has explicit support for using [`buildx` (and thus BuildKit)](https://github.com/docker/buildx#buildx), via [the new `use_buildx` option](https://www.pantsbuild.org/2.19/reference/subsystems/docker#use_buildx). This also allows adding few additional fields for [`docker_image` targets](https://www.pantsbuild.org/2.19/reference/targets/docker_image), for `buildx`-specific functionality:
@@ -55,9 +53,7 @@ The [docker backend](https://www.pantsbuild.org/2.19/docs/docker) now has explic
 
 ### Improved `parametrize` for tied options
 
-
 [The `parametrize` helper](https://www.pantsbuild.org/2.19/docs/using-pants/key-concepts/targets-and-build-files#field-default-values#parametrizing-targets) now supports parametrizing multiple fields together, in lock step. For instance:
-
 
 ```python
 # Creates two targets:
@@ -76,7 +72,6 @@ python_test(
 In addition, `parametrize` can now be used with a single value (`field=parametrize("for-consistency")`), and now works on target generations in more cases (particularly those with "plugin" fields).
 
 ### Other noteworthy changes
-
 
 - New versions of [the `get-pants.sh` script](https://www.pantsbuild.org/2.19/docs/getting-started/installing-pants) install to `~/.local/bin`, not `~/bin`. Remember to update your CI pipelines!
 - Environment variables that aren't valid UTF-8 no longer cause Pants to crash (note, `PANTS_...` environment variables that Pants needs to read but aren't UTF-8 will be ignored).
