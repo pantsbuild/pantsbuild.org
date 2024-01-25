@@ -42,7 +42,7 @@ In this release, we welcome two new backends and one new subsystem.
 
 Python tests can now be [attempted multiple times](https://www.pantsbuild.org/2.19/docs/using-pants/using-pants-in-ci#tip-automatically-retry-failed-tests), if they fail. This can help with limiting the impact of flaky tests. For instance, to require tests to fail three times before the overall `pants test` goal fails, set [`[test].attempts_default = 3`](https://www.pantsbuild.org/2.19/reference/goals/test#attempts_default). In this case, a very flaky test might fail on the first and second runs but finally pass on the third run, and thus the overall Pants invocation would pass.
 
-This functionality can be added to any other language with not much extra work. Do you want automatic retries for Scala, Go, or another language Pants supports? Check out the [tracking issue](https://github.com/pantsbuild/pants/issues/20378) and come chat with us in [#development with Slack](https://docs.google.com/forms/d/e/1FAIpQLSf9zgf-MXRnVDJbrVEST3urqneq7LCcy0zw8qU-GH4hPMn52A/viewform).
+This functionality can be added to any other language with not much extra work. Do you want automatic retries for Scala, Go, or another language Pants supports? Check out the [tracking issue](https://github.com/pantsbuild/pants/issues/20378) and come chat with us in [#development on Slack](https://docs.google.com/forms/d/e/1FAIpQLSf9zgf-MXRnVDJbrVEST3urqneq7LCcy0zw8qU-GH4hPMn52A/viewform).
 
 ### Docker improvements
 
