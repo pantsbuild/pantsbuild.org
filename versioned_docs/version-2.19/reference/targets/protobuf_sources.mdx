@@ -113,6 +113,22 @@ If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
+## `go_mod_address`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.go"
+>
+
+Address of the `go_mod` target representing the Go module that this target is part of.
+
+This field is similar to the `resolve` field used in the Python and JVM backends. If a codegen target such as `protobuf_sources` will be used in multiple Go modules, then you should use the `parametrize` built-in to parametrize that `protobuf_sources` target for each Go module.
+
+If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
+
+</Field>
+
 ## `jvm_jdk`
 
 <Field
@@ -137,19 +153,18 @@ If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 </Field>
 
-## `go_mod_address`
+## `python_resolve`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.go"
 >
 
-Address of the `go_mod` target representing the Go module that this target is part of.
+The resolve from `[python].resolves` to use.
 
-This field is similar to the `resolve` field used in the Python and JVM backends. If a codegen target such as `protobuf_sources` will be used in multiple Go modules, then you should use the `parametrize` built-in to parametrize that `protobuf_sources` target for each Go module.
+If not defined, will default to `[python].default_resolve`.
 
-If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
+All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
@@ -182,21 +197,6 @@ Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPyt
 If the field is not set, it will default to the option `[python].interpreter_constraints`.
 
 See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
-
-</Field>
-
-## `python_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
 
 </Field>
 

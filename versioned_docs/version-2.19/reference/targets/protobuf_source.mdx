@@ -102,6 +102,20 @@ If true, don&#x27;t run `buf format` on this target&#x27;s code.
 
 </Field>
 
+## `python_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The source root to generate Python sources under.
+
+If unspecified, the source root the `protobuf_sources` is under will be used.
+
+</Field>
+
 ## `python_interpreter_constraints`
 
 <Field
@@ -119,6 +133,22 @@ Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPyt
 If the field is not set, it will default to the option `[python].interpreter_constraints`.
 
 See https://www.pantsbuild.org/v2.19/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
+</Field>
+
+## `python_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
@@ -164,20 +194,6 @@ The major version of the JDK that this target should be built with. If not defin
 
 </Field>
 
-## `python_source_root`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The source root to generate Python sources under.
-
-If unspecified, the source root the `protobuf_sources` is under will be used.
-
-</Field>
-
 ## `skip_buf_lint`
 
 <Field
@@ -187,22 +203,6 @@ If unspecified, the source root the `protobuf_sources` is under will be used.
 >
 
 If true, don&#x27;t run `buf lint` on this target&#x27;s code.
-
-</Field>
-
-## `python_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
 
 </Field>
 

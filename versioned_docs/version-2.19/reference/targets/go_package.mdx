@@ -201,15 +201,15 @@ If true, don&#x27;t run this package&#x27;s tests.
 
 </Field>
 
-## `skip_gofmt`
+## `skip_go_vet`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.experimental.go"
+    backend="pants.backend.experimental.go.lint.vet"
 >
 
-If true, don&#x27;t run gofmt on this package.
+If true, don&#x27;t run `go vet` on this target&#x27;s code.
 
 </Field>
 
@@ -225,15 +225,15 @@ If true, don&#x27;t run `golangci-lint` on this target&#x27;s code.
 
 </Field>
 
-## `skip_go_vet`
+## `skip_gofmt`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.experimental.go.lint.vet"
+    backend="pants.backend.experimental.go"
 >
 
-If true, don&#x27;t run `go vet` on this target&#x27;s code.
+If true, don&#x27;t run gofmt on this package.
 
 </Field>
 
