@@ -310,12 +310,13 @@ const config = {
             ? {}
             : versions.reduce((acc, version, index) => {
                 acc[version] = {
-                  label:
-                    /^[0-9]\.[0-9]{2}.[0-9](a|rc|.dev)[0-9]+$/.test(version) // matches 1.23.4a5, 1.23.4rc5, 1.23.4.dev5, but not 1.23.4
-						? `${version} (prerelease)`
-                      : index < 3
-                        ? version
-                        : `${version} (deprecated)`,
+                  label: /^[0-9]\.[0-9]{2}.[0-9](a|rc|.dev)[0-9]+$/.test(
+                    version
+                  ) // matches 1.23.4a5, 1.23.4rc5, 1.23.4.dev5, but not 1.23.4
+                    ? `${version} (prerelease)`
+                    : index < 3
+                      ? version
+                      : `${version} (deprecated)`,
                   banner:
                     index == 0
                       ? "unreleased"
