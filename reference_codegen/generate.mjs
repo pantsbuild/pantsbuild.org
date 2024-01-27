@@ -258,13 +258,20 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
       }
       option.toml_repr = generateTomlRepr(option, scope);
     });
+
+    // sort the options to make the output deterministic
+	info[optionsType].sort((a, b) => a.config_key.localeCompare(b.config_key));
   });
 });
+
 Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   info.fields.forEach((field) => {
     field.default = convertDefault(field.default, field.typ);
     field.description = convertDescription(field.description);
   });
+
+  // sort the fields to make the output deterministic
+  info.fields.sort((a, b) => a.alias.localeCompare(b.alias));
 });
 
 ["goals", "subsystems", "targets"].forEach((name) =>
