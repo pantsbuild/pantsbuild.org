@@ -260,7 +260,7 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
     });
 
     // sort the options to make the output deterministic
-	info[optionsType].sort((a, b) => a.config_key.localeCompare(b.config_key));
+    info[optionsType].sort((a, b) => a.config_key.localeCompare(b.config_key));
   });
 });
 
@@ -272,14 +272,13 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
 
   // sort the fields to make the output deterministic
   info.fields.sort((a, b) => {
-
     if (a.required == b.required) {
       return a.alias.localeCompare(b.alias);
     }
 
     // sort required fields first
-	if (a.required && !b.required) return -1;
-	if (!a.required && b.required) return 1;
+    if (a.required && !b.required) return -1;
+    if (!a.required && b.required) return 1;
   });
 });
 
