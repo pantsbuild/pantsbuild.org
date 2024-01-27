@@ -63,3 +63,8 @@ stu:
   title: Pants Maintainer
   url: https://github.com/stuhood
   image_url: https://github.com/stuhood.png
+tomsolberg:
+  name: Tom Solberg
+  title: Pants Maintainer (and plugin developer)
+  url: https://github.com/tgolsson
+  image_url: https://github.com/tgolsson.png
