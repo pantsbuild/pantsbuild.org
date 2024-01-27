@@ -77,18 +77,6 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 </Field>
 
-## `jvm_jdk`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.avro.java"
->
-
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
-
-</Field>
-
 ## `jvm_resolve`
 
 <Field
@@ -100,6 +88,18 @@ The major version of the JDK that this target should be built with. If not defin
 The resolve from `[jvm].resolves` to use when compiling this target.
 
 If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.avro.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
 

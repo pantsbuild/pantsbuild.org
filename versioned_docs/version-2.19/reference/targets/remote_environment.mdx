@@ -107,7 +107,43 @@ However, it is only safe to set this to `True` if the remote execution environme
 
 </Field>
 
-## `golang_external_linker_binary_name`
+## `golang_cgo_tool_search_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[golang].cgo_tool_search_paths` when this environment target is active.
+
+</Field>
+
+## `golang_subprocess_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[golang].subprocess_env_vars` when this environment target is active.
+
+</Field>
+
+## `golang_cgo_c_flags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[golang].cgo_c_flags` when this environment target is active.
+
+</Field>
+
+## `golang_cgo_fortran_binary_name`
 
 <Field
     type_repr={`str | None`}
@@ -115,115 +151,7 @@ However, it is only safe to set this to `True` if the remote execution environme
     backend="pants.backend.experimental.go"
 >
 
-Overrides the default value from the option `[golang].external_linker_binary_name` when this environment target is active.
-
-</Field>
-
-## `nodejs_executable_search_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.javascript"
->
-
-Overrides the default value from the option `[nodejs].executable_search_paths` when this environment target is active.
-
-</Field>
-
-## `go_generate_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.go"
->
-
-Overrides the default value from the option `[go-generate].env_vars` when this environment target is active.
-
-</Field>
-
-## `golang_cgo_gxx_binary_name`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.go"
->
-
-Overrides the default value from the option `[golang].cgo_gxx_binary_name` when this environment target is active.
-
-</Field>
-
-## `golang_cgo_cxx_flags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.go"
->
-
-Overrides the default value from the option `[golang].cgo_cxx_flags` when this environment target is active.
-
-</Field>
-
-## `python_native_code_cpp_flags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.core"
->
-
-Overrides the default value from the option `[python-native-code].cpp_flags` when this environment target is active.
-
-</Field>
-
-## `pex_executable_search_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.core"
->
-
-Overrides the default value from the option `[pex].executable_search_paths` when this environment target is active.
-
-</Field>
-
-## `apache_thrift_thrift_search_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.thrift.apache.python"
->
-
-Overrides the default value from the option `[apache-thrift].thrift_search_paths` when this environment target is active.
-
-</Field>
-
-## `test_extra_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.core"
->
-
-Overrides the default value from the option `[test].extra_env_vars` when this environment target is active.
-
-</Field>
-
-## `system_binaries_system_binary_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.core"
->
-
-Overrides the default value from the option `[system-binaries].system_binary_paths` when this environment target is active.
+Overrides the default value from the option `[golang].cgo_fortran_binary_name` when this environment target is active.
 
 </Field>
 
@@ -239,6 +167,42 @@ Overrides the default value from the option `[docker].env_vars` when this enviro
 
 </Field>
 
+## `python_bootstrap_search_path`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.core"
+>
+
+Overrides the default value from the option `[python-bootstrap].search_path` when this environment target is active.
+
+</Field>
+
+## `golang_go_search_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[golang].go_search_paths` when this environment target is active.
+
+</Field>
+
+## `shell_setup_executable_search_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.shell"
+>
+
+Overrides the default value from the option `[shell-setup].executable_search_paths` when this environment target is active.
+
+</Field>
+
 ## `nodejs_search_path`
 
 <Field
@@ -251,15 +215,39 @@ Overrides the default value from the option `[nodejs].search_path` when this env
 
 </Field>
 
-## `golang_cgo_fortran_binary_name`
+## `python_native_code_cpp_flags`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.go"
+    backend="pants.core"
 >
 
-Overrides the default value from the option `[golang].cgo_fortran_binary_name` when this environment target is active.
+Overrides the default value from the option `[python-native-code].cpp_flags` when this environment target is active.
+
+</Field>
+
+## `test_extra_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.core"
+>
+
+Overrides the default value from the option `[test].extra_env_vars` when this environment target is active.
+
+</Field>
+
+## `python_bootstrap_names`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.core"
+>
+
+Overrides the default value from the option `[python-bootstrap].names` when this environment target is active.
 
 </Field>
 
@@ -287,6 +275,30 @@ Overrides the default value from the option `[golang].cgo_linker_flags` when thi
 
 </Field>
 
+## `system_binaries_system_binary_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.core"
+>
+
+Overrides the default value from the option `[system-binaries].system_binary_paths` when this environment target is active.
+
+</Field>
+
+## `go_generate_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[go-generate].env_vars` when this environment target is active.
+
+</Field>
+
 ## `golang_cgo_gcc_binary_name`
 
 <Field
@@ -296,78 +308,6 @@ Overrides the default value from the option `[golang].cgo_linker_flags` when thi
 >
 
 Overrides the default value from the option `[golang].cgo_gcc_binary_name` when this environment target is active.
-
-</Field>
-
-## `pyenv_python_provider_installation_extra_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.python.providers.experimental.pyenv"
->
-
-Overrides the default value from the option `[pyenv-python-provider].installation_extra_env_vars` when this environment target is active.
-
-</Field>
-
-## `golang_go_search_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.go"
->
-
-Overrides the default value from the option `[golang].go_search_paths` when this environment target is active.
-
-</Field>
-
-## `subprocess_environment_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.core"
->
-
-Overrides the default value from the option `[subprocess-environment].env_vars` when this environment target is active.
-
-</Field>
-
-## `golang_cgo_c_flags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.go"
->
-
-Overrides the default value from the option `[golang].cgo_c_flags` when this environment target is active.
-
-</Field>
-
-## `docker_executable_search_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.docker"
->
-
-Overrides the default value from the option `[docker].executable_search_paths` when this environment target is active.
-
-</Field>
-
-## `shell_setup_executable_search_paths`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.shell"
->
-
-Overrides the default value from the option `[shell-setup].executable_search_paths` when this environment target is active.
 
 </Field>
 
@@ -383,27 +323,27 @@ Overrides the default value from the option `[python-native-code].ld_flags` when
 
 </Field>
 
-## `python_bootstrap_names`
+## `golang_external_linker_binary_name`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.core"
->
-
-Overrides the default value from the option `[python-bootstrap].names` when this environment target is active.
-
-</Field>
-
-## `golang_subprocess_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
 
-Overrides the default value from the option `[golang].subprocess_env_vars` when this environment target is active.
+Overrides the default value from the option `[golang].external_linker_binary_name` when this environment target is active.
+
+</Field>
+
+## `golang_cgo_gxx_binary_name`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[golang].cgo_gxx_binary_name` when this environment target is active.
 
 </Field>
 
@@ -419,15 +359,15 @@ Overrides the default value from the option `[jvm].global_options` when this env
 
 </Field>
 
-## `python_bootstrap_search_path`
+## `docker_executable_search_paths`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.core"
+    backend="pants.backend.docker"
 >
 
-Overrides the default value from the option `[python-bootstrap].search_path` when this environment target is active.
+Overrides the default value from the option `[docker].executable_search_paths` when this environment target is active.
 
 </Field>
 
@@ -443,7 +383,67 @@ Overrides the default value from the option `[nodejs].corepack_env_vars` when th
 
 </Field>
 
-## `golang_cgo_tool_search_paths`
+## `apache_thrift_thrift_search_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.thrift.apache.python"
+>
+
+Overrides the default value from the option `[apache-thrift].thrift_search_paths` when this environment target is active.
+
+</Field>
+
+## `nodejs_executable_search_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.javascript"
+>
+
+Overrides the default value from the option `[nodejs].executable_search_paths` when this environment target is active.
+
+</Field>
+
+## `pex_executable_search_paths`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.core"
+>
+
+Overrides the default value from the option `[pex].executable_search_paths` when this environment target is active.
+
+</Field>
+
+## `subprocess_environment_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.core"
+>
+
+Overrides the default value from the option `[subprocess-environment].env_vars` when this environment target is active.
+
+</Field>
+
+## `pyenv_python_provider_installation_extra_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.python.providers.experimental.pyenv"
+>
+
+Overrides the default value from the option `[pyenv-python-provider].installation_extra_env_vars` when this environment target is active.
+
+</Field>
+
+## `golang_cgo_cxx_flags`
 
 <Field
     type_repr={`Iterable[str] | None`}
@@ -451,7 +451,7 @@ Overrides the default value from the option `[nodejs].corepack_env_vars` when th
     backend="pants.backend.experimental.go"
 >
 
-Overrides the default value from the option `[golang].cgo_tool_search_paths` when this environment target is active.
+Overrides the default value from the option `[golang].cgo_cxx_flags` when this environment target is active.
 
 </Field>
 

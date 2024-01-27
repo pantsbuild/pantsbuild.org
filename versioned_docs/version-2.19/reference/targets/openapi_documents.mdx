@@ -58,27 +58,27 @@ Example: `sources=['openapi.json']`
 
 </Field>
 
-## `skip_spectral`
+## `java_api_package`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
->
-
-If true, don&#x27;t run `spectral lint` on this target&#x27;s code.
-
-</Field>
-
-## `skip_java`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
+    type_repr={`str | None`}
+    default_repr={`None`}
     backend="pants.backend.experimental.openapi.codegen.java"
 >
 
-If true, skips generation of Java sources from this target
+Root package for generated API code
+
+</Field>
+
+## `java_model_package`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.java"
+>
+
+Root package for generated model code
 
 </Field>
 
@@ -96,15 +96,15 @@ If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
-## `java_api_package`
+## `skip_spectral`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.openapi.codegen.java"
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.openapi.lint.spectral"
 >
 
-Root package for generated API code
+If true, don&#x27;t run `spectral lint` on this target&#x27;s code.
 
 </Field>
 
@@ -120,15 +120,15 @@ The major version of the JDK that this target should be built with. If not defin
 
 </Field>
 
-## `java_model_package`
+## `skip_java`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`bool`}
+    default_repr={`False`}
     backend="pants.backend.experimental.openapi.codegen.java"
 >
 
-Root package for generated model code
+If true, skips generation of Java sources from this target
 
 </Field>
 
