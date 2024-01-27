@@ -312,7 +312,7 @@ const config = {
                 acc[version] = {
                   label:
                     index === 0
-                      ? `${version} (prerelease)`
+                      ? `${version}`
                       : index < 3
                         ? version
                         : `${version} (deprecated)`,
