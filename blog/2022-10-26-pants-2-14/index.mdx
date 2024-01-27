@@ -25,13 +25,13 @@ To update, set `pants_version = "2.14.0"` in your `pants.toml`. See [upgrade tip
 
 A key goal of Pants is reducing the amount of BUILD boilerplate that users have to maintain in order to quickly and reliably build their code. To that end, Pants `2.14` introduces [`__defaults__`](https://www.pantsbuild.org/v2.14/docs/targets#field-default-values): a mechanism to set the default arguments used for the targets defined in a directory.
 
-As an example: suppose that you wanted to use a non-default thirdparty `resolve` “spark3” for all targets in a particular subdirectory. To do that, you'd declare `__defaults__` in a `BUILD` file in that subdirectory:
+As an example: suppose that you wanted to use a non-default thirdparty `resolve` "spark3" for all targets in a particular subdirectory. To do that, you'd declare `__defaults__` in a `BUILD` file in that subdirectory:
 
 ```python title="BUILD"
-__defaults__(all=dict(resolve=”spark3”))
+__defaults__(all=dict(resolve="spark3"))
 ```
 
-… and then all targets defined at or below that BUILD file would default to using `resolve=”spark3”` (but could still override that default if they choose)!
+… and then all targets defined at or below that BUILD file would default to using `resolve="spark3”` (but could still override that default if they choose)!
 
 `__defaults__` also supports setting defaults for individual target types, or can be combined with `parametrize`. For more examples, see [the docs for `__defaults__`](https://www.pantsbuild.org/v2.14/docs/targets#field-default-values)!
 
