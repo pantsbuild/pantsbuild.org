@@ -271,7 +271,16 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 
   // sort the fields to make the output deterministic
-  info.fields.sort((a, b) => a.alias.localeCompare(b.alias));
+  info.fields.sort((a, b) => {
+
+    if (a.required == b.required) {
+      return a.alias.localeCompare(b.alias);
+    }
+
+    // sort required fields first
+	if (a.required && !b.required) return -1;
+	if (!a.required && b.required) return 1;
+  });
 });
 
 ["goals", "subsystems", "targets"].forEach((name) =>
