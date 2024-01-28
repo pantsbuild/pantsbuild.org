@@ -23,22 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--pex-cli-version=<str>`}
-  env_repr='PANTS_PEX_CLI_VERSION'
-  toml_repr={`[pex-cli]
-version = <str>`}
-  default_repr={`v2.1.148`}
->
-
-Use this version of pex.
-
-Supported pex versions: &#x3E;=2.1.135,&#x3C;3.0
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -74,22 +58,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
-
-<Option
-  cli_repr={`--pex-cli-url-template=<str>`}
-  env_repr='PANTS_PEX_CLI_URL_TEMPLATE'
-  toml_repr={`[pex-cli]
-url_template = <str>`}
-  default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.19/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -110,6 +78,22 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
+### `url_template`
+
+<Option
+  cli_repr={`--pex-cli-url-template=<str>`}
+  env_repr='PANTS_PEX_CLI_URL_TEMPLATE'
+  toml_repr={`[pex-cli]
+url_template = <str>`}
+  default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.19/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
 ### `use_unsupported_version`
 
 <Option
@@ -122,6 +106,22 @@ use_unsupported_version = <UnsupportedVersionUsage>`}
 >
 
 What action to take in case the requested version of pex is not supported.
+
+Supported pex versions: &#x3E;=2.1.135,&#x3C;3.0
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--pex-cli-version=<str>`}
+  env_repr='PANTS_PEX_CLI_VERSION'
+  toml_repr={`[pex-cli]
+version = <str>`}
+  default_repr={`v2.1.148`}
+>
+
+Use this version of pex.
 
 Supported pex versions: &#x3E;=2.1.135,&#x3C;3.0
 

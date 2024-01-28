@@ -21,73 +21,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `cgo_enabled`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Enable Cgo support, which allows Go and C code to interact. This option must be enabled for any packages making use of Cgo to actually be compiled with Cgo support.
-
-This field can be specified on several different target types, including `go_binary` and `go_mod` target types. If this field is specified on a `go_binary` target, then that instance takes precedence over other configuration when building the applicable executable. The applicable `go_mod` target will be checked next as a fallback. Finally, if neither target specifies this field, then the value will be taken from the value of the `[golang].cgo_enabled` option. (Note: That option will be deprecated in a future Pants version.)
-
-See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional information about Cgo.
-
-</Field>
-
-## `race`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Enable compiling the binary with the Go data race detector.
-
-See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
-
-</Field>
-
-## `msan`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer.&#x22;
-
-See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
-
-</Field>
-
 ## `asan`
 
 <Field
@@ -124,6 +57,21 @@ Run `go doc cmd/asm` to see the flags supported by `go tool asm`.
 
 </Field>
 
+## `cgo_enabled`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Enable Cgo support, which allows Go and C code to interact. This option must be enabled for any packages making use of Cgo to actually be compiled with Cgo support.
+
+This field can be specified on several different target types, including `go_binary` and `go_mod` target types. If this field is specified on a `go_binary` target, then that instance takes precedence over other configuration when building the applicable executable. The applicable `go_mod` target will be checked next as a fallback. Finally, if neither target specifies this field, then the value will be taken from the value of the `[golang].cgo_enabled` option. (Note: That option will be deprecated in a future Pants version.)
+
+See https://go.dev/blog/cgo and https://pkg.go.dev/cmd/cgo for additional information about Cgo.
+
+</Field>
+
 ## `compiler_flags`
 
 <Field
@@ -145,6 +93,19 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
 ## `linker_flags`
 
 <Field
@@ -161,6 +122,45 @@ This field can be specified on several different target types:
 - On `go_binary` targets, the linker flags are used when linking that binary. These linker flags will be added after any linker flags added by any `linker_flags` field set on the applicable `go_mod` target.
 
 Run `go doc cmd/link` to see the flags supported by `go tool link`.
+
+</Field>
+
+## `msan`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer.&#x22;
+
+See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
+
+</Field>
+
+## `race`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Enable compiling the binary with the Go data race detector.
+
+See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

@@ -45,6 +45,24 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 
 </Option>
 
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--helm-k8s-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[helm-k8s-parser]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
 ### `requirements`
 
 <Option
@@ -66,24 +84,6 @@ Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.
 The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
 
 If unspecified, install the entire lockfile.
-
-</Option>
-
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--helm-k8s-parser-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_HELM_K8S_PARSER_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[helm-k8s-parser]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<3.10"\n]`}
->
-
-Python interpreter constraints for this tool.
 
 </Option>
 

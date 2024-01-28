@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[visibility]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]visibility-skip`}
-  env_repr='PANTS_VISIBILITY_SKIP'
-  toml_repr={`[visibility]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Visibility Rules when running `pants lint`.
-
-</Option>
-
 ### `enforce`
 
 <Option
@@ -44,6 +30,20 @@ enforce = <bool>`}
 >
 
 Visibility rules are enforced whenever dependencies are calculated unless `enforce` is set to false.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]visibility-skip`}
+  env_repr='PANTS_VISIBILITY_SKIP'
+  toml_repr={`[visibility]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Visibility Rules when running `pants lint`.
 
 </Option>
 

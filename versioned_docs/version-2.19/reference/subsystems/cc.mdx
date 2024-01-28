@@ -19,24 +19,6 @@ Config section: <span className="color--primary">`[cc]`</span>
 
 ## Basic options
 
-### `include_directories`
-
-<Option
-  cli_repr={`--cc-include-directories="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_CC_INCLUDE_DIRECTORIES'
-  toml_repr={`[cc]
-include_directories = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-A list of include directories passed to the compiler. Will be prefixed by -I at the command line. These flags are merged with the target-level includes, with the target-level includes taking precedence.
-
-</Option>
-
 ### `c_compiler_flags`
 
 <Option
@@ -70,6 +52,24 @@ c_definitions = [
 >
 
 A list of strings to define in the C preprocessor. Will be prefixed by -D at the command line. These defines are merged with the target-level defines, with the target-level definitions taking precedence.
+
+</Option>
+
+### `c_executable`
+
+<Option
+  cli_repr={`--cc-c-executable="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_C_EXECUTABLE'
+  toml_repr={`[cc]
+c_executable = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "clang",\n  "gcc"\n]`}
+>
+
+A list of binary names for the C compiler (in the `search_paths`). The list is searched in order until a compiler is found.
 
 </Option>
 
@@ -109,24 +109,6 @@ A list of strings to define in the C++ preprocessor. Will be prefixed by -D at t
 
 </Option>
 
-### `c_executable`
-
-<Option
-  cli_repr={`--cc-c-executable="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_CC_C_EXECUTABLE'
-  toml_repr={`[cc]
-c_executable = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "clang",\n  "gcc"\n]`}
->
-
-A list of binary names for the C compiler (in the `search_paths`). The list is searched in order until a compiler is found.
-
-</Option>
-
 ### `cxx_executable`
 
 <Option
@@ -142,6 +124,24 @@ cxx_executable = [
 >
 
 A list of binary names for the C compiler (in the `search_paths`). The list is searched in order until a compiler is found.
+
+</Option>
+
+### `include_directories`
+
+<Option
+  cli_repr={`--cc-include-directories="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_CC_INCLUDE_DIRECTORIES'
+  toml_repr={`[cc]
+include_directories = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+A list of include directories passed to the compiler. Will be prefixed by -I at the command line. These flags are merged with the target-level includes, with the target-level includes taking precedence.
 
 </Option>
 
