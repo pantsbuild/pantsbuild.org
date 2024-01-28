@@ -1,0 +1,154 @@
+---
+    authors: [alexey]
+    tags: [concepts]
+---
+
+# Inspecting dependency inference results
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Agence
+  Olloweb](https://unsplash.com/photos/magnifying-glass-near-gray-laptop-computer-d9ILr-dbEdg)
+  /
+  [Unsplash](https://unsplash.com/photos/magnifying-glass-near-gray-laptop-computer-d9ILr-dbEdg)
+</CaptionedImg>
+
+{/* truncate */}
+
+An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](https://www.pantsbuild.org/blog/2022/10/27/why-dependency-inference). The information about those inferences is available via the `dependencies` and `peek` goals, so that metadata about what modules import from other modules is always readily accessible to you.
+
+While managing a codebase in a [Pants-supported language](https://www.pantsbuild.org/2.18/docs/introduction/welcome-to-pants#which-languages-and-frameworks-does-pants-support) (e.g. Python, Java, Scala, etc...), it can sometimes be useful dig deeper and explore the inferred dependencies in order to compare them to your source code's import statements. This can be particularly useful for large modules with many imports, where it's very easy to miss an omitted dependency or an inferred dependency that should have been ignored.
+
+You can start your exploration with one of the lesser known goals, [`python-dump-source-analysis`](https://www.pantsbuild.org/2.18/reference/goals/python-dump-source-analysis). This goal will dump the dependency analysis for the Python source code build targets.
+
+This command may be used to compliment any static code analysis tooling you may already employ such as [semgrep](https://semgrep.dev/) or [flake8](https://flake8.pycqa.org/en/latest/), as they can only parse your modules semantically and often won't be able to link individual imports to build targets in your codebase.
+
+In order to run this goal, you need to enable the `"pants.backend.experimental.python"` backend:
+
+```shell-session
+$ pants \
+  --backend-packages="pants.backend.experimental.python" \
+  python-dump-source-analysis \
+  --analysis-flavor=raw_dependency_inference \
+  cheeseshop/repository/repository.py \
+  | jq
+```
+
+In the command output you can see the list of all `import` statements, including the standard library imports (`json` and `typing.Optional`), first-party (`cheeseshop.repository.package.Package`), and third-party (`requests`) imports. This saves you from either relying on fragile `grep`-based tooling or complex AST parsers to identify and reason about the `import` statements.
+
+```
+[
+  {
+  ...
+    "identified": {
+      "imports": {
+        "json": {
+          "lineno": 1,
+          "weak": false
+        },
+        "typing.Optional": {
+          "lineno": 3,
+          "weak": false
+        },
+        "requests": {
+          "lineno": 5,
+          "weak": false
+        },
+        "cheeseshop.repository.package.Package": {
+          "lineno": 9,
+          "weak": false
+        }
+      }
+  ...
+```
+
+You can also take a look at the resolve status for every `import` statement. For instance, unownable imports are those that cannot be owned by a build target; these are usually standard library imports. Unowned imports are those that Pants could not resolve; this could be due to an attempt to import a non-existing first party module or a third party package that was not listed in the project requirements and Pants isn't aware of it.
+
+Keep in mind that Pants would only infer dependencies when it is safe to - as it checks for ambiguity. For instance, if you have multiple package requirements declared in the same Python resolve, e.g. `requests==2.25.1` and `requests==2.22.0`, Pants won't infer a dependency and will instead provide a suggestion for how to disambiguate. Unambiguous imports are those that are owned by exactly one build target whereas ambiguous ones are those that cannot be linked to a specific build target. See a partial output of the command below:
+
+```
+    ...
+    "resolved": {
+      "resolve_results": {
+        "json": {
+          "status": "ImportOwnerStatus.unownable",
+          "address": []
+        },
+        "typing.Optional": {
+          "status": "ImportOwnerStatus.unownable",
+          "address": []
+        },
+        "requests": {
+          "status": "ImportOwnerStatus.unambiguous",
+          "address": [
+            "requirements#requests"
+          ]
+        },
+        "cheeseshop.repository.package.TypoInModule": {
+          "status": "ImportOwnerStatus.unowned",
+          "address": []
+        },
+        "cheeseshop.repository.parsing.exceptions.PackageNotFoundError": {
+          "status": "ImportOwnerStatus.unambiguous",
+          "address": [
+            "cheeseshop/repository/parsing/exceptions.py"
+          ]
+        }
+      },
+    ...
+```
+
+Moreover, Pants can infer a target's dependencies based on strings that look like dynamic dependencies, such as Django settings files expressing dependencies as strings or `pytest` plugins listed in the `pytest_plugins` variable in a test module or a `conftest.py` file. These dependencies are considered to be "weak" and are reported separately:
+
+```shell-session
+$ pants python-dump-source-analysis \
+  --analysis-flavor=raw_dependency_inference \
+  cheeseshop/repository/repository.py > sources.json
+
+$ jq -r '.[].identified.imports' sources.json \
+    | jq 'map_values(select(.weak == true))'
+{
+  "cheeseshop.repository.properties": {
+    "lineno": 12,
+    "weak": true
+  }
+}
+```
+
+With this goal, you can also check if a guarded import was ignored. For instance, the import in:
+
+```python
+try:
+  import foo.bar
+except ImportError:
+  pass
+```
+
+is also going to be flagged as "weak". If the imported modules do not exist (e.g. there's a typo in a module path) and therefore won't be found by Pants, they will be marked as "weak_ignore". This may help you identify any imports that are always ignored.
+
+Since you are able to report the string-based imports, it will be easier to identify and ignore certain imports that are picked up by accident. This can happen, for instance, when a string literal with a file path may be identical to a path of an existing module. Once you have identified the dependencies parsed from the string literals, you should check whether they have been ignored as their status will be "weak_ignore". When appropriate, you can make sure that Pants will ignore unwanted dependencies by using the `# pants: no-infer-dep` pragma.
+
+Having all this information accessible to you, there are quite a few things you may do with it. For instance, you could estimate how many modules rely on a particular Python standard library module which you'd like to deprecate (for instance, you may be evaluating migrating to `ujson` from `json`).
+
+You could also evaluate how many code members are imported from the modules for code quality analytics. For instance, having to import lots of members from the same module may suggest a poor code structure. To illustrate, this is how the import line `from cheeseshop.repository.parsing.casts import from_dict, from_bool` is going to be parsed:
+
+```
+    {
+        "cheeseshop.repository.parsing.casts.from_dict": {
+          "status": "ImportOwnerStatus.unambiguous",
+          "address": [
+            "cheeseshop/repository/parsing/casts.py"
+          ]
+        },
+        "cheeseshop.repository.parsing.casts.from_bool": {
+          "status": "ImportOwnerStatus.unambiguous",
+          "address": [
+            "cheeseshop/repository/parsing/casts.py"
+          ]
+    }
+```
+
+Knowing the line numbers of the `import` statements, you can ban having lazy imports in your modules (as for Pants it doesn't matter whether an import statement is at the beginning of a file or inside a function definition in the last few lines of a file) if that's what your coding conventions suggest. And since the dependencies declared manually in the BUILD files metadata are reported separately from those that are inferred automatically by scanning the source code, it should be easier to audit them over time as it is possible that after code changes, a module may not any longer have another module or a third party requirement as a dependency.
+
+If you have a large codebase, and it's important for you to make sure that dependency inference reports only truly relevant dependencies, it's definitely worth trying to run this command. The details of the dependency inference may make certain tooling you use to collect the imports obsolete, so that you could take advantage of the functionality that Pants provides out-of-the-box. This goal will also most certainly help you to figure out why a particular module is a dependency of another one as it may not be obvious: was it picked up due to a string literal, thanks to a manual dependency declared, or because of an import statement buried in the middle of the module?
+
+Happy analyzing!
