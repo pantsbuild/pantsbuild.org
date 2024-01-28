@@ -14,7 +14,7 @@
 
 {/* truncate */}
 
-An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](https://www.pantsbuild.org/blog/2022/10/27/why-dependency-inference). The information about them is available via the `dependencies` and `peek` goals, so that metadata about what modules import from modules is always readily accessible.
+An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](https://www.pantsbuild.org/blog/2022/10/27/why-dependency-inference). The information about those inferences is available via the `dependencies` and `peek` goals, so that metadata about what modules import from other modules is always readily accessible to you.
 
 While managing a codebase in a language supported by Pants such as Python, Java, or Scala, it can, however, be useful to go further and explore your import statements to compare them with what has been inferred by Pants. This may be particularly helpful for large modules with lots of imports where it's easy to miss the fact that a dependency is omitted or that there's a dependency inferred that should really be ignored. To get help with that, you can use one of the less known goals, [`python-dump-source-analysis`](https://www.pantsbuild.org/2.18/reference/goals/python-dump-source-analysis), which can dump source code analysis for the Python source code build targets.
 
