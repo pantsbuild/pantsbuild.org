@@ -61,7 +61,7 @@ In the command output you can see the list of all `import` statements, including
 
 You can also take a look at the resolve status for every `import` statement. For instance, unownable imports are those that cannot be owned by a build target; these are usually standard library imports. Unowned imports are those that Pants could not resolve; this could be due to an attempt to import a non-existing first party module or a third party package that was not listed in the project requirements and Pants isn't aware of it.
 
-Keep in mind that Pants would only infer dependencies when it is safe to as it checks for ambiguity. For instance, if you have multiple package requirements declared in the same Python resolve, e.g. `requests==2.25.1` and `requests==2.22.0`, Pants won't infer a dependency and will instead provide a suggestion for how to disambiguate. Unambiguous imports are those that are owned by exactly one build target whereas ambiguous ones are those that cannot be linked to a specific build target. See a partial output of the command below:
+Keep in mind that Pants would only infer dependencies when it is safe to - as it checks for ambiguity. For instance, if you have multiple package requirements declared in the same Python resolve, e.g. `requests==2.25.1` and `requests==2.22.0`, Pants won't infer a dependency and will instead provide a suggestion for how to disambiguate. Unambiguous imports are those that are owned by exactly one build target whereas ambiguous ones are those that cannot be linked to a specific build target. See a partial output of the command below:
 
 ```
     ...
