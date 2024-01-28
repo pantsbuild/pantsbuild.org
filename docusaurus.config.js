@@ -68,8 +68,8 @@ const isPrerelease = (version) => {
     (value) => value["rank"] == "HARDCODED"
   );
 
-  // Check if it's one of xx.xx.xx.dev0, xx.xx.xxa0, xx.xx.xxrc0
-  const rex = /^(\d+\.\d+\.\d+)(\.dev|a|rc)\d+$/;
+	// Check if it's one of xx.xx.xx.dev0, xx.xx.xxa0, xx.xx.xxb0,  xx.xx.xxrc0, etc.
+  const rex = /^(\d+\.\d+\.\d+)(\.dev|a|b|rc)\d+$/;
 
   return rex.test(hardcoded["value"]);
 };
