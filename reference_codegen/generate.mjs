@@ -266,7 +266,11 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
 
 Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   info.fields.forEach((field) => {
-    field.default = convertDefault(field.default, field.typ);
+    if (!field.required) {
+      field.default = convertDefault(field.default, field.typ);
+    } else {
+      field.default = null;
+    }
     field.description = convertDescription(field.description);
   });
 
