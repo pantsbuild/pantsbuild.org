@@ -20,29 +20,15 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -65,16 +51,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `source`
+## `description`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A single file that belongs to this target.
+A human-readable description of the target.
 
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -89,27 +75,29 @@ Whether to generate gRPC code or not.
 
 </Field>
 
-## `skip_buf_format`
+## `jvm_jdk`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.codegen.protobuf.lint.buf"
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
-If true, don&#x27;t run `buf format` on this target&#x27;s code.
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
 
-## `skip_buf_lint`
+## `jvm_resolve`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.codegen.protobuf.lint.buf"
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
 >
 
-If true, don&#x27;t run `buf lint` on this target&#x27;s code.
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
@@ -163,29 +151,40 @@ If unspecified, the source root the `protobuf_sources` is under will be used.
 
 </Field>
 
-## `jvm_jdk`
+## `skip_buf_format`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
 >
 
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+If true, don&#x27;t run `buf format` on this target&#x27;s code.
 
 </Field>
 
-## `jvm_resolve`
+## `skip_buf_lint`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
 >
 
-The resolve from `[jvm].resolves` to use when compiling this target.
+If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
-If not defined, will default to `[jvm].default_resolve`.
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

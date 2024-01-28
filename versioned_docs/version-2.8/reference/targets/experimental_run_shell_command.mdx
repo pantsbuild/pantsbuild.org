@@ -30,29 +30,15 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `command`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+Shell command to execute.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
 
 </Field>
 
@@ -71,16 +57,29 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `command`
+## `description`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-Shell command to execute.
+A human-readable description of the target.
 
-The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default.
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

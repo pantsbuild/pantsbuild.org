@@ -56,20 +56,6 @@ See https://github.com/pyenv/pyenv/blob/master/plugins/python-build/README.md#sp
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--pyenv-python-provider-version=<str>`}
-  env_repr='PANTS_PYENV_PYTHON_PROVIDER_VERSION'
-  toml_repr={`[pyenv-python-provider]
-version = <str>`}
-  default_repr={`2.3.13`}
->
-
-Use this version of pyenv.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -105,22 +91,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
-
-<Option
-  cli_repr={`--pyenv-python-provider-url-template=<str>`}
-  env_repr='PANTS_PYENV_PYTHON_PROVIDER_URL_TEMPLATE'
-  toml_repr={`[pyenv-python-provider]
-url_template = <str>`}
-  default_repr={`https://github.com/pyenv/pyenv/archive/refs/tags/v{version}.tar.gz`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -141,6 +111,22 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
+### `url_template`
+
+<Option
+  cli_repr={`--pyenv-python-provider-url-template=<str>`}
+  env_repr='PANTS_PYENV_PYTHON_PROVIDER_URL_TEMPLATE'
+  toml_repr={`[pyenv-python-provider]
+url_template = <str>`}
+  default_repr={`https://github.com/pyenv/pyenv/archive/refs/tags/v{version}.tar.gz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
 ### `use_unsupported_version`
 
 <Option
@@ -155,6 +141,20 @@ use_unsupported_version = <UnsupportedVersionUsage>`}
 What action to take in case the requested version of pyenv is not supported.
 
 Supported pyenv versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--pyenv-python-provider-version=<str>`}
+  env_repr='PANTS_PYENV_PYTHON_PROVIDER_VERSION'
+  toml_repr={`[pyenv-python-provider]
+version = <str>`}
+  default_repr={`2.3.13`}
+>
+
+Use this version of pyenv.
 
 </Option>
 

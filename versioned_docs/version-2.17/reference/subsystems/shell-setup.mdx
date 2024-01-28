@@ -37,20 +37,6 @@ Infer Shell dependencies on other Shell files by analyzing `source` statements.
 
 </Option>
 
-### `tailor`
-
-<Option
-  cli_repr={`--[no-]shell-setup-tailor`}
-  env_repr='PANTS_SHELL_SETUP_TAILOR'
-  toml_repr={`[shell-setup]
-tailor = <bool>`}
-  default_repr={`True`}
->
-
-If true, add `shell_sources` and `shunit2_tests` targets with the `tailor` goal.
-
-</Option>
-
 ### `executable_search_paths`
 
 <Option
@@ -67,6 +53,20 @@ executable_search_paths = [
 >
 
 The PATH value that will be used to find shells and to run certain processes like the shunit2 test runner. The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
+
+### `tailor`
+
+<Option
+  cli_repr={`--[no-]shell-setup-tailor`}
+  env_repr='PANTS_SHELL_SETUP_TAILOR'
+  toml_repr={`[shell-setup]
+tailor = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `shell_sources` and `shunit2_tests` targets with the `tailor` goal.
 
 </Option>
 

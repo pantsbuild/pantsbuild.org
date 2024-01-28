@@ -19,6 +19,20 @@ Config section: <span className="color--primary">`[python-protobuf.mypy-plugin]`
 
 ## Basic options
 
+### `mypy_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-mypy-plugin-mypy-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf.mypy-plugin]
+mypy_plugin = <bool>`}
+  default_repr={`False`}
+>
+
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
+
+</Option>
+
 ### `runtime_dependencies`
 
 <Option
@@ -37,49 +51,7 @@ A list of addresses to `python_requirement_library` targets for the runtime depe
 
 </Option>
 
-### `mypy_plugin`
-
-<Option
-  cli_repr={`--[no-]python-protobuf-mypy-plugin-mypy-plugin`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN'
-  toml_repr={`[python-protobuf.mypy-plugin]
-mypy_plugin = <bool>`}
-  default_repr={`False`}
->
-
-Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
-
-</Option>
-
 ## Advanced options
-
-### `mypy_plugin_version`
-
-<Option
-  cli_repr={`--python-protobuf-mypy-plugin-mypy-plugin-version=<str>`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN_VERSION'
-  toml_repr={`[python-protobuf.mypy-plugin]
-mypy_plugin_version = <str>`}
-  default_repr={`None`}
->
-
-The pip-style requirement string for `mypy-protobuf`. You must still set `--mypy-plugin` for this option to be used.
-
-</Option>
-
-### `version`
-
-<Option
-  cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
-  toml_repr={`[python-protobuf.mypy-plugin]
-version = <str>`}
-  default_repr={`mypy-protobuf==2.4`}
->
-
-Requirement string for the tool.
-
-</Option>
 
 ### `extra_requirements`
 
@@ -114,6 +86,34 @@ interpreter_constraints = [
 >
 
 Python interpreter constraints for this tool.
+
+</Option>
+
+### `mypy_plugin_version`
+
+<Option
+  cli_repr={`--python-protobuf-mypy-plugin-mypy-plugin-version=<str>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_MYPY_PLUGIN_VERSION'
+  toml_repr={`[python-protobuf.mypy-plugin]
+mypy_plugin_version = <str>`}
+  default_repr={`None`}
+>
+
+The pip-style requirement string for `mypy-protobuf`. You must still set `--mypy-plugin` for this option to be used.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--python-protobuf-mypy-plugin-version=<str>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN_VERSION'
+  toml_repr={`[python-protobuf.mypy-plugin]
+version = <str>`}
+  default_repr={`mypy-protobuf==2.4`}
+>
+
+Requirement string for the tool.
 
 </Option>
 

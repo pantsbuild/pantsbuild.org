@@ -21,16 +21,19 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 
 <span className={styles.options}>
 
-## `tags`
+## `dependencies`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`Iterable[str]`}
 >
 
-Arbitrary strings to describe a target.
+The addresses of `python_distribution` target(s) to include in the binary, e.g. `['src/python/project:dist']`.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+The distribution(s) must generate at least one wheel file. For example, if using `generate_setup=True`, then make sure `wheel=True`. See https://www.pantsbuild.org/v2.10/docs/python-distributions.
+
+Usually, you only need to specify a single `python_distribution`. However, if that distribution depends on another first-party distribution in your repository, you must specify that dependency too, otherwise PyOxidizer would try installing the distribution from PyPI. Note that a `python_distribution` target might depend on another `python_distribution` target even if it is not included in its own `dependencies` field, as explained at https://www.pantsbuild.org/v2.10/docs/python-distributions; if code from one distribution imports code from another distribution, then there is a dependency and you must include both `python_distribution` targets in the `dependencies` field of this `pyoxidizer_binary` target.
+
+Target types other than `python_distribution` will be ignored.
 
 </Field>
 
@@ -44,64 +47,6 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `./pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `output_path`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Where the built directory tree should be located.
-
-If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:bin` would be `src.python.project/bin/`.
-
-Regardless of whether you use the default or set this field, the path will end with PyOxidizer&#x27;s file format of `<platform>/{debug,release}/install/<binary_name>`, where `platform` is a Rust platform triplet like `aarch-64-apple-darwin` and `binary_name` is the `name` of the `pyoxidizer_target`. So, using the default for this field, the target `src/python/project:bin` might have a final path like `src.python.project/bin/aarch-64-apple-darwin/release/bin`.
-
-When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
-
-Warning: setting this value risks naming collisions with other package targets you may have.
-
-</Field>
-
-## `template`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-If set, will use your custom configuration rather than using Pants&#x27;s default template.
-
-The path is relative to the BUILD file&#x27;s directory, and it must end in `.blzt`.
-
-All parameters must be prefixed by $ or surrounded with $&#123; &#125;.
-
-Available template parameters:
-
-- RUN_MODULE - The re-formatted entry_point passed to this target (or None).
-- NAME - This target&#x27;s name.
-- WHEELS - All python distributions passed to this target (or []).
-- UNCLASSIFIED_RESOURCE_INSTALLATION - This will populate a snippet of code to correctly inject the targets filesystem_resources.
-
-</Field>
-
-## `dependencies`
-
-<Field
-    type_repr={`Iterable[str]`}
-    default_repr={`None`}
->
-
-The addresses of `python_distribution` target(s) to include in the binary, e.g. `['src/python/project:dist']`.
-
-The distribution(s) must generate at least one wheel file. For example, if using `generate_setup=True`, then make sure `wheel=True`. See https://www.pantsbuild.org/v2.10/docs/python-distributions.
-
-Usually, you only need to specify a single `python_distribution`. However, if that distribution depends on another first-party distribution in your repository, you must specify that dependency too, otherwise PyOxidizer would try installing the distribution from PyPI. Note that a `python_distribution` target might depend on another `python_distribution` target even if it is not included in its own `dependencies` field, as explained at https://www.pantsbuild.org/v2.10/docs/python-distributions; if code from one distribution imports code from another distribution, then there is a dependency and you must include both `python_distribution` targets in the `dependencies` field of this `pyoxidizer_binary` target.
-
-Target types other than `python_distribution` will be ignored.
 
 </Field>
 
@@ -128,6 +73,60 @@ This field is passed into the PyOxidizer config as-is, and does not undergo vali
 >
 
 Adds support for listing dependencies that MUST be installed to the filesystem (e.g. Numpy). See https://pyoxidizer.readthedocs.io/en/stable/pyoxidizer_packaging_additional_files.html#installing-unclassified-files-on-the-filesystem
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Where the built directory tree should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:bin` would be `src.python.project/bin/`.
+
+Regardless of whether you use the default or set this field, the path will end with PyOxidizer&#x27;s file format of `<platform>/{debug,release}/install/<binary_name>`, where `platform` is a Rust platform triplet like `aarch-64-apple-darwin` and `binary_name` is the `name` of the `pyoxidizer_target`. So, using the default for this field, the target `src/python/project:bin` might have a final path like `src.python.project/bin/aarch-64-apple-darwin/release/bin`.
+
+When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `template`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+If set, will use your custom configuration rather than using Pants&#x27;s default template.
+
+The path is relative to the BUILD file&#x27;s directory, and it must end in `.blzt`.
+
+All parameters must be prefixed by $ or surrounded with $&#123; &#125;.
+
+Available template parameters:
+
+- RUN_MODULE - The re-formatted entry_point passed to this target (or None).
+- NAME - This target&#x27;s name.
+- WHEELS - All python distributions passed to this target (or []).
+- UNCLASSIFIED_RESOURCE_INSTALLATION - This will populate a snippet of code to correctly inject the targets filesystem_resources.
 
 </Field>
 

@@ -35,20 +35,6 @@ Don&#x27;t use `scalafmt` when running `/home/josh/work/scie-pants/dist/pants fm
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--scalafmt-version=<str>`}
-  env_repr='PANTS_SCALAFMT_VERSION'
-  toml_repr={`[scalafmt]
-version = <str>`}
-  default_repr={`3.2.1`}
->
-
-Version string for the tool. This is available for substitution in the `[scalafmt].artifacts` option by including the string `{version}`.
-
-</Option>
-
 ### `artifacts`
 
 <Option
@@ -82,6 +68,20 @@ Path to a lockfile used for installing the tool.
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.10.1/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants jvm-generate-lockfiles --resolve=scalafmt`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--scalafmt-version=<str>`}
+  env_repr='PANTS_SCALAFMT_VERSION'
+  toml_repr={`[scalafmt]
+version = <str>`}
+  default_repr={`3.2.1`}
+>
+
+Version string for the tool. This is available for substitution in the `[scalafmt].artifacts` option by including the string `{version}`.
 
 </Option>
 

@@ -47,6 +47,27 @@ The schema is `<string platform key>: (<string url>, <string fingerprint>, <int 
 
 </Option>
 
+### `names`
+
+<Option
+  cli_repr={`--python-bootstrap-names="[<python-binary-names>, <python-binary-names>, ...]"`}
+  env_repr='PANTS_PYTHON_BOOTSTRAP_NAMES'
+  toml_repr={`[python-bootstrap]
+names = [
+    <python-binary-names>,
+    <python-binary-names>,
+    ...,
+]`}
+  default_repr={`[\n  "python",\n  "python3"\n]`}
+  target_field_name='python_bootstrap_names'
+>
+
+The names of Python binaries to search for. See the `--search-path` option to influence where interpreters are searched for.
+
+This does not impact which Python interpreter is used to run your code, only what is used to run internal tools.
+
+</Option>
+
 ### `search_path`
 
 <Option
@@ -81,27 +102,6 @@ When the environment is a `local_environment` target:
 - `<PYENV>`, all Python versions under `$(pyenv root)/versions`
 - `<PYENV_LOCAL>`, the Pyenv interpreter with the version in `BUILD_ROOT/.python-version`
 - `<PEXRC>`, paths in the `PEX_PYTHON_PATH` variable in `/etc/pexrc` or `~/.pexrc`
-
-</Option>
-
-### `names`
-
-<Option
-  cli_repr={`--python-bootstrap-names="[<python-binary-names>, <python-binary-names>, ...]"`}
-  env_repr='PANTS_PYTHON_BOOTSTRAP_NAMES'
-  toml_repr={`[python-bootstrap]
-names = [
-    <python-binary-names>,
-    <python-binary-names>,
-    ...,
-]`}
-  default_repr={`[\n  "python",\n  "python3"\n]`}
-  target_field_name='python_bootstrap_names'
->
-
-The names of Python binaries to search for. See the `--search-path` option to influence where interpreters are searched for.
-
-This does not impact which Python interpreter is used to run your code, only what is used to run internal tools.
 
 </Option>
 

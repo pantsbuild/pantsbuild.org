@@ -17,40 +17,14 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
-## `tags`
+## `create_namespace`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`bool`}
+    default_repr={`False`}
 >
 
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `release_name`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Name of the release used in the deployment. If not set, the target name will be used instead.
+If true, the namespace will be created if it doesn&#x27;t exist.
 
 </Field>
 
@@ -73,14 +47,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `sources`
+## `description`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.yaml', '*.yml')`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
-Helm configuration files for a given deployment.
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -95,6 +71,43 @@ Kubernetes namespace for the given deployment.
 
 </Field>
 
+## `no_hooks`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, none of the lifecycle hooks of the given chart will be included in the deployment.
+
+</Field>
+
+## `post_renderers`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+List of runnable targets to be used to post-process the helm chart after being rendered by Helm.
+
+This is equivalent to the same post-renderer feature already available in Helm with the difference that this supports a list of executables instead of a single one.
+
+When more than one post-renderer is given, they will be combined into a single one in which the input of each of them would be output of the previous one.
+
+</Field>
+
+## `release_name`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Name of the release used in the deployment. If not set, the target name will be used instead.
+
+</Field>
+
 ## `skip_crds`
 
 <Field
@@ -103,6 +116,41 @@ Kubernetes namespace for the given deployment.
 >
 
 If true, then does not deploy the Custom Resource Definitions that are defined in the chart.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.yaml', '*.yml')`}
+>
+
+Helm configuration files for a given deployment.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `timeout`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`None`}
+>
+
+Timeout in seconds when running a Helm deployment.
 
 </Field>
 
@@ -133,54 +181,6 @@ values=&#123;
 ) `&#x60;`
 
 Check the Helm backend documentation on what are the options available and its caveats when making usage of dynamic values in your deployments.
-
-</Field>
-
-## `create_namespace`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, the namespace will be created if it doesn&#x27;t exist.
-
-</Field>
-
-## `no_hooks`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, none of the lifecycle hooks of the given chart will be included in the deployment.
-
-</Field>
-
-## `timeout`
-
-<Field
-    type_repr={`int | None`}
-    default_repr={`None`}
->
-
-Timeout in seconds when running a Helm deployment.
-
-</Field>
-
-## `post_renderers`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-List of runnable targets to be used to post-process the helm chart after being rendered by Helm.
-
-This is equivalent to the same post-renderer feature already available in Helm with the difference that this supports a list of executables instead of a single one.
-
-When more than one post-renderer is given, they will be combined into a single one in which the input of each of them would be output of the previous one.
 
 </Field>
 

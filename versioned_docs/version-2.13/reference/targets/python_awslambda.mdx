@@ -19,46 +19,34 @@ Backend: <span className="color--primary">`pants.backend.awslambda.python`</span
 
 <span className={styles.options}>
 
-## `tags`
+## `handler`
+
+<Field
+    type_repr={`str`}
+>
+
+Entry point to the AWS Lambda handler.
+
+You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;lambda.py:handler_func&#x27;.
+
+You must use the file name shorthand for file arguments to work with this target.
+
+</Field>
+
+## `complete_platforms`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+The platforms the built PEX should be compatible with.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+There must be built wheels available for all of the foreign platforms, rather than sdists.
 
-</Field>
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
 
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `output_path`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Where the built asset should be located.
-
-If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
-
-When running `/home/josh/work/scie-pants/dist/pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
-
-Warning: setting this value risks naming collisions with other package targets you may have.
+Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
 </Field>
 
@@ -81,18 +69,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `handler`
+## `description`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-Entry point to the AWS Lambda handler.
+A human-readable description of the target.
 
-You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;lambda.py:handler_func&#x27;.
-
-You must use the file name shorthand for file arguments to work with this target.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -107,31 +93,20 @@ Whether to resolve requirements and include them in the Pex. This is most useful
 
 </Field>
 
-## `runtime`
+## `output_path`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
+Where the built asset should be located.
 
-</Field>
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
 
-## `complete_platforms`
+When running `/home/josh/work/scie-pants/dist/pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The platforms the built PEX should be compatible with.
-
-There must be built wheels available for all of the foreign platforms, rather than sdists.
-
-You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
-
-Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
 
@@ -147,6 +122,30 @@ The resolve from `[python].resolves` to use.
 If not defined, will default to `[python].default_resolve`.
 
 All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `runtime`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

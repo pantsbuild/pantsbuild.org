@@ -17,29 +17,16 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 <span className={styles.options}>
 
-## `tags`
+## `compatible_resolves`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+The set of resolves from `[jvm].resolves` that this target is compatible with.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
@@ -62,31 +49,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `sources`
+## `description`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.scala', '!*Test.scala', '!*Spec.scala', '!*Suite.scala')`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
-
-</Field>
-
-## `compatible_resolves`
-
-<Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The set of resolves from `[jvm].resolves` that this target is compatible with.
+A human-readable description of the target.
 
-If not defined, will default to `[jvm].default_resolve`.
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -114,6 +86,34 @@ If a given type is defined, at least one source file captured by this target mus
 >
 
 If true, don&#x27;t run `scalafmt` on this target&#x27;s code.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.scala', '!*Test.scala', '!*Spec.scala', '!*Suite.scala')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

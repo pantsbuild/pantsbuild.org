@@ -19,33 +19,25 @@ Config section: <span className="color--primary">`[docker]`</span>
 
 ## Basic options
 
-### `registries`
+### `build_args`
 
 <Option
-  cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_DOCKER_REGISTRIES'
-  toml_repr={`[docker.registries]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
+  cli_repr={`--docker-build-args="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DOCKER_BUILD_ARGS'
+  toml_repr={`[docker]
+build_args = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
 >
 
-Configure Docker registries. The schema for a registry entry is as follows:
+Global build arguments (`--build-arg`) to use for all `docker build` invocations. Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
 
-```
-{
-    "registry-alias": {
-        "address": "registry-domain:port",
-        "default": bool,
-    },
-    ...
-}
-```
+May be provided multiple times on the command line.
 
-If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
-The `docker_image.registries` may be provided with a list of registry addresses and registry aliases prefixed with `@` to be used instead of the defaults.
-A configured registry is marked as default either by setting `default = true` or with an alias of `"default"`.
+Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
 
 </Option>
 
@@ -76,25 +68,33 @@ Any registries or tags are added to the image name as required, and should not b
 
 </Option>
 
-### `build_args`
+### `registries`
 
 <Option
-  cli_repr={`--docker-build-args="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_DOCKER_BUILD_ARGS'
-  toml_repr={`[docker]
-build_args = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+  cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_DOCKER_REGISTRIES'
+  toml_repr={`[docker.registries]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
 >
 
-Global build arguments (`--build-arg`) to use for all `docker build` invocations. Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
+Configure Docker registries. The schema for a registry entry is as follows:
 
-May be provided multiple times on the command line.
+```
+{
+    "registry-alias": {
+        "address": "registry-domain:port",
+        "default": bool,
+    },
+    ...
+}
+```
 
-Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
+If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
+The `docker_image.registries` may be provided with a list of registry addresses and registry aliases prefixed with `@` to be used instead of the defaults.
+A configured registry is marked as default either by setting `default = true` or with an alias of `"default"`.
 
 </Option>
 

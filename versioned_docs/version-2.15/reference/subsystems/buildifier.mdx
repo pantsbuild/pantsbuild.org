@@ -26,20 +26,6 @@ Config section: <span className="color--primary">`[buildifier]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]buildifier-skip`}
-  env_repr='PANTS_BUILDIFIER_SKIP'
-  toml_repr={`[buildifier]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Buildifier when running `/home/josh/work/scie-pants/dist/pants fmt`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -58,21 +44,21 @@ Arguments to pass directly to Buildifier, e.g. `--buildifier-args='-lint=fix'`.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--buildifier-version=<str>`}
-  env_repr='PANTS_BUILDIFIER_VERSION'
+  cli_repr={`--[no-]buildifier-skip`}
+  env_repr='PANTS_BUILDIFIER_SKIP'
   toml_repr={`[buildifier]
-version = <str>`}
-  default_repr={`5.1.0`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of Buildifier.
+If true, don&#x27;t use Buildifier when running `/home/josh/work/scie-pants/dist/pants fmt`.
 
 </Option>
+
+## Advanced options
 
 ### `known_versions`
 
@@ -107,20 +93,23 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `url_platform_mapping`
 
 <Option
-  cli_repr={`--buildifier-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_BUILDIFIER_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[buildifier]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+  cli_repr={`--buildifier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_BUILDIFIER_URL_PLATFORM_MAPPING'
+  toml_repr={`[buildifier.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
 >
 
-What action to take in case the requested version of Buildifier is not supported.
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
-Supported Buildifier versions: unspecified
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
 
 </Option>
 
@@ -140,23 +129,34 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 
 </Option>
 
-### `url_platform_mapping`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--buildifier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_BUILDIFIER_URL_PLATFORM_MAPPING'
-  toml_repr={`[buildifier.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
+  cli_repr={`--buildifier-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_BUILDIFIER_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[buildifier]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+What action to take in case the requested version of Buildifier is not supported.
 
-In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+Supported Buildifier versions: unspecified
 
-For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--buildifier-version=<str>`}
+  env_repr='PANTS_BUILDIFIER_VERSION'
+  toml_repr={`[buildifier]
+version = <str>`}
+  default_repr={`5.1.0`}
+>
+
+Use this version of Buildifier.
 
 </Option>
 

@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[jarjar]`</span>
 
 ## Basic options
 
-### `skip_manifest`
-
-<Option
-  cli_repr={`--[no-]jarjar-skip-manifest`}
-  env_repr='PANTS_JARJAR_SKIP_MANIFEST'
-  toml_repr={`[jarjar]
-skip_manifest = <bool>`}
-  default_repr={`False`}
->
-
-Skip the processing of the JAR manifest.
-
-</Option>
-
 ### `misplaced_class_strategy`
 
 <Option
@@ -48,21 +34,21 @@ The strategy to use when processing class files that are in the wrong package.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip_manifest`
 
 <Option
-  cli_repr={`--jarjar-version=<str>`}
-  env_repr='PANTS_JARJAR_VERSION'
+  cli_repr={`--[no-]jarjar-skip-manifest`}
+  env_repr='PANTS_JARJAR_SKIP_MANIFEST'
   toml_repr={`[jarjar]
-version = <str>`}
-  default_repr={`1.8.1`}
+skip_manifest = <bool>`}
+  default_repr={`False`}
 >
 
-Version string for the tool. This is available for substitution in the `[jarjar].artifacts` option by including the string `{version}`.
+Skip the processing of the JAR manifest.
 
 </Option>
+
+## Advanced options
 
 ### `artifacts`
 
@@ -79,6 +65,26 @@ artifacts = [
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[jarjar].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--jarjar-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JARJAR_JVM_OPTIONS'
+  toml_repr={`[jarjar]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `jarjar` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
 
 </Option>
 
@@ -100,23 +106,17 @@ To use a custom lockfile, set this option to a file path relative to the build r
 
 </Option>
 
-### `jvm_options`
+### `version`
 
 <Option
-  cli_repr={`--jarjar-jvm-options="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_JARJAR_JVM_OPTIONS'
+  cli_repr={`--jarjar-version=<str>`}
+  env_repr='PANTS_JARJAR_VERSION'
   toml_repr={`[jarjar]
-jvm_options = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+version = <str>`}
+  default_repr={`1.8.1`}
 >
 
-List of JVM options to pass to `jarjar` JVM processes.
-
-Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+Version string for the tool. This is available for substitution in the `[jarjar].artifacts` option by including the string `{version}`.
 
 </Option>
 

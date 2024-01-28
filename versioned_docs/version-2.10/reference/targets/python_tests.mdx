@@ -17,66 +17,6 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `interpreter_constraints`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The Python interpreters this code is compatible with.
-
-Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
-
-Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
-
-If the field is not set, it will default to the option `[python].interpreter_constraints`.
-
-See https://www.pantsbuild.org/v2.10/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
-
-</Field>
-
-## `resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
-
-</Field>
-
 ## `dependencies`
 
 <Field
@@ -96,31 +36,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `timeout`
+## `description`
 
 <Field
-    type_repr={`int | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A timeout (in seconds) used by each test file belonging to this target.
+A human-readable description of the target.
 
-If unset, will default to `[pytest].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[pytest].timeout_maximum`. Only applies if the option `--pytest-timeouts` is set to true (the default).
-
-</Field>
-
-## `runtime_package_dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
-
-Pants will build the artifacts as if you had run `./pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
-
-You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -135,29 +60,22 @@ Additional environment variables to include in test processes. Entries are strin
 
 </Field>
 
-## `skip_tests`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, don&#x27;t run this target&#x27;s tests.
-
-</Field>
-
-## `sources`
+## `interpreter_constraints`
 
 <Field
     type_repr={`Iterable[str] | None`}
-    default_repr={`('test_*.py', '*_test.py', 'tests.py')`}
+    default_repr={`None`}
 >
 
-A list of files and globs that belong to this target.
+The Python interpreters this code is compatible with.
 
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
 
-Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.10/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
 
@@ -190,6 +108,36 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `runtime_package_dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to targets that can be built with the `./pants package` goal and whose resulting artifacts should be included in the test run.
+
+Pants will build the artifacts as if you had run `./pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+
+You can include anything that can be built by `./pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+
+</Field>
+
 ## `skip_autoflake`
 
 <Field
@@ -199,18 +147,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 >
 
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
-
-</Field>
-
-## `skip_pyupgrade`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.pyupgrade"
->
-
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
@@ -274,6 +210,18 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
 
+## `skip_mypy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
 ## `skip_pylint`
 
 <Field
@@ -283,6 +231,29 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.pyupgrade"
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
 
@@ -298,15 +269,44 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
 
-## `skip_mypy`
+## `sources`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.typecheck.mypy"
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('test_*.py', '*_test.py', 'tests.py')`}
 >
 
-If true, don&#x27;t run MyPy on this target&#x27;s code.
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `timeout`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`None`}
+>
+
+A timeout (in seconds) used by each test file belonging to this target.
+
+If unset, will default to `[pytest].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[pytest].timeout_maximum`. Only applies if the option `--pytest-timeouts` is set to true (the default).
 
 </Field>
 

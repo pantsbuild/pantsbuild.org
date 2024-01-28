@@ -19,37 +19,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `import_path`
 
 <Field
     type_repr={`str`}
-    default_repr={`None`}
 >
 
 Import path in Go code to import this package.
@@ -62,7 +35,6 @@ This field should not be overridden; use the value from target generation.
 
 <Field
     type_repr={`str`}
-    default_repr={`None`}
 >
 
 The path from the owning `go.mod` to this package&#x27;s directory, e.g. `subdir`.
@@ -86,6 +58,30 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `skip_gofmt`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run gofmt on this target&#x27;s code.
+
+</Field>
+
 ## `sources`
 
 <Field
@@ -101,14 +97,16 @@ Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
 
-## `skip_gofmt`
+## `tags`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-If true, don&#x27;t run gofmt on this target&#x27;s code.
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

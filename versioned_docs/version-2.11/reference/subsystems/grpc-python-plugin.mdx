@@ -23,20 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--grpc-python-plugin-version=<str>`}
-  env_repr='PANTS_GRPC_PYTHON_PLUGIN_VERSION'
-  toml_repr={`[grpc-python-plugin]
-version = <str>`}
-  default_repr={`1.32.0`}
->
-
-Use this version of grpcpythonplugin.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -70,20 +56,23 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `url_platform_mapping`
 
 <Option
-  cli_repr={`--grpc-python-plugin-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_GRPC_PYTHON_PLUGIN_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[grpc-python-plugin]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+  cli_repr={`--grpc-python-plugin-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_URL_PLATFORM_MAPPING'
+  toml_repr={`[grpc-python-plugin.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "linux/arm64",\n  "linux_x86_64": "linux/x86_64",\n  "macos_arm64": "macos/x86_64",\n  "macos_x86_64": "macos/x86_64"\n}`}
 >
 
-What action to take in case the requested version of grpcpythonplugin is not supported.
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
-Supported grpcpythonplugin versions: unspecified
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
 
 </Option>
 
@@ -103,23 +92,34 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 
 </Option>
 
-### `url_platform_mapping`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--grpc-python-plugin-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_GRPC_PYTHON_PLUGIN_URL_PLATFORM_MAPPING'
-  toml_repr={`[grpc-python-plugin.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "linux_arm64": "linux/arm64",\n  "linux_x86_64": "linux/x86_64",\n  "macos_arm64": "macos/x86_64",\n  "macos_x86_64": "macos/x86_64"\n}`}
+  cli_repr={`--grpc-python-plugin-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[grpc-python-plugin]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+What action to take in case the requested version of grpcpythonplugin is not supported.
 
-In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+Supported grpcpythonplugin versions: unspecified
 
-For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--grpc-python-plugin-version=<str>`}
+  env_repr='PANTS_GRPC_PYTHON_PLUGIN_VERSION'
+  toml_repr={`[grpc-python-plugin]
+version = <str>`}
+  default_repr={`1.32.0`}
+>
+
+Use this version of grpcpythonplugin.
 
 </Option>
 

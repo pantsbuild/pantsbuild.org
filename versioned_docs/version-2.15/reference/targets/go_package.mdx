@@ -19,32 +19,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `dependencies`
 
 <Field
@@ -64,6 +38,42 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `skip_gofmt`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.go"
+>
+
+If true, don&#x27;t run gofmt on this package.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this package&#x27;s tests.
+
+</Field>
+
 ## `sources`
 
 <Field
@@ -76,6 +86,19 @@ A list of files and globs that belong to this target.
 Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
 
 Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -104,29 +127,6 @@ This will be merged with and override values from `[test].extra_env_vars`.
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
-
-</Field>
-
-## `skip_tests`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, don&#x27;t run this package&#x27;s tests.
-
-</Field>
-
-## `skip_gofmt`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.go"
->
-
-If true, don&#x27;t run gofmt on this package.
 
 </Field>
 

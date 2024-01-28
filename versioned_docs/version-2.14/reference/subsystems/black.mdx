@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[black]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]black-skip`}
-  env_repr='PANTS_BLACK_SKIP'
-  toml_repr={`[black]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -67,19 +53,79 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--black-version=<str>`}
-  env_repr='PANTS_BLACK_VERSION'
+  cli_repr={`--[no-]black-skip`}
+  env_repr='PANTS_BLACK_SKIP'
   toml_repr={`[black]
-version = <str>`}
-  default_repr={`black==22.6.0`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+If true, don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--black-config=<file_option>`}
+  env_repr='PANTS_BLACK_CONFIG'
+  toml_repr={`[black]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to a TOML config file understood by Black (https://github.com/psf/black#configuration-format).
+
+Setting this option will disable `[black].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]black-config-discovery`}
+  env_repr='PANTS_BLACK_CONFIG_DISCOVERY'
+  toml_repr={`[black]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant pyproject.toml config files during runs.
+
+Use `[black].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--black-console-script=<str>`}
+  env_repr='PANTS_BLACK_CONSOLE_SCRIPT'
+  toml_repr={`[black]
+console_script = <str>`}
+  default_repr={`black`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--black-entry-point=<str>`}
+  env_repr='PANTS_BLACK_ENTRY_POINT'
+  toml_repr={`[black]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -141,63 +187,17 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--black-console-script=<str>`}
-  env_repr='PANTS_BLACK_CONSOLE_SCRIPT'
+  cli_repr={`--black-version=<str>`}
+  env_repr='PANTS_BLACK_VERSION'
   toml_repr={`[black]
-console_script = <str>`}
-  default_repr={`black`}
+version = <str>`}
+  default_repr={`black==22.6.0`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--black-entry-point=<str>`}
-  env_repr='PANTS_BLACK_ENTRY_POINT'
-  toml_repr={`[black]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--black-config=<file_option>`}
-  env_repr='PANTS_BLACK_CONFIG'
-  toml_repr={`[black]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to a TOML config file understood by Black (https://github.com/psf/black#configuration-format).
-
-Setting this option will disable `[black].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]black-config-discovery`}
-  env_repr='PANTS_BLACK_CONFIG_DISCOVERY'
-  toml_repr={`[black]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant pyproject.toml config files during runs.
-
-Use `[black].config` instead if your config is in a non-standard location.
+Requirement string for the tool.
 
 </Option>
 

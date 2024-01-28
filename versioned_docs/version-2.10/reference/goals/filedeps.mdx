@@ -23,34 +23,6 @@ Config section: <span className="color--primary">`[filedeps]`</span>
 
 ## Basic options
 
-### `output_file`
-
-<Option
-  cli_repr={`--filedeps-output-file=<path>`}
-  env_repr='PANTS_FILEDEPS_OUTPUT_FILE'
-  toml_repr={`[filedeps]
-output_file = <path>`}
-  default_repr={`None`}
->
-
-Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
-
-</Option>
-
-### `sep`
-
-<Option
-  cli_repr={`--filedeps-sep=<separator>`}
-  env_repr='PANTS_FILEDEPS_SEP'
-  toml_repr={`[filedeps]
-sep = <separator>`}
-  default_repr={`\\n`}
->
-
-String to use to separate lines in line-oriented output.
-
-</Option>
-
 ### `absolute`
 
 <Option
@@ -76,6 +48,34 @@ globs = <bool>`}
 >
 
 Instead of outputting filenames, output the original globs used in the BUILD file. This will not include exclude globs (i.e. globs that start with `!`).
+
+</Option>
+
+### `output_file`
+
+<Option
+  cli_repr={`--filedeps-output-file=<path>`}
+  env_repr='PANTS_FILEDEPS_OUTPUT_FILE'
+  toml_repr={`[filedeps]
+output_file = <path>`}
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `sep`
+
+<Option
+  cli_repr={`--filedeps-sep=<separator>`}
+  env_repr='PANTS_FILEDEPS_SEP'
+  toml_repr={`[filedeps]
+sep = <separator>`}
+  default_repr={`\\n`}
+>
+
+String to use to separate lines in line-oriented output.
 
 </Option>
 

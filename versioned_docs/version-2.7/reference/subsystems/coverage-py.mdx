@@ -41,6 +41,22 @@ If you leave this off, the coverage report will include every file in the transi
 
 </Option>
 
+### `global_report`
+
+<Option
+  cli_repr={`--[no-]coverage-py-global-report`}
+  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  toml_repr={`[coverage-py]
+global_report = <bool>`}
+  default_repr={`False`}
+>
+
+If true, Pants will generate a global coverage report.
+
+The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
+
+</Option>
+
 ### `report`
 
 <Option
@@ -60,35 +76,65 @@ Which coverage report type(s) to emit.
 
 </Option>
 
-### `global_report`
+## Advanced options
+
+### `config`
 
 <Option
-  cli_repr={`--[no-]coverage-py-global-report`}
-  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  cli_repr={`--coverage-py-config=<file_option>`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG'
   toml_repr={`[coverage-py]
-global_report = <bool>`}
-  default_repr={`False`}
+config = <file_option>`}
+  default_repr={`None`}
 >
 
-If true, Pants will generate a global coverage report.
+Path to an INI or TOML config file understood by coverage.py (https://coverage.readthedocs.io/en/stable/config.html).
 
-The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
+Setting this option will disable `[coverage-py].config_discovery`. Use this option if the config is located in a non-standard location.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `config_discovery`
 
 <Option
-  cli_repr={`--coverage-py-version=<str>`}
-  env_repr='PANTS_COVERAGE_PY_VERSION'
+  cli_repr={`--[no-]coverage-py-config-discovery`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
   toml_repr={`[coverage-py]
-version = <str>`}
-  default_repr={`coverage[toml]>=5.5,<5.6`}
+config_discovery = <bool>`}
+  default_repr={`True`}
 >
 
-Requirement string for the tool.
+If true, Pants will include any relevant config files during runs (`.coveragerc`, `setup.cfg`, `tox.ini`, and `pyproject.toml`).
+
+Use `[coverage-py].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--coverage-py-console-script=<str>`}
+  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
+  toml_repr={`[coverage-py]
+console_script = <str>`}
+  default_repr={`coverage`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--coverage-py-entry-point=<str>`}
+  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  toml_repr={`[coverage-py]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -150,34 +196,6 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
 
 </Option>
 
-### `console_script`
-
-<Option
-  cli_repr={`--coverage-py-console-script=<str>`}
-  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
-  toml_repr={`[coverage-py]
-console_script = <str>`}
-  default_repr={`coverage`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--coverage-py-entry-point=<str>`}
-  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
-  toml_repr={`[coverage-py]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
 ### `output_dir`
 
 <Option
@@ -192,35 +210,17 @@ Path to write the Pytest Coverage report to. Must be relative to build root.
 
 </Option>
 
-### `config`
+### `version`
 
 <Option
-  cli_repr={`--coverage-py-config=<file_option>`}
-  env_repr='PANTS_COVERAGE_PY_CONFIG'
+  cli_repr={`--coverage-py-version=<str>`}
+  env_repr='PANTS_COVERAGE_PY_VERSION'
   toml_repr={`[coverage-py]
-config = <file_option>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`coverage[toml]>=5.5,<5.6`}
 >
 
-Path to an INI or TOML config file understood by coverage.py (https://coverage.readthedocs.io/en/stable/config.html).
-
-Setting this option will disable `[coverage-py].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]coverage-py-config-discovery`}
-  env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
-  toml_repr={`[coverage-py]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant config files during runs (`.coveragerc`, `setup.cfg`, `tox.ini`, and `pyproject.toml`).
-
-Use `[coverage-py].config` instead if your config is in a non-standard location.
+Requirement string for the tool.
 
 </Option>
 

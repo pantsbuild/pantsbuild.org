@@ -23,17 +23,17 @@ Config section: <span className="color--primary">`[peek]`</span>
 
 ## Basic options
 
-### `output_file`
+### `exclude_defaults`
 
 <Option
-  cli_repr={`--peek-output-file=<path>`}
-  env_repr='PANTS_PEEK_OUTPUT_FILE'
+  cli_repr={`--[no-]peek-exclude-defaults`}
+  env_repr='PANTS_PEEK_EXCLUDE_DEFAULTS'
   toml_repr={`[peek]
-output_file = <path>`}
-  default_repr={`None`}
+exclude_defaults = <bool>`}
+  default_repr={`False`}
 >
 
-Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+Whether to leave off values that match the target-defined default values when using `json` output.
 
 </Option>
 
@@ -52,17 +52,17 @@ Which output style peek should use: `json` will show each target as a seperate e
 
 </Option>
 
-### `exclude_defaults`
+### `output_file`
 
 <Option
-  cli_repr={`--[no-]peek-exclude-defaults`}
-  env_repr='PANTS_PEEK_EXCLUDE_DEFAULTS'
+  cli_repr={`--peek-output-file=<path>`}
+  env_repr='PANTS_PEEK_OUTPUT_FILE'
   toml_repr={`[peek]
-exclude_defaults = <bool>`}
-  default_repr={`False`}
+output_file = <path>`}
+  default_repr={`None`}
 >
 
-Whether to leave off values that match the target-defined default values when using `json` output.
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 
 </Option>
 

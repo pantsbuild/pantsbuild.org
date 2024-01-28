@@ -27,29 +27,15 @@ Backend: <span className="color--primary">`pants.backend.experimental.adhoc`</sp
 
 <span className={styles.options}>
 
-## `tags`
+## `file_glob_include`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`Iterable[str]`}
 >
 
-Arbitrary strings to describe a target.
+Globs that identify files that can be processed by this tool
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
+A file matching any of the supplied globs is eligible for processing. Example: [&#x22;**/*.py&#x22;]
 
 </Field>
 
@@ -57,7 +43,6 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 <Field
     type_repr={`str`}
-    default_repr={`None`}
 >
 
 Address to a target that can be invoked by the `run` goal (and does not set `run_in_sandbox_behavior=NOT_SUPPORTED`). This will be executed along with any arguments specified by `args`, in a sandbox with that target&#x27;s transitive dependencies, along with the transitive dependencies specified by `execution_dependencies`.
@@ -75,6 +60,19 @@ Extra arguments to pass into the `runnable` field before the list of source file
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
 ## `execution_dependencies`
 
 <Field
@@ -83,6 +81,17 @@ Extra arguments to pass into the `runnable` field before the list of source file
 >
 
 Additional dependencies that need to be available when running the tool. Typically used to point to config files.
+
+</Field>
+
+## `file_glob_exclude`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Globs matching files that should not be processed by this tool
 
 </Field>
 
@@ -101,27 +110,16 @@ See also `execution_dependencies`.
 
 </Field>
 
-## `file_glob_include`
-
-<Field
-    type_repr={`Iterable[str]`}
-    default_repr={`None`}
->
-
-Globs that identify files that can be processed by this tool
-
-A file matching any of the supplied globs is eligible for processing. Example: [&#x22;**/*.py&#x22;]
-
-</Field>
-
-## `file_glob_exclude`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
-    default_repr={`()`}
+    default_repr={`None`}
 >
 
-Globs matching files that should not be processed by this tool
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

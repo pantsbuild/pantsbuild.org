@@ -23,19 +23,6 @@ Backend: <span className="color--primary">`pants.backend.plugin_development`</sp
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
 ## `description`
 
 <Field
@@ -46,17 +33,6 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 A human-readable description of the target.
 
 Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `testutil`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`True`}
->
-
-If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
 
 </Field>
 
@@ -72,6 +48,30 @@ The resolve from `[python].resolves` that this requirement is included in.
 If not defined, will default to `[python].default_resolve`.
 
 When generating a lockfile for a particular resolve via the `generate-lockfiles` goal, it will include all requirements that are declared with that resolve. First-party targets like `python_source` and `pex_binary` then declare which resolve they use via their `resolve` field; so, for your first-party code to use a particular `python_requirement` target, that requirement must be included in the resolve used by that code.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `testutil`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+If true, include `pantsbuild.pants.testutil` to write tests for your plugin.
 
 </Field>
 

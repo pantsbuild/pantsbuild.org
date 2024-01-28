@@ -17,29 +17,15 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `provides`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`PythonArtifact`}
 >
 
-Arbitrary strings to describe a target.
+The setup.py kwargs for the external artifact built from this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+See https://www.pantsbuild.org/v2.2/docs/python-distributions.
 
 </Field>
 
@@ -58,16 +44,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `provides`
+## `description`
 
 <Field
-    type_repr={`PythonArtifact`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The setup.py kwargs for the external artifact built from this target.
+A human-readable description of the target.
 
-See https://www.pantsbuild.org/v2.2/docs/python-distributions.
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -83,6 +69,19 @@ The runtime commands to invoke setup.py with to create the distribution, e.g. [&
 If empty or unspecified, will just create a chroot with a setup() function.
 
 See https://www.pantsbuild.org/v2.2/docs/python-distributions.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

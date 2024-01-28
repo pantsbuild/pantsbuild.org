@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[flake8]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]flake8-skip`}
-  env_repr='PANTS_FLAKE8_SKIP'
-  toml_repr={`[flake8]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Flake8 when running `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,7 +37,100 @@ Arguments to pass directly to Flake8, e.g. `--flake8-args='--ignore E123,W456 --
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]flake8-skip`}
+  env_repr='PANTS_FLAKE8_SKIP'
+  toml_repr={`[flake8]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Flake8 when running `pants lint`.
+
+</Option>
+
 ## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--flake8-config=<file_option>`}
+  env_repr='PANTS_FLAKE8_CONFIG'
+  toml_repr={`[flake8]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to an INI config file understood by Flake8 (https://flake8.pycqa.org/en/latest/user/configuration.html).
+
+Setting this option will disable `[flake8].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]flake8-config-discovery`}
+  env_repr='PANTS_FLAKE8_CONFIG_DISCOVERY'
+  toml_repr={`[flake8]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`.flake8`, `flake8`, `setup.cfg`, and `tox.ini`).
+
+Use `[flake8].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--flake8-console-script=<str>`}
+  env_repr='PANTS_FLAKE8_CONSOLE_SCRIPT'
+  toml_repr={`[flake8]
+console_script = <str>`}
+  default_repr={`flake8`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--flake8-entry-point=<str>`}
+  env_repr='PANTS_FLAKE8_ENTRY_POINT'
+  toml_repr={`[flake8]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `extra_files`
+
+<Option
+  cli_repr={`--flake8-extra-files="[<file_option>, <file_option>, ...]"`}
+  env_repr='PANTS_FLAKE8_EXTRA_FILES'
+  toml_repr={`[flake8]
+extra_files = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
+like including config files for the `flake8-bandit` plugin.
+
+</Option>
 
 ### `install_from_resolve`
 
@@ -96,85 +175,6 @@ Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.
 The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
 
 If unspecified, install the entire lockfile.
-
-</Option>
-
-### `console_script`
-
-<Option
-  cli_repr={`--flake8-console-script=<str>`}
-  env_repr='PANTS_FLAKE8_CONSOLE_SCRIPT'
-  toml_repr={`[flake8]
-console_script = <str>`}
-  default_repr={`flake8`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--flake8-entry-point=<str>`}
-  env_repr='PANTS_FLAKE8_ENTRY_POINT'
-  toml_repr={`[flake8]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--flake8-config=<file_option>`}
-  env_repr='PANTS_FLAKE8_CONFIG'
-  toml_repr={`[flake8]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to an INI config file understood by Flake8 (https://flake8.pycqa.org/en/latest/user/configuration.html).
-
-Setting this option will disable `[flake8].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `extra_files`
-
-<Option
-  cli_repr={`--flake8-extra-files="[<file_option>, <file_option>, ...]"`}
-  env_repr='PANTS_FLAKE8_EXTRA_FILES'
-  toml_repr={`[flake8]
-extra_files = [
-    <file_option>,
-    <file_option>,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Paths to extra files to include in the sandbox. This can be useful for Flake8 plugins,
-like including config files for the `flake8-bandit` plugin.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]flake8-config-discovery`}
-  env_repr='PANTS_FLAKE8_CONFIG_DISCOVERY'
-  toml_repr={`[flake8]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant config files during runs (`.flake8`, `flake8`, `setup.cfg`, and `tox.ini`).
-
-Use `[flake8].config` instead if your config is in a non-standard location.
 
 </Option>
 

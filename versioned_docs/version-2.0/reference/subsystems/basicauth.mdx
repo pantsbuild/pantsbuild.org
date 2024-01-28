@@ -27,6 +27,22 @@ None
 
 ## Deprecated options
 
+### `allow_insecure_urls`
+
+<Option
+  cli_repr={`--[no-]basicauth-allow-insecure-urls`}
+  env_repr='PANTS_BASICAUTH_ALLOW_INSECURE_URLS'
+  toml_repr={`[basicauth]
+allow_insecure_urls = <bool>`}
+  default_repr={`False`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'The option `--basicauth-allow-insecure-urls` does not do anything and the `[basicauth]` subsystem will be removed.'}
+>
+
+Allow auth against non-HTTPS urls. Must only be set when testing!
+
+</Option>
+
 ### `providers`
 
 <Option
@@ -42,22 +58,6 @@ key2 = val2
 >
 
 Map from provider name to config dict. This dict contains the following items: &#123;provider_name: &#x3C;url of endpoint that accepts basic auth and sets a session cookie&#x3E;&#125;. For example, `{'prod': 'https://app.pantsbuild.org/auth'}`.
-
-</Option>
-
-### `allow_insecure_urls`
-
-<Option
-  cli_repr={`--[no-]basicauth-allow-insecure-urls`}
-  env_repr='PANTS_BASICAUTH_ALLOW_INSECURE_URLS'
-  toml_repr={`[basicauth]
-allow_insecure_urls = <bool>`}
-  default_repr={`False`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'The option `--basicauth-allow-insecure-urls` does not do anything and the `[basicauth]` subsystem will be removed.'}
->
-
-Allow auth against non-HTTPS urls. Must only be set when testing!
 
 </Option>
 

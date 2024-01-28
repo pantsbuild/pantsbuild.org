@@ -23,6 +23,24 @@ Config section: <span className="color--primary">`[filter]`</span>
 
 ## Basic options
 
+### `address_regex`
+
+<Option
+  cli_repr={`--filter-address-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
+  env_repr='PANTS_FILTER_ADDRESS_REGEX'
+  toml_repr={`[filter]
+address_regex = [
+    [+-]regex1,regex2,...,
+    [+-]regex1,regex2,...,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Filter on target addresses matching these regexes.
+
+</Option>
+
 ### `output_file`
 
 <Option
@@ -51,42 +69,6 @@ String to use to separate lines in line-oriented output.
 
 </Option>
 
-### `target_type`
-
-<Option
-  cli_repr={`--filter-target-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
-  env_repr='PANTS_FILTER_TARGET_TYPE'
-  toml_repr={`[filter]
-target_type = [
-    [+-]type1,type2,...,
-    [+-]type1,type2,...,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Filter on these target types, e.g. `resources` or `python_library`.
-
-</Option>
-
-### `address_regex`
-
-<Option
-  cli_repr={`--filter-address-regex="[[+-]regex1,regex2,..., [+-]regex1,regex2,..., ...]"`}
-  env_repr='PANTS_FILTER_ADDRESS_REGEX'
-  toml_repr={`[filter]
-address_regex = [
-    [+-]regex1,regex2,...,
-    [+-]regex1,regex2,...,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Filter on target addresses matching these regexes.
-
-</Option>
-
 ### `tag_regex`
 
 <Option
@@ -105,29 +87,47 @@ Filter on targets with tags matching these regexes.
 
 </Option>
 
+### `target_type`
+
+<Option
+  cli_repr={`--filter-target-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
+  env_repr='PANTS_FILTER_TARGET_TYPE'
+  toml_repr={`[filter]
+target_type = [
+    [+-]type1,type2,...,
+    [+-]type1,type2,...,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Filter on these target types, e.g. `resources` or `python_library`.
+
+</Option>
+
 ## Advanced options
 
 None
 
 ## Deprecated options
 
-### `type`
+### `ancestor`
 
 <Option
-  cli_repr={`--filter-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
-  env_repr='PANTS_FILTER_TYPE'
+  cli_repr={`--filter-ancestor="[[+-]spec1,spec2,..., [+-]spec1,spec2,..., ...]"`}
+  env_repr='PANTS_FILTER_ANCESTOR'
   toml_repr={`[filter]
-type = [
-    [+-]type1,type2,...,
-    [+-]type1,type2,...,
+ancestor = [
+    [+-]spec1,spec2,...,
+    [+-]spec1,spec2,...,
     ...,
 ]`}
   default_repr={`[]`}
   removal_version='2.1.0.dev0'
-  removal_hint={'Use `--target-type` instead of `--type`.'}
+  removal_hint={'`--filter-ancestor` was removed because it is not trivial to implement. If you still need this feature, please message us on Slack (https://www.pantsbuild.org/docs/community).'}
 >
 
-Filter on these target types, e.g. `resources` or `python_library`.
+Filter on targets that these targets depend on.
 
 </Option>
 
@@ -171,23 +171,23 @@ Filter on these target addresses.
 
 </Option>
 
-### `ancestor`
+### `type`
 
 <Option
-  cli_repr={`--filter-ancestor="[[+-]spec1,spec2,..., [+-]spec1,spec2,..., ...]"`}
-  env_repr='PANTS_FILTER_ANCESTOR'
+  cli_repr={`--filter-type="[[+-]type1,type2,..., [+-]type1,type2,..., ...]"`}
+  env_repr='PANTS_FILTER_TYPE'
   toml_repr={`[filter]
-ancestor = [
-    [+-]spec1,spec2,...,
-    [+-]spec1,spec2,...,
+type = [
+    [+-]type1,type2,...,
+    [+-]type1,type2,...,
     ...,
 ]`}
   default_repr={`[]`}
   removal_version='2.1.0.dev0'
-  removal_hint={'`--filter-ancestor` was removed because it is not trivial to implement. If you still need this feature, please message us on Slack (https://www.pantsbuild.org/docs/community).'}
+  removal_hint={'Use `--target-type` instead of `--type`.'}
 >
 
-Filter on targets that these targets depend on.
+Filter on these target types, e.g. `resources` or `python_library`.
 
 </Option>
 

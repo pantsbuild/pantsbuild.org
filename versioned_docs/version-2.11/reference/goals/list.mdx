@@ -23,6 +23,20 @@ Config section: <span className="color--primary">`[list]`</span>
 
 ## Basic options
 
+### `documented`
+
+<Option
+  cli_repr={`--[no-]list-documented`}
+  env_repr='PANTS_LIST_DOCUMENTED'
+  toml_repr={`[list]
+documented = <bool>`}
+  default_repr={`False`}
+>
+
+Print only targets that are documented with a description.
+
+</Option>
+
 ### `output_file`
 
 <Option
@@ -48,20 +62,6 @@ sep = <separator>`}
 >
 
 String to use to separate lines in line-oriented output.
-
-</Option>
-
-### `documented`
-
-<Option
-  cli_repr={`--[no-]list-documented`}
-  env_repr='PANTS_LIST_DOCUMENTED'
-  toml_repr={`[list]
-documented = <bool>`}
-  default_repr={`False`}
->
-
-Print only targets that are documented with a description.
 
 </Option>
 

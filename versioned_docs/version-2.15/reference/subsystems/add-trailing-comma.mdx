@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[add-trailing-comma]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]add-trailing-comma-skip`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
-  toml_repr={`[add-trailing-comma]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use add-trailing-comma when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,47 @@ Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-arg
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--add-trailing-comma-version=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_VERSION'
+  cli_repr={`--[no-]add-trailing-comma-skip`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
   toml_repr={`[add-trailing-comma]
-version = <str>`}
-  default_repr={`add-trailing-comma==2.2.3`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+If true, don&#x27;t use add-trailing-comma when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `console_script`
+
+<Option
+  cli_repr={`--add-trailing-comma-console-script=<str>`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_CONSOLE_SCRIPT'
+  toml_repr={`[add-trailing-comma]
+console_script = <str>`}
+  default_repr={`add-trailing-comma`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--add-trailing-comma-entry-point=<str>`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_ENTRY_POINT'
+  toml_repr={`[add-trailing-comma]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -125,31 +139,17 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--add-trailing-comma-console-script=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_CONSOLE_SCRIPT'
+  cli_repr={`--add-trailing-comma-version=<str>`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_VERSION'
   toml_repr={`[add-trailing-comma]
-console_script = <str>`}
-  default_repr={`add-trailing-comma`}
+version = <str>`}
+  default_repr={`add-trailing-comma==2.2.3`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--add-trailing-comma-entry-point=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_ENTRY_POINT'
-  toml_repr={`[add-trailing-comma]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+Requirement string for the tool.
 
 </Option>
 

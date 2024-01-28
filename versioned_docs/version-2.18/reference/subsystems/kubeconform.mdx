@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[kubeconform]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]kubeconform-skip`}
-  env_repr='PANTS_KUBECONFORM_SKIP'
-  toml_repr={`[kubeconform]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use kubeconform when running `pants check`.
-
-</Option>
-
 ### `output_type`
 
 <Option
@@ -45,6 +31,20 @@ output_type = <KubeconformOutput>`}
 >
 
 Output type used by `kubeconform`.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]kubeconform-skip`}
+  env_repr='PANTS_KUBECONFORM_SKIP'
+  toml_repr={`[kubeconform]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use kubeconform when running `pants check`.
 
 </Option>
 
@@ -78,17 +78,17 @@ Set to true to increase output verbosity.
 
 ## Advanced options
 
-### `version`
+### `concurrency`
 
 <Option
-  cli_repr={`--kubeconform-version=<str>`}
-  env_repr='PANTS_KUBECONFORM_VERSION'
+  cli_repr={`--kubeconform-concurrency=<int>`}
+  env_repr='PANTS_KUBECONFORM_CONCURRENCY'
   toml_repr={`[kubeconform]
-version = <str>`}
-  default_repr={`0.6.2`}
+concurrency = <int>`}
+  default_repr={`None`}
 >
 
-Use this version of kubeconform.
+Number of workers used by Kubeconform to validate resources.
 
 </Option>
 
@@ -127,19 +127,21 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
+### `schema_locations`
 
 <Option
-  cli_repr={`--kubeconform-url-template=<str>`}
-  env_repr='PANTS_KUBECONFORM_URL_TEMPLATE'
+  cli_repr={`--kubeconform-schema-locations="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_KUBECONFORM_SCHEMA_LOCATIONS'
   toml_repr={`[kubeconform]
-url_template = <str>`}
-  default_repr={`https://github.com/yannh/kubeconform/releases/download/v{version}/kubeconform-{platform}.tar.gz`}
+schema_locations = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "default"\n]`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+List of schema locations to use to validate the resources.
 
 </Option>
 
@@ -163,6 +165,22 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
+### `url_template`
+
+<Option
+  cli_repr={`--kubeconform-url-template=<str>`}
+  env_repr='PANTS_KUBECONFORM_URL_TEMPLATE'
+  toml_repr={`[kubeconform]
+url_template = <str>`}
+  default_repr={`https://github.com/yannh/kubeconform/releases/download/v{version}/kubeconform-{platform}.tar.gz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
 ### `use_unsupported_version`
 
 <Option
@@ -180,35 +198,17 @@ Supported kubeconform versions: unspecified
 
 </Option>
 
-### `concurrency`
+### `version`
 
 <Option
-  cli_repr={`--kubeconform-concurrency=<int>`}
-  env_repr='PANTS_KUBECONFORM_CONCURRENCY'
+  cli_repr={`--kubeconform-version=<str>`}
+  env_repr='PANTS_KUBECONFORM_VERSION'
   toml_repr={`[kubeconform]
-concurrency = <int>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`0.6.2`}
 >
 
-Number of workers used by Kubeconform to validate resources.
-
-</Option>
-
-### `schema_locations`
-
-<Option
-  cli_repr={`--kubeconform-schema-locations="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_KUBECONFORM_SCHEMA_LOCATIONS'
-  toml_repr={`[kubeconform]
-schema_locations = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "default"\n]`}
->
-
-List of schema locations to use to validate the resources.
+Use this version of kubeconform.
 
 </Option>
 

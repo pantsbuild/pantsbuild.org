@@ -41,20 +41,6 @@ Coursier will resolve these repositories in the order in which they are specifed
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--coursier-version=<str>`}
-  env_repr='PANTS_COURSIER_VERSION'
-  toml_repr={`[coursier]
-version = <str>`}
-  default_repr={`v2.0.16-169-g194ebc55c`}
->
-
-Use this version of coursier.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -88,20 +74,23 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `url_platform_mapping`
 
 <Option
-  cli_repr={`--coursier-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_COURSIER_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[coursier]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+  cli_repr={`--coursier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_COURSIER_URL_PLATFORM_MAPPING'
+  toml_repr={`[coursier.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "aarch64-pc-linux",\n  "linux_x86_64": "x86_64-pc-linux",\n  "macos_arm64": "x86_64-apple-darwin",\n  "macos_x86_64": "x86_64-apple-darwin"\n}`}
 >
 
-What action to take in case the requested version of coursier is not supported.
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
-Supported coursier versions: unspecified
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
 
 </Option>
 
@@ -121,23 +110,34 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 
 </Option>
 
-### `url_platform_mapping`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--coursier-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_COURSIER_URL_PLATFORM_MAPPING'
-  toml_repr={`[coursier.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "linux_arm64": "aarch64-pc-linux",\n  "linux_x86_64": "x86_64-pc-linux",\n  "macos_arm64": "x86_64-apple-darwin",\n  "macos_x86_64": "x86_64-apple-darwin"\n}`}
+  cli_repr={`--coursier-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_COURSIER_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[coursier]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+What action to take in case the requested version of coursier is not supported.
 
-In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+Supported coursier versions: unspecified
 
-For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--coursier-version=<str>`}
+  env_repr='PANTS_COURSIER_VERSION'
+  toml_repr={`[coursier]
+version = <str>`}
+  default_repr={`v2.0.16-169-g194ebc55c`}
+>
+
+Use this version of coursier.
 
 </Option>
 

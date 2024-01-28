@@ -47,14 +47,24 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `sources`
+
+<Field
+    type_repr={`Iterable[str]`}
+>
+
+A list of files and globs that belong to this target. Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+
+</Field>
+
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
+Addresses to other targets that this plugin depends on. Due to restrictions with Pylint plugins, these targets must either be third-party Python dependencies (https://www.pantsbuild.org/docs/python-third-party-dependencies) or be located within this target&#x27;s same directory or a subdirectory.
 
 </Field>
 
@@ -80,25 +90,14 @@ The Python interpreters this code is compatible with. Each element should be wri
 
 </Field>
 
-## `dependencies`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Addresses to other targets that this plugin depends on. Due to restrictions with Pylint plugins, these targets must either be third-party Python dependencies (https://www.pantsbuild.org/docs/python-third-party-dependencies) or be located within this target&#x27;s same directory or a subdirectory.
-
-</Field>
-
-## `sources`
-
-<Field
-    type_repr={`Iterable[str]`}
-    default_repr={`None`}
->
-
-A list of files and globs that belong to this target. Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`. Example: `sources=['example.py', 'test_*.py', '!test_ignore.py']`.
+Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

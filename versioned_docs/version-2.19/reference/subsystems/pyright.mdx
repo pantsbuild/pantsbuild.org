@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[pyright]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]pyright-skip`}
-  env_repr='PANTS_PYRIGHT_SKIP'
-  toml_repr={`[pyright]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Pyright when running `pants check`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,21 +37,21 @@ Arguments to pass directly to Pyright, e.g. `--pyright-args='--version'`.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--pyright-version=<str>`}
-  env_repr='PANTS_PYRIGHT_VERSION'
+  cli_repr={`--[no-]pyright-skip`}
+  env_repr='PANTS_PYRIGHT_SKIP'
   toml_repr={`[pyright]
-version = <str>`}
-  default_repr={`pyright@1.1.316`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Version string for the tool in the form package@version (e.g. prettier@2.6.2)
+If true, don&#x27;t use Pyright when running `pants check`.
 
 </Option>
+
+## Advanced options
 
 ### `install_from_resolve`
 
@@ -98,6 +84,20 @@ interpreter_constraints = [
 >
 
 Python interpreter constraints for Pyright (which is, itself, a NodeJS tool).
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--pyright-version=<str>`}
+  env_repr='PANTS_PYRIGHT_VERSION'
+  toml_repr={`[pyright]
+version = <str>`}
+  default_repr={`pyright@1.1.316`}
+>
+
+Version string for the tool in the form package@version (e.g. prettier@2.6.2)
 
 </Option>
 

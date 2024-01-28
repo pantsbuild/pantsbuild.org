@@ -20,14 +20,25 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `always_write_cache`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`False`}
+>
+
+Whether PEX should always write the .deps cache of the .pex file to disk or not. This can use less memory in RAM constrained environments.
+
+</Field>
+
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -39,6 +50,50 @@ Arbitrary strings that you can use to describe a target. For example, you may ta
 >
 
 A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `emit_warnings`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Whether or not to emit PEX warnings at runtime. The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
+
+</Field>
+
+## `entry_point`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The entry point for the binary. If omitted, Pants will use the module name from the `sources` field, e.g. `project/app.py` will become the entry point `project.app` .
+
+</Field>
+
+## `ignore_errors`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`False`}
+>
+
+Should we ignore when PEX cannot resolve dependencies?
+
+</Field>
+
+## `inherit_path`
+
+<Field
+    type_repr={`'fallback' | 'false' | 'prefer' | None`}
+    default_repr={`None`}
+>
+
+Whether to inherit the `sys.path` of the environment that the binary runs in. Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
 
 </Field>
 
@@ -64,39 +119,6 @@ Where the built asset should be located. If undefined, this will use the path to
 
 </Field>
 
-## `sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-A single file containing the executable, such as [&#x27;app.py&#x27;]. You can leave this off if you include the executable file in one of this target&#x27;s `dependencies` and explicitly set this target&#x27;s `entry_point`. This must have 0 or 1 files, but no more. If you depend on more files, put them in a `python_library` target and include that target in the `dependencies` field.
-
-</Field>
-
-## `dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;]. Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;]. You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
-
-</Field>
-
-## `entry_point`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The entry point for the binary. If omitted, Pants will use the module name from the `sources` field, e.g. `project/app.py` will become the entry point `project.app` .
-
-</Field>
-
 ## `platforms`
 
 <Field
@@ -105,50 +127,6 @@ The entry point for the binary. If omitted, Pants will use the module name from 
 >
 
 The platforms the built PEX should be compatible with. This defaults to the current platform, but can be overridden to different platforms. You can give a list of multiple platforms to create a multiplatform PEX. To use wheels for specific interpreter/platform tags, you can append them to the platform with hyphens like: PLATFORM-IMPL-PYVER-ABI (e.g. &#x22;linux_x86_64-cp-27-cp27mu&#x22;, &#x22;macosx_10.12_x86_64-cp-36-cp36m&#x22;). PLATFORM is the host platform e.g. &#x22;linux-x86_64&#x22;, &#x22;macosx-10.12-x86_64&#x22;, etc&#x22;. IMPL is the Python implementation abbreviation (e.g. &#x22;cp&#x22;, &#x22;pp&#x22;, &#x22;jp&#x22;). PYVER is a two-digit string representing the python version (e.g. &#x22;27&#x22;, &#x22;36&#x22;). ABI is the ABI tag (e.g. &#x22;cp36m&#x22;, &#x22;cp27mu&#x22;, &#x22;abi3&#x22;, &#x22;none&#x22;).
-
-</Field>
-
-## `inherit_path`
-
-<Field
-    type_repr={`'fallback' | 'false' | 'prefer' | None`}
-    default_repr={`None`}
->
-
-Whether to inherit the `sys.path` of the environment that the binary runs in. Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
-
-</Field>
-
-## `zip_safe`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`True`}
->
-
-Whether or not this binary is safe to run in compacted (zip-file) form. If the PEX is not zip safe, it will be written to disk prior to execution. You may need to mark `zip_safe=False` if you&#x27;re having issues loading your code.
-
-</Field>
-
-## `always_write_cache`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`False`}
->
-
-Whether PEX should always write the .deps cache of the .pex file to disk or not. This can use less memory in RAM constrained environments.
-
-</Field>
-
-## `ignore_errors`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`False`}
->
-
-Should we ignore when PEX cannot resolve dependencies?
 
 </Field>
 
@@ -163,14 +141,36 @@ Set the generated PEX to use this shebang, rather than the default of PEX choosi
 
 </Field>
 
-## `emit_warnings`
+## `sources`
 
 <Field
-    type_repr={`bool | None`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Whether or not to emit PEX warnings at runtime. The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
+A single file containing the executable, such as [&#x27;app.py&#x27;]. You can leave this off if you include the executable file in one of this target&#x27;s `dependencies` and explicitly set this target&#x27;s `entry_point`. This must have 0 or 1 files, but no more. If you depend on more files, put them in a `python_library` target and include that target in the `dependencies` field.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `zip_safe`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`True`}
+>
+
+Whether or not this binary is safe to run in compacted (zip-file) form. If the PEX is not zip safe, it will be written to disk prior to execution. You may need to mark `zip_safe=False` if you&#x27;re having issues loading your code.
 
 </Field>
 

@@ -19,17 +19,18 @@ Config section: <span className="color--primary">`[changed]`</span>
 
 ## Basic options
 
-### `since`
+### `dependees`
 
 <Option
-  cli_repr={`--changed-since=<str>`}
-  env_repr='PANTS_CHANGED_SINCE'
+  cli_repr={`--changed-dependees=<DependeesOption>`}
+  env_repr='PANTS_CHANGED_DEPENDEES'
   toml_repr={`[changed]
-since = <str>`}
-  default_repr={`None`}
+dependees = <DependeesOption>`}
+  one_of='none, direct, transitive'
+  default_repr={`none`}
 >
 
-Calculate changes since this Git spec (commit range/SHA/ref).
+Include direct or transitive dependees of changed targets.
 
 </Option>
 
@@ -47,18 +48,17 @@ Calculate changes contained within a given Git spec (commit range/SHA/ref).
 
 </Option>
 
-### `dependees`
+### `since`
 
 <Option
-  cli_repr={`--changed-dependees=<DependeesOption>`}
-  env_repr='PANTS_CHANGED_DEPENDEES'
+  cli_repr={`--changed-since=<str>`}
+  env_repr='PANTS_CHANGED_SINCE'
   toml_repr={`[changed]
-dependees = <DependeesOption>`}
-  one_of='none, direct, transitive'
-  default_repr={`none`}
+since = <str>`}
+  default_repr={`None`}
 >
 
-Include direct or transitive dependees of changed targets.
+Calculate changes since this Git spec (commit range/SHA/ref).
 
 </Option>
 
@@ -84,6 +84,22 @@ Calculate changes since this tree-ish/scm ref.
 
 </Option>
 
+### `fast`
+
+<Option
+  cli_repr={`--[no-]changed-fast`}
+  env_repr='PANTS_CHANGED_FAST'
+  toml_repr={`[changed]
+fast = <bool>`}
+  default_repr={`False`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'The option `--changed-fast` no longer does anything.'}
+>
+
+Stop searching for owners once a source is mapped to at least one owning target.
+
+</Option>
+
 ### `include_dependees`
 
 <Option
@@ -98,22 +114,6 @@ include_dependees = <DependeesOption>`}
 >
 
 Include direct or transitive dependees of changed targets.
-
-</Option>
-
-### `fast`
-
-<Option
-  cli_repr={`--[no-]changed-fast`}
-  env_repr='PANTS_CHANGED_FAST'
-  toml_repr={`[changed]
-fast = <bool>`}
-  default_repr={`False`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'The option `--changed-fast` no longer does anything.'}
->
-
-Stop searching for owners once a source is mapped to at least one owning target.
 
 </Option>
 

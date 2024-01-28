@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[black]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]black-skip`}
-  env_repr='PANTS_BLACK_SKIP'
-  toml_repr={`[black]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,47 @@ Arguments to pass directly to Black, e.g. `--black-args="--target-version=py37 -
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--black-version=<str>`}
-  env_repr='PANTS_BLACK_VERSION'
+  cli_repr={`--[no-]black-skip`}
+  env_repr='PANTS_BLACK_SKIP'
   toml_repr={`[black]
-version = <str>`}
-  default_repr={`black==20.8b1`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+Don&#x27;t use Black when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--black-config=<file_option>`}
+  env_repr='PANTS_BLACK_CONFIG'
+  toml_repr={`[black]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to Black&#x27;s pyproject.toml config file
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--black-entry-point=<str>`}
+  env_repr='PANTS_BLACK_ENTRY_POINT'
+  toml_repr={`[black]
+entry_point = <str>`}
+  default_repr={`black:patched_main`}
+>
+
+The main module for the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -85,20 +99,6 @@ Any additional requirement strings to use with the tool. This is useful if the t
 
 </Option>
 
-### `entry_point`
-
-<Option
-  cli_repr={`--black-entry-point=<str>`}
-  env_repr='PANTS_BLACK_ENTRY_POINT'
-  toml_repr={`[black]
-entry_point = <str>`}
-  default_repr={`black:patched_main`}
->
-
-The main module for the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
 ### `interpreter_constraints`
 
 <Option
@@ -117,17 +117,17 @@ Python interpreter constraints for this tool.
 
 </Option>
 
-### `config`
+### `version`
 
 <Option
-  cli_repr={`--black-config=<file_option>`}
-  env_repr='PANTS_BLACK_CONFIG'
+  cli_repr={`--black-version=<str>`}
+  env_repr='PANTS_BLACK_VERSION'
   toml_repr={`[black]
-config = <file_option>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`black==20.8b1`}
 >
 
-Path to Black&#x27;s pyproject.toml config file
+Requirement string for the tool.
 
 </Option>
 

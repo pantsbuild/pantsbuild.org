@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[cc-infer]`</span>
 
 ## Basic options
 
-### `includes`
-
-<Option
-  cli_repr={`--[no-]cc-infer-includes`}
-  env_repr='PANTS_CC_INFER_INCLUDES'
-  toml_repr={`[cc-infer]
-includes = <bool>`}
-  default_repr={`True`}
->
-
-Infer a target&#x27;s dependencies by parsing #include statements from sources.
-
-</Option>
-
 ### `include_from_source_roots`
 
 <Option
@@ -48,6 +34,20 @@ Infer a target&#x27;s dependencies by trying to include relative to source roots
 An example where this may be useful is if you have a a file at `root/include/mylib/foo.h` which may be referenced via `#include "mylib/foo.h"`. This option will allow you to correctly infer dependencies if you have a source root at `root/{include}` and searching for `mylib/foo.h` relative to the that source root.
 
 The inferred files take part in compilation, and the source root is added to the compilation include search path (https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management) with command line arguments prefixed by the &#x27;-I&#x27; flag.
+
+</Option>
+
+### `includes`
+
+<Option
+  cli_repr={`--[no-]cc-infer-includes`}
+  env_repr='PANTS_CC_INFER_INCLUDES'
+  toml_repr={`[cc-infer]
+includes = <bool>`}
+  default_repr={`True`}
+>
+
+Infer a target&#x27;s dependencies by parsing #include statements from sources.
 
 </Option>
 

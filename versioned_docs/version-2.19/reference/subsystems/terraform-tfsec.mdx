@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[terraform-tfsec]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]terraform-tfsec-skip`}
-  env_repr='PANTS_TERRAFORM_TFSEC_SKIP'
-  toml_repr={`[terraform-tfsec]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use tfsec when running `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,51 @@ Arguments to pass directly to tfsec, e.g. `--terraform-tfsec-args='--minimum-sev
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--terraform-tfsec-version=<str>`}
-  env_repr='PANTS_TERRAFORM_TFSEC_VERSION'
+  cli_repr={`--[no-]terraform-tfsec-skip`}
+  env_repr='PANTS_TERRAFORM_TFSEC_SKIP'
   toml_repr={`[terraform-tfsec]
-version = <str>`}
-  default_repr={`v1.28.1`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of tfsec.
+If true, don&#x27;t use tfsec when running `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--terraform-tfsec-config=<file_option>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_CONFIG'
+  toml_repr={`[terraform-tfsec]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the tfsec config file (https://aquasecurity.github.io/tfsec/latest/guides/configuration/config/)
+
+Setting this option will disable `[terraform-tfsec].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]terraform-tfsec-config-discovery`}
+  env_repr='PANTS_TERRAFORM_TFSEC_CONFIG_DISCOVERY'
+  toml_repr={`[terraform-tfsec]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant config files during runs (`.tfsec/config.json` or `.tfsec/config.yml`). Note that you will have to tell Pants to include this file by adding `"!.tfsec/"` to `[global].pants_ignore.add`.
+
+Use `[terraform-tfsec].config` instead if your config is in a non-standard location.
 
 </Option>
 
@@ -119,35 +137,17 @@ Supported tfsec versions: unspecified
 
 </Option>
 
-### `config`
+### `version`
 
 <Option
-  cli_repr={`--terraform-tfsec-config=<file_option>`}
-  env_repr='PANTS_TERRAFORM_TFSEC_CONFIG'
+  cli_repr={`--terraform-tfsec-version=<str>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_VERSION'
   toml_repr={`[terraform-tfsec]
-config = <file_option>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`v1.28.1`}
 >
 
-Path to the tfsec config file (https://aquasecurity.github.io/tfsec/latest/guides/configuration/config/)
-
-Setting this option will disable `[terraform-tfsec].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]terraform-tfsec-config-discovery`}
-  env_repr='PANTS_TERRAFORM_TFSEC_CONFIG_DISCOVERY'
-  toml_repr={`[terraform-tfsec]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include all relevant config files during runs (`.tfsec/config.json` or `.tfsec/config.yml`). Note that you will have to tell Pants to include this file by adding `"!.tfsec/"` to `[global].pants_ignore.add`.
-
-Use `[terraform-tfsec].config` instead if your config is in a non-standard location.
+Use this version of tfsec.
 
 </Option>
 

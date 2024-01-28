@@ -19,16 +19,22 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `./pants dependencies` or `./pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.9/docs/targets#target-addresses and https://www.pantsbuild.org/v2.9/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `./pants list ::` to find all addresses in your project, or `./pants list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -61,40 +67,6 @@ Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPyt
 If the field is not set, it will default to the option `[python].interpreter_constraints`.
 
 See https://www.pantsbuild.org/v2.9/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
-
-</Field>
-
-## `dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
-
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `./pants dependencies` or `./pants peek` on this target to get the final result.
-
-See https://www.pantsbuild.org/v2.9/docs/targets#target-addresses and https://www.pantsbuild.org/v2.9/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `./pants list ::` to find all addresses in your project, or `./pants list dir:` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
-
-</Field>
-
-## `sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
 
@@ -135,17 +107,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 >
 
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
-
-</Field>
-
-## `skip_pyupgrade`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
@@ -204,6 +165,17 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
 
+## `skip_mypy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
 ## `skip_pylint`
 
 <Field
@@ -212,6 +184,17 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
@@ -226,14 +209,31 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
 
-## `skip_mypy`
+## `sources`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.py', '*.pyi', '!test_*.py', '!*_test.py', '!tests.py', '!conftest.py', '!test_*.pyi', '!*_test.pyi', '!tests.pyi')`}
 >
 
-If true, don&#x27;t run MyPy on this target&#x27;s code.
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

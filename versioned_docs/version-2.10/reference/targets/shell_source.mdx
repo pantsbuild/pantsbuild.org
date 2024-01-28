@@ -17,29 +17,15 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -62,16 +48,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `source`
+## `description`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A single file that belongs to this target.
+A human-readable description of the target.
 
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -96,6 +82,19 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

@@ -57,54 +57,19 @@ Option scopes to record in stats on run completion. Options may be selected by j
 
 ## Deprecated options
 
-### `stats_upload_urls`
+### `num_background_workers`
 
 <Option
-  cli_repr={`--run-tracker-stats-upload-urls="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_RUN_TRACKER_STATS_UPLOAD_URLS'
-  toml_repr={`[run-tracker.stats_upload_urls]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
->
-
-Upload stats to these URLs on run completion. Value is a map from URL to the name of the auth provider the user must auth against in order to upload stats to that URL, or None/empty string if no auth is required. Currently the auth provider name is only used to provide a more helpful error message.
-
-</Option>
-
-### `stats_upload_timeout`
-
-<Option
-  cli_repr={`--run-tracker-stats-upload-timeout=<int>`}
-  env_repr='PANTS_RUN_TRACKER_STATS_UPLOAD_TIMEOUT'
+  cli_repr={`--run-tracker-num-background-workers=<int>`}
+  env_repr='PANTS_RUN_TRACKER_NUM_BACKGROUND_WORKERS'
   toml_repr={`[run-tracker]
-stats_upload_timeout = <int>`}
-  default_repr={`2`}
+num_background_workers = <int>`}
+  default_repr={`64`}
   removal_version='2.1.0.dev0'
-  removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
+  removal_hint={'RunTracker no longer uses background workers.'}
 >
 
-Wait at most this many seconds for the stats upload to complete.
-
-</Option>
-
-### `stats_version`
-
-<Option
-  cli_repr={`--run-tracker-stats-version=<int>`}
-  env_repr='PANTS_RUN_TRACKER_STATS_VERSION'
-  toml_repr={`[run-tracker]
-stats_version = <int>`}
-  one_of='1, 2'
-  default_repr={`1`}
-  removal_version='2.1.0.dev0'
-  removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
->
-
-Format of stats JSON for uploads and local json file.
+Number of threads for background work.
 
 </Option>
 
@@ -124,19 +89,54 @@ Number of threads for foreground work.
 
 </Option>
 
-### `num_background_workers`
+### `stats_upload_timeout`
 
 <Option
-  cli_repr={`--run-tracker-num-background-workers=<int>`}
-  env_repr='PANTS_RUN_TRACKER_NUM_BACKGROUND_WORKERS'
+  cli_repr={`--run-tracker-stats-upload-timeout=<int>`}
+  env_repr='PANTS_RUN_TRACKER_STATS_UPLOAD_TIMEOUT'
   toml_repr={`[run-tracker]
-num_background_workers = <int>`}
-  default_repr={`64`}
+stats_upload_timeout = <int>`}
+  default_repr={`2`}
   removal_version='2.1.0.dev0'
-  removal_hint={'RunTracker no longer uses background workers.'}
+  removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
 >
 
-Number of threads for background work.
+Wait at most this many seconds for the stats upload to complete.
+
+</Option>
+
+### `stats_upload_urls`
+
+<Option
+  cli_repr={`--run-tracker-stats-upload-urls="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_RUN_TRACKER_STATS_UPLOAD_URLS'
+  toml_repr={`[run-tracker.stats_upload_urls]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
+>
+
+Upload stats to these URLs on run completion. Value is a map from URL to the name of the auth provider the user must auth against in order to upload stats to that URL, or None/empty string if no auth is required. Currently the auth provider name is only used to provide a more helpful error message.
+
+</Option>
+
+### `stats_version`
+
+<Option
+  cli_repr={`--run-tracker-stats-version=<int>`}
+  env_repr='PANTS_RUN_TRACKER_STATS_VERSION'
+  toml_repr={`[run-tracker]
+stats_version = <int>`}
+  one_of='1, 2'
+  default_repr={`1`}
+  removal_version='2.1.0.dev0'
+  removal_hint={'RunTracker no longer directly supports uploading run stats to urls.'}
+>
+
+Format of stats JSON for uploads and local json file.
 
 </Option>
 

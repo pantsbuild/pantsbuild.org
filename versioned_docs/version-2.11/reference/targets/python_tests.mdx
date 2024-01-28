@@ -17,16 +17,22 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -43,18 +49,33 @@ Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targ
 
 </Field>
 
-## `sources`
+## `extra_env_vars`
 
 <Field
     type_repr={`Iterable[str] | None`}
-    default_repr={`('test_*.py', '*_test.py', 'tests.py')`}
+    default_repr={`None`}
 >
 
-A list of files and globs that belong to this target.
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
 
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+</Field>
 
-Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
+## `interpreter_constraints`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.11/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
 
@@ -87,6 +108,36 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `runtime_package_dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to targets that can be built with the `/home/josh/work/scie-pants/dist/pants package` goal and whose resulting artifacts should be included in the test run.
+
+Pants will build the artifacts as if you had run `/home/josh/work/scie-pants/dist/pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+
+You can include anything that can be built by `/home/josh/work/scie-pants/dist/pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+
+</Field>
+
 ## `skip_autoflake`
 
 <Field
@@ -96,18 +147,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 >
 
 If true, don&#x27;t run Autoflake on this target&#x27;s code.
-
-</Field>
-
-## `skip_pyupgrade`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.pyupgrade"
->
-
-If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
@@ -171,6 +210,18 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 
 </Field>
 
+## `skip_mypy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
 ## `skip_pylint`
 
 <Field
@@ -180,6 +231,29 @@ If true, don&#x27;t run isort on this target&#x27;s code.
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyupgrade`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.pyupgrade"
+>
+
+If true, don&#x27;t run pyupgrade on this target&#x27;s code.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
 
@@ -195,49 +269,31 @@ If true, don&#x27;t run yapf on this target&#x27;s code.
 
 </Field>
 
-## `skip_mypy`
+## `sources`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.typecheck.mypy"
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('test_*.py', '*_test.py', 'tests.py')`}
 >
 
-If true, don&#x27;t run MyPy on this target&#x27;s code.
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
 
-## `dependencies`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+Arbitrary strings to describe a target.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
-
-See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir:` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
-
-</Field>
-
-## `resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -251,62 +307,6 @@ All dependencies must share the same value for their `resolve` field.
 A timeout (in seconds) used by each test file belonging to this target.
 
 If unset, will default to `[pytest].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[pytest].timeout_maximum`. Only applies if the option `--pytest-timeouts` is set to true (the default).
-
-</Field>
-
-## `runtime_package_dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to targets that can be built with the `/home/josh/work/scie-pants/dist/pants package` goal and whose resulting artifacts should be included in the test run.
-
-Pants will build the artifacts as if you had run `/home/josh/work/scie-pants/dist/pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
-
-You can include anything that can be built by `/home/josh/work/scie-pants/dist/pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
-
-</Field>
-
-## `extra_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. This will be merged with and override values from [test].extra_env_vars.
-
-</Field>
-
-## `interpreter_constraints`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The Python interpreters this code is compatible with.
-
-Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
-
-Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
-
-If the field is not set, it will default to the option `[python].interpreter_constraints`.
-
-See https://www.pantsbuild.org/v2.11/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
-
-</Field>
-
-## `skip_tests`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, don&#x27;t run this target&#x27;s tests.
 
 </Field>
 

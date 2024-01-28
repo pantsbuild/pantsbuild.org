@@ -19,34 +19,6 @@ Config section: <span className="color--primary">`[buf]`</span>
 
 ## Basic options
 
-### `format_skip`
-
-<Option
-  cli_repr={`--[no-]buf-format-skip`}
-  env_repr='PANTS_BUF_FORMAT_SKIP'
-  toml_repr={`[buf]
-format_skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Buf when running `pants fmt` and `pants lint`.
-
-</Option>
-
-### `lint_skip`
-
-<Option
-  cli_repr={`--[no-]buf-lint-skip`}
-  env_repr='PANTS_BUF_LINT_SKIP'
-  toml_repr={`[buf]
-lint_skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Buf when running `pants lint`.
-
-</Option>
-
 ### `format_args`
 
 <Option
@@ -62,6 +34,20 @@ format_args = [
 >
 
 Arguments to pass directly to Buf, e.g. `--buf-args='--error-format json'`.
+
+</Option>
+
+### `format_skip`
+
+<Option
+  cli_repr={`--[no-]buf-format-skip`}
+  env_repr='PANTS_BUF_FORMAT_SKIP'
+  toml_repr={`[buf]
+format_skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Buf when running `pants fmt` and `pants lint`.
 
 </Option>
 
@@ -83,19 +69,51 @@ Arguments to pass directly to Buf, e.g. `--buf-args='--error-format json'`.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `lint_skip`
 
 <Option
-  cli_repr={`--buf-version=<str>`}
-  env_repr='PANTS_BUF_VERSION'
+  cli_repr={`--[no-]buf-lint-skip`}
+  env_repr='PANTS_BUF_LINT_SKIP'
   toml_repr={`[buf]
-version = <str>`}
-  default_repr={`v1.3.0`}
+lint_skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of Buf.
+If true, don&#x27;t use Buf when running `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--buf-config=<file_option>`}
+  env_repr='PANTS_BUF_CONFIG'
+  toml_repr={`[buf]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to a config file understood by Buf (https://docs.buf.build/configuration/overview).
+
+Setting this option will disable `[buf].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]buf-config-discovery`}
+  env_repr='PANTS_BUF_CONFIG_DISCOVERY'
+  toml_repr={`[buf]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant root config files during runs (`buf.yaml`, `buf.lock`, `buf.gen.yaml` and `buf.work.yaml`).
+
+Use `[buf].config` instead if your config is in a non-standard location.
 
 </Option>
 
@@ -134,22 +152,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
-
-<Option
-  cli_repr={`--buf-url-template=<str>`}
-  env_repr='PANTS_BUF_URL_TEMPLATE'
-  toml_repr={`[buf]
-url_template = <str>`}
-  default_repr={`https://github.com/bufbuild/buf/releases/download/{version}/buf-{platform}.tar.gz`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -170,6 +172,22 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
+### `url_template`
+
+<Option
+  cli_repr={`--buf-url-template=<str>`}
+  env_repr='PANTS_BUF_URL_TEMPLATE'
+  toml_repr={`[buf]
+url_template = <str>`}
+  default_repr={`https://github.com/bufbuild/buf/releases/download/{version}/buf-{platform}.tar.gz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
 ### `use_unsupported_version`
 
 <Option
@@ -187,35 +205,17 @@ Supported Buf versions: unspecified
 
 </Option>
 
-### `config`
+### `version`
 
 <Option
-  cli_repr={`--buf-config=<file_option>`}
-  env_repr='PANTS_BUF_CONFIG'
+  cli_repr={`--buf-version=<str>`}
+  env_repr='PANTS_BUF_VERSION'
   toml_repr={`[buf]
-config = <file_option>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`v1.3.0`}
 >
 
-Path to a config file understood by Buf (https://docs.buf.build/configuration/overview).
-
-Setting this option will disable `[buf].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]buf-config-discovery`}
-  env_repr='PANTS_BUF_CONFIG_DISCOVERY'
-  toml_repr={`[buf]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant root config files during runs (`buf.yaml`, `buf.lock`, `buf.gen.yaml` and `buf.work.yaml`).
-
-Use `[buf].config` instead if your config is in a non-standard location.
+Use this version of Buf.
 
 </Option>
 

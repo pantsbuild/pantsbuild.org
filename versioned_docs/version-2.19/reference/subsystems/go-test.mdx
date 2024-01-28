@@ -39,6 +39,20 @@ Known Go test options will be transformed into the form expected by the test bin
 
 </Option>
 
+### `block_profile`
+
+<Option
+  cli_repr={`--[no-]go-test-block-profile`}
+  env_repr='PANTS_GO_TEST_BLOCK_PROFILE'
+  toml_repr={`[go-test]
+block_profile = <bool>`}
+  default_repr={`False`}
+>
+
+Capture a goroutine blocking profile from the execution of the test runner. The profile will be written to the file `block.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+
+</Option>
+
 ### `cover_mode`
 
 <Option
@@ -98,49 +112,17 @@ This option is similar to the `go test -coverpkg` option, but without support cu
 
 </Option>
 
-### `skip`
+### `cpu_profile`
 
 <Option
-  cli_repr={`--[no-]go-test-skip`}
-  env_repr='PANTS_GO_TEST_SKIP'
+  cli_repr={`--[no-]go-test-cpu-profile`}
+  env_repr='PANTS_GO_TEST_CPU_PROFILE'
   toml_repr={`[go-test]
-skip = <bool>`}
+cpu_profile = <bool>`}
   default_repr={`False`}
 >
 
-If true, don&#x27;t use Go test binary when running `pants test`.
-
-</Option>
-
-### `force_race`
-
-<Option
-  cli_repr={`--[no-]go-test-force-race`}
-  env_repr='PANTS_GO_TEST_FORCE_RACE'
-  toml_repr={`[go-test]
-force_race = <bool>`}
-  default_repr={`False`}
->
-
-If true, then always enable the Go data race detector when running tests regardless of the test-by-test `test_race` field on the relevant `go_package` target.
-
-See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
-
-</Option>
-
-### `force_msan`
-
-<Option
-  cli_repr={`--[no-]go-test-force-msan`}
-  env_repr='PANTS_GO_TEST_FORCE_MSAN'
-  toml_repr={`[go-test]
-force_msan = <bool>`}
-  default_repr={`False`}
->
-
-If true, then always enable interoperation between Go and the C/C++ &#x22;memory sanitizer&#x22; when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
-
-See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
+Capture a CPU profile from the execution of the test runner. The profile will be written to the file `cpu.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
 
 </Option>
 
@@ -160,31 +142,35 @@ See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional in
 
 </Option>
 
-### `block_profile`
+### `force_msan`
 
 <Option
-  cli_repr={`--[no-]go-test-block-profile`}
-  env_repr='PANTS_GO_TEST_BLOCK_PROFILE'
+  cli_repr={`--[no-]go-test-force-msan`}
+  env_repr='PANTS_GO_TEST_FORCE_MSAN'
   toml_repr={`[go-test]
-block_profile = <bool>`}
+force_msan = <bool>`}
   default_repr={`False`}
 >
 
-Capture a goroutine blocking profile from the execution of the test runner. The profile will be written to the file `block.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+If true, then always enable interoperation between Go and the C/C++ &#x22;memory sanitizer&#x22; when running tests regardless of the test-by-test `msan` field on the relevant `go_package` target.
+
+See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
 
 </Option>
 
-### `cpu_profile`
+### `force_race`
 
 <Option
-  cli_repr={`--[no-]go-test-cpu-profile`}
-  env_repr='PANTS_GO_TEST_CPU_PROFILE'
+  cli_repr={`--[no-]go-test-force-race`}
+  env_repr='PANTS_GO_TEST_FORCE_RACE'
   toml_repr={`[go-test]
-cpu_profile = <bool>`}
+force_race = <bool>`}
   default_repr={`False`}
 >
 
-Capture a CPU profile from the execution of the test runner. The profile will be written to the file `cpu.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+If true, then always enable the Go data race detector when running tests regardless of the test-by-test `test_race` field on the relevant `go_package` target.
+
+See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
 
 </Option>
 
@@ -213,6 +199,20 @@ mutex_profile = <bool>`}
 >
 
 Capture a mutex contention profile from the execution of the test runner when all tests are complete. The profile will be written to the file `mutex.out` in the test extra output directory. The test binary will also be written to the test extra output directory.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]go-test-skip`}
+  env_repr='PANTS_GO_TEST_SKIP'
+  toml_repr={`[go-test]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Go test binary when running `pants test`.
 
 </Option>
 

@@ -41,17 +41,21 @@ Additional arguments to pass to the Terraform command line.
 
 ## Advanced options
 
-### `version`
+### `extra_env_vars`
 
 <Option
-  cli_repr={`--download-terraform-version=<str>`}
-  env_repr='PANTS_DOWNLOAD_TERRAFORM_VERSION'
+  cli_repr={`--download-terraform-extra-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DOWNLOAD_TERRAFORM_EXTRA_ENV_VARS'
   toml_repr={`[download-terraform]
-version = <str>`}
-  default_repr={`1.4.6`}
+extra_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
 >
 
-Use this version of terraform.
+Additional environment variables that would be made available to all Terraform processes.
 
 </Option>
 
@@ -90,19 +94,17 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
+### `tailor`
 
 <Option
-  cli_repr={`--download-terraform-url-template=<str>`}
-  env_repr='PANTS_DOWNLOAD_TERRAFORM_URL_TEMPLATE'
+  cli_repr={`--[no-]download-terraform-tailor`}
+  env_repr='PANTS_DOWNLOAD_TERRAFORM_TAILOR'
   toml_repr={`[download-terraform]
-url_template = <str>`}
-  default_repr={`https://releases.hashicorp.com/terraform/{version}/terraform_{version}_{platform}.zip`}
+tailor = <bool>`}
+  default_repr={`True`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+If true, add `terraform_module` targets with the `tailor` goal.
 
 </Option>
 
@@ -126,6 +128,22 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
+### `url_template`
+
+<Option
+  cli_repr={`--download-terraform-url-template=<str>`}
+  env_repr='PANTS_DOWNLOAD_TERRAFORM_URL_TEMPLATE'
+  toml_repr={`[download-terraform]
+url_template = <str>`}
+  default_repr={`https://releases.hashicorp.com/terraform/{version}/terraform_{version}_{platform}.zip`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.18/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
 ### `use_unsupported_version`
 
 <Option
@@ -143,35 +161,17 @@ Supported terraform versions: unspecified
 
 </Option>
 
-### `extra_env_vars`
+### `version`
 
 <Option
-  cli_repr={`--download-terraform-extra-env-vars="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_DOWNLOAD_TERRAFORM_EXTRA_ENV_VARS'
+  cli_repr={`--download-terraform-version=<str>`}
+  env_repr='PANTS_DOWNLOAD_TERRAFORM_VERSION'
   toml_repr={`[download-terraform]
-extra_env_vars = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+version = <str>`}
+  default_repr={`1.4.6`}
 >
 
-Additional environment variables that would be made available to all Terraform processes.
-
-</Option>
-
-### `tailor`
-
-<Option
-  cli_repr={`--[no-]download-terraform-tailor`}
-  env_repr='PANTS_DOWNLOAD_TERRAFORM_TAILOR'
-  toml_repr={`[download-terraform]
-tailor = <bool>`}
-  default_repr={`True`}
->
-
-If true, add `terraform_module` targets with the `tailor` goal.
+Use this version of terraform.
 
 </Option>
 

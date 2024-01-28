@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[pylint]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]pylint-skip`}
-  env_repr='PANTS_PYLINT_SKIP'
-  toml_repr={`[pylint]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Pylint when running `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,7 +37,81 @@ Arguments to pass directly to Pylint, e.g. `--pylint-args='--ignore=foo.py,bar.p
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]pylint-skip`}
+  env_repr='PANTS_PYLINT_SKIP'
+  toml_repr={`[pylint]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Pylint when running `pants lint`.
+
+</Option>
+
 ## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--pylint-config=<file_option>`}
+  env_repr='PANTS_PYLINT_CONFIG'
+  toml_repr={`[pylint]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to a config file understood by Pylint (http://pylint.pycqa.org/en/latest/user_guide/run.html#command-line-options).
+
+Setting this option will disable `[pylint].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]pylint-config-discovery`}
+  env_repr='PANTS_PYLINT_CONFIG_DISCOVERY'
+  toml_repr={`[pylint]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`.pylintrc`, `pylintrc`, `pyproject.toml`, and `setup.cfg`).
+
+Use `[pylint].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--pylint-console-script=<str>`}
+  env_repr='PANTS_PYLINT_CONSOLE_SCRIPT'
+  toml_repr={`[pylint]
+console_script = <str>`}
+  default_repr={`pylint`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--pylint-entry-point=<str>`}
+  env_repr='PANTS_PYLINT_ENTRY_POINT'
+  toml_repr={`[pylint]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
 
 ### `install_from_resolve`
 
@@ -96,66 +156,6 @@ Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.
 The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
 
 If unspecified, install the entire lockfile.
-
-</Option>
-
-### `console_script`
-
-<Option
-  cli_repr={`--pylint-console-script=<str>`}
-  env_repr='PANTS_PYLINT_CONSOLE_SCRIPT'
-  toml_repr={`[pylint]
-console_script = <str>`}
-  default_repr={`pylint`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--pylint-entry-point=<str>`}
-  env_repr='PANTS_PYLINT_ENTRY_POINT'
-  toml_repr={`[pylint]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--pylint-config=<file_option>`}
-  env_repr='PANTS_PYLINT_CONFIG'
-  toml_repr={`[pylint]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to a config file understood by Pylint (http://pylint.pycqa.org/en/latest/user_guide/run.html#command-line-options).
-
-Setting this option will disable `[pylint].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]pylint-config-discovery`}
-  env_repr='PANTS_PYLINT_CONFIG_DISCOVERY'
-  toml_repr={`[pylint]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant config files during runs (`.pylintrc`, `pylintrc`, `pyproject.toml`, and `setup.cfg`).
-
-Use `[pylint].config` instead if your config is in a non-standard location.
 
 </Option>
 

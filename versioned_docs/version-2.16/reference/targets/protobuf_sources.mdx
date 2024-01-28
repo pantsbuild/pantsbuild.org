@@ -17,16 +17,22 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 
 <span className={styles.options}>
 
-## `tags`
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.16/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -43,18 +49,56 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `sources`
+## `go_mod_address`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.proto',)`}
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.go"
 >
 
-A list of files and globs that belong to this target.
+Address of the `go_mod` target representing the Go module that this target is part of.
 
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+This field is similar to the `resolve` field used in the Python and JVM backends. If a codegen target such as `protobuf_sources` will be used in multiple Go modules, then you should use the `parametrize` built-in to parametrize that `protobuf_sources` target for each Go module.
 
-Example: `sources=['example.proto', 'new_*.proto', '!old_ignore*.proto']`
+If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
+
+</Field>
+
+## `grpc`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Whether to generate gRPC code or not.
+
+</Field>
+
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
+## `jvm_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.protobuf.java"
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
@@ -84,90 +128,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
-## `skip_buf_format`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.codegen.protobuf.lint.buf"
->
-
-If true, don&#x27;t run `buf format` on this target&#x27;s code.
-
-</Field>
-
-## `jvm_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
->
-
-The resolve from `[jvm].resolves` to use when compiling this target.
-
-If not defined, will default to `[jvm].default_resolve`.
-
-</Field>
-
-## `go_mod_address`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.go"
->
-
-Address of the `go_mod` target representing the Go module that this target is part of.
-
-This field is similar to the `resolve` field used in the Python and JVM backends. If a codegen target such as `protobuf_sources` will be used in multiple Go modules, then you should use the `parametrize` built-in to parametrize that `protobuf_sources` target for each Go module.
-
-If there is a single `go_mod` target in the repository, then this field defaults to the address for that single `go_mod` target.
-
-</Field>
-
-## `jvm_jdk`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.protobuf.java"
->
-
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
-
-</Field>
-
-## `python_source_root`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The source root to generate Python sources under.
-
-If unspecified, the source root the `protobuf_sources` is under will be used.
-
-</Field>
-
-## `python_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.codegen.protobuf.python"
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
-
-</Field>
-
 ## `python_interpreter_constraints`
 
 <Field
@@ -188,6 +148,48 @@ See https://www.pantsbuild.org/v2.16/docs/python-interpreter-compatibility for h
 
 </Field>
 
+## `python_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `python_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.codegen.protobuf.python"
+>
+
+The source root to generate Python sources under.
+
+If unspecified, the source root the `protobuf_sources` is under will be used.
+
+</Field>
+
+## `skip_buf_format`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.codegen.protobuf.lint.buf"
+>
+
+If true, don&#x27;t run `buf format` on this target&#x27;s code.
+
+</Field>
+
 ## `skip_buf_lint`
 
 <Field
@@ -200,33 +202,31 @@ If true, don&#x27;t run `buf lint` on this target&#x27;s code.
 
 </Field>
 
-## `grpc`
+## `sources`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.proto',)`}
 >
 
-Whether to generate gRPC code or not.
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.proto', 'new_*.proto', '!old_ignore*.proto']`
 
 </Field>
 
-## `dependencies`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+Arbitrary strings to describe a target.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
-
-See https://www.pantsbuild.org/v2.16/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

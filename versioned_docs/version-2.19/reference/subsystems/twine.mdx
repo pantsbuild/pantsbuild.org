@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[twine]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]twine-skip`}
-  env_repr='PANTS_TWINE_SKIP'
-  toml_repr={`[twine]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Twine when running `pants publish`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,97 +37,39 @@ Arguments to pass directly to Twine, e.g. `--twine-args='--skip-existing'`.
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]twine-skip`}
+  env_repr='PANTS_TWINE_SKIP'
+  toml_repr={`[twine]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Twine when running `pants publish`.
+
+</Option>
+
 ## Advanced options
 
-### `install_from_resolve`
+### `ca_certs_path`
 
 <Option
-  cli_repr={`--twine-install-from-resolve=<str>`}
-  env_repr='PANTS_TWINE_INSTALL_FROM_RESOLVE'
+  cli_repr={`--twine-ca-certs-path=<str>`}
+  env_repr='PANTS_TWINE_CA_CERTS_PATH'
   toml_repr={`[twine]
-install_from_resolve = <str>`}
-  default_repr={`None`}
+ca_certs_path = <str>`}
+  default_repr={`<inherit>`}
 >
 
-If specified, install the tool using the lockfile for this named resolve.
+Path to a file containing PEM-format CA certificates used for verifying secure connections when publishing python distributions.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
+Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to not use any certificates.
 
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+Even when using the `docker_environment` and `remote_environment` targets, this path will be read from the local host, and those certs will be used in the environment.
 
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `twine` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
-
-</Option>
-
-### `requirements`
-
-<Option
-  cli_repr={`--twine-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_TWINE_REQUIREMENTS'
-  toml_repr={`[twine]
-requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
-
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
-
-</Option>
-
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--twine-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_TWINE_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[twine]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
->
-
-Python interpreter constraints for this tool.
-
-</Option>
-
-### `console_script`
-
-<Option
-  cli_repr={`--twine-console-script=<str>`}
-  env_repr='PANTS_TWINE_CONSOLE_SCRIPT'
-  toml_repr={`[twine]
-console_script = <str>`}
-  default_repr={`twine`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--twine-entry-point=<str>`}
-  env_repr='PANTS_TWINE_ENTRY_POINT'
-  toml_repr={`[twine]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/v2.19/docs/options.
 
 </Option>
 
@@ -177,23 +105,95 @@ Use `[twine].config` instead if your config is in a non-standard location.
 
 </Option>
 
-### `ca_certs_path`
+### `console_script`
 
 <Option
-  cli_repr={`--twine-ca-certs-path=<str>`}
-  env_repr='PANTS_TWINE_CA_CERTS_PATH'
+  cli_repr={`--twine-console-script=<str>`}
+  env_repr='PANTS_TWINE_CONSOLE_SCRIPT'
   toml_repr={`[twine]
-ca_certs_path = <str>`}
-  default_repr={`<inherit>`}
+console_script = <str>`}
+  default_repr={`twine`}
 >
 
-Path to a file containing PEM-format CA certificates used for verifying secure connections when publishing python distributions.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
-Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to not use any certificates.
+</Option>
 
-Even when using the `docker_environment` and `remote_environment` targets, this path will be read from the local host, and those certs will be used in the environment.
+### `entry_point`
 
-This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/v2.19/docs/options.
+<Option
+  cli_repr={`--twine-entry-point=<str>`}
+  env_repr='PANTS_TWINE_ENTRY_POINT'
+  toml_repr={`[twine]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--twine-install-from-resolve=<str>`}
+  env_repr='PANTS_TWINE_INSTALL_FROM_RESOLVE'
+  toml_repr={`[twine]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `twine` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--twine-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TWINE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[twine]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--twine-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TWINE_REQUIREMENTS'
+  toml_repr={`[twine]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
 
 </Option>
 

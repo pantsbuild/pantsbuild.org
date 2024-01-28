@@ -36,70 +36,6 @@ Explicitly control the layout used for `python_awslambda` and `python_google_clo
 
 ## Advanced options
 
-### `install_from_resolve`
-
-<Option
-  cli_repr={`--lambdex-install-from-resolve=<str>`}
-  env_repr='PANTS_LAMBDEX_INSTALL_FROM_RESOLVE'
-  toml_repr={`[lambdex]
-install_from_resolve = <str>`}
-  default_repr={`None`}
->
-
-If specified, install the tool using the lockfile for this named resolve.
-
-This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.17/docs/python-third-party-dependencies#user-lockfiles.
-
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
-
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
-
-</Option>
-
-### `requirements`
-
-<Option
-  cli_repr={`--lambdex-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_LAMBDEX_REQUIREMENTS'
-  toml_repr={`[lambdex]
-requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
-
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
-
-</Option>
-
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[lambdex]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<3.12"\n]`}
->
-
-Python interpreter constraints for this tool.
-
-</Option>
-
 ### `console_script`
 
 <Option
@@ -128,23 +64,71 @@ The entry point for the tool. Generally you only want to use this option if the 
 
 </Option>
 
-## Deprecated options
-
-### `version`
+### `install_from_resolve`
 
 <Option
-  cli_repr={`--lambdex-version=<str>`}
-  env_repr='PANTS_LAMBDEX_VERSION'
+  cli_repr={`--lambdex-install-from-resolve=<str>`}
+  env_repr='PANTS_LAMBDEX_INSTALL_FROM_RESOLVE'
   toml_repr={`[lambdex]
-version = <str>`}
-  default_repr={`lambdex>=0.1.9`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+install_from_resolve = <str>`}
+  default_repr={`None`}
 >
 
-Requirement string for the tool.
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.17/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `lambdex` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--lambdex-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_LAMBDEX_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[lambdex]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<3.12"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--lambdex-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_LAMBDEX_REQUIREMENTS'
+  toml_repr={`[lambdex]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+## Deprecated options
 
 ### `extra_requirements`
 
@@ -185,6 +169,22 @@ Set to the string `<default>` to use a lockfile provided by Pants, so long as yo
 To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=lambdex`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--lambdex-version=<str>`}
+  env_repr='PANTS_LAMBDEX_VERSION'
+  toml_repr={`[lambdex]
+version = <str>`}
+  default_repr={`lambdex>=0.1.9`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+>
+
+Requirement string for the tool.
 
 </Option>
 

@@ -23,6 +23,24 @@ None
 
 ## Advanced options
 
+### `marker_filenames`
+
+<Option
+  cli_repr={`--source-marker-filenames="[filename, filename, ...]"`}
+  env_repr='PANTS_SOURCE_MARKER_FILENAMES'
+  toml_repr={`[source]
+marker_filenames = [
+    filename,
+    filename,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+The presence of a file of this name in a directory indicates that the directory is a source root. The content of the file doesn&#x27;t matter, and may be empty. Useful when you can&#x27;t or don&#x27;t wish to centrally enumerate source roots via `root_patterns`.
+
+</Option>
+
 ### `root_patterns`
 
 <Option
@@ -42,24 +60,6 @@ root_patterns = [
 >
 
 A list of source root suffixes. A directory with this suffix will be considered a potential source root. E.g., `src/python` will match `<buildroot>/src/python`, `<buildroot>/project1/src/python` etc. Prepend a `/` to anchor the match at the buildroot. E.g., `/src/python` will match `<buildroot>/src/python` but not `<buildroot>/project1/src/python`. A `*` wildcard will match a single path segment, e.g., `src/*` will match `<buildroot>/src/python` and `<buildroot>/src/rust`. Use `/` to signify that the buildroot itself is a source root. See https://www.pantsbuild.org/v2.13/docs/source-roots.
-
-</Option>
-
-### `marker_filenames`
-
-<Option
-  cli_repr={`--source-marker-filenames="[filename, filename, ...]"`}
-  env_repr='PANTS_SOURCE_MARKER_FILENAMES'
-  toml_repr={`[source]
-marker_filenames = [
-    filename,
-    filename,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-The presence of a file of this name in a directory indicates that the directory is a source root. The content of the file doesn&#x27;t matter, and may be empty. Useful when you can&#x27;t or don&#x27;t wish to centrally enumerate source roots via `root_patterns`.
 
 </Option>
 

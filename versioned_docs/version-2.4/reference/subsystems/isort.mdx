@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[isort]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]isort-skip`}
-  env_repr='PANTS_ISORT_SKIP'
-  toml_repr={`[isort]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use isort when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,65 @@ Arguments to pass directly to isort, e.g. `--isort-args="--case-sensitive --trai
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--isort-version=<str>`}
-  env_repr='PANTS_ISORT_VERSION'
+  cli_repr={`--[no-]isort-skip`}
+  env_repr='PANTS_ISORT_SKIP'
   toml_repr={`[isort]
-version = <str>`}
-  default_repr={`isort[pyproject]>=5.5.1,<5.6`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+Don&#x27;t use isort when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--isort-config="[<file_option>, <file_option>, ...]"`}
+  env_repr='PANTS_ISORT_CONFIG'
+  toml_repr={`[isort]
+config = [
+    <file_option>,
+    <file_option>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Path to `isort.cfg` or alternative isort config file(s).
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--isort-console-script=<str>`}
+  env_repr='PANTS_ISORT_CONSOLE_SCRIPT'
+  toml_repr={`[isort]
+console_script = <str>`}
+  default_repr={`isort`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--isort-entry-point=<str>`}
+  env_repr='PANTS_ISORT_ENTRY_POINT'
+  toml_repr={`[isort]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -103,49 +135,17 @@ Python interpreter constraints for this tool.
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--isort-console-script=<str>`}
-  env_repr='PANTS_ISORT_CONSOLE_SCRIPT'
+  cli_repr={`--isort-version=<str>`}
+  env_repr='PANTS_ISORT_VERSION'
   toml_repr={`[isort]
-console_script = <str>`}
-  default_repr={`isort`}
+version = <str>`}
+  default_repr={`isort[pyproject]>=5.5.1,<5.6`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--isort-entry-point=<str>`}
-  env_repr='PANTS_ISORT_ENTRY_POINT'
-  toml_repr={`[isort]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--isort-config="[<file_option>, <file_option>, ...]"`}
-  env_repr='PANTS_ISORT_CONFIG'
-  toml_repr={`[isort]
-config = [
-    <file_option>,
-    <file_option>,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Path to `isort.cfg` or alternative isort config file(s).
+Requirement string for the tool.
 
 </Option>
 

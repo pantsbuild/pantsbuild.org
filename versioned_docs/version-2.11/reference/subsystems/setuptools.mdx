@@ -23,20 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--setuptools-version=<str>`}
-  env_repr='PANTS_SETUPTOOLS_VERSION'
-  toml_repr={`[setuptools]
-version = <str>`}
-  default_repr={`setuptools>=50.3.0,<58.0`}
->
-
-Requirement string for the tool.
-
-</Option>
-
 ### `extra_requirements`
 
 <Option
@@ -74,6 +60,20 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/pants generate-lockfiles --resolve=setuptools`.
 
 As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-dependencies, lockfile generation via `generate-lockfiles` does not always work and you may want to manually generate the lockfile. You will want to set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--setuptools-version=<str>`}
+  env_repr='PANTS_SETUPTOOLS_VERSION'
+  toml_repr={`[setuptools]
+version = <str>`}
+  default_repr={`setuptools>=50.3.0,<58.0`}
+>
+
+Requirement string for the tool.
 
 </Option>
 

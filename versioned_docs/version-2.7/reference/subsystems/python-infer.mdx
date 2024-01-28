@@ -19,52 +19,6 @@ Config section: <span className="color--primary">`[python-infer]`</span>
 
 ## Basic options
 
-### `imports`
-
-<Option
-  cli_repr={`--[no-]python-infer-imports`}
-  env_repr='PANTS_PYTHON_INFER_IMPORTS'
-  toml_repr={`[python-infer]
-imports = <bool>`}
-  default_repr={`True`}
->
-
-Infer a target&#x27;s imported dependencies by parsing import statements from sources.
-
-</Option>
-
-### `string_imports`
-
-<Option
-  cli_repr={`--[no-]python-infer-string-imports`}
-  env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS'
-  toml_repr={`[python-infer]
-string_imports = <bool>`}
-  default_repr={`False`}
->
-
-Infer a target&#x27;s dependencies based on strings that look like dynamic dependencies, such as Django settings files expressing dependencies as strings. To ignore any false positives, put `!{bad_address}` in the `dependencies` field of your target.
-
-</Option>
-
-### `inits`
-
-<Option
-  cli_repr={`--[no-]python-infer-inits`}
-  env_repr='PANTS_PYTHON_INFER_INITS'
-  toml_repr={`[python-infer]
-inits = <bool>`}
-  default_repr={`False`}
->
-
-Infer a target&#x27;s dependencies on any **init**.py files existing for the packages it is located in (recursively upward in the directory structure).
-
-Even if this is disabled, Pants will still include any ancestor **init**.py files, only they will not be &#x27;proper&#x27; dependencies, e.g. they will not show up in `./pants dependencies` and their own dependencies will not be used.
-
-If you have empty `__init__.py` files, it&#x27;s safe to leave this option off; otherwise, you should enable this option.
-
-</Option>
-
 ### `conftests`
 
 <Option
@@ -90,6 +44,52 @@ entry_points = <bool>`}
 >
 
 Infer dependencies on targets&#x27; entry points, e.g. `pex_binary`&#x27;s `entry_point` field, `python_awslambda`&#x27;s `handler` field and `python_distribution`&#x27;s `entry_points` field.
+
+</Option>
+
+### `imports`
+
+<Option
+  cli_repr={`--[no-]python-infer-imports`}
+  env_repr='PANTS_PYTHON_INFER_IMPORTS'
+  toml_repr={`[python-infer]
+imports = <bool>`}
+  default_repr={`True`}
+>
+
+Infer a target&#x27;s imported dependencies by parsing import statements from sources.
+
+</Option>
+
+### `inits`
+
+<Option
+  cli_repr={`--[no-]python-infer-inits`}
+  env_repr='PANTS_PYTHON_INFER_INITS'
+  toml_repr={`[python-infer]
+inits = <bool>`}
+  default_repr={`False`}
+>
+
+Infer a target&#x27;s dependencies on any **init**.py files existing for the packages it is located in (recursively upward in the directory structure).
+
+Even if this is disabled, Pants will still include any ancestor **init**.py files, only they will not be &#x27;proper&#x27; dependencies, e.g. they will not show up in `./pants dependencies` and their own dependencies will not be used.
+
+If you have empty `__init__.py` files, it&#x27;s safe to leave this option off; otherwise, you should enable this option.
+
+</Option>
+
+### `string_imports`
+
+<Option
+  cli_repr={`--[no-]python-infer-string-imports`}
+  env_repr='PANTS_PYTHON_INFER_STRING_IMPORTS'
+  toml_repr={`[python-infer]
+string_imports = <bool>`}
+  default_repr={`False`}
+>
+
+Infer a target&#x27;s dependencies based on strings that look like dynamic dependencies, such as Django settings files expressing dependencies as strings. To ignore any false positives, put `!{bad_address}` in the `dependencies` field of your target.
 
 </Option>
 

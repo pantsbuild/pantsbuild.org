@@ -17,16 +17,23 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
-## `tags`
+## `artifact`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+Artifact name of the chart, without version number.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`str`}
+>
+
+The `version` part of a third party Helm chart.
 
 </Field>
 
@@ -65,25 +72,16 @@ Either a HTTP(S) URL to a classic repository, or a path inside an OCI registry (
 
 </Field>
 
-## `artifact`
+## `tags`
 
 <Field
-    type_repr={`str`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Artifact name of the chart, without version number.
+Arbitrary strings to describe a target.
 
-</Field>
-
-## `version`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-The `version` part of a third party Helm chart.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

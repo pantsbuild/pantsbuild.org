@@ -24,25 +24,13 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `requirements`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`Iterable[str]`}
 >
 
-Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
+A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&#x3C;=3 ; python_version&#x3C;&#x27;3&#x27;].
 
 </Field>
 
@@ -57,14 +45,14 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 
 </Field>
 
-## `requirements`
+## `description`
 
 <Field
-    type_repr={`Iterable[str]`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;bar&#x3C;=3 ; python_version&#x3C;&#x27;3&#x27;].
+A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -76,6 +64,17 @@ A sequence of pip-style requirement strings, e.g. [&#x27;foo==1.8&#x27;, &#x27;b
 >
 
 A mapping of requirement names to a list of the modules they provide. For example, `{"ansicolors": ["colors"]}`. Any unspecified requirements will use the requirement name as the default module, e.g. &#x22;Django&#x22; will default to [&#x22;django&#x22;]`. This is used for Pants to be able to infer dependencies in BUILD files.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
