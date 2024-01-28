@@ -23,20 +23,6 @@ Config section: <span className="color--primary">`[regex-lint]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]regex-lint-skip`}
-  env_repr='PANTS_REGEX_LINT_SKIP'
-  toml_repr={`[regex-lint]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use regex-lint when running `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `config`
 
 <Option
@@ -96,6 +82,20 @@ detail_level = <DetailLevel>`}
 >
 
 How much detail to include in the result.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]regex-lint-skip`}
+  env_repr='PANTS_REGEX_LINT_SKIP'
+  toml_repr={`[regex-lint]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use regex-lint when running `/home/josh/work/scie-pants/dist/pants lint`.
 
 </Option>
 

@@ -43,20 +43,6 @@ The special string &#x22;&#x3C;PATH&#x3E;&#x22; will expand to the contents of t
 
 </Option>
 
-### `verbosity`
-
-<Option
-  cli_repr={`--pex-verbosity=<int>`}
-  env_repr='PANTS_PEX_VERBOSITY'
-  toml_repr={`[pex]
-verbosity = <int>`}
-  default_repr={`0`}
->
-
-Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging).
-
-</Option>
-
 ### `venv_use_symlinks`
 
 <Option
@@ -70,6 +56,20 @@ venv_use_symlinks = <bool>`}
 When possible, use venvs whose site-packages directories are populated withsymlinks.
 
 Enabling this can save space in the `--named-caches-dir` directory and lead to slightly faster execution times for Pants Python goals. Some distributions do not work with symlinked venvs though, so you may not be able to enable this optimization as a result.
+
+</Option>
+
+### `verbosity`
+
+<Option
+  cli_repr={`--pex-verbosity=<int>`}
+  env_repr='PANTS_PEX_VERBOSITY'
+  toml_repr={`[pex]
+verbosity = <int>`}
+  default_repr={`0`}
+>
+
+Set the verbosity level of PEX logging, from 0 (no logging) up to 9 (max logging).
 
 </Option>
 

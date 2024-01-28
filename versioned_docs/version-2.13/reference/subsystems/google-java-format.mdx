@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[google-java-format]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]google-java-format-skip`}
-  env_repr='PANTS_GOOGLE_JAVA_FORMAT_SKIP'
-  toml_repr={`[google-java-format]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use Google Java Format when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `aosp`
 
 <Option
@@ -47,21 +33,21 @@ Use AOSP style instead of Google Style (4-space indentation). (&#x22;AOSP&#x22; 
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--google-java-format-version=<str>`}
-  env_repr='PANTS_GOOGLE_JAVA_FORMAT_VERSION'
+  cli_repr={`--[no-]google-java-format-skip`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_SKIP'
   toml_repr={`[google-java-format]
-version = <str>`}
-  default_repr={`1.13.0`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Version string for the tool. This is available for substitution in the `[google-java-format].artifacts` option by including the string `{version}`.
+Don&#x27;t use Google Java Format when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
 
 </Option>
+
+## Advanced options
 
 ### `artifacts`
 
@@ -78,6 +64,26 @@ artifacts = [
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[google-java-format].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--google-java-format-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_JVM_OPTIONS'
+  toml_repr={`[google-java-format]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `google-java-format` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
 
 </Option>
 
@@ -99,23 +105,17 @@ To use a custom lockfile, set this option to a file path relative to the build r
 
 </Option>
 
-### `jvm_options`
+### `version`
 
 <Option
-  cli_repr={`--google-java-format-jvm-options="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_GOOGLE_JAVA_FORMAT_JVM_OPTIONS'
+  cli_repr={`--google-java-format-version=<str>`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_VERSION'
   toml_repr={`[google-java-format]
-jvm_options = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+version = <str>`}
+  default_repr={`1.13.0`}
 >
 
-List of JVM options to pass to `google-java-format` JVM processes.
-
-Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+Version string for the tool. This is available for substitution in the `[google-java-format].artifacts` option by including the string `{version}`.
 
 </Option>
 

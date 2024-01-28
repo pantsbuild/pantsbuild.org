@@ -23,20 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--setuptools-version=<str>`}
-  env_repr='PANTS_SETUPTOOLS_VERSION'
-  toml_repr={`[setuptools]
-version = <str>`}
-  default_repr={`setuptools>=50.3.0,<57.0`}
->
-
-Requirement string for the tool.
-
-</Option>
-
 ### `extra_requirements`
 
 <Option
@@ -52,6 +38,20 @@ extra_requirements = [
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--setuptools-version=<str>`}
+  env_repr='PANTS_SETUPTOOLS_VERSION'
+  toml_repr={`[setuptools]
+version = <str>`}
+  default_repr={`setuptools>=50.3.0,<57.0`}
+>
+
+Requirement string for the tool.
 
 </Option>
 

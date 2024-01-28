@@ -19,6 +19,24 @@ Config section: <span className="color--primary">`[golang]`</span>
 
 ## Basic options
 
+### `expected_version`
+
+<Option
+  cli_repr={`--golang-expected-version=<str>`}
+  env_repr='PANTS_GOLANG_EXPECTED_VERSION'
+  toml_repr={`[golang]
+expected_version = <str>`}
+  default_repr={`1.17`}
+>
+
+The Go version you are using, such as `1.17`.
+
+Pants will only use Go distributions from `--go-search-paths` that have the expected version, and it will error if none are found.
+
+Do not include the patch version.
+
+</Option>
+
 ### `go_search_paths`
 
 <Option
@@ -38,24 +56,6 @@ A list of paths to search for Go.
 Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Earlier entries will be searched first.
 
 The special string `"<PATH>"` will expand to the contents of the PATH env var.
-
-</Option>
-
-### `expected_version`
-
-<Option
-  cli_repr={`--golang-expected-version=<str>`}
-  env_repr='PANTS_GOLANG_EXPECTED_VERSION'
-  toml_repr={`[golang]
-expected_version = <str>`}
-  default_repr={`1.17`}
->
-
-The Go version you are using, such as `1.17`.
-
-Pants will only use Go distributions from `--go-search-paths` that have the expected version, and it will error if none are found.
-
-Do not include the patch version.
 
 </Option>
 

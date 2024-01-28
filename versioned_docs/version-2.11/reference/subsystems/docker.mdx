@@ -19,86 +19,6 @@ Config section: <span className="color--primary">`[docker]`</span>
 
 ## Basic options
 
-### `registries`
-
-<Option
-  cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_DOCKER_REGISTRIES'
-  toml_repr={`[docker.registries]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
->
-
-Configure Docker registries. The schema for a registry entry is as follows:
-
-```
-{
-    "registry-alias": {
-        "address": "registry-domain:port",
-        "default": bool,
-    },
-    ...
-}
-```
-
-If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
-The `docker_image.registries` may be provided with a list of registry addresses and registry aliases prefixed with `@` to be used instead of the defaults.
-A configured registry is marked as default either by setting `default = true` or with an alias of `"default"`.
-
-</Option>
-
-### `default_repository`
-
-<Option
-  cli_repr={`--docker-default-repository=<str>`}
-  env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
-  toml_repr={`[docker]
-default_repository = <str>`}
-  default_repr={`{name}`}
->
-
-Configure the default repository name used in the Docker image tag.
-
-The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
-
-- name
-- directory
-- parent_directory
-
-Example: `--default-repository="{directory}/{name}"`.
-
-The `name` variable is the `docker_image`&#x27;s target name, `directory` and `parent_directory` are the name of the directory in which the BUILD file is for the target, and its parent directory respectively.
-
-Use the `repository` field to set this value directly on a `docker_image` target.
-Any registries or tags are added to the image name as required, and should not be part of the repository name.
-
-</Option>
-
-### `default_context_root`
-
-<Option
-  cli_repr={`--docker-default-context-root=<workspace_path>`}
-  env_repr='PANTS_DOCKER_DEFAULT_CONTEXT_ROOT'
-  toml_repr={`[docker]
-default_context_root = <workspace_path>`}
-  default_repr={``}
->
-
-Provide a default Docker build context root path for `docker_image` targets that does not specify their own `context_root` field.
-
-The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
-
-Examples:
-
-```
---default-context-root=src/docker
---default-context-root=./relative_to_the_build_file
-```
-
-</Option>
-
 ### `build_args`
 
 <Option
@@ -155,6 +75,86 @@ build_verbose = <bool>`}
 >
 
 Whether to log the Docker output to the console. If false, only the image ID is logged.
+
+</Option>
+
+### `default_context_root`
+
+<Option
+  cli_repr={`--docker-default-context-root=<workspace_path>`}
+  env_repr='PANTS_DOCKER_DEFAULT_CONTEXT_ROOT'
+  toml_repr={`[docker]
+default_context_root = <workspace_path>`}
+  default_repr={``}
+>
+
+Provide a default Docker build context root path for `docker_image` targets that does not specify their own `context_root` field.
+
+The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
+
+Examples:
+
+```
+--default-context-root=src/docker
+--default-context-root=./relative_to_the_build_file
+```
+
+</Option>
+
+### `default_repository`
+
+<Option
+  cli_repr={`--docker-default-repository=<str>`}
+  env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
+  toml_repr={`[docker]
+default_repository = <str>`}
+  default_repr={`{name}`}
+>
+
+Configure the default repository name used in the Docker image tag.
+
+The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
+
+- name
+- directory
+- parent_directory
+
+Example: `--default-repository="{directory}/{name}"`.
+
+The `name` variable is the `docker_image`&#x27;s target name, `directory` and `parent_directory` are the name of the directory in which the BUILD file is for the target, and its parent directory respectively.
+
+Use the `repository` field to set this value directly on a `docker_image` target.
+Any registries or tags are added to the image name as required, and should not be part of the repository name.
+
+</Option>
+
+### `registries`
+
+<Option
+  cli_repr={`--docker-registries="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_DOCKER_REGISTRIES'
+  toml_repr={`[docker.registries]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Configure Docker registries. The schema for a registry entry is as follows:
+
+```
+{
+    "registry-alias": {
+        "address": "registry-domain:port",
+        "default": bool,
+    },
+    ...
+}
+```
+
+If no registries are provided in a `docker_image` target, then all default addresses will be used, if any.
+The `docker_image.registries` may be provided with a list of registry addresses and registry aliases prefixed with `@` to be used instead of the defaults.
+A configured registry is marked as default either by setting `default = true` or with an alias of `"default"`.
 
 </Option>
 

@@ -21,17 +21,18 @@ Config section: <span className="color--primary">`[changed]`</span>
 
 ## Basic options
 
-### `since`
+### `dependents`
 
 <Option
-  cli_repr={`--changed-since=<str>`}
-  env_repr='PANTS_CHANGED_SINCE'
+  cli_repr={`--changed-dependents=<DependentsOption>`}
+  env_repr='PANTS_CHANGED_DEPENDENTS'
   toml_repr={`[changed]
-since = <str>`}
-  default_repr={`None`}
+dependents = <DependentsOption>`}
+  one_of='none, direct, transitive'
+  default_repr={`none`}
 >
 
-Calculate changes since this Git spec (commit range/SHA/ref).
+Include direct or transitive dependents of changed targets.
 
 </Option>
 
@@ -49,18 +50,17 @@ Calculate changes contained within a given Git spec (commit range/SHA/ref).
 
 </Option>
 
-### `dependents`
+### `since`
 
 <Option
-  cli_repr={`--changed-dependents=<DependentsOption>`}
-  env_repr='PANTS_CHANGED_DEPENDENTS'
+  cli_repr={`--changed-since=<str>`}
+  env_repr='PANTS_CHANGED_SINCE'
   toml_repr={`[changed]
-dependents = <DependentsOption>`}
-  one_of='none, direct, transitive'
-  default_repr={`none`}
+since = <str>`}
+  default_repr={`None`}
 >
 
-Include direct or transitive dependents of changed targets.
+Calculate changes since this Git spec (commit range/SHA/ref).
 
 </Option>
 

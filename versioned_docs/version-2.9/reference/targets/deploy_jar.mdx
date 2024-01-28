@@ -19,29 +19,13 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `main`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+`.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
 
 </Field>
 
@@ -64,6 +48,19 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
 ## `output_path`
 
 <Field
@@ -81,17 +78,6 @@ Warning: setting this value risks naming collisions with other package targets y
 
 </Field>
 
-## `main`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-`.`-separated name of the JVM class containing the `main()` method to be called when executing this JAR.
-
-</Field>
-
 ## `resolve`
 
 <Field
@@ -104,6 +90,19 @@ The name of the resolve to use when building this target.
 If not defined, will default to `[jvm].default_resolve`.
 
 The name must be defined as a resolve in `[jvm].resolves`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

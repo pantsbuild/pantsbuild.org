@@ -35,6 +35,46 @@ If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when b
 
 ## Advanced options
 
+### `experimental_lockfile`
+
+<Option
+  cli_repr={`--python-experimental-lockfile=<file>`}
+  env_repr='PANTS_PYTHON_EXPERIMENTAL_LOCKFILE'
+  toml_repr={`[python]
+experimental_lockfile = <file>`}
+  default_repr={`None`}
+>
+
+The lockfile to use when resolving requirements for your own code (vs. tools you run).
+
+This is highly experimental and will change, including adding support for multiple lockfiles. This option&#x27;s behavior may change without the normal deprecation cycle.
+
+To generate a lockfile, activate the backend `pants.backend.experimental.python`and run `./pants generate-user-lockfile ::`.
+
+Mutually exclusive with `[python].requirement_constraints`.
+
+</Option>
+
+### `experimental_resolves_to_lockfiles`
+
+<Option
+  cli_repr={`--python-experimental-resolves-to-lockfiles="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_EXPERIMENTAL_RESOLVES_TO_LOCKFILES'
+  toml_repr={`[python.experimental_resolves_to_lockfiles]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+A mapping of logical names to lockfile paths used in your project, e.g. `{ default = '3rdparty/default_lockfile.txt', py2 = '3rdparty/py2.txt' }`.
+
+To generate a lockfile, run `./pants generate-lockfiles --resolve=<name>` or `./pants generate-lockfiles` to generate for all resolves (including tool lockfiles).
+
+This is highly experimental and will likely change.
+
+</Option>
+
 ### `interpreter_constraints`
 
 <Option
@@ -81,6 +121,23 @@ All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or
 
 </Option>
 
+### `invalid_lockfile_behavior`
+
+<Option
+  cli_repr={`--python-invalid-lockfile-behavior=<InvalidLockfileBehavior>`}
+  env_repr='PANTS_PYTHON_INVALID_LOCKFILE_BEHAVIOR'
+  toml_repr={`[python]
+invalid_lockfile_behavior = <InvalidLockfileBehavior>`}
+  one_of='error, ignore, warn'
+  default_repr={`error`}
+>
+
+The behavior when a lockfile has requirements or interpreter constraints that are not compatible with what the current build is using.
+
+We recommend keeping the default of `error` for CI builds.
+
+</Option>
+
 ### `requirement_constraints`
 
 <Option
@@ -119,60 +176,35 @@ Requires [python].requirement_constraints to be set.
 
 </Option>
 
-### `experimental_lockfile`
+### `resolver_jobs`
 
 <Option
-  cli_repr={`--python-experimental-lockfile=<file>`}
-  env_repr='PANTS_PYTHON_EXPERIMENTAL_LOCKFILE'
+  cli_repr={`--python-resolver-jobs=<int>`}
+  env_repr='PANTS_PYTHON_RESOLVER_JOBS'
   toml_repr={`[python]
-experimental_lockfile = <file>`}
-  default_repr={`None`}
+resolver_jobs = <int>`}
+  default_repr={`#cores/2`}
 >
 
-The lockfile to use when resolving requirements for your own code (vs. tools you run).
+The maximum number of concurrent jobs to build wheels with.
 
-This is highly experimental and will change, including adding support for multiple lockfiles. This option&#x27;s behavior may change without the normal deprecation cycle.
+Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`.
 
-To generate a lockfile, activate the backend `pants.backend.experimental.python`and run `./pants generate-user-lockfile ::`.
-
-Mutually exclusive with `[python].requirement_constraints`.
+Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
 </Option>
 
-### `experimental_resolves_to_lockfiles`
+### `resolver_manylinux`
 
 <Option
-  cli_repr={`--python-experimental-resolves-to-lockfiles="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_PYTHON_EXPERIMENTAL_RESOLVES_TO_LOCKFILES'
-  toml_repr={`[python.experimental_resolves_to_lockfiles]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
->
-
-A mapping of logical names to lockfile paths used in your project, e.g. `{ default = '3rdparty/default_lockfile.txt', py2 = '3rdparty/py2.txt' }`.
-
-To generate a lockfile, run `./pants generate-lockfiles --resolve=<name>` or `./pants generate-lockfiles` to generate for all resolves (including tool lockfiles).
-
-This is highly experimental and will likely change.
-
-</Option>
-
-### `invalid_lockfile_behavior`
-
-<Option
-  cli_repr={`--python-invalid-lockfile-behavior=<InvalidLockfileBehavior>`}
-  env_repr='PANTS_PYTHON_INVALID_LOCKFILE_BEHAVIOR'
+  cli_repr={`--python-resolver-manylinux=<str>`}
+  env_repr='PANTS_PYTHON_RESOLVER_MANYLINUX'
   toml_repr={`[python]
-invalid_lockfile_behavior = <InvalidLockfileBehavior>`}
-  one_of='error, ignore, warn'
-  default_repr={`error`}
+resolver_manylinux = <str>`}
+  default_repr={`manylinux2014`}
 >
 
-The behavior when a lockfile has requirements or interpreter constraints that are not compatible with what the current build is using.
-
-We recommend keeping the default of `error` for CI builds.
+Whether to allow resolution of manylinux wheels when resolving requirements for foreign linux platforms. The value should be a manylinux platform upper bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to disallow.
 
 </Option>
 
@@ -192,38 +224,6 @@ This option does not affect packaging deployable artifacts, such as PEX files, w
 
 </Option>
 
-### `resolver_manylinux`
-
-<Option
-  cli_repr={`--python-resolver-manylinux=<str>`}
-  env_repr='PANTS_PYTHON_RESOLVER_MANYLINUX'
-  toml_repr={`[python]
-resolver_manylinux = <str>`}
-  default_repr={`manylinux2014`}
->
-
-Whether to allow resolution of manylinux wheels when resolving requirements for foreign linux platforms. The value should be a manylinux platform upper bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to disallow.
-
-</Option>
-
-### `resolver_jobs`
-
-<Option
-  cli_repr={`--python-resolver-jobs=<int>`}
-  env_repr='PANTS_PYTHON_RESOLVER_JOBS'
-  toml_repr={`[python]
-resolver_jobs = <int>`}
-  default_repr={`#cores/2`}
->
-
-The maximum number of concurrent jobs to build wheels with.
-
-Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-resolver-jobs`.
-
-Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
-
-</Option>
-
 ### `tailor_ignore_solitary_init_files`
 
 <Option
@@ -240,20 +240,6 @@ Set to False if you commonly have packages containing real code in `__init__.py`
 
 </Option>
 
-### `tailor_requirements_targets`
-
-<Option
-  cli_repr={`--[no-]python-tailor-requirements-targets`}
-  env_repr='PANTS_PYTHON_TAILOR_REQUIREMENTS_TARGETS'
-  toml_repr={`[python]
-tailor_requirements_targets = <bool>`}
-  default_repr={`True`}
->
-
-Tailor python_requirements() targets for requirements files.
-
-</Option>
-
 ### `tailor_pex_binary_targets`
 
 <Option
@@ -265,6 +251,20 @@ tailor_pex_binary_targets = <bool>`}
 >
 
 Tailor pex_binary() targets for Python entry point files.
+
+</Option>
+
+### `tailor_requirements_targets`
+
+<Option
+  cli_repr={`--[no-]python-tailor-requirements-targets`}
+  env_repr='PANTS_PYTHON_TAILOR_REQUIREMENTS_TARGETS'
+  toml_repr={`[python]
+tailor_requirements_targets = <bool>`}
+  default_repr={`True`}
+>
+
+Tailor python_requirements() targets for requirements files.
 
 </Option>
 

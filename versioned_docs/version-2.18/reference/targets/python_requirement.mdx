@@ -21,37 +21,10 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `requirements`
 
 <Field
     type_repr={`Iterable[str]`}
-    default_repr={`None`}
 >
 
 A pip-style requirement string, e.g. `["Django==3.2.8"]`.
@@ -81,52 +54,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `modules`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The modules this requirement provides (used for dependency inference).
-
-For example, the requirement `setuptools` provides `["setuptools", "pkg_resources", "easy_install"]`.
-
-Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.18.2/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.
-
-Mutually exclusive with the `type_stub_modules` field.
-
-</Field>
-
-## `type_stub_modules`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The modules this requirement provides if the requirement is a type stub (used for dependency inference).
-
-For example, the requirement `types-requests` provides `["requests"]`.
-
-Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.18.2/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).
-
-Mutually exclusive with the `modules` field.
-
-</Field>
-
-## `resolve`
+## `description`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The resolve from `[python].resolves` that this requirement is included in.
+A human-readable description of the target.
 
-If not defined, will default to `[python].default_resolve`.
-
-When generating a lockfile for a particular resolve via the `generate-lockfiles` goal, it will include all requirements that are declared with that resolve. First-party targets like `python_source` and `pex_binary` then declare which resolve they use via their `resolve` field; so, for your first-party code to use a particular `python_requirement` target, that requirement must be included in the resolve used by that code.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -145,6 +82,68 @@ You can specify a full module like `'path.to.module'` and `'path.to.module:func'
 2. `'app.py:func'`, Pants will convert into `path.to.app:func`.
 
 You may either set this field or the `script` field, but not both. Leave off both fields to have no entry point.
+
+</Field>
+
+## `modules`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The modules this requirement provides (used for dependency inference).
+
+For example, the requirement `setuptools` provides `["setuptools", "pkg_resources", "easy_install"]`.
+
+Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.18.2/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.
+
+Mutually exclusive with the `type_stub_modules` field.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[python].resolves` that this requirement is included in.
+
+If not defined, will default to `[python].default_resolve`.
+
+When generating a lockfile for a particular resolve via the `generate-lockfiles` goal, it will include all requirements that are declared with that resolve. First-party targets like `python_source` and `pex_binary` then declare which resolve they use via their `resolve` field; so, for your first-party code to use a particular `python_requirement` target, that requirement must be included in the resolve used by that code.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `type_stub_modules`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The modules this requirement provides if the requirement is a type stub (used for dependency inference).
+
+For example, the requirement `types-requests` provides `["requests"]`.
+
+Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.18.2/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).
+
+Mutually exclusive with the `modules` field.
 
 </Field>
 

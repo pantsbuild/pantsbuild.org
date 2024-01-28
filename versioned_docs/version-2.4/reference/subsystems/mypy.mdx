@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[mypy]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]mypy-skip`}
-  env_repr='PANTS_MYPY_SKIP'
-  toml_repr={`[mypy]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use MyPy when running `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,61 @@ Arguments to pass directly to mypy, e.g. `--mypy-args="--python-version 3.7 --di
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--mypy-version=<str>`}
-  env_repr='PANTS_MYPY_VERSION'
+  cli_repr={`--[no-]mypy-skip`}
+  env_repr='PANTS_MYPY_SKIP'
   toml_repr={`[mypy]
-version = <str>`}
-  default_repr={`mypy==0.800`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+Don&#x27;t use MyPy when running `/home/josh/work/scie-pants/dist/pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--mypy-config=<file_option>`}
+  env_repr='PANTS_MYPY_CONFIG'
+  toml_repr={`[mypy]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to `mypy.ini` or alternative MyPy config file
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--mypy-console-script=<str>`}
+  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
+  toml_repr={`[mypy]
+console_script = <str>`}
+  default_repr={`mypy`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--mypy-entry-point=<str>`}
+  env_repr='PANTS_MYPY_ENTRY_POINT'
+  toml_repr={`[mypy]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -103,48 +131,6 @@ Python interpreter constraints for this tool.
 
 </Option>
 
-### `console_script`
-
-<Option
-  cli_repr={`--mypy-console-script=<str>`}
-  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
-  toml_repr={`[mypy]
-console_script = <str>`}
-  default_repr={`mypy`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--mypy-entry-point=<str>`}
-  env_repr='PANTS_MYPY_ENTRY_POINT'
-  toml_repr={`[mypy]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--mypy-config=<file_option>`}
-  env_repr='PANTS_MYPY_CONFIG'
-  toml_repr={`[mypy]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to `mypy.ini` or alternative MyPy config file
-
-</Option>
-
 ### `source_plugins`
 
 <Option
@@ -164,6 +150,20 @@ An optional list of `python_library` target addresses to load first-party plugin
 You must also set `plugins = path.to.module` in your `mypy.ini`, and set the `[mypy].config` option in your `pants.toml`.
 
 To instead load third-party plugins, set the option `[mypy].extra_requirements` and set the `plugins` option in `mypy.ini`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--mypy-version=<str>`}
+  env_repr='PANTS_MYPY_VERSION'
+  toml_repr={`[mypy]
+version = <str>`}
+  default_repr={`mypy==0.800`}
+>
+
+Requirement string for the tool.
 
 </Option>
 

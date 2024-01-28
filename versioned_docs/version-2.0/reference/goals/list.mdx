@@ -23,6 +23,20 @@ Config section: <span className="color--primary">`[list]`</span>
 
 ## Basic options
 
+### `documented`
+
+<Option
+  cli_repr={`--[no-]list-documented`}
+  env_repr='PANTS_LIST_DOCUMENTED'
+  toml_repr={`[list]
+documented = <bool>`}
+  default_repr={`False`}
+>
+
+Print only targets that are documented with a description.
+
+</Option>
+
 ### `output_file`
 
 <Option
@@ -34,20 +48,6 @@ output_file = <path>`}
 >
 
 Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
-
-</Option>
-
-### `sep`
-
-<Option
-  cli_repr={`--list-sep=<separator>`}
-  env_repr='PANTS_LIST_SEP'
-  toml_repr={`[list]
-sep = <separator>`}
-  default_repr={`\\n`}
->
-
-String to use to separate lines in line-oriented output.
 
 </Option>
 
@@ -65,17 +65,17 @@ List only targets that provide an artifact, displaying the columns specified by 
 
 </Option>
 
-### `documented`
+### `sep`
 
 <Option
-  cli_repr={`--[no-]list-documented`}
-  env_repr='PANTS_LIST_DOCUMENTED'
+  cli_repr={`--list-sep=<separator>`}
+  env_repr='PANTS_LIST_SEP'
   toml_repr={`[list]
-documented = <bool>`}
-  default_repr={`False`}
+sep = <separator>`}
+  default_repr={`\\n`}
 >
 
-Print only targets that are documented with a description.
+String to use to separate lines in line-oriented output.
 
 </Option>
 

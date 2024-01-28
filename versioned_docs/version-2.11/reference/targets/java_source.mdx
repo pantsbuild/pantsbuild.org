@@ -17,29 +17,29 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
+    backend="pants.backend.experimental.java.lint.google_java_format"
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
-## `description`
+## `source`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
+    type_repr={`str`}
+    backend="pants.backend.experimental.java.lint.google_java_format"
 >
 
-A human-readable description of the target.
+A single file that belongs to this target.
 
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -62,30 +62,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `source`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.java.lint.google_java_format"
->
-
-A single file that belongs to this target.
-
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
-
-</Field>
-
-## `resolve`
+## `description`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The resolve from `[jvm].resolves` to use when compiling this target.
+A human-readable description of the target.
 
-If not defined, will default to `[jvm].default_resolve`.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -115,17 +101,29 @@ The major version of the JDK that this target should be built with. If not defin
 
 </Field>
 
-## `source`
+## `resolve`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.java.lint.google_java_format"
 >
 
-A single file that belongs to this target.
+The resolve from `[jvm].resolves` to use when compiling this target.
 
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

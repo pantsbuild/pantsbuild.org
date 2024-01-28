@@ -17,19 +17,6 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
 ## `description`
 
 <Field
@@ -53,6 +40,19 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 A single Pants Coursier Lockfile source.
 
 Use `./pants coursier-resolve ...` to generate (or regenerate) the Lockfile. If the Lockfile doesn&#x27;t exist on disk, the first run of `coursier-resolve` will attempt to generate it for you to the default file name (&#x27;coursier_resolve.lockfile&#x27;). After running `coursier-resolve` for the first time, you should update this field&#x27;s`sources` to explicit take ownership of the generated lockfile.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

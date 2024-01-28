@@ -17,25 +17,13 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `provides`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`PythonArtifact`}
 >
 
-Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
+The setup.py kwargs for the external artifact built from this target. See https://www.pantsbuild.org/docs/python-setup-py-goal.
 
 </Field>
 
@@ -50,14 +38,14 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 
 </Field>
 
-## `provides`
+## `description`
 
 <Field
-    type_repr={`PythonArtifact`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The setup.py kwargs for the external artifact built from this target. See https://www.pantsbuild.org/docs/python-setup-py-goal.
+A human-readable description of the target. Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -69,6 +57,17 @@ The setup.py kwargs for the external artifact built from this target. See https:
 >
 
 The runtime commands to invoke setup.py with to create the distribution. E.g., [&#x22;bdist_wheel&#x22;, &#x22;--python-tag=py36.py37&#x22;, &#x22;sdist&#x22;] If empty or unspecified, will just create a chroot with a setup() function. See https://www.pantsbuild.org/docs/python-setup-py-goal.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings that you can use to describe a target. For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tags='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

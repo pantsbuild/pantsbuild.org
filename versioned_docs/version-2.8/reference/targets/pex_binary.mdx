@@ -19,16 +19,18 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -45,67 +47,16 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `output_path`
+## `emit_warnings`
 
 <Field
-    type_repr={`str | None`}
+    type_repr={`bool | None`}
     default_repr={`None`}
 >
 
-Where the built asset should be located.
+Whether or not to emit PEX warnings at runtime.
 
-If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext.
-
-When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
-
-Warning: setting this value risks naming collisions with other package targets you may have.
-
-</Field>
-
-## `interpreter_constraints`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The Python interpreters this code is compatible with.
-
-Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
-
-Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
-
-If the field is not set, it will default to the option `[python].interpreter_constraints`.
-
-See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
-
-</Field>
-
-## `experimental_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The resolve from `[python].experimental_resolves_to_lockfiles` to use, if any.
-
-This field is highly experimental and may change without the normal deprecation policy.
-
-</Field>
-
-## `dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;].
-
-Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
 
 </Field>
 
@@ -129,16 +80,106 @@ You may either set this field or the `script` field, but not both. Leave off bot
 
 </Field>
 
-## `script`
+## `execution_mode`
+
+<Field
+    type_repr={`'unzip' | 'venv' | 'zipapp' | None`}
+    default_repr={`'zipapp'`}
+>
+
+The mode the generated PEX file will run in.
+
+The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https://www.python.org/dev/peps/pep-0441/) where zipped internal code and dependencies are first unpacked to disk. This mode achieves the fastest cold start times and may, for example be the best choice for cloud lambda functions.
+
+The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
+
+The &#x27;unzip&#x27; mode is deprecated since the default &#x27;zipapp&#x27; mode now executes this way.
+
+</Field>
+
+## `experimental_resolve`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
+The resolve from `[python].experimental_resolves_to_lockfiles` to use, if any.
 
-You may either set this field or the `entry_point` field, but not both. Leave off both fields to have no entry point.
+This field is highly experimental and may change without the normal deprecation policy.
+
+</Field>
+
+## `ignore_errors`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Should PEX ignore when it cannot resolve dependencies?
+
+</Field>
+
+## `include_tools`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Whether to include Pex tools in the PEX bootstrap code.
+
+With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
+
+</Field>
+
+## `inherit_path`
+
+<Field
+    type_repr={`'fallback' | 'false' | 'prefer' | None`}
+    default_repr={`None`}
+>
+
+Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
+
+Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.8/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Where the built asset should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext.
+
+When running `./pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
 
@@ -164,40 +205,27 @@ Platforms should be in the format defined by Pex (https://pex.readthedocs.io/en/
 
 </Field>
 
-## `inherit_path`
-
-<Field
-    type_repr={`'fallback' | 'false' | 'prefer' | None`}
-    default_repr={`None`}
->
-
-Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
-
-Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
-
-</Field>
-
-## `strip_pex_env`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`True`}
->
-
-Whether or not to strip the PEX runtime environment of `PEX*` environment variables.
-
-Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
-
-</Field>
-
-## `ignore_errors`
+## `restartable`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
 >
 
-Should PEX ignore when it cannot resolve dependencies?
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
+</Field>
+
+## `script`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
+
+You may either set this field or the `entry_point` field, but not both. Leave off both fields to have no entry point.
 
 </Field>
 
@@ -214,57 +242,29 @@ This influences the behavior of running `./result.pex`. You can ignore the sheba
 
 </Field>
 
-## `emit_warnings`
+## `strip_pex_env`
 
 <Field
-    type_repr={`bool | None`}
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether or not to strip the PEX runtime environment of `PEX*` environment variables.
+
+Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Whether or not to emit PEX warnings at runtime.
+Arbitrary strings to describe a target.
 
-The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
-
-</Field>
-
-## `execution_mode`
-
-<Field
-    type_repr={`'unzip' | 'venv' | 'zipapp' | None`}
-    default_repr={`'zipapp'`}
->
-
-The mode the generated PEX file will run in.
-
-The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https://www.python.org/dev/peps/pep-0441/) where zipped internal code and dependencies are first unpacked to disk. This mode achieves the fastest cold start times and may, for example be the best choice for cloud lambda functions.
-
-The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
-
-The &#x27;unzip&#x27; mode is deprecated since the default &#x27;zipapp&#x27; mode now executes this way.
-
-</Field>
-
-## `include_tools`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-Whether to include Pex tools in the PEX bootstrap code.
-
-With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
-
-</Field>
-
-## `restartable`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

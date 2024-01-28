@@ -23,20 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--dockerfile-parser-version=<str>`}
-  env_repr='PANTS_DOCKERFILE_PARSER_VERSION'
-  toml_repr={`[dockerfile-parser]
-version = <str>`}
-  default_repr={`dockerfile==3.2.0`}
->
-
-Requirement string for the tool.
-
-</Option>
-
 ### `extra_requirements`
 
 <Option
@@ -92,6 +78,20 @@ Set to the string `<none>` to opt out of using a lockfile. We do not recommend t
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/pants generate-lockfiles --resolve=dockerfile-parser`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--dockerfile-parser-version=<str>`}
+  env_repr='PANTS_DOCKERFILE_PARSER_VERSION'
+  toml_repr={`[dockerfile-parser]
+version = <str>`}
+  default_repr={`dockerfile==3.2.0`}
+>
+
+Requirement string for the tool.
 
 </Option>
 

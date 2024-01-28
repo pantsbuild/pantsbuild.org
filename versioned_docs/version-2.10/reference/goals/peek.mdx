@@ -23,20 +23,6 @@ Config section: <span className="color--primary">`[peek]`</span>
 
 ## Basic options
 
-### `output_file`
-
-<Option
-  cli_repr={`--peek-output-file=<path>`}
-  env_repr='PANTS_PEEK_OUTPUT_FILE'
-  toml_repr={`[peek]
-output_file = <path>`}
-  default_repr={`None`}
->
-
-Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
-
-</Option>
-
 ### `exclude_defaults`
 
 <Option
@@ -48,6 +34,20 @@ exclude_defaults = <bool>`}
 >
 
 Whether to leave off values that match the target-defined default values.
+
+</Option>
+
+### `output_file`
+
+<Option
+  cli_repr={`--peek-output-file=<path>`}
+  env_repr='PANTS_PEEK_OUTPUT_FILE'
+  toml_repr={`[peek]
+output_file = <path>`}
+  default_repr={`None`}
+>
+
+Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
 
 </Option>
 

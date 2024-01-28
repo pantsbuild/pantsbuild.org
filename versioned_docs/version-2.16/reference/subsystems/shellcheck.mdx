@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[shellcheck]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]shellcheck-skip`}
-  env_repr='PANTS_SHELLCHECK_SKIP'
-  toml_repr={`[shellcheck]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Shellcheck when running `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,33 @@ Arguments to pass directly to Shellcheck, e.g. `--shellcheck-args='-e SC20529'`.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--shellcheck-version=<str>`}
-  env_repr='PANTS_SHELLCHECK_VERSION'
+  cli_repr={`--[no-]shellcheck-skip`}
+  env_repr='PANTS_SHELLCHECK_SKIP'
   toml_repr={`[shellcheck]
-version = <str>`}
-  default_repr={`v0.8.0`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of Shellcheck.
+If true, don&#x27;t use Shellcheck when running `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]shellcheck-config-discovery`}
+  env_repr='PANTS_SHELLCHECK_CONFIG_DISCOVERY'
+  toml_repr={`[shellcheck]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant `.shellcheckrc` and `shellcheckrc` files during runs. See https://www.mankier.com/1/shellcheck#RC_Files for where these can be located.
 
 </Option>
 
@@ -100,39 +100,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
-
-<Option
-  cli_repr={`--shellcheck-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_SHELLCHECK_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[shellcheck]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
->
-
-What action to take in case the requested version of Shellcheck is not supported.
-
-Supported Shellcheck versions: unspecified
-
-</Option>
-
-### `url_template`
-
-<Option
-  cli_repr={`--shellcheck-url-template=<str>`}
-  env_repr='PANTS_SHELLCHECK_URL_TEMPLATE'
-  toml_repr={`[shellcheck]
-url_template = <str>`}
-  default_repr={`https://github.com/koalaman/shellcheck/releases/download/{version}/shellcheck-{version}.{platform}.tar.xz`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.16/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -153,17 +120,50 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
-### `config_discovery`
+### `url_template`
 
 <Option
-  cli_repr={`--[no-]shellcheck-config-discovery`}
-  env_repr='PANTS_SHELLCHECK_CONFIG_DISCOVERY'
+  cli_repr={`--shellcheck-url-template=<str>`}
+  env_repr='PANTS_SHELLCHECK_URL_TEMPLATE'
   toml_repr={`[shellcheck]
-config_discovery = <bool>`}
-  default_repr={`True`}
+url_template = <str>`}
+  default_repr={`https://github.com/koalaman/shellcheck/releases/download/{version}/shellcheck-{version}.{platform}.tar.xz`}
 >
 
-If true, Pants will include all relevant `.shellcheckrc` and `shellcheckrc` files during runs. See https://www.mankier.com/1/shellcheck#RC_Files for where these can be located.
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.16/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--shellcheck-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_SHELLCHECK_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[shellcheck]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of Shellcheck is not supported.
+
+Supported Shellcheck versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--shellcheck-version=<str>`}
+  env_repr='PANTS_SHELLCHECK_VERSION'
+  toml_repr={`[shellcheck]
+version = <str>`}
+  default_repr={`v0.8.0`}
+>
+
+Use this version of Shellcheck.
 
 </Option>
 

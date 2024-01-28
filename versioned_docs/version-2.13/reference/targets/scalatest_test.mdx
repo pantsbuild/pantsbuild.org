@@ -17,29 +17,15 @@ Backend: <span className="color--primary">`pants.backend.experimental.scala`</sp
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -62,44 +48,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `source`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-A single file that belongs to this target.
-
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
-
-</Field>
-
-## `scalac_plugins`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The names of Scala plugins that this source file requires.
-
-The plugin must be defined by a corresponding `scalac_plugin` AND `jvm_artifact` target, and must be present in this target&#x27;s resolve&#x27;s lockfile.
-
-If not specified, this will default to the plugins specified in `[scalac].plugins_for_resolve` for this target&#x27;s resolve.
-
-</Field>
-
-## `resolve`
+## `description`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The resolve from `[jvm].resolves` to use when compiling this target.
+A human-readable description of the target.
 
-If not defined, will default to `[jvm].default_resolve`.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -126,6 +84,47 @@ If a given type is defined, at least one source file captured by this target mus
 >
 
 The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+</Field>
+
+## `scalac_plugins`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The names of Scala plugins that this source file requires.
+
+The plugin must be defined by a corresponding `scalac_plugin` AND `jvm_artifact` target, and must be present in this target&#x27;s resolve&#x27;s lockfile.
+
+If not specified, this will default to the plugins specified in `[scalac].plugins_for_resolve` for this target&#x27;s resolve.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

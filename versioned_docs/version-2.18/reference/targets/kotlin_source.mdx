@@ -17,29 +17,15 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -62,44 +48,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `source`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-A single file that belongs to this target.
-
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
-
-</Field>
-
-## `kotlinc_plugins`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The IDs of Kotlin compiler plugins that this source file requires.
-
-The plugin must be defined by a corresponding `kotlinc_plugin` AND `jvm_artifact` target, and must be present in this target&#x27;s resolve&#x27;s lockfile.
-
-If not specified, this will default to the plugins specified in `[kotlinc].plugins_for_resolve` for this target&#x27;s resolve.
-
-</Field>
-
-## `resolve`
+## `description`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The resolve from `[jvm].resolves` to use when compiling this target.
+A human-readable description of the target.
 
-If not defined, will default to `[jvm].default_resolve`.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -129,6 +87,21 @@ The major version of the JDK that this target should be built with. If not defin
 
 </Field>
 
+## `kotlinc_plugins`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The IDs of Kotlin compiler plugins that this source file requires.
+
+The plugin must be defined by a corresponding `kotlinc_plugin` AND `jvm_artifact` target, and must be present in this target&#x27;s resolve&#x27;s lockfile.
+
+If not specified, this will default to the plugins specified in `[kotlinc].plugins_for_resolve` for this target&#x27;s resolve.
+
+</Field>
+
 ## `main`
 
 <Field
@@ -137,6 +110,19 @@ The major version of the JDK that this target should be built with. If not defin
 >
 
 `.`-separated name of the JVM class containing the `main()` method to be called when executing this target. If not supplied, this will be calculated automatically, either by inspecting the existing manifest (for 3rd-party JARs), or by inspecting the classes inside the JAR, looking for a valid `main` method. If a value cannot be calculated automatically, you must supply a value for `run` to succeed.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
@@ -149,6 +135,19 @@ The major version of the JDK that this target should be built with. If not defin
 >
 
 If true, don&#x27;t run Ktlint on this target&#x27;s code.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

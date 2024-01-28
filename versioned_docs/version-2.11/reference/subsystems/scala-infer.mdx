@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[scala-infer]`</span>
 
 ## Basic options
 
-### `imports`
-
-<Option
-  cli_repr={`--[no-]scala-infer-imports`}
-  env_repr='PANTS_SCALA_INFER_IMPORTS'
-  toml_repr={`[scala-infer]
-imports = <bool>`}
-  default_repr={`True`}
->
-
-Infer a target&#x27;s dependencies by parsing import statements from sources.
-
-</Option>
-
 ### `consumed_types`
 
 <Option
@@ -44,6 +30,20 @@ consumed_types = <bool>`}
 >
 
 Infer a target&#x27;s dependencies by parsing consumed types from sources.
+
+</Option>
+
+### `imports`
+
+<Option
+  cli_repr={`--[no-]scala-infer-imports`}
+  env_repr='PANTS_SCALA_INFER_IMPORTS'
+  toml_repr={`[scala-infer]
+imports = <bool>`}
+  default_repr={`True`}
+>
+
+Infer a target&#x27;s dependencies by parsing import statements from sources.
 
 </Option>
 

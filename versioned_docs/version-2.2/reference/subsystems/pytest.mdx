@@ -53,17 +53,45 @@ Enable test target timeouts. If timeouts are enabled then test targets with a ti
 
 ## Advanced options
 
-### `version`
+### `execution_slot_var`
 
 <Option
-  cli_repr={`--pytest-version=<str>`}
-  env_repr='PANTS_PYTEST_VERSION'
+  cli_repr={`--pytest-execution-slot-var=<str>`}
+  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
   toml_repr={`[pytest]
-version = <str>`}
-  default_repr={`pytest>=6.0.1,<6.3`}
+execution_slot_var = <str>`}
+  default_repr={`None`}
 >
 
-Requirement string for Pytest.
+If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
+
+</Option>
+
+### `junit_family`
+
+<Option
+  cli_repr={`--pytest-junit-family=<str>`}
+  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  toml_repr={`[pytest]
+junit_family = <str>`}
+  default_repr={`xunit2`}
+>
+
+The format of the generated XML file. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+
+</Option>
+
+### `junit_xml_dir`
+
+<Option
+  cli_repr={`--pytest-junit-xml-dir=<DIR>`}
+  env_repr='PANTS_PYTEST_JUNIT_XML_DIR'
+  toml_repr={`[pytest]
+junit_xml_dir = <DIR>`}
+  default_repr={`None`}
+>
+
+Specifying a directory causes Junit XML result files to be emitted under that dir for each test run.
 
 </Option>
 
@@ -113,45 +141,17 @@ The maximum timeout (in seconds) that may be used on a `python_tests` target.
 
 </Option>
 
-### `junit_xml_dir`
+### `version`
 
 <Option
-  cli_repr={`--pytest-junit-xml-dir=<DIR>`}
-  env_repr='PANTS_PYTEST_JUNIT_XML_DIR'
+  cli_repr={`--pytest-version=<str>`}
+  env_repr='PANTS_PYTEST_VERSION'
   toml_repr={`[pytest]
-junit_xml_dir = <DIR>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`pytest>=6.0.1,<6.3`}
 >
 
-Specifying a directory causes Junit XML result files to be emitted under that dir for each test run.
-
-</Option>
-
-### `junit_family`
-
-<Option
-  cli_repr={`--pytest-junit-family=<str>`}
-  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
-  toml_repr={`[pytest]
-junit_family = <str>`}
-  default_repr={`xunit2`}
->
-
-The format of the generated XML file. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
-
-</Option>
-
-### `execution_slot_var`
-
-<Option
-  cli_repr={`--pytest-execution-slot-var=<str>`}
-  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
-  toml_repr={`[pytest]
-execution_slot_var = <str>`}
-  default_repr={`None`}
->
-
-If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
+Requirement string for Pytest.
 
 </Option>
 

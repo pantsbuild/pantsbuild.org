@@ -19,6 +19,26 @@ Config section: <span className="color--primary">`[coverage-py]`</span>
 
 ## Basic options
 
+### `fail_under`
+
+<Option
+  cli_repr={`--coverage-py-fail-under=<float>`}
+  env_repr='PANTS_COVERAGE_PY_FAIL_UNDER'
+  toml_repr={`[coverage-py]
+fail_under = <float>`}
+  default_repr={`None`}
+>
+
+Fail if the total combined coverage percentage for all tests is less than this number.
+
+Use this instead of setting fail_under in a coverage.py config file, as the config will apply to each test separately, while you typically want this to apply to the combined coverage for all tests run.
+
+Note that you must generate at least one (non-raw) coverage report for this check to trigger.
+
+Note also that if you specify a non-integral value, you must also set [report] precision properly in the coverage.py config file to make use of the decimal places. See https://coverage.readthedocs.io/en/latest/config.html.
+
+</Option>
+
 ### `filter`
 
 <Option
@@ -41,6 +61,22 @@ If you leave this off, the coverage report will include every file in the transi
 
 </Option>
 
+### `global_report`
+
+<Option
+  cli_repr={`--[no-]coverage-py-global-report`}
+  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  toml_repr={`[coverage-py]
+global_report = <bool>`}
+  default_repr={`False`}
+>
+
+If true, Pants will generate a global coverage report.
+
+The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
+
+</Option>
+
 ### `report`
 
 <Option
@@ -60,55 +96,65 @@ Which coverage report type(s) to emit.
 
 </Option>
 
-### `global_report`
+## Advanced options
+
+### `config`
 
 <Option
-  cli_repr={`--[no-]coverage-py-global-report`}
-  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  cli_repr={`--coverage-py-config=<file_option>`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG'
   toml_repr={`[coverage-py]
-global_report = <bool>`}
-  default_repr={`False`}
->
-
-If true, Pants will generate a global coverage report.
-
-The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
-
-</Option>
-
-### `fail_under`
-
-<Option
-  cli_repr={`--coverage-py-fail-under=<float>`}
-  env_repr='PANTS_COVERAGE_PY_FAIL_UNDER'
-  toml_repr={`[coverage-py]
-fail_under = <float>`}
+config = <file_option>`}
   default_repr={`None`}
 >
 
-Fail if the total combined coverage percentage for all tests is less than this number.
+Path to an INI or TOML config file understood by coverage.py (https://coverage.readthedocs.io/en/stable/config.html).
 
-Use this instead of setting fail_under in a coverage.py config file, as the config will apply to each test separately, while you typically want this to apply to the combined coverage for all tests run.
-
-Note that you must generate at least one (non-raw) coverage report for this check to trigger.
-
-Note also that if you specify a non-integral value, you must also set [report] precision properly in the coverage.py config file to make use of the decimal places. See https://coverage.readthedocs.io/en/latest/config.html.
+Setting this option will disable `[coverage-py].config_discovery`. Use this option if the config is located in a non-standard location.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `config_discovery`
 
 <Option
-  cli_repr={`--coverage-py-version=<str>`}
-  env_repr='PANTS_COVERAGE_PY_VERSION'
+  cli_repr={`--[no-]coverage-py-config-discovery`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
   toml_repr={`[coverage-py]
-version = <str>`}
-  default_repr={`coverage[toml]>=5.5,<5.6`}
+config_discovery = <bool>`}
+  default_repr={`True`}
 >
 
-Requirement string for the tool.
+If true, Pants will include any relevant config files during runs (`.coveragerc`, `setup.cfg`, `tox.ini`, and `pyproject.toml`).
+
+Use `[coverage-py].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--coverage-py-console-script=<str>`}
+  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
+  toml_repr={`[coverage-py]
+console_script = <str>`}
+  default_repr={`coverage`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--coverage-py-entry-point=<str>`}
+  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  toml_repr={`[coverage-py]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -170,34 +216,6 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `console_script`
-
-<Option
-  cli_repr={`--coverage-py-console-script=<str>`}
-  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
-  toml_repr={`[coverage-py]
-console_script = <str>`}
-  default_repr={`coverage`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--coverage-py-entry-point=<str>`}
-  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
-  toml_repr={`[coverage-py]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
 ### `output_dir`
 
 <Option
@@ -212,35 +230,17 @@ Path to write the Pytest Coverage report to. Must be relative to the build root.
 
 </Option>
 
-### `config`
+### `version`
 
 <Option
-  cli_repr={`--coverage-py-config=<file_option>`}
-  env_repr='PANTS_COVERAGE_PY_CONFIG'
+  cli_repr={`--coverage-py-version=<str>`}
+  env_repr='PANTS_COVERAGE_PY_VERSION'
   toml_repr={`[coverage-py]
-config = <file_option>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`coverage[toml]>=5.5,<5.6`}
 >
 
-Path to an INI or TOML config file understood by coverage.py (https://coverage.readthedocs.io/en/stable/config.html).
-
-Setting this option will disable `[coverage-py].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]coverage-py-config-discovery`}
-  env_repr='PANTS_COVERAGE_PY_CONFIG_DISCOVERY'
-  toml_repr={`[coverage-py]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant config files during runs (`.coveragerc`, `setup.cfg`, `tox.ini`, and `pyproject.toml`).
-
-Use `[coverage-py].config` instead if your config is in a non-standard location.
+Requirement string for the tool.
 
 </Option>
 

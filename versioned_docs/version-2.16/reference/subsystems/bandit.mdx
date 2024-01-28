@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[bandit]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]bandit-skip`}
-  env_repr='PANTS_BANDIT_SKIP'
-  toml_repr={`[bandit]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Bandit when running `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,7 +37,63 @@ Arguments to pass directly to Bandit, e.g. `--bandit-args='--skip B101,B308 --co
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]bandit-skip`}
+  env_repr='PANTS_BANDIT_SKIP'
+  toml_repr={`[bandit]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Bandit when running `pants lint`.
+
+</Option>
+
 ## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--bandit-config=<file_option>`}
+  env_repr='PANTS_BANDIT_CONFIG'
+  toml_repr={`[bandit]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to a Bandit YAML config file (https://bandit.readthedocs.io/en/latest/config.html).
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--bandit-console-script=<str>`}
+  env_repr='PANTS_BANDIT_CONSOLE_SCRIPT'
+  toml_repr={`[bandit]
+console_script = <str>`}
+  default_repr={`bandit`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--bandit-entry-point=<str>`}
+  env_repr='PANTS_BANDIT_ENTRY_POINT'
+  toml_repr={`[bandit]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
 
 ### `install_from_resolve`
 
@@ -99,63 +141,23 @@ If unspecified, install the entire lockfile.
 
 </Option>
 
-### `console_script`
-
-<Option
-  cli_repr={`--bandit-console-script=<str>`}
-  env_repr='PANTS_BANDIT_CONSOLE_SCRIPT'
-  toml_repr={`[bandit]
-console_script = <str>`}
-  default_repr={`bandit`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--bandit-entry-point=<str>`}
-  env_repr='PANTS_BANDIT_ENTRY_POINT'
-  toml_repr={`[bandit]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--bandit-config=<file_option>`}
-  env_repr='PANTS_BANDIT_CONFIG'
-  toml_repr={`[bandit]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to a Bandit YAML config file (https://bandit.readthedocs.io/en/latest/config.html).
-
-</Option>
-
 ## Deprecated options
 
-### `version`
+### `export`
 
 <Option
-  cli_repr={`--bandit-version=<str>`}
-  env_repr='PANTS_BANDIT_VERSION'
+  cli_repr={`--[no-]bandit-export`}
+  env_repr='PANTS_BANDIT_EXPORT'
   toml_repr={`[bandit]
-version = <str>`}
-  default_repr={`bandit>=1.7.0,<1.8`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
+export = <bool>`}
+  default_repr={`True`}
+  removal_version='2.18.0.dev0'
+  removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
 >
 
-Requirement string for the tool.
+If true, export a virtual environment with Bandit when running `pants export`.
+
+This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
 
@@ -203,21 +205,19 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `export`
+### `version`
 
 <Option
-  cli_repr={`--[no-]bandit-export`}
-  env_repr='PANTS_BANDIT_EXPORT'
+  cli_repr={`--bandit-version=<str>`}
+  env_repr='PANTS_BANDIT_VERSION'
   toml_repr={`[bandit]
-export = <bool>`}
-  default_repr={`True`}
-  removal_version='2.18.0.dev0'
-  removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
+version = <str>`}
+  default_repr={`bandit>=1.7.0,<1.8`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
-If true, export a virtual environment with Bandit when running `pants export`.
-
-This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
+Requirement string for the tool.
 
 </Option>
 

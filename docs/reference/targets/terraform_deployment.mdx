@@ -17,29 +17,26 @@ Backend: <span className="color--primary">`pants.backend.experimental.terraform`
 
 <span className={styles.options}>
 
-## `tags`
+## `root_module`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+The Terraform module to use as the root module.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+Example: `root_module=":my_module"`
 
 </Field>
 
-## `description`
+## `backend_config`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
+Configuration to be merged with what is in the configuration file&#x27;s &#x27;backend&#x27; block
 
 </Field>
 
@@ -62,27 +59,29 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `root_module`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-The Terraform module to use as the root module.
-
-Example: `root_module=":my_module"`
-
-</Field>
-
-## `backend_config`
+## `description`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-Configuration to be merged with what is in the configuration file&#x27;s &#x27;backend&#x27; block
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

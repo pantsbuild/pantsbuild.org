@@ -23,22 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--pex-cli-version=<str>`}
-  env_repr='PANTS_PEX_CLI_VERSION'
-  toml_repr={`[pex-cli]
-version = <str>`}
-  default_repr={`v2.1.90`}
->
-
-Use this version of pex.
-
-Supported pex versions: &#x3E;=2.1.90,&#x3C;3.0
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -72,20 +56,23 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `url_platform_mapping`
 
 <Option
-  cli_repr={`--pex-cli-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_PEX_CLI_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[pex-cli]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+  cli_repr={`--pex-cli-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PEX_CLI_URL_PLATFORM_MAPPING'
+  toml_repr={`[pex-cli.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
 >
 
-What action to take in case the requested version of pex is not supported.
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
-Supported pex versions: &#x3E;=2.1.90,&#x3C;3.0
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
 
 </Option>
 
@@ -105,23 +92,36 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 
 </Option>
 
-### `url_platform_mapping`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--pex-cli-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_PEX_CLI_URL_PLATFORM_MAPPING'
-  toml_repr={`[pex-cli.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
+  cli_repr={`--pex-cli-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_PEX_CLI_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[pex-cli]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+What action to take in case the requested version of pex is not supported.
 
-In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+Supported pex versions: &#x3E;=2.1.90,&#x3C;3.0
 
-For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--pex-cli-version=<str>`}
+  env_repr='PANTS_PEX_CLI_VERSION'
+  toml_repr={`[pex-cli]
+version = <str>`}
+  default_repr={`v2.1.90`}
+>
+
+Use this version of pex.
+
+Supported pex versions: &#x3E;=2.1.90,&#x3C;3.0
 
 </Option>
 

@@ -19,29 +19,17 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `provides`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`PythonArtifact`}
 >
 
-Arbitrary strings to describe a target.
+The setup.py kwargs for the external artifact built from this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
 
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+See https://www.pantsbuild.org/v2.7/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
 
 </Field>
 
@@ -57,6 +45,19 @@ Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/s
 Alternatively, you may include file names. Pants will find which target owns that file, and create a new target from that which only includes the file in its `sources` field. For files relative to the current BUILD file, prefix with `./`; otherwise, put the full path, e.g. [&#x27;./sibling.txt&#x27;, &#x27;resources/demo.json&#x27;].
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -93,21 +94,6 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 
 </Field>
 
-## `provides`
-
-<Field
-    type_repr={`PythonArtifact`}
-    default_repr={`None`}
->
-
-The setup.py kwargs for the external artifact built from this target.
-
-You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
-
-See https://www.pantsbuild.org/v2.7/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
-
-</Field>
-
 ## `setup_py_commands`
 
 <Field
@@ -118,6 +104,19 @@ See https://www.pantsbuild.org/v2.7/docs/plugins-setup-py for how to write a plu
 The runtime commands to invoke setup.py with to create the distribution, e.g. [&#x22;bdist_wheel&#x22;, &#x22;--python-tag=py36.py37&#x22;, &#x22;sdist&#x22;].
 
 If empty or unspecified, will just create a chroot with a setup() function.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

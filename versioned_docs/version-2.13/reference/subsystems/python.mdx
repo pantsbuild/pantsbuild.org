@@ -83,6 +83,46 @@ Note: Only takes effect if you use Pex lockfiles. Set `[python].lockfile_generat
 
 ## Advanced options
 
+### `default_resolve`
+
+<Option
+  cli_repr={`--python-default-resolve=<str>`}
+  env_repr='PANTS_PYTHON_DEFAULT_RESOLVE'
+  toml_repr={`[python]
+default_resolve = <str>`}
+  default_repr={`python-default`}
+>
+
+The default value used for the `resolve` field.
+
+The name must be defined as a resolve in `[python].resolves`.
+
+</Option>
+
+### `enable_resolves`
+
+<Option
+  cli_repr={`--[no-]python-enable-resolves`}
+  env_repr='PANTS_PYTHON_ENABLE_RESOLVES'
+  toml_repr={`[python]
+enable_resolves = <bool>`}
+  default_repr={`False`}
+>
+
+Set to true to enable lockfiles for user code. See `[python].resolves` for an explanation of this feature.
+
+Warning: the `generate-lockfiles` goal does not yet work if you have local requirements, regardless of using Pex vs. Poetry for the lockfile generator. Support is coming in a future Pants release. In the meantime, the workaround is to host the files in a custom repository with `[python-repos]` (https://www.pantsbuild.org/v2.13/docs/python-third-party-dependencies#custom-repositories).
+
+You may also run into issues generating lockfiles when using Poetry as the generator, rather than Pex. See the option `[python].lockfile_generator` for more information.
+
+This option is mutually exclusive with `[python].requirement_constraints`. We strongly recommend using this option because it:
+
+1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
+2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
+3. Allows you to have multiple lockfiles in your repository.
+
+</Option>
+
 ### `interpreter_constraints`
 
 <Option
@@ -126,112 +166,6 @@ This is used by Pants to robustly handle interpreter constraints, such as knowin
 This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/v2.13/docs/python-interpreter-compatibility.
 
 All elements must be the minor and major Python version, e.g. &#x27;2.7&#x27; or &#x27;3.10&#x27;. Do not include the patch version.
-
-</Option>
-
-### `enable_resolves`
-
-<Option
-  cli_repr={`--[no-]python-enable-resolves`}
-  env_repr='PANTS_PYTHON_ENABLE_RESOLVES'
-  toml_repr={`[python]
-enable_resolves = <bool>`}
-  default_repr={`False`}
->
-
-Set to true to enable lockfiles for user code. See `[python].resolves` for an explanation of this feature.
-
-Warning: the `generate-lockfiles` goal does not yet work if you have local requirements, regardless of using Pex vs. Poetry for the lockfile generator. Support is coming in a future Pants release. In the meantime, the workaround is to host the files in a custom repository with `[python-repos]` (https://www.pantsbuild.org/v2.13/docs/python-third-party-dependencies#custom-repositories).
-
-You may also run into issues generating lockfiles when using Poetry as the generator, rather than Pex. See the option `[python].lockfile_generator` for more information.
-
-This option is mutually exclusive with `[python].requirement_constraints`. We strongly recommend using this option because it:
-
-1. Uses `--hash` to validate that all downloaded files are expected, which reduces the risk of supply chain attacks.
-2. Enforces that all transitive dependencies are in the lockfile, whereas constraints allow you to leave off dependencies. This ensures your build is more stable and reduces the risk of supply chain attacks.
-3. Allows you to have multiple lockfiles in your repository.
-
-</Option>
-
-### `resolves`
-
-<Option
-  cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_PYTHON_RESOLVES'
-  toml_repr={`[python.resolves]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
->
-
-A mapping of logical names to lockfile paths used in your project.
-
-Many organizations only need a single resolve for their whole project, which is a good default and often the simplest thing to do. However, you may need multiple resolves, such as if you use two conflicting versions of a requirement in your repository.
-
-If you only need a single resolve, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfile.
-
-If you need multiple resolves:
-
-1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
-2. Set the default with `[python].default_resolve`.
-3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
-4. Run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
-5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
-
-If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/v2.13/docs/targets for information about `parametrize`.
-
-For example:
-
-```
-python_sources(
-    resolve=parametrize("data-science", "web-app"),
-)
-```
-
-You can name the lockfile paths what you would like; Pants does not expect a certain file extension or location.
-
-Only applies if `[python].enable_resolves` is true.
-
-</Option>
-
-### `default_resolve`
-
-<Option
-  cli_repr={`--python-default-resolve=<str>`}
-  env_repr='PANTS_PYTHON_DEFAULT_RESOLVE'
-  toml_repr={`[python]
-default_resolve = <str>`}
-  default_repr={`python-default`}
->
-
-The default value used for the `resolve` field.
-
-The name must be defined as a resolve in `[python].resolves`.
-
-</Option>
-
-### `resolves_to_interpreter_constraints`
-
-<Option
-  cli_repr={`--python-resolves-to-interpreter-constraints="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_PYTHON_RESOLVES_TO_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[python.resolves_to_interpreter_constraints]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
->
-
-Override the interpreter constraints to use when generating a resolve&#x27;s lockfile with the `generate-lockfiles` goal.
-
-By default, each resolve from `[python].resolves` will use your global interpreter constraints set in `[python].interpreter_constraints`. With this option, you can override each resolve to use certain interpreter constraints, such as `{'data-science': ['==3.8.*']}`.
-
-Warning: this does NOT impact the interpreter constraints used by targets within the resolve, which is instead set by the option `[python.interpreter_constraints` and the `interpreter_constraints` field. It only impacts how the lockfile is generated.
-
-Pants will validate that the interpreter constraints of your code using a resolve are compatible with that resolve&#x27;s own constraints. For example, if your code is set to use [&#x27;==3.9.*&#x27;] via the `interpreter_constraints` field, but it&#x27;s using a resolve whose interpreter constraints are set to [&#x27;==3.7.*&#x27;], then Pants will error explaining the incompatibility.
-
-The keys must be defined as resolves in `[python].resolves`.
 
 </Option>
 
@@ -285,41 +219,17 @@ Note that while Pex generates locks in a proprietary JSON format, you can use th
 
 </Option>
 
-### `resolves_generate_lockfiles`
+### `macos_big_sur_compatibility`
 
 <Option
-  cli_repr={`--[no-]python-resolves-generate-lockfiles`}
-  env_repr='PANTS_PYTHON_RESOLVES_GENERATE_LOCKFILES'
+  cli_repr={`--[no-]python-macos-big-sur-compatibility`}
+  env_repr='PANTS_PYTHON_MACOS_BIG_SUR_COMPATIBILITY'
   toml_repr={`[python]
-resolves_generate_lockfiles = <bool>`}
-  default_repr={`True`}
->
-
-If False, Pants will not attempt to generate lockfiles for `[python].resolves` when running the `generate-lockfiles` goal.
-
-This is intended to allow you to manually generate lockfiles as a workaround for the issues described in the `[python].lockfile_generator` option, if you are not yet ready to use Pex.
-
-If you set this to False, Pants will not attempt to validate the metadata headers for your user lockfiles. This is useful so that you can keep `[python].invalid_lockfile_behavior` to `error` or `warn` if you&#x27;d like so that tool lockfiles continue to be validated, while user lockfiles are skipped.
-
-</Option>
-
-### `run_against_entire_lockfile`
-
-<Option
-  cli_repr={`--[no-]python-run-against-entire-lockfile`}
-  env_repr='PANTS_PYTHON_RUN_AGAINST_ENTIRE_LOCKFILE'
-  toml_repr={`[python]
-run_against_entire_lockfile = <bool>`}
+macos_big_sur_compatibility = <bool>`}
   default_repr={`False`}
 >
 
-If enabled, when running binaries, tests, and repls, Pants will use the entire lockfile file instead of just the relevant subset.
-
-We generally do not recommend this if `[python].lockfile_generator` is set to `"pex"` thanks to performance enhancements we&#x27;ve made. When using Pex lockfiles, you should get similar performance to using this option but without the downsides mentioned below.
-
-Otherwise, if not using Pex lockfiles, this option can improve performance and reduce cache size. But it has two consequences: 1) All cached test results will be invalidated if any requirement in the lockfile changes, rather than just those that depend on the changed requirement. 2) Requirements unneeded by a test/run/repl will be present on the sys.path, which might in rare cases cause their behavior to change.
-
-This option does not affect packaging deployable artifacts, such as PEX files, wheels and cloud functions, which will still use just the exact subset of requirements needed.
+If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when building wheels. Otherwise, the default of macosx_11_0 will be used. This may be required for pip to be able to install the resulting distribution on Big Sur.
 
 </Option>
 
@@ -373,17 +283,107 @@ Whether to allow resolution of manylinux wheels when resolving requirements for 
 
 </Option>
 
-### `tailor_source_targets`
+### `resolves`
 
 <Option
-  cli_repr={`--[no-]python-tailor-source-targets`}
-  env_repr='PANTS_PYTHON_TAILOR_SOURCE_TARGETS'
+  cli_repr={`--python-resolves="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_RESOLVES'
+  toml_repr={`[python.resolves]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "python-default": "3rdparty/python/default.lock"\n}`}
+>
+
+A mapping of logical names to lockfile paths used in your project.
+
+Many organizations only need a single resolve for their whole project, which is a good default and often the simplest thing to do. However, you may need multiple resolves, such as if you use two conflicting versions of a requirement in your repository.
+
+If you only need a single resolve, run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfile.
+
+If you need multiple resolves:
+
+1. Via this option, define multiple resolve names and their lockfile paths. The names should be meaningful to your repository, such as `data-science` or `pants-plugins`.
+2. Set the default with `[python].default_resolve`.
+3. Update your `python_requirement` targets with the `resolve` field to declare which resolve they should be available in. They default to `[python].default_resolve`, so you only need to update targets that you want in non-default resolves. (Often you&#x27;ll set this via the `python_requirements` or `poetry_requirements` target generators)
+4. Run `/home/josh/work/scie-pants/dist/pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
+5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
+
+If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/v2.13/docs/targets for information about `parametrize`.
+
+For example:
+
+```
+python_sources(
+    resolve=parametrize("data-science", "web-app"),
+)
+```
+
+You can name the lockfile paths what you would like; Pants does not expect a certain file extension or location.
+
+Only applies if `[python].enable_resolves` is true.
+
+</Option>
+
+### `resolves_generate_lockfiles`
+
+<Option
+  cli_repr={`--[no-]python-resolves-generate-lockfiles`}
+  env_repr='PANTS_PYTHON_RESOLVES_GENERATE_LOCKFILES'
   toml_repr={`[python]
-tailor_source_targets = <bool>`}
+resolves_generate_lockfiles = <bool>`}
   default_repr={`True`}
 >
 
-If true, add `python_sources`, `python_tests`, and `python_test_utils` targets with the `tailor` goal.
+If False, Pants will not attempt to generate lockfiles for `[python].resolves` when running the `generate-lockfiles` goal.
+
+This is intended to allow you to manually generate lockfiles as a workaround for the issues described in the `[python].lockfile_generator` option, if you are not yet ready to use Pex.
+
+If you set this to False, Pants will not attempt to validate the metadata headers for your user lockfiles. This is useful so that you can keep `[python].invalid_lockfile_behavior` to `error` or `warn` if you&#x27;d like so that tool lockfiles continue to be validated, while user lockfiles are skipped.
+
+</Option>
+
+### `resolves_to_interpreter_constraints`
+
+<Option
+  cli_repr={`--python-resolves-to-interpreter-constraints="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_RESOLVES_TO_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python.resolves_to_interpreter_constraints]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Override the interpreter constraints to use when generating a resolve&#x27;s lockfile with the `generate-lockfiles` goal.
+
+By default, each resolve from `[python].resolves` will use your global interpreter constraints set in `[python].interpreter_constraints`. With this option, you can override each resolve to use certain interpreter constraints, such as `{'data-science': ['==3.8.*']}`.
+
+Warning: this does NOT impact the interpreter constraints used by targets within the resolve, which is instead set by the option `[python.interpreter_constraints` and the `interpreter_constraints` field. It only impacts how the lockfile is generated.
+
+Pants will validate that the interpreter constraints of your code using a resolve are compatible with that resolve&#x27;s own constraints. For example, if your code is set to use [&#x27;==3.9.*&#x27;] via the `interpreter_constraints` field, but it&#x27;s using a resolve whose interpreter constraints are set to [&#x27;==3.7.*&#x27;], then Pants will error explaining the incompatibility.
+
+The keys must be defined as resolves in `[python].resolves`.
+
+</Option>
+
+### `run_against_entire_lockfile`
+
+<Option
+  cli_repr={`--[no-]python-run-against-entire-lockfile`}
+  env_repr='PANTS_PYTHON_RUN_AGAINST_ENTIRE_LOCKFILE'
+  toml_repr={`[python]
+run_against_entire_lockfile = <bool>`}
+  default_repr={`False`}
+>
+
+If enabled, when running binaries, tests, and repls, Pants will use the entire lockfile file instead of just the relevant subset.
+
+We generally do not recommend this if `[python].lockfile_generator` is set to `"pex"` thanks to performance enhancements we&#x27;ve made. When using Pex lockfiles, you should get similar performance to using this option but without the downsides mentioned below.
+
+Otherwise, if not using Pex lockfiles, this option can improve performance and reduce cache size. But it has two consequences: 1) All cached test results will be invalidated if any requirement in the lockfile changes, rather than just those that depend on the changed requirement. 2) Requirements unneeded by a test/run/repl will be present on the sys.path, which might in rare cases cause their behavior to change.
+
+This option does not affect packaging deployable artifacts, such as PEX files, wheels and cloud functions, which will still use just the exact subset of requirements needed.
 
 </Option>
 
@@ -407,6 +407,20 @@ If you set to false, you may also want to set `[python-infer].init_files = "alwa
 
 </Option>
 
+### `tailor_pex_binary_targets`
+
+<Option
+  cli_repr={`--[no-]python-tailor-pex-binary-targets`}
+  env_repr='PANTS_PYTHON_TAILOR_PEX_BINARY_TARGETS'
+  toml_repr={`[python]
+tailor_pex_binary_targets = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `pex_binary` targets for Python files named `__main__.py` or with a `__main__` clause with the `tailor` goal.
+
+</Option>
+
 ### `tailor_requirements_targets`
 
 <Option
@@ -425,31 +439,17 @@ If true, add `python_requirements`, `poetry_requirements`, and `pipenv_requireme
 
 </Option>
 
-### `tailor_pex_binary_targets`
+### `tailor_source_targets`
 
 <Option
-  cli_repr={`--[no-]python-tailor-pex-binary-targets`}
-  env_repr='PANTS_PYTHON_TAILOR_PEX_BINARY_TARGETS'
+  cli_repr={`--[no-]python-tailor-source-targets`}
+  env_repr='PANTS_PYTHON_TAILOR_SOURCE_TARGETS'
   toml_repr={`[python]
-tailor_pex_binary_targets = <bool>`}
+tailor_source_targets = <bool>`}
   default_repr={`True`}
 >
 
-If true, add `pex_binary` targets for Python files named `__main__.py` or with a `__main__` clause with the `tailor` goal.
-
-</Option>
-
-### `macos_big_sur_compatibility`
-
-<Option
-  cli_repr={`--[no-]python-macos-big-sur-compatibility`}
-  env_repr='PANTS_PYTHON_MACOS_BIG_SUR_COMPATIBILITY'
-  toml_repr={`[python]
-macos_big_sur_compatibility = <bool>`}
-  default_repr={`False`}
->
-
-If set, and if running on MacOS Big Sur, use macosx_10_16 as the platform when building wheels. Otherwise, the default of macosx_11_0 will be used. This may be required for pip to be able to install the resulting distribution on Big Sur.
+If true, add `python_sources`, `python_tests`, and `python_test_utils` targets with the `tailor` goal.
 
 </Option>
 

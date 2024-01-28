@@ -17,16 +17,33 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `artifact`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the artifact is &#x27;guava&#x27;.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+</Field>
+
+## `group`
+
+<Field
+    type_repr={`str`}
+>
+
+The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the group is &#x27;com.google.guava&#x27;.
+
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`str`}
+>
+
+The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the version is &#x27;30.1.1-jre&#x27;.
 
 </Field>
 
@@ -43,36 +60,16 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `group`
+## `tags`
 
 <Field
-    type_repr={`str`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the group is &#x27;com.google.guava&#x27;.
+Arbitrary strings to describe a target.
 
-</Field>
-
-## `artifact`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the artifact is &#x27;guava&#x27;.
-
-</Field>
-
-## `version`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party jar artifact. For the jar coordinate com.google.guava:guava:30.1.1-jre, the version is &#x27;30.1.1-jre&#x27;.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

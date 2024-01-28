@@ -17,16 +17,22 @@ Backend: <span className="color--primary">`pants.backend.codegen.thrift.apache.p
 
 <span className={styles.options}>
 
-## `tags`
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.18/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -43,18 +49,41 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `sources`
+## `finagle`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.thrift',)`}
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.codegen.thrift.scrooge.java"
 >
 
-A list of files and globs that belong to this target.
+If True, then also generate Finagle classes for services when using Scrooge as the Thrift generator.
 
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+</Field>
 
-Example: `sources=['example.thrift', 'new_*.thrift', '!old_ignore.thrift']`
+## `jvm_jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.thrift.apache.java"
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+
+</Field>
+
+## `jvm_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.codegen.thrift.apache.java"
+>
+
+The resolve from `[jvm].resolves` to use when compiling this target.
+
+If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
@@ -86,32 +115,6 @@ You can specify the same file name in multiple keys, so long as you don&#x27;t o
 
 </Field>
 
-## `finagle`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.codegen.thrift.scrooge.java"
->
-
-If True, then also generate Finagle classes for services when using Scrooge as the Thrift generator.
-
-</Field>
-
-## `jvm_resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.thrift.apache.java"
->
-
-The resolve from `[jvm].resolves` to use when compiling this target.
-
-If not defined, will default to `[jvm].default_resolve`.
-
-</Field>
-
 ## `python_resolve`
 
 <Field
@@ -128,34 +131,31 @@ All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
-## `jvm_jdk`
+## `sources`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.codegen.thrift.apache.java"
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.thrift',)`}
 >
 
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.thrift', 'new_*.thrift', '!old_ignore.thrift']`
 
 </Field>
 
-## `dependencies`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+Arbitrary strings to describe a target.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
-
-See https://www.pantsbuild.org/v2.18/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

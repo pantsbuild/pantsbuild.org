@@ -19,48 +19,17 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `provides`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`PythonArtifact`}
 >
 
-Arbitrary strings to describe a target.
+The setup.py kwargs for the external artifact built from this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
 
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `interpreter_constraints`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The Python interpreters this code is compatible with.
-
-Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
-
-Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
-
-If the field is not set, it will default to the option `[python].interpreter_constraints`.
-
-See https://www.pantsbuild.org/v2.14/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+See https://www.pantsbuild.org/v2.14/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
 
 </Field>
 
@@ -80,6 +49,19 @@ See https://www.pantsbuild.org/v2.14/docs/targets for more about how addresses a
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -115,18 +97,16 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 
 </Field>
 
-## `provides`
+## `env_vars`
 
 <Field
-    type_repr={`PythonArtifact`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-The setup.py kwargs for the external artifact built from this target.
+Environment variables to set when running the PEP-517 build backend.
 
-You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
-
-See https://www.pantsbuild.org/v2.14/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
 
 </Field>
 
@@ -141,60 +121,22 @@ Whether to generate setup information for this distribution, based on analyzing 
 
 </Field>
 
-## `wheel`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`True`}
->
-
-Whether to build a wheel for the distribution.
-
-</Field>
-
-## `sdist`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`True`}
->
-
-Whether to build an sdist for the distribution.
-
-</Field>
-
-## `wheel_config_settings`
-
-<Field
-    type_repr={`Dict[str, Iterable[str]] | None`}
-    default_repr={`None`}
->
-
-PEP-517 config settings to pass to the build backend when building a wheel.
-
-</Field>
-
-## `sdist_config_settings`
-
-<Field
-    type_repr={`Dict[str, Iterable[str]] | None`}
-    default_repr={`None`}
->
-
-PEP-517 config settings to pass to the build backend when building an sdist.
-
-</Field>
-
-## `env_vars`
+## `interpreter_constraints`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Environment variables to set when running the PEP-517 build backend.
+The Python interpreters this code is compatible with.
 
-Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/v2.14/docs/python-interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
 
@@ -231,6 +173,53 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
 
 </Field>
 
+## `sdist`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to build an sdist for the distribution.
+
+</Field>
+
+## `sdist_config_settings`
+
+<Field
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
+>
+
+PEP-517 config settings to pass to the build backend when building an sdist.
+
+</Field>
+
+## `skip_twine`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python"
+>
+
+If true, don&#x27;t publish this target&#x27;s packages using Twine.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
 ## `uses_mypyc`
 
 <Field
@@ -247,15 +236,25 @@ You will typically set this field on distributions whose setup.py uses mypyc.bui
 
 </Field>
 
-## `skip_twine`
+## `wheel`
 
 <Field
     type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python"
+    default_repr={`True`}
 >
 
-If true, don&#x27;t publish this target&#x27;s packages using Twine.
+Whether to build a wheel for the distribution.
+
+</Field>
+
+## `wheel_config_settings`
+
+<Field
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
+>
+
+PEP-517 config settings to pass to the build backend when building a wheel.
 
 </Field>
 

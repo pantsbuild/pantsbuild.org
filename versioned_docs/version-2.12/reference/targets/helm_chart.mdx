@@ -17,32 +17,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `chart`
 
 <Field
@@ -51,21 +25,6 @@ Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targ
 >
 
 The chart definition file.
-
-</Field>
-
-## `sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('values.yaml', 'templates/*.yaml', 'templates/*.tpl')`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
 
 </Field>
 
@@ -88,6 +47,30 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `lint_strict`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+If set to true, enables strict linting of this Helm chart.
+
+</Field>
+
 ## `output_path`
 
 <Field
@@ -104,30 +87,6 @@ Regardless of whether you use the default or set this field, the path will end w
 When running `/home/josh/work/scie-pants/dist/pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
-
-</Field>
-
-## `lint_strict`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-If set to true, enables strict linting of this Helm chart.
-
-</Field>
-
-## `repository`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Repository to use in the Helm registry where this chart is going to be published.
-
-If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
 
 </Field>
 
@@ -165,6 +124,19 @@ The above example shows two valid `registry` options: using an alias to a config
 
 </Field>
 
+## `repository`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Repository to use in the Helm registry where this chart is going to be published.
+
+If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
+
+</Field>
+
 ## `skip_push`
 
 <Field
@@ -173,6 +145,34 @@ The above example shows two valid `registry` options: using an alias to a config
 >
 
 If set to true, do not push this helm chart to registries when running `/home/josh/work/scie-pants/dist/pants publish`.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('values.yaml', 'templates/*.yaml', 'templates/*.tpl')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.ext', 'test_*.ext', '!test_ignore.ext']`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

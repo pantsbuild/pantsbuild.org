@@ -23,6 +23,20 @@ Config section: <span className="color--primary">`[dependees]`</span>
 
 ## Basic options
 
+### `closed`
+
+<Option
+  cli_repr={`--[no-]dependees-closed`}
+  env_repr='PANTS_DEPENDEES_CLOSED'
+  toml_repr={`[dependees]
+closed = <bool>`}
+  default_repr={`False`}
+>
+
+Include the input targets in the output, along with the dependees.
+
+</Option>
+
 ### `output_file`
 
 <Option
@@ -34,6 +48,21 @@ output_file = <path>`}
 >
 
 Output the goal&#x27;s stdout to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+### `output_format`
+
+<Option
+  cli_repr={`--dependees-output-format=<DependeesOutputFormat>`}
+  env_repr='PANTS_DEPENDEES_OUTPUT_FORMAT'
+  toml_repr={`[dependees]
+output_format = <DependeesOutputFormat>`}
+  one_of='text, json'
+  default_repr={`text`}
+>
+
+Use `text` for a flattened list of target addresses; use `json` for each key to be the address of one of the specified targets, with its value being a list of that target&#x27;s dependees, e.g. `{':example': [':dep1', ':dep2']}`.
 
 </Option>
 
@@ -62,35 +91,6 @@ transitive = <bool>`}
 >
 
 List all transitive dependees, instead of only direct dependees.
-
-</Option>
-
-### `closed`
-
-<Option
-  cli_repr={`--[no-]dependees-closed`}
-  env_repr='PANTS_DEPENDEES_CLOSED'
-  toml_repr={`[dependees]
-closed = <bool>`}
-  default_repr={`False`}
->
-
-Include the input targets in the output, along with the dependees.
-
-</Option>
-
-### `output_format`
-
-<Option
-  cli_repr={`--dependees-output-format=<DependeesOutputFormat>`}
-  env_repr='PANTS_DEPENDEES_OUTPUT_FORMAT'
-  toml_repr={`[dependees]
-output_format = <DependeesOutputFormat>`}
-  one_of='text, json'
-  default_repr={`text`}
->
-
-Use `text` for a flattened list of target addresses; use `json` for each key to be the address of one of the specified targets, with its value being a list of that target&#x27;s dependees, e.g. `{':example': [':dep1', ':dep2']}`.
 
 </Option>
 

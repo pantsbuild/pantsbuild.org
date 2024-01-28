@@ -23,17 +23,31 @@ None
 
 ## Advanced options
 
-### `version`
+### `console_script`
 
 <Option
-  cli_repr={`--lambdex-version=<str>`}
-  env_repr='PANTS_LAMBDEX_VERSION'
+  cli_repr={`--lambdex-console-script=<str>`}
+  env_repr='PANTS_LAMBDEX_CONSOLE_SCRIPT'
   toml_repr={`[lambdex]
-version = <str>`}
-  default_repr={`lambdex==0.1.5`}
+console_script = <str>`}
+  default_repr={`lambdex`}
 >
 
-Requirement string for the tool.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--lambdex-entry-point=<str>`}
+  env_repr='PANTS_LAMBDEX_ENTRY_POINT'
+  toml_repr={`[lambdex]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -95,31 +109,17 @@ Lockfile generation currently does not wire up the `[python-repos]` options. If 
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--lambdex-console-script=<str>`}
-  env_repr='PANTS_LAMBDEX_CONSOLE_SCRIPT'
+  cli_repr={`--lambdex-version=<str>`}
+  env_repr='PANTS_LAMBDEX_VERSION'
   toml_repr={`[lambdex]
-console_script = <str>`}
-  default_repr={`lambdex`}
+version = <str>`}
+  default_repr={`lambdex==0.1.5`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--lambdex-entry-point=<str>`}
-  env_repr='PANTS_LAMBDEX_ENTRY_POINT'
-  toml_repr={`[lambdex]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+Requirement string for the tool.
 
 </Option>
 

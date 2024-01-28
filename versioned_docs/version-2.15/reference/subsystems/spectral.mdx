@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[spectral]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]spectral-skip`}
-  env_repr='PANTS_SPECTRAL_SKIP'
-  toml_repr={`[spectral]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Spectral when running `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,21 +37,21 @@ Arguments to pass directly to Spectral, e.g. `--spectral-args='--fail-severity=w
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--spectral-version=<str>`}
-  env_repr='PANTS_SPECTRAL_VERSION'
+  cli_repr={`--[no-]spectral-skip`}
+  env_repr='PANTS_SPECTRAL_SKIP'
   toml_repr={`[spectral]
-version = <str>`}
-  default_repr={`v6.5.1`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of Spectral.
+If true, don&#x27;t use Spectral when running `/home/josh/work/scie-pants/dist/pants lint`.
 
 </Option>
+
+## Advanced options
 
 ### `known_versions`
 
@@ -100,20 +86,23 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `url_platform_mapping`
 
 <Option
-  cli_repr={`--spectral-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_SPECTRAL_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[spectral]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+  cli_repr={`--spectral-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SPECTRAL_URL_PLATFORM_MAPPING'
+  toml_repr={`[spectral.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "linux",\n  "linux_x86_64": "linux",\n  "macos_arm64": "macos",\n  "macos_x86_64": "macos"\n}`}
 >
 
-What action to take in case the requested version of Spectral is not supported.
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
-Supported Spectral versions: unspecified
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
 
 </Option>
 
@@ -133,23 +122,34 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 
 </Option>
 
-### `url_platform_mapping`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--spectral-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_SPECTRAL_URL_PLATFORM_MAPPING'
-  toml_repr={`[spectral.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "linux_arm64": "linux",\n  "linux_x86_64": "linux",\n  "macos_arm64": "macos",\n  "macos_x86_64": "macos"\n}`}
+  cli_repr={`--spectral-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_SPECTRAL_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[spectral]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+What action to take in case the requested version of Spectral is not supported.
 
-In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+Supported Spectral versions: unspecified
 
-For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the --url-template option with unknown-linux.
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--spectral-version=<str>`}
+  env_repr='PANTS_SPECTRAL_VERSION'
+  toml_repr={`[spectral]
+version = <str>`}
+  default_repr={`v6.5.1`}
+>
+
+Use this version of Spectral.
 
 </Option>
 

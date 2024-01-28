@@ -67,6 +67,34 @@ Do not include the patch version.
 
 ## Advanced options
 
+### `asdf_bin_relpath`
+
+<Option
+  cli_repr={`--golang-asdf-bin-relpath=<str>`}
+  env_repr='PANTS_GOLANG_ASDF_BIN_RELPATH'
+  toml_repr={`[golang]
+asdf_bin_relpath = <str>`}
+  default_repr={`bin`}
+>
+
+The path relative to an ASDF install directory to use to find the `bin` directory within an installed Go distribution. The default value for this option works for the `go-sdk` ASDF plugin. Other ASDF plugins that install Go may have a different relative path to use.
+
+</Option>
+
+### `asdf_tool_name`
+
+<Option
+  cli_repr={`--golang-asdf-tool-name=<str>`}
+  env_repr='PANTS_GOLANG_ASDF_TOOL_NAME'
+  toml_repr={`[golang]
+asdf_tool_name = <str>`}
+  default_repr={`go-sdk`}
+>
+
+The ASDF tool name to use when searching for installed Go distributions using the ASDF tool manager (https://asdf-vm.com/). The default value for this option is for the `go-sdk` ASDF plugin (https://github.com/yacchi/asdf-go-sdk.git). There are other plugins. If you wish to use one of them, then set this option to the ASDF tool name under which that other plugin was installed into ASDF.
+
+</Option>
+
 ### `subprocess_env_vars`
 
 <Option
@@ -82,6 +110,20 @@ subprocess_env_vars = [
 >
 
 Environment variables to set when invoking the `go` tool. Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+</Option>
+
+### `tailor_binary_targets`
+
+<Option
+  cli_repr={`--[no-]golang-tailor-binary-targets`}
+  env_repr='PANTS_GOLANG_TAILOR_BINARY_TARGETS'
+  toml_repr={`[golang]
+tailor_binary_targets = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add a `go_binary` target with the `tailor` goal in every directory with a `.go` file with `package main`.
 
 </Option>
 
@@ -110,48 +152,6 @@ tailor_package_targets = <bool>`}
 >
 
 If true, add a `go_package` target with the `tailor` goal in every directory with a `.go` file.
-
-</Option>
-
-### `tailor_binary_targets`
-
-<Option
-  cli_repr={`--[no-]golang-tailor-binary-targets`}
-  env_repr='PANTS_GOLANG_TAILOR_BINARY_TARGETS'
-  toml_repr={`[golang]
-tailor_binary_targets = <bool>`}
-  default_repr={`True`}
->
-
-If true, add a `go_binary` target with the `tailor` goal in every directory with a `.go` file with `package main`.
-
-</Option>
-
-### `asdf_tool_name`
-
-<Option
-  cli_repr={`--golang-asdf-tool-name=<str>`}
-  env_repr='PANTS_GOLANG_ASDF_TOOL_NAME'
-  toml_repr={`[golang]
-asdf_tool_name = <str>`}
-  default_repr={`go-sdk`}
->
-
-The ASDF tool name to use when searching for installed Go distributions using the ASDF tool manager (https://asdf-vm.com/). The default value for this option is for the `go-sdk` ASDF plugin (https://github.com/yacchi/asdf-go-sdk.git). There are other plugins. If you wish to use one of them, then set this option to the ASDF tool name under which that other plugin was installed into ASDF.
-
-</Option>
-
-### `asdf_bin_relpath`
-
-<Option
-  cli_repr={`--golang-asdf-bin-relpath=<str>`}
-  env_repr='PANTS_GOLANG_ASDF_BIN_RELPATH'
-  toml_repr={`[golang]
-asdf_bin_relpath = <str>`}
-  default_repr={`bin`}
->
-
-The path relative to an ASDF install directory to use to find the `bin` directory within an installed Go distribution. The default value for this option works for the `go-sdk` ASDF plugin. Other ASDF plugins that install Go may have a different relative path to use.
 
 </Option>
 

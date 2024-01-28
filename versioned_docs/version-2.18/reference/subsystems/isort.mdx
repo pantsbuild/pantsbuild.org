@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[isort]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]isort-skip`}
-  env_repr='PANTS_ISORT_SKIP'
-  toml_repr={`[isort]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use isort when running `pants fmt` and `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,99 +37,21 @@ Arguments to pass directly to isort, e.g. `--isort-args='--case-sensitive --trai
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]isort-skip`}
+  env_repr='PANTS_ISORT_SKIP'
+  toml_repr={`[isort]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use isort when running `pants fmt` and `pants lint`.
+
+</Option>
+
 ## Advanced options
-
-### `install_from_resolve`
-
-<Option
-  cli_repr={`--isort-install-from-resolve=<str>`}
-  env_repr='PANTS_ISORT_INSTALL_FROM_RESOLVE'
-  toml_repr={`[isort]
-install_from_resolve = <str>`}
-  default_repr={`None`}
->
-
-If specified, install the tool using the lockfile for this named resolve.
-
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.18/docs/python-third-party-dependencies#user-lockfiles.
-
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
-
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `isort` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
-
-</Option>
-
-### `requirements`
-
-<Option
-  cli_repr={`--isort-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ISORT_REQUIREMENTS'
-  toml_repr={`[isort]
-requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
-
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
-
-</Option>
-
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[isort]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
->
-
-Python interpreter constraints for this tool.
-
-</Option>
-
-### `console_script`
-
-<Option
-  cli_repr={`--isort-console-script=<str>`}
-  env_repr='PANTS_ISORT_CONSOLE_SCRIPT'
-  toml_repr={`[isort]
-console_script = <str>`}
-  default_repr={`isort`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--isort-entry-point=<str>`}
-  env_repr='PANTS_ISORT_ENTRY_POINT'
-  toml_repr={`[isort]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
 
 ### `config`
 
@@ -180,6 +88,98 @@ config_discovery = <bool>`}
 If true, Pants will include any relevant config files during runs (`.isort.cfg`, `pyproject.toml`, `setup.cfg`, `tox.ini` and `.editorconfig`).
 
 Use `[isort].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--isort-console-script=<str>`}
+  env_repr='PANTS_ISORT_CONSOLE_SCRIPT'
+  toml_repr={`[isort]
+console_script = <str>`}
+  default_repr={`isort`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--isort-entry-point=<str>`}
+  env_repr='PANTS_ISORT_ENTRY_POINT'
+  toml_repr={`[isort]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--isort-install-from-resolve=<str>`}
+  env_repr='PANTS_ISORT_INSTALL_FROM_RESOLVE'
+  toml_repr={`[isort]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.18/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `isort` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--isort-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ISORT_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[isort]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--isort-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ISORT_REQUIREMENTS'
+  toml_repr={`[isort]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
 
 </Option>
 

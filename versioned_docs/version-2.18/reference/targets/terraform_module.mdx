@@ -21,32 +21,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.terraform`
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `dependencies`
 
 <Field
@@ -66,18 +40,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `sources`
+## `description`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.tf',)`}
+    type_repr={`str | None`}
+    default_repr={`None`}
 >
 
-A list of files and globs that belong to this target.
+A human-readable description of the target.
 
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['example.tf', 'new_*.tf', '!old_ignore.tf']`
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -102,6 +74,34 @@ If true, don&#x27;t run `terraform validate` on this target&#x27;s code. If this
 >
 
 If true, don&#x27;t run tfsec on this target&#x27;s Terraform files.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.tf',)`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.tf', 'new_*.tf', '!old_ignore.tf']`
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

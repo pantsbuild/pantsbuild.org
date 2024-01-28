@@ -45,6 +45,29 @@ These constraints are used as the default value for the `interpreter_constraints
 
 </Option>
 
+### `interpreter_search_paths`
+
+<Option
+  cli_repr={`--python-setup-interpreter-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_PYTHON_SETUP_INTERPRETER_SEARCH_PATHS'
+  toml_repr={`[python-setup]
+interpreter_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
+  default_repr={`[\n  "<PYENV>",\n  "<PATH>"\n]`}
+>
+
+A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
+
+- &#x22;&#x3C;PATH&#x3E;&#x22;, the contents of the PATH env var
+- &#x22;&#x3C;PYENV&#x3E;&#x22;, all Python versions under $(pyenv root)/versions
+- &#x22;&#x3C;PYENV_LOCAL&#x3E;&#x22;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
+- &#x22;&#x3C;PEXRC&#x3E;&#x22;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+
+</Option>
+
 ### `requirement_constraints`
 
 <Option
@@ -102,26 +125,17 @@ Requires [python-setup].requirement_constraints to be set.
 
 </Option>
 
-### `interpreter_search_paths`
+### `resolver_jobs`
 
 <Option
-  cli_repr={`--python-setup-interpreter-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
-  env_repr='PANTS_PYTHON_SETUP_INTERPRETER_SEARCH_PATHS'
+  cli_repr={`--python-setup-resolver-jobs=<int>`}
+  env_repr='PANTS_PYTHON_SETUP_RESOLVER_JOBS'
   toml_repr={`[python-setup]
-interpreter_search_paths = [
-    <binary-paths>,
-    <binary-paths>,
-    ...,
-]`}
-  default_repr={`[\n  "<PYENV>",\n  "<PATH>"\n]`}
+resolver_jobs = <int>`}
+  default_repr={`32`}
 >
 
-A list of paths to search for Python interpreters that match your project&#x27;s interpreter constraints. You can specify absolute paths to interpreter binaries and/or to directories containing interpreter binaries. The order of entries does not matter. The following special strings are supported:
-
-- &#x22;&#x3C;PATH&#x3E;&#x22;, the contents of the PATH env var
-- &#x22;&#x3C;PYENV&#x3E;&#x22;, all Python versions under $(pyenv root)/versions
-- &#x22;&#x3C;PYENV_LOCAL&#x3E;&#x22;, the Pyenv interpreter with the version in BUILD_ROOT/.python-version
-- &#x22;&#x3C;PEXRC&#x3E;&#x22;, paths in the PEX_PYTHON_PATH variable in /etc/pexrc or ~/.pexrc
+The maximum number of concurrent jobs to build wheels with. Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`. Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
 </Option>
 
@@ -136,20 +150,6 @@ resolver_manylinux = <str>`}
 >
 
 Whether to allow resolution of manylinux wheels when resolving requirements for foreign linux platforms. The value should be a manylinux platform upper bound, e.g.: &#x27;manylinux2010&#x27;, or else the string &#x27;no&#x27; to disallow.
-
-</Option>
-
-### `resolver_jobs`
-
-<Option
-  cli_repr={`--python-setup-resolver-jobs=<int>`}
-  env_repr='PANTS_PYTHON_SETUP_RESOLVER_JOBS'
-  toml_repr={`[python-setup]
-resolver_jobs = <int>`}
-  default_repr={`32`}
->
-
-The maximum number of concurrent jobs to build wheels with. Because Pants can run multiple subprocesses in parallel, the maximum total parallelism will be `--process-execution-{local,remote}-parallelism x --python-setup-resolver-jobs`. Setting this option higher may result in better parallelism, but, if set too high, may result in starvation and Out of Memory errors.
 
 </Option>
 

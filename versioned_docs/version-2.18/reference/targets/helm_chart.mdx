@@ -17,32 +17,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.helm`</spa
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `chart`
 
 <Field
@@ -51,21 +25,6 @@ Use `pants list --documented ::` to see all targets with descriptions.
 >
 
 The chart definition file.
-
-</Field>
-
-## `sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('values.yaml', 'values.yml', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'crds/*.yaml', 'crds/*.yml')`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
 
 </Field>
 
@@ -88,6 +47,102 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `kubeconform_ignore_missing_schemas`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Whether to fail if there are missing schemas for custom resources.
+
+</Field>
+
+## `kubeconform_ignore_sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Regular expression patterns specifying paths to ignore.
+
+</Field>
+
+## `kubeconform_kubernetes_version`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Kubernetes version to use for the validation.
+
+</Field>
+
+## `kubeconform_reject_kinds`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+List of kinds or GVKs to reject.
+
+</Field>
+
+## `kubeconform_skip_kinds`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+List of kinds or GVKs to ignore.
+
+</Field>
+
+## `kubeconform_strict`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm.check.kubeconform"
+>
+
+Run Kubeconform in strict mode.
+
+</Field>
+
+## `lint_strict`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+If set to true, enables strict linting of this Helm chart.
+
+</Field>
+
 ## `output_path`
 
 <Field
@@ -104,43 +159,6 @@ Regardless of whether you use the default or set this field, the path will end w
 When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
-
-</Field>
-
-## `lint_strict`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-If set to true, enables strict linting of this Helm chart.
-
-</Field>
-
-## `repository`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Repository to use in the Helm registry where this chart is going to be published.
-
-If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
-
-</Field>
-
-## `version`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Version number for the given Helm chart.
-
-When specified, the version provided in the source Chart.yaml file will be overriden by the value given to this field.
 
 </Field>
 
@@ -178,37 +196,16 @@ The above example shows two valid `registry` options: using an alias to a config
 
 </Field>
 
-## `skip_push`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If set to true, do not push this Helm chart to registries when running `pants publish`.
-
-</Field>
-
-## `skip_lint`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If set to true, do not run any linting in this Helm chart when running `pants lint`.
-
-</Field>
-
-## `kubeconform_kubernetes_version`
+## `repository`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.helm.check.kubeconform"
 >
 
-Kubernetes version to use for the validation.
+Repository to use in the Helm registry where this chart is going to be published.
+
+If no value is given and `[helm].default-registry-repository` is undefined too, then the chart will be pushed to the root of the OCI registry.
 
 </Field>
 
@@ -224,63 +221,66 @@ If set to true, do not run any kubeconform checking in this Helm target when run
 
 </Field>
 
-## `kubeconform_reject_kinds`
+## `skip_lint`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If set to true, do not run any linting in this Helm chart when running `pants lint`.
+
+</Field>
+
+## `skip_push`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If set to true, do not push this Helm chart to registries when running `pants publish`.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('values.yaml', 'values.yml', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'crds/*.yaml', 'crds/*.yml')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['values.yaml', 'templates/*.yaml', '!values_ignore.yaml']`
+
+</Field>
+
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.helm.check.kubeconform"
 >
 
-List of kinds or GVKs to reject.
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
-## `kubeconform_strict`
+## `version`
 
 <Field
-    type_repr={`bool | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.helm.check.kubeconform"
 >
 
-Run Kubeconform in strict mode.
+Version number for the given Helm chart.
 
-</Field>
-
-## `kubeconform_skip_kinds`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.helm.check.kubeconform"
->
-
-List of kinds or GVKs to ignore.
-
-</Field>
-
-## `kubeconform_ignore_missing_schemas`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.helm.check.kubeconform"
->
-
-Whether to fail if there are missing schemas for custom resources.
-
-</Field>
-
-## `kubeconform_ignore_sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
-    backend="pants.backend.experimental.helm.check.kubeconform"
->
-
-Regular expression patterns specifying paths to ignore.
+When specified, the version provided in the source Chart.yaml file will be overriden by the value given to this field.
 
 </Field>
 

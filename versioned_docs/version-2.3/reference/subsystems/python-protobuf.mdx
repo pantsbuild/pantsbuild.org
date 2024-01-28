@@ -21,6 +21,20 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 ## Basic options
 
+### `mypy_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-mypy-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf]
+mypy_plugin = <bool>`}
+  default_repr={`False`}
+>
+
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
+
+</Option>
+
 ### `runtime_dependencies`
 
 <Option
@@ -36,20 +50,6 @@ runtime_dependencies = [
 >
 
 A list of addresses to `python_requirement_library` targets for the runtime dependencies needed for generated Python code to work. For example, `['3rdparty/python:protobuf', '3rdparty/python:grpcio']`. These dependencies will be automatically added to every `protobuf_library` target
-
-</Option>
-
-### `mypy_plugin`
-
-<Option
-  cli_repr={`--[no-]python-protobuf-mypy-plugin`}
-  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
-  toml_repr={`[python-protobuf]
-mypy_plugin = <bool>`}
-  default_repr={`False`}
->
-
-Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate .pyi type stubs.
 
 </Option>
 
