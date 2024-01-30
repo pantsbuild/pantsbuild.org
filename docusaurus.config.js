@@ -327,7 +327,7 @@ const config = {
         routeBasePath: "/",
         disableVersioning,
         onlyIncludeVersions,
-        lastVersion: onlyIncludeVersions ? undefined : versions[1],
+        lastVersion: onlyIncludeVersions ? undefined : versions.find((v) => !isPrerelease(v)),
         versions: {
           current: {
             label: `${currentVersion} (dev)`,
