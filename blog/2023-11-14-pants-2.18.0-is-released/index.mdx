@@ -33,7 +33,7 @@ We offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/doc
 
 ## Experimental backends!
 
-Did you know that Pants has a lot of “experimental” backends? These include support for languages, tools and ecosystems that are still in preview. The [documentation of backends](https://www.pantsbuild.org/v2.18/docs/enabling-backends) now lists all these backends.
+Did you know that Pants has a lot of "experimental" backends? These include support for languages, tools and ecosystems that are still in preview. The [documentation of backends](https://www.pantsbuild.org/v2.18/docs/enabling-backends) now lists all these backends.
 Please go check it out, try backends relevant to you and let us know how they go for your use cases, [report bugs](https://www.pantsbuild.org/v2.18/docs/getting-help) and/or [submit fixes](https://www.pantsbuild.org/v2.18/docs/contributor-overview)! People like you trying them is how we can perfect the features and squash the bugs to stabilize them.
 
 ## Functions-as-a-service improvements for Python
@@ -82,7 +82,7 @@ This backend allows applying rules and restrictions to which targets can depend 
 
 ## Finding paths between addresses that expand to multiple targets
 
-Pants previously allowed finding all paths in the dependency graph between two individual targets, like a `python_source` and a `python_test`. You can now find all paths that exist between multiple targets, for instance, by passing a directory address.This will help you to answer various questions such as “How is this Python module connected to a Python package, if at all?” or “How tightly are two Java packages connected?”.
+Pants previously allowed finding all paths in the dependency graph between two individual targets, like a `python_source` and a `python_test`. You can now find all paths that exist between multiple targets, for instance, by passing a directory address.This will help you to answer various questions such as "How is this Python module connected to a Python package, if at all?" or "How tightly are two Java packages connected?".
 
 This also enables sophisticated dependency graph analytics. By listing all the paths in the repo, for example, between sources and tests, one can find the source modules that have most paths leading to tests, identify very long paths, and many more.
 

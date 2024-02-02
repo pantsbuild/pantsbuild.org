@@ -75,7 +75,7 @@ We can leverage Docker multi-stage builds and interesting PEX features to solve 
 
 1.  Create a Python virtual environment containing only our third-party dependencies in one stage
 2.  Create an identical virtual environment containing only our first-party sources in another stage
-3.  COPY them both onto our final “production image” stage
+3.  COPY them both onto our final "production image" stage
 
 Our BUILD file becomes:
 
@@ -112,7 +112,7 @@ docker_image(
 
 This approach has several benefits:
 
-- It moves the extraction of the PEX to “build time” and also compiles each Python file, so that the application has the lowest-possible startup latency
+- It moves the extraction of the PEX to "build time" and also compiles each Python file, so that the application has the lowest-possible startup latency
 - Running the final image doesn't require any additional space
 - The `COPY  --from=deps` instruction in the final image can be cached between runs when only touching first-party code
 
@@ -265,7 +265,7 @@ docker_image(
 )
 ```
 
-Pants will build the dependent images before building the final one. (Note the registry value “companyname” can be any string (or set the registry to an empty list), we just need to hardcode something that we can reference in the final image's COPY instructions).
+Pants will build the dependent images before building the final one. (Note the registry value "companyname" can be any string (or set the registry to an empty list), we just need to hardcode something that we can reference in the final image's COPY instructions).
 
 Now after building the image, we are free to prune untagged images and layers.
 
