@@ -62,17 +62,31 @@ Which coverage report type(s) to emit.
 
 ## Advanced options
 
-### `version`
+### `config`
 
 <Option
-  cli_repr={`--coverage-py-version=<str>`}
-  env_repr='PANTS_COVERAGE_PY_VERSION'
+  cli_repr={`--coverage-py-config=<file_option>`}
+  env_repr='PANTS_COVERAGE_PY_CONFIG'
   toml_repr={`[coverage-py]
-version = <str>`}
-  default_repr={`coverage>=5.0.3,<5.1`}
+config = <file_option>`}
+  default_repr={`None`}
 >
 
-Requirement string for the tool.
+Path to `.coveragerc` or alternative coverage config file
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--coverage-py-entry-point=<str>`}
+  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  toml_repr={`[coverage-py]
+entry_point = <str>`}
+  default_repr={`coverage`}
+>
+
+The main module for the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -91,20 +105,6 @@ extra_requirements = [
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--coverage-py-entry-point=<str>`}
-  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
-  toml_repr={`[coverage-py]
-entry_point = <str>`}
-  default_repr={`coverage`}
->
-
-The main module for the tool. Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -140,17 +140,17 @@ Path to write the Pytest Coverage report to. Must be relative to build root.
 
 </Option>
 
-### `config`
+### `version`
 
 <Option
-  cli_repr={`--coverage-py-config=<file_option>`}
-  env_repr='PANTS_COVERAGE_PY_CONFIG'
+  cli_repr={`--coverage-py-version=<str>`}
+  env_repr='PANTS_COVERAGE_PY_VERSION'
   toml_repr={`[coverage-py]
-config = <file_option>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`coverage>=5.0.3,<5.1`}
 >
 
-Path to `.coveragerc` or alternative coverage config file
+Requirement string for the tool.
 
 </Option>
 

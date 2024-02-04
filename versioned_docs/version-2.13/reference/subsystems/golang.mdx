@@ -81,6 +81,20 @@ Environment variables to set when invoking the `go` tool. Entries are either str
 
 </Option>
 
+### `tailor_binary_targets`
+
+<Option
+  cli_repr={`--[no-]golang-tailor-binary-targets`}
+  env_repr='PANTS_GOLANG_TAILOR_BINARY_TARGETS'
+  toml_repr={`[golang]
+tailor_binary_targets = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add a `go_binary` target with the `tailor` goal in every directory with a `.go` file with `package main`.
+
+</Option>
+
 ### `tailor_go_mod_targets`
 
 <Option
@@ -106,20 +120,6 @@ tailor_package_targets = <bool>`}
 >
 
 If true, add a `go_package` target with the `tailor` goal in every directory with a `.go` file.
-
-</Option>
-
-### `tailor_binary_targets`
-
-<Option
-  cli_repr={`--[no-]golang-tailor-binary-targets`}
-  env_repr='PANTS_GOLANG_TAILOR_BINARY_TARGETS'
-  toml_repr={`[golang]
-tailor_binary_targets = <bool>`}
-  default_repr={`True`}
->
-
-If true, add a `go_binary` target with the `tailor` goal in every directory with a `.go` file with `package main`.
 
 </Option>
 

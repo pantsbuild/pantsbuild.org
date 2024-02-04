@@ -39,17 +39,31 @@ Arguments to pass directly to debugpy, e.g. `--debugpy-args='--log-to-stderr'`.
 
 ## Advanced options
 
-### `version`
+### `console_script`
 
 <Option
-  cli_repr={`--debugpy-version=<str>`}
-  env_repr='PANTS_DEBUGPY_VERSION'
+  cli_repr={`--debugpy-console-script=<str>`}
+  env_repr='PANTS_DEBUGPY_CONSOLE_SCRIPT'
   toml_repr={`[debugpy]
-version = <str>`}
-  default_repr={`debugpy==1.6.0`}
+console_script = <str>`}
+  default_repr={`None`}
 >
 
-Requirement string for the tool.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--debugpy-entry-point=<str>`}
+  env_repr='PANTS_DEBUGPY_ENTRY_POINT'
+  toml_repr={`[debugpy]
+entry_point = <str>`}
+  default_repr={`debugpy`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -111,31 +125,17 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--debugpy-console-script=<str>`}
-  env_repr='PANTS_DEBUGPY_CONSOLE_SCRIPT'
+  cli_repr={`--debugpy-version=<str>`}
+  env_repr='PANTS_DEBUGPY_VERSION'
   toml_repr={`[debugpy]
-console_script = <str>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`debugpy==1.6.0`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--debugpy-entry-point=<str>`}
-  env_repr='PANTS_DEBUGPY_ENTRY_POINT'
-  toml_repr={`[debugpy]
-entry_point = <str>`}
-  default_repr={`debugpy`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+Requirement string for the tool.
 
 </Option>
 

@@ -37,6 +37,24 @@ Run tests sequentially in an interactive process. This is necessary, for example
 
 </Option>
 
+### `extra_env_vars`
+
+<Option
+  cli_repr={`--test-extra-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TEST_EXTRA_ENV_VARS'
+  toml_repr={`[test]
+extra_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+
+</Option>
+
 ### `force`
 
 <Option
@@ -48,6 +66,20 @@ force = <bool>`}
 >
 
 Force the tests to run, even if they could be satisfied from cache.
+
+</Option>
+
+### `open_coverage`
+
+<Option
+  cli_repr={`--[no-]test-open-coverage`}
+  env_repr='PANTS_TEST_OPEN_COVERAGE'
+  toml_repr={`[test]
+open_coverage = <bool>`}
+  default_repr={`False`}
+>
+
+If a coverage report file is generated, open it on the local system if the system supports this.
 
 </Option>
 
@@ -77,38 +109,6 @@ use_coverage = <bool>`}
 >
 
 Generate a coverage report if the test runner supports it.
-
-</Option>
-
-### `open_coverage`
-
-<Option
-  cli_repr={`--[no-]test-open-coverage`}
-  env_repr='PANTS_TEST_OPEN_COVERAGE'
-  toml_repr={`[test]
-open_coverage = <bool>`}
-  default_repr={`False`}
->
-
-If a coverage report file is generated, open it on the local system if the system supports this.
-
-</Option>
-
-### `extra_env_vars`
-
-<Option
-  cli_repr={`--test-extra-env-vars="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_TEST_EXTRA_ENV_VARS'
-  toml_repr={`[test]
-extra_env_vars = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
 
 </Option>
 

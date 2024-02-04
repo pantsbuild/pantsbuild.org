@@ -19,29 +19,17 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `provides`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`PythonArtifact`}
 >
 
-Arbitrary strings to describe a target.
+The setup.py kwargs for the external artifact built from this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
 
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
+See https://www.pantsbuild.org/v2.9/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
 
 </Field>
 
@@ -61,6 +49,19 @@ See https://www.pantsbuild.org/v2.9/docs/targets#target-addresses and https://ww
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
 You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -97,21 +98,6 @@ Pants will attempt to infer dependencies, which you can confirm by running:
 
 </Field>
 
-## `provides`
-
-<Field
-    type_repr={`PythonArtifact`}
-    default_repr={`None`}
->
-
-The setup.py kwargs for the external artifact built from this target.
-
-You must define `name`. You can also set almost any keyword argument accepted by setup.py in the `setup()` function: (https://packaging.python.org/guides/distributing-packages-using-setuptools/#setup-args).
-
-See https://www.pantsbuild.org/v2.9/docs/plugins-setup-py for how to write a plugin to dynamically generate kwargs.
-
-</Field>
-
 ## `generate_setup`
 
 <Field
@@ -120,50 +106,6 @@ See https://www.pantsbuild.org/v2.9/docs/plugins-setup-py for how to write a plu
 >
 
 Whether to generate setup information for this distribution, based on analyzing sources and dependencies. Set to False to use existing setup information, such as existing setup.py, setup.cfg, pyproject.toml files or similar.
-
-</Field>
-
-## `wheel`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`True`}
->
-
-Whether to build a wheel for the distribution.
-
-</Field>
-
-## `sdist`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`True`}
->
-
-Whether to build an sdist for the distribution.
-
-</Field>
-
-## `wheel_config_settings`
-
-<Field
-    type_repr={`Dict[str, Iterable[str]] | None`}
-    default_repr={`None`}
->
-
-PEP-517 config settings to pass to the build backend when building a wheel.
-
-</Field>
-
-## `sdist_config_settings`
-
-<Field
-    type_repr={`Dict[str, Iterable[str]] | None`}
-    default_repr={`None`}
->
-
-PEP-517 config settings to pass to the build backend when building an sdist.
 
 </Field>
 
@@ -182,6 +124,28 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
 
 </Field>
 
+## `sdist`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to build an sdist for the distribution.
+
+</Field>
+
+## `sdist_config_settings`
+
+<Field
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
+>
+
+PEP-517 config settings to pass to the build backend when building an sdist.
+
+</Field>
+
 ## `skip_twine`
 
 <Field
@@ -190,6 +154,41 @@ Aliases are prefixed with `@` to refer to a config section in your Twine configu
 >
 
 If true, don&#x27;t publish this target&#x27;s packages using Twine.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `wheel`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to build a wheel for the distribution.
+
+</Field>
+
+## `wheel_config_settings`
+
+<Field
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
+>
+
+PEP-517 config settings to pass to the build backend when building a wheel.
 
 </Field>
 

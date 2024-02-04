@@ -21,112 +21,15 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
-
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
-
-See https://www.pantsbuild.org/v2.17/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
-
-</Field>
-
-## `resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
-
-</Field>
-
-## `run_goal_use_sandbox`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Whether to use a sandbox when `run`ning this target. Defaults to `[python].run_goal_use_sandbox`.
-
-If true, runs of this target with the `run` goal will copy the needed first-party sources into a temporary sandbox and run from there.
-
-If false, runs of this target with the `run` goal will use the in-repo sources directly.
-
-The former mode is more hermetic, and is closer to building and running the source as it were packaged in a `pex_binary`. Additionally, it may be necessary if your sources depend transitively on &#x22;generated&#x22; files which will be materialized in the sandbox in a source root, but are not in-repo.
-
-The latter mode is similar to creating, activating, and using a virtual environment when running your files. It may also be necessary if the source being run writes files into the repo and computes their location relative to the executed files. Django&#x27;s `makemigrations` command is an example of such a process.
-
-</Field>
-
-## `timeout`
-
-<Field
-    type_repr={`int | None`}
-    default_repr={`None`}
->
-
-A timeout (in seconds) used by each test file belonging to this target.
-
-If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
-
-</Field>
-
-## `xdist_concurrency`
-
-<Field
-    type_repr={`int | None`}
-    default_repr={`None`}
->
-
-Maximum number of CPUs to allocate to run each test file belonging to this target.
-
-Tests are spread across multiple CPUs using `pytest-xdist` (https://pytest-xdist.readthedocs.io/en/latest/index.html). Use of `pytest-xdist` must be enabled using the `[pytest].xdist_enabled` option for this field to have an effect.
-
-If `pytest-xdist` is enabled and this field is unset, Pants will attempt to derive the concurrency for test sources by counting the number of tests in each file.
-
-Set this field to `0` to explicitly disable use of `pytest-xdist` for a target.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -154,18 +57,50 @@ When tests with the same `batch_compatibility_tag` have incompatibilities in som
 
 </Field>
 
-## `runtime_package_dependencies`
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Addresses to targets that can be built with the `pants package` goal and whose resulting artifacts should be included in the test run.
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
 
-Pants will build the artifacts as if you had run `pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-You can include anything that can be built by `pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+See https://www.pantsbuild.org/v2.17/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `environment`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'__local__'`}
+>
+
+Specify which environment target to consume environment-sensitive options from.
+
+Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
+
+You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
 
@@ -203,54 +138,64 @@ See https://www.pantsbuild.org/v2.17/docs/python-interpreter-compatibility for h
 
 </Field>
 
-## `skip_tests`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, don&#x27;t run this target&#x27;s tests.
-
-</Field>
-
-## `environment`
+## `resolve`
 
 <Field
     type_repr={`str | None`}
-    default_repr={`'__local__'`}
->
-
-Specify which environment target to consume environment-sensitive options from.
-
-Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
-
-You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
-
-</Field>
-
-## `source`
-
-<Field
-    type_repr={`str`}
     default_repr={`None`}
 >
 
-A single file that belongs to this target.
+The resolve from `[python].resolves` to use.
 
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
-## `skip_mypy`
+## `run_goal_use_sandbox`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Whether to use a sandbox when `run`ning this target. Defaults to `[python].run_goal_use_sandbox`.
+
+If true, runs of this target with the `run` goal will copy the needed first-party sources into a temporary sandbox and run from there.
+
+If false, runs of this target with the `run` goal will use the in-repo sources directly.
+
+The former mode is more hermetic, and is closer to building and running the source as it were packaged in a `pex_binary`. Additionally, it may be necessary if your sources depend transitively on &#x22;generated&#x22; files which will be materialized in the sandbox in a source root, but are not in-repo.
+
+The latter mode is similar to creating, activating, and using a virtual environment when running your files. It may also be necessary if the source being run writes files into the repo and computes their location relative to the executed files. Django&#x27;s `makemigrations` command is an example of such a process.
+
+</Field>
+
+## `runtime_package_dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to targets that can be built with the `pants package` goal and whose resulting artifacts should be included in the test run.
+
+Pants will build the artifacts as if you had run `pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+
+You can include anything that can be built by `pants package`, e.g. a `pex_binary`, `python_awslambda`, or an `archive`.
+
+</Field>
+
+## `skip_add_trailing_comma`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.typecheck.mypy"
+    backend="pants.backend.experimental.python.lint.add_trailing_comma"
 >
 
-If true, don&#x27;t run MyPy on this target&#x27;s code.
+If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
 
 </Field>
 
@@ -278,15 +223,15 @@ If true, don&#x27;t run Bandit on this target&#x27;s code.
 
 </Field>
 
-## `skip_yapf`
+## `skip_black`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
-    backend="pants.backend.python.lint.yapf"
+    backend="pants.backend.python.lint.black"
 >
 
-If true, don&#x27;t run yapf on this target&#x27;s code.
+If true, don&#x27;t run Black on this target&#x27;s code.
 
 </Field>
 
@@ -302,30 +247,6 @@ If true, don&#x27;t run Docformatter on this target&#x27;s code.
 
 </Field>
 
-## `skip_add_trailing_comma`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.add_trailing_comma"
->
-
-If true, don&#x27;t run add-trailing-comma on this target&#x27;s code.
-
-</Field>
-
-## `skip_ruff`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.experimental.python.lint.ruff"
->
-
-If true, don&#x27;t run ruff on this target&#x27;s code.
-
-</Field>
-
 ## `skip_flake8`
 
 <Field
@@ -335,6 +256,42 @@ If true, don&#x27;t run ruff on this target&#x27;s code.
 >
 
 If true, don&#x27;t run Flake8 on this target&#x27;s code.
+
+</Field>
+
+## `skip_isort`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.isort"
+>
+
+If true, don&#x27;t run isort on this target&#x27;s code.
+
+</Field>
+
+## `skip_mypy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.typecheck.mypy"
+>
+
+If true, don&#x27;t run MyPy on this target&#x27;s code.
+
+</Field>
+
+## `skip_pydocstyle`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.pydocstyle"
+>
+
+If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 
 </Field>
 
@@ -362,6 +319,41 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
 
 </Field>
 
+## `skip_ruff`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.ruff"
+>
+
+If true, don&#x27;t run ruff on this target&#x27;s code.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
+</Field>
+
+## `skip_yapf`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.python.lint.yapf"
+>
+
+If true, don&#x27;t run yapf on this target&#x27;s code.
+
+</Field>
+
 ## `stevedore_namespaces`
 
 <Field
@@ -382,39 +374,46 @@ The stevedore namespace format (`my.stevedore.extension`) is similar to a Python
 
 </Field>
 
-## `skip_isort`
+## `tags`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.isort"
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-If true, don&#x27;t run isort on this target&#x27;s code.
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
-## `skip_pydocstyle`
+## `timeout`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.pydocstyle"
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
-If true, don&#x27;t run pydocstyle on this target&#x27;s code.
+A timeout (in seconds) used by each test file belonging to this target.
+
+If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
 
-## `skip_black`
+## `xdist_concurrency`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.python.lint.black"
+    type_repr={`int | None`}
+    default_repr={`None`}
 >
 
-If true, don&#x27;t run Black on this target&#x27;s code.
+Maximum number of CPUs to allocate to run each test file belonging to this target.
+
+Tests are spread across multiple CPUs using `pytest-xdist` (https://pytest-xdist.readthedocs.io/en/latest/index.html). Use of `pytest-xdist` must be enabled using the `[pytest].xdist_enabled` option for this field to have an effect.
+
+If `pytest-xdist` is enabled and this field is unset, Pants will attempt to derive the concurrency for test sources by counting the number of tests in each file.
+
+Set this field to `0` to explicitly disable use of `pytest-xdist` for a target.
 
 </Field>
 

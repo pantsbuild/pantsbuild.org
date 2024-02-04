@@ -23,17 +23,31 @@ None
 
 ## Advanced options
 
-### `version`
+### `console_script`
 
 <Option
-  cli_repr={`--setuptools-scm-version=<str>`}
-  env_repr='PANTS_SETUPTOOLS_SCM_VERSION'
+  cli_repr={`--setuptools-scm-console-script=<str>`}
+  env_repr='PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT'
   toml_repr={`[setuptools-scm]
-version = <str>`}
-  default_repr={`setuptools-scm==6.4.2`}
+console_script = <str>`}
+  default_repr={`None`}
 >
 
-Requirement string for the tool.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--setuptools-scm-entry-point=<str>`}
+  env_repr='PANTS_SETUPTOOLS_SCM_ENTRY_POINT'
+  toml_repr={`[setuptools-scm]
+entry_point = <str>`}
+  default_repr={`setuptools_scm`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -95,31 +109,17 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--setuptools-scm-console-script=<str>`}
-  env_repr='PANTS_SETUPTOOLS_SCM_CONSOLE_SCRIPT'
+  cli_repr={`--setuptools-scm-version=<str>`}
+  env_repr='PANTS_SETUPTOOLS_SCM_VERSION'
   toml_repr={`[setuptools-scm]
-console_script = <str>`}
-  default_repr={`None`}
+version = <str>`}
+  default_repr={`setuptools-scm==6.4.2`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--setuptools-scm-entry-point=<str>`}
-  env_repr='PANTS_SETUPTOOLS_SCM_ENTRY_POINT'
-  toml_repr={`[setuptools-scm]
-entry_point = <str>`}
-  default_repr={`setuptools_scm`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+Requirement string for the tool.
 
 </Option>
 

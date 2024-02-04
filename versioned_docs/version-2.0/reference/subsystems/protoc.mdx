@@ -23,20 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--protoc-version=<str>`}
-  env_repr='PANTS_PROTOC_VERSION'
-  toml_repr={`[protoc]
-version = <str>`}
-  default_repr={`3.11.4`}
->
-
-Use this version of protoc.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -67,6 +53,22 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--protoc-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PROTOC_URL_PLATFORM_MAPPING'
+  toml_repr={`[protoc.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "darwin": "osx",\n  "linux": "linux"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool. In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary. For example, if you define `{"darwin": "apple-darwin", "linux": "unknown-linux"}, and run Pants on Linux, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+
+</Option>
+
 ### `url_template`
 
 <Option
@@ -81,19 +83,17 @@ URL to download the tool, either as a single binary file or a compressed file (e
 
 </Option>
 
-### `url_platform_mapping`
+### `version`
 
 <Option
-  cli_repr={`--protoc-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_PROTOC_URL_PLATFORM_MAPPING'
-  toml_repr={`[protoc.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "darwin": "osx",\n  "linux": "linux"\n}`}
+  cli_repr={`--protoc-version=<str>`}
+  env_repr='PANTS_PROTOC_VERSION'
+  toml_repr={`[protoc]
+version = <str>`}
+  default_repr={`3.11.4`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool. In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary. For example, if you define `{"darwin": "apple-darwin", "linux": "unknown-linux"}, and run Pants on Linux, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+Use this version of protoc.
 
 </Option>
 

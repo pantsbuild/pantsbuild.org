@@ -25,24 +25,6 @@ None
 
 ## Advanced options
 
-### `repos`
-
-<Option
-  cli_repr={`--python-repos-repos="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_PYTHON_REPOS_REPOS'
-  toml_repr={`[python-repos]
-repos = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-URLs of code repositories to look for requirements. In Pip and Pex, this option corresponds to the `--find-links` option.
-
-</Option>
-
 ### `indexes`
 
 <Option
@@ -58,6 +40,24 @@ indexes = [
 >
 
 URLs of code repository indexes to look for requirements. If set to an empty list, then Pex will use no indices (meaning it will not use PyPI). The values should be compliant with PEP 503.
+
+</Option>
+
+### `repos`
+
+<Option
+  cli_repr={`--python-repos-repos="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTHON_REPOS_REPOS'
+  toml_repr={`[python-repos]
+repos = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+URLs of code repositories to look for requirements. In Pip and Pex, this option corresponds to the `--find-links` option.
 
 </Option>
 

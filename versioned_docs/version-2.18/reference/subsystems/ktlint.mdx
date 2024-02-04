@@ -35,20 +35,6 @@ If true, don&#x27;t use Ktlint when running `pants fmt` and `pants lint`.
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--ktlint-version=<str>`}
-  env_repr='PANTS_KTLINT_VERSION'
-  toml_repr={`[ktlint]
-version = <str>`}
-  default_repr={`0.45.2`}
->
-
-Version string for the tool. This is available for substitution in the `[ktlint].artifacts` option by including the string `{version}`.
-
-</Option>
-
 ### `artifacts`
 
 <Option
@@ -64,24 +50,6 @@ artifacts = [
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[ktlint].version` option.
-
-</Option>
-
-### `lockfile`
-
-<Option
-  cli_repr={`--ktlint-lockfile=<str>`}
-  env_repr='PANTS_KTLINT_LOCKFILE'
-  toml_repr={`[ktlint]
-lockfile = <str>`}
-  default_repr={`<default>`}
->
-
-Path to a lockfile used for installing the tool.
-
-Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.18.0rc5/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.
-
-To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=ktlint`.
 
 </Option>
 
@@ -102,6 +70,38 @@ jvm_options = [
 List of JVM options to pass to `ktlint` JVM processes.
 
 Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--ktlint-lockfile=<str>`}
+  env_repr='PANTS_KTLINT_LOCKFILE'
+  toml_repr={`[ktlint]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.18.2/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=ktlint`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--ktlint-version=<str>`}
+  env_repr='PANTS_KTLINT_VERSION'
+  toml_repr={`[ktlint]
+version = <str>`}
+  default_repr={`0.45.2`}
+>
+
+Version string for the tool. This is available for substitution in the `[ktlint].artifacts` option by including the string `{version}`.
 
 </Option>
 

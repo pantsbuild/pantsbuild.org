@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[twine]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]twine-skip`}
-  env_repr='PANTS_TWINE_SKIP'
-  toml_repr={`[twine]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use Twine when running `/home/josh/work/scie-pants/dist/pants publish`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,95 @@ Arguments to pass directly to Twine, e.g. `--twine-args='--skip-existing'`.
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--twine-version=<str>`}
-  env_repr='PANTS_TWINE_VERSION'
+  cli_repr={`--[no-]twine-skip`}
+  env_repr='PANTS_TWINE_SKIP'
   toml_repr={`[twine]
-version = <str>`}
-  default_repr={`twine>=3.7.1,<3.8`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+Don&#x27;t use Twine when running `/home/josh/work/scie-pants/dist/pants publish`.
+
+</Option>
+
+## Advanced options
+
+### `ca_certs_path`
+
+<Option
+  cli_repr={`--twine-ca-certs-path=<str>`}
+  env_repr='PANTS_TWINE_CA_CERTS_PATH'
+  toml_repr={`[twine]
+ca_certs_path = <str>`}
+  default_repr={`<inherit>`}
+>
+
+Path to a file containing PEM-format CA certificates used for verifying secure connections when publishing python distributions.
+
+Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to not use the default CA certificate.
+
+</Option>
+
+### `config`
+
+<Option
+  cli_repr={`--twine-config=<file_option>`}
+  env_repr='PANTS_TWINE_CONFIG'
+  toml_repr={`[twine]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to a .pypirc config file to use. (https://packaging.python.org/specifications/pypirc/)
+
+Setting this option will disable `[twine].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]twine-config-discovery`}
+  env_repr='PANTS_TWINE_CONFIG_DISCOVERY'
+  toml_repr={`[twine]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant config files during runs (`.pypirc`).
+
+Use `[twine].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--twine-console-script=<str>`}
+  env_repr='PANTS_TWINE_CONSOLE_SCRIPT'
+  toml_repr={`[twine]
+console_script = <str>`}
+  default_repr={`twine`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--twine-entry-point=<str>`}
+  env_repr='PANTS_TWINE_ENTRY_POINT'
+  toml_repr={`[twine]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -125,79 +187,17 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--twine-console-script=<str>`}
-  env_repr='PANTS_TWINE_CONSOLE_SCRIPT'
+  cli_repr={`--twine-version=<str>`}
+  env_repr='PANTS_TWINE_VERSION'
   toml_repr={`[twine]
-console_script = <str>`}
-  default_repr={`twine`}
+version = <str>`}
+  default_repr={`twine>=3.7.1,<3.8`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--twine-entry-point=<str>`}
-  env_repr='PANTS_TWINE_ENTRY_POINT'
-  toml_repr={`[twine]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--twine-config=<file_option>`}
-  env_repr='PANTS_TWINE_CONFIG'
-  toml_repr={`[twine]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to a .pypirc config file to use. (https://packaging.python.org/specifications/pypirc/)
-
-Setting this option will disable `[twine].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]twine-config-discovery`}
-  env_repr='PANTS_TWINE_CONFIG_DISCOVERY'
-  toml_repr={`[twine]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include all relevant config files during runs (`.pypirc`).
-
-Use `[twine].config` instead if your config is in a non-standard location.
-
-</Option>
-
-### `ca_certs_path`
-
-<Option
-  cli_repr={`--twine-ca-certs-path=<str>`}
-  env_repr='PANTS_TWINE_CA_CERTS_PATH'
-  toml_repr={`[twine]
-ca_certs_path = <str>`}
-  default_repr={`<inherit>`}
->
-
-Path to a file containing PEM-format CA certificates used for verifying secure connections when publishing python distributions.
-
-Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to not use the default CA certificate.
+Requirement string for the tool.
 
 </Option>
 

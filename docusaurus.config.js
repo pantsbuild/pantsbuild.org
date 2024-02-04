@@ -2,6 +2,9 @@ import versions from "./versions.json";
 import redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
+import fs from "fs";
+import fsPromises from "fs/promises";
+import path from "path";
 
 import { themes as prismThemes } from "prism-react-renderer";
 
@@ -47,6 +50,30 @@ const formatCopyright = () => {
   return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
 };
 
+const isPrerelease = (version) => {
+  const reference_dir = path.join(
+    "versioned_docs",
+    `version-${version}`,
+    "reference"
+  );
+  const helpAll = JSON.parse(
+    fs.readFileSync(path.join(reference_dir, "help-all.json"), "utf8")
+  );
+
+  const pantsVersion = helpAll["scope_to_help_info"][""]["advanced"].find(
+    (help) => help["config_key"] === "pants_version"
+  );
+
+  const hardcoded = pantsVersion["value_history"]["ranked_values"].find(
+    (value) => value["rank"] == "HARDCODED"
+  );
+
+  // Check if it's one of xx.xx.xx.dev0, xx.xx.xxa0, xx.xx.xxb0,  xx.xx.xxrc0, etc.
+  const rex = /^(\d+\.\d+\.\d+)(\.dev|a|b|rc)\d+$/;
+
+  return rex.test(hardcoded["value"]);
+};
+
 const config = {
   title: "Pantsbuild",
   tagline: "The ergonomic build system",
@@ -62,6 +89,30 @@ const config = {
   // @TODO: This should throw on prod
   onBrokenLinks: isDev ? "warn" : "warn",
   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
+
+  webpack: {
+    jsLoader: (isServer) => ({
+      loader: require.resolve("swc-loader"),
+      options: {
+        jsc: {
+          parser: {
+            syntax: "ecmascript",
+            tsx: false,
+            jsx: true,
+          },
+          transform: {
+            react: {
+              runtime: "automatic",
+            },
+          },
+          target: "es2017",
+        },
+        module: {
+          type: isServer ? "commonjs" : "es6",
+        },
+      },
+    }),
+  },
 
   clientModules: ["./src/js/redirectCodeFragment.js"],
   presets: [
@@ -276,7 +327,9 @@ const config = {
         routeBasePath: "/",
         disableVersioning,
         onlyIncludeVersions,
-        lastVersion: onlyIncludeVersions ? undefined : versions[1],
+        lastVersion: onlyIncludeVersions
+          ? undefined
+          : versions.find((v) => !isPrerelease(v)),
         versions: {
           current: {
             label: `${currentVersion} (dev)`,
@@ -286,18 +339,16 @@ const config = {
             ? {}
             : versions.reduce((acc, version, index) => {
                 acc[version] = {
-                  label:
-                    index === 0
-                      ? `${version} (prerelease)`
-                      : index < 3
-                        ? version
-                        : `${version} (deprecated)`,
-                  banner:
-                    index == 0
-                      ? "unreleased"
-                      : index < 3
-                        ? "none"
-                        : "unmaintained",
+                  label: isPrerelease(version)
+                    ? `${version} (prerelease)`
+                    : index < 3
+                      ? version
+                      : `${version} (deprecated)`,
+                  banner: isPrerelease(version)
+                    ? "unreleased"
+                    : index < 3
+                      ? "none"
+                      : "unmaintained",
                   noIndex: index >= 3,
                   path: version,
                 };

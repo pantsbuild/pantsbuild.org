@@ -38,28 +38,28 @@ We have a [branch protection rule](https://docs.github.com/en/repositories/confi
 
 The workaround is, as is [so often the case](https://en.wikipedia.org/wiki/Fundamental_theorem_of_software_engineering), to add a level of indirection:
 
-Instead of having a branch protection rule that directly requires those test and lint jobs to pass, have a rule that requires some single job named “Merge OK” to pass. Since branch protection rules only look at the name of the job, we can have two “Merge OK” jobs - one that runs for regular changes that affect code, and depends on all the test and lint jobs passing before it can run, and another, for “docs only” changes, that runs immediately. Now, problem solved, right?
+Instead of having a branch protection rule that directly requires those test and lint jobs to pass, have a rule that requires some single job named "Merge OK" to pass. Since branch protection rules only look at the name of the job, we can have two "Merge OK" jobs - one that runs for regular changes that affect code, and depends on all the test and lint jobs passing before it can run, and another, for "docs only" changes, that runs immediately. Now, problem solved, right?
 
 ## The trouble with path filtering
 
 Not so fast… There is _another_ catch:
 
-Path filtering can only handle "run a workflow if any path is under docs/" or "skip a workflow if all paths are under docs/". It does not provide "run a workflow if all paths are under docs/". So there is no way to use path filtering to run that other “Merge OK” job in the “docs only” case.
+Path filtering can only handle "run a workflow if any path is under docs/" or "skip a workflow if all paths are under docs/". It does not provide "run a workflow if all paths are under docs/". So there is no way to use path filtering to run that other "Merge OK" job in the "docs only" case.
 
-To solve this, we don't use GitHub Actions' built-in path filtering. Instead, we use the [changed-files](https://github.com/tj-actions/changed-files) action, and check the files it reports in the “if” condition of the job.  Surely, now, problem solved, right?
+To solve this, we don't use GitHub Actions' built-in path filtering. Instead, we use the [changed-files](https://github.com/tj-actions/changed-files) action, and check the files it reports in the "if" condition of the job.  Surely, now, problem solved, right?
 
 ## Skipping successfully
 
 Not so fast… Try not to fall over when I tell you that there is _yet another_ catch:
 
-GitHub Actions treats jobs skipped due to an “if” condition as successful. So we can't have our branch protection rule check for a “Merge OK” job directly: The “docs only” variant of that job will _always_ be successful, either because this is a “docs only” change, so it actually ran, or because this is not a “docs only” change, so the job was skipped due to its “if” condition.
+GitHub Actions treats jobs skipped due to an "if" condition as successful. So we can't have our branch protection rule check for a "Merge OK" job directly: The "docs only" variant of that job will _always_ be successful, either because this is a "docs only" change, so it actually ran, or because this is not a "docs only" change, so the job was skipped due to its "if" condition.
 
 The workaround here is to add, you guessed it, another level of indirection:
 
-Instead of two “Merge OK” jobs, we have two “Set Merge OK” jobs, and a single “Merge OK” job that depends on both of them. The “Set Merge OK” jobs set an output, and the “Merge OK” job checks for the presence of that output. A job needs to actually run to set an output, so if “Merge OK” does see that output we know that one of the “Set Merge OK” jobs ran, which means one of two things:
+Instead of two "Merge OK" jobs, we have two "Set Merge OK" jobs, and a single "Merge OK" job that depends on both of them. The "Set Merge OK" jobs set an output, and the "Merge OK" job checks for the presence of that output. A job needs to actually run to set an output, so if "Merge OK" does see that output we know that one of the "Set Merge OK" jobs ran, which means one of two things:
 
-1.  This was a “docs only” change
-2.  This was not a “docs only” change, and all the regular CI jobs passed
+1.  This was a "docs only" change
+2.  This was not a "docs only" change, and all the regular CI jobs passed
 
 And now, finally, problem solved!
 

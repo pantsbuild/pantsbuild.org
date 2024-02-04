@@ -17,29 +17,15 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 
 <span className={styles.options}>
 
-## `tags`
+## `source`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+A single file that belongs to this target.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
 
 </Field>
 
@@ -62,16 +48,42 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `source`
+## `description`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A single file that belongs to this target.
+A human-readable description of the target.
 
-Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `experimental_provides_types`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Signals that the specified types should be fulfilled by these source files during dependency inference.
+
+This allows for specific types within packages that are otherwise inferred as belonging to `jvm_artifact` targets to be unambiguously inferred as belonging to this first-party source.
+
+If a given type is defined, at least one source file captured by this target must actually provide that symbol.
+
+</Field>
+
+## `jdk`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
 
 </Field>
 
@@ -103,29 +115,16 @@ If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
-## `jdk`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The major version of the JDK that this target should be built with. If not defined, will default to `[jvm].default_source_jdk`.
-
-</Field>
-
-## `experimental_provides_types`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Signals that the specified types should be fulfilled by these source files during dependency inference.
+Arbitrary strings to describe a target.
 
-This allows for specific types within packages that are otherwise inferred as belonging to `jvm_artifact` targets to be unambiguously inferred as belonging to this first-party source.
-
-If a given type is defined, at least one source file captured by this target must actually provide that symbol.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

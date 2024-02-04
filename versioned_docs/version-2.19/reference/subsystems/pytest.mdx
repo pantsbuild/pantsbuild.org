@@ -37,6 +37,20 @@ Arguments to pass directly to Pytest, e.g. `--pytest-args='-k test_foo --quiet'`
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]pytest-skip`}
+  env_repr='PANTS_PYTEST_SKIP'
+  toml_repr={`[pytest]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Pytest when running `pants test`.
+
+</Option>
+
 ### `xdist_enabled`
 
 <Option
@@ -53,65 +67,35 @@ NOTE: Enabling `pytest-xdist` can cause high-level scoped fixtures (for example 
 
 </Option>
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]pytest-skip`}
-  env_repr='PANTS_PYTEST_SKIP'
-  toml_repr={`[pytest]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use Pytest when running `pants test`.
-
-</Option>
-
 ## Advanced options
 
-### `install_from_resolve`
+### `config`
 
 <Option
-  cli_repr={`--pytest-install-from-resolve=<str>`}
-  env_repr='PANTS_PYTEST_INSTALL_FROM_RESOLVE'
+  cli_repr={`--pytest-config=<file_option>`}
+  env_repr='PANTS_PYTEST_CONFIG'
   toml_repr={`[pytest]
-install_from_resolve = <str>`}
+config = <file_option>`}
   default_repr={`None`}
 >
 
-If specified, install the tool using the lockfile for this named resolve.
-
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
-
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
-
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `pytest` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+Path to a config file understood by Pytest (https://docs.pytest.org/en/latest/reference/customize.html#configuration-file-formats). Setting this option will disable `[pytest].config_discovery`. Use this option if the config is located in a non-standard location.
 
 </Option>
 
-### `requirements`
+### `config_discovery`
 
 <Option
-  cli_repr={`--pytest-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_PYTEST_REQUIREMENTS'
+  cli_repr={`--[no-]pytest-config-discovery`}
+  env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
   toml_repr={`[pytest]
-requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+config_discovery = <bool>`}
+  default_repr={`True`}
 >
 
-If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`) during runs. See https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where config files should be located for Pytest to discover them.
 
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
+Use `[pytest].config` instead if your config is in a non-standard location.
 
 </Option>
 
@@ -143,20 +127,6 @@ The entry point for the tool. Generally you only want to use this option if the 
 
 </Option>
 
-### `junit_family`
-
-<Option
-  cli_repr={`--pytest-junit-family=<str>`}
-  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
-  toml_repr={`[pytest]
-junit_family = <str>`}
-  default_repr={`xunit2`}
->
-
-The format of generated junit XML files. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
-
-</Option>
-
 ### `execution_slot_var`
 
 <Option
@@ -171,33 +141,63 @@ If a non-empty string, the process execution slot id (an integer) will be expose
 
 </Option>
 
-### `config`
+### `install_from_resolve`
 
 <Option
-  cli_repr={`--pytest-config=<file_option>`}
-  env_repr='PANTS_PYTEST_CONFIG'
+  cli_repr={`--pytest-install-from-resolve=<str>`}
+  env_repr='PANTS_PYTEST_INSTALL_FROM_RESOLVE'
   toml_repr={`[pytest]
-config = <file_option>`}
+install_from_resolve = <str>`}
   default_repr={`None`}
 >
 
-Path to a config file understood by Pytest (https://docs.pytest.org/en/latest/reference/customize.html#configuration-file-formats). Setting this option will disable `[pytest].config_discovery`. Use this option if the config is located in a non-standard location.
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/v2.19/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `pytest` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
-### `config_discovery`
+### `junit_family`
 
 <Option
-  cli_repr={`--[no-]pytest-config-discovery`}
-  env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
+  cli_repr={`--pytest-junit-family=<str>`}
+  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
   toml_repr={`[pytest]
-config_discovery = <bool>`}
-  default_repr={`True`}
+junit_family = <str>`}
+  default_repr={`xunit2`}
 >
 
-If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`) during runs. See https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where config files should be located for Pytest to discover them.
+The format of generated junit XML files. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
 
-Use `[pytest].config` instead if your config is in a non-standard location.
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--pytest-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTEST_REQUIREMENTS'
+  toml_repr={`[pytest]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
 
 </Option>
 

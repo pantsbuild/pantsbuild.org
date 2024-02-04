@@ -23,6 +23,20 @@ Config section: <span className="color--primary">`[test]`</span>
 
 ## Basic options
 
+### `attempts_default`
+
+<Option
+  cli_repr={`--test-attempts-default=<int>`}
+  env_repr='PANTS_TEST_ATTEMPTS_DEFAULT'
+  toml_repr={`[test]
+attempts_default = <int>`}
+  default_repr={`1`}
+>
+
+The number of attempts to run tests, in case of a test failure. Tests that were retried will include the number of attempts in the summary output.
+
+</Option>
+
 ### `debug`
 
 <Option
@@ -55,6 +69,25 @@ This option implies `--debug`.
 
 </Option>
 
+### `extra_env_vars`
+
+<Option
+  cli_repr={`--test-extra-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TEST_EXTRA_ENV_VARS'
+  toml_repr={`[test]
+extra_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+  target_field_name='test_extra_env_vars'
+>
+
+Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+
+</Option>
+
 ### `force`
 
 <Option
@@ -66,6 +99,20 @@ force = <bool>`}
 >
 
 Force the tests to run, even if they could be satisfied from cache.
+
+</Option>
+
+### `open_coverage`
+
+<Option
+  cli_repr={`--[no-]test-open-coverage`}
+  env_repr='PANTS_TEST_OPEN_COVERAGE'
+  toml_repr={`[test]
+open_coverage = <bool>`}
+  default_repr={`False`}
+>
+
+If a coverage report file is generated, open it on the local system if the system supports this.
 
 </Option>
 
@@ -81,34 +128,6 @@ output = <ShowOutput>`}
 >
 
 Show stdout/stderr for these tests.
-
-</Option>
-
-### `use_coverage`
-
-<Option
-  cli_repr={`--[no-]test-use-coverage`}
-  env_repr='PANTS_TEST_USE_COVERAGE'
-  toml_repr={`[test]
-use_coverage = <bool>`}
-  default_repr={`False`}
->
-
-Generate a coverage report if the test runner supports it.
-
-</Option>
-
-### `open_coverage`
-
-<Option
-  cli_repr={`--[no-]test-open-coverage`}
-  env_repr='PANTS_TEST_OPEN_COVERAGE'
-  toml_repr={`[test]
-open_coverage = <bool>`}
-  default_repr={`False`}
->
-
-If a coverage report file is generated, open it on the local system if the system supports this.
 
 </Option>
 
@@ -146,40 +165,45 @@ Enable test target timeouts. If timeouts are enabled then test targets with a `t
 
 </Option>
 
-### `attempts_default`
+### `use_coverage`
 
 <Option
-  cli_repr={`--test-attempts-default=<int>`}
-  env_repr='PANTS_TEST_ATTEMPTS_DEFAULT'
+  cli_repr={`--[no-]test-use-coverage`}
+  env_repr='PANTS_TEST_USE_COVERAGE'
   toml_repr={`[test]
-attempts_default = <int>`}
-  default_repr={`1`}
+use_coverage = <bool>`}
+  default_repr={`False`}
 >
 
-The number of attempts to run tests, in case of a test failure. Tests that were retried will include the number of attempts in the summary output.
-
-</Option>
-
-### `extra_env_vars`
-
-<Option
-  cli_repr={`--test-extra-env-vars="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_TEST_EXTRA_ENV_VARS'
-  toml_repr={`[test]
-extra_env_vars = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
-  target_field_name='test_extra_env_vars'
->
-
-Additional environment variables to include in test processes. Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+Generate a coverage report if the test runner supports it.
 
 </Option>
 
 ## Advanced options
+
+### `batch_size`
+
+<Option
+  cli_repr={`--test-batch-size=<int>`}
+  env_repr='PANTS_TEST_BATCH_SIZE'
+  toml_repr={`[test]
+batch_size = <int>`}
+  default_repr={`128`}
+>
+
+The target maximum number of files to be included in each run of batch-enabled test runners.
+
+Some test runners can execute tests from multiple files in a single run. Test implementations will return all tests that _can_ run together as a single group - and then this may be further divided into smaller batches, based on this option. This is done:
+
+1. to avoid OS argument length limits (in processes which don&#x27;t support argument files)
+2. to support more stable cache keys than would be possible if all files were operated on in a single batch
+3. to allow for parallelism in test runners which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
+
+In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &#x22;target&#x22; max batch size (rather than an exact value).
+
+NOTE: This parameter has no effect on test runners/plugins that do not implement support for batched testing.
+
+</Option>
 
 ### `report`
 
@@ -234,30 +258,6 @@ timeout_maximum = <int>`}
 >
 
 The maximum timeout (in seconds) that may be used on a test target.
-
-</Option>
-
-### `batch_size`
-
-<Option
-  cli_repr={`--test-batch-size=<int>`}
-  env_repr='PANTS_TEST_BATCH_SIZE'
-  toml_repr={`[test]
-batch_size = <int>`}
-  default_repr={`128`}
->
-
-The target maximum number of files to be included in each run of batch-enabled test runners.
-
-Some test runners can execute tests from multiple files in a single run. Test implementations will return all tests that _can_ run together as a single group - and then this may be further divided into smaller batches, based on this option. This is done:
-
-1. to avoid OS argument length limits (in processes which don&#x27;t support argument files)
-2. to support more stable cache keys than would be possible if all files were operated on in a single batch
-3. to allow for parallelism in test runners which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly
-
-In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &#x22;target&#x22; max batch size (rather than an exact value).
-
-NOTE: This parameter has no effect on test runners/plugins that do not implement support for batched testing.
 
 </Option>
 

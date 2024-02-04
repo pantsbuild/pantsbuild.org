@@ -23,20 +23,6 @@ None
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--download-pex-bin-version=<str>`}
-  env_repr='PANTS_DOWNLOAD_PEX_BIN_VERSION'
-  toml_repr={`[download-pex-bin]
-version = <str>`}
-  default_repr={`v2.1.35`}
->
-
-Use this version of pex.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -67,22 +53,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
-
-<Option
-  cli_repr={`--download-pex-bin-url-template=<str>`}
-  env_repr='PANTS_DOWNLOAD_PEX_BIN_URL_TEMPLATE'
-  toml_repr={`[download-pex-bin]
-url_template = <str>`}
-  default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a file:// URL.
-
-Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -100,6 +70,36 @@ A dictionary mapping platforms to strings to be used when generating the URL to 
 In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
 
 For example, if you define `{"darwin": "apple-darwin", "linux": "unknown-linux"}, and run Pants on Linux, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--download-pex-bin-url-template=<str>`}
+  env_repr='PANTS_DOWNLOAD_PEX_BIN_URL_TEMPLATE'
+  toml_repr={`[download-pex-bin]
+url_template = <str>`}
+  default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a file:// URL.
+
+Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--download-pex-bin-version=<str>`}
+  env_repr='PANTS_DOWNLOAD_PEX_BIN_VERSION'
+  toml_repr={`[download-pex-bin]
+version = <str>`}
+  default_repr={`v2.1.35`}
+>
+
+Use this version of pex.
 
 </Option>
 

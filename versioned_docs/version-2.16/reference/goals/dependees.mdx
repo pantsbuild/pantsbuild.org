@@ -23,6 +23,20 @@ Config section: <span className="color--primary">`[dependees]`</span>
 
 ## Basic options
 
+### `closed`
+
+<Option
+  cli_repr={`--[no-]dependees-closed`}
+  env_repr='PANTS_DEPENDEES_CLOSED'
+  toml_repr={`[dependees]
+closed = <bool>`}
+  default_repr={`False`}
+>
+
+Include the input targets in the output, along with the dependents.
+
+</Option>
+
 ### `output_file`
 
 <Option
@@ -62,20 +76,6 @@ transitive = <bool>`}
 >
 
 List all transitive dependents. If unspecified, list direct dependents only.
-
-</Option>
-
-### `closed`
-
-<Option
-  cli_repr={`--[no-]dependees-closed`}
-  env_repr='PANTS_DEPENDEES_CLOSED'
-  toml_repr={`[dependees]
-closed = <bool>`}
-  default_repr={`False`}
->
-
-Include the input targets in the output, along with the dependents.
 
 </Option>
 

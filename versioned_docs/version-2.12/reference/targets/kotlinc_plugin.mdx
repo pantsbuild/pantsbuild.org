@@ -21,16 +21,13 @@ Backend: <span className="color--primary">`pants.backend.experimental.kotlin`</s
 
 <span className={styles.options}>
 
-## `tags`
+## `artifact`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+The address of a `jvm_artifact` that defines a plugin for `kotlinc`.
 
 </Field>
 
@@ -47,14 +44,14 @@ Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targ
 
 </Field>
 
-## `artifact`
+## `plugin_args`
 
 <Field
-    type_repr={`str`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-The address of a `jvm_artifact` that defines a plugin for `kotlinc`.
+Optional list of argument to pass to the plugin.
 
 </Field>
 
@@ -71,14 +68,16 @@ If not set, the plugin ID defaults to the target name.
 
 </Field>
 
-## `plugin_args`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Optional list of argument to pass to the plugin.
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[add-trailing-comma]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]add-trailing-comma-skip`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
-  toml_repr={`[add-trailing-comma]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use add-trailing-comma when running `pants fmt` and `pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,71 +37,21 @@ Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-arg
 
 </Option>
 
+### `skip`
+
+<Option
+  cli_repr={`--[no-]add-trailing-comma-skip`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
+  toml_repr={`[add-trailing-comma]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use add-trailing-comma when running `pants fmt` and `pants lint`.
+
+</Option>
+
 ## Advanced options
-
-### `install_from_resolve`
-
-<Option
-  cli_repr={`--add-trailing-comma-install-from-resolve=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_INSTALL_FROM_RESOLVE'
-  toml_repr={`[add-trailing-comma]
-install_from_resolve = <str>`}
-  default_repr={`None`}
->
-
-If specified, install the tool using the lockfile for this named resolve.
-
-This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.16/docs/python-third-party-dependencies#user-lockfiles.
-
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
-
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `add-trailing-comma` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
-
-</Option>
-
-### `requirements`
-
-<Option
-  cli_repr={`--add-trailing-comma-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_REQUIREMENTS'
-  toml_repr={`[add-trailing-comma]
-requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
-
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
-
-</Option>
-
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--add-trailing-comma-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[add-trailing-comma]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
->
-
-Python interpreter constraints for this tool.
-
-</Option>
 
 ### `console_script`
 
@@ -145,21 +81,87 @@ The entry point for the tool. Generally you only want to use this option if the 
 
 </Option>
 
-## Deprecated options
-
-### `version`
+### `install_from_resolve`
 
 <Option
-  cli_repr={`--add-trailing-comma-version=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_VERSION'
+  cli_repr={`--add-trailing-comma-install-from-resolve=<str>`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_INSTALL_FROM_RESOLVE'
   toml_repr={`[add-trailing-comma]
-version = <str>`}
-  default_repr={`add-trailing-comma>=2.2.3,<3`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
+install_from_resolve = <str>`}
+  default_repr={`None`}
 >
 
-Requirement string for the tool.
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.16/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `add-trailing-comma` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--add-trailing-comma-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[add-trailing-comma]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--add-trailing-comma-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_REQUIREMENTS'
+  toml_repr={`[add-trailing-comma]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+## Deprecated options
+
+### `export`
+
+<Option
+  cli_repr={`--[no-]add-trailing-comma-export`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_EXPORT'
+  toml_repr={`[add-trailing-comma]
+export = <bool>`}
+  default_repr={`True`}
+  removal_version='2.18.0.dev0'
+  removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
+>
+
+If true, export a virtual environment with add-trailing-comma when running `pants export`.
+
+This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
 
 </Option>
 
@@ -207,21 +209,19 @@ Alternatively, you can set this option to the path to a custom lockfile using pi
 
 </Option>
 
-### `export`
+### `version`
 
 <Option
-  cli_repr={`--[no-]add-trailing-comma-export`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_EXPORT'
+  cli_repr={`--add-trailing-comma-version=<str>`}
+  env_repr='PANTS_ADD_TRAILING_COMMA_VERSION'
   toml_repr={`[add-trailing-comma]
-export = <bool>`}
-  default_repr={`True`}
-  removal_version='2.18.0.dev0'
-  removal_hint={'Use the export goal\'s --resolve option to select tools to export, instead of using this option to exempt a tool from export-by-default.'}
+version = <str>`}
+  default_repr={`add-trailing-comma>=2.2.3,<3`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.16/docs/python-lockfiles.'}
 >
 
-If true, export a virtual environment with add-trailing-comma when running `pants export`.
-
-This can be useful, for example, with IDE integrations to point your editor to the tool&#x27;s binary.
+Requirement string for the tool.
 
 </Option>
 

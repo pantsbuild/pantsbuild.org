@@ -45,6 +45,24 @@ If unspecified, and the `lockfile` option is set, the tool will use the custom `
 
 </Option>
 
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--mypy-protobuf-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_PROTOBUF_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[mypy-protobuf]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
 ### `requirements`
 
 <Option
@@ -69,41 +87,7 @@ If unspecified, install the entire lockfile.
 
 </Option>
 
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--mypy-protobuf-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_MYPY_PROTOBUF_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[mypy-protobuf]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
->
-
-Python interpreter constraints for this tool.
-
-</Option>
-
 ## Deprecated options
-
-### `version`
-
-<Option
-  cli_repr={`--mypy-protobuf-version=<str>`}
-  env_repr='PANTS_MYPY_PROTOBUF_VERSION'
-  toml_repr={`[mypy-protobuf]
-version = <str>`}
-  default_repr={`mypy-protobuf==3.4.0`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
->
-
-Requirement string for the tool.
-
-</Option>
 
 ### `extra_requirements`
 
@@ -144,6 +128,22 @@ Set to the string `<default>` to use a lockfile provided by Pants, so long as yo
 To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=mypy-protobuf`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--mypy-protobuf-version=<str>`}
+  env_repr='PANTS_MYPY_PROTOBUF_VERSION'
+  toml_repr={`[mypy-protobuf]
+version = <str>`}
+  default_repr={`mypy-protobuf==3.4.0`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+>
+
+Requirement string for the tool.
 
 </Option>
 

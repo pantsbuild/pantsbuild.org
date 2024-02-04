@@ -35,20 +35,6 @@ Infer Protobuf dependencies on other Protobuf files by analyzing import statemen
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--protoc-version=<str>`}
-  env_repr='PANTS_PROTOC_VERSION'
-  toml_repr={`[protoc]
-version = <str>`}
-  default_repr={`3.20.1`}
->
-
-Use this version of protoc.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -82,36 +68,17 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `tailor`
 
 <Option
-  cli_repr={`--protoc-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_PROTOC_USE_UNSUPPORTED_VERSION'
+  cli_repr={`--[no-]protoc-tailor`}
+  env_repr='PANTS_PROTOC_TAILOR'
   toml_repr={`[protoc]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+tailor = <bool>`}
+  default_repr={`True`}
 >
 
-What action to take in case the requested version of protoc is not supported.
-
-Supported protoc versions: unspecified
-
-</Option>
-
-### `url_template`
-
-<Option
-  cli_repr={`--protoc-url-template=<str>`}
-  env_repr='PANTS_PROTOC_URL_TEMPLATE'
-  toml_repr={`[protoc]
-url_template = <str>`}
-  default_repr={`https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-{platform}.zip`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.15/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+If true, add `protobuf_sources` targets with the `tailor` goal.
 
 </Option>
 
@@ -135,17 +102,50 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
-### `tailor`
+### `url_template`
 
 <Option
-  cli_repr={`--[no-]protoc-tailor`}
-  env_repr='PANTS_PROTOC_TAILOR'
+  cli_repr={`--protoc-url-template=<str>`}
+  env_repr='PANTS_PROTOC_URL_TEMPLATE'
   toml_repr={`[protoc]
-tailor = <bool>`}
-  default_repr={`True`}
+url_template = <str>`}
+  default_repr={`https://github.com/protocolbuffers/protobuf/releases/download/v{version}/protoc-{version}-{platform}.zip`}
 >
 
-If true, add `protobuf_sources` targets with the `tailor` goal.
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.15/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--protoc-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_PROTOC_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[protoc]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of protoc is not supported.
+
+Supported protoc versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--protoc-version=<str>`}
+  env_repr='PANTS_PROTOC_VERSION'
+  toml_repr={`[protoc]
+version = <str>`}
+  default_repr={`3.20.1`}
+>
+
+Use this version of protoc.
 
 </Option>
 

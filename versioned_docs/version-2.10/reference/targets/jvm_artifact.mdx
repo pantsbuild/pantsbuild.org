@@ -21,16 +21,54 @@ Backend: <span className="color--primary">`pants.backend.experimental.java`</spa
 
 <span className={styles.options}>
 
-## `tags`
+## `artifact`
+
+<Field
+    type_repr={`str`}
+>
+
+The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
+
+For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the artifact is `guava`.
+
+</Field>
+
+## `group`
+
+<Field
+    type_repr={`str`}
+>
+
+The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
+
+For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the group is `com.google.guava`.
+
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`str`}
+>
+
+The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
+
+For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the version is `30.1.1-jre`.
+
+</Field>
+
+## `compatible_resolves`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+The resolves from `[jvm].resolves` that this artifact should be included in.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+If not defined, will default to `[jvm].default_resolve`.
+
+When generating a lockfile for a particular resolve via the `coursier-resolve` goal, it will include all artifacts that are declared compatible with that resolve. First-party targets like `java_source` and `scala_source` then declare which resolve(s) they use via the `resolve` and `compatible_resolves` field; so, for your first-party code to use a particular `jvm_artifact` target, that artifact must be included in the resolve(s) used by that code.
 
 </Field>
 
@@ -47,42 +85,18 @@ Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `group`
+## `jar`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The &#x27;group&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
+A local JAR file that provides this artifact to the lockfile resolver, instead of a Maven repository.
 
-For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the group is `com.google.guava`.
+Path is relative to the BUILD file.
 
-</Field>
-
-## `artifact`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-The &#x27;artifact&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
-
-For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the artifact is `guava`.
-
-</Field>
-
-## `version`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-The &#x27;version&#x27; part of a Maven-compatible coordinate to a third-party JAR artifact.
-
-For the JAR coordinate `com.google.guava:guava:30.1.1-jre`, the version is `30.1.1-jre`.
+Use the `url` field for remote artifacts.
 
 </Field>
 
@@ -103,6 +117,19 @@ The package path may be made recursive to match symbols in subpackages by adding
 
 </Field>
 
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
 ## `url`
 
 <Field
@@ -115,36 +142,6 @@ A URL that points to the location of this artifact.
 If specified, Pants will not fetch this artifact from default Maven repositories, and will instead fetch the artifact from this URL. To use default maven repositories, do not set this value.
 
 Note that `file:` URLs are not supported. Instead, use the `jar` field for local artifacts.
-
-</Field>
-
-## `jar`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A local JAR file that provides this artifact to the lockfile resolver, instead of a Maven repository.
-
-Path is relative to the BUILD file.
-
-Use the `url` field for remote artifacts.
-
-</Field>
-
-## `compatible_resolves`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-The resolves from `[jvm].resolves` that this artifact should be included in.
-
-If not defined, will default to `[jvm].default_resolve`.
-
-When generating a lockfile for a particular resolve via the `coursier-resolve` goal, it will include all artifacts that are declared compatible with that resolve. First-party targets like `java_source` and `scala_source` then declare which resolve(s) they use via the `resolve` and `compatible_resolves` field; so, for your first-party code to use a particular `jvm_artifact` target, that artifact must be included in the resolve(s) used by that code.
 
 </Field>
 

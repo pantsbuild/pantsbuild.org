@@ -30,16 +30,15 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `command`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
+    type_repr={`str`}
 >
 
-Arbitrary strings to describe a target.
+Shell command to execute.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
 
 </Field>
 
@@ -86,16 +85,16 @@ See also `execution_dependencies`.
 
 </Field>
 
-## `command`
+## `tags`
 
 <Field
-    type_repr={`str`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Shell command to execute.
+Arbitrary strings to describe a target.
 
-The command is executed as &#x27;bash -c &#x3C;command&#x3E;&#x27; by default. If you want to invoke a binary use `exec -a $0 <binary> <args>` as the command so that the binary gets the correct `argv[0]` set.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

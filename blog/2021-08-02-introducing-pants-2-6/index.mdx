@@ -18,7 +18,7 @@ We're pleased to announce Pants 2.6.0, the latest release of Pants, the scalable
 
 To update, set `pants_version = "2.6.0"` in your `pants.toml`. See [upgrade tips](https://www.pantsbuild.org/docs/upgrade-tips).
 
-# Poetry support
+## Poetry support
 
 Pants now understands Poetry's `pyproject.toml` configuration for third-party dependency management, addressing one of our most requested features in the last year!
 
@@ -26,7 +26,7 @@ Poetry support makes it even easier [to incrementally adopt Pants](https://www.p
 
 See our recent blog post ["Poetry support for Pants 2.6"](../2021-07-29-poetry-support-for-pants-2-6/index.mdx) for a more detailed introduction, along with the personal story behind [Toolchain](https://toolchain.com/)'s intern Liam Wilson adding this highly requested feature.
 
-# Third-party type stubs and MyPy 0.900+
+## Third-party type stubs and MyPy 0.900+
 
 [MyPy 0.900+ no longer includes typeshed](https://mypy-lang.blogspot.com/2021/06/mypy-0900-released.html), meaning that you must now install type stubs for many popular libraries. For example, you must install `types-requests` when using the `requests` library for MyPy to work properly.
 
@@ -44,7 +44,7 @@ The default for `[mypy].version` is now `0.910`. When upgrading to Pants 2.6, yo
 
 Finally, MyPy `0.900+` now supports `pyproject.toml` config files. Pants 2.6 will auto-discover this config file.
 
-# Linter reports
+## Linter reports
 
 Previously, you could set `[lint].reports_dir` for Pants to instruct Flake8 and Bandit to write reports under that directory. This had [several issues](https://github.com/pantsbuild/pants/pull/12122), including that some tools like Bandit allow you to write multiple formats (e.g. text vs. JSON), and Pants assumed a single format.
 
@@ -52,7 +52,7 @@ Instead, now you directly tell Flake8 and Bandit to generate a report by setting
 
 You can also now use [MyPy's report generation](https://mypy.readthedocs.io/en/stable/config_file.html#report-generation), e.g. by setting `linecount_report = "reports"` in `mypy.ini`. Pants will capture all files under the `reports/` folder and write them to `dist/typecheck/mypy`.
 
-# Other changes
+## Other changes
 
 - Updated default versions for Black, Pylint, and Bandit.
 - New [plugin hook](https://github.com/pantsbuild/pants/pull/12091) for setting up Python tests, e.g. starting up databases before test runs.
@@ -61,7 +61,7 @@ You can also now use [MyPy's report generation](https://mypy.readthedocs.io/en/s
 
 See the full [changelog](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.6.x.md) for more changes.
 
-## **Upcoming in Pants 2.7**
+### **Upcoming in Pants 2.7**
 
 We have been re-envisioning Pants's support for Python third-party dependencies to be more ergonomic, flexible, and safe. The changes include:
 

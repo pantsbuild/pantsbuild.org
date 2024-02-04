@@ -19,133 +19,6 @@ Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `dependencies`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
-
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
-
-See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
-
-</Field>
-
-## `sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.go',)`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
-
-</Field>
-
-## `test_extra_env_vars`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Additional environment variables to include in test processes.
-
-Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
-
-This will be merged with and override values from `[test].extra_env_vars`.
-
-</Field>
-
-## `test_timeout`
-
-<Field
-    type_repr={`int | None`}
-    default_repr={`None`}
->
-
-A timeout (in seconds) used by each test file belonging to this target.
-
-If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
-
-</Field>
-
-## `test_race`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Enable compiling this package&#x27;s test binary with the Go data race detector.
-
-See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
-
-</Field>
-
-## `test_msan`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer&#x22; when building this package&#x27;s test binary.
-
-See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
-
-</Field>
-
-## `test_asan`
-
-<Field
-    type_repr={`bool | None`}
-    default_repr={`None`}
->
-
-Enable interoperation between Go code and the C/C++ &#x22;address sanitizer&#x22; when building this package&#x27;s test binary.
-
-See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
-
-</Field>
-
 ## `assembler_flags`
 
 <Field
@@ -190,14 +63,47 @@ Run `go doc cmd/compile` to see the flags supported by `go tool compile`.
 
 </Field>
 
-## `skip_tests`
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.19/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `skip_go_vet`
 
 <Field
     type_repr={`bool`}
     default_repr={`False`}
+    backend="pants.backend.experimental.go.lint.vet"
 >
 
-If true, don&#x27;t run this package&#x27;s tests.
+If true, don&#x27;t run `go vet` on this target&#x27;s code.
 
 </Field>
 
@@ -210,6 +116,124 @@ If true, don&#x27;t run this package&#x27;s tests.
 >
 
 If true, don&#x27;t run gofmt on this package.
+
+</Field>
+
+## `skip_golangci_lint`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.go.lint.golangci_lint"
+>
+
+If true, don&#x27;t run `golangci-lint` on this target&#x27;s code.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this package&#x27;s tests.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.go',)`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['example.go', '*_test.go', '!test_ignore.go']`
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `test_asan`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Enable interoperation between Go code and the C/C++ &#x22;address sanitizer&#x22; when building this package&#x27;s test binary.
+
+See https://github.com/google/sanitizers/wiki/AddressSanitizer for additional information about the C/C++ address sanitizer.
+
+</Field>
+
+## `test_extra_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Additional environment variables to include in test processes.
+
+Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+
+This will be merged with and override values from `[test].extra_env_vars`.
+
+</Field>
+
+## `test_msan`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Enable interoperation between Go code and the C/C++ &#x22;memory sanitizer&#x22; when building this package&#x27;s test binary.
+
+See https://github.com/google/sanitizers/wiki/MemorySanitizer for additional information about the C/C++ memory sanitizer.
+
+</Field>
+
+## `test_race`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Enable compiling this package&#x27;s test binary with the Go data race detector.
+
+See https://go.dev/doc/articles/race_detector for additional information about the Go data race detector.
+
+</Field>
+
+## `test_timeout`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`None`}
+>
+
+A timeout (in seconds) used by each test file belonging to this target.
+
+If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
 

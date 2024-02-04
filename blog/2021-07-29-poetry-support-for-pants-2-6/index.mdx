@@ -56,7 +56,7 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 python = "^3.8"
 ansicolors = "1.5"
-zipp = {git = “https://github.com/jaraco/zipp.git”}
+zipp = {git = "https://github.com/jaraco/zipp.git"}
 requests = {version = "1.2.3", extras = ["security"],  python = ">2.7"}
 
 [tool.poetry.dev-dependencies]
@@ -90,7 +90,7 @@ Adding this functionality also highlighted how test-driven development can be ex
 
 With this particular project, a handful of bugs slipped through as I wrote tests in batches. Consider parsing for a requirement in the dictionary form: within that, there are several sub-cases, like handling a git requirement, or handling a version. Each of those consists of a new set of edge cases, and I initially focused first on the finest grain of edge case. In doing this, I let a handful of broader-scale edge cases slip through, and had to patch several bugs as a result.
 
-In retrospect, the better strategy would have been to work top-down, organizing each broad component, then after exhaustively addressing those cases, flesh out the stage below. In other words, considering the “feature” space as a m-ary tree, a breadth-first traversal makes more sense than a depth-first traversal when implementing a feature ridden with edge cases.
+In retrospect, the better strategy would have been to work top-down, organizing each broad component, then after exhaustively addressing those cases, flesh out the stage below. In other words, considering the "feature" space as a m-ary tree, a breadth-first traversal makes more sense than a depth-first traversal when implementing a feature ridden with edge cases.
 
 Lastly, I realized that having readable code is important not just for the feature itself, but also for test cases: deduplicating test cases (like using helper functions) can help highlight precisely what each test case addresses, which in turn can highlight gaps in coverage.
 

@@ -25,13 +25,13 @@ To update, set `pants_version = "2.14.0"` in your `pants.toml`. See [upgrade tip
 
 A key goal of Pants is reducing the amount of BUILD boilerplate that users have to maintain in order to quickly and reliably build their code. To that end, Pants `2.14` introduces [`__defaults__`](https://www.pantsbuild.org/v2.14/docs/targets#field-default-values): a mechanism to set the default arguments used for the targets defined in a directory.
 
-As an example: suppose that you wanted to use a non-default thirdparty `resolve` “spark3” for all targets in a particular subdirectory. To do that, you'd declare `__defaults__` in a `BUILD` file in that subdirectory:
+As an example: suppose that you wanted to use a non-default thirdparty `resolve` "spark3" for all targets in a particular subdirectory. To do that, you'd declare `__defaults__` in a `BUILD` file in that subdirectory:
 
 ```python title="BUILD"
-__defaults__(all=dict(resolve=”spark3”))
+__defaults__(all=dict(resolve="spark3"))
 ```
 
-… and then all targets defined at or below that BUILD file would default to using `resolve=”spark3”` (but could still override that default if they choose)!
+… and then all targets defined at or below that BUILD file would default to using `resolve="spark3"` (but could still override that default if they choose)!
 
 `__defaults__` also supports setting defaults for individual target types, or can be combined with `parametrize`. For more examples, see [the docs for `__defaults__`](https://www.pantsbuild.org/v2.14/docs/targets#field-default-values)!
 
@@ -43,7 +43,7 @@ Similar to our support for [using multiple `resolves`](https://www.pantsbuild.or
 
 ## Do more of your workflows in Pants with the experimental `deploy` goal, with initial support for Helm
 
-Pants' philosophy around CLI “goals” (like `test`, `fmt`, `run`, etc) is to support caching, parallelism, and a consistent user interface across tools which accomplish similar tasks across different languages or ecosystems.
+Pants' philosophy around CLI "goals" (like `test`, `fmt`, `run`, etc) is to support caching, parallelism, and a consistent user interface across tools which accomplish similar tasks across different languages or ecosystems.
 
 For example: the `test` goal provides a consistent interface to running and caching tests using `pytest`, `junit`, `shunit2`, etc, while the `fmt` goal safely pipelines (and even partially parallelizes) the running of code formatters like `scalafmt`, `go fmt`, `black`, `isort`, etc.
 
@@ -58,7 +58,7 @@ We'd love your feedback on both the `deploy` goal and [the support for Helm](htt
 
 ## Easier interactive debugging for Python in VS Code using the DAP protocol
 
-Pants usually runs processes in hermetic sandboxes for reproducibility. But in order to attach a console-based debugger like Python's [PDB](https://docs.python.org/3/library/pdb.html), [the `test --debug` flag](https://www.pantsbuild.org/v2.14/docs/reference-test#debug) has long supported forcing a test to run in “interactive” mode in the foreground in your console.
+Pants usually runs processes in hermetic sandboxes for reproducibility. But in order to attach a console-based debugger like Python's [PDB](https://docs.python.org/3/library/pdb.html), [the `test --debug` flag](https://www.pantsbuild.org/v2.14/docs/reference-test#debug) has long supported forcing a test to run in "interactive" mode in the foreground in your console.
 
 In Pants `2.14`, there is a new and shiny alternative to using console debuggers: using [the `--debug-adapter` flag](https://www.pantsbuild.org/v2.14/docs/reference-test#debug_adapter) to launch an implementation of [the DAP protocol](https://microsoft.github.io/debug-adapter-protocol/) for graphical debugging (particularly in VS Code) for either the `test` goal or `run` goal.
 
@@ -74,7 +74,7 @@ Although the Python backend has the only implementation of the `--debug-adapter`
 
 ## Better dependency computation performance by porting more critical paths to Rust
 
-Since Pants 2.0, the “engine” of Pants has been implemented in Rust, with all language support added via the plugin API as Python 3 `@rules`.
+Since Pants 2.0, the "engine" of Pants has been implemented in Rust, with all language support added via the plugin API as Python 3 `@rules`.
 
 Python and Rust make a great combination! They allow us to make it easy to write plugins using type safe async Python 3, while the most CPU intensive portions of Pants are written in safe and performant Rust.
 

@@ -23,24 +23,6 @@ Config section: <span className="color--primary">`[export]`</span>
 
 ## Basic options
 
-### `resolve`
-
-<Option
-  cli_repr={`--export-resolve="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_EXPORT_RESOLVE'
-  toml_repr={`[export]
-resolve = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Export the specified resolve(s). The export format is backend-specific, e.g., Python resolves are exported as virtualenvs.
-
-</Option>
-
 ### `py_resolve_format`
 
 <Option
@@ -60,6 +42,24 @@ Export Python resolves using this format. Options are:
   This virtualenv will have no pip binary, and will be immutable. Any attempt to
   modify it will corrupt the cache! It may, however, take significantly less time
   to export than a standalone, mutable virtualenv.
+
+</Option>
+
+### `resolve`
+
+<Option
+  cli_repr={`--export-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_RESOLVE'
+  toml_repr={`[export]
+resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Export the specified resolve(s). The export format is backend-specific, e.g., Python resolves are exported as virtualenvs.
 
 </Option>
 

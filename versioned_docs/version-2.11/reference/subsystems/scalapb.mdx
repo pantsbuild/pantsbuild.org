@@ -19,24 +19,6 @@ Config section: <span className="color--primary">`[scalapb]`</span>
 
 ## Basic options
 
-### `runtime_dependencies`
-
-<Option
-  cli_repr={`--scalapb-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
-  env_repr='PANTS_SCALAPB_RUNTIME_DEPENDENCIES'
-  toml_repr={`[scalapb]
-runtime_dependencies = [
-    <target_option>,
-    <target_option>,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-A list of addresses to `jvm_artifact` targets for the runtime dependencies needed for generated Scala code to work. For example, `['3rdparty/jvm:scalapb-runtime']`. These dependencies will be automatically added to every `protobuf_sources` target. At the very least, this option must be set to a `jvm_artifact` for the `com.thesamet.scalapb:scalapb-runtime_SCALAVER:0.11.6` runtime library.
-
-</Option>
-
 ### `jvm_plugins`
 
 <Option
@@ -57,21 +39,25 @@ For example, to invoke the fs2-grpc protoc plugin, the following option would wo
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `runtime_dependencies`
 
 <Option
-  cli_repr={`--scalapb-version=<str>`}
-  env_repr='PANTS_SCALAPB_VERSION'
+  cli_repr={`--scalapb-runtime-dependencies="[<target_option>, <target_option>, ...]"`}
+  env_repr='PANTS_SCALAPB_RUNTIME_DEPENDENCIES'
   toml_repr={`[scalapb]
-version = <str>`}
-  default_repr={`0.11.6`}
+runtime_dependencies = [
+    <target_option>,
+    <target_option>,
+    ...,
+]`}
+  default_repr={`[]`}
 >
 
-Version string for the tool. This is available for substitution in the `[scalapb].artifacts` option by including the string `{version}`.
+A list of addresses to `jvm_artifact` targets for the runtime dependencies needed for generated Scala code to work. For example, `['3rdparty/jvm:scalapb-runtime']`. These dependencies will be automatically added to every `protobuf_sources` target. At the very least, this option must be set to a `jvm_artifact` for the `com.thesamet.scalapb:scalapb-runtime_SCALAVER:0.11.6` runtime library.
 
 </Option>
+
+## Advanced options
 
 ### `artifacts`
 
@@ -106,6 +92,20 @@ Path to a lockfile used for installing the tool.
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.11.1/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/pants jvm-generate-lockfiles --resolve=scalapb`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--scalapb-version=<str>`}
+  env_repr='PANTS_SCALAPB_VERSION'
+  toml_repr={`[scalapb]
+version = <str>`}
+  default_repr={`0.11.6`}
+>
+
+Version string for the tool. This is available for substitution in the `[scalapb].artifacts` option by including the string `{version}`.
 
 </Option>
 

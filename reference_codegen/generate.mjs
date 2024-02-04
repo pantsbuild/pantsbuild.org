@@ -240,6 +240,13 @@ helpAll.scope_to_help_info[""].basic.forEach((option) => {
 Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
   info.description = convertDescription(info.description);
   info.short_description = info.description.split("\n")[0];
+
+  if (scope === "environments-preview") {
+    // NB: Workaround a bug in Pants' generation.
+    // See https://github.com/pantsbuild/pantsbuild.org/pull/128#discussion_r1454429425
+    info.provider = "pants.core";
+  }
+
   ["basic", "advanced", "deprecated"].forEach((optionsType) => {
     info[optionsType].forEach((option) => {
       option.default = convertDefault(option.default, option.typ);
@@ -251,12 +258,31 @@ Object.entries(helpAll.scope_to_help_info).forEach(([scope, info]) => {
       }
       option.toml_repr = generateTomlRepr(option, scope);
     });
+
+    // sort the options to make the output deterministic
+    info[optionsType].sort((a, b) => a.config_key.localeCompare(b.config_key));
   });
 });
+
 Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   info.fields.forEach((field) => {
-    field.default = convertDefault(field.default, field.typ);
+    if (!field.required) {
+      field.default = convertDefault(field.default, field.typ);
+    } else {
+      field.default = null;
+    }
     field.description = convertDescription(field.description);
+  });
+
+  // sort the fields to make the output deterministic
+  info.fields.sort((a, b) => {
+    if (a.required == b.required) {
+      return a.alias.localeCompare(b.alias);
+    }
+
+    // sort required fields first
+    if (a.required && !b.required) return -1;
+    if (!a.required && b.required) return 1;
   });
 });
 

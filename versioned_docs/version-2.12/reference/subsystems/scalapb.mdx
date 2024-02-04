@@ -41,20 +41,6 @@ For example, to invoke the fs2-grpc protoc plugin, the following option would wo
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--scalapb-version=<str>`}
-  env_repr='PANTS_SCALAPB_VERSION'
-  toml_repr={`[scalapb]
-version = <str>`}
-  default_repr={`0.11.6`}
->
-
-Version string for the tool. This is available for substitution in the `[scalapb].artifacts` option by including the string `{version}`.
-
-</Option>
-
 ### `artifacts`
 
 <Option
@@ -88,6 +74,20 @@ Path to a lockfile used for installing the tool.
 Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.12.1/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `/home/josh/work/scie-pants/dist/pants jvm-generate-lockfiles --resolve=scalapb`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--scalapb-version=<str>`}
+  env_repr='PANTS_SCALAPB_VERSION'
+  toml_repr={`[scalapb]
+version = <str>`}
+  default_repr={`0.11.6`}
+>
+
+Version string for the tool. This is available for substitution in the `[scalapb].artifacts` option by including the string `{version}`.
 
 </Option>
 

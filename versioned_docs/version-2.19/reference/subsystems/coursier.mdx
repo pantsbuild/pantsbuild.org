@@ -41,20 +41,6 @@ Coursier will resolve these repositories in the order in which they are specifed
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--coursier-version=<str>`}
-  env_repr='PANTS_COURSIER_VERSION'
-  toml_repr={`[coursier]
-version = <str>`}
-  default_repr={`v2.1.6`}
->
-
-Use this version of coursier.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -90,22 +76,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `url_template`
-
-<Option
-  cli_repr={`--coursier-url-template=<str>`}
-  env_repr='PANTS_COURSIER_URL_TEMPLATE'
-  toml_repr={`[coursier]
-url_template = <str>`}
-  default_repr={`https://github.com/coursier/coursier/releases/download/{version}/cs-{platform}.gz`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.19/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -126,6 +96,22 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
+### `url_template`
+
+<Option
+  cli_repr={`--coursier-url-template=<str>`}
+  env_repr='PANTS_COURSIER_URL_TEMPLATE'
+  toml_repr={`[coursier]
+url_template = <str>`}
+  default_repr={`https://github.com/coursier/coursier/releases/download/{version}/cs-{platform}.gz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.19/docs/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
 ### `use_unsupported_version`
 
 <Option
@@ -140,6 +126,20 @@ use_unsupported_version = <UnsupportedVersionUsage>`}
 What action to take in case the requested version of coursier is not supported.
 
 Supported coursier versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--coursier-version=<str>`}
+  env_repr='PANTS_COURSIER_VERSION'
+  toml_repr={`[coursier]
+version = <str>`}
+  default_repr={`v2.1.6`}
+>
+
+Use this version of coursier.
 
 </Option>
 

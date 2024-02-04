@@ -1,0 +1,85 @@
+---
+  authors: [tomsolberg]
+  tags: []
+---
+
+# Pants 2.19.0 is released!
+
+<CaptionedImg src={require("./splash.jpeg").default}>
+  Photo by [Erol
+  Ahmed](https://unsplash.com/@erol?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+  /
+  [Unsplash](https://unsplash.com/photos/mountains-covered-with-snow-d3pTF3r_hwY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+</CaptionedImg>
+
+{/* truncate */}
+
+We're pleased to announce Pants 2.19.0, the latest release of [Pantsbuild, the scalable and ergonomic build system](https://www.pantsbuild.org/). To update, set `pants_version = "2.19.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](https://www.pantsbuild.org/docs/getting-started).
+
+_Highlights in 2.19 include_:
+
+- New backends: `semgrep` and `openapi-format`
+- Test retries for flaky Python tests
+- `buildx` support in the Docker backend
+- Using `parametrize` to set multiple fields in tandem
+- And lots of smaller features, bugfixes, and general improvements
+
+Keep reading to see more, or check the [full release notes](https://github.com/pantsbuild/pants/tree/2.19.x/src/python/pants/notes/2.19.x.md). Pants is an open-source project, and the below changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a contributor.
+
+We also offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/sponsorship), as well as individual sponsorships via [GitHub](https://github.com/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+
+### New backends and subsystems
+
+In this release, we welcome two new backends and one new subsystem.
+
+[The new `openapi_format` backend](https://www.pantsbuild.org/2.19/reference/subsystems/openapi-format) supports running [openapi-format](https://github.com/thim81/openapi-format) to format `openapi_...` targets. You can enable this by adding `pants.backend.experimental.openapi.lint.openapi_format` to the list of active backends.
+
+[The new `semgrep` backend](https://www.pantsbuild.org/2.19/reference/subsystems/semgrep) supports running [Semgrep](https://semgrep.dev) as a local linter on all files that Pants knows about (any target with a `source` or `sources` field). Configuration files are automatically discovered. You can enable this by adding `pants.backend.experimental.tools.semgrep` to the list of active backends.
+
+[The new `[system-binaries]` subsystem](https://www.pantsbuild.org/2.19/reference/subsystems/system-binaries) allows controlling where Pants searches for binaries like `bash`, `zip`, `tar` that are used as part of normal operation. To change these paths set [the `system_binaries_paths` option](https://www.pantsbuild.org/2.19/reference/subsystems/system-binaries#system_binary_paths) as appropriate, potentially using the `<PATH>` special value. This can also be changed for specific [environments](https://www.pantsbuild.org/2.19/docs/using-pants/environments) using the `system_binaries_system_binary_paths` field.
+
+### Built-in test retries (for Python)
+
+Python tests can now be [attempted multiple times](https://www.pantsbuild.org/2.19/docs/using-pants/using-pants-in-ci#tip-automatically-retry-failed-tests), if they fail. This can help with limiting the impact of flaky tests. For instance, to require tests to fail three times before the overall `pants test` goal fails, set [`[test].attempts_default = 3`](https://www.pantsbuild.org/2.19/reference/goals/test#attempts_default). In this case, a very flaky test might fail on the first and second runs but finally pass on the third run, and thus the overall Pants invocation would pass.
+
+This functionality can be added to any other language with not much extra work. Do you want automatic retries for Scala, Go, or another language Pants supports? Check out the [tracking issue](https://github.com/pantsbuild/pants/issues/20378) and come chat with us in [#development on Slack](https://docs.google.com/forms/d/e/1FAIpQLSf9zgf-MXRnVDJbrVEST3urqneq7LCcy0zw8qU-GH4hPMn52A/viewform).
+
+### Docker improvements
+
+The [docker backend](https://www.pantsbuild.org/2.19/docs/docker) now has explicit support for using [`buildx` (and thus BuildKit)](https://github.com/docker/buildx#buildx), via [the new `use_buildx` option](https://www.pantsbuild.org/2.19/reference/subsystems/docker#use_buildx). This also allows adding few additional fields for [`docker_image` targets](https://www.pantsbuild.org/2.19/reference/targets/docker_image), for `buildx`-specific functionality:
+
+- [`cache_from` and `cache_to`](https://www.pantsbuild.org/2.19/docs/docker#external-cache-storage-backends) for using external cache storage backends
+- [`output`](https://www.pantsbuild.org/2.19/reference/targets/docker_image#output) to control how/where `buildx` outputs an image when running `pants package ::`
+
+### Improved `parametrize` for tied options
+
+[The `parametrize` helper](https://www.pantsbuild.org/2.19/docs/using-pants/key-concepts/targets-and-build-files#field-default-values#parametrizing-targets) now supports parametrizing multiple fields together, in lock step. For instance:
+
+```python
+# Creates two targets:
+#
+# example:tests@parametrize=py2
+# example:tests@parametrize=py3
+
+python_test(
+    name="tests",
+    source="tests.py",
+    **parametrize("py2", interpreter_constraints=["==2.7.*"], resolve="lock-a"),
+    **parametrize("py3", interpreter_constraints=[">=3.6,<3.7"], resolve="lock-b"),
+)
+```
+
+In addition, `parametrize` can now be used with a single value (`field=parametrize("for-consistency")`), and now works on target generations in more cases (particularly those with "plugin" fields).
+
+### Other noteworthy changes
+
+- New versions of [the `get-pants.sh` script](https://www.pantsbuild.org/2.19/docs/getting-started/installing-pants) install to `~/.local/bin`, not `~/bin`. Remember to update your CI pipelines!
+- Environment variables that aren't valid UTF-8 no longer cause Pants to crash (note, `PANTS_...` environment variables that Pants needs to read but aren't UTF-8 will be ignored).
+- Reference documentation for subsystem options includes how to set them in `pants.toml`, in addition to the environment variable and CLI arguments.
+- The `.pids/` internal directory is now under `.pants.d/` by default, rather that adjacent to it (this can be controlled via [the `[GLOBAL].pants_subprocessdir` option](https://www.pantsbuild.org/2.19/reference/global-options#pants_subprocessdir)).
+
+## Much more!
+
+Pants 2.19 involved several months of work from dozens of contributors, along with testing and feedback from the whole community. You can read the [full notes](https://github.com/pantsbuild/pants/tree/2.19.x/src/python/pants/notes/2.19.x.md). To update, set pants_version = "2.19.0" in your pants.toml.
+
+If you're not using Pants to build, format, test (and more) your codebase, [get started now](https://www.pantsbuild.org/2.19/docs/getting-started) - or take it to the next level [as a contributor](https://www.pantsbuild.org/2.19/docs/contributions).

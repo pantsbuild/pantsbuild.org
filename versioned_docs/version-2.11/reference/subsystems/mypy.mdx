@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[mypy]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]mypy-skip`}
-  env_repr='PANTS_MYPY_SKIP'
-  toml_repr={`[mypy]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use MyPy when running `/home/josh/work/scie-pants/dist/pants check`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,79 @@ Arguments to pass directly to MyPy, e.g. `--mypy-args='--python-version 3.7 --di
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--mypy-version=<str>`}
-  env_repr='PANTS_MYPY_VERSION'
+  cli_repr={`--[no-]mypy-skip`}
+  env_repr='PANTS_MYPY_SKIP'
   toml_repr={`[mypy]
-version = <str>`}
-  default_repr={`mypy==0.910`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+Don&#x27;t use MyPy when running `/home/josh/work/scie-pants/dist/pants check`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--mypy-config=<file_option>`}
+  env_repr='PANTS_MYPY_CONFIG'
+  toml_repr={`[mypy]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to a config file understood by MyPy (https://mypy.readthedocs.io/en/stable/config_file.html).
+
+Setting this option will disable `[mypy].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]mypy-config-discovery`}
+  env_repr='PANTS_MYPY_CONFIG_DISCOVERY'
+  toml_repr={`[mypy]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`mypy.ini`, `.mypy.ini`, and `setup.cfg`).
+
+Use `[mypy].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `console_script`
+
+<Option
+  cli_repr={`--mypy-console-script=<str>`}
+  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
+  toml_repr={`[mypy]
+console_script = <str>`}
+  default_repr={`mypy`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--mypy-entry-point=<str>`}
+  env_repr='PANTS_MYPY_ENTRY_POINT'
+  toml_repr={`[mypy]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -82,6 +128,28 @@ extra_requirements = [
 >
 
 Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `extra_type_stubs`
+
+<Option
+  cli_repr={`--mypy-extra-type-stubs="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_MYPY_EXTRA_TYPE_STUBS'
+  toml_repr={`[mypy]
+extra_type_stubs = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Extra type stub requirements to install when running MyPy.
+
+Normally, type stubs can be installed as typical requirements, such as putting them in `requirements.txt` or using a `python_requirement` target.Alternatively, you can use this option so that the dependencies are solely used when running MyPy and are not runtime dependencies.
+
+Expects a list of pip-style requirement strings, like `['types-requests==2.25.9']`.
 
 </Option>
 
@@ -125,66 +193,6 @@ As explained at https://www.pantsbuild.org/v2.11/docs/python-third-party-depende
 
 </Option>
 
-### `console_script`
-
-<Option
-  cli_repr={`--mypy-console-script=<str>`}
-  env_repr='PANTS_MYPY_CONSOLE_SCRIPT'
-  toml_repr={`[mypy]
-console_script = <str>`}
-  default_repr={`mypy`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--mypy-entry-point=<str>`}
-  env_repr='PANTS_MYPY_ENTRY_POINT'
-  toml_repr={`[mypy]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `config`
-
-<Option
-  cli_repr={`--mypy-config=<file_option>`}
-  env_repr='PANTS_MYPY_CONFIG'
-  toml_repr={`[mypy]
-config = <file_option>`}
-  default_repr={`None`}
->
-
-Path to a config file understood by MyPy (https://mypy.readthedocs.io/en/stable/config_file.html).
-
-Setting this option will disable `[mypy].config_discovery`. Use this option if the config is located in a non-standard location.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]mypy-config-discovery`}
-  env_repr='PANTS_MYPY_CONFIG_DISCOVERY'
-  toml_repr={`[mypy]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include any relevant config files during runs (`mypy.ini`, `.mypy.ini`, and `setup.cfg`).
-
-Use `[mypy].config` instead if your config is in a non-standard location.
-
-</Option>
-
 ### `source_plugins`
 
 <Option
@@ -207,25 +215,17 @@ To instead load third-party plugins, set the option `[mypy].extra_requirements` 
 
 </Option>
 
-### `extra_type_stubs`
+### `version`
 
 <Option
-  cli_repr={`--mypy-extra-type-stubs="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_MYPY_EXTRA_TYPE_STUBS'
+  cli_repr={`--mypy-version=<str>`}
+  env_repr='PANTS_MYPY_VERSION'
   toml_repr={`[mypy]
-extra_type_stubs = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+version = <str>`}
+  default_repr={`mypy==0.910`}
 >
 
-Extra type stub requirements to install when running MyPy.
-
-Normally, type stubs can be installed as typical requirements, such as putting them in `requirements.txt` or using a `python_requirement` target.Alternatively, you can use this option so that the dependencies are solely used when running MyPy and are not runtime dependencies.
-
-Expects a list of pip-style requirement strings, like `['types-requests==2.25.9']`.
+Requirement string for the tool.
 
 </Option>
 

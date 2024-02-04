@@ -17,37 +17,10 @@ Backend: <span className="color--primary">``</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `./pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `source`
 
 <Field
     type_repr={`str`}
-    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -75,18 +48,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `resolve`
+## `description`
 
 <Field
     type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The name of the resolve to use when building this target.
+A human-readable description of the target.
 
-If not defined, will default to `[jvm].default_resolve`.
-
-The name must be defined as a resolve in `[jvm].resolves`.
+Use `./pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -102,6 +73,34 @@ Signals that the specified types should be fulfilled by these source files durin
 This allows for specific types within packages that are otherwise inferred as belonging to `jvm_artifact` targets to be unambiguously inferred as belonging to this first-party source.
 
 If a given type is defined, at least one source file captured by this target must actually provide that symbol.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The name of the resolve to use when building this target.
+
+If not defined, will default to `[jvm].default_resolve`.
+
+The name must be defined as a resolve in `[jvm].resolves`.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `./pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

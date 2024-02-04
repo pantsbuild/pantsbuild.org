@@ -35,20 +35,6 @@ Enables strict linting of Helm charts
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--helm-version=<str>`}
-  env_repr='PANTS_HELM_VERSION'
-  toml_repr={`[helm]
-version = <str>`}
-  default_repr={`3.8.0`}
->
-
-Use this version of helmsubsystem.
-
-</Option>
-
 ### `known_versions`
 
 <Option
@@ -82,20 +68,23 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
+### `url_platform_mapping`
 
 <Option
-  cli_repr={`--helm-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_HELM_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[helm]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
+  cli_repr={`--helm-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_HELM_URL_PLATFORM_MAPPING'
+  toml_repr={`[helm.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
 >
 
-What action to take in case the requested version of helmsubsystem is not supported.
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
 
-Supported helmsubsystem versions: unspecified
+In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
 
 </Option>
 
@@ -115,23 +104,34 @@ Use `{version}` to have the value from --version substituted, and `{platform}` t
 
 </Option>
 
-### `url_platform_mapping`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--helm-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_HELM_URL_PLATFORM_MAPPING'
-  toml_repr={`[helm.url_platform_mapping]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-amd64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-amd64"\n}`}
+  cli_repr={`--helm-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_HELM_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[helm]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+What action to take in case the requested version of helmsubsystem is not supported.
 
-In --url-template, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+Supported helmsubsystem versions: unspecified
 
-For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}, and run Pants on Linux with an intel architecture, then `&#123;platform&#125;` will be substituted in the --url-template option with unknown-linux.
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--helm-version=<str>`}
+  env_repr='PANTS_HELM_VERSION'
+  toml_repr={`[helm]
+version = <str>`}
+  default_repr={`3.8.0`}
+>
+
+Use this version of helmsubsystem.
 
 </Option>
 

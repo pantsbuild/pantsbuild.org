@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[autoflake]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]autoflake-skip`}
-  env_repr='PANTS_AUTOFLAKE_SKIP'
-  toml_repr={`[autoflake]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use Autoflake when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -67,19 +53,47 @@ This can be useful, for example, with IDE integrations to point your editor to t
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--autoflake-version=<str>`}
-  env_repr='PANTS_AUTOFLAKE_VERSION'
+  cli_repr={`--[no-]autoflake-skip`}
+  env_repr='PANTS_AUTOFLAKE_SKIP'
   toml_repr={`[autoflake]
-version = <str>`}
-  default_repr={`autoflake==1.4`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Requirement string for the tool.
+Don&#x27;t use Autoflake when running `/home/josh/work/scie-pants/dist/pants fmt` and `/home/josh/work/scie-pants/dist/pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `console_script`
+
+<Option
+  cli_repr={`--autoflake-console-script=<str>`}
+  env_repr='PANTS_AUTOFLAKE_CONSOLE_SCRIPT'
+  toml_repr={`[autoflake]
+console_script = <str>`}
+  default_repr={`autoflake`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--autoflake-entry-point=<str>`}
+  env_repr='PANTS_AUTOFLAKE_ENTRY_POINT'
+  toml_repr={`[autoflake]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
 
 </Option>
 
@@ -141,31 +155,17 @@ As explained at https://www.pantsbuild.org/v2.12/docs/python-third-party-depende
 
 </Option>
 
-### `console_script`
+### `version`
 
 <Option
-  cli_repr={`--autoflake-console-script=<str>`}
-  env_repr='PANTS_AUTOFLAKE_CONSOLE_SCRIPT'
+  cli_repr={`--autoflake-version=<str>`}
+  env_repr='PANTS_AUTOFLAKE_VERSION'
   toml_repr={`[autoflake]
-console_script = <str>`}
-  default_repr={`autoflake`}
+version = <str>`}
+  default_repr={`autoflake==1.4`}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--autoflake-entry-point=<str>`}
-  env_repr='PANTS_AUTOFLAKE_ENTRY_POINT'
-  toml_repr={`[autoflake]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+Requirement string for the tool.
 
 </Option>
 

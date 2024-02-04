@@ -32,16 +32,37 @@ Backend: <span className="color--primary">`pants.backend.docker`</span>
 
 <span className={styles.options}>
 
-## `tags`
+## `context_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Specify which directory to use as the Docker build context root. This affects the file paths to use for the `COPY` and `ADD` instructions. For example, whether `COPY files/f.txt` should look for the file relative to the build root: `<build root>/files/f.txt` vs relative to the BUILD file: `<build root>/path_to_build_file/files/f.txt`.
+
+Specify the `context_root` path as `files` for relative to build root, or as `./files` for relative to the BUILD file.
+
+If `context_root` is not specified, it defaults to `[docker].default_context_root`.
+
+</Field>
+
+## `dependencies`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -71,35 +92,33 @@ Use `[docker].build_args` to set default build args for all images.
 
 </Field>
 
-## `dependencies`
+## `image_labels`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Dict[str, str] | None`}
     default_repr={`None`}
 >
 
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+Provide image metadata.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
+label value may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
-See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir:` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manage-labels-on-objects) for more information.
 
 </Field>
 
-## `source`
+## `image_tags`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`'Dockerfile'`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('latest',)`}
 >
 
-The Dockerfile to use when building the Docker image.
+Any tags to apply to the Docker image name (the version is usually applied as a tag).
 
-Use the `instructions` field instead if you prefer not having the Dockerfile in your source tree.
+tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
+
+See https://www.pantsbuild.org/v2.11/docs/tagging-docker-images.
 
 </Field>
 
@@ -125,36 +144,6 @@ docker_image(
   ],
 )
 ```
-
-</Field>
-
-## `context_root`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Specify which directory to use as the Docker build context root. This affects the file paths to use for the `COPY` and `ADD` instructions. For example, whether `COPY files/f.txt` should look for the file relative to the build root: `<build root>/files/f.txt` vs relative to the BUILD file: `<build root>/path_to_build_file/files/f.txt`.
-
-Specify the `context_root` path as `files` for relative to build root, or as `./files` for relative to the BUILD file.
-
-If `context_root` is not specified, it defaults to `[docker].default_context_root`.
-
-</Field>
-
-## `image_tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('latest',)`}
->
-
-Any tags to apply to the Docker image name (the version is usually applied as a tag).
-
-tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
-
-See https://www.pantsbuild.org/v2.11/docs/tagging-docker-images.
 
 </Field>
 
@@ -211,18 +200,14 @@ See the documentation for `[docker].default_repository` for more information.
 
 </Field>
 
-## `image_labels`
+## `restartable`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
-    default_repr={`None`}
+    type_repr={`bool`}
+    default_repr={`False`}
 >
 
-Provide image metadata.
-
-label value may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
-
-See [Docker labels](https://docs.docker.com/config/labels-custom-metadata/#manage-labels-on-objects) for more information.
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
 
 </Field>
 
@@ -251,6 +236,42 @@ docker_image(
 
 </Field>
 
+## `skip_hadolint`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.docker.lint.hadolint"
+>
+
+If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.
+
+</Field>
+
+## `skip_push`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If set to true, do not push this image to registries when running `/home/josh/work/scie-pants/dist/pants publish`.
+
+</Field>
+
+## `source`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'Dockerfile'`}
+>
+
+The Dockerfile to use when building the Docker image.
+
+Use the `instructions` field instead if you prefer not having the Dockerfile in your source tree.
+
+</Field>
+
 ## `ssh`
 
 <Field
@@ -270,14 +291,16 @@ See [Docker documentation](https://docs.docker.com/develop/develop-images/build_
 
 </Field>
 
-## `skip_push`
+## `tags`
 
 <Field
-    type_repr={`bool`}
-    default_repr={`False`}
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
 >
 
-If set to true, do not push this image to registries when running `/home/josh/work/scie-pants/dist/pants publish`.
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
@@ -293,29 +316,6 @@ Specify target build stage, rather than building the entire `Dockerfile`.
 When using multi-stage build, you may name your stages, and can target them when building to only selectively build a certain stage. See also the `--docker-build-target-stage` option.
 
 Read more about [multi-stage Docker builds](https://docs.docker.com/develop/develop-images/multistage-build/#stop-at-a-specific-build-stage)
-
-</Field>
-
-## `restartable`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
-
-</Field>
-
-## `skip_hadolint`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
-    backend="pants.backend.docker.lint.hadolint"
->
-
-If true, don&#x27;t run hadolint on this target&#x27;s Dockerfile.
 
 </Field>
 

@@ -53,57 +53,17 @@ Enable test target timeouts. If timeouts are enabled then test targets with a ti
 
 ## Advanced options
 
-### `version`
+### `config_discovery`
 
 <Option
-  cli_repr={`--pytest-version=<str>`}
-  env_repr='PANTS_PYTEST_VERSION'
+  cli_repr={`--[no-]pytest-config-discovery`}
+  env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
   toml_repr={`[pytest]
-version = <str>`}
-  default_repr={`pytest>=7,<8`}
+config_discovery = <bool>`}
+  default_repr={`True`}
 >
 
-Requirement string for the tool.
-
-</Option>
-
-### `extra_requirements`
-
-<Option
-  cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
-  toml_repr={`[pytest]
-extra_requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1"\n]`}
->
-
-Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
-
-</Option>
-
-### `lockfile`
-
-<Option
-  cli_repr={`--pytest-lockfile=<str>`}
-  env_repr='PANTS_PYTEST_LOCKFILE'
-  toml_repr={`[pytest]
-lockfile = <str>`}
-  default_repr={`<default>`}
->
-
-Path to a lockfile used for installing the tool.
-
-Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.10.1/src/python/pants/backend/python/subsystems/pytest_lockfile.txt for the default lockfile contents.
-
-Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds.
-
-To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants generate-lockfiles --resolve=pytest`.
-
-Lockfile generation currently does not wire up the `[python-repos]` options. If lockfile generation fails, you can manually generate a lockfile, such as by using pip-compile or `pip freeze`. Set this option to the path to your manually generated lockfile. When manually maintaining lockfiles, set `[python].invalid_lockfile_behavior = 'ignore'`.
+If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`) during runs. See https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where config files should be located for Pytest to discover them.
 
 </Option>
 
@@ -135,6 +95,74 @@ The entry point for the tool. Generally you only want to use this option if the 
 
 </Option>
 
+### `execution_slot_var`
+
+<Option
+  cli_repr={`--pytest-execution-slot-var=<str>`}
+  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
+  toml_repr={`[pytest]
+execution_slot_var = <str>`}
+  default_repr={`None`}
+>
+
+If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
+
+</Option>
+
+### `extra_requirements`
+
+<Option
+  cli_repr={`--pytest-extra-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTEST_EXTRA_REQUIREMENTS'
+  toml_repr={`[pytest]
+extra_requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "pytest-cov>=2.12,!=2.12.1,<3.1"\n]`}
+>
+
+Any additional requirement strings to use with the tool. This is useful if the tool allows you to install plugins or if you need to constrain a dependency to a certain version.
+
+</Option>
+
+### `junit_family`
+
+<Option
+  cli_repr={`--pytest-junit-family=<str>`}
+  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  toml_repr={`[pytest]
+junit_family = <str>`}
+  default_repr={`xunit2`}
+>
+
+The format of generated junit XML files. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--pytest-lockfile=<str>`}
+  env_repr='PANTS_PYTEST_LOCKFILE'
+  toml_repr={`[pytest]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` and `--extra-requirements` options, and the tool&#x27;s interpreter constraints are compatible with the default. Pants will error or warn if the lockfile is not compatible (controlled by `[python].invalid_lockfile_behavior`). See https://github.com/pantsbuild/pants/blob/release_2.10.1/src/python/pants/backend/python/subsystems/pytest_lockfile.txt for the default lockfile contents.
+
+Set to the string `<none>` to opt out of using a lockfile. We do not recommend this, though, as lockfiles are essential for reproducible builds.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `./pants generate-lockfiles --resolve=pytest`.
+
+Lockfile generation currently does not wire up the `[python-repos]` options. If lockfile generation fails, you can manually generate a lockfile, such as by using pip-compile or `pip freeze`. Set this option to the path to your manually generated lockfile. When manually maintaining lockfiles, set `[python].invalid_lockfile_behavior = 'ignore'`.
+
+</Option>
+
 ### `timeout_default`
 
 <Option
@@ -163,45 +191,17 @@ The maximum timeout (in seconds) that may be used on a `python_tests` target.
 
 </Option>
 
-### `junit_family`
+### `version`
 
 <Option
-  cli_repr={`--pytest-junit-family=<str>`}
-  env_repr='PANTS_PYTEST_JUNIT_FAMILY'
+  cli_repr={`--pytest-version=<str>`}
+  env_repr='PANTS_PYTEST_VERSION'
   toml_repr={`[pytest]
-junit_family = <str>`}
-  default_repr={`xunit2`}
+version = <str>`}
+  default_repr={`pytest>=7,<8`}
 >
 
-The format of generated junit XML files. See https://docs.pytest.org/en/latest/reference.html#confval-junit_family.
-
-</Option>
-
-### `execution_slot_var`
-
-<Option
-  cli_repr={`--pytest-execution-slot-var=<str>`}
-  env_repr='PANTS_PYTEST_EXECUTION_SLOT_VAR'
-  toml_repr={`[pytest]
-execution_slot_var = <str>`}
-  default_repr={`None`}
->
-
-If a non-empty string, the process execution slot id (an integer) will be exposed to tests under this environment variable name.
-
-</Option>
-
-### `config_discovery`
-
-<Option
-  cli_repr={`--[no-]pytest-config-discovery`}
-  env_repr='PANTS_PYTEST_CONFIG_DISCOVERY'
-  toml_repr={`[pytest]
-config_discovery = <bool>`}
-  default_repr={`True`}
->
-
-If true, Pants will include all relevant Pytest config files (e.g. `pytest.ini`) during runs. See https://docs.pytest.org/en/stable/customize.html#finding-the-rootdir for where config files should be located for Pytest to discover them.
+Requirement string for the tool.
 
 </Option>
 

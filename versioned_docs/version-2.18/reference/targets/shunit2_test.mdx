@@ -21,37 +21,10 @@ Backend: <span className="color--primary">`pants.backend.shell`</span>
 
 <span className={styles.options}>
 
-## `tags`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-Arbitrary strings to describe a target.
-
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
 ## `source`
 
 <Field
     type_repr={`str`}
-    default_repr={`None`}
 >
 
 A single file that belongs to this target.
@@ -79,38 +52,16 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `timeout`
+## `description`
 
 <Field
-    type_repr={`int | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-A timeout (in seconds) used by each test file belonging to this target.
+A human-readable description of the target.
 
-If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
-
-</Field>
-
-## `skip_tests`
-
-<Field
-    type_repr={`bool`}
-    default_repr={`False`}
->
-
-If true, don&#x27;t run this target&#x27;s tests.
-
-</Field>
-
-## `shell`
-
-<Field
-    type_repr={`'bash' | 'dash' | 'ksh' | 'pdksh' | 'sh' | 'zsh' | None`}
-    default_repr={`None`}
->
-
-Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
+Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
@@ -126,6 +77,17 @@ Addresses to targets that can be built with the `pants package` goal and whose r
 Pants will build the artifacts as if you had run `pants package`. It will include the results in your test&#x27;s chroot, using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
 
 You can include anything that can be built by `pants package`, e.g. a `pex_binary`, `python_aws_lambda_function`, or an `archive`.
+
+</Field>
+
+## `shell`
+
+<Field
+    type_repr={`'bash' | 'dash' | 'ksh' | 'pdksh' | 'sh' | 'zsh' | None`}
+    default_repr={`None`}
+>
+
+Which shell to run the tests with. If unspecified, Pants will look for a shebang line.
 
 </Field>
 
@@ -150,6 +112,43 @@ If true, don&#x27;t run Shellcheck on this target&#x27;s code.
 >
 
 If true, don&#x27;t run shfmt on this target&#x27;s code.
+
+</Field>
+
+## `skip_tests`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, don&#x27;t run this target&#x27;s tests.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `timeout`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`None`}
+>
+
+A timeout (in seconds) used by each test file belonging to this target.
+
+If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
 
 </Field>
 

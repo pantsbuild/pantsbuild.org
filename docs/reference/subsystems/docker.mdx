@@ -19,6 +19,158 @@ Config section: <span className="color--primary">`[docker]`</span>
 
 ## Basic options
 
+### `build_args`
+
+<Option
+  cli_repr={`--docker-build-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DOCKER_BUILD_ARGS'
+  toml_repr={`[docker]
+build_args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Global build arguments (for Docker `--build-arg` options) to use for all `docker build` invocations.
+
+Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
+
+Example:
+
+```
+[docker]
+build_args = ["VAR1=value", "VAR2"]
+```
+
+Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
+
+</Option>
+
+### `build_hosts`
+
+<Option
+  cli_repr={`--docker-build-hosts="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_DOCKER_BUILD_HOSTS'
+  toml_repr={`[docker.build_hosts]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Hosts entries to be added to the `/etc/hosts` file in all built images.
+
+Example:
+
+```
+[docker]
+build_hosts = {"docker": "10.180.0.1", "docker2": "10.180.0.2"}
+```
+
+Use the `extra_build_hosts` field on a `docker_image` target for additional image specific host entries.
+
+</Option>
+
+### `build_no_cache`
+
+<Option
+  cli_repr={`--[no-]docker-build-no-cache`}
+  env_repr='PANTS_DOCKER_BUILD_NO_CACHE'
+  toml_repr={`[docker]
+build_no_cache = <bool>`}
+  default_repr={`False`}
+>
+
+Do not use the Docker cache when building images.
+
+</Option>
+
+### `build_target_stage`
+
+<Option
+  cli_repr={`--docker-build-target-stage=<str>`}
+  env_repr='PANTS_DOCKER_BUILD_TARGET_STAGE'
+  toml_repr={`[docker]
+build_target_stage = <str>`}
+  default_repr={`None`}
+>
+
+Global default value for `target_stage` on `docker_image` targets, overriding the field value on the targets, if there is a matching stage in the `Dockerfile`.
+
+This is useful to provide from the command line, to specify the target stage to build for at execution time.
+
+</Option>
+
+### `build_verbose`
+
+<Option
+  cli_repr={`--[no-]docker-build-verbose`}
+  env_repr='PANTS_DOCKER_BUILD_VERBOSE'
+  toml_repr={`[docker]
+build_verbose = <bool>`}
+  default_repr={`False`}
+>
+
+Whether to log the Docker output to the console. If false, only the image ID is logged.
+
+</Option>
+
+### `default_context_root`
+
+<Option
+  cli_repr={`--docker-default-context-root=<workspace_path>`}
+  env_repr='PANTS_DOCKER_DEFAULT_CONTEXT_ROOT'
+  toml_repr={`[docker]
+default_context_root = <workspace_path>`}
+  default_repr={``}
+>
+
+Provide a default Docker build context root path for `docker_image` targets that does not specify their own `context_root` field.
+
+The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
+
+Examples:
+
+```
+--default-context-root=src/docker
+--default-context-root=./relative_to_the_build_file
+```
+
+</Option>
+
+### `default_repository`
+
+<Option
+  cli_repr={`--docker-default-repository=<str>`}
+  env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
+  toml_repr={`[docker]
+default_repository = <str>`}
+  default_repr={`{name}`}
+>
+
+Configure the default repository name used in the Docker image tag.
+
+The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
+
+- name
+- directory
+- parent_directory
+- target_repository
+
+Example: `--default-repository="{directory}/{name}"`.
+
+The `name` variable is the `docker_image`&#x27;s target name, `directory` and `parent_directory` are the name of the directory in which the BUILD file is for the target, and its parent directory respectively.
+
+Use the `repository` field to set this value directly on a `docker_image` target.
+
+Registries may override the repository value for a specific registry.
+
+Any registries or tags are added to the image name as required, and should not be part of the repository name.
+
+</Option>
+
 ### `registries`
 
 <Option
@@ -63,172 +215,6 @@ If `use_local_alias` is true, a built image is additionally tagged locally using
 
 </Option>
 
-### `default_repository`
-
-<Option
-  cli_repr={`--docker-default-repository=<str>`}
-  env_repr='PANTS_DOCKER_DEFAULT_REPOSITORY'
-  toml_repr={`[docker]
-default_repository = <str>`}
-  default_repr={`{name}`}
->
-
-Configure the default repository name used in the Docker image tag.
-
-The value is formatted and may reference these variables (in addition to the normal placeheolders derived from the Dockerfile and build args etc):
-
-- name
-- directory
-- parent_directory
-- target_repository
-
-Example: `--default-repository="{directory}/{name}"`.
-
-The `name` variable is the `docker_image`&#x27;s target name, `directory` and `parent_directory` are the name of the directory in which the BUILD file is for the target, and its parent directory respectively.
-
-Use the `repository` field to set this value directly on a `docker_image` target.
-
-Registries may override the repository value for a specific registry.
-
-Any registries or tags are added to the image name as required, and should not be part of the repository name.
-
-</Option>
-
-### `default_context_root`
-
-<Option
-  cli_repr={`--docker-default-context-root=<workspace_path>`}
-  env_repr='PANTS_DOCKER_DEFAULT_CONTEXT_ROOT'
-  toml_repr={`[docker]
-default_context_root = <workspace_path>`}
-  default_repr={``}
->
-
-Provide a default Docker build context root path for `docker_image` targets that does not specify their own `context_root` field.
-
-The context root is relative to the build root by default, but may be prefixed with `./` to be relative to the directory of the BUILD file of the `docker_image`.
-
-Examples:
-
-```
---default-context-root=src/docker
---default-context-root=./relative_to_the_build_file
-```
-
-</Option>
-
-### `use_buildx`
-
-<Option
-  cli_repr={`--[no-]docker-use-buildx`}
-  env_repr='PANTS_DOCKER_USE_BUILDX'
-  toml_repr={`[docker]
-use_buildx = <bool>`}
-  default_repr={`False`}
->
-
-Use [buildx](https://github.com/docker/buildx#buildx) (and BuildKit) for builds.
-
-</Option>
-
-### `build_args`
-
-<Option
-  cli_repr={`--docker-build-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_DOCKER_BUILD_ARGS'
-  toml_repr={`[docker]
-build_args = [
-    <shell_str>,
-    <shell_str>,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Global build arguments (for Docker `--build-arg` options) to use for all `docker build` invocations.
-
-Entries are either strings in the form `ARG_NAME=value` to set an explicit value; or just `ARG_NAME` to copy the value from Pants&#x27;s own environment.
-
-Example:
-
-```
-[docker]
-build_args = ["VAR1=value", "VAR2"]
-```
-
-Use the `extra_build_args` field on a `docker_image` target for additional image specific build arguments.
-
-</Option>
-
-### `build_target_stage`
-
-<Option
-  cli_repr={`--docker-build-target-stage=<str>`}
-  env_repr='PANTS_DOCKER_BUILD_TARGET_STAGE'
-  toml_repr={`[docker]
-build_target_stage = <str>`}
-  default_repr={`None`}
->
-
-Global default value for `target_stage` on `docker_image` targets, overriding the field value on the targets, if there is a matching stage in the `Dockerfile`.
-
-This is useful to provide from the command line, to specify the target stage to build for at execution time.
-
-</Option>
-
-### `build_hosts`
-
-<Option
-  cli_repr={`--docker-build-hosts="{'key1': val1, 'key2': val2, ...}"`}
-  env_repr='PANTS_DOCKER_BUILD_HOSTS'
-  toml_repr={`[docker.build_hosts]
-key1 = val1
-key2 = val2
-...`}
-  default_repr={`{}`}
->
-
-Hosts entries to be added to the `/etc/hosts` file in all built images.
-
-Example:
-
-```
-[docker]
-build_hosts = {"docker": "10.180.0.1", "docker2": "10.180.0.2"}
-```
-
-Use the `extra_build_hosts` field on a `docker_image` target for additional image specific host entries.
-
-</Option>
-
-### `build_no_cache`
-
-<Option
-  cli_repr={`--[no-]docker-build-no-cache`}
-  env_repr='PANTS_DOCKER_BUILD_NO_CACHE'
-  toml_repr={`[docker]
-build_no_cache = <bool>`}
-  default_repr={`False`}
->
-
-Do not use the Docker cache when building images.
-
-</Option>
-
-### `build_verbose`
-
-<Option
-  cli_repr={`--[no-]docker-build-verbose`}
-  env_repr='PANTS_DOCKER_BUILD_VERBOSE'
-  toml_repr={`[docker]
-build_verbose = <bool>`}
-  default_repr={`False`}
->
-
-Whether to log the Docker output to the console. If false, only the image ID is logged.
-
-</Option>
-
 ### `run_args`
 
 <Option
@@ -259,37 +245,40 @@ Defaults to `--interactive --tty` when stdout is connected to a terminal.
 
 </Option>
 
-## Advanced options
-
-### `tools`
+### `use_buildx`
 
 <Option
-  cli_repr={`--docker-tools="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_DOCKER_TOOLS'
+  cli_repr={`--[no-]docker-use-buildx`}
+  env_repr='PANTS_DOCKER_USE_BUILDX'
   toml_repr={`[docker]
-tools = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+use_buildx = <bool>`}
+  default_repr={`False`}
 >
 
-List any additional executable tools required for Docker to work. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by the Docker client.
+Use [buildx](https://github.com/docker/buildx#buildx) (and BuildKit) for builds.
 
 </Option>
 
-### `tailor`
+## Advanced options
+
+### `env_vars`
 
 <Option
-  cli_repr={`--[no-]docker-tailor`}
-  env_repr='PANTS_DOCKER_TAILOR'
+  cli_repr={`--docker-env-vars="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DOCKER_ENV_VARS'
   toml_repr={`[docker]
-tailor = <bool>`}
-  default_repr={`True`}
+env_vars = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+  target_field_name='docker_env_vars'
 >
 
-If true, add `docker_image` targets with the `tailor` goal.
+Environment variables to set for `docker` invocations.
+
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
 
 </Option>
 
@@ -312,24 +301,35 @@ The PATH value that will be used to find the Docker client and any tools require
 
 </Option>
 
-### `env_vars`
+### `tailor`
 
 <Option
-  cli_repr={`--docker-env-vars="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_DOCKER_ENV_VARS'
+  cli_repr={`--[no-]docker-tailor`}
+  env_repr='PANTS_DOCKER_TAILOR'
   toml_repr={`[docker]
-env_vars = [
-    <shell_str>,
-    <shell_str>,
+tailor = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `docker_image` targets with the `tailor` goal.
+
+</Option>
+
+### `tools`
+
+<Option
+  cli_repr={`--docker-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DOCKER_TOOLS'
+  toml_repr={`[docker]
+tools = [
+    '<str>',
+    '<str>',
     ...,
 ]`}
   default_repr={`[]`}
-  target_field_name='docker_env_vars'
 >
 
-Environment variables to set for `docker` invocations.
-
-Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+List any additional executable tools required for Docker to work. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by the Docker client.
 
 </Option>
 

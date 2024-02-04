@@ -19,16 +19,63 @@ Backend: <span className="color--primary">`pants.backend.google_cloud_function.p
 
 <span className={styles.options}>
 
-## `tags`
+## `handler`
+
+<Field
+    type_repr={`str`}
+>
+
+Entry point to the Google Cloud Function handler.
+
+You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;cloud_function.py:handler_func&#x27;.
+
+You must use the file name shorthand for file arguments to work with this target.
+
+</Field>
+
+## `type`
+
+<Field
+    type_repr={`'event' | 'http'`}
+>
+
+The trigger type of the cloud function. Can either be &#x27;event&#x27; or &#x27;http&#x27;. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to --trigger-http.
+
+</Field>
+
+## `complete_platforms`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+The platforms the built PEX should be compatible with.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+There must be built wheels available for all of the foreign platforms, rather than sdists.
+
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+
+Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir:` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
 
 </Field>
 
@@ -62,37 +109,18 @@ Warning: setting this value risks naming collisions with other package targets y
 
 </Field>
 
-## `dependencies`
+## `resolve`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-Addresses to other targets that this target depends on, e.g. [&#x27;helloworld/subdir:lib&#x27;, &#x27;helloworld/main.py:lib&#x27;, &#x27;3rdparty:reqs#django&#x27;].
+The resolve from `[python].resolves` to use.
 
-This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `/home/josh/work/scie-pants/dist/pants dependencies` or `/home/josh/work/scie-pants/dist/pants peek` on this target to get the final result.
+If not defined, will default to `[python].default_resolve`.
 
-See https://www.pantsbuild.org/v2.11/docs/targets#target-addresses and https://www.pantsbuild.org/v2.11/docs/targets#target-generation for more about how addresses are formed, including for generated targets. You can also run `/home/josh/work/scie-pants/dist/pants list ::` to find all addresses in your project, or `/home/josh/work/scie-pants/dist/pants list dir:` to find all addresses defined in that directory.
-
-If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
-
-You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
-
-</Field>
-
-## `handler`
-
-<Field
-    type_repr={`str`}
-    default_repr={`None`}
->
-
-Entry point to the Google Cloud Function handler.
-
-You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;cloud_function.py:handler_func&#x27;.
-
-You must use the file name shorthand for file arguments to work with this target.
+All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
@@ -107,46 +135,16 @@ The identifier of the Google Cloud Function runtime to target (pythonXY). See ht
 
 </Field>
 
-## `complete_platforms`
+## `tags`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-The platforms the built PEX should be compatible with.
+Arbitrary strings to describe a target.
 
-There must be built wheels available for all of the foreign platforms, rather than sdists.
-
-You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
-
-Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
-
-</Field>
-
-## `type`
-
-<Field
-    type_repr={`'event' | 'http'`}
-    default_repr={`None`}
->
-
-The trigger type of the cloud function. Can either be &#x27;event&#x27; or &#x27;http&#x27;. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to --trigger-http.
-
-</Field>
-
-## `resolve`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The resolve from `[python].resolves` to use.
-
-If not defined, will default to `[python].default_resolve`.
-
-All dependencies must share the same value for their `resolve` field.
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 

@@ -19,6 +19,26 @@ Config section: <span className="color--primary">`[coverage-py]`</span>
 
 ## Basic options
 
+### `fail_under`
+
+<Option
+  cli_repr={`--coverage-py-fail-under=<float>`}
+  env_repr='PANTS_COVERAGE_PY_FAIL_UNDER'
+  toml_repr={`[coverage-py]
+fail_under = <float>`}
+  default_repr={`None`}
+>
+
+Fail if the total combined coverage percentage for all tests is less than this number.
+
+Use this instead of setting fail_under in a coverage.py config file, as the config will apply to each test separately, while you typically want this to apply to the combined coverage for all tests run.
+
+Note that you must generate at least one (non-raw) coverage report for this check to trigger.
+
+Note also that if you specify a non-integral value, you must also set [report] precision properly in the coverage.py config file to make use of the decimal places. See https://coverage.readthedocs.io/en/latest/config.html.
+
+</Option>
+
 ### `filter`
 
 <Option
@@ -41,6 +61,22 @@ If you leave this off, the coverage report will include every file in the transi
 
 </Option>
 
+### `global_report`
+
+<Option
+  cli_repr={`--[no-]coverage-py-global-report`}
+  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
+  toml_repr={`[coverage-py]
+global_report = <bool>`}
+  default_repr={`False`}
+>
+
+If true, Pants will generate a global coverage report.
+
+The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
+
+</Option>
+
 ### `report`
 
 <Option
@@ -60,149 +96,7 @@ Which coverage report type(s) to emit.
 
 </Option>
 
-### `global_report`
-
-<Option
-  cli_repr={`--[no-]coverage-py-global-report`}
-  env_repr='PANTS_COVERAGE_PY_GLOBAL_REPORT'
-  toml_repr={`[coverage-py]
-global_report = <bool>`}
-  default_repr={`False`}
->
-
-If true, Pants will generate a global coverage report.
-
-The global report will include all Python source files in the workspace and not just those depended on by the tests that were run.
-
-</Option>
-
-### `fail_under`
-
-<Option
-  cli_repr={`--coverage-py-fail-under=<float>`}
-  env_repr='PANTS_COVERAGE_PY_FAIL_UNDER'
-  toml_repr={`[coverage-py]
-fail_under = <float>`}
-  default_repr={`None`}
->
-
-Fail if the total combined coverage percentage for all tests is less than this number.
-
-Use this instead of setting fail_under in a coverage.py config file, as the config will apply to each test separately, while you typically want this to apply to the combined coverage for all tests run.
-
-Note that you must generate at least one (non-raw) coverage report for this check to trigger.
-
-Note also that if you specify a non-integral value, you must also set [report] precision properly in the coverage.py config file to make use of the decimal places. See https://coverage.readthedocs.io/en/latest/config.html.
-
-</Option>
-
 ## Advanced options
-
-### `install_from_resolve`
-
-<Option
-  cli_repr={`--coverage-py-install-from-resolve=<str>`}
-  env_repr='PANTS_COVERAGE_PY_INSTALL_FROM_RESOLVE'
-  toml_repr={`[coverage-py]
-install_from_resolve = <str>`}
-  default_repr={`None`}
->
-
-If specified, install the tool using the lockfile for this named resolve.
-
-This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.17/docs/python-third-party-dependencies#user-lockfiles.
-
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
-
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `coverage-py` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
-
-</Option>
-
-### `requirements`
-
-<Option
-  cli_repr={`--coverage-py-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_COVERAGE_PY_REQUIREMENTS'
-  toml_repr={`[coverage-py]
-requirements = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
-
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
-
-</Option>
-
-### `interpreter_constraints`
-
-<Option
-  cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[coverage-py]
-interpreter_constraints = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
->
-
-Python interpreter constraints for this tool.
-
-</Option>
-
-### `console_script`
-
-<Option
-  cli_repr={`--coverage-py-console-script=<str>`}
-  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
-  toml_repr={`[coverage-py]
-console_script = <str>`}
-  default_repr={`coverage`}
->
-
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
-
-</Option>
-
-### `entry_point`
-
-<Option
-  cli_repr={`--coverage-py-entry-point=<str>`}
-  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
-  toml_repr={`[coverage-py]
-entry_point = <str>`}
-  default_repr={`None`}
->
-
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
-
-</Option>
-
-### `output_dir`
-
-<Option
-  cli_repr={`--coverage-py-output-dir=<str>`}
-  env_repr='PANTS_COVERAGE_PY_OUTPUT_DIR'
-  toml_repr={`[coverage-py]
-output_dir = <str>`}
-  default_repr={`{distdir}/coverage/python`}
->
-
-Path to write the Pytest Coverage report to. Must be relative to the build root.
-
-</Option>
 
 ### `config`
 
@@ -236,23 +130,113 @@ Use `[coverage-py].config` instead if your config is in a non-standard location.
 
 </Option>
 
-## Deprecated options
-
-### `version`
+### `console_script`
 
 <Option
-  cli_repr={`--coverage-py-version=<str>`}
-  env_repr='PANTS_COVERAGE_PY_VERSION'
+  cli_repr={`--coverage-py-console-script=<str>`}
+  env_repr='PANTS_COVERAGE_PY_CONSOLE_SCRIPT'
   toml_repr={`[coverage-py]
-version = <str>`}
-  default_repr={`coverage[toml]>=6.5,<8`}
-  removal_version='2.18.0.dev1'
-  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+console_script = <str>`}
+  default_repr={`coverage`}
 >
 
-Requirement string for the tool.
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an --entry-point since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
 
 </Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--coverage-py-entry-point=<str>`}
+  env_repr='PANTS_COVERAGE_PY_ENTRY_POINT'
+  toml_repr={`[coverage-py]
+entry_point = <str>`}
+  default_repr={`None`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a --console-script (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--coverage-py-install-from-resolve=<str>`}
+  env_repr='PANTS_COVERAGE_PY_INSTALL_FROM_RESOLVE'
+  toml_repr={`[coverage-py]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in [python].resolves, as described in https://www.pantsbuild.org/v2.17/docs/python-third-party-dependencies#user-lockfiles.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `coverage-py` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--coverage-py-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COVERAGE_PY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[coverage-py]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `output_dir`
+
+<Option
+  cli_repr={`--coverage-py-output-dir=<str>`}
+  env_repr='PANTS_COVERAGE_PY_OUTPUT_DIR'
+  toml_repr={`[coverage-py]
+output_dir = <str>`}
+  default_repr={`{distdir}/coverage/python`}
+>
+
+Path to write the Pytest Coverage report to. Must be relative to the build root.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--coverage-py-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COVERAGE_PY_REQUIREMENTS'
+  toml_repr={`[coverage-py]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If install_from_resolve is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of python_requirement targets (or targets that generate or depend on python_requirement targets).
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+## Deprecated options
 
 ### `extra_requirements`
 
@@ -293,6 +277,22 @@ Set to the string `<default>` to use a lockfile provided by Pants, so long as yo
 To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=coverage-py`.
 
 Alternatively, you can set this option to the path to a custom lockfile using pip&#x27;s requirements.txt-style, ideally with `--hash`. Set `[python].invalid_lockfile_behavior = 'ignore'` so that Pants does not complain about missing lockfile headers.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--coverage-py-version=<str>`}
+  env_repr='PANTS_COVERAGE_PY_VERSION'
+  toml_repr={`[coverage-py]
+version = <str>`}
+  default_repr={`coverage[toml]>=6.5,<8`}
+  removal_version='2.18.0.dev1'
+  removal_hint={'Custom tool versions are now installed from named resolves, as described at https://www.pantsbuild.org/v2.17/docs/python-lockfiles.'}
+>
+
+Requirement string for the tool.
 
 </Option>
 

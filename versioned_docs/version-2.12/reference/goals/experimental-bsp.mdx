@@ -65,20 +65,6 @@ Pants will merge the contents of the config files together. If the same ID is us
 
 ## Advanced options
 
-### `server`
-
-<Option
-  cli_repr={`--[no-]experimental-bsp-server`}
-  env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
-  toml_repr={`[experimental-bsp]
-server = <bool>`}
-  default_repr={`False`}
->
-
-Run the Build Server Protocol server. Pants will receive BSP RPC requests via the console. This should only ever be invoked via the IDE.
-
-</Option>
-
 ### `runner_env_vars`
 
 <Option
@@ -98,6 +84,20 @@ Environment variables to set in the BSP runner script when setting up BSP in a r
 This option only takes effect when the BSP runner script is written. If the option changes, you must run `/home/josh/work/scie-pants/dist/pants experimental-bsp` again to write a new copy of the BSP runner script.
 
 Note: The environment variables passed to the Pants BSP server will be those set for your IDE and not your shell. For example, on macOS, the IDE is generally launched by `launchd` after clicking on a Dock icon, and not from the shell. Thus, any environment variables set for your shell will likely not be seen by the Pants BSP server. At the very least, on macOS consider writing an explicit PATH into the BSP runner script via this option.
+
+</Option>
+
+### `server`
+
+<Option
+  cli_repr={`--[no-]experimental-bsp-server`}
+  env_repr='PANTS_EXPERIMENTAL_BSP_SERVER'
+  toml_repr={`[experimental-bsp]
+server = <bool>`}
+  default_repr={`False`}
+>
+
+Run the Build Server Protocol server. Pants will receive BSP RPC requests via the console. This should only ever be invoked via the IDE.
 
 </Option>
 

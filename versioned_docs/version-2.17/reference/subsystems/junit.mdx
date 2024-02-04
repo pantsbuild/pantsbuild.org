@@ -53,20 +53,6 @@ If true, don&#x27;t use JUnit when running `pants test`.
 
 ## Advanced options
 
-### `version`
-
-<Option
-  cli_repr={`--junit-version=<str>`}
-  env_repr='PANTS_JUNIT_VERSION'
-  toml_repr={`[junit]
-version = <str>`}
-  default_repr={`5.7.2`}
->
-
-Version string for the tool. This is available for substitution in the `[junit].artifacts` option by including the string `{version}`.
-
-</Option>
-
 ### `artifacts`
 
 <Option
@@ -82,6 +68,26 @@ artifacts = [
 >
 
 Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., group:name:version). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[junit].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--junit-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JUNIT_JVM_OPTIONS'
+  toml_repr={`[junit]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `junit` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
 
 </Option>
 
@@ -103,23 +109,17 @@ To use a custom lockfile, set this option to a file path relative to the build r
 
 </Option>
 
-### `jvm_options`
+### `version`
 
 <Option
-  cli_repr={`--junit-jvm-options="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_JUNIT_JVM_OPTIONS'
+  cli_repr={`--junit-version=<str>`}
+  env_repr='PANTS_JUNIT_VERSION'
   toml_repr={`[junit]
-jvm_options = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
+version = <str>`}
+  default_repr={`5.7.2`}
 >
 
-List of JVM options to pass to `junit` JVM processes.
-
-Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+Version string for the tool. This is available for substitution in the `[junit].artifacts` option by including the string `{version}`.
 
 </Option>
 

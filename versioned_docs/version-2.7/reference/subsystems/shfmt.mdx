@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[shfmt]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]shfmt-skip`}
-  env_repr='PANTS_SHFMT_SKIP'
-  toml_repr={`[shfmt]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use shfmt when running `./pants fmt` and `./pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,33 @@ Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.&#x27;
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--shfmt-version=<str>`}
-  env_repr='PANTS_SHFMT_VERSION'
+  cli_repr={`--[no-]shfmt-skip`}
+  env_repr='PANTS_SHFMT_SKIP'
   toml_repr={`[shfmt]
-version = <str>`}
-  default_repr={`v3.2.4`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of shfmt.
+Don&#x27;t use shfmt when running `./pants fmt` and `./pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]shfmt-config-discovery`}
+  env_repr='PANTS_SHFMT_CONFIG_DISCOVERY'
+  toml_repr={`[shfmt]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant `.editorconfig` files during runs. See https://editorconfig.org.
 
 </Option>
 
@@ -98,39 +98,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
-
-<Option
-  cli_repr={`--shfmt-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_SHFMT_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[shfmt]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
->
-
-What action to take in case the requested version of shfmt is not supported.
-
-Supported shfmt versions: unspecified
-
-</Option>
-
-### `url_template`
-
-<Option
-  cli_repr={`--shfmt-url-template=<str>`}
-  env_repr='PANTS_SHFMT_URL_TEMPLATE'
-  toml_repr={`[shfmt]
-url_template = <str>`}
-  default_repr={`https://github.com/mvdan/sh/releases/download/{version}/shfmt_{version}_{platform}`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a file:// URL.
-
-Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -151,17 +118,50 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
-### `config_discovery`
+### `url_template`
 
 <Option
-  cli_repr={`--[no-]shfmt-config-discovery`}
-  env_repr='PANTS_SHFMT_CONFIG_DISCOVERY'
+  cli_repr={`--shfmt-url-template=<str>`}
+  env_repr='PANTS_SHFMT_URL_TEMPLATE'
   toml_repr={`[shfmt]
-config_discovery = <bool>`}
-  default_repr={`True`}
+url_template = <str>`}
+  default_repr={`https://github.com/mvdan/sh/releases/download/{version}/shfmt_{version}_{platform}`}
 >
 
-If true, Pants will include all relevant `.editorconfig` files during runs. See https://editorconfig.org.
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a file:// URL.
+
+Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--shfmt-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_SHFMT_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[shfmt]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of shfmt is not supported.
+
+Supported shfmt versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--shfmt-version=<str>`}
+  env_repr='PANTS_SHFMT_VERSION'
+  toml_repr={`[shfmt]
+version = <str>`}
+  default_repr={`v3.2.4`}
+>
+
+Use this version of shfmt.
 
 </Option>
 

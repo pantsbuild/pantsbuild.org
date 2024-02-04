@@ -22,7 +22,7 @@ Along with our usual assortment of new tool support and incremental improvements
 
 You can update by setting `pants_version = "2.15.0"` in your `pants.toml` file. See [upgrade tips](https://www.pantsbuild.org/v2.15/docs/upgrade-tips) for more information.
 
-# Support for easier multi-platform development with Target Environments
+## Support for easier multi-platform development with Target Environments
 
 Pants 2.15's biggest new feature is [Target Environments, unlocking support for workflows that span multiple platforms](https://www.pantsbuild.org/v2.15/docs/environments).
 
@@ -74,13 +74,13 @@ Target Environments represent one of the biggest internal changes to Pants since
 
 To read more about this quite large feature, you can read our in-depth blog post.
 
-# Containerized local development support with the Docker command runner
+## Containerized local development support with the Docker command runner
 
 If you're in an organization that deploys applications in containers, it can often make sense for developers to do their testing and local verification in a containerized environment. In previous versions of Pants, if you wanted to run tools or check behaviors inside a container, you'd need to import your codebase into a container and run Pants itself within the container.
 
 Now, thanks to Target Environments and our new Docker command runner, Pants can use its precise understanding of the files required in your build to run tools, tests, and other processes transparently inside a local Docker container. Just [define a `docker_environment` to define your container's properties](https://www.pantsbuild.org/v2.15/docs/reference-docker_environment), set the `environment` on the parts of your codebase that you want to handle in Docker, and Pants will take care of the rest.
 
-# Stop making linters pass manually, `fix` your code automatically!
+## Stop making linters pass manually, `fix` your code automatically!
 
 Pants supports a wide array of quality checkers that can point out where your code is unsafe, uses deprecated code patterns, or fails documentation standards. Often, running `./pants lint` means being faced with a pile of small, trivial changes to make.
 
@@ -92,19 +92,19 @@ Pants 2.15 lets you run your tools in fixup mode! [Use `./pants fix`](https://ww
 
 We've been using `./pants fix` internally for a few months now, and we've appreciated the time saved from not having to manually fix simple linting errors. Now you can, too!
 
-# OpenAPI support with dependency inference for JVM projects
+## OpenAPI support with dependency inference for JVM projects
 
 Pants 2.15.0 adds [initial support for OpenAPI](https://www.pantsbuild.org/v2.15/docs/reference-openapi_source), along with `./pants tailor` support for OpenAPI schemas, and support for automatically generating JVM bindings based on OpenAPI schemas in your repository.
 
 For JVM users, this means that writing code that depends on bindings generated from an OpenAPI schema is as simple as declaring an `openapi_document` target that depends on your schema and importing the resulting package in your JVM code. Bindings will be automatically built when you build your code, with no need to deploy extra artifacts. When your schema changes, new bindings will automatically be available.
 
-# Describe your codebase better with synthetic targets
+## Describe your codebase better with synthetic targets
 
 Plugins can now programmatically create their own targets, which can be used as dependencies in your `BUILD` files or as goal targets when invoking a Pants command line.
 
 It's early days yet, but in future releases synthetic targets will allow users and plugin authors to better specify the structure of their codebase along with dependencies that can't currently be effectively modeled with Pants.
 
-# Other notable changes
+## Other notable changes
 
 - A plethora of improvements in Go, including access to the `go` binary in tests, `go generate` support, and better lint and `./pants tailor` functionality
 - Formatters and linters can now operate on any file in the project without prior configuration

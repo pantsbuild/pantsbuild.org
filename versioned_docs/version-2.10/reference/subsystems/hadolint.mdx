@@ -19,20 +19,6 @@ Config section: <span className="color--primary">`[hadolint]`</span>
 
 ## Basic options
 
-### `skip`
-
-<Option
-  cli_repr={`--[no-]hadolint-skip`}
-  env_repr='PANTS_HADOLINT_SKIP'
-  toml_repr={`[hadolint]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-Don&#x27;t use Hadolint when running `./pants lint`.
-
-</Option>
-
 ### `args`
 
 <Option
@@ -51,19 +37,51 @@ Arguments to pass directly to Hadolint, e.g. `--hadolint-args='--format json'`.&
 
 </Option>
 
-## Advanced options
-
-### `version`
+### `skip`
 
 <Option
-  cli_repr={`--hadolint-version=<str>`}
-  env_repr='PANTS_HADOLINT_VERSION'
+  cli_repr={`--[no-]hadolint-skip`}
+  env_repr='PANTS_HADOLINT_SKIP'
   toml_repr={`[hadolint]
-version = <str>`}
-  default_repr={`v2.8.0`}
+skip = <bool>`}
+  default_repr={`False`}
 >
 
-Use this version of hadolint.
+Don&#x27;t use Hadolint when running `./pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--hadolint-config=<file_option>`}
+  env_repr='PANTS_HADOLINT_CONFIG'
+  toml_repr={`[hadolint]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to an YAML config file understood by Hadolint (https://github.com/hadolint/hadolint#configure).
+
+Setting this option will disable `[hadolint].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]hadolint-config-discovery`}
+  env_repr='PANTS_HADOLINT_CONFIG_DISCOVERY'
+  toml_repr={`[hadolint]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant config files during runs (`.hadolint.yaml` and `.hadolint.yml`).
+
+Use `[hadolint].config` instead if your config is in a non-standard location.
 
 </Option>
 
@@ -98,39 +116,6 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
-### `use_unsupported_version`
-
-<Option
-  cli_repr={`--hadolint-use-unsupported-version=<UnsupportedVersionUsage>`}
-  env_repr='PANTS_HADOLINT_USE_UNSUPPORTED_VERSION'
-  toml_repr={`[hadolint]
-use_unsupported_version = <UnsupportedVersionUsage>`}
-  one_of='error, warning'
-  default_repr={`error`}
->
-
-What action to take in case the requested version of hadolint is not supported.
-
-Supported hadolint versions: unspecified
-
-</Option>
-
-### `url_template`
-
-<Option
-  cli_repr={`--hadolint-url-template=<str>`}
-  env_repr='PANTS_HADOLINT_URL_TEMPLATE'
-  toml_repr={`[hadolint]
-url_template = <str>`}
-  default_repr={`https://github.com/hadolint/hadolint/releases/download/{version}/hadolint-{platform}`}
->
-
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.10/docs/options#config-file-entries)).
-
-Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
-
-</Option>
-
 ### `url_platform_mapping`
 
 <Option
@@ -151,35 +136,50 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
 
 </Option>
 
-### `config`
+### `url_template`
 
 <Option
-  cli_repr={`--hadolint-config=<file_option>`}
-  env_repr='PANTS_HADOLINT_CONFIG'
+  cli_repr={`--hadolint-url-template=<str>`}
+  env_repr='PANTS_HADOLINT_URL_TEMPLATE'
   toml_repr={`[hadolint]
-config = <file_option>`}
-  default_repr={`None`}
+url_template = <str>`}
+  default_repr={`https://github.com/hadolint/hadolint/releases/download/{version}/hadolint-{platform}`}
 >
 
-Path to an YAML config file understood by Hadolint (https://github.com/hadolint/hadolint#configure).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.10/docs/options#config-file-entries)).
 
-Setting this option will disable `[hadolint].config_discovery`. Use this option if the config is located in a non-standard location.
+Use `{version}` to have the value from --version substituted, and `{platform}` to have a value from --url-platform-mapping substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
 </Option>
 
-### `config_discovery`
+### `use_unsupported_version`
 
 <Option
-  cli_repr={`--[no-]hadolint-config-discovery`}
-  env_repr='PANTS_HADOLINT_CONFIG_DISCOVERY'
+  cli_repr={`--hadolint-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_HADOLINT_USE_UNSUPPORTED_VERSION'
   toml_repr={`[hadolint]
-config_discovery = <bool>`}
-  default_repr={`True`}
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
 >
 
-If true, Pants will include all relevant config files during runs (`.hadolint.yaml` and `.hadolint.yml`).
+What action to take in case the requested version of hadolint is not supported.
 
-Use `[hadolint].config` instead if your config is in a non-standard location.
+Supported hadolint versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--hadolint-version=<str>`}
+  env_repr='PANTS_HADOLINT_VERSION'
+  toml_repr={`[hadolint]
+version = <str>`}
+  default_repr={`v2.8.0`}
+>
+
+Use this version of hadolint.
 
 </Option>
 

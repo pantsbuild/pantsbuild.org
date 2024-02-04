@@ -27,20 +27,6 @@ None
 
 ## Advanced options
 
-### `build_file_indent`
-
-<Option
-  cli_repr={`--tailor-build-file-indent=<str>`}
-  env_repr='PANTS_TAILOR_BUILD_FILE_INDENT'
-  toml_repr={`[tailor]
-build_file_indent = <str>`}
-  default_repr={`    `}
->
-
-The indent to use when auto-editing BUILD files.
-
-</Option>
-
 ### `alias_mapping`
 
 <Option
@@ -54,6 +40,20 @@ key2 = val2
 >
 
 A mapping from standard target type to custom type to use instead. The custom type can be a custom target type or a macro that offers compatible functionality to the one it replaces (see https://www.pantsbuild.org/v2.6/docs/macros).
+
+</Option>
+
+### `build_file_indent`
+
+<Option
+  cli_repr={`--tailor-build-file-indent=<str>`}
+  env_repr='PANTS_TAILOR_BUILD_FILE_INDENT'
+  toml_repr={`[tailor]
+build_file_indent = <str>`}
+  default_repr={`    `}
+>
+
+The indent to use when auto-editing BUILD files.
 
 </Option>
 

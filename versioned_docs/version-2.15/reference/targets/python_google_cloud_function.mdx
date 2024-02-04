@@ -19,46 +19,44 @@ Backend: <span className="color--primary">`pants.backend.google_cloud_function.p
 
 <span className={styles.options}>
 
-## `tags`
+## `handler`
+
+<Field
+    type_repr={`str`}
+>
+
+Entry point to the Google Cloud Function handler.
+
+You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;cloud_function.py:handler_func&#x27;.
+
+You must use the file name shorthand for file arguments to work with this target.
+
+</Field>
+
+## `type`
+
+<Field
+    type_repr={`'event' | 'http'`}
+>
+
+The trigger type of the cloud function. Can either be &#x27;event&#x27; or &#x27;http&#x27;. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to --trigger-http.
+
+</Field>
+
+## `complete_platforms`
 
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-Arbitrary strings to describe a target.
+The platforms the built PEX should be compatible with.
 
-For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
+There must be built wheels available for all of the foreign platforms, rather than sdists.
 
-</Field>
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
 
-## `description`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-A human-readable description of the target.
-
-Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `output_path`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Where the built asset should be located.
-
-If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
-
-When running `/home/josh/work/scie-pants/dist/pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
-
-Warning: setting this value risks naming collisions with other package targets you may have.
+Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
 </Field>
 
@@ -81,57 +79,48 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 
 </Field>
 
-## `handler`
+## `description`
 
 <Field
-    type_repr={`str`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-Entry point to the Google Cloud Function handler.
+A human-readable description of the target.
 
-You can specify a full module like &#x27;path.to.module:handler_func&#x27; or use a shorthand to specify a file name, using the same syntax as the `sources` field, e.g. &#x27;cloud_function.py:handler_func&#x27;.
-
-You must use the file name shorthand for file arguments to work with this target.
+Use `/home/josh/work/scie-pants/dist/pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `runtime`
+## `environment`
 
 <Field
-    type_repr={`'python310' | 'python37' | 'python38' | 'python39' | None`}
-    default_repr={`None`}
+    type_repr={`str | None`}
+    default_repr={`'__local__'`}
 >
 
-The identifier of the Google Cloud Function runtime to target (pythonXY). See https://cloud.google.com/functions/docs/concepts/python-runtime.
+Specify which environment target to consume environment-sensitive options from.
+
+Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
+
+You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
 
 </Field>
 
-## `complete_platforms`
+## `output_path`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`str | None`}
     default_repr={`None`}
 >
 
-The platforms the built PEX should be compatible with.
+Where the built asset should be located.
 
-There must be built wheels available for all of the foreign platforms, rather than sdists.
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
 
-You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+When running `/home/josh/work/scie-pants/dist/pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
-Complete platforms should be addresses of `file` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
-
-</Field>
-
-## `type`
-
-<Field
-    type_repr={`'event' | 'http'`}
-    default_repr={`None`}
->
-
-The trigger type of the cloud function. Can either be &#x27;event&#x27; or &#x27;http&#x27;. See https://cloud.google.com/functions/docs/concepts/python-runtime for reference to --trigger-http.
+Warning: setting this value risks naming collisions with other package targets you may have.
 
 </Field>
 
@@ -150,18 +139,27 @@ All dependencies must share the same value for their `resolve` field.
 
 </Field>
 
-## `environment`
+## `runtime`
 
 <Field
-    type_repr={`str | None`}
-    default_repr={`'__local__'`}
+    type_repr={`'python310' | 'python37' | 'python38' | 'python39' | None`}
+    default_repr={`None`}
 >
 
-Specify which environment target to consume environment-sensitive options from.
+The identifier of the Google Cloud Function runtime to target (pythonXY). See https://cloud.google.com/functions/docs/concepts/python-runtime.
 
-Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
+</Field>
 
-You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `/home/josh/work/scie-pants/dist/pants --tag='integration_test' test ::` to only run on targets with that tag.
 
 </Field>
 
