@@ -37,10 +37,15 @@ export default function DocsVersionDropdownNavbarItem({
       onClick: () => savePreferredVersionName(version.name),
     };
   });
+
+  // We either show [prerelease, current, previous, deprecated]
+  // or             [current, previous, deprecated]
+  // versions in the dropdown.
+  const sliceCount = versions[1].label.includes("prerelease") ? 5 : 4;
   const items = [
     ...dropdownItemsBefore,
     // !!!!! SIGNPOST: This is the only change from the original code
-    ...versionLinks.slice(1, 5),
+    ...versionLinks.slice(1, sliceCount),
     // !!!!!
     ...dropdownItemsAfter,
   ];
