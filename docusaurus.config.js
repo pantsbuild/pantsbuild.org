@@ -68,8 +68,10 @@ const isPrerelease = (version) => {
     (value) => value["rank"] == "HARDCODED"
   );
 
-  // Check if it's one of xx.xx.xx.dev0, xx.xx.xxa0, xx.xx.xxb0,  xx.xx.xxrc0, etc.
-  const rex = /^(\d+\.\d+\.\d+)(\.dev|a|b|rc)\d+$/;
+  // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
+  // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
+  // Optimally we shouldn't sync those either way, but some have ended up here by accident.
+  const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
 
   return rex.test(hardcoded["value"]);
 };
@@ -341,15 +343,15 @@ const config = {
                 acc[version] = {
                   label: isPrerelease(version)
                     ? `${version} (prerelease)`
-                    : index < 3
+                    : index < 2 + (isPrerelease(versions[0]) ? 1 : 0)
                       ? version
                       : `${version} (deprecated)`,
                   banner: isPrerelease(version)
                     ? "unreleased"
-                    : index < 3
+                    : index < 2 + (isPrerelease(versions[0]) ? 1 : 0)
                       ? "none"
                       : "unmaintained",
-                  noIndex: index >= 3,
+                  noIndex: index >= 2 + (isPrerelease(versions[0]) ? 1 : 0),
                   path: version,
                 };
                 return acc;
