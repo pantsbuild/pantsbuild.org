@@ -27,7 +27,7 @@ Recently, [Pants got a new launcher binary](../2023-02-23-the-pants-launcher-bin
 
 For case 1 where Pants just need _some_ Python interpreter to run scripts, we take a two-pronged approach.
 
-For [Docker builds](../2023-02-24-pants-2-15/index.mdx) we download and sandbox a [Python Build Standalone](https://gregoryszorc.com/docs/python-build-standalone/main/?ref=blog.pantsbuild.org) (the same kind of Python interpreter the new Pants binary launcher uses). Pants no longer dictates that a supported (or any) version of Python is present in the docker image running your build. Additionally, Pants is able to choose which version, meaning we could upgrade to faster [CPython versions](https://github.com/markshannon/faster-cpython/blob/master/plan.mdx) as they are released.
+For [Docker builds](../2023-02-24-pants-2-15/index.mdx) we download and sandbox a [Python Build Standalone](https://gregoryszorc.com/docs/python-build-standalone/main/) (the same kind of Python interpreter the new Pants binary launcher uses). Pants no longer dictates that a supported (or any) version of Python is present in the docker image running your build. Additionally, Pants is able to choose which version, meaning we could upgrade to faster [CPython versions](https://github.com/markshannon/faster-cpython/blob/master/plan.mdx) as they are released.
 
 For local builds, we just use `sys.executable` (the Python interpreter that's running Pants itself). Eventually, the Pants binary launcher will be the only way to run Pants, meaning a hermetic, version-pinned interpreter will be the one-and-only way Pants is run.
 
@@ -41,4 +41,4 @@ Pants 2.16 has added a mechanism for plugins to provide versions of Python compa
 
 ## How to preview the new hermetic Pythons
 
-Interested in trying out these features? Upgrade to Pants 2.16 to benefit from a hermetic internal Python. Additionally, for a hermetic Python for your code enable `pants.backend.python.providers.experimental.pyenv` to your `[GLOBAL].backend_packages` and start enjoying the benefits. As with any experimental backend, we encourage you to [share your feedback on Slack](https://www.pantsbuild.org/docs/getting-help?ref=blog.pantsbuild.org)!
+Interested in trying out these features? Upgrade to Pants 2.16 to benefit from a hermetic internal Python. Additionally, for a hermetic Python for your code enable `pants.backend.python.providers.experimental.pyenv` to your `[GLOBAL].backend_packages` and start enjoying the benefits. As with any experimental backend, we encourage you to [share your feedback on Slack](https://www.pantsbuild.org/docs/getting-help)!
