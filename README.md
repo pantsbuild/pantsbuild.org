@@ -40,7 +40,7 @@ PANTSBUILD_ORG_INCLUDE_VERSIONS=$version1,$version2 npm start
 To build the site, run:
 
 ```bash
-NODE_OPTIONS="--max-old-space-size=6144" npm build
+NODE_OPTIONS="--max-old-space-size=6144" npm run build
 ```
 
 (Note: Node needs more than the default amount of RAM because this site is beefy)
