@@ -11,18 +11,14 @@ import { themes as prismThemes } from "prism-react-renderer";
 const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
 
-function getCurrentVersion() {
-  const lastReleasedVersion = versions[0];
-  const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
-  return `2.${version + 1}`;
-}
-
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
 //  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
 //  - PANTSBUILD_ORG_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
+
+// Versions
 const disableVersioning =
   isDev && process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS === undefined;
 const onlyIncludeVersions = isDev
@@ -32,23 +28,13 @@ const onlyIncludeVersions = isDev
       )
     : ["current"]
   : undefined;
+
+function getCurrentVersion() {
+  const lastReleasedVersion = versions[0];
+  const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
+  return `2.${version + 1}`;
+}
 const currentVersion = getCurrentVersion();
-const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
-
-const formatCopyright = () => {
-  const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
-
-  const repoUrl = `https://github.com/${organizationName}/${projectName}`;
-  const repoLink = makeLink(repoUrl, "Website source");
-
-  // Only set by CI, so fallback to just `local` for local dev
-  const docsCommit = process.env.GITHUB_SHA;
-  const commitLink = docsCommit
-    ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
-    : "local";
-
-  return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
-};
 
 const isPrerelease = (version) => {
   const reference_dir = path.join(
@@ -74,6 +60,25 @@ const isPrerelease = (version) => {
   const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
 
   return rex.test(hardcoded["value"]);
+};
+
+// Blog
+const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
+
+// Other information
+const formatCopyright = () => {
+  const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
+
+  const repoUrl = `https://github.com/${organizationName}/${projectName}`;
+  const repoLink = makeLink(repoUrl, "Website source");
+
+  // Only set by CI, so fallback to just `local` for local dev
+  const docsCommit = process.env.GITHUB_SHA;
+  const commitLink = docsCommit
+    ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
+    : "local";
+
+  return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
 };
 
 const config = {
