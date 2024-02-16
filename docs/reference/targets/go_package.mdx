@@ -95,6 +95,18 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
+## `skip_go_vet`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.go.lint.vet"
+>
+
+If true, don&#x27;t run `go vet` on this target&#x27;s code.
+
+</Field>
+
 ## `skip_gofmt`
 
 <Field
@@ -104,6 +116,18 @@ Use `pants list --documented ::` to see all targets with descriptions.
 >
 
 If true, don&#x27;t run gofmt on this package.
+
+</Field>
+
+## `skip_golangci_lint`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.go.lint.golangci_lint"
+>
+
+If true, don&#x27;t run `golangci-lint` on this target&#x27;s code.
 
 </Field>
 

@@ -264,7 +264,7 @@ Overrides the default value from the option `[jvm].global_options` when this env
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
+    backend="pants.backend.experimental.javascript"
 >
 
 Overrides the default value from the option `[nodejs].corepack_env_vars` when this environment target is active.
@@ -276,7 +276,7 @@ Overrides the default value from the option `[nodejs].corepack_env_vars` when th
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
+    backend="pants.backend.experimental.javascript"
 >
 
 Overrides the default value from the option `[nodejs].executable_search_paths` when this environment target is active.
@@ -288,7 +288,7 @@ Overrides the default value from the option `[nodejs].executable_search_paths` w
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
+    backend="pants.backend.experimental.javascript"
 >
 
 Overrides the default value from the option `[nodejs].search_path` when this environment target is active.
@@ -317,6 +317,18 @@ Overrides the default value from the option `[pex].executable_search_paths` when
 If set, Docker will always use the specified platform when pulling and running the image.
 
 If unset, Pants will default to the CPU architecture of your local host machine. For example, if you are running on Apple Silicon, it will use `linux_arm64`, whereas running on Intel macOS will use `linux_x86_64`. This mirrors Docker&#x27;s behavior when `--platform` is left off.
+
+</Field>
+
+## `pyenv_python_provider_installation_extra_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.python.providers.experimental.pyenv"
+>
+
+Overrides the default value from the option `[pyenv-python-provider].installation_extra_env_vars` when this environment target is active.
 
 </Field>
 

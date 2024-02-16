@@ -280,7 +280,7 @@ Overrides the default value from the option `[jvm].global_options` when this env
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
+    backend="pants.backend.experimental.javascript"
 >
 
 Overrides the default value from the option `[nodejs].corepack_env_vars` when this environment target is active.
@@ -292,7 +292,7 @@ Overrides the default value from the option `[nodejs].corepack_env_vars` when th
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
+    backend="pants.backend.experimental.javascript"
 >
 
 Overrides the default value from the option `[nodejs].executable_search_paths` when this environment target is active.
@@ -304,7 +304,7 @@ Overrides the default value from the option `[nodejs].executable_search_paths` w
 <Field
     type_repr={`Iterable[str] | None`}
     default_repr={`None`}
-    backend="pants.backend.experimental.openapi.lint.spectral"
+    backend="pants.backend.experimental.javascript"
 >
 
 Overrides the default value from the option `[nodejs].search_path` when this environment target is active.
@@ -331,6 +331,18 @@ Overrides the default value from the option `[pex].executable_search_paths` when
 >
 
 The platform used by the remote execution environment.
+
+</Field>
+
+## `pyenv_python_provider_installation_extra_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.python.providers.experimental.pyenv"
+>
+
+Overrides the default value from the option `[pyenv-python-provider].installation_extra_env_vars` when this environment target is active.
 
 </Field>
 

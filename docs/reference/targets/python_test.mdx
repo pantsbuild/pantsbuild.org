@@ -160,7 +160,7 @@ All dependencies must share the same value for their `resolve` field.
     default_repr={`None`}
 >
 
-Whether to use a sandbox when `run`ning this target. Defaults to `[python].run_goal_use_sandbox`.
+Whether to use a sandbox when `run`ning this target. Defaults to `[python].default_run_goal_use_sandbox`.
 
 If true, runs of this target with the `run` goal will copy the needed first-party sources into a temporary sandbox and run from there.
 
@@ -306,6 +306,18 @@ If true, don&#x27;t run pydocstyle on this target&#x27;s code.
 >
 
 If true, don&#x27;t run Pylint on this target&#x27;s code.
+
+</Field>
+
+## `skip_pyright`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.typecheck.pyright"
+>
+
+If true, don&#x27;t run Pyright on this target&#x27;s code.
 
 </Field>
 

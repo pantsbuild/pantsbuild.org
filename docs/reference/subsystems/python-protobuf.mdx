@@ -21,6 +21,34 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 ## Basic options
 
+### `grpcio_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-grpcio-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_GRPCIO_PLUGIN'
+  toml_repr={`[python-protobuf]
+grpcio_plugin = <bool>`}
+  default_repr={`True`}
+>
+
+Use the official `grpcio` plugin (https://pypi.org/project/grpcio/) to generate grpc service stubs.
+
+</Option>
+
+### `grpclib_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-grpclib-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_GRPCLIB_PLUGIN'
+  toml_repr={`[python-protobuf]
+grpclib_plugin = <bool>`}
+  default_repr={`False`}
+>
+
+Use the alternative `grpclib` plugin (https://github.com/vmagamedov/grpclib) to generate grpc service stubs.
+
+</Option>
+
 ### `mypy_plugin`
 
 <Option

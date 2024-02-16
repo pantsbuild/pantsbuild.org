@@ -30,6 +30,17 @@ Freeze these command-line args into the PEX. Allows you to run generic entry poi
 
 </Field>
 
+## `check`
+
+<Field
+    type_repr={`'error' | 'none' | 'warn' | None`}
+    default_repr={`'warn'`}
+>
+
+Check that the built PEX is valid. Currently this only applies to `--layout zipapp` where the PEX zip is tested for importability of its `__main__` module by the Python zipimport module. This check will fail for PEX zips that use ZIP64 extensions since the Python zipimport zipimporter only works with 32 bit zips. The check no-ops for all other layouts.
+
+</Field>
+
 ## `complete_platforms`
 
 <Field
@@ -108,7 +119,7 @@ You can specify a full module like `'path.to.module'` and `'path.to.module:func'
 1. `'app.py'`, Pants will convert into the module `path.to.app`;
 2. `'app.py:func'`, Pants will convert into `path.to.app:func`.
 
-You may either set this field or the `script` field, but not both. Leave off both fields to have no entry point.
+You may only set one of: this field, or the `script` field, or the `executable` field. Leave off all three fields to have no entry point.
 
 </Field>
 
@@ -135,6 +146,19 @@ Specify which environment target to consume environment-sensitive options from.
 Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
 
 You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
+
+</Field>
+
+## `executable`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Set the entry point, i.e. what gets run when executing `./my_app.pex`, to an execuatble local python script. This executable python script is typically something that cannot be imported so it cannot be used via `script` or `entry_point`.
+
+You may only set one of: this field, or the `entry_point` field, or the `script` field. Leave off all three fields to have no entry point.
 
 </Field>
 
@@ -315,7 +339,20 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 
 Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
 
-You may either set this field or the `entry_point` field, but not both. Leave off both fields to have no entry point.
+You may only set one of: this field, or the `entry_point` field, or the `executable` field. Leave off all three fields to have no entry point.
+
+</Field>
+
+## `sh_boot`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Should PEX create a modified ZIPAPP that uses `/bin/sh` to boot?
+
+If you know the machines that the PEX will be distributed to have POSIX compliant `/bin/sh` (almost all do, see: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html); then this is probably the way you want your PEX to boot. Instead of launching via a Python shebang, the PEX will launch via a `#!/bin/sh` shebang that executes a small script embedded in the head of the PEX ZIPAPP that performs initial interpreter selection and re-execution of the underlying PEX in a way that is often more robust than a Python shebang and always faster on 2nd and subsequent runs since the sh script has a constant overhead of O(1ms) whereas the Python overhead to perform the same interpreter selection and re-execution is O(100ms).
 
 </Field>
 

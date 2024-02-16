@@ -19,7 +19,19 @@ Config section: <span className="color--primary">`[pex]`</span>
 
 ## Basic options
 
-None
+### `emit_warnings`
+
+<Option
+  cli_repr={`--[no-]pex-emit-warnings`}
+  env_repr='PANTS_PEX_EMIT_WARNINGS'
+  toml_repr={`[pex]
+emit_warnings = <bool>`}
+  default_repr={`True`}
+>
+
+If warnings from Pex should be logged by Pants to the console.
+
+</Option>
 
 ## Advanced options
 

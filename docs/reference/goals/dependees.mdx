@@ -37,6 +37,21 @@ Include the input targets in the output, along with the dependents.
 
 </Option>
 
+### `format`
+
+<Option
+  cli_repr={`--dependees-format=<DependentsOutputFormat>`}
+  env_repr='PANTS_DEPENDEES_FORMAT'
+  toml_repr={`[dependees]
+format = <DependentsOutputFormat>`}
+  one_of='text, json'
+  default_repr={`text`}
+>
+
+Output format for listing dependents.
+
+</Option>
+
 ### `output_file`
 
 <Option
