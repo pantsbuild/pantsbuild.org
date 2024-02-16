@@ -200,6 +200,31 @@ Alternatively, you can use `[GLOBAL].remote_cache_read` and `[GLOBAL].remote_cac
 
 </Option>
 
+### `remote_provider`
+
+<Option
+  cli_repr={`--remote-provider=<RemoteProvider>`}
+  env_repr='PANTS_REMOTE_PROVIDER'
+  toml_repr={`[GLOBAL]
+remote_provider = <RemoteProvider>`}
+  one_of='reapi, experimental-file, experimental-github-actions-cache'
+  default_repr={`reapi`}
+>
+
+The type of provider to use, if using a remote cache and/or remote execution, See https://www.pantsbuild.org/v2.20/docs/remote-caching-execution for details.
+
+Each provider supports different `remote_store_address` and (optional) `remote_execution_address` URIs.
+
+Supported values:
+
+- `reapi`: a server using the Remote Execution API (https://github.com/bazelbuild/remote-apis) (supported schemes for URIs: `grpc://`, `grpcs://`)
+
+- `experimental-file`: a directory mapped on the current machine (supported schemes for URIs: `file://`)
+
+- `experimental-github-actions-cache`: the GitHub Actions caching service (supported schemes for URIs: `http://`, `https://`)
+
+</Option>
+
 ### `session_end_tasks_timeout`
 
 <Option
@@ -657,7 +682,7 @@ pants_ignore = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  ".*/",\n  "/dist/",\n  "__pycache__",\n  "!.semgrep/"\n]`}
+  default_repr={`[\n  ".*/",\n  "/dist/",\n  "__pycache__",\n  "!.semgrep/",\n  "!.github/"\n]`}
 >
 
 Paths to ignore for all filesystem operations performed by pants (e.g. BUILD file scanning, glob matching, etc).
@@ -900,7 +925,7 @@ process_execution_cache_namespace = <str>`}
   default_repr={`None`}
 >
 
-The cache namespace for process execution. Change this value to invalidate every artifact&#x27;s execution, or to prevent process cache entries from being (re)used for different usecases or users.
+The cache namespace for process execution. Change this value to invalidate every artifact&#x27;s execution, or to prevent process cache entries from being (re)used for different use-cases or users.
 
 </Option>
 
@@ -1123,15 +1148,9 @@ remote_execution_address = <str>`}
   default_repr={`None`}
 >
 
-The URI of a server/entity used as a remote execution scheduler.
+The URI of a server/entity used as a remote execution scheduler. The supported URIs depends on the value of the `remote_provider` option.
 
 You must also set `[GLOBAL].remote_store_address`, which will often be the same value.
-
-Supported schemes:
-
-- `grpc://`, `grpcs://`: Use a [Remote Execution API](https://github.com/bazelbuild/remote-apis) remote caching/execution server. `grpcs` uses TLS while `grpc` does not. Format: `grpc[s]://$host:$port`.
-
-- `experimental:file://`, `experimental:github-actions-cache+http://`, `experimental:github-actions-cache+https://`: Remote execution is not supported.
 
 </Option>
 
@@ -1265,15 +1284,7 @@ remote_store_address = <str>`}
   default_repr={`None`}
 >
 
-The URI of a server/entity used as a remote file store.
-
-Supported schemes:
-
-- `grpc://`, `grpcs://`: Use a [Remote Execution API](https://github.com/bazelbuild/remote-apis) remote caching/execution server. `grpcs` uses TLS while `grpc` does not. Format: `grpc[s]://$host:$port`.
-
-- `experimental:file://`: Use a local directory as a &#x27;remote&#x27; store, for testing, debugging, or potentially an NFS mount. Format: `file://$path`. For example: `file:///tmp/remote-cache-example/` will store within the `/tmp/remote-cache-example/` directory, creating it if necessary.
-
-- `experimental:github-actions-cache+http://`, `experimental:github-actions-cache+https://`: Use the GitHub Actions Cache for fine-grained caching. This requires extracting `ACTIONS_CACHE_URL` (passing it in `PANTS_REMOTE_STORE_ADDRESS`) and `ACTIONS_RUNTIME_TOKEN` (passing it in `PANTS_REMOTE_OAUTH_BEARER_TOKEN`). See https://www.pantsbuild.org/v2.20/docs/remote-caching#github-actions-cache for more details.
+The URI of a server/entity used as a remote file store. The supported URIs depends on the value of the `remote_provider` option.
 
 </Option>
 

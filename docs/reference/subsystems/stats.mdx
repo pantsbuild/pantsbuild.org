@@ -19,7 +19,19 @@ Config section: <span className="color--primary">`[stats]`</span>
 
 ## Basic options
 
-None
+### `output_file`
+
+<Option
+  cli_repr={`--stats-output-file=<path>`}
+  env_repr='PANTS_STATS_OUTPUT_FILE'
+  toml_repr={`[stats]
+output_file = <path>`}
+  default_repr={`None`}
+>
+
+Output the stats to this file. If unspecified, outputs to stdout.
+
+</Option>
 
 ## Advanced options
 

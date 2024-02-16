@@ -53,6 +53,30 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
+## `skip_terraform_validate`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.terraform"
+>
+
+If true, don&#x27;t run `terraform validate` on this target&#x27;s code. If this target is a module, `terraform validate might still be run on a `terraform_deployment that references this module.
+
+</Field>
+
+## `skip_tfsec`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.terraform.lint.tfsec"
+>
+
+If true, don&#x27;t run tfsec on this target&#x27;s Terraform files.
+
+</Field>
+
 ## `sources`
 
 <Field

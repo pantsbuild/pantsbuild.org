@@ -78,6 +78,20 @@ If no registry repository is given, charts will be pushed to the root of the OCI
 
 </Option>
 
+### `lint_quiet`
+
+<Option
+  cli_repr={`--[no-]helm-lint-quiet`}
+  env_repr='PANTS_HELM_LINT_QUIET'
+  toml_repr={`[helm]
+lint_quiet = <bool>`}
+  default_repr={`False`}
+>
+
+Only print warnings and errors for Helm charts
+
+</Option>
+
 ### `lint_strict`
 
 <Option
@@ -122,7 +136,7 @@ The `helm_chart.registries` may be provided with a list of registry addresses an
 
 A configured registry is marked as default either by setting `default = true` or with an alias of `"default"`.
 
-Registries also participate in resolving third party Helm charts uplodaded to those registries.
+Registries also participate in resolving third party Helm charts uploaded to those registries.
 
 </Option>
 
