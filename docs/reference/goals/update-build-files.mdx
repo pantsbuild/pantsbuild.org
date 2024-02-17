@@ -65,9 +65,9 @@ fmt = <bool>`}
   default_repr={`True`}
 >
 
-Format BUILD files using Black or Yapf.
+Format BUILD files using Black, Ruff or Yapf.
 
-Set `[black].args` / `[yapf].args`, `[black].config` / `[yapf].config` , and `[black].config_discovery` / `[yapf].config_discovery` to change Black&#x27;s or Yapf&#x27;s behavior. Set `[black].interpreter_constraints` / `[yapf].interpreter_constraints` and `[python].interpreter_search_path` to change which interpreter is used to run the formatter.
+Set `[black].args` / `[ruff].args` / `[yapf].args`, `[black].config` / `[ruff].config`, `[yapf].config` , and `[black].config_discovery` / `[ruff].config_discovery`, `[yapf].config_discovery` to change Black&#x27;s, Ruff&#x27;s, or Yapf&#x27;s behavior. Set `[black].interpreter_constraints` / `[ruff].interpreter_constraints` / `[yapf].interpreter_constraints` and `[python].interpreter_search_path` to change which interpreter is used to run the formatter.
 
 </Option>
 
@@ -78,7 +78,7 @@ Set `[black].args` / `[yapf].args`, `[black].config` / `[yapf].config` , and `[b
   env_repr='PANTS_UPDATE_BUILD_FILES_FORMATTER'
   toml_repr={`[update-build-files]
 formatter = <Formatter>`}
-  one_of='yapf, black'
+  one_of='yapf, black, ruff'
   default_repr={`black`}
 >
 

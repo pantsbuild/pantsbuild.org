@@ -19,6 +19,26 @@ Config section: <span className="color--primary">`[coursier]`</span>
 
 ## Basic options
 
+### `jvm_index`
+
+<Option
+  cli_repr={`--coursier-jvm-index=<str>`}
+  env_repr='PANTS_COURSIER_JVM_INDEX'
+  toml_repr={`[coursier]
+jvm_index = <str>`}
+  default_repr={``}
+>
+
+The JVM index to be used by Coursier.
+
+Possible values are:
+
+- cs: The default JVM index used and maintained by Coursier.
+- cs-maven: Fetches a JVM index from the io.get-coursier:jvm-index Maven repository.
+- &#x3C;URL&#x3E;: An arbitrary URL for a JVM index. Ex. https://url/of/your/index.json
+
+</Option>
+
 ### `repos`
 
 <Option
@@ -35,7 +55,7 @@ repos = [
 
 Maven style repositories to resolve artifacts from.
 
-Coursier will resolve these repositories in the order in which they are specifed, and re-ordering repositories will cause artifacts to be re-downloaded. This can result in artifacts in lockfiles becoming invalid.
+Coursier will resolve these repositories in the order in which they are specified, and re-ordering repositories will cause artifacts to be re-downloaded. This can result in artifacts in lockfiles becoming invalid.
 
 </Option>
 

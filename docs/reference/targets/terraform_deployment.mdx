@@ -29,17 +29,6 @@ Example: `root_module=":my_module"`
 
 </Field>
 
-## `backend_config`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-Configuration to be merged with what is in the configuration file&#x27;s &#x27;backend&#x27; block
-
-</Field>
-
 ## `dependencies`
 
 <Field
@@ -72,6 +61,18 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
+## `skip_terraform_validate`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.terraform"
+>
+
+If true, don&#x27;t run `terraform validate` on this target&#x27;s code. If this target is a module, `terraform validate might still be run on a `terraform_deployment that references this module.
+
+</Field>
+
 ## `tags`
 
 <Field
@@ -82,21 +83,6 @@ Use `pants list --documented ::` to see all targets with descriptions.
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
-
-</Field>
-
-## `var_files`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`None`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `var_files=['common.tfvars', 'prod.tfvars']`
 
 </Field>
 

@@ -20019,15 +20019,15 @@ export default [
   },
   {
     from: "/v2.20/docs/test-custom-plugin-goal",
-    to: "/2.20/docs/tutorials-coming-soon/testing-plugins",
+    to: "/2.20/docs/tutorials/testing-plugins",
   },
   {
     from: "/v2.20/docs/create-a-new-goal",
-    to: "/2.20/docs/tutorials-coming-soon/create-a-new-goal",
+    to: "/2.20/docs/tutorials/create-a-new-goal",
   },
   {
     from: "/v2.20/docs/advanced-plugin-concepts",
-    to: "/2.20/docs/tutorials-coming-soon/advanced-plugin-concepts",
+    to: "/2.20/docs/tutorials/advanced-plugin-concepts",
   },
   {
     from: "/v2.20/docs/reference-global",
