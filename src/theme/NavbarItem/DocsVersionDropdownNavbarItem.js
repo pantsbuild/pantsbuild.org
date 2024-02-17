@@ -44,8 +44,7 @@ export default function DocsVersionDropdownNavbarItem({
   var versionLinksTruncated;
   if (versionLinks.length < 2) {
     versionLinksTruncated = versionLinks;
-  }
-  else {
+  } else {
     const sliceCount = versions[1].label.includes("prerelease") ? 5 : 4;
     versionLinksTruncated = versionLinks.slice(1, sliceCount);
   }
