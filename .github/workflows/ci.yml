@@ -45,3 +45,16 @@ jobs:
         run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=6144
+
+      # As an interim step in lieu of https://github.com/pantsbuild/pantsbuild.org/issues/28, upload
+      # the build result so someone can download and view it, without having to run the build
+      # themselves.  (The explicit zip step is workaround for
+      # https://github.com/actions/upload-artifact/issues/333 )
+      - name: Zip build
+        run: zip -r site-build.zip build/
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: "site-build"
+          path: site-build.zip
