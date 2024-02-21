@@ -271,6 +271,10 @@ const config = {
           title: "Community",
           items: [
             {
+              label: "Getting Help",
+              href: "/community/getting-help",
+            },
+            {
               label: "Members",
               href: "/community/members",
             },
