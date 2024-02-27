@@ -19807,9 +19807,9 @@ export default [
   },
   {
     from: "/v2.20/docs/jvm-overview",
-    to: "/2.20/docs/java-and-scala",
+    to: "/2.20/docs/jvm/java-and-scala",
   },
-  { from: "/v2.20/docs/kotlin", to: "/2.20/docs/java-and-scala/kotlin" },
+  { from: "/v2.20/docs/kotlin", to: "/2.20/docs/jvm/kotlin" },
   {
     from: "/v2.20/docs/shell-overview",
     to: "/2.20/docs/shell",
