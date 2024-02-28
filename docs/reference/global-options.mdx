@@ -211,7 +211,7 @@ remote_provider = <RemoteProvider>`}
   default_repr={`reapi`}
 >
 
-The type of provider to use, if using a remote cache and/or remote execution, See https://www.pantsbuild.org/v2.20/docs/remote-caching-execution for details.
+The type of provider to use, if using a remote cache and/or remote execution, See https://www.pantsbuild.org/2.21/docs/using-pants/remote-caching-and-execution for details.
 
 Each provider supports different `remote_store_address` and (optional) `remote_execution_address` URIs.
 
@@ -271,7 +271,7 @@ tag = [
   default_repr={`[]`}
 >
 
-Include only targets with these tags (optional &#x27;+&#x27; prefix) or without these tags (&#x27;-&#x27; prefix). See https://www.pantsbuild.org/v2.20/docs/advanced-target-selection.
+Include only targets with these tags (optional &#x27;+&#x27; prefix) or without these tags (&#x27;-&#x27; prefix). See https://www.pantsbuild.org/2.21/docs/using-pants/advanced-target-selection.
 
 </Option>
 
@@ -311,7 +311,7 @@ build_file_prelude_globs = [
   default_repr={`[]`}
 >
 
-Python files to evaluate and whose symbols should be exposed to all BUILD files. See https://www.pantsbuild.org/v2.20/docs/macros.
+Python files to evaluate and whose symbols should be exposed to all BUILD files. See https://www.pantsbuild.org/2.21/docs/writing-plugins/macros.
 
 </Option>
 
@@ -371,7 +371,7 @@ Path to a file containing PEM-format CA certificates used for verifying secure c
 
 Even when using the `docker_environment` and `remote_environment` targets, this path will be read from the local host, and those certs will be used in the environment.
 
-This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/v2.20/docs/options.
+This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/2.21/docs/using-pants/key-concepts/options.
 
 </Option>
 
@@ -751,7 +751,7 @@ pants_version = <str>`}
 
 Use this Pants version. Note that Pants only uses this to verify that you are using the requested version, as Pants cannot dynamically change the version it is using once the program is already running.
 
-If you use the `pants` script from https://www.pantsbuild.org/v2.20/docs/installation, however, changing the value in your `pants.toml` will cause the new version to be installed and run automatically.
+If you use the `pants` script from https://www.pantsbuild.org/2.21/docs/getting-started/installing-pants, however, changing the value in your `pants.toml` will cause the new version to be installed and run automatically.
 
 Run `pants --version` to check what is being used.
 
@@ -1270,7 +1270,7 @@ An oauth token to use for gGRPC connections to `[GLOBAL].remote_execution_addres
 
 If specified, Pants will add a header in the format `authorization: Bearer <token>`. You can also manually add this header via `[GLOBAL].remote_execution_headers` and `[GLOBAL].remote_store_headers`, or use `[GLOBAL].remote_auth_plugin` to provide a plugin to dynamically set the relevant headers. Otherwise, no authorization will be performed.
 
-Recommendation: do not place a token directly in `pants.toml`, instead do one of: set the token via the environment variable (`PANTS_REMOTE_OAUTH_BEARER_TOKEN`), CLI option (`--remote-oauth-bearer-token`), or store the token in a file and set the option to `"@/path/to/token.txt"` to [read the value from that file](https://www.pantsbuild.org/v2.20/docs/options#reading-individual-option-values-from-files).
+Recommendation: do not place a token directly in `pants.toml`, instead do one of: set the token via the environment variable (`PANTS_REMOTE_OAUTH_BEARER_TOKEN`), CLI option (`--remote-oauth-bearer-token`), or store the token in a file and set the option to `"@/path/to/token.txt"` to [read the value from that file](https://www.pantsbuild.org/2.21/docs/using-pants/key-concepts/options#reading-individual-option-values-from-files).
 
 </Option>
 
@@ -1593,8 +1593,8 @@ If false, Pants will not clean up local directories used as chroots for running 
   toml_repr={`[GLOBAL]
 remote_oauth_bearer_token_path = <str>`}
   default_repr={`None`}
-  removal_version='2.21.0.dev0'
-  removal_hint={'use `[GLOBAL].remote_oauth_bearer_token = "@/path/to/token.txt"` instead, see https://www.pantsbuild.org/v2.20/docs/reference-global#remote_oauth_bearer_token'}
+  removal_version='2.23.0.dev0'
+  removal_hint={'use `[GLOBAL].remote_oauth_bearer_token = "@/path/to/token.txt"` instead, see https://www.pantsbuild.org/2.21/reference/global-options#remote_oauth_bearer_token'}
 >
 
 Path to a file containing an oauth token to use for gGRPC connections to `[GLOBAL].remote_execution_address` and `[GLOBAL].remote_store_address`.

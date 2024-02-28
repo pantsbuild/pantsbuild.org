@@ -23,7 +23,19 @@ Config section: <span className="color--primary">`[experimental-deploy]`</span>
 
 ## Basic options
 
-None
+### `dry_run`
+
+<Option
+  cli_repr={`--[no-]experimental-deploy-dry-run`}
+  env_repr='PANTS_EXPERIMENTAL_DEPLOY_DRY_RUN'
+  toml_repr={`[experimental-deploy]
+dry_run = <bool>`}
+  default_repr={`False`}
+>
+
+If true, perform a dry run without deploying anything. For example, when deploying a terraform_deployment, a plan will be executed instead of an apply.
+
+</Option>
 
 ## Advanced options
 
