@@ -75,7 +75,7 @@ jobs:
           BASE_VERSION=$(echo "${{ inputs.version }}" | sed -E 's/^([0-9]+)\.([0-9]+)\.\w+.*/\1.\2/')
           DESTINATION_DIR="versioned_docs/version-$BASE_VERSION"
           if [ ! -d "$DESTINATION_DIR" ]; then
-            if [[ "${{ inputs.version }}" =~ .*\.a0$ ]]; then
+            if [[ "${{ inputs.version }}" =~ .*\.0a0$ ]]; then
               # a0 => we've cut a new branch from `main`, so make a new version
               npm run docusaurus docs:version $BASE_VERSION
             else
