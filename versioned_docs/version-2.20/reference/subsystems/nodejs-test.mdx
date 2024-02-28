@@ -1,0 +1,99 @@
+---
+title: nodejs-test
+description: |
+  Options for package.json script configured tests.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for package.json script configured tests.
+
+Your preferred test runner is configured via the `package.json#scripts.test` field.
+
+The only expectation from pants is that the `test` script can accept a variadic number of path arguments, relative to the package.json, and that any configuration files are `file` dependencies to the `package_json`.
+
+Simple example:
+
+Consider a directory-layout:
+
+&#x251C;&#x2500;&#x2500; BUILD
+&#x251C;&#x2500;&#x2500; src/
+&#x2502; &#x251C;&#x2500;&#x2500; BUILD
+&#x2502; &#x251C;&#x2500;&#x2500; test/
+&#x2502; &#x2502; &#x251C;&#x2500;&#x2500; BUILD
+&#x2502; &#x2502; &#x2514;&#x2500;&#x2500; index.test.js
+&#x2502; &#x2514;&#x2500;&#x2500; index.js
+&#x2514;&#x2500;&#x2500; package.json
+
+where package.json contains
+
+# package.json
+
+&#123;
+...
+&#x22;scripts&#x22;: &#123;
+&#x22;test&#x22;: &#x22;mocha&#x22;
+&#125;,
+&#x22;devDependencies: &#123;
+...
+&#125;
+&#125;
+
+Executing `pants test src/test/index.test.js` will cause the equivalent of `mocha src/test/index.test.js` to run.
+
+Backend: <span className="color--primary">`pants.backend.experimental.javascript`</span>
+
+Config section: <span className="color--primary">`[nodejs-test]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]nodejs-test-skip`}
+  env_repr='PANTS_NODEJS_TEST_SKIP'
+  toml_repr={`[nodejs-test]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Node.js tests when running `pants test`.
+
+</Option>
+
+## Advanced options
+
+### `coverage_output_dir`
+
+<Option
+  cli_repr={`--nodejs-test-coverage-output-dir=<str>`}
+  env_repr='PANTS_NODEJS_TEST_COVERAGE_OUTPUT_DIR'
+  toml_repr={`[nodejs-test]
+coverage_output_dir = <str>`}
+  default_repr={`{distdir}/coverage/js/{target_spec}`}
+>
+
+Path to write the NodeJS coverage reports to. Must be relative to the build root.
+
+Replacements:
+
+- `{distdir}` is replaced with the Pants `distdir`.
+
+- `{target_spec}` is replaced with the address of the applicable `javascript_test` target with `/` characters replaced with dots (`.`). Additional batch information is included in `target_spec`, when batching is used.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

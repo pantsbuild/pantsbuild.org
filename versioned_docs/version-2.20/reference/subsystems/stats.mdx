@@ -1,0 +1,78 @@
+---
+title: stats
+description: |
+  An aggregator for Pants stats, such as cache metrics.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+An aggregator for Pants stats, such as cache metrics.
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[stats]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `output_file`
+
+<Option
+  cli_repr={`--stats-output-file=<path>`}
+  env_repr='PANTS_STATS_OUTPUT_FILE'
+  toml_repr={`[stats]
+output_file = <path>`}
+  default_repr={`None`}
+>
+
+Output the stats to this file. If unspecified, outputs to stdout.
+
+</Option>
+
+## Advanced options
+
+### `log`
+
+<Option
+  cli_repr={`--[no-]stats-log`}
+  env_repr='PANTS_STATS_LOG'
+  toml_repr={`[stats]
+log = <bool>`}
+  default_repr={`False`}
+>
+
+At the end of the Pants run, log all counter metrics and summaries of observation histograms, e.g. the number of cache hits and the time saved by caching.
+
+For histogram summaries to work, you must add `hdrhistogram` to `[GLOBAL].plugins`.
+
+</Option>
+
+### `memory_summary`
+
+<Option
+  cli_repr={`--[no-]stats-memory-summary`}
+  env_repr='PANTS_STATS_MEMORY_SUMMARY'
+  toml_repr={`[stats]
+memory_summary = <bool>`}
+  default_repr={`False`}
+>
+
+At the end of the Pants run, report a summary of memory usage.
+
+Keys are the total size in bytes, the count, and the name. Note that the total size is for all instances added together, so you can use total_size // count to get the average size.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
