@@ -142,7 +142,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/v2.20/docs/targets for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.21/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -189,6 +189,17 @@ Use `[docker].build_hosts` to set default host entries for all images.
 
 </Field>
 
+## `extra_run_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Extra arguments to pass into the invocation of `docker run`. These are in addition to those at the `[docker].run_args`
+
+</Field>
+
 ## `image_labels`
 
 <Field
@@ -215,7 +226,7 @@ Any tags to apply to the Docker image name (the version is usually applied as a 
 
 tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
-See https://www.pantsbuild.org/v2.20/docs/tagging-docker-images.
+See https://www.pantsbuild.org/2.21/docs/docker/tagging-docker-images.
 
 </Field>
 

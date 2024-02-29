@@ -33,7 +33,7 @@ args = [
   default_repr={`[]`}
 >
 
-Arguments to pass directly to helmsubsystem, e.g. `--helm-args='--dry-run'`.
+Arguments to pass directly to helmsubsystem, e.g. `--helm-args='--force'`.
 
 Additional arguments to pass to Helm command line.
 
@@ -45,7 +45,6 @@ The list of valid arguments is as follows:
 - --cleanup-on-fail
 - --create-namespace
 - --debug
-- --dry-run
 - --force
 - --wait
 - --wait-for-jobs
@@ -59,6 +58,8 @@ The list of valid arguments is as follows:
 - --timeout
 
 Before attempting to use passthrough arguments, check the reference of each of the available target types to see what fields are accepted in each of them.
+
+To pass `--dry-run`, use the `--experimental-deploy-dry-run` flag.
 
 </Option>
 
@@ -253,7 +254,7 @@ url_template = <str>`}
   default_repr={`https://get.helm.sh/helm-v{version}-{platform}.tar.gz`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.20/docs/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.21/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
