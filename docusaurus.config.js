@@ -34,16 +34,16 @@ function getCurrentVersion() {
   const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
   return `2.${version + 1}`;
 }
+
 const currentVersion = getCurrentVersion();
 
-const isPrerelease = (version) => {
-  const reference_dir = path.join(
-    "versioned_docs",
-    `version-${version}`,
-    "reference"
-  );
+const getFullVersion = (shortVersion) => {
+  const parentDir =
+    shortVersion === currentVersion
+      ? "docs"
+      : path.join("versioned_docs", `version-${shortVersion}`);
   const helpAll = JSON.parse(
-    fs.readFileSync(path.join(reference_dir, "help-all.json"), "utf8")
+    fs.readFileSync(path.join(parentDir, "reference", "help-all.json"), "utf8")
   );
 
   const pantsVersion = helpAll["scope_to_help_info"][""]["advanced"].find(
@@ -54,12 +54,16 @@ const isPrerelease = (version) => {
     (value) => value["rank"] == "HARDCODED"
   );
 
+  return hardcoded["value"];
+};
+
+const isPrerelease = (shortVersion) => {
   // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
   // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
   // Optimally we shouldn't sync those either way, but some have ended up here by accident.
   const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
 
-  return rex.test(hardcoded["value"]);
+  return rex.test(getFullVersion(shortVersion));
 };
 
 // Blog
