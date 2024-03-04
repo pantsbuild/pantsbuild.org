@@ -366,7 +366,31 @@ If true, don&#x27;t run pyupgrade on this target&#x27;s code.
     backend="pants.backend.experimental.python.lint.ruff"
 >
 
-If true, don&#x27;t run ruff on this target&#x27;s code.
+If True, do not run any Ruff tools on this target&#x27;s code.
+
+</Field>
+
+## `skip_ruff_check`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.ruff"
+>
+
+If true, don&#x27;t run the ruff checker on this target&#x27;s code.
+
+</Field>
+
+## `skip_ruff_format`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.python.lint.ruff.format"
+>
+
+If true, don&#x27;t run the ruff formatter on this target&#x27;s code.
 
 </Field>
 
