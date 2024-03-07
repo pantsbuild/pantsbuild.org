@@ -11,6 +11,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
 
+const numberOfSupportedStableVersions = 2;
+
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
 //  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
@@ -57,14 +59,78 @@ const getFullVersion = (shortVersion) => {
   return hardcoded["value"];
 };
 
-const isPrereleaseVersion = (shortVersion) => {
+const isPrereleaseVersion = (fullVersion) => {
   // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
   // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
   // Optimally we shouldn't sync those either way, but some have ended up here by accident.
   const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
 
-  return rex.test(getFullVersion(shortVersion));
+  return rex.test(fullVersion);
 };
+
+const getVersionDetails = () => {
+  const versionDetails = [];
+
+  let seenStableVersions = 0;
+
+  // Construct the configuration for each version. NB. iterating from newest to oldest is important,
+  // to be able to label too-old stable versions as unsupported.
+  for (const shortVersion of versions) {
+    const fullVersion = getFullVersion(shortVersion);
+
+    // NB. "maintained" versions includes pre-releases
+    const isMaintained = seenStableVersions < numberOfSupportedStableVersions;
+    const isPrerelease = isPrereleaseVersion(fullVersion);
+
+    // compute the appropriate configuration this version
+    let config;
+    if (isPrerelease) {
+      // prerelease => prerelease
+      config = {
+        label: `${shortVersion} (prerelease)`,
+        banner: "unreleased",
+        noIndex: false,
+      };
+    } else if (isMaintained) {
+      // a new-enough stable version => so still supported
+      config = {
+        label: shortVersion,
+        banner: "none",
+        noIndex: false,
+      };
+    } else {
+      // stable, but too old => deprecated
+      config = {
+        label: `${shortVersion} (deprecated)`,
+        banner: "unmaintained",
+        noIndex: true,
+      };
+    }
+
+    versionDetails.push({
+      shortVersion,
+      fullVersion,
+      isMaintained,
+      isPrerelease,
+      config: {
+        ...config,
+        path: shortVersion,
+      },
+    });
+
+    if (!isPrerelease) {
+      seenStableVersions += 1;
+    }
+  }
+
+  return versionDetails;
+};
+
+const versionDetails = getVersionDetails();
+
+const mostRecentStableVersion = versionDetails.find(
+  ({ isPrerelease }) => !isPrerelease
+);
 
 // Blog
 const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
@@ -344,7 +410,7 @@ const config = {
         onlyIncludeVersions,
         lastVersion: onlyIncludeVersions
           ? undefined
-          : versions.find((v) => !isPrereleaseVersion(v)),
+          : mostRecentStableVersion.shortVersion,
         versions: {
           current: {
             label: `${currentVersion} (dev)`,
@@ -352,24 +418,12 @@ const config = {
           },
           ...(disableVersioning
             ? {}
-            : versions.reduce((acc, version, index) => {
-                acc[version] = {
-                  label: isPrereleaseVersion(version)
-                    ? `${version} (prerelease)`
-                    : index < 2 + (isPrereleaseVersion(versions[0]) ? 1 : 0)
-                      ? version
-                      : `${version} (deprecated)`,
-                  banner: isPrereleaseVersion(version)
-                    ? "unreleased"
-                    : index < 2 + (isPrereleaseVersion(versions[0]) ? 1 : 0)
-                      ? "none"
-                      : "unmaintained",
-                  noIndex:
-                    index >= 2 + (isPrereleaseVersion(versions[0]) ? 1 : 0),
-                  path: version,
-                };
-                return acc;
-              }, {})),
+            : Object.fromEntries(
+                versionDetails.map(({ shortVersion, config }) => [
+                  shortVersion,
+                  config,
+                ])
+              )),
         },
         remarkPlugins: [captionedCode, tabBlocks],
         editUrl: ({ docPath }) => {
