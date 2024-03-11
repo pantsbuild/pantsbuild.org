@@ -57,7 +57,7 @@ const getFullVersion = (shortVersion) => {
   return hardcoded["value"];
 };
 
-const isPrerelease = (shortVersion) => {
+const isPrereleaseVersion = (shortVersion) => {
   // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
   // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
   // Optimally we shouldn't sync those either way, but some have ended up here by accident.
@@ -344,7 +344,7 @@ const config = {
         onlyIncludeVersions,
         lastVersion: onlyIncludeVersions
           ? undefined
-          : versions.find((v) => !isPrerelease(v)),
+          : versions.find((v) => !isPrereleaseVersion(v)),
         versions: {
           current: {
             label: `${currentVersion} (dev)`,
@@ -354,17 +354,18 @@ const config = {
             ? {}
             : versions.reduce((acc, version, index) => {
                 acc[version] = {
-                  label: isPrerelease(version)
+                  label: isPrereleaseVersion(version)
                     ? `${version} (prerelease)`
-                    : index < 2 + (isPrerelease(versions[0]) ? 1 : 0)
+                    : index < 2 + (isPrereleaseVersion(versions[0]) ? 1 : 0)
                       ? version
                       : `${version} (deprecated)`,
-                  banner: isPrerelease(version)
+                  banner: isPrereleaseVersion(version)
                     ? "unreleased"
-                    : index < 2 + (isPrerelease(versions[0]) ? 1 : 0)
+                    : index < 2 + (isPrereleaseVersion(versions[0]) ? 1 : 0)
                       ? "none"
                       : "unmaintained",
-                  noIndex: index >= 2 + (isPrerelease(versions[0]) ? 1 : 0),
+                  noIndex:
+                    index >= 2 + (isPrereleaseVersion(versions[0]) ? 1 : 0),
                   path: version,
                 };
                 return acc;
