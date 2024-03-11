@@ -21,8 +21,6 @@ const numberOfSupportedStableVersions = 2;
 const isDev = process.env.NODE_ENV === "development";
 
 // Versions
-const disableVersioning =
-  isDev && process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS === undefined;
 const onlyIncludeVersions = isDev
   ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
     ? ["current"].concat(
@@ -414,7 +412,6 @@ const config = {
       {
         sidebarPath: require.resolve("./sidebars.js"),
         routeBasePath: "/",
-        disableVersioning,
         onlyIncludeVersions,
         lastVersion: onlyIncludeVersions
           ? undefined
