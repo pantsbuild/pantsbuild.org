@@ -39,11 +39,12 @@ function getCurrentVersion() {
 
 const currentVersion = getCurrentVersion();
 
+const isCurrentVersion = (shortVersion) => shortVersion === currentVersion;
+
 const getFullVersion = (shortVersion) => {
-  const parentDir =
-    shortVersion === currentVersion
-      ? "docs"
-      : path.join("versioned_docs", `version-${shortVersion}`);
+  const parentDir = isCurrentVersion(shortVersion)
+    ? "docs"
+    : path.join("versioned_docs", `version-${shortVersion}`);
   const helpAll = JSON.parse(
     fs.readFileSync(path.join(parentDir, "reference", "help-all.json"), "utf8")
   );
@@ -75,16 +76,22 @@ const getVersionDetails = () => {
 
   // Construct the configuration for each version. NB. iterating from newest to oldest is important,
   // to be able to label too-old stable versions as unsupported.
-  for (const shortVersion of versions) {
+  for (const shortVersion of [currentVersion, ...versions]) {
     const fullVersion = getFullVersion(shortVersion);
 
     // NB. "maintained" versions includes pre-releases
     const isMaintained = seenStableVersions < numberOfSupportedStableVersions;
     const isPrerelease = isPrereleaseVersion(fullVersion);
+    const isCurrent = isCurrentVersion(shortVersion);
 
     // compute the appropriate configuration this version
     let config;
-    if (isPrerelease) {
+    if (isCurrent) {
+      // current version => dev
+      config = {
+        label: `${shortVersion} (dev)`,
+      };
+    } else if (isPrerelease) {
       // prerelease => prerelease
       config = {
         label: `${shortVersion} (prerelease)`,
@@ -112,6 +119,7 @@ const getVersionDetails = () => {
       fullVersion,
       isMaintained,
       isPrerelease,
+      isCurrent,
       config: {
         ...config,
         path: shortVersion,
@@ -411,20 +419,12 @@ const config = {
         lastVersion: onlyIncludeVersions
           ? undefined
           : mostRecentStableVersion.shortVersion,
-        versions: {
-          current: {
-            label: `${currentVersion} (dev)`,
-            path: currentVersion,
-          },
-          ...(disableVersioning
-            ? {}
-            : Object.fromEntries(
-                versionDetails.map(({ shortVersion, config }) => [
-                  shortVersion,
-                  config,
-                ])
-              )),
-        },
+        versions: Object.fromEntries(
+          versionDetails.map(({ isCurrent, shortVersion, config }) => [
+            isCurrent ? "current" : shortVersion,
+            config,
+          ])
+        ),
         remarkPlugins: [captionedCode, tabBlocks],
         editUrl: ({ docPath }) => {
           if (docPath.startsWith("reference/")) {
