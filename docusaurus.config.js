@@ -11,11 +11,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
 
-function getCurrentVersion() {
-  const lastReleasedVersion = versions[0];
-  const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
-  return `2.${version + 1}`;
-}
+const numberOfSupportedStableVersions = 2;
 
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
@@ -23,8 +19,8 @@ function getCurrentVersion() {
 //  - PANTSBUILD_ORG_INCLUDE_BLOG=1 -> Include the blog.
 // Note that `NODE_ENV === 'production' builds _everything_.
 const isDev = process.env.NODE_ENV === "development";
-const disableVersioning =
-  isDev && process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS === undefined;
+
+// Versions
 const onlyIncludeVersions = isDev
   ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
     ? ["current"].concat(
@@ -32,9 +28,120 @@ const onlyIncludeVersions = isDev
       )
     : ["current"]
   : undefined;
+
+function getCurrentVersion() {
+  const lastReleasedVersion = versions[0];
+  const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
+  return `2.${version + 1}`;
+}
+
 const currentVersion = getCurrentVersion();
+
+const isCurrentVersion = (shortVersion) => shortVersion === currentVersion;
+
+const getFullVersion = (shortVersion) => {
+  const parentDir = isCurrentVersion(shortVersion)
+    ? "docs"
+    : path.join("versioned_docs", `version-${shortVersion}`);
+  const helpAll = JSON.parse(
+    fs.readFileSync(path.join(parentDir, "reference", "help-all.json"), "utf8")
+  );
+
+  const pantsVersion = helpAll["scope_to_help_info"][""]["advanced"].find(
+    (help) => help["config_key"] === "pants_version"
+  );
+
+  const hardcoded = pantsVersion["value_history"]["ranked_values"].find(
+    (value) => value["rank"] == "HARDCODED"
+  );
+
+  return hardcoded["value"];
+};
+
+const isPrereleaseVersion = (fullVersion) => {
+  // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
+  // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
+  // Optimally we shouldn't sync those either way, but some have ended up here by accident.
+  const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
+
+  return rex.test(fullVersion);
+};
+
+const getVersionDetails = () => {
+  const versionDetails = [];
+
+  let seenStableVersions = 0;
+
+  // Construct the configuration for each version. NB. iterating from newest to oldest is important,
+  // to be able to label too-old stable versions as unsupported.
+  for (const shortVersion of [currentVersion, ...versions]) {
+    const fullVersion = getFullVersion(shortVersion);
+
+    // NB. "maintained" versions includes pre-releases
+    const isMaintained = seenStableVersions < numberOfSupportedStableVersions;
+    const isPrerelease = isPrereleaseVersion(fullVersion);
+    const isCurrent = isCurrentVersion(shortVersion);
+
+    // compute the appropriate configuration this version
+    let config;
+    if (isCurrent) {
+      // current version => dev
+      config = {
+        label: `${shortVersion} (dev)`,
+      };
+    } else if (isPrerelease) {
+      // prerelease => prerelease
+      config = {
+        label: `${shortVersion} (prerelease)`,
+        banner: "unreleased",
+        noIndex: false,
+      };
+    } else if (isMaintained) {
+      // a new-enough stable version => so still supported
+      config = {
+        label: shortVersion,
+        banner: "none",
+        noIndex: false,
+      };
+    } else {
+      // stable, but too old => deprecated
+      config = {
+        label: `${shortVersion} (deprecated)`,
+        banner: "unmaintained",
+        noIndex: true,
+      };
+    }
+
+    versionDetails.push({
+      shortVersion,
+      fullVersion,
+      isMaintained,
+      isPrerelease,
+      isCurrent,
+      config: {
+        ...config,
+        path: shortVersion,
+      },
+    });
+
+    if (!isPrerelease) {
+      seenStableVersions += 1;
+    }
+  }
+
+  return versionDetails;
+};
+
+const versionDetails = getVersionDetails();
+
+const mostRecentStableVersion = versionDetails.find(
+  ({ isPrerelease }) => !isPrerelease
+);
+
+// Blog
 const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
 
+// Other information
 const formatCopyright = () => {
   const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
 
@@ -48,32 +155,6 @@ const formatCopyright = () => {
     : "local";
 
   return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
-};
-
-const isPrerelease = (version) => {
-  const reference_dir = path.join(
-    "versioned_docs",
-    `version-${version}`,
-    "reference"
-  );
-  const helpAll = JSON.parse(
-    fs.readFileSync(path.join(reference_dir, "help-all.json"), "utf8")
-  );
-
-  const pantsVersion = helpAll["scope_to_help_info"][""]["advanced"].find(
-    (help) => help["config_key"] === "pants_version"
-  );
-
-  const hardcoded = pantsVersion["value_history"]["ranked_values"].find(
-    (value) => value["rank"] == "HARDCODED"
-  );
-
-  // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
-  // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
-  // Optimally we shouldn't sync those either way, but some have ended up here by accident.
-  const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
-
-  return rex.test(hardcoded["value"]);
 };
 
 const config = {
@@ -331,36 +412,16 @@ const config = {
       {
         sidebarPath: require.resolve("./sidebars.js"),
         routeBasePath: "/",
-        disableVersioning,
         onlyIncludeVersions,
         lastVersion: onlyIncludeVersions
           ? undefined
-          : versions.find((v) => !isPrerelease(v)),
-        versions: {
-          current: {
-            label: `${currentVersion} (dev)`,
-            path: currentVersion,
-          },
-          ...(disableVersioning
-            ? {}
-            : versions.reduce((acc, version, index) => {
-                acc[version] = {
-                  label: isPrerelease(version)
-                    ? `${version} (prerelease)`
-                    : index < 2 + (isPrerelease(versions[0]) ? 1 : 0)
-                      ? version
-                      : `${version} (deprecated)`,
-                  banner: isPrerelease(version)
-                    ? "unreleased"
-                    : index < 2 + (isPrerelease(versions[0]) ? 1 : 0)
-                      ? "none"
-                      : "unmaintained",
-                  noIndex: index >= 2 + (isPrerelease(versions[0]) ? 1 : 0),
-                  path: version,
-                };
-                return acc;
-              }, {})),
-        },
+          : mostRecentStableVersion.shortVersion,
+        versions: Object.fromEntries(
+          versionDetails.map(({ isCurrent, shortVersion, config }) => [
+            isCurrent ? "current" : shortVersion,
+            config,
+          ])
+        ),
         remarkPlugins: [captionedCode, tabBlocks],
         editUrl: ({ docPath }) => {
           if (docPath.startsWith("reference/")) {
