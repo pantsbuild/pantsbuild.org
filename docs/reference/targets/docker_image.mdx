@@ -57,11 +57,11 @@ Set the target platform(s) for the build.
 ## `cache_from`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`list | None`}
     default_repr={`None`}
 >
 
-Use an external cache source when building the image.
+Use external cache sources when building the image.
 
 This option requires BuildKit to be enabled via the Docker subsystem options.
 
@@ -72,12 +72,18 @@ docker_image(
     name="example-local-cache-backend",
     cache_to={
         "type": "local",
-        "dest": "/tmp/docker-cache/example"
+        "dest": "/tmp/docker-cache/primary"
     },
-    cache_from={
-        "type": "local",
-        "src": "/tmp/docker-cache/example"
-    }
+    cache_from=[
+        {
+            "type": "local",
+            "src": "/tmp/docker-cache/primary"
+        },
+        {
+            "type": "local",
+            "src": "/tmp/docker-cache/secondary"
+        }
+    ]
 )
 ```
 
@@ -94,6 +100,8 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 
 Export image build cache to an external cache destination.
 
+Note that Docker [supports](https://docs.docker.com/build/cache/backends/#multiple-caches) multiple cache sources - Pants will pass these as multiple `--cache_from` arguments to the Docker CLI. Docker will only use the first cache hit (i.e. the image exists) in the build.
+
 This option requires BuildKit to be enabled via the Docker subsystem options.
 
 Example:
@@ -105,10 +113,10 @@ docker_image(
         "type": "local",
         "dest": "/tmp/docker-cache/example"
     },
-    cache_from={
+    cache_from=[{
         "type": "local",
         "src": "/tmp/docker-cache/example"
-    }
+    }]
 )
 ```
 
