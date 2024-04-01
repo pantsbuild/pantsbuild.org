@@ -171,7 +171,11 @@ const config = {
 
   // @TODO: This should throw on prod
   onBrokenLinks: isDev ? "warn" : "warn",
-  onBrokenMarkdownLinks: isDev ? "warn" : "warn",
+   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
+
+  markdown: {
+      format: "detect",
+  },
 
   webpack: {
     jsLoader: (isServer) => ({
