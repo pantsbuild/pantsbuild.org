@@ -171,10 +171,10 @@ const config = {
 
   // @TODO: This should throw on prod
   onBrokenLinks: isDev ? "warn" : "warn",
-   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
+  onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
   markdown: {
-      format: "detect",
+    format: "detect",
   },
 
   webpack: {
@@ -247,6 +247,12 @@ const config = {
           position: "left",
           sidebarId: "referenceSidebar",
           label: "Reference",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "releaseNotesSidebar",
+          label: "Release Notes",
         },
         { to: "/blog", label: "Blog", position: "left" },
         { to: "/sponsorship", label: "Sponsor", position: "left" },
