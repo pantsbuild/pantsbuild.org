@@ -19,6 +19,21 @@ Config section: <span className="color--primary">`[stats]`</span>
 
 ## Basic options
 
+### `format`
+
+<Option
+  cli_repr={`--stats-format=<StatsOutputFormat>`}
+  env_repr='PANTS_STATS_FORMAT'
+  toml_repr={`[stats]
+format = <StatsOutputFormat>`}
+  one_of='text, jsonlines'
+  default_repr={`text`}
+>
+
+Output format for reporting stats.
+
+</Option>
+
 ### `output_file`
 
 <Option
