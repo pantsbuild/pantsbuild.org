@@ -34,7 +34,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v2.1.148|macos_arm64|5b1dee5a89fff25747753e917f96b8707ea62eed404d037d5f8cf8f2e80a13b7|4197604",\n  "v2.1.148|macos_x86_64|5b1dee5a89fff25747753e917f96b8707ea62eed404d037d5f8cf8f2e80a13b7|4197604",\n  "v2.1.148|linux_x86_64|5b1dee5a89fff25747753e917f96b8707ea62eed404d037d5f8cf8f2e80a13b7|4197604",\n  "v2.1.148|linux_arm64|5b1dee5a89fff25747753e917f96b8707ea62eed404d037d5f8cf8f2e80a13b7|4197604"\n]`}
+  default_repr={`[\n  "v2.2.1|macos_arm64|e38e7052282f1855606880333a8f8c8a09458fabc5b5e5fb6c48ce11a4564a34|4113219",\n  "v2.2.1|macos_x86_64|e38e7052282f1855606880333a8f8c8a09458fabc5b5e5fb6c48ce11a4564a34|4113219",\n  "v2.2.1|linux_x86_64|e38e7052282f1855606880333a8f8c8a09458fabc5b5e5fb6c48ce11a4564a34|4113219",\n  "v2.2.1|linux_arm64|e38e7052282f1855606880333a8f8c8a09458fabc5b5e5fb6c48ce11a4564a34|4113219"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -85,7 +85,7 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   env_repr='PANTS_PEX_CLI_URL_TEMPLATE'
   toml_repr={`[pex-cli]
 url_template = <str>`}
-  default_repr={`https://github.com/pantsbuild/pex/releases/download/{version}/pex`}
+  default_repr={`https://github.com/pex-tool/pex/releases/download/{version}/pex`}
 >
 
 URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/v2.19/docs/options#config-file-entries)).
@@ -118,7 +118,7 @@ Supported pex versions: &#x3E;=2.1.135,&#x3C;3.0
   env_repr='PANTS_PEX_CLI_VERSION'
   toml_repr={`[pex-cli]
 version = <str>`}
-  default_repr={`v2.1.148`}
+  default_repr={`v2.2.1`}
 >
 
 Use this version of pex.
