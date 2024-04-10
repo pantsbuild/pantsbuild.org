@@ -28,6 +28,8 @@ Backend: <span className="color--primary">`pants.backend.python`</span>
 
 Freeze these command-line args into the PEX. Allows you to run generic entry points on specific arguments without creating a shim file.
 
+This is different to `extra_build_args`: `args` records arguments used by the packaged PEX when executed, `extra_build_args` passes arguments to the process that does the packaging.
+
 </Field>
 
 ## `check`
@@ -174,6 +176,19 @@ The mode the generated PEX file will run in.
 The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https://www.python.org/dev/peps/pep-0441/) where zipped internal code and dependencies are first unpacked to disk. This mode achieves the fastest cold start times and may, for example be the best choice for cloud lambda functions.
 
 The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
+
+</Field>
+
+## `extra_build_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Extra arguments to pass to the `pex` invocation used to build this PEX. These are passed after all other arguments. This can be used to pass extra options that Pants doesn&#x27;t have built-in support for.
+
+This is different to `args`: `args` records arguments used by the packaged PEX when executed, `extra_build_args` passes arguments to the process that does the packaging.
 
 </Field>
 

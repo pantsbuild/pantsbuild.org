@@ -233,6 +233,24 @@ Path to write test reports to. Must be relative to the build root.
 
 </Option>
 
+### `show_rerun_command`
+
+<Option
+  cli_repr={`--[no-]test-show-rerun-command`}
+  env_repr='PANTS_TEST_SHOW_RERUN_COMMAND'
+  toml_repr={`[test]
+show_rerun_command = <bool>`}
+  default_repr={`True`}
+>
+
+If tests fail, show an appropriate `pants test ...` invocation to rerun just those tests.
+
+This is to make it easy to run those tests on a new machine (for instance, run tests locally if they fail in CI): caching of successful tests means that rerunning the exact same command on the same machine will already automatically only rerun the failures.
+
+This defaults to `True` when running in CI (as determined by the `CI` environment variable being set) but `False` elsewhere.
+
+</Option>
+
 ### `timeout_default`
 
 <Option
