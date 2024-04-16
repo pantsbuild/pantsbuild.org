@@ -13,6 +13,11 @@ berkay:
   # title:
   url: https://github.com/ozturkberkay
   image_url: https://github.com/ozturkberkay.png
+cburroughs:
+  name: Chris Burroughs
+  title: Pants Contributor
+  url: https://github.com/cburroughs
+  image_url: https://github.com/cburroughs.png
 cczona:
   name: Carina C. Zona
   title: Pants Maintainer
