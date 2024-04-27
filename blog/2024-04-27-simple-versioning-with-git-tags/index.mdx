@@ -1,0 +1,65 @@
+---
+    authors: [grihabor]
+    tags: []
+---
+
+# Simple versioning with git tags
+
+How do I set a docker image version based on git tag? Or python distribution
+version? Or helm chart version? Pants documentation has mentioned versioning
+multiple times, but all the methods look complicated or don't cover all the use
+cases. 
+
+- [Generating version tags from Git](../../docs/docs/using-pants/generating-version-tags-from-git.mdx)
+- [Custom `python_artifact()` kwargs](../../docs/docs/writing-plugins/common-plugin-tasks/custom-python-artifact-kwargs.mdx)
+- [vcs_version](../../reference/targets/vcs_version.mdx) target
+- [Using env vars to include dynamic data in tags](../../docs/docs/docker/tagging-docker-images.mdx#using-env-vars-to-include-dynamic-data-in-tags)
+
+To make it work we need one more pants feature [hidden in the docs](../../docs/docs/using-pants/key-concepts/options.mdx#pantsbootstrap-file) - the `.pants.bootstrap` file. This makes it possible to automatically set the `VERSION` env var right before pants starts:
+
+```bash title=".pants.bootstrap"
+#!/bin/sh
+
+VERSION="${VERSION:-$(git describe --tags --dirty --match "[0-9\.]*" || echo 0.0.1)}"
+export VERSION
+```
+
+Now we can use the env var everywhere!
+
+To set [docker_image](../../reference/targets/python_distribution.mdx) tag:
+
+```python file="BUILD"
+docker_image(
+    name="image",
+    image_tags=[env("VERSION")],
+)
+```
+
+To pass [docker_image](../../reference/targets/python_distribution.mdx) build arg:
+
+```python file="BUILD"
+docker_image(
+    name="image",
+    extra_build_args=["VERSION=" + env("VERSION")],
+)
+```
+
+To set [python_distribution](../../reference/targets/python_distribution.mdx) version:
+
+```python file="BUILD"
+python_distribution(
+    name="mydist",
+    provides=python_artifact(
+        name="mydist",
+        version=env("VERSION"),
+    ),
+)
+```
+
+To set [helm_chart](../../reference/targets/helm_chart.mdx) version:
+
+```python file="BUILD"
+helm_chart(
+    version=env("VERSION"),
+)
+```
