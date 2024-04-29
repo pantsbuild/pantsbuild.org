@@ -34,7 +34,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v2.3.0|macos_arm64|581f7c2d61b4c24c66ba241f2a37d8f3b552f24ed22543279860f3463ac3db35|4124506",\n  "v2.3.0|macos_x86_64|581f7c2d61b4c24c66ba241f2a37d8f3b552f24ed22543279860f3463ac3db35|4124506",\n  "v2.3.0|linux_x86_64|581f7c2d61b4c24c66ba241f2a37d8f3b552f24ed22543279860f3463ac3db35|4124506",\n  "v2.3.0|linux_arm64|581f7c2d61b4c24c66ba241f2a37d8f3b552f24ed22543279860f3463ac3db35|4124506"\n]`}
+  default_repr={`[\n  "v2.3.1|macos_arm64|71690e672871b55323f5d6ef9a3fe9705f1668662652c4081080e7ab27d44de3|4124530",\n  "v2.3.1|macos_x86_64|71690e672871b55323f5d6ef9a3fe9705f1668662652c4081080e7ab27d44de3|4124530",\n  "v2.3.1|linux_x86_64|71690e672871b55323f5d6ef9a3fe9705f1668662652c4081080e7ab27d44de3|4124530",\n  "v2.3.1|linux_arm64|71690e672871b55323f5d6ef9a3fe9705f1668662652c4081080e7ab27d44de3|4124530"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -88,7 +88,7 @@ url_template = <str>`}
   default_repr={`https://github.com/pex-tool/pex/releases/download/{version}/pex`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.21/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.22/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
@@ -107,7 +107,7 @@ use_unsupported_version = <UnsupportedVersionUsage>`}
 
 What action to take in case the requested version of pex is not supported.
 
-Supported pex versions: &#x3E;=2.1.161,&#x3C;3.0
+Supported pex versions: &#x3E;=2.3.0,&#x3C;3.0
 
 </Option>
 
@@ -118,12 +118,12 @@ Supported pex versions: &#x3E;=2.1.161,&#x3C;3.0
   env_repr='PANTS_PEX_CLI_VERSION'
   toml_repr={`[pex-cli]
 version = <str>`}
-  default_repr={`v2.3.0`}
+  default_repr={`v2.3.1`}
 >
 
 Use this version of pex.
 
-Supported pex versions: &#x3E;=2.1.161,&#x3C;3.0
+Supported pex versions: &#x3E;=2.3.0,&#x3C;3.0
 
 </Option>
 
