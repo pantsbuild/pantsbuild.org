@@ -39,7 +39,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/2.21/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.22/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -258,7 +258,7 @@ If set to true, do not push this Helm chart to registries when running `pants pu
 
 <Field
     type_repr={`Iterable[str] | None`}
-    default_repr={`('values.yaml', 'values.yml', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'crds/*.yaml', 'crds/*.yml')`}
+    default_repr={`('.helmignore', 'README.md', 'LICENSE', 'values.yaml', 'values.yml', 'values.schema.json', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'templates/NOTES.txt', 'crds/*.yaml', 'crds/*.yml')`}
 >
 
 A list of files and globs that belong to this target.

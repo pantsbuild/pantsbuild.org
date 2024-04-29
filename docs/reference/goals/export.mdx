@@ -91,7 +91,25 @@ If a resolve name is not in this list, &#x27;python_distribution&#x27; targets w
 
 This only applies when &#x27;[python].enable_resolves&#x27; is true and when exporting a &#x27;mutable_virtualenv&#x27; (&#x27;symlinked_immutable_virtualenv&#x27; exports are not &#x22;full&#x22; virtualenvs because they must not be edited, and do not include &#x27;pip&#x27;).
 
-NOTE: If you are using legacy exports (not using the &#x27;--resolve&#x27; option), then this option has no effect. Legacy exports will not include any editable installs.
+</Option>
+
+### `py_hermetic_scripts`
+
+<Option
+  cli_repr={`--[no-]export-py-hermetic-scripts`}
+  env_repr='PANTS_EXPORT_PY_HERMETIC_SCRIPTS'
+  toml_repr={`[export]
+py_hermetic_scripts = <bool>`}
+  default_repr={`True`}
+>
+
+When exporting a mutable virtualenv for a resolve, by default modify console script shebang lines to make them &#x22;hermetic&#x22;. The shebang of hermetic console scripts uses the python args: `-sE`:
+
+- `-s` skips inclusion of the user site-packages directoy, - `-E` ignores all `PYTHON*` env vars like `PYTHONPATH`.
+
+Set this to false if you need non-hermetic scripts with simple python shebangs that respect vars like `PYTHONPATH`, to, for example, allow IDEs like PyCharm to inject its debugger, coverage, or other IDE-specific libs when running a script.
+
+This only applies when when exporting a &#x27;mutable_virtualenv&#x27; (&#x27;symlinked_immutable_virtualenv&#x27; exports are not &#x22;full&#x22; virtualenvs because they are used internally by pants itself. Pants requires hermetic scripts to provide its reproduciblity guarantee, fine-grained caching, and other features).
 
 </Option>
 
