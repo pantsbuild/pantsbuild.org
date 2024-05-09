@@ -28,10 +28,8 @@ jobs:
       - name: Generate help JSON
         # First run `help-all` which will contain the list of every backend in the `name_to_backend_help_info` object,
         # then run it again with every backend enabled.
-        # NB: We run the command initially twice, since the first run might put extraneous crap on stdout.
         run: |
           touch pants.toml
-          PANTS_VERSION="${{ inputs.version }}" pants help-all > /dev/null
           PANTS_VERSION="${{ inputs.version }}" pants help-all > help-all.json
           PANTS_VERSION="${{ inputs.version }}" pants --backend-packages=[$(jq -r '.name_to_backend_help_info | keys_unsorted | map("\"" + . + "\"") | join(",")' help-all.json)] help-all > help-all.json
 
