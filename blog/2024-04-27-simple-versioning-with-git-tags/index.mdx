@@ -12,14 +12,14 @@ based on git state.
 Pants does have various solutions for this, but they tend to be too
 complicated, or too limited:
 
-- [Generating version tags from Git](../../docs/docs/using-pants/generating-version-tags-from-git.mdx)
-- [Custom `python_artifact()` kwargs](../../docs/docs/writing-plugins/common-plugin-tasks/custom-python-artifact-kwargs.mdx)
-- [vcs_version](../../reference/targets/vcs_version.mdx) target
-- [Using env vars to include dynamic data in tags](../../docs/docs/docker/tagging-docker-images.mdx#using-env-vars-to-include-dynamic-data-in-tags)
+- [Generating version tags from Git](https://www.pantsbuild.org/2.20/docs/using-pants/generating-version-tags-from-git)
+- [Custom `python_artifact()` kwargs](https://www.pantsbuild.org/2.20/docs/writing-plugins/common-plugin-tasks/custom-python-artifact-kwargs)
+- [vcs_version](https://www.pantsbuild.org/2.20/reference/targets/vcs_version) target
+- [Using env vars to include dynamic data in tags](https://www.pantsbuild.org/2.20/docs/docker/tagging-docker-images#using-env-vars-to-include-dynamic-data-in-tags)
 
 It turns out there is a hack that elegantly solves this problem. To make it
 work we need one more pants feature [hidden in the
-docs](../../docs/docs/using-pants/key-concepts/options.mdx#pantsbootstrap-file)
+docs](https://www.pantsbuild.org/2.20/docs/using-pants/key-concepts/options#pantsbootstrap-file)
 — the `.pants.bootstrap` file. It makes it possible to automatically set the
 `VERSION` env var right before pants starts:
 
@@ -32,7 +32,7 @@ export VERSION
 
 Now we can use the env var everywhere!
 
-To set [docker_image](../../reference/targets/python_distribution.mdx) tag:
+To set [docker_image](https://www.pantsbuild.org/2.20/reference/targets/python_distribution) tag:
 
 ```python file="BUILD"
 docker_image(
@@ -41,7 +41,7 @@ docker_image(
 )
 ```
 
-To pass [docker_image](../../reference/targets/python_distribution.mdx) build arg:
+To pass [docker_image](https://www.pantsbuild.org/2.20/reference/targets/python_distribution) build arg:
 
 ```python file="BUILD"
 docker_image(
@@ -50,7 +50,7 @@ docker_image(
 )
 ```
 
-To set [python_distribution](../../reference/targets/python_distribution.mdx) version:
+To set [python_distribution](https://www.pantsbuild.org/2.20/reference/targets/python_distribution) version:
 
 ```python file="BUILD"
 python_distribution(
@@ -62,7 +62,7 @@ python_distribution(
 )
 ```
 
-To set [helm_chart](../../reference/targets/helm_chart.mdx) version:
+To set [helm_chart](https://www.pantsbuild.org/2.20/reference/targets/helm_chart) version:
 
 ```python file="BUILD"
 helm_chart(
