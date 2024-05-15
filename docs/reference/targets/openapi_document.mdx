@@ -29,6 +29,20 @@ Path is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`
 
 </Field>
 
+## `bundle_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi"
+>
+
+The source root to bundle OpenAPI documents under.
+
+If unspecified, the source root the `openapi_documents` is under will be used.
+
+</Field>
+
 ## `dependencies`
 
 <Field

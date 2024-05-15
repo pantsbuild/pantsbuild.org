@@ -138,6 +138,29 @@ Run goals continuously as file changes are detected.
 
 </Option>
 
+### `native_options_validation`
+
+<Option
+  cli_repr={`--native-options-validation=<NativeOptionsValidation>`}
+  env_repr='PANTS_NATIVE_OPTIONS_VALIDATION'
+  toml_repr={`[GLOBAL]
+native_options_validation = <NativeOptionsValidation>`}
+  one_of='ignore, warning, error'
+  default_repr={`warning`}
+>
+
+Pants is switching its option parsing system from a legacy parser written in Python to a new one written in Rust.
+
+The results of parsing a given option by each system should be identical. However during a transition period we will run both parsers and compare their results. This option controls how to report discrepancies that arise.
+
+- `error`: Discrepancies will cause Pants to exit. - `warning`: Discrepancies will be logged but Pants will continue. - `ignore`: A last resort to turn off this check entirely.
+
+If you encounter discrepancies that are not easily resolvable, please reach out to us on Slack or file an issue: https://www.pantsbuild.org/community/getting-help.
+
+The native parser will become the default in 2.23.x, and the legacy parser will be removed in 2.24.x. So it is imperative that we find out about any discrepancies during this transition period.
+
+</Option>
+
 ### `pantsd`
 
 <Option

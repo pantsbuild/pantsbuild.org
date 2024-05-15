@@ -17,6 +17,20 @@ Backend: <span className="color--primary">`pants.backend.experimental.openapi`</
 
 <span className={styles.options}>
 
+## `bundle_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi"
+>
+
+The source root to bundle OpenAPI documents under.
+
+If unspecified, the source root the `openapi_documents` is under will be used.
+
+</Field>
+
 ## `dependencies`
 
 <Field

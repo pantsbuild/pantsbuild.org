@@ -85,11 +85,11 @@ py_editable_in_resolve = [
   default_repr={`[]`}
 >
 
-When exporting a mutable virtualenv for a resolve, do PEP-660 editable installs of all &#x27;python_distribution&#x27; targets that own code in the exported resolve.
+When exporting a mutable virtualenv for a resolve, do PEP-660 editable installs of all `python_distribution` targets that own code in the exported resolve.
 
-If a resolve name is not in this list, &#x27;python_distribution&#x27; targets will not be installed in the virtualenv. This defaults to an empty list for backwards compatibility and to prevent unnecessary work to generate and install the PEP-660 editable wheels.
+If a resolve name is not in this list, `python_distribution` targets will not be installed in the virtualenv. This defaults to an empty list for backwards compatibility and to prevent unnecessary work to generate and install the PEP-660 editable wheels.
 
-This only applies when &#x27;[python].enable_resolves&#x27; is true and when exporting a &#x27;mutable_virtualenv&#x27; (&#x27;symlinked_immutable_virtualenv&#x27; exports are not &#x22;full&#x22; virtualenvs because they must not be edited, and do not include &#x27;pip&#x27;).
+This only applies when `[python].enable_resolves` is true and when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they must not be edited, and do not include `pip`).
 
 </Option>
 
@@ -105,11 +105,12 @@ py_hermetic_scripts = <bool>`}
 
 When exporting a mutable virtualenv for a resolve, by default modify console script shebang lines to make them &#x22;hermetic&#x22;. The shebang of hermetic console scripts uses the python args: `-sE`:
 
-- `-s` skips inclusion of the user site-packages directoy, - `-E` ignores all `PYTHON*` env vars like `PYTHONPATH`.
+- `-s` skips inclusion of the user site-packages directory,
+- `-E` ignores all `PYTHON*` env vars like `PYTHONPATH`.
 
 Set this to false if you need non-hermetic scripts with simple python shebangs that respect vars like `PYTHONPATH`, to, for example, allow IDEs like PyCharm to inject its debugger, coverage, or other IDE-specific libs when running a script.
 
-This only applies when when exporting a &#x27;mutable_virtualenv&#x27; (&#x27;symlinked_immutable_virtualenv&#x27; exports are not &#x22;full&#x22; virtualenvs because they are used internally by pants itself. Pants requires hermetic scripts to provide its reproduciblity guarantee, fine-grained caching, and other features).
+This only applies when when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they are used internally by pants itself. Pants requires hermetic scripts to provide its reproduciblity guarantee, fine-grained caching, and other features).
 
 </Option>
 
