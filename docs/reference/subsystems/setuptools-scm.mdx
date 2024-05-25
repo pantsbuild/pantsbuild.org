@@ -11,6 +11,8 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A tool for generating versions from VCS metadata (https://github.com/pypa/setuptools_scm).
 
+This version of Pants uses `setuptools-scm` version 7.1.0 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
+
 Backend: <span className="color--primary">`pants.backend.experimental.python`</span>
 
 Config section: <span className="color--primary">`[setuptools-scm]`</span>
@@ -63,11 +65,11 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.22/docs/python/overview/third-party-dependencies#user-lockfiles.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.22/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `setuptools-scm` version 7.1.0.
 
 If unspecified, and the `lockfile` option is set, the tool will use the custom `setuptools-scm` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 

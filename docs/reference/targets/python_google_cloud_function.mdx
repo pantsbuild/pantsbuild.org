@@ -139,6 +139,21 @@ Warning: setting this value risks naming collisions with other package targets y
 
 </Field>
 
+## `pex_build_extra_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Additional arguments to pass to the `pex` invocation that is used to collect the requirements and sources for packaging.
+
+For example, `pex_build_extra_args=["--exclude=pypi-package-name"]` to force a package called `pypi-package-name` isn&#x27;t included in the artifact.
+
+Note: Excluding dependencies currently causes Pex to throw an error. You can additionally pass the `--ignore-errors` flag.
+
+</Field>
+
 ## `pex3_venv_create_extra_args`
 
 <Field

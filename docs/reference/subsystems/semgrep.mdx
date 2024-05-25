@@ -13,6 +13,8 @@ Lightweight static analysis for many languages. Find bug variants with patterns 
 
 Pants automatically finds config files (`.semgrep.yml`, `.semgrep.yaml`, and `.yml` or `.yaml` files within `.semgrep/` directories), and runs semgrep against all _targets_ known to Pants.
 
+This version of Pants uses `semgrep` version 1.72.0 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
+
 Backend: <span className="color--primary">`pants.backend.experimental.tools.semgrep`</span>
 
 Config section: <span className="color--primary">`[semgrep]`</span>
@@ -111,11 +113,11 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.22/docs/python/overview/third-party-dependencies#user-lockfiles.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.22/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants.
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `semgrep` version 1.72.0.
 
 If unspecified, and the `lockfile` option is set, the tool will use the custom `semgrep` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
@@ -132,7 +134,7 @@ interpreter_constraints = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "CPython>=3.7,<4"\n]`}
+  default_repr={`[\n  "CPython>=3.8,<4"\n]`}
 >
 
 Python interpreter constraints for this tool.
