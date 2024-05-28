@@ -165,18 +165,19 @@ Individual values to use when rendering a given deployment.
 
 Value names should be defined using dot-syntax as in the following example:
 
-````helm_deployment(
-    values={
-        "nameOverride": "my_custom_name",
-        "image.pullPolicy": "Always",
-    },
-) ```
+`&#x60;` helm_deployment(
+values=&#123;
+&#x22;nameOverride&#x22;: &#x22;my_custom_name&#x22;,
+&#x22;image.pullPolicy&#x22;: &#x22;Always&#x22;,
+&#125;,
+) `&#x60;`
 
 Values can be dynamically calculated using interpolation as shown in the following example:
-``` helm_deployment(
-    values=&#123;
-        &#x22;configmap.deployedAt&#x22;: &#x22;&#123;env.DEPLOY_TIME&#125;&#x22;,
-    &#125;,
+
+`&#x60;` helm_deployment(
+values=&#123;
+&#x22;configmap.deployedAt&#x22;: &#x22;&#123;env.DEPLOY_TIME&#125;&#x22;,
+&#125;,
 ) `&#x60;`
 
 Check the Helm backend documentation on what are the options available and its caveats when making usage of dynamic values in your deployments.
@@ -184,4 +185,3 @@ Check the Helm backend documentation on what are the options available and its c
 </Field>
 
 </span>
-````

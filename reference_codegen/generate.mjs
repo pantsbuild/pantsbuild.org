@@ -110,6 +110,19 @@ function unescape(val) {
     .replaceAll("&#125;", "}");
 }
 
+function backtickStartingLineToIgnore(line) {
+  // There's a few places with weird syntax that intefere with our naive line-by-line processing
+  // of the markdown, so, for now, we just hard-code them to keep things working.
+  //
+  // Using a proper markdown parser would help solve this.
+  return [
+    // `helm_deployment` target, `values` field
+    "``` helm_deployment(",
+    // `deploy_jar` target, `duplicate_policy` field
+    "``` duplicate_policy=[",
+  ].includes(line);
+}
+
 function convertDescription(val) {
   const lines = [];
   let tabbedBlock = false;
@@ -145,7 +158,7 @@ function convertDescription(val) {
       }
     }
     // If we're starting or ending a backticked block
-    else if (line.startsWith("```")) {
+    else if (line.startsWith("```") && !backtickStartingLineToIgnore(line)) {
       // The line is fine as is, but we need to toggle in or out of the backticks
       lines.push(line);
       backtickedBlock = !backtickedBlock;
