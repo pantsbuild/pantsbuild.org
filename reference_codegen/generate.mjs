@@ -136,8 +136,16 @@ function convertDescription(val) {
         tabbedBlock = false;
       }
     }
-    // We're _not_ in a tabbed block
-    else {
+    // If we're starting or ending a backticked block
+    else if (line.startsWith("```")) {
+      // The line is fine as is, but we need to toggle in or out of the backticks
+      lines.push(line);
+      backtickedBlock = !backtickedBlock;
+      // If we're in a backticked block
+    } else if (backtickedBlock) {
+      lines.push(line);
+      // No code block at all
+    } else {
       // HTML escape the line, but unescape anything in backticks
       lines.push(
         escape(line).replace(/`(.+?)`/g, (match, p1) => `\`${unescape(p1)}\``)
