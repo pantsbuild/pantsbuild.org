@@ -303,7 +303,10 @@ await Promise.all([
   writeFile(
     "global-options.mdx",
     renderSubsystemTemplate(
-      helpAll["scope_to_help_info"][globalScopeInternal],
+      {
+        ...helpAll["scope_to_help_info"][globalScopeInternal],
+        sidebar_position: 1,
+      },
       helpAll
     )
   ),
@@ -340,6 +343,7 @@ await Promise.all([
         slug: "/reference/goals",
         title: "Goals",
       },
+      position: 2,
     })
   ),
   writeFile(
@@ -351,6 +355,7 @@ await Promise.all([
         slug: "/reference/subsystems",
         title: "Subsystems",
       },
+      position: 3,
     })
   ),
   writeFile(
@@ -362,6 +367,7 @@ await Promise.all([
         slug: "/reference/targets",
         title: "Targets",
       },
+      position: 4,
     })
   ),
 ]);
