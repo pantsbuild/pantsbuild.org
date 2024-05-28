@@ -92,13 +92,13 @@ Expects a dictionary of relative file paths and globs to a dictionary for the ov
 
 For example:
 
-`&#x60;`
-overrides=&#123;
-&#x22;foo_test.py&#x22;: &#123;&#x22;timeout&#x22;: 120]&#125;,
-&#x22;bar_test.py&#x22;: &#123;&#x22;timeout&#x22;: 200]&#125;,
-(&#x22;foo_test.py&#x22;, &#x22;bar_test.py&#x22;): &#123;&#x22;tags&#x22;: [&#x22;slow_tests&#x22;]&#125;,
-&#125;
-`&#x60;`
+```
+overrides={
+  "foo_test.py": {"timeout": 120]},
+  "bar_test.py": {"timeout": 200]},
+  ("foo_test.py", "bar_test.py"): {"tags": ["slow_tests"]},
+}
+```
 
 File paths and globs are relative to the BUILD file&#x27;s directory. Every overridden file is validated to belong to this target&#x27;s `sources` field.
 
