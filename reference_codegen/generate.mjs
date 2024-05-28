@@ -49,6 +49,10 @@ const fieldTemplate = fs.readFileSync(
   "reference_codegen/field.mdx.mustache",
   "utf8"
 );
+const buildFileSymbolTemplate = fs.readFileSync(
+  "reference_codegen/build_file_symbol.mdx.mustache",
+  "utf8"
+);
 
 function renderSubsystemTemplate(view, helpAll) {
   view.related_subsystems = (
@@ -64,6 +68,10 @@ function renderSubsystemTemplate(view, helpAll) {
 
 function renderTargetTemplate(view) {
   return Mustache.render(targetTemplate, view, { field: fieldTemplate });
+}
+
+function renderBuildFileSymbolTemplate(view) {
+  return Mustache.render(buildFileSymbolTemplate, view);
 }
 
 function convertDefault(val, type) {
@@ -294,7 +302,7 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-["goals", "subsystems", "targets"].forEach((name) =>
+["goals", "subsystems", "targets", "build-file-symbols"].forEach((name) =>
   ensureEmptyDirectory(name)
 );
 
@@ -333,6 +341,20 @@ await Promise.all([
       );
     }
   ),
+  // BUILD file symbols (NB. targets are also included, so need to be explicitly removed).
+  helpAll.name_to_build_file_info &&
+    Object.values(helpAll.name_to_build_file_info).map(async (info) => {
+      if (info.is_target) return;
+
+      info.short_documentation = info.documentation?.split("\n")?.[0];
+      info.documentation =
+        info.documentation && convertDescription(info.documentation);
+
+      await writeFile(
+        path.join("build-file-symbols", `${info.name}.mdx`),
+        renderBuildFileSymbolTemplate(info)
+      );
+    }),
   // `_category_.json` files
   writeFile(
     "goals/_category_.json",
@@ -370,4 +392,17 @@ await Promise.all([
       position: 4,
     })
   ),
+  helpAll.name_to_build_file_info &&
+    writeFile(
+      "build-file-symbols/_category_.json",
+      JSON.stringify({
+        label: "BUILD file symbols",
+        link: {
+          type: "generated-index",
+          slug: "/reference/build-file-symbols",
+          title: "BUILD file symbols",
+        },
+        position: 5,
+      })
+    ),
 ]);
