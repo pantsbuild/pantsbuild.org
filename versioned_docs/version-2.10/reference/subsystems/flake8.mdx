@@ -173,11 +173,11 @@ You must set the plugin&#x27;s parent directory as a source root. For example, i
 
 You must also set `[flake8:local-plugins]` in your Flake8 config file. For example:
 
-`&#x60;`
+```
 [flake8:local-plugins]
-extension =
-CUSTOMCODE = custom_plugin:MyChecker
-`&#x60;`
+    extension =
+        CUSTOMCODE = custom_plugin:MyChecker
+```
 
 While your plugin&#x27;s code can depend on other first-party code and third-party requirements, all first-party dependencies of the plugin must live in the same directory or a subdirectory.
 

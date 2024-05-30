@@ -49,6 +49,10 @@ const fieldTemplate = fs.readFileSync(
   "reference_codegen/field.mdx.mustache",
   "utf8"
 );
+const buildFileSymbolTemplate = fs.readFileSync(
+  "reference_codegen/build_file_symbol.mdx.mustache",
+  "utf8"
+);
 
 function renderSubsystemTemplate(view, helpAll) {
   view.related_subsystems = (
@@ -64,6 +68,10 @@ function renderSubsystemTemplate(view, helpAll) {
 
 function renderTargetTemplate(view) {
   return Mustache.render(targetTemplate, view, { field: fieldTemplate });
+}
+
+function renderBuildFileSymbolTemplate(view) {
+  return Mustache.render(buildFileSymbolTemplate, view);
 }
 
 function convertDefault(val, type) {
@@ -102,6 +110,19 @@ function unescape(val) {
     .replaceAll("&#125;", "}");
 }
 
+function backtickStartingLineToIgnore(line) {
+  // There's a few places with weird syntax that intefere with our naive line-by-line processing
+  // of the markdown, so, for now, we just hard-code them to keep things working.
+  //
+  // Using a proper markdown parser would help solve this.
+  return [
+    // `helm_deployment` target, `values` field
+    "``` helm_deployment(",
+    // `deploy_jar` target, `duplicate_policy` field
+    "``` duplicate_policy=[",
+  ].includes(line);
+}
+
 function convertDescription(val) {
   const lines = [];
   let tabbedBlock = false;
@@ -136,8 +157,16 @@ function convertDescription(val) {
         tabbedBlock = false;
       }
     }
-    // We're _not_ in a tabbed block
-    else {
+    // If we're starting or ending a backticked block
+    else if (line.startsWith("```") && !backtickStartingLineToIgnore(line)) {
+      // The line is fine as is, but we need to toggle in or out of the backticks
+      lines.push(line);
+      backtickedBlock = !backtickedBlock;
+      // If we're in a backticked block
+    } else if (backtickedBlock) {
+      lines.push(line);
+      // No code block at all
+    } else {
       // HTML escape the line, but unescape anything in backticks
       lines.push(
         escape(line).replace(/`(.+?)`/g, (match, p1) => `\`${unescape(p1)}\``)
@@ -286,7 +315,7 @@ Object.entries(helpAll.name_to_target_type_info).forEach(([name, info]) => {
   });
 });
 
-["goals", "subsystems", "targets"].forEach((name) =>
+["goals", "subsystems", "targets", "build-file-symbols"].forEach((name) =>
   ensureEmptyDirectory(name)
 );
 
@@ -295,7 +324,10 @@ await Promise.all([
   writeFile(
     "global-options.mdx",
     renderSubsystemTemplate(
-      helpAll["scope_to_help_info"][globalScopeInternal],
+      {
+        ...helpAll["scope_to_help_info"][globalScopeInternal],
+        sidebar_position: 1,
+      },
       helpAll
     )
   ),
@@ -322,6 +354,20 @@ await Promise.all([
       );
     }
   ),
+  // BUILD file symbols (NB. targets are also included, so need to be explicitly removed).
+  helpAll.name_to_build_file_info &&
+    Object.values(helpAll.name_to_build_file_info).map(async (info) => {
+      if (info.is_target) return;
+
+      info.short_documentation = info.documentation?.split("\n")?.[0];
+      info.documentation =
+        info.documentation && convertDescription(info.documentation);
+
+      await writeFile(
+        path.join("build-file-symbols", `${info.name}.mdx`),
+        renderBuildFileSymbolTemplate(info)
+      );
+    }),
   // `_category_.json` files
   writeFile(
     "goals/_category_.json",
@@ -332,6 +378,7 @@ await Promise.all([
         slug: "/reference/goals",
         title: "Goals",
       },
+      position: 2,
     })
   ),
   writeFile(
@@ -343,6 +390,7 @@ await Promise.all([
         slug: "/reference/subsystems",
         title: "Subsystems",
       },
+      position: 3,
     })
   ),
   writeFile(
@@ -354,6 +402,20 @@ await Promise.all([
         slug: "/reference/targets",
         title: "Targets",
       },
+      position: 4,
     })
   ),
+  helpAll.name_to_build_file_info &&
+    writeFile(
+      "build-file-symbols/_category_.json",
+      JSON.stringify({
+        label: "BUILD file symbols",
+        link: {
+          type: "generated-index",
+          slug: "/reference/build-file-symbols",
+          title: "BUILD file symbols",
+        },
+        position: 5,
+      })
+    ),
 ]);

@@ -212,13 +212,13 @@ Expects a dictionary mapping values from the `entry_points` field to a dictionar
 
 For example:
 
-`&#x60;`
-overrides=&#123;
-&#x22;foo.py&#x22;: &#123;&#x22;execution_mode&#x22;: &#x22;venv&#x22;]&#125;,
-&#x22;bar.py:main&#x22;: &#123;&#x22;restartable&#x22;: True]&#125;,
-(&#x22;foo.py&#x22;, &#x22;bar.py:main&#x22;): &#123;&#x22;tags&#x22;: [&#x22;legacy&#x22;]&#125;,
-&#125;
-`&#x60;`
+```
+overrides={
+  "foo.py": {"execution_mode": "venv"]},
+  "bar.py:main": {"restartable": True]},
+  ("foo.py", "bar.py:main"): {"tags": ["legacy"]},
+}
+```
 
 Every key is validated to belong to this target&#x27;s `entry_points` field.
 

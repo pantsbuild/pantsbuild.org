@@ -1,0 +1,52 @@
+---
+title: per_platform
+description: |
+  An object containing differing homogeneous platform-dependent values.
+---
+
+import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
+
+<BuildFileSymbol name={`per_platform`} signature={`(linux_arm64: '_T | None' = None, linux_x86_64: '_T | None' = None, macos_arm64: '_T | None' = None, macos_x86_64: '_T | None' = None) -> None`}>
+
+An object containing differing homogeneous platform-dependent values.
+
+The values should be evaluated for the execution environment, and not the host environment
+(I.e. it should be evaluated in a `rule` which requests `Platform`).
+
+Expected usage is roughly:
+
+```python
+class MyFieldType(...):
+    value = str | per_platform[str]
+
+    @classmethod
+    def compute_value(  # type: ignore[override]
+        cls,
+        raw_value: Optional[Union[str, per_platform[str]]],
+        address: Address,
+    ) -> Optional[Union[str, per_platform[str]]]:
+        if isinstance(raw_value, per_platform):
+            # NOTE: Ensure the values are homogenous
+            raw_value.check_types(str)
+
+        return raw_value
+
+...
+
+@rule
+async def my_rule(..., platform: Platform) -> ...:
+    field_value = target[MyFieldType].value
+
+    if isinstance(field_value, per_platform):
+        field_value = field_value.get_value_for_platform(platform)
+
+    ...
+```
+
+NOTE: Support for this object should be heavily weighed, as it would be innaproriate to use in
+certain contexts (such as the `source` field in a `foo_source` target, where the intent is to
+support differing source files based on platform. The result would be that dependency inference
+(and therefore the dependencies field) wouldn&#x27;t be knowable on the host, which is not something
+the engine can support yet).
+
+</BuildFileSymbol>
