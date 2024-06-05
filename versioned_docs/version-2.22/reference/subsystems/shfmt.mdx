@@ -1,0 +1,180 @@
+---
+title: shfmt
+description: |
+  An autoformatter for shell scripts (https://github.com/mvdan/sh).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+An autoformatter for shell scripts (https://github.com/mvdan/sh).
+
+Backend: <span className="color--primary">`pants.backend.shell.lint.shfmt`</span>
+
+Config section: <span className="color--primary">`[shfmt]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--shfmt-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_SHFMT_ARGS'
+  toml_repr={`[shfmt]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to shfmt, e.g. `--shfmt-args='-i 2'`.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]shfmt-skip`}
+  env_repr='PANTS_SHFMT_SKIP'
+  toml_repr={`[shfmt]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use shfmt when running `pants fmt` and `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]shfmt-config-discovery`}
+  env_repr='PANTS_SHFMT_CONFIG_DISCOVERY'
+  toml_repr={`[shfmt]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include all relevant `.editorconfig` files during runs. See https://editorconfig.org.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--shfmt-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SHFMT_KNOWN_VERSIONS'
+  toml_repr={`[shfmt]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "v3.2.4|macos_arm64 |e70fc42e69debe3e400347d4f918630cdf4bf2537277d672bbc43490387508ec|2998546",\n  "v3.2.4|macos_x86_64|43a0461a1b54070ddc04fbbf1b78f7861ee39a65a61f5466d15a39c4aba4f917|2980208",\n  "v3.2.4|linux_arm64 |6474d9cc08a1c9fe2ef4be7a004951998e3067d46cf55a011ddd5ff7bfab3de6|2752512",\n  "v3.2.4|linux_x86_64|3f5a47f8fec27fae3e06d611559a2063f5d27e4b9501171dde9959b8c60a3538|2797568",\n  "v3.6.0|macos_arm64 |633f242246ee0a866c5f5df25cbf61b6af0d5e143555aca32950059cf13d91e0|3065202",\n  "v3.6.0|macos_x86_64|b8c9c025b498e2816b62f0b717f6032e9ab49e725a45b8205f52f66318f17185|3047552",\n  "v3.6.0|linux_arm64 |fb1cf0af3dbe9aac7d98e38e3c7426765208ecfe23cb2da51037bb234776fd70|2818048",\n  "v3.6.0|linux_x86_64|5741a02a641de7e56b8da170e71a97e58050d66a3cf485fb268d6a5a8bb74afb|2850816",\n  "v3.8.0|macos_arm64 |1481240d2a90d4f0b530688d76d4f9117d17a756b6027cfa42b96f0707317f83|2736466",\n  "v3.8.0|macos_x86_64|c0218b47a0301bb006f49fad85d2c08de23df303472834faf5639d04121320f8|2747696",\n  "v3.8.0|linux_arm64 |27e1f69b0d57c584bcbf5c882b4c4f78ffcf945d0efef45c1fbfc6692213c7c3|2687128",\n  "v3.8.0|linux_x86_64|27b3c6f9d9592fc5b4856c341d1ff2c88856709b9e76469313642a1d7b558fe0|2703512"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
+- (Optional) `url_override` is a specific url to use instead of the normally
+  generated url for this version
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--shfmt-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SHFMT_URL_PLATFORM_MAPPING'
+  toml_repr={`[shfmt.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "linux_arm64",\n  "linux_x86_64": "linux_amd64",\n  "macos_arm64": "darwin_arm64",\n  "macos_x86_64": "darwin_amd64"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--shfmt-url-template=<str>`}
+  env_repr='PANTS_SHFMT_URL_TEMPLATE'
+  toml_repr={`[shfmt]
+url_template = <str>`}
+  default_repr={`https://github.com/mvdan/sh/releases/download/{version}/shfmt_{version}_{platform}`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.22/docs/using-pants/key-concepts/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--shfmt-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_SHFMT_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[shfmt]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of shfmt is not supported.
+
+Supported shfmt versions: unspecified
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--shfmt-version=<str>`}
+  env_repr='PANTS_SHFMT_VERSION'
+  toml_repr={`[shfmt]
+version = <str>`}
+  default_repr={`v3.8.0`}
+>
+
+Use this version of shfmt.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
