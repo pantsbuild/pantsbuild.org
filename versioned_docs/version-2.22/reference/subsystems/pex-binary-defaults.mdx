@@ -1,0 +1,64 @@
+---
+title: pex-binary-defaults
+description: |
+  Default settings for creating PEX executables.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Default settings for creating PEX executables.
+
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[pex-binary-defaults]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `emit_warnings`
+
+<Option
+  cli_repr={`--[no-]pex-binary-defaults-emit-warnings`}
+  env_repr='PANTS_PEX_BINARY_DEFAULTS_EMIT_WARNINGS'
+  toml_repr={`[pex-binary-defaults]
+emit_warnings = <bool>`}
+  default_repr={`True`}
+>
+
+Whether built PEX binaries should emit PEX warnings at runtime by default.
+
+Can be overridden by specifying the `emit_warnings` parameter of individual `pex_binary` targets
+
+</Option>
+
+## Deprecated options
+
+### `resolve_local_platforms`
+
+<Option
+  cli_repr={`--[no-]pex-binary-defaults-resolve-local-platforms`}
+  env_repr='PANTS_PEX_BINARY_DEFAULTS_RESOLVE_LOCAL_PLATFORMS'
+  toml_repr={`[pex-binary-defaults]
+resolve_local_platforms = <bool>`}
+  default_repr={`False`}
+  removal_version='2.24.0.dev0'
+  removal_hint={'This `resolve_local_platforms` option is no longer used now that the `platforms` field has been removed. You can safely delete this setting.'}
+>
+
+Now unused.
+
+</Option>
+
+## Related subsystems
+
+None
+
+</span>
