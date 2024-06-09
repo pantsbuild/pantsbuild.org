@@ -95,7 +95,7 @@ If you hadn't already enabled `BUILD` file formatting, you can do so by enabling
 
 ## Other notable changes
 
-There are [a long list of additional changes in 2.14](https://github.com/pantsbuild/pants/blob/main/src/python/pants/notes/2.14.x.md), but highlights include:
+There are [a long list of additional changes in 2.14](https://github.com/pantsbuild/pants/blob/main/docs/notes/2.14.x.md), but highlights include:
 
 - [`mypy`'s incremental cache will now be used](https://github.com/pantsbuild/pants/pull/16290), which should significantly reduce the latency of typechecking.
 - Concurrent execution of Python test _methods_ is now [natively supported](https://www.pantsbuild.org/v2.14/docs/python-test-goal#pytest-version-and-plugins) via `pytest-xdist`! If your test methods are concurrency safe, you can set `[pytest].xdist_enabled = True` to run individual test methods concurrently, in addition to Pants' usual file-level parallelism.
