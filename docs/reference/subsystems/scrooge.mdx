@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The Scrooge Thrift IDL compiler (https://twitter.github.io/scrooge/).
 
-Backend: <span className="color--primary">`pants.backend.experimental.codegen.thrift.scrooge.java`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.thrift.scrooge.scala`</span>
 
 Config section: <span className="color--primary">`[scrooge]`</span>
 
@@ -73,7 +73,7 @@ lockfile = <str>`}
 
 Path to a lockfile used for installing the tool.
 
-Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.22.0.dev3/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.23.0.dev0/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=scrooge`.
 

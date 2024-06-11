@@ -1,7 +1,7 @@
 ---
-title: yapf
+title: sqlfluff
 description: |
-  A formatter for Python files (https://github.com/google/yapf).
+  The Sqlfluff SQL linter (https://github.com/sqlfluff/sqlfluff).
 ---
 
 import Option from "@site/src/components/reference/Option";
@@ -9,13 +9,13 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-A formatter for Python files (https://github.com/google/yapf).
+The Sqlfluff SQL linter (https://github.com/sqlfluff/sqlfluff).
 
-This version of Pants uses `yapf` version 0.40.2 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
+This version of Pants uses `sqlfluff` version 2.3.5 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
 
-Backend: <span className="color--primary">`pants.backend.python.lint.yapf`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.sql.lint.sqlfluff`</span>
 
-Config section: <span className="color--primary">`[yapf]`</span>
+Config section: <span className="color--primary">`[sqlfluff]`</span>
 
 <span className={styles.options}>
 
@@ -24,9 +24,9 @@ Config section: <span className="color--primary">`[yapf]`</span>
 ### `args`
 
 <Option
-  cli_repr={`--yapf-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_YAPF_ARGS'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_SQLFLUFF_ARGS'
+  toml_repr={`[sqlfluff]
 args = [
     <shell_str>,
     <shell_str>,
@@ -35,23 +35,39 @@ args = [
   default_repr={`[]`}
 >
 
-Arguments to pass directly to yapf, e.g. `--yapf-args='--no-local-style'`.
+Arguments to pass directly to Sqlfluff, e.g. `--sqlfluff-args='--dialect=postgres --exclude-rules LT08,RF02'`.
 
-Certain arguments, specifically `--recursive`, `--in-place`, and `--parallel`, will be ignored because Pants takes care of finding all the relevant files and running the formatting in parallel.
+</Option>
+
+### `fix_args`
+
+<Option
+  cli_repr={`--sqlfluff-fix-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_SQLFLUFF_FIX_ARGS'
+  toml_repr={`[sqlfluff]
+fix_args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Sqlfluff, e.g. `--sqlfluff-args='--force'`.
 
 </Option>
 
 ### `skip`
 
 <Option
-  cli_repr={`--[no-]yapf-skip`}
-  env_repr='PANTS_YAPF_SKIP'
-  toml_repr={`[yapf]
+  cli_repr={`--[no-]sqlfluff-skip`}
+  env_repr='PANTS_SQLFLUFF_SKIP'
+  toml_repr={`[sqlfluff]
 skip = <bool>`}
   default_repr={`False`}
 >
 
-If true, don&#x27;t use yapf when running `pants fmt` and `pants lint`.
+If true, don&#x27;t use Sqlfluff when running `pants fmt` and `pants fix` and `pants lint`.
 
 </Option>
 
@@ -60,43 +76,43 @@ If true, don&#x27;t use yapf when running `pants fmt` and `pants lint`.
 ### `config`
 
 <Option
-  cli_repr={`--yapf-config=<file_option>`}
-  env_repr='PANTS_YAPF_CONFIG'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-config=<file_option>`}
+  env_repr='PANTS_SQLFLUFF_CONFIG'
+  toml_repr={`[sqlfluff]
 config = <file_option>`}
   default_repr={`None`}
 >
 
-Path to style file understood by yapf (https://github.com/google/yapf#formatting-style/).
+Path to the `pyproject.toml` or `.sqlfluff` file to use for configuration (https://docs.sqlfluff.com/en/stable/configuration.html).
 
-Setting this option will disable `[yapf].config_discovery`. Use this option if the config is located in a non-standard location.
+Setting this option will disable `[sqlfluff].config_discovery`. Use this option if the config is located in a non-standard location.
 
 </Option>
 
 ### `config_discovery`
 
 <Option
-  cli_repr={`--[no-]yapf-config-discovery`}
-  env_repr='PANTS_YAPF_CONFIG_DISCOVERY'
-  toml_repr={`[yapf]
+  cli_repr={`--[no-]sqlfluff-config-discovery`}
+  env_repr='PANTS_SQLFLUFF_CONFIG_DISCOVERY'
+  toml_repr={`[sqlfluff]
 config_discovery = <bool>`}
   default_repr={`True`}
 >
 
-If true, Pants will include any relevant config files during runs (`.style.yapf`, `pyproject.toml`, and `setup.cfg`).
+If true, Pants will include any relevant config files during runs (`pyproject.toml`, and `.sqlfluff`).
 
-Use `[yapf].config` instead if your config is in a non-standard location.
+Use `[sqlfluff].config` instead if your config is in a non-standard location.
 
 </Option>
 
 ### `console_script`
 
 <Option
-  cli_repr={`--yapf-console-script=<str>`}
-  env_repr='PANTS_YAPF_CONSOLE_SCRIPT'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-console-script=<str>`}
+  env_repr='PANTS_SQLFLUFF_CONSOLE_SCRIPT'
+  toml_repr={`[sqlfluff]
 console_script = <str>`}
-  default_repr={`yapf`}
+  default_repr={`sqlfluff`}
 >
 
 The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
@@ -106,9 +122,9 @@ The console script for the tool. Using this option is generally preferable to (a
 ### `entry_point`
 
 <Option
-  cli_repr={`--yapf-entry-point=<str>`}
-  env_repr='PANTS_YAPF_ENTRY_POINT'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-entry-point=<str>`}
+  env_repr='PANTS_SQLFLUFF_ENTRY_POINT'
+  toml_repr={`[sqlfluff]
 entry_point = <str>`}
   default_repr={`None`}
 >
@@ -120,9 +136,9 @@ The entry point for the tool. Generally you only want to use this option if the 
 ### `install_from_resolve`
 
 <Option
-  cli_repr={`--yapf-install-from-resolve=<str>`}
-  env_repr='PANTS_YAPF_INSTALL_FROM_RESOLVE'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-install-from-resolve=<str>`}
+  env_repr='PANTS_SQLFLUFF_INSTALL_FROM_RESOLVE'
+  toml_repr={`[sqlfluff]
 install_from_resolve = <str>`}
   default_repr={`None`}
 >
@@ -133,18 +149,18 @@ This resolve must be defined in `[python].resolves`, as described in https://www
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `yapf` version 0.40.2.
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `sqlfluff` version 2.3.5.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `yapf` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `sqlfluff` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
-  cli_repr={`--yapf-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_YAPF_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SQLFLUFF_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[sqlfluff]
 interpreter_constraints = [
     '<str>',
     '<str>',
@@ -160,9 +176,9 @@ Python interpreter constraints for this tool.
 ### `requirements`
 
 <Option
-  cli_repr={`--yapf-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_YAPF_REQUIREMENTS'
-  toml_repr={`[yapf]
+  cli_repr={`--sqlfluff-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SQLFLUFF_REQUIREMENTS'
+  toml_repr={`[sqlfluff]
 requirements = [
     '<str>',
     '<str>',
