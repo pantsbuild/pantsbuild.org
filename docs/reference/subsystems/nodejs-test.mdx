@@ -19,28 +19,30 @@ Simple example:
 
 Consider a directory-layout:
 
-&#x251C;&#x2500;&#x2500; BUILD
-&#x251C;&#x2500;&#x2500; src/
-&#x2502; &#x251C;&#x2500;&#x2500; BUILD
-&#x2502; &#x251C;&#x2500;&#x2500; test/
-&#x2502; &#x2502; &#x251C;&#x2500;&#x2500; BUILD
-&#x2502; &#x2502; &#x2514;&#x2500;&#x2500; index.test.js
-&#x2502; &#x2514;&#x2500;&#x2500; index.js
-&#x2514;&#x2500;&#x2500; package.json
+```
+├── BUILD
+├── src/
+│   ├── BUILD
+│   ├── test/
+│   │   ├── BUILD
+│   │   └── index.test.js
+│   └── index.js
+└── package.json
+```
 
 where package.json contains
 
-# package.json
-
-&#123;
-...
-&#x22;scripts&#x22;: &#123;
-&#x22;test&#x22;: &#x22;mocha&#x22;
-&#125;,
-&#x22;devDependencies: &#123;
-...
-&#125;
-&#125;
+```json title="package.json"
+{
+    ...
+    "scripts": {
+        "test": "mocha"
+    },
+    "devDependencies: {
+        ...
+    }
+}
+```
 
 Executing `pants test src/test/index.test.js` will cause the equivalent of `mocha src/test/index.test.js` to run.
 

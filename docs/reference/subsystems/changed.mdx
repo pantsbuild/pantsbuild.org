@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Tell Pants to detect what files and targets have changed from Git.
 
-See https://www.pantsbuild.org/2.22/docs/using-pants/advanced-target-selection.
+See https://www.pantsbuild.org/2.23/docs/using-pants/advanced-target-selection.
 
 Backend: <span className="color--primary">``</span>
 
@@ -70,22 +70,7 @@ None
 
 ## Deprecated options
 
-### `dependees`
-
-<Option
-  cli_repr={`--changed-dependees=<DependentsOption>`}
-  env_repr='PANTS_CHANGED_DEPENDEES'
-  toml_repr={`[changed]
-dependees = <DependentsOption>`}
-  one_of='none, direct, transitive'
-  default_repr={`none`}
-  removal_version='2.23.0.dev0'
-  removal_hint={'Use --dependents instead'}
->
-
-Include direct or transitive dependents of changed targets.
-
-</Option>
+None
 
 ## Related subsystems
 

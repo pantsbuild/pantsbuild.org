@@ -13,7 +13,7 @@ Analyses K8S manifests rendered by Helm.
 
 This version of Pants uses `hikaru` version 1.3.0 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
 
-Backend: <span className="color--primary">`pants.backend.experimental.helm`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.helm.check.kubeconform`</span>
 
 Config section: <span className="color--primary">`[helm-k8s-parser]`</span>
 
@@ -37,7 +37,7 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.22/docs/python/overview/lockfiles#lockfiles-for-tools.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.23/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 

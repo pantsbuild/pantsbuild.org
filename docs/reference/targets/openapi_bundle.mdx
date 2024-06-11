@@ -1,7 +1,7 @@
 ---
-title: swift_sources
+title: openapi_bundle
 description: |
-  Generate a `swift_source` target for each file in the `sources` field.
+  An OpenAPI document bundled as a single source.
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -9,13 +9,26 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-Generate a `swift_source` target for each file in the `sources` field.
+An OpenAPI document bundled as a single source.
 
-Backend: <span className="color--primary">`pants.backend.experimental.swift`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.openapi`</span>
 
 ---
 
 <span className={styles.options}>
+
+## `bundle_source_root`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The source root to bundle OpenAPI documents under.
+
+If unspecified, the source root the `openapi_documents` is under will be used.
+
+</Field>
 
 ## `dependencies`
 
@@ -46,21 +59,6 @@ You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:l
 A human-readable description of the target.
 
 Use `pants list --documented ::` to see all targets with descriptions.
-
-</Field>
-
-## `sources`
-
-<Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.swift',)`}
->
-
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['utils.swift', 'subdir/*.swift', '!ignore_me.swift']`
 
 </Field>
 

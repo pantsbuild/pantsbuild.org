@@ -1,7 +1,7 @@
 ---
-title: docker_environment
+title: experimental_workspace_environment
 description: |
-  Configuration of a Docker environment used for building your code.
+  Configuration of a &#x22;workspace&#x22; execution environment for specific platforms.
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -9,37 +9,29 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-Configuration of a Docker environment used for building your code.
+Configuration of a &#x22;workspace&#x22; execution environment for specific platforms.
 
-Environment configuration includes both Docker-specific information (including the image and platform choice), as well as environment-aware options (such as environment variables and search paths) used by Pants to execute processes in this Docker environment.
+A &#x22;workspace&#x22; environment is a local environment which executes build processes within the repository and not in the usual execution sandbox. This is useful when interacting with third-party build orchestration tools which may not run correctly when run from within the Pants execution sandbox.
+
+Environment configuration includes the platforms the environment is compatible with along with environment-aware options (such as environment variables and search paths) used by Pants to execute processes in this environment.
 
 To use this environment, map this target&#x27;s address with a memorable name in `[environments-preview].names`. You can then consume this environment by specifying the name in the `environment` field defined on other targets.
 
-Before running Pants using this environment, if you are using Docker Desktop, make sure the option **Enable default Docker socket** is enabled, you can find it in **Docker Desktop Settings &#x3E; Advanced** panel. That option tells Docker to create a socket at `/var/run/docker.sock` which Pants can use to communicate with Docker.
+Only one `experimental_workspace_environment` may be defined in `[environments-preview].names` per platform, and when `{LOCAL_WORKSPACE_ENVIRONMENT_MATCHER}` is specified as the environment, the `experimental_workspace_environment` that matches the current platform (if defined) will be selected.
+
+Caching and reproducibility:
+
+Pants&#x27; caching relies on all process being reproducible based solely on inputs in the repository. Processes executed in a workspace environment can easily accidentally read unexpected files, that aren&#x27;t specified as a dependency. Thus, Pants puts that burden on you, the Pants user, to ensure a process output only depends on its specified input files, and doesn&#x27;t read anything else.
+
+If a process isn&#x27;t reproducible, re-running a build from the same source code could fail unexpectedly, or give different output to an earlier build.
+
+NOTE: This target type is EXPERIMENTAL and may change its semantics in subsequent Pants versions without a deprecation cycle.
 
 Backend: <span className="color--primary">`pants.core`</span>
 
 ---
 
 <span className={styles.options}>
-
-## `image`
-
-<Field
-    type_repr={`str`}
->
-
-The docker image ID to use when this environment is loaded.
-
-This value may be any image identifier that the local Docker installation can accept. This includes image names with or without tags (e.g. `centos6` or `centos6:latest`), or image names with an immutable digest (e.g. `centos@sha256:<some_sha256_value>`).
-
-The choice of image ID can affect the reproducibility of builds. Consider using an immutable digest if reproducibility is needed, but regularly ensure that the image is free of relevant bugs or security vulnerabilities.
-
-Note that in order to use an image as a `docker_environment` it must have a few tools: - `/bin/sh` - `/usr/bin/env` - `bash` - `tar`
-
-While most images will have these preinstalled, users of base images such as Distroless or scratch will need to bake these tools into the image themselves. All of these except `bash` are available via busybox.
-
-</Field>
 
 ## `apache_thrift_thrift_search_paths`
 
@@ -50,6 +42,19 @@ While most images will have these preinstalled, users of base images such as Dis
 >
 
 Overrides the default value from the option `[apache-thrift].thrift_search_paths` when this environment target is active.
+
+</Field>
+
+## `compatible_platforms`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('linux_arm64', 'linux_x86_64', 'macos_arm64', 'macos_x86_64')`}
+>
+
+Which platforms this environment can be used with.
+
+This is used for Pants to automatically determine which environment target to use for the user&#x27;s machine when the environment is set to the special value `__local__`. Currently, there cannot be more than one environment target registered in `[environments-preview].names` for a particular platform. If there is no environment target for a certain platform, Pants will use the options system instead to determine environment variables and executable search paths.
 
 </Field>
 
@@ -87,19 +92,6 @@ Overrides the default value from the option `[docker].env_vars` when this enviro
 >
 
 Overrides the default value from the option `[docker].executable_search_paths` when this environment target is active.
-
-</Field>
-
-## `fallback_environment`
-
-<Field
-    type_repr={`str | None`}
-    default_repr={`None`}
->
-
-The environment to fallback to when this Docker environment cannot be used because either the global option `--docker-execution` is false, or the field `platform` is not compatible with the local host&#x27;s CPU architecture (this is only an issue when the local host is Linux; macOS is fine).
-
-Must be an environment name from the option `[environments-preview].names`, the special string `__local__` to use the relevant local environment, or the Python value `None` to error when this specific Docker environment cannot be used.
 
 </Field>
 
@@ -304,19 +296,6 @@ Overrides the default value from the option `[nodejs].search_path` when this env
 >
 
 Overrides the default value from the option `[pex].executable_search_paths` when this environment target is active.
-
-</Field>
-
-## `platform`
-
-<Field
-    type_repr={`'linux_arm64' | 'linux_x86_64' | 'macos_arm64' | 'macos_x86_64' | None`}
-    default_repr={`None`}
->
-
-If set, Docker will always use the specified platform when pulling and running the image.
-
-If unset, Pants will default to the CPU architecture of your local host machine. For example, if you are running on Apple Silicon, it will use `linux_arm64`, whereas running on Intel macOS will use `linux_x86_64`. This mirrors Docker&#x27;s behavior when `--platform` is left off.
 
 </Field>
 

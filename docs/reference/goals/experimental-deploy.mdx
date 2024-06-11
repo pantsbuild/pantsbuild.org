@@ -37,6 +37,20 @@ If true, perform a dry run without deploying anything. For example, when deployi
 
 </Option>
 
+### `publish_dependencies`
+
+<Option
+  cli_repr={`--[no-]experimental-deploy-publish-dependencies`}
+  env_repr='PANTS_EXPERIMENTAL_DEPLOY_PUBLISH_DEPENDENCIES'
+  toml_repr={`[experimental-deploy]
+publish_dependencies = <bool>`}
+  default_repr={`True`}
+>
+
+If false, don&#x27;t publish target dependencies before deploying the target. For example, when deploying a helm_deployment, dependent docker images will not be published.
+
+</Option>
+
 ## Advanced options
 
 None

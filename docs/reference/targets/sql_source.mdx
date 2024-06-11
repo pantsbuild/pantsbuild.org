@@ -1,7 +1,7 @@
 ---
-title: swift_sources
+title: sql_source
 description: |
-  Generate a `swift_source` target for each file in the `sources` field.
+  A single SQL source file.
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -9,13 +9,45 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-Generate a `swift_source` target for each file in the `sources` field.
+A single SQL source file.
 
-Backend: <span className="color--primary">`pants.backend.experimental.swift`</span>
+`sql_source` is treated like `resource` by other targets like `pex_binary`.
+
+Backend: <span className="color--primary">`pants.backend.experimental.sql`</span>
 
 ---
 
 <span className={styles.options}>
+
+## `source`
+
+<Field
+    type_repr={`str | http_source | pants.core.target_types.per_platform[pants.core.target_types.http_source]`}
+>
+
+The source of this target.
+
+If a string is provided, represents a path that is relative to the BUILD file&#x27;s directory, e.g. `source='example.ext'`.
+
+If an `http_source` is provided, represents the network location to download the source from. The downloaded file will exist in the sandbox in the same directory as the target.
+
+`http_source` has the following signature:
+
+```
+http_source(url: str, *, len: int, sha256: str, filename: str = "")
+```
+
+The filename defaults to the last part of the URL path (e.g. `example.ext`), but can also be specified if you wish to have control over the file name. You cannot, however, specify a path separator to download the file into a subdirectory (you must declare a target in desired subdirectory).
+
+You can easily get the len and checksum with the following command:
+
+```
+curl -L $URL | tee >(wc -c) >(shasum -a 256) >/dev/null
+```
+
+If a `per_platform` is provided, represents a mapping from platform to `http_source`, where the platform is one of (`linux_arm64`, `linux_x86_64`, `macos_arm64`, `macos_x86_64`) and is resolved in the execution target. Each `http_source` value MUST have the same filename provided.
+
+</Field>
 
 ## `dependencies`
 
@@ -49,18 +81,15 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
-## `sources`
+## `skip_sqlfluff`
 
 <Field
-    type_repr={`Iterable[str] | None`}
-    default_repr={`('*.swift',)`}
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.sql.lint.sqlfluff"
 >
 
-A list of files and globs that belong to this target.
-
-Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
-
-Example: `sources=['utils.swift', 'subdir/*.swift', '!ignore_me.swift']`
+If true, don&#x27;t run sqlfluff on this target&#x27;s code.
 
 </Field>
 
