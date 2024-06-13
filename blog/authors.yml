@@ -78,3 +78,8 @@ tomsolberg:
   title: Pants Maintainer (and plugin developer)
   url: https://github.com/tgolsson
   image_url: https://github.com/tgolsson.png
+gniemann:
+  name: Greg Niemann
+  title: Lead Site Reliability Engineer at Klaviyo
+  url: https://github.com/gniemann
+  image_url: https://github.com/gniemann.png
