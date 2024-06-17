@@ -1,15 +1,14 @@
 ---
 title: node_test_script
 description: |
-  The test script for this package, mapped from the `scripts` section of a package.json
+  The test script for this package, mapped from the `scripts` section of a package.json file. The pointed to script should accept a variadic number of ([ARG]...) path arguments.
 ---
 
 import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
 
 <BuildFileSymbol name={`node_test_script`} signature={`(entry_point: 'str' = 'test', report_args: 'Iterable[str]' = (), report_output_files: 'Iterable[str]' = (), report_output_directories: 'Iterable[str]' = (), coverage_args: 'Iterable[str]' = (), coverage_output_files: 'Iterable[str]' = (), coverage_output_directories: 'Iterable[str]' = (), coverage_entry_point: 'str | None' = None) -> 'NodeTestScript'`}>
 
-The test script for this package, mapped from the `scripts` section of a package.json
-file. The pointed to script should accept a variadic number of ([ARG]...) path arguments.
+The test script for this package, mapped from the `scripts` section of a package.json file. The pointed to script should accept a variadic number of ([ARG]...) path arguments.
 
 This entry point is the &#x22;test&#x22; script, by default.
 
