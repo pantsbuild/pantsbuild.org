@@ -1,5 +1,5 @@
 ---
-title: workspace_environment
+title: experimental_workspace_environment
 description: |
   Configuration of a &#x22;workspace&#x22; execution environment for specific platforms.
 ---
@@ -17,13 +17,15 @@ Environment configuration includes the platforms the environment is compatible w
 
 To use this environment, map this target&#x27;s address with a memorable name in `[environments-preview].names`. You can then consume this environment by specifying the name in the `environment` field defined on other targets.
 
-Only one `workspace_environment` may be defined in `[environments-preview].names` per platform, and when `{LOCAL_WORKSPACE_ENVIRONMENT_MATCHER}` is specified as the environment, the `workspace_environment` that matches the current platform (if defined) will be selected.
+Only one `experimental_workspace_environment` may be defined in `[environments-preview].names` per platform, and when `{LOCAL_WORKSPACE_ENVIRONMENT_MATCHER}` is specified as the environment, the `experimental_workspace_environment` that matches the current platform (if defined) will be selected.
 
 Caching and reproducibility:
 
 Pants&#x27; caching relies on all process being reproducible based solely on inputs in the repository. Processes executed in a workspace environment can easily accidentally read unexpected files, that aren&#x27;t specified as a dependency. Thus, Pants puts that burden on you, the Pants user, to ensure a process output only depends on its specified input files, and doesn&#x27;t read anything else.
 
 If a process isn&#x27;t reproducible, re-running a build from the same source code could fail unexpectedly, or give different output to an earlier build.
+
+NOTE: This target type is EXPERIMENTAL and may change its semantics in subsequent Pants versions without a deprecation cycle.
 
 Backend: <span className="color--primary">`pants.core`</span>
 
