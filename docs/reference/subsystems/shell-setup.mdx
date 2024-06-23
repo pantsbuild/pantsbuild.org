@@ -56,6 +56,36 @@ The PATH value that will be used to find shells and to run certain processes lik
 
 </Option>
 
+### `tailor_shunit2_tests`
+
+<Option
+  cli_repr={`--[no-]shell-setup-tailor-shunit2-tests`}
+  env_repr='PANTS_SHELL_SETUP_TAILOR_SHUNIT2_TESTS'
+  toml_repr={`[shell-setup]
+tailor_shunit2_tests = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `shunit2_tests` targets with the `tailor` goal.
+
+</Option>
+
+### `tailor_sources`
+
+<Option
+  cli_repr={`--[no-]shell-setup-tailor-sources`}
+  env_repr='PANTS_SHELL_SETUP_TAILOR_SOURCES'
+  toml_repr={`[shell-setup]
+tailor_sources = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `shell_sources` targets with the `tailor` goal.
+
+</Option>
+
+## Deprecated options
+
 ### `tailor`
 
 <Option
@@ -64,15 +94,13 @@ The PATH value that will be used to find shells and to run certain processes lik
   toml_repr={`[shell-setup]
 tailor = <bool>`}
   default_repr={`True`}
+  removal_version='2.25.0.dev0'
+  removal_hint={'Use `tailor_sources` and/or `tailor_shunit2_tests` instead. For backwards compatibility, if this option is `False`, it will override the other options.'}
 >
 
-If true, add `shell_sources` and `shunit2_tests` targets with the `tailor` goal.
+If true, add `shell_sources` targets with the `tailor` goal.
 
 </Option>
-
-## Deprecated options
-
-None
 
 ## Related subsystems
 

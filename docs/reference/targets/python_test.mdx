@@ -89,6 +89,41 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 </Field>
 
+## `entry_point_dependencies`
+
+<Field
+    type_repr={`Dict[str, Iterable[str]] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.python"
+>
+
+Dependencies on entry point metadata of `python_distribution` targets.
+
+This is a dict where each key is a `python_distribution` address and the value is a list or tuple of entry point groups and/or entry points on that target. The strings in the value list/tuple must be one of: - &#x22;entry.point.group/entry-point-name&#x22; to depend on a named entry point - &#x22;entry.point.group&#x22; (without a &#x22;/&#x22;) to depend on an entry point group - &#x22;\*&#x22; to get all entry points on the target
+
+For example:
+
+```
+entry_point_dependencies={
+    "//foo/address:dist_tgt": ["*"], # all entry points
+    "bar:dist_tgt": ["console_scripts"], # only from this group
+    "foo/bar/baz:dist_tgt": ["console_scripts/my-script"], # a single entry point
+    "another:dist_tgt": [ # multiple entry points
+        "console_scripts/my-script",
+        "console_scripts/another-script",
+        "entry.point.group/entry-point-name",
+        "other.group",
+        "gui_scripts",
+    ],
+}
+```
+
+Code for matching `entry_points` on `python_distribution` targets will be added as dependencies so that they are available on PYTHONPATH during tests.
+
+Plus, an `entry_points.txt` file will be generated in the sandbox so that each of the `python_distribution`s appear to be &#x22;installed&#x22;. The `entry_points.txt` file will only include the entry points requested on this field. This allows the tests, or the code under test, to lookup entry points metadata using something like `pkg_resources.iter_entry_points` from `setuptools`.
+
+</Field>
+
 ## `environment`
 
 <Field
