@@ -9,7 +9,7 @@
 
 Pants has supported running portions of the build in docker containers for [a while](https://www.pantsbuild.org/blog/2023/02/24/pants-2-15), but the exact configuration is a little tricky, particularly if you want to build x86_64 containers on Apple ARM processors.
 
-The recipe itself is very straight foward, adding these two sections to your root BUILD and pants.toml files:
+The recipe itself is very straight foward, adding these two sections to your root BUILD and pants.toml files will build your python binaries and docker containers for Linux/x64 on both Linux & OSX:
 
 ```bash title="BUILD"
 __defaults__({
@@ -57,3 +57,28 @@ We've setup a few defaults for our repo to avoid unnecessary configuration in ou
 The other targets get built/run using one of the maching local_workspace targets.
 
 We've also worked around a non-obvious requirement to duplicate our [docker.env_vars] setting in the docker_env_vars field of the docker_environment target. If your publish of a docker container is failing, this is likely the cause.
+
+# Troubleshooting Tips
+
+If you are tempted to apply the build_platform argument on your individual docker_image targets, or attempt to add this to your Dockerfile, note that you need to specify this on the entire chain of docker images you depend on if you have multi-stage builds.
+
+If you notice you cannot publish images with this setup, run the publish command with the PANT_LEVEL=debug environment variable to see what environment variables are actually making it to the docker push command.
+
+# Errors to help Google users
+
+If you are recieving errors like this, it indicates you are attempting to run a linux/x64 binary on linux/arm64 and need to adjust your docker image by updating the build platform as shown in the example:
+
+```
+Failed to find compatible interpreter on path /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin.
+
+Examined the following interpreters:
+1.) /usr/bin/python3.10 CPython==3.10.12
+2.) /usr/bin/python3.11 CPython==3.11.9
+
+No interpreter compatible with the requested constraints was found:
+
+  A distribution for pendulum could not be resolved for /usr/bin/python3.11.
+  Found 1 distribution for pendulum that do not apply:
+  1.) The wheel tags for pendulum 2.1.2 are cp311-cp311-manylinux_2_35_x86_64 which do not match the supported tags of /usr/bin/python3.11:
+  cp311-cp311-manylinux_2_35_aarch64
+```
