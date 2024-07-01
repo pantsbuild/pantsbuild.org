@@ -38,7 +38,6 @@ docker_environment(
 )
 ```
 
-
 ```bash title="pants.toml"
 [environments-preview.names]
 local = "//:local_linux"
@@ -47,13 +46,15 @@ docker = "//:docker"
 ```
 
 With these snippets, we have defined 3 environments:
- * A docker environment with associated image for running the linux builds
- * A local linux environment that falls back to docker
- * An OSX environment for running non-linux builds & other goals locally on osx
+
+- A docker environment with associated image for running the linux builds
+- A local linux environment that falls back to docker
+- An OSX environment for running non-linux builds & other goals locally on osx
 
 We've setup a few defaults for our repo to avoid unnecessary configuration in our BUILD files:
- * All of our pex_binary targets are built using either the local or docker linux environments via the fallback mechanism
- * All of our docker_image targets have the build_platform explicitly specified so that we do not inherit the platform defaults to build arm64 images.
+
+- All of our pex_binary targets are built using either the local or docker linux environments via the fallback mechanism
+- All of our docker_image targets have the build_platform explicitly specified so that we do not inherit the platform defaults to build arm64 images.
 
 The other targets, such as tests, get built/run/etc using one of the maching local_workspace targets.
 
