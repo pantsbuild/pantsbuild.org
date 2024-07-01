@@ -52,9 +52,9 @@ With these snippets, we have defined 3 environments:
 
 We've setup a few defaults for our repo to avoid unnecessary configuration in our BUILD files:
  * All of our pex_binary targets are built using either the local or docker linux environments via the fallback mechanism
- * Explicitly specified the plaform of all our docker_image targets so that we do not inherit the platform defaults to builx linux/arm64 images.
+ * All of our docker_image targets have the build_platform explicitly specified so that we do not inherit the platform defaults to build arm64 images.
 
-The other targets get built/run using one of the maching local_workspace targets.
+The other targets, such as tests, get built/run/etc using one of the maching local_workspace targets.
 
 We've also worked around a non-obvious requirement to duplicate our [docker.env_vars] setting in the docker_env_vars field of the docker_environment target. If your publish of a docker container is failing, this is likely the cause.
 
@@ -62,11 +62,13 @@ We've also worked around a non-obvious requirement to duplicate our [docker.env_
 
 If you are tempted to apply the build_platform argument on your individual docker_image targets, or attempt to add this to your Dockerfile, note that you need to specify this on the entire chain of docker images you depend on if you have multi-stage builds.
 
-If you notice you cannot publish images with this setup, run the publish command with the PANT_LEVEL=debug environment variable to see what environment variables are actually making it to the docker push command.
+If you have attempted your own version of this build_platform setup before using this recipe, you may run into some caching issues and may benefit from using the --no-local-cache flag once to get builds working.
 
-# Errors to help Google users
+If you notice you cannot publish images with this setup, run the publish command with the PANTS_LEVEL=debug environment variable to see what environment variables are actually making it to the docker push command.
 
-If you are recieving errors like this, it indicates you are attempting to run a linux/x64 binary on linux/arm64 and need to adjust your docker image by updating the build platform as shown in the example:
+# Understanding common errors
+
+If you are recieving errors like this, it indicates you are attempting to run a linux/x64 binary on a linux/arm64 container image and need to adjust your docker image by updating the build platform as shown in the example above:
 
 ```
 Failed to find compatible interpreter on path /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin.
