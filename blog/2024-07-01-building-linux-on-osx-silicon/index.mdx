@@ -64,7 +64,7 @@ We've also worked around a non-obvious requirement to duplicate our [docker.env_
 
 If you are tempted to apply the build_platform argument on your individual docker_image targets, or attempt to add this to your Dockerfile, note that you need to specify this on the entire chain of docker images you depend on if you have multi-stage builds.
 
-If you have attempted your own version of this build_platform setup before using this recipe, you may run into some caching issues and may benefit from using the --no-local-cache flag once to get builds working.
+If you have attempted your own version of this build_platform setup before using this recipe, you may run into some caching issues and may benefit from using the [--no-local-cache](https://www.pantsbuild.org/2.20/reference/global-options#local_cache) flag once to get builds working.
 
 If you notice you cannot publish images with this setup, run the publish command with the PANTS_LEVEL=debug environment variable to see what environment variables are actually making it to the docker push command.
 
