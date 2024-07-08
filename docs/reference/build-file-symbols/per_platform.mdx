@@ -10,17 +10,15 @@ import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
 
 An object containing differing homogeneous platform-dependent values.
 
-The values should be evaluated for the execution environment, and not the host environment
-(I.e. it should be evaluated in a `rule` which requests `Platform`).
+The values should be evaluated for the execution environment, and not the host environment (I.e. it should be evaluated in a `rule` which requests `Platform`).
 
 Expected usage is roughly:
 
-```python
-class MyFieldType(...):
+```python class MyFieldType(...):
     value = str | per_platform[str]
 
     @classmethod
-    def compute_value(  # type: ignore[override]
+    def compute_value( # type: ignore[override]
         cls,
         raw_value: Optional[Union[str, per_platform[str]]],
         address: Address,
@@ -33,8 +31,7 @@ class MyFieldType(...):
 
 ...
 
-@rule
-async def my_rule(..., platform: Platform) -> ...:
+@rule async def my_rule(..., platform: Platform) -> ...:
     field_value = target[MyFieldType].value
 
     if isinstance(field_value, per_platform):
@@ -43,10 +40,6 @@ async def my_rule(..., platform: Platform) -> ...:
     ...
 ```
 
-NOTE: Support for this object should be heavily weighed, as it would be inappropriate to use in
-certain contexts (such as the `source` field in a `foo_source` target, where the intent is to
-support differing source files based on platform. The result would be that dependency inference
-(and therefore the dependencies field) wouldn&#x27;t be knowable on the host, which is not something
-the engine can support yet).
+NOTE: Support for this object should be heavily weighed, as it would be inappropriate to use in certain contexts (such as the `source` field in a `foo_source` target, where the intent is to support differing source files based on platform. The result would be that dependency inference (and therefore the dependencies field) wouldn&#x27;t be knowable on the host, which is not something the engine can support yet).
 
 </BuildFileSymbol>
