@@ -106,7 +106,7 @@ Adds support for listing dependencies that MUST be installed to the filesystem (
 
 <Field
     type_repr={`str | None`}
-    default_repr={`None`}
+    default_repr={`'${spec_path_normalized}/${target_name_normalized}${file_suffix}'`}
 >
 
 Where the built directory tree should be located.

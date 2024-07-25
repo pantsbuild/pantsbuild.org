@@ -61,12 +61,21 @@ If you instead want those files included in any packages specified in the `packa
 
 <Field
     type_repr={`str | None`}
-    default_repr={`None`}
+    default_repr={`'${spec_path_normalized}/${target_name_normalized}${file_suffix}'`}
 >
 
 Where the built asset should be located.
 
-If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`.
+This field supports the following template replacements:
+
+- `${spec_path_normalized}`: The path to the target&#x27;s directory (&#x22;spec path&#x22;) with forward slashes replaced by dots.
+
+- `${target_name_normalized}`: The target&#x27;s name with paramaterizations escaped by replacing dots with underscores.
+
+- `${file_suffix}`: For target&#x27;s which produce single file artifacts, this is the file type suffix to use with a leading dot,
+  and is empty otherwise when not applicable.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. This behavior corresponds to the default template: `${spec_path_normalized}/${target_name_normalized}${file_suffix}`
 
 When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 

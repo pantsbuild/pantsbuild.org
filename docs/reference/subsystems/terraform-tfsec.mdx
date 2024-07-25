@@ -37,6 +37,20 @@ Arguments to pass directly to tfsec, e.g. `--terraform-tfsec-args='--minimum-sev
 
 </Option>
 
+### `report_name`
+
+<Option
+  cli_repr={`--terraform-tfsec-report-name=<str>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_REPORT_NAME'
+  toml_repr={`[terraform-tfsec]
+report_name = <str>`}
+  default_repr={`None`}
+>
+
+If specified, will redirect the output to a file(s) under dist/lint/terraform-tfsec/ with the given name
+
+</Option>
+
 ### `skip`
 
 <Option
@@ -65,7 +79,7 @@ config = <file_option>`}
 
 Path to the tfsec config file (https://aquasecurity.github.io/tfsec/latest/guides/configuration/config/)
 
-Setting this option will disable `[terraform-tfsec].config_discovery`. Use this option if the config is located in a non-standard location.
+Setting this option will disable config discovery for the config file. Use this option if the config is located in a non-standard location.
 
 </Option>
 
@@ -81,7 +95,23 @@ config_discovery = <bool>`}
 
 If true, Pants will include all relevant config files during runs (`.tfsec/config.json` or `.tfsec/config.yml`). Note that you will have to tell Pants to include this file by adding `"!.tfsec/"` to `[global].pants_ignore.add`.
 
-Use `[terraform-tfsec].config` instead if your config is in a non-standard location.
+Use `[terraform-tfsec].config` and `[terraform-tfsec].custom_check_dir` instead if your config is in a non-standard location.
+
+</Option>
+
+### `custom_check_dir`
+
+<Option
+  cli_repr={`--terraform-tfsec-custom-check-dir=<dir_option>`}
+  env_repr='PANTS_TERRAFORM_TFSEC_CUSTOM_CHECK_DIR'
+  toml_repr={`[terraform-tfsec]
+custom_check_dir = <dir_option>`}
+  default_repr={`None`}
+>
+
+Path to the directory containing custom checks (https://aquasecurity.github.io/tfsec/latest/guides/configuration/custom-checks/#overriding-check-directory)
+
+Setting this option will disable config discovery for custom checks. Use this option if the custom checks dir is located in a non-standard location.
 
 </Option>
 
@@ -96,7 +126,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v1.28.1|linux_x86_64|57b902b31da3eed12448a4e82a8aca30477e4bcd1bf99e3f65310eae0889f88d|26427634",\n  "v1.28.1|linux_arm64 |20daad803d2a7a781f2ef0ee72ba4ed4ae17dcb41a43a330ae7b98347762bec9|24299157",\n  "v1.28.1|macos_x86_64|6d9f5a747b1fcc1b6c314d30f4ff4d753371e5690309a99a5dd653d719d20d2d|27293876",\n  "v1.28.1|macos_arm64 |6d664dcdd37e2809d1b4f14b310ccda0973b4a29e4624e902286e4964d101e22|26478632"\n]`}
+  default_repr={`[\n  "1.28.6|linux_x86_64|8cbd8d64cbd1f25b38f33fa04db602466dade79e99c99dc9da053b5962d34014|30175259",\n  "1.28.6|linux_arm64|4bc7b0f0592be4fa384cff52af5b1cdd2066ba7a06001bea98690340851c0bce|27577217",\n  "1.28.6|macos_x86_64|3b31e954819faa7d6151b999548cefb782f2f4dc64b355c8747e44d4b0b2faca|31168281",\n  "1.28.6|macos_arm64|aa132b7e0e69e16f1c9320257841751e52c42d9791b7f900de72cf0b06ffe74c|30083056",\n  "1.28.1|linux_x86_64|57b902b31da3eed12448a4e82a8aca30477e4bcd1bf99e3f65310eae0889f88d|26427634",\n  "1.28.1|linux_arm64 |20daad803d2a7a781f2ef0ee72ba4ed4ae17dcb41a43a330ae7b98347762bec9|24299157",\n  "1.28.1|macos_x86_64|6d9f5a747b1fcc1b6c314d30f4ff4d753371e5690309a99a5dd653d719d20d2d|27293876",\n  "1.28.1|macos_arm64 |6d664dcdd37e2809d1b4f14b310ccda0973b4a29e4624e902286e4964d101e22|26478632"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -144,7 +174,7 @@ Supported tfsec versions: unspecified
   env_repr='PANTS_TERRAFORM_TFSEC_VERSION'
   toml_repr={`[terraform-tfsec]
 version = <str>`}
-  default_repr={`v1.28.1`}
+  default_repr={`1.28.6`}
 >
 
 Use this version of tfsec.

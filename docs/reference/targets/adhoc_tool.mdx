@@ -164,6 +164,19 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 
 </Field>
 
+## `path_env_modify`
+
+<Field
+    type_repr={`'append' | 'off' | 'prepend' | None`}
+    default_repr={`'prepend'`}
+>
+
+When executing the command of an `adhoc_tool` or `shell_command` target, Pants may augment the `PATH` environment variable with the location of any binary shims created for `tools` and for any runnable dependencies.
+
+Modification of the `PATH` environment variable can be configured as follows: - `prepend`: Prepend the extra path components to any existing `PATH` value. - `append`: Append the extra path componenets to any existing `PATH` value. - `off`: Do not modify the existing `PATH` value.
+
+</Field>
+
 ## `root_output_directory`
 
 <Field
