@@ -43,6 +43,22 @@ This includes --quiet by default to reduce the volume of output.
 
 </Option>
 
+### `config_name`
+
+<Option
+  cli_repr={`--semgrep-config-name=<str>`}
+  env_repr='PANTS_SEMGREP_CONFIG_NAME'
+  toml_repr={`[semgrep]
+config_name = <str>`}
+  default_repr={`None`}
+>
+
+The name of the semgrep config file or directory, which will be discovered and used hierarchically. If using a file, it must have the extension `.yaml` or `.yml`.
+
+URLs and registry names are not supported.
+
+</Option>
+
 ### `skip`
 
 <Option

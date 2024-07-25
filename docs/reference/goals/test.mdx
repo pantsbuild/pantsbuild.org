@@ -205,6 +205,22 @@ NOTE: This parameter has no effect on test runners/plugins that do not implement
 
 </Option>
 
+### `experimental_report_test_result_info`
+
+<Option
+  cli_repr={`--[no-]test-experimental-report-test-result-info`}
+  env_repr='PANTS_TEST_EXPERIMENTAL_REPORT_TEST_RESULT_INFO'
+  toml_repr={`[test]
+experimental_report_test_result_info = <bool>`}
+  default_repr={`False`}
+>
+
+Report information about the test results.
+
+For now, it reports only the source from where the test results were fetched. When running tests, they may be executed locally or remotely, but if there are results of previous runs available, they may be retrieved from the local or remote cache, or be memoized. Knowing where the test results come from might be useful when evaluating the efficiency of the cache and the nature of the changes in the source code that may lead to frequent cache invalidations.
+
+</Option>
+
 ### `report`
 
 <Option

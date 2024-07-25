@@ -21,7 +21,23 @@ Config section: <span className="color--primary">`[dockerfile-parser]`</span>
 
 ## Basic options
 
-None
+### `use_rust_parser`
+
+<Option
+  cli_repr={`--[no-]dockerfile-parser-use-rust-parser`}
+  env_repr='PANTS_DOCKERFILE_PARSER_USE_RUST_PARSER'
+  toml_repr={`[dockerfile-parser]
+use_rust_parser = <bool>`}
+  default_repr={`False`}
+>
+
+Use the new experimental Rust-based, multithreaded, in-process dependency parser.
+
+If you think the new behaviour is causing problems, it is recommended that you run `pants --dockerfile-parser-use-rust-parser=True peek :: > new-parser.json` and then `pants --dockerfile-parser-use-rust-parser=False peek :: > old-parser.json` and compare the two results.
+
+If you think there is a bug, please file an issue: https://github.com/pantsbuild/pants/issues/new/choose.
+
+</Option>
 
 ## Advanced options
 
