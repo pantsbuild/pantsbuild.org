@@ -289,7 +289,7 @@ Directory to use for local process execution sandboxing. The path may be absolut
   env_repr='PANTS_LOCAL_STORE_DIR'
   toml_repr={`[GLOBAL]
 local_store_dir = <str>`}
-  default_repr={`$XDG_CACHE_HOME/pants/lmdb_store`}
+  default_repr={`\$XDG_CACHE_HOME/pants/lmdb_store`}
 >
 
 Directory to use for the local file store, which stores the results of subprocesses run by Pants. The path may be absolute or relative. If the directory is within the build root, be sure to include it in `--pants-ignore`.
@@ -361,7 +361,7 @@ The maximum number of times to loop when `--loop` is specified.
   env_repr='PANTS_NAMED_CACHES_DIR'
   toml_repr={`[GLOBAL]
 named_caches_dir = <str>`}
-  default_repr={`$XDG_CACHE_HOME/pants/named_caches`}
+  default_repr={`\$XDG_CACHE_HOME/pants/named_caches`}
 >
 
 Directory to use for named global caches for tools and processes with trusted, concurrency-safe caches. The path may be absolute or relative. If the directory is within the build root, be sure to include it in `--pants-ignore`.
@@ -418,7 +418,7 @@ The name of the script or binary used to invoke Pants. Useful when printing help
   env_repr='PANTS_BOOTSTRAPDIR'
   toml_repr={`[GLOBAL]
 pants_bootstrapdir = <dir>`}
-  default_repr={`$XDG_CACHE_HOME/pants`}
+  default_repr={`\$XDG_CACHE_HOME/pants`}
 >
 
 Unused. Will be deprecated in 2.1.0.
@@ -718,7 +718,7 @@ Override config with values from these files, using syntax matching that of `--p
   env_repr='PANTS_PLUGIN_CACHE_DIR'
   toml_repr={`[GLOBAL]
 plugin_cache_dir = <str>`}
-  default_repr={`$XDG_CACHE_HOME/pants/plugins`}
+  default_repr={`\$XDG_CACHE_HOME/pants/plugins`}
 >
 
 Cache resolved plugin requirements here.

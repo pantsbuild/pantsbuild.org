@@ -89,9 +89,14 @@ function convertDefault(val, type) {
     val = String(val).replace(/\\n/g, "\\\\n");
   }
 
-  return val
-    .replace(buildroot, "<buildroot>")
-    .replace(cachedir, "$XDG_CACHE_HOME");
+  return (
+    val
+      .replace(buildroot, "<buildroot>")
+      .replace(cachedir, "$XDG_CACHE_HOME")
+      // this ends up in a template literal, so if it contains literally ${something} we need to
+      // ensure that doesn't get interpreted as a substitution
+      .replace(/\$/g, "\\$")
+  );
 }
 
 function escape(val) {
