@@ -29,17 +29,21 @@ Config section: <span className="color--primary">`[export]`</span>
 
 ## Basic options
 
-### `py_generated_sources`
+### `py_generated_sources_in_resolve`
 
 <Option
-  cli_repr={`--[no-]export-py-generated-sources`}
-  env_repr='PANTS_EXPORT_PY_GENERATED_SOURCES'
+  cli_repr={`--export-py-generated-sources-in-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_PY_GENERATED_SOURCES_IN_RESOLVE'
   toml_repr={`[export]
-py_generated_sources = <bool>`}
-  default_repr={`False`}
+py_generated_sources_in_resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
 >
 
-When exporting a mutable virtualenv for a resolve, generate any sources which result from code generation (for example, the `protobuf_sources` and `thrift_sources` targets) and place the generated files under the site-packages directory of the virtualenv.
+When exporting a mutable virtualenv for a resolve listed in this option, generate sources which result from code generation (for example, the `protobuf_sources` and `thrift_sources` target types) into the mutable virtualenv exported for that resolve. Generated sources will be placed in the appropriate location within the site-packages directory of the mutable virtualenv.
 
 </Option>
 
