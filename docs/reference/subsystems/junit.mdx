@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The JUnit test framework (https://junit.org)
 
-Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.java.bsp`</span>
 
 Config section: <span className="color--primary">`[junit]`</span>
 
@@ -103,7 +103,7 @@ lockfile = <str>`}
 
 Path to a lockfile used for installing the tool.
 
-Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.23.0.dev5/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.23.0.dev6/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.
 
 To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=junit`.
 
