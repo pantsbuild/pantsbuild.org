@@ -54,6 +54,25 @@ https://docs.npmjs.com/cli/v9/configuring-npm/package-json#browser.
 
 </Option>
 
+### `unowned_dependency_behavior`
+
+<Option
+  cli_repr={`--nodejs-infer-unowned-dependency-behavior=<UnownedDependencyUsage>`}
+  env_repr='PANTS_NODEJS_INFER_UNOWNED_DEPENDENCY_BEHAVIOR'
+  toml_repr={`[nodejs-infer]
+unowned_dependency_behavior = <UnownedDependencyUsage>`}
+  one_of='error, warning, ignore'
+  default_repr={`warning`}
+>
+
+How to handle imports that don&#x27;t have an inferrable owner.
+
+Usually when an import cannot be inferred, it represents an issue like Pants not being properly configured, e.g. targets not set up. Often, missing dependencies will result in confusing runtime errors like `Error: ENOENT: no such file or directory`, so this option can be helpful to error more eagerly.
+
+To ignore any false positives, add `// pants: no-infer-dep` to the line of the import
+
+</Option>
+
 ## Advanced options
 
 None

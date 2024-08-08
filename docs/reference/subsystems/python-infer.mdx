@@ -207,7 +207,9 @@ How to handle imports that don&#x27;t have an inferrable owner.
 
 Usually when an import cannot be inferred, it represents an issue like Pants not being properly configured, e.g. targets not set up. Often, missing dependencies will result in confusing runtime errors like `ModuleNotFoundError`, so this option can be helpful to error more eagerly.
 
-To ignore any false positives, either add `# pants: no-infer-dep` to the line of the import or put the import inside a `try: except ImportError:` block.
+To ignore any false positives,
+either add `# pants: no-infer-dep` to the line of the
+import or put the import inside a `try: except ImportError:` block.
 
 </Option>
 

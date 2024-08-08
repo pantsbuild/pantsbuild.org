@@ -33,6 +33,17 @@ This is re-exported at `lambda_function.handler` in the resulting package to be 
 
 </Field>
 
+## `architecture`
+
+<Field
+    type_repr={`'arm64' | 'x86_64' | None`}
+    default_repr={`'x86_64'`}
+>
+
+The architecture of the AWS Lambda runtime to target (x86_64 or arm64). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html.
+
+</Field>
+
 ## `complete_platforms`
 
 <Field

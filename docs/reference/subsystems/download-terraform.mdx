@@ -94,6 +94,24 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
+### `platforms`
+
+<Option
+  cli_repr={`--download-terraform-platforms="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DOWNLOAD_TERRAFORM_PLATFORMS'
+  toml_repr={`[download-terraform]
+platforms = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Platforms to generate lockfiles for. See the [documentation for the providers lock command](https://developer.hashicorp.com/terraform/cli/commands/providers/lock#platform-os_arch). For example, `["windows_amd64", "darwin_amd64", "linux_amd64"]`
+
+</Option>
+
 ### `tailor`
 
 <Option
