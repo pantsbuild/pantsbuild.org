@@ -12,9 +12,9 @@
   [Unsplash](https://unsplash.com/photos/magnifying-glass-near-gray-laptop-computer-d9ILr-dbEdg)
 </CaptionedImg>
 
-{/* truncate */}
-
 An important distinguishing feature of Pants v2 is its ability to automatically [infer your code's internal and external dependencies](https://www.pantsbuild.org/blog/2022/10/27/why-dependency-inference). The information about those inferences is available via the `dependencies` and `peek` goals, so that metadata about what modules import from other modules is always readily accessible to you.
+
+{/* truncate */}
 
 While managing a codebase in a [Pants-supported language](https://www.pantsbuild.org/2.18/docs/introduction/welcome-to-pants#which-languages-and-frameworks-does-pants-support) (e.g. Python, Java, Scala, etc...), it can sometimes be useful dig deeper and explore the inferred dependencies in order to compare them to your source code's import statements. This can be particularly useful for large modules with many imports, where it's very easy to miss an omitted dependency or an inferred dependency that should have been ignored.
 
