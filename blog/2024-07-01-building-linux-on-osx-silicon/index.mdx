@@ -10,6 +10,8 @@
 
 Pants has supported running portions of the build in docker containers for [a while](https://www.pantsbuild.org/blog/2023/02/24/pants-2-15), but the exact configuration is a little tricky, particularly if you want to build x86_64 containers on Apple ARM processors.
 
+{/* truncate */}
+
 The recipe itself is very straight forward, adding these two sections to your root BUILD and pants.toml files will build your python binaries and docker containers for Linux/x64 on both Linux & OSX:
 
 ```bash title="BUILD"
