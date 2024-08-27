@@ -29,24 +29,6 @@ Config section: <span className="color--primary">`[export]`</span>
 
 ## Basic options
 
-### `py_generated_sources_in_resolve`
-
-<Option
-  cli_repr={`--export-py-generated-sources-in-resolve="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_EXPORT_PY_GENERATED_SOURCES_IN_RESOLVE'
-  toml_repr={`[export]
-py_generated_sources_in_resolve = [
-    '<str>',
-    '<str>',
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-When exporting a mutable virtualenv for a resolve listed in this option, generate sources which result from code generation (for example, the `protobuf_sources` and `thrift_sources` target types) into the mutable virtualenv exported for that resolve. Generated sources will be placed in the appropriate location within the site-packages directory of the mutable virtualenv.
-
-</Option>
-
 ### `py_resolve_format`
 
 <Option
@@ -108,6 +90,24 @@ When exporting a mutable virtualenv for a resolve, do PEP-660 editable installs 
 If a resolve name is not in this list, `python_distribution` targets will not be installed in the virtualenv. This defaults to an empty list for backwards compatibility and to prevent unnecessary work to generate and install the PEP-660 editable wheels.
 
 This only applies when `[python].enable_resolves` is true and when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they must not be edited, and do not include `pip`).
+
+</Option>
+
+### `py_generated_sources_in_resolve`
+
+<Option
+  cli_repr={`--export-py-generated-sources-in-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_PY_GENERATED_SOURCES_IN_RESOLVE'
+  toml_repr={`[export]
+py_generated_sources_in_resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+When exporting a mutable virtualenv for a resolve listed in this option, generate sources which result from code generation (for example, the `protobuf_sources` and `thrift_sources` target types) into the mutable virtualenv exported for that resolve. Generated sources will be placed in the appropriate location within the site-packages directory of the mutable virtualenv.
 
 </Option>
 
