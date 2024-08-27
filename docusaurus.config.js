@@ -1,5 +1,5 @@
 import versions from "./versions.json";
-import redirects from "./old_site_redirects.js";
+import old_site_redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
 import fs from "fs";
@@ -29,6 +29,8 @@ const onlyIncludeVersions = isDev
     : ["current"]
   : undefined;
 
+// In Docusaurus terms, "current" == main == trunk == dev.  It is *newer* than
+// the newest in versions.json
 function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
   const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
@@ -71,6 +73,7 @@ const getVersionDetails = () => {
   const versionDetails = [];
 
   let seenStableVersions = 0;
+  let newestPreReleaseVersion = null;
 
   // Construct the configuration for each version. NB. iterating from newest to oldest is important,
   // to be able to label too-old stable versions as unsupported.
@@ -81,6 +84,9 @@ const getVersionDetails = () => {
     const isMaintained = seenStableVersions < numberOfSupportedStableVersions;
     const isPrerelease = isPrereleaseVersion(fullVersion);
     const isCurrent = isCurrentVersion(shortVersion);
+    if (!isCurrent && isPrerelease && newestPreReleaseVersion === null) {
+      newestPreReleaseVersion = shortVersion;
+    }
 
     // compute the appropriate configuration this version
     let config;
@@ -88,6 +94,7 @@ const getVersionDetails = () => {
       // current version => dev
       config = {
         label: `${shortVersion} (dev)`,
+        path: "dev",
       };
     } else if (isPrerelease) {
       // prerelease => prerelease
@@ -95,6 +102,8 @@ const getVersionDetails = () => {
         label: `${shortVersion} (prerelease)`,
         banner: "unreleased",
         noIndex: false,
+        path:
+          shortVersion == newestPreReleaseVersion ? "prerelease" : shortVersion,
       };
     } else if (isMaintained) {
       // a new-enough stable version => so still supported
@@ -102,6 +111,7 @@ const getVersionDetails = () => {
         label: shortVersion,
         banner: "none",
         noIndex: false,
+        path: seenStableVersions == 0 ? "stable" : shortVersion,
       };
     } else {
       // stable, but too old => deprecated
@@ -109,6 +119,7 @@ const getVersionDetails = () => {
         label: `${shortVersion} (deprecated)`,
         banner: "unmaintained",
         noIndex: true,
+        path: shortVersion,
       };
     }
 
@@ -118,21 +129,21 @@ const getVersionDetails = () => {
       isMaintained,
       isPrerelease,
       isCurrent,
-      config: {
-        ...config,
-        path: shortVersion,
-      },
+      config,
     });
 
     if (!isPrerelease) {
       seenStableVersions += 1;
     }
   }
-
   return versionDetails;
 };
 
 const versionDetails = getVersionDetails();
+
+const mostRecentPreReleaseVersion = versionDetails.find(
+  ({ isMaintained }) => !isMaintained
+);
 
 const mostRecentStableVersion = versionDetails.find(
   ({ isPrerelease }) => !isPrerelease
@@ -434,7 +445,27 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects,
+        redirects: old_site_redirects,
+        createRedirects(existingPath) {
+          if (existingPath.includes("/dev/")) {
+            return [existingPath.replace("/dev/", `/${currentVersion}/`)];
+          } else if (existingPath.includes("/prerelease/")) {
+            return [
+              existingPath.replace(
+                "/prerelease/",
+                `/${mostRecentPreReleaseVersion.shortVersion}/`
+              ),
+            ];
+          } else if (existingPath.includes("/stable/")) {
+            return [
+              existingPath.replace(
+                "/stable/",
+                `/${mostRecentStableVersion.shortVersion}/`
+              ),
+            ];
+          }
+          return undefined;
+        },
       },
     ],
   ],
