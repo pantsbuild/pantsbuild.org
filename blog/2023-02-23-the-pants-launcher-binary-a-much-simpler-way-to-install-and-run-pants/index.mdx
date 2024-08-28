@@ -40,7 +40,7 @@ The launcher binary is not tied to a specific Pants version. When you run `pants
 
 And, as an added bonus, launching Pants via the `pants` binary is about 33% faster than using the `./pants` script!
 
-You cannot use the embedded interpreter for your own code, so if you have Python in your repo you'll still have to ensure that an interpreter is available for running your tests etc. But that's a pretty sensible requirement, that enforces the separation between Pants's internal use of Python as an implementation detail and your repo's use of Python.[(1)](#ref1)
+You cannot use the embedded interpreter for your own code, so if you have Python in your repo you'll still have to ensure that an interpreter is available for running your tests etc. But that's a pretty sensible requirement, that enforces the separation between Pants's internal use of Python as an implementation detail and your repo's use of Python.[^1]
 
 The embedded interpreter is currently Python 3.9, and we will continue to [release Pants](https://pypi.org/project/pantsbuild.pants/) for 3.7 and 3.8 for a while. But in the long run the plan is to release Pants for just a single embedded interpreter, which we can upgrade as new versions of Python are released.
 
@@ -58,4 +58,4 @@ We provide the embedded interpreter using the [Python Standalone Builds](https:/
 
 ---
 
-1\. The one slight exception is if you have custom Pants plugin code in your repo. Such code has two facets: It runs in the Pants engine, so it executes on the embedded interpreter, but it is code in your repo, which presumably has tests (you did write tests, yes?) and those need to run on an interpreter (3.9 in this case) that you install.
+[^1]: The one slight exception is if you have custom Pants plugin code in your repo. Such code has two facets: It runs in the Pants engine, so it executes on the embedded interpreter, but it is code in your repo, which presumably has tests (you did write tests, yes?) and those need to run on an interpreter (3.9 in this case) that you install.
