@@ -447,16 +447,16 @@ const config = {
       {
         redirects: old_site_redirects,
         createRedirects(existingPath) {
-          if (existingPath.includes("/dev/")) {
+          if (existingPath.startsWith("/dev/")) {
             return [existingPath.replace("/dev/", `/${currentVersion}/`)];
-          } else if (existingPath.includes("/prerelease/")) {
+          } else if (existingPath.startsWith("/prerelease/")) {
             return [
               existingPath.replace(
                 "/prerelease/",
                 `/${mostRecentPreReleaseVersion.shortVersion}/`
               ),
             ];
-          } else if (existingPath.includes("/stable/")) {
+          } else if (existingPath.startsWith("/stable/")) {
             return [
               existingPath.replace(
                 "/stable/",
