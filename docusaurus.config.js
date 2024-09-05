@@ -142,7 +142,7 @@ const getVersionDetails = () => {
 const versionDetails = getVersionDetails();
 
 const mostRecentPreReleaseVersion = versionDetails.find(
-  ({ isMaintained }) => !isMaintained
+  (ver) => ver.isPrerelease && !ver.isCurrent
 );
 
 const mostRecentStableVersion = versionDetails.find(
