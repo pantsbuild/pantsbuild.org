@@ -1,0 +1,149 @@
+---
+title: nfpm_content_dirs
+description: |
+  Multiple directories in an nFPM package (created on package install).
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Multiple directories in an nFPM package (created on package install).
+
+Backend: <span className="color--primary">`pants.backend.experimental.nfpm`</span>
+
+---
+
+<span className={styles.options}>
+
+## `dirs`
+
+<Field
+    type_repr={`Iterable[str]`}
+>
+
+A list of install path for &#x27;dst&#x27; directories.
+
+When the package gets installed, each directory will be created.
+
+Each path is an absolute path on the file system where the package will be installed.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `file_group`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'root'`}
+>
+
+Name of the group that should own this packaged file or directory.
+
+This is like the GROUP arg in chown: https://www.mankier.com/1/chown
+
+</Field>
+
+## `file_mode`
+
+<Field
+    type_repr={`int | str | None`}
+    default_repr={`None`}
+>
+
+A file mode as a numeric octal, an string octal, or a symbolic representation.
+
+NB: In most cases, you should set this field and not rely on the default value. Pants only tracks the executable bit for workspace files. So, this field defaults to 0o755 for executable files and 0o644 for files that are not executable.
+
+You may specify the file mode as: an octal, an octal string, or a symbolic string. If you specify a numeric octal (not as a string), make sure to include python&#x27;s octal prefix: `0o` like in `0o644`. If you specify the octal as a string, the `Oo` prefix is optional (like `644`). If you specify a symbolic file mode string, you must provide 9 characters with &#x22;-&#x22; in place of any absent permissions (like `'rw-r--r--'`).
+
+For example to specify world readable/executable and user writable, these are equivalent:
+
+- `0o755` - `'755'` - `'rwxr-xr-x'`
+
+Another example for a file with read/write permissions for only the user:
+
+- `0o600` - `'600'` - `'rw-------'`
+
+Another example for a file with the group sticky bit set:
+
+- `0o2660` - `'2660'` - `'rw-rwS---'`
+
+WARNING: If you forget to include the `0o` prefix on a numeric octal, then it will be interpreted as an integer which is probably not what you want. For example, `755` (no quotes) will be processed as `0o1363` (symbolically that would be &#x27;-wxrw--wt&#x27;) which is probably not what you intended. Pants cannot detect errors like this, so be careful to either use a string or include the `0o` octal prefix.
+
+</Field>
+
+## `file_mtime`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'1980-01-01T00:00:00Z'`}
+>
+
+The file modification time as an RFC 3339 formatted string.
+
+For example: 2008-01-02T15:04:05Z
+
+The format is defined in RFC 3339: https://rfc-editor.org/rfc/rfc3339.html
+
+Though nFPM supports pulling mtime from the src file or directory in most cases, the pants nfpm backend does not support this. Reading the mtime from the filesystem is problematic because Pants does not track the mtime of files and does not propagate any file mtime into the sandboxes. Reasons for this include: git does not track mtime, timestamps like mtime cause many issues for reproducible packaging builds, and reproducible builds are required for pants to provide its fine-grained caches.
+
+The default value is &#x27;1980-01-01T00:00:00Z&#x27;. You may also override the default value by setting `[nfpm].default_mtime` in `pants.toml`, or by setting the `SOURCE_DATE_EPOCH` environment variable.
+
+See also: https://reproducible-builds.org/docs/timestamps/
+
+</Field>
+
+## `file_owner`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'root'`}
+>
+
+Username that should own this packaged file or directory.
+
+This is like the OWNER arg in chown: https://www.mankier.com/1/chown
+
+</Field>
+
+## `overrides`
+
+<Field
+    type_repr={`dict | None`}
+    default_repr={`None`}
+>
+
+Override the field values for generated `nfpm_content_dir` targets.
+
+This expects a dictionary of &#x27;dst&#x27; files to a dictionary for the overrides.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+</span>
