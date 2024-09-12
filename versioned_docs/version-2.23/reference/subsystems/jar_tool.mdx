@@ -1,0 +1,104 @@
+---
+title: jar_tool
+description: |
+  The Java Archive Tool
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Java Archive Tool
+
+Backend: <span className="color--primary">`pants.backend.experimental.java.debug_goals`</span>
+
+Config section: <span className="color--primary">`[jar_tool]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `artifacts`
+
+<Option
+  cli_repr={`--jar_tool-artifacts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JAR_TOOL_ARTIFACTS'
+  toml_repr={`[jar_tool]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "args4j:args4j:2.33",\n  "com.google.code.findbugs:jsr305:3.0.2",\n  "com.google.guava:guava:18.0"\n]`}
+>
+
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[jar_tool].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--jar_tool-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JAR_TOOL_JVM_OPTIONS'
+  toml_repr={`[jar_tool]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `jar_tool` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--jar_tool-lockfile=<str>`}
+  env_repr='PANTS_JAR_TOOL_LOCKFILE'
+  toml_repr={`[jar_tool]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.23.0a0/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants jvm-generate-lockfiles --resolve=jar_tool`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--jar_tool-version=<str>`}
+  env_repr='PANTS_JAR_TOOL_VERSION'
+  toml_repr={`[jar_tool]
+version = <str>`}
+  default_repr={`None`}
+>
+
+Version string for the tool. This is available for substitution in the `[jar_tool].artifacts` option by including the string `{version}`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
