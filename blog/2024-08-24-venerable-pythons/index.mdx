@@ -27,8 +27,12 @@ There are a few different "versions of Python" that are relevant for Pants:
 - The versions of Python that Pants supports "out of the box" with default tool lockfiles. This includes tools like `pip`, `black`, or `mypy`.
 - The version of Python that Pants itself is written in. This is only relevant for plugin authors, the version that Pants itself uses is otherwise an [implementation detail](/blog/2023/02/23/the-pants-launcher-binary-a-much-simpler-way-to-install-and-run-pants)
 
-Starting in Pants version 2.23, the default tool lockfile bundled with Pants will no longer support Python 3.7. Pants will still build and test Python 3.7 code! But you will first need to create your own [tool lockfiles](https://www.pantsbuild.org/2.21/docs/python/overview/lockfiles#lockfiles-for-tools).
+Starting in Pants version ~~2.23~~ 2.24 [^1], the default tool lockfile bundled with Pants will no longer support Python 3.7. Pants will still build and test Python 3.7 code! But you will first need to create your own [tool lockfiles](https://www.pantsbuild.org/2.21/docs/python/overview/lockfiles#lockfiles-for-tools).
 
 This will allow the bundled lockfiles to support [versions of pip that will generate lockfiles faster](https://pip.pypa.io/en/stable/news/#v24-2), the [Python 3.13 release](https://github.com/pantsbuild/pants/issues/21103), and [more secure](https://github.com/pantsbuild/pants/issues/21184) versions of `setuptools`.
 
 In the future as support across the Python ecosystem ebbs and flows, Pants will continue to adjust to provide broad "out of the box" support for a variety of Python versions.
+
+---
+
+[^1]: This was originally intended to be 2.23, but moved to 2.24 to give more time for testing.
