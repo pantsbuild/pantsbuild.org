@@ -318,6 +318,24 @@ The PATH value that will be used to find the Docker client and any tools require
 
 </Option>
 
+### `optional_tools`
+
+<Option
+  cli_repr={`--docker-optional-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DOCKER_OPTIONAL_TOOLS'
+  toml_repr={`[docker]
+optional_tools = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List any additional executables which are not mandatory for Docker to work, but which should be included if available. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by the Docker client.
+
+</Option>
+
 ### `tailor`
 
 <Option

@@ -215,6 +215,18 @@ Overrides the default value from the option `[golang].external_linker_binary_nam
 
 </Field>
 
+## `golang_extra_tools`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.go"
+>
+
+Overrides the default value from the option `[golang].extra_tools` when this environment target is active.
+
+</Field>
+
 ## `golang_go_search_paths`
 
 <Field
@@ -248,6 +260,18 @@ Overrides the default value from the option `[golang].subprocess_env_vars` when 
 >
 
 Overrides the default value from the option `[jvm].global_options` when this environment target is active.
+
+</Field>
+
+## `nfpm_default_mtime`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.nfpm"
+>
+
+Overrides the default value from the option `[nfpm].default_mtime` when this environment target is active.
 
 </Field>
 
