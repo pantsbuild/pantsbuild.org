@@ -71,7 +71,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "5.1.0|macos_x86_64|c9378d9f4293fc38ec54a08fbc74e7a9d28914dae6891334401e59f38f6e65dc|7125968",\n  "5.1.0|macos_arm64 |745feb5ea96cb6ff39a76b2821c57591fd70b528325562486d47b5d08900e2e4|7334498",\n  "5.1.0|linux_x86_64|52bf6b102cb4f88464e197caac06d69793fa2b05f5ad50a7e7bf6fbd656648a3|7226100",\n  "5.1.0|linux_arm64 |917d599dbb040e63ae7a7e1adb710d2057811902fdc9e35cce925ebfd966eeb8|7171938"\n]`}
+  default_repr={`[\n  "7.1.2|macos_x86_64|687c49c318fb655970cf716eed3c7bfc9caeea4f2931a2fd36593c458de0c537|7591232",\n  "7.1.2|macos_arm64 |d0909b645496608fd6dfc67f95d9d3b01d90736d7b8c8ec41e802cb0b7ceae7c|7528994",\n  "7.1.2|linux_x86_64|28285fe7e39ed23dc1a3a525dfcdccbc96c0034ff1d4277905d2672a71b38f13|7702060",\n  "7.1.2|linux_arm64 |c22a44eee37b8927167ee6ee67573303f4e31171e7ec3a8ea021a6a660040437|7568336"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -122,10 +122,10 @@ For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "un
   env_repr='PANTS_BUILDIFIER_URL_TEMPLATE'
   toml_repr={`[buildifier]
 url_template = <str>`}
-  default_repr={`https://github.com/bazelbuild/buildtools/releases/download/{version}/buildifier-{platform}`}
+  default_repr={`https://github.com/bazelbuild/buildtools/releases/download/v{version}/buildifier-{platform}`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.23/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
@@ -155,7 +155,7 @@ Supported Buildifier versions: unspecified
   env_repr='PANTS_BUILDIFIER_VERSION'
   toml_repr={`[buildifier]
 version = <str>`}
-  default_repr={`5.1.0`}
+  default_repr={`7.1.2`}
 >
 
 Use this version of Buildifier.

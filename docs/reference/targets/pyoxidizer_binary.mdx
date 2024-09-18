@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A single-file Python executable with a Python interpreter embedded, built via PyOxidizer.
 
-To use this target, first create a `python_distribution` target with the code you want included in your binary, per https://www.pantsbuild.org/2.23/docs/python/overview/building-distributions. Then add this `python_distribution` target to the `dependencies` field. See the `help` for `dependencies` for more information.
+To use this target, first create a `python_distribution` target with the code you want included in your binary, per https://www.pantsbuild.org/2.24/docs/python/overview/building-distributions. Then add this `python_distribution` target to the `dependencies` field. See the `help` for `dependencies` for more information.
 
 You may optionally want to set the `entry_point` field. For advanced use cases, you can use a custom PyOxidizer config file, rather than what Pants generates, by setting the `template` field. You may also want to set `[pyoxidizer].args` to a value like `['--release']`.
 
@@ -29,9 +29,9 @@ Backend: <span className="color--primary">`pants.backend.experimental.python.pac
 
 The addresses of `python_distribution` target(s) to include in the binary, e.g. `['src/python/project:dist']`.
 
-The distribution(s) must generate at least one wheel file. For example, if using `generate_setup=True`, then make sure `wheel=True`. See https://www.pantsbuild.org/2.23/docs/python/overview/building-distributions.
+The distribution(s) must generate at least one wheel file. For example, if using `generate_setup=True`, then make sure `wheel=True`. See https://www.pantsbuild.org/2.24/docs/python/overview/building-distributions.
 
-Usually, you only need to specify a single `python_distribution`. However, if that distribution depends on another first-party distribution in your repository, you must specify that dependency too, otherwise PyOxidizer would try installing the distribution from PyPI. Note that a `python_distribution` target might depend on another `python_distribution` target even if it is not included in its own `dependencies` field, as explained at https://www.pantsbuild.org/2.23/docs/python/overview/building-distributions; if code from one distribution imports code from another distribution, then there is a dependency and you must include both `python_distribution` targets in the `dependencies` field of this `pyoxidizer_binary` target.
+Usually, you only need to specify a single `python_distribution`. However, if that distribution depends on another first-party distribution in your repository, you must specify that dependency too, otherwise PyOxidizer would try installing the distribution from PyPI. Note that a `python_distribution` target might depend on another `python_distribution` target even if it is not included in its own `dependencies` field, as explained at https://www.pantsbuild.org/2.24/docs/python/overview/building-distributions; if code from one distribution imports code from another distribution, then there is a dependency and you must include both `python_distribution` targets in the `dependencies` field of this `pyoxidizer_binary` target.
 
 Target types other than `python_distribution` will be ignored.
 

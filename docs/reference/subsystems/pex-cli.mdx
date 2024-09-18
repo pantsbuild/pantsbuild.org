@@ -19,7 +19,25 @@ Config section: <span className="color--primary">`[pex-cli]`</span>
 
 ## Basic options
 
-None
+### `global_args`
+
+<Option
+  cli_repr={`--pex-cli-global-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_PEX_CLI_GLOBAL_ARGS'
+  toml_repr={`[pex-cli]
+global_args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to pex, e.g. `--pex-cli-args='--check=error --no-compile'`.
+
+Note that these apply to all invocations of the pex tool, including building `pex_binary` targets, preparing `python_test` targets to run, and generating lockfiles.
+
+</Option>
 
 ## Advanced options
 
@@ -34,7 +52,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v2.11.0|macos_arm64|554a3ad5d1662d93d06a7e65bf5444589d1956752df39e2665a4d54e1e05c949|4181790",\n  "v2.11.0|macos_x86_64|554a3ad5d1662d93d06a7e65bf5444589d1956752df39e2665a4d54e1e05c949|4181790",\n  "v2.11.0|linux_x86_64|554a3ad5d1662d93d06a7e65bf5444589d1956752df39e2665a4d54e1e05c949|4181790",\n  "v2.11.0|linux_arm64|554a3ad5d1662d93d06a7e65bf5444589d1956752df39e2665a4d54e1e05c949|4181790"\n]`}
+  default_repr={`[\n  "v2.16.2|macos_arm64|f2ec29dda754c71a8b662e3b4a9071aef269a9991ae920666567669472dcd556|4284448",\n  "v2.16.2|macos_x86_64|f2ec29dda754c71a8b662e3b4a9071aef269a9991ae920666567669472dcd556|4284448",\n  "v2.16.2|linux_x86_64|f2ec29dda754c71a8b662e3b4a9071aef269a9991ae920666567669472dcd556|4284448",\n  "v2.16.2|linux_arm64|f2ec29dda754c71a8b662e3b4a9071aef269a9991ae920666567669472dcd556|4284448"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -88,7 +106,7 @@ url_template = <str>`}
   default_repr={`https://github.com/pex-tool/pex/releases/download/{version}/pex`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.23/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
@@ -107,7 +125,7 @@ use_unsupported_version = <UnsupportedVersionUsage>`}
 
 What action to take in case the requested version of pex is not supported.
 
-Supported pex versions: &#x3E;=2.3.0,&#x3C;3.0
+Supported pex versions: &#x3E;=2.13.0,&#x3C;3.0
 
 </Option>
 
@@ -118,12 +136,12 @@ Supported pex versions: &#x3E;=2.3.0,&#x3C;3.0
   env_repr='PANTS_PEX_CLI_VERSION'
   toml_repr={`[pex-cli]
 version = <str>`}
-  default_repr={`v2.11.0`}
+  default_repr={`v2.16.2`}
 >
 
 Use this version of pex.
 
-Supported pex versions: &#x3E;=2.3.0,&#x3C;3.0
+Supported pex versions: &#x3E;=2.13.0,&#x3C;3.0
 
 </Option>
 

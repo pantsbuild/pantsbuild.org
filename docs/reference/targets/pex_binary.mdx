@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A Python target that can be converted into an executable PEX file.
 
-PEX files are self-contained executable files that contain a complete Python environment capable of running the target. For more information, see https://www.pantsbuild.org/2.23/docs/python/overview/pex.
+PEX files are self-contained executable files that contain a complete Python environment capable of running the target. For more information, see https://www.pantsbuild.org/2.24/docs/python/overview/pex.
 
 Backend: <span className="color--primary">`pants.backend.python`</span>
 
@@ -58,7 +58,7 @@ You can give a list of multiple complete platforms to create a multiplatform PEX
 
 Complete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
-See https://www.pantsbuild.org/2.23/docs/python/overview/pex for details.
+See https://www.pantsbuild.org/2.24/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
 
 </Field>
 
@@ -73,7 +73,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/2.23/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -266,7 +266,7 @@ Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPyt
 
 If the field is not set, it will default to the option `[python].interpreter_constraints`.
 
-See https://www.pantsbuild.org/2.23/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+See https://www.pantsbuild.org/2.24/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
 
