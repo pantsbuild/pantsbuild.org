@@ -38,18 +38,18 @@ figcaption {
 }
 
 /* Announcement Bar styling */
-div[class*="AnnouncementBar"] {
+div[class*="AnnouncementBar" i] {
   /* Make the announcement text more prominent. */
   font-size: 24px !important;
 }
 
-div[class*="AnnouncementBar"] a {
+div[class*="AnnouncementBar" i] a {
   /* Default link style does not use a different color. */
   color: var(--ifm-link-color);
   text-decoration: inherit;
 }
 
-div[class*="AnnouncementBar"] a:hover {
+div[class*="AnnouncementBar" i] a:hover {
   color: var(--ifm-link-color);
   text-decoration: underline;
 }
