@@ -36,3 +36,20 @@ figcaption {
 .color--success {
   color: var(--ifm-color-primary);
 }
+
+/* Announcement Bar styling */
+div[class*='AnnouncementBar'] {
+  /* Make the announcement text more prominent. */
+  font-size: 24px !important;
+}
+
+div[class*='AnnouncementBar'] a {
+  /* Default link style does not use a different color. */
+  color: var(--ifm-link-color);
+  text-decoration: inherit;
+}
+
+div[class*='AnnouncementBar'] a:hover {
+  color: var(--ifm-link-color);
+  text-decoration: underline;
+}
