@@ -261,7 +261,7 @@ const config = {
           label: "Reference",
         },
         { to: "/blog", label: "Blog", position: "left" },
-        { to: "/sponsorship", label: "Sponsor", position: "left" },
+        { to: "/sponsors", label: "Sponsors", position: "left" },
         // Right
         {
           type: "docsVersionDropdown",
@@ -317,10 +317,6 @@ const config = {
               to: "/spotlight/testimonials",
             },
             {
-              label: "Who's Hiring?",
-              to: "/spotlight/jobs",
-            },
-            {
               label: "Media",
               to: "/spotlight/media",
             },
@@ -359,8 +355,8 @@ const config = {
               to: "/blog",
             },
             {
-              label: "Sponsor",
-              href: "/sponsorship",
+              label: "Sponsors",
+              href: "/sponsors",
             },
           ],
         },
