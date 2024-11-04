@@ -127,7 +127,7 @@ jobs:
           } >> body.md
       - name: Make a PR
         if: always()
-        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body-file=body.md  --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
+        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body-file=../body.md  --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
         env:
           GH_TOKEN: ${{ secrets.WORKER_PANTS_PR_PAT }}
         working-directory: pantsbuild.org
