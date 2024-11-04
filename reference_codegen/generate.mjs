@@ -199,14 +199,21 @@ function splitFirst(string, sep) {
 }
 
 /** Return a representation of arg value from the CLI. */
-function deduceArgValue(displayArgs) {
+function deduceArgValue(displayArgs, envVar) {
   const exampleCli = displayArgs[0];
 
   const val = exampleCli.includes("[no-]")
     ? "<bool>"
     : splitFirst(exampleCli, "=")[1];
 
-  return val;
+  if (val) {
+    return val;
+  }
+
+  const args = JSON.stringify(displayArgs);
+  throw new Error(
+    `In ${envVar}, failed to deduce value formatting from example CLI instances: ${args}`
+  );
 }
 
 function generateTomlRepr(option, scope) {
@@ -227,7 +234,7 @@ function generateTomlRepr(option, scope) {
   }
 
   const tomlLines = [];
-  const val = deduceArgValue(option.display_args);
+  const val = deduceArgValue(option.display_args, option.env_var);
 
   const isMap = val.startsWith('"{') && val.endsWith('}"');
   const isArray = val.startsWith('"[') && val.endsWith(']"');
