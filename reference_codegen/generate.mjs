@@ -198,6 +198,17 @@ function splitFirst(string, sep) {
     : [string.slice(0, firstIndex), string.slice(firstIndex + sep.length)];
 }
 
+/** Return a representation of arg value from the CLI. */
+function deduceArgValue(displayArgs) {
+  const exampleCli = displayArgs[0];
+
+  const val = exampleCli.includes("[no-]")
+    ? "<bool>"
+    : splitFirst(exampleCli, "=")[1];
+
+  return val;
+}
+
 function generateTomlRepr(option, scope) {
   // Generate a toml block for the option to help users fill out their `pants.toml`.  For
   // scalars and arrays, we put them inline directly in the scope, while for maps we put
@@ -216,11 +227,7 @@ function generateTomlRepr(option, scope) {
   }
 
   const tomlLines = [];
-  const exampleCli = option.display_args[0];
-
-  const val = exampleCli.includes("[no-]")
-    ? "<bool>"
-    : splitFirst(exampleCli, "=")[1];
+  const val = deduceArgValue(option.display_args);
 
   const isMap = val.startsWith('"{') && val.endsWith('}"');
   const isArray = val.startsWith('"[') && val.endsWith(']"');
