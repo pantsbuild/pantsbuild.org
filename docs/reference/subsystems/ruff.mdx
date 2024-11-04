@@ -11,8 +11,6 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 The Ruff Python formatter (https://github.com/astral-sh/ruff).
 
-This version of Pants uses `ruff` version 0.6.4 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
-
 Backend: <span className="color--primary">`pants.backend.experimental.python.lint.ruff.check`</span>
 
 Config section: <span className="color--primary">`[ruff]`</span>
@@ -87,6 +85,112 @@ Use `[ruff].config` instead if your config is in a non-standard location.
 
 </Option>
 
+### `known_versions`
+
+<Option
+  cli_repr={`--ruff-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUFF_KNOWN_VERSIONS'
+  toml_repr={`[ruff]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "0.6.4|macos_arm64|2648dd09984c82db9f3163ce8762c89536e4bf0e198f17e06a01c0e32214273e|9167424",\n  "0.6.4|macos_x86_64|4438cbc80c6aa0e839abc3abb2a869a27113631cb40aa26540572fb53752c432|9463378",\n  "0.6.4|linux_arm64|a9157a0f062d62c1b1582284a8d10629503f38bc9b7126b614cb7569073180ff|10120541",\n  "0.6.4|linux_x86_64|3ca04aabf7259c59193e4153a865618cad26f73be930ce5f6109e0e6097d037b|10373921",\n  "0.4.9|macos_arm64|5f4506d7ec2ae6ac5a48ba309218a4b825a00d4cad9967b7bbcec1724ef04930|8148128|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-aarch64-apple-darwin.tar.gz",\n  "0.4.9|macos_x86_64|e4d745adb0f5a0b08f2c9ca71e57f451a9b8485ae35b5555d9f5d20fc93a6cb6|8510706|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-x86_64-apple-darwin.tar.gz",\n  "0.4.9|linux_arm64|00c50563f9921a141ddd4ec0371149f3bbfa0369d9d238a143bcc3a932363785|8106747|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-aarch64-unknown-linux-musl.tar.gz",\n  "0.4.9|linux_x86_64|5ceba21dad91e3fa05056ca62f278b0178516cfad8dbf08cf2433c6f1eeb92d3|8863118|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-x86_64-unknown-linux-musl.tar.gz"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
+- (Optional) `url_override` is a specific url to use instead of the normally
+  generated url for this version
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--ruff-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_RUFF_URL_PLATFORM_MAPPING'
+  toml_repr={`[ruff.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "aarch64-unknown-linux-musl",\n  "linux_x86_64": "x86_64-unknown-linux-musl",\n  "macos_arm64": "aarch64-apple-darwin",\n  "macos_x86_64": "x86_64-apple-darwin"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--ruff-url-template=<str>`}
+  env_repr='PANTS_RUFF_URL_TEMPLATE'
+  toml_repr={`[ruff]
+url_template = <str>`}
+  default_repr={`https://github.com/astral-sh/ruff/releases/download/{version}/ruff-{platform}.tar.gz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--ruff-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_RUFF_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[ruff]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of Ruff is not supported.
+
+Supported Ruff versions: &#x3E;=0.1.2,&#x3C;1
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--ruff-version=<str>`}
+  env_repr='PANTS_RUFF_VERSION'
+  toml_repr={`[ruff]
+version = <str>`}
+  default_repr={`0.6.4`}
+>
+
+Use this version of Ruff.
+
+Supported Ruff versions: &#x3E;=0.1.2,&#x3C;1
+
+</Option>
+
+## Deprecated options
+
 ### `console_script`
 
 <Option
@@ -94,10 +198,12 @@ Use `[ruff].config` instead if your config is in a non-standard location.
   env_repr='PANTS_RUFF_CONSOLE_SCRIPT'
   toml_repr={`[ruff]
 console_script = <str>`}
-  default_repr={`ruff`}
+  default_repr={`None`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
 >
 
-The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+Formerly used to customise the version of Ruff to install.
 
 </Option>
 
@@ -109,9 +215,11 @@ The console script for the tool. Using this option is generally preferable to (a
   toml_repr={`[ruff]
 entry_point = <str>`}
   default_repr={`None`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
 >
 
-The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+Formerly used to customise the version of Ruff to install.
 
 </Option>
 
@@ -123,17 +231,11 @@ The entry point for the tool. Generally you only want to use this option if the 
   toml_repr={`[ruff]
 install_from_resolve = <str>`}
   default_repr={`None`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
 >
 
-If specified, install the tool using the lockfile for this named resolve.
-
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.24/docs/python/overview/lockfiles#lockfiles-for-tools.
-
-The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
-
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `ruff` version 0.6.4.
-
-If unspecified, and the `lockfile` option is set, the tool will use the custom `ruff` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+Formerly used to customise the version of Ruff to install.
 
 </Option>
 
@@ -148,10 +250,12 @@ interpreter_constraints = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "CPython>=3.8,<4"\n]`}
+  default_repr={`[]`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
 >
 
-Python interpreter constraints for this tool.
+Formerly used to customise the version of Ruff to install.
 
 </Option>
 
@@ -167,21 +271,13 @@ requirements = [
     ...,
 ]`}
   default_repr={`[]`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
 >
 
-If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
-
-Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets). Make sure to use the `//` prefix to refer to targets using their full address from the root (e.g. `//3rdparty/python:tool`). This is necessary to distinguish address specs from local or VCS requirements.
-
-The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
-
-If unspecified, install the entire lockfile.
+Formerly used to customise the version of Ruff to install.
 
 </Option>
-
-## Deprecated options
-
-None
 
 ## Related subsystems
 
