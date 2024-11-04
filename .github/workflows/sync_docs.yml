@@ -121,7 +121,8 @@ jobs:
         run: |
           {
             echo
-            echo "The sync_docs job failed part way through and may need debugging: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}"
+            # (would be nice if there was a way to link to this job directly, but the required ID doesn't seem to be available via the context objects)
+            echo "The sync_docs job failed part way through and may need debugging: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             echo
             echo "Note: to retry the job, first close this PR and delete its branch."
           } >> body.md
