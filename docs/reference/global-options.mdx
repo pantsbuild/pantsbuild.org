@@ -99,7 +99,7 @@ Pants will log their location so that you can inspect the chroot, and run the `_
 ### `level`
 
 <Option
-  cli_repr={`-l=<LogLevel>, --level=<LogLevel>`}
+  cli_repr={`-l<LogLevel>, --level=<LogLevel>`}
   env_repr='PANTS_LEVEL'
   toml_repr={`[GLOBAL]
 level = <LogLevel>`}
@@ -305,17 +305,21 @@ Include only targets with these tags (optional &#x27;+&#x27; prefix) or without 
 
 ## Advanced options
 
-### `allow_deprecated_macos_before_12`
+### `allow_deprecated_macos_versions`
 
 <Option
-  cli_repr={`--[no-]allow-deprecated-macos-before-12`}
-  env_repr='PANTS_ALLOW_DEPRECATED_MACOS_BEFORE_12'
+  cli_repr={`--allow-deprecated-macos-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ALLOW_DEPRECATED_MACOS_VERSIONS'
   toml_repr={`[GLOBAL]
-allow_deprecated_macos_before_12 = <bool>`}
-  default_repr={`False`}
+allow_deprecated_macos_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
 >
 
-Silence warnings about running Pants on macOS 10.15 - 11. In future versions, Pants will only be supported on macOS 12 and newer.
+Silence warnings/errors about running Pants on these versions of macOS. Pants only supports recent versions of macOS. You can try running on older versions, but it may or may not work.
 
 If you have questions or concerns about this, please reach out to us at https://www.pantsbuild.org/community/getting-help.
 
@@ -1658,6 +1662,24 @@ Set to False if Pants should not watch the filesystem for changes. `pantsd` or `
 </Option>
 
 ## Deprecated options
+
+### `allow_deprecated_macos_before_12`
+
+<Option
+  cli_repr={`--[no-]allow-deprecated-macos-before-12`}
+  env_repr='PANTS_ALLOW_DEPRECATED_MACOS_BEFORE_12'
+  toml_repr={`[GLOBAL]
+allow_deprecated_macos_before_12 = <bool>`}
+  default_repr={`False`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'Upgrade your operating system or write `allow_deprecated_macos_versions = ["10", "11"]` instead.'}
+>
+
+Silence warnings about running Pants on macOS 10.15 - 11. In future versions, Pants will only be supported on macOS 12 and newer.
+
+If you have questions or concerns about this, please reach out to us at https://www.pantsbuild.org/community/getting-help.
+
+</Option>
 
 ### `process_cleanup`
 

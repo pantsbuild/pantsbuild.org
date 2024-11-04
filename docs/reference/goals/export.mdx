@@ -29,6 +29,24 @@ Config section: <span className="color--primary">`[export]`</span>
 
 ## Basic options
 
+### `bin`
+
+<Option
+  cli_repr={`--export-bin="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_BIN'
+  toml_repr={`[export]
+bin = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Export the specified binaries. To select a binary, provide its subsystem scope name, as used for setting its options.
+
+</Option>
+
 ### `py_resolve_format`
 
 <Option
