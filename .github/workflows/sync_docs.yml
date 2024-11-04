@@ -98,7 +98,7 @@ jobs:
       # Commit and create a PR.
       #
       # This is always performed (even on failure, and even with no code changes), as a mechanism to
-      # surface failures to the reviewer. This is workflow is usually triggered by automation in the
+      # surface failures to the reviewer. This workflow is usually triggered by automation in the
       # background after a release, and it is easy for the release manager to forget to follow up
       # about the docs (if there's a silent failure).
       - name: Commit changes
