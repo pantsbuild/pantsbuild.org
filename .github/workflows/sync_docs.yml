@@ -111,14 +111,16 @@ jobs:
           git commit -m "Update docs site for version ${{ inputs.version }}" -a --allow-empty
           git push -u origin "automation/sync-${{ inputs.version }}"
         working-directory: pantsbuild.org
-      - name: Prepare PR body
+      - name: Prepare PR text
         if: always()
         run: |
+          touch title-prefix.md
           echo "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" > body.md
       # When the job is failing, add extra info to the PR body:
-      - name: Append failure info to PR body
+      - name: Append failure info
         if: failure()
         run: |
+          echo "[FAILURE] " >> title-prefix.md
           {
             echo
             # (would be nice if there was a way to link to this job directly, but the required ID doesn't seem to be available via the context objects)
@@ -128,7 +130,7 @@ jobs:
           } >> body.md
       - name: Make a PR
         if: always()
-        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body-file=../body.md  --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
+        run: gh pr create --title "$(cat ../title-prefix.md)Update docs site for version ${{ inputs.version }}" --body-file=../body.md  --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
         env:
           GH_TOKEN: ${{ secrets.WORKER_PANTS_PR_PAT }}
         working-directory: pantsbuild.org
