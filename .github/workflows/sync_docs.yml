@@ -114,17 +114,17 @@ jobs:
       - name: Prepare PR body
         if: always()
         run: |
-            echo "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" > body.md
+          echo "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" > body.md
       # When the job is failing, add extra info to the PR body:
       - name: Append failure info to PR body
         if: failure()
         run: |
-            {
-              echo
-              echo "The sync_docs job failed part way through and may need debugging: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}"
-              echo
-              echo "Note: to retry the job, first close this PR and delete its branch."
-            } >> body.md
+          {
+            echo
+            echo "The sync_docs job failed part way through and may need debugging: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job }}"
+            echo
+            echo "Note: to retry the job, first close this PR and delete its branch."
+          } >> body.md
       - name: Make a PR
         if: always()
         run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body-file=body.md  --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
