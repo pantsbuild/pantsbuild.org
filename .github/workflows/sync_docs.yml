@@ -95,18 +95,42 @@ jobs:
       # Sync the docs repo
       - run: cp -r pants/docs/docs "pantsbuild.org/${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
 
-      # Commit and create a PR
+      # Commit and create a PR.
+      #
+      # This is always performed (even on failure, and even with no code changes), as a mechanism to
+      # surface failures to the reviewer. This workflow is usually triggered by automation in the
+      # background after a release, and it is easy for the release manager to forget to follow up
+      # about the docs (if there's a silent failure).
       - name: Commit changes
+        if: always()
         run: |
           git config --local user.email "pantsbuild+github-automation@gmail.com"
           git config --local user.name "Worker Pants (Pantsbuild GitHub Automation Bot)"
           git checkout -b "automation/sync-${{ inputs.version }}"
           git add -A
-          git commit -m "Update docs site for version ${{ inputs.version }}" -a
+          git commit -m "Update docs site for version ${{ inputs.version }}" -a --allow-empty
           git push -u origin "automation/sync-${{ inputs.version }}"
         working-directory: pantsbuild.org
+      - name: Prepare PR text
+        if: always()
+        run: |
+          touch title-prefix.md
+          echo "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" > body.md
+      # When the job is failing, add extra info to the PR body:
+      - name: Append failure info
+        if: failure()
+        run: |
+          echo "[FAILURE] " >> title-prefix.md
+          {
+            echo
+            # (would be nice if there was a way to link to this job directly, but the required ID doesn't seem to be available via the context objects)
+            echo "The sync_docs job failed part way through and may need debugging: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            echo
+            echo "Note: to retry the job, first close this PR and delete its branch."
+          } >> body.md
       - name: Make a PR
-        run: gh pr create --title "Update docs site for version ${{ inputs.version }}" --body "Docs from https://github.com/pantsbuild/pants/releases/tag/release_${{ inputs.version }}" --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
+        if: always()
+        run: gh pr create --title "$(cat ../title-prefix.md)Update docs site for version ${{ inputs.version }}" --body-file=../body.md  --reviewer "${{ inputs.reviewer || github.actor }}" --label 'automation:sync-docs'
         env:
           GH_TOKEN: ${{ secrets.WORKER_PANTS_PR_PAT }}
         working-directory: pantsbuild.org
