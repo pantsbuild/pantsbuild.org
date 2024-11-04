@@ -200,16 +200,18 @@ function splitFirst(string, sep) {
 
 /** Return a representation of arg value from the CLI. */
 function deduceArgValue(displayArgs, envVar) {
-  const exampleCli = displayArgs[0];
+  // Find the first argument we can understand:
+  for (const exampleCli of displayArgs) {
+    const val = exampleCli.includes("[no-]")
+      ? "<bool>"
+      : splitFirst(exampleCli, "=")[1];
 
-  const val = exampleCli.includes("[no-]")
-    ? "<bool>"
-    : splitFirst(exampleCli, "=")[1];
-
-  if (val) {
-    return val;
+    if (val) {
+      return val;
+    }
   }
 
+  // Didn't understand any of the args, flag for the user to help:
   const args = JSON.stringify(displayArgs);
   throw new Error(
     `In ${envVar}, failed to deduce value formatting from example CLI instances: ${args}`
