@@ -1,0 +1,131 @@
+---
+title: jarjar
+description: |
+  The Jar Jar Abrams tool (https://github.com/eed3si9n/jarjar-abrams)
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Jar Jar Abrams tool (https://github.com/eed3si9n/jarjar-abrams)
+
+Backend: <span className="color--primary">`pants.backend.experimental.java`</span>
+
+Config section: <span className="color--primary">`[jarjar]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `misplaced_class_strategy`
+
+<Option
+  cli_repr={`--jarjar-misplaced-class-strategy=<MisplacedClassStrategy>`}
+  env_repr='PANTS_JARJAR_MISPLACED_CLASS_STRATEGY'
+  toml_repr={`[jarjar]
+misplaced_class_strategy = <MisplacedClassStrategy>`}
+  one_of='fatal, skip, omit, move'
+  default_repr={`None`}
+>
+
+The strategy to use when processing class files that are in the wrong package.
+
+</Option>
+
+### `skip_manifest`
+
+<Option
+  cli_repr={`--[no-]jarjar-skip-manifest`}
+  env_repr='PANTS_JARJAR_SKIP_MANIFEST'
+  toml_repr={`[jarjar]
+skip_manifest = <bool>`}
+  default_repr={`False`}
+>
+
+Skip the processing of the JAR manifest.
+
+</Option>
+
+## Advanced options
+
+### `artifacts`
+
+<Option
+  cli_repr={`--jarjar-artifacts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JARJAR_ARTIFACTS'
+  toml_repr={`[jarjar]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "com.eed3si9n.jarjar:jarjar-assembly:{version}"\n]`}
+>
+
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[jarjar].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--jarjar-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_JARJAR_JVM_OPTIONS'
+  toml_repr={`[jarjar]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `jarjar` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--jarjar-lockfile=<str>`}
+  env_repr='PANTS_JARJAR_LOCKFILE'
+  toml_repr={`[jarjar]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.24.0a0/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--jarjar-version=<str>`}
+  env_repr='PANTS_JARJAR_VERSION'
+  toml_repr={`[jarjar]
+version = <str>`}
+  default_repr={`1.8.1`}
+>
+
+Version string for the tool. This is available for substitution in the `[jarjar].artifacts` option by including the string `{version}`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

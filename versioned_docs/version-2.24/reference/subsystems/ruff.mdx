@@ -1,0 +1,286 @@
+---
+title: ruff
+description: |
+  The Ruff Python formatter (https://github.com/astral-sh/ruff).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Ruff Python formatter (https://github.com/astral-sh/ruff).
+
+Backend: <span className="color--primary">`pants.backend.experimental.python.lint.ruff.check`</span>
+
+Config section: <span className="color--primary">`[ruff]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--ruff-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_RUFF_ARGS'
+  toml_repr={`[ruff]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Ruff, e.g. `--ruff-args='--exclude=foo --ignore=E501'`.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]ruff-skip`}
+  env_repr='PANTS_RUFF_SKIP'
+  toml_repr={`[ruff]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Ruff when running `pants fmt` and `pants fix` and `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `config`
+
+<Option
+  cli_repr={`--ruff-config=<file_option>`}
+  env_repr='PANTS_RUFF_CONFIG'
+  toml_repr={`[ruff]
+config = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the `pyproject.toml` or `ruff.toml` file to use for configuration (https://github.com/astral-sh/ruff#configuration).
+
+Setting this option will disable `[ruff].config_discovery`. Use this option if the config is located in a non-standard location.
+
+</Option>
+
+### `config_discovery`
+
+<Option
+  cli_repr={`--[no-]ruff-config-discovery`}
+  env_repr='PANTS_RUFF_CONFIG_DISCOVERY'
+  toml_repr={`[ruff]
+config_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant config files during runs (`pyproject.toml`, and `ruff.toml`).
+
+Use `[ruff].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--ruff-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUFF_KNOWN_VERSIONS'
+  toml_repr={`[ruff]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "0.7.2|macos_arm64|1c9f5a4fc815330d01fd8a56a7a70114ff3ed149bd997ff831524313705ba991|9802953",\n  "0.7.2|macos_x86_64|5815756947d0a7b1d90805b07ffb2c376c8a9800e9462d545839dc0d79a091d2|10162492",\n  "0.7.2|linux_arm64|f9342fcca6b58143f316ef3e617f39334edb4c3d15fced5220bd939685f6261d|10651691",\n  "0.7.2|linux_x86_64|b769e11a3e23a72692cb97ed762ff28e48534972a8ef447fd5b0d3178a56ffd8|11097578",\n  "0.6.9|macos_arm64|b94562393a4bf23f1a48521f5495a8e48de885b7c173bd7ea8206d6d09921633|9697031",\n  "0.6.9|macos_x86_64|34aa37643e30dcb81a3c0e011c3a8df552465ea7580ba92ca727a3b7c6de25d1|10018168",\n  "0.6.9|linux_arm64|73df3729a3381d0918e4640aac4b2653c542f74c7b7843dee8310e2c877e6f2e|10724239",\n  "0.6.9|linux_x86_64|39a1cd878962ebc88322b4f6d33cae2292454563028f93a3f1f8ce58e3025b07|11000553",\n  "0.6.4|macos_arm64|2648dd09984c82db9f3163ce8762c89536e4bf0e198f17e06a01c0e32214273e|9167424",\n  "0.6.4|macos_x86_64|4438cbc80c6aa0e839abc3abb2a869a27113631cb40aa26540572fb53752c432|9463378",\n  "0.6.4|linux_arm64|a9157a0f062d62c1b1582284a8d10629503f38bc9b7126b614cb7569073180ff|10120541",\n  "0.6.4|linux_x86_64|3ca04aabf7259c59193e4153a865618cad26f73be930ce5f6109e0e6097d037b|10373921",\n  "0.5.7|macos_arm64|b78a09f44dc60d8c894aba6cad55abd3b0eccc0992d60a86f74155fc459e227b|8256430",\n  "0.5.7|macos_x86_64|1f9a7d307f191781fc895947af21d32f8c810c5a5a4cdff16ac53d88a14acd69|8662539",\n  "0.5.7|linux_arm64|2509d20ef605fb1c8af37af1f46fefc85e1d72add6e87187cb6543420c05dfb1|9991080",\n  "0.5.7|linux_x86_64|9a5580536ef9cea7d8e56be8af712ac5cd152c081969ece2fbc3631b30bbb5e8|10263458",\n  "0.4.10|macos_arm64|5a4ff81270eee1efa7901566719aca705a3e8d0f1abead96c01caa4678a7762e|8094319|https://github.com/astral-sh/ruff/releases/download/v0.4.10/ruff-0.4.10-aarch64-apple-darwin.tar.gz",\n  "0.4.10|macos_x86_64|6e96f288d13b68863e79c9f107a0c51660215829726c9d3dc4879c1801fa3140|8490153|https://github.com/astral-sh/ruff/releases/download/v0.4.10/ruff-0.4.10-x86_64-apple-darwin.tar.gz",\n  "0.4.10|linux_arm64|75332c97520233b5f95cb3d40bdef13b40e1aa5e6c82a078623993545771f55f|9851689|https://github.com/astral-sh/ruff/releases/download/v0.4.10/ruff-0.4.10-aarch64-unknown-linux-musl.tar.gz",\n  "0.4.10|linux_x86_64|332ba368c6e08afc3c5d1c7f6e4fb7bf238b7cbf007b400e6bdf01a0a36ae656|10130989|https://github.com/astral-sh/ruff/releases/download/v0.4.10/ruff-0.4.10-x86_64-unknown-linux-musl.tar.gz",\n  "0.4.9|macos_arm64|5f4506d7ec2ae6ac5a48ba309218a4b825a00d4cad9967b7bbcec1724ef04930|8148128|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-aarch64-apple-darwin.tar.gz",\n  "0.4.9|macos_x86_64|e4d745adb0f5a0b08f2c9ca71e57f451a9b8485ae35b5555d9f5d20fc93a6cb6|8510706|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-x86_64-apple-darwin.tar.gz",\n  "0.4.9|linux_arm64|00c50563f9921a141ddd4ec0371149f3bbfa0369d9d238a143bcc3a932363785|8106747|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-aarch64-unknown-linux-musl.tar.gz",\n  "0.4.9|linux_x86_64|5ceba21dad91e3fa05056ca62f278b0178516cfad8dbf08cf2433c6f1eeb92d3|8863118|https://github.com/astral-sh/ruff/releases/download/v0.4.9/ruff-0.4.9-x86_64-unknown-linux-musl.tar.gz",\n  "0.3.7|macos_x86_64|b1c961c1bed427e74ab72950c6debcb078c82aba0ee347183cc27a9fc8aaa43b|8615221|https://github.com/astral-sh/ruff/releases/download/v0.3.7/ruff-0.3.7-x86_64-apple-darwin.tar.gz",\n  "0.3.7|linux_arm64|0e79fbefcd813a10fa60250441bbe36978c95d010b64646848fada64b9af61f0|8180808|https://github.com/astral-sh/ruff/releases/download/v0.3.7/ruff-0.3.7-aarch64-unknown-linux-musl.tar.gz",\n  "0.3.7|linux_x86_64|3f8348096f7d9c0a9266c4a821dbc7599ef299983e456b61eb0d5290d8615df8|8905370|https://github.com/astral-sh/ruff/releases/download/v0.3.7/ruff-0.3.7-x86_64-unknown-linux-musl.tar.gz",\n  "0.2.2|macos_arm64|21454a77f0a5ff8ed23a43327f6de9c2f9f6bab1352ebe87fc03866889fa7fae|7262889|https://github.com/astral-sh/ruff/releases/download/v0.2.2/ruff-0.2.2-aarch64-apple-darwin.tar.gz",\n  "0.2.2|macos_x86_64|798a2028a783f10f21f11eb59763eabcff9961d4302cdcc37d186ab9f864ca82|7611899|https://github.com/astral-sh/ruff/releases/download/v0.2.2/ruff-0.2.2-x86_64-apple-darwin.tar.gz",\n  "0.2.2|linux_arm64|e73a37f41acf4a4f44cdb9b587316f0f9eb83b51c3c134d1401501e3f8d65dee|7247275|https://github.com/astral-sh/ruff/releases/download/v0.2.2/ruff-0.2.2-aarch64-unknown-linux-musl.tar.gz",\n  "0.2.2|linux_x86_64|044e4dbd46acc12de78a144c24fd9af86003eaba28e83244546d85076a9c7b04|7881552|https://github.com/astral-sh/ruff/releases/download/v0.2.2/ruff-0.2.2-x86_64-unknown-linux-musl.tar.gz",\n  "0.1.15|macos_arm64|373c648d693ddaf4f1936a05d3093aabd08553f585c3c3afbbdba41d16b70032|7025376|https://github.com/astral-sh/ruff/releases/download/v0.1.15/ruff-0.1.15-aarch64-apple-darwin.tar.gz",\n  "0.1.15|macos_x86_64|6d006dc427a74cba930717297b0c472856a2be4cfc37cd04309895c11329dc68|7308240|https://github.com/astral-sh/ruff/releases/download/v0.1.15/ruff-0.1.15-x86_64-apple-darwin.tar.gz",\n  "0.1.15|linux_arm64|e9ed3c353c4f2b801ed4d21fee2b6159883ad777e959fbbad0b2d2b22e1974c7|7049764|https://github.com/astral-sh/ruff/releases/download/v0.1.15/ruff-0.1.15-aarch64-unknown-linux-musl.tar.gz",\n  "0.1.15|linux_x86_64|d7389b9743b0b909c364d11bba94d13302171d751430b58c13dcdf248e924276|7605249|https://github.com/astral-sh/ruff/releases/download/v0.1.15/ruff-0.1.15-x86_64-unknown-linux-musl.tar.gz"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
+- (Optional) `url_override` is a specific url to use instead of the normally
+  generated url for this version
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--ruff-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_RUFF_URL_PLATFORM_MAPPING'
+  toml_repr={`[ruff.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "aarch64-unknown-linux-musl",\n  "linux_x86_64": "x86_64-unknown-linux-musl",\n  "macos_arm64": "aarch64-apple-darwin",\n  "macos_x86_64": "x86_64-apple-darwin"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--ruff-url-template=<str>`}
+  env_repr='PANTS_RUFF_URL_TEMPLATE'
+  toml_repr={`[ruff]
+url_template = <str>`}
+  default_repr={`https://github.com/astral-sh/ruff/releases/download/{version}/ruff-{platform}.tar.gz`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `use_unsupported_version`
+
+<Option
+  cli_repr={`--ruff-use-unsupported-version=<UnsupportedVersionUsage>`}
+  env_repr='PANTS_RUFF_USE_UNSUPPORTED_VERSION'
+  toml_repr={`[ruff]
+use_unsupported_version = <UnsupportedVersionUsage>`}
+  one_of='error, warning'
+  default_repr={`error`}
+>
+
+What action to take in case the requested version of Ruff is not supported.
+
+Supported Ruff versions: &#x3E;=0.1.2,&#x3C;1
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--ruff-version=<str>`}
+  env_repr='PANTS_RUFF_VERSION'
+  toml_repr={`[ruff]
+version = <str>`}
+  default_repr={`0.7.2`}
+>
+
+Use this version of Ruff.
+
+Supported Ruff versions: &#x3E;=0.1.2,&#x3C;1
+
+</Option>
+
+## Deprecated options
+
+### `console_script`
+
+<Option
+  cli_repr={`--ruff-console-script=<str>`}
+  env_repr='PANTS_RUFF_CONSOLE_SCRIPT'
+  toml_repr={`[ruff]
+console_script = <str>`}
+  default_repr={`None`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
+>
+
+Formerly used to customise the version of Ruff to install.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--ruff-entry-point=<str>`}
+  env_repr='PANTS_RUFF_ENTRY_POINT'
+  toml_repr={`[ruff]
+entry_point = <str>`}
+  default_repr={`None`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
+>
+
+Formerly used to customise the version of Ruff to install.
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--ruff-install-from-resolve=<str>`}
+  env_repr='PANTS_RUFF_INSTALL_FROM_RESOLVE'
+  toml_repr={`[ruff]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
+>
+
+Formerly used to customise the version of Ruff to install.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--ruff-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUFF_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[ruff]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
+>
+
+Formerly used to customise the version of Ruff to install.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--ruff-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_RUFF_REQUIREMENTS'
+  toml_repr={`[ruff]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.24/reference/subsystems/ruff'}
+>
+
+Formerly used to customise the version of Ruff to install.
+
+</Option>
+
+## Related subsystems
+
+None
+
+</span>
