@@ -8,14 +8,10 @@
 # Pants 2.22.0 is released!
 
 <CaptionedImg src={require("./splash.jpeg").default}>
-  Photo by{" "}
-  <a href="https://unsplash.com/@florianxrebmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-    Florian Rebmann
-  </a>{" "}
-  on{" "}
-  <a href="https://unsplash.com/photos/a-building-with-a-flag-on-top-cWAsvnD9A98?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-    Unsplash
-  </a>
+  Photo by [Florian
+  Rebmann](https://unsplash.com/@florianxrebmann?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+  on
+  [Unsplash](https://unsplash.com/photos/a-building-with-a-flag-on-top-cWAsvnD9A98?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 </CaptionedImg>
 
 {/* truncate */}
@@ -24,17 +20,17 @@ We are pleased to announce Pants [2.22.0](<(https://github.com/pantsbuild/pants/
 
 _Highlights in [2.22](<(https://github.com/pantsbuild/pants/tree/2.22.x/src/python/pants/notes/2.22.x.md)>) include_:
 
-- 🎛️A major re-implementation of the Pants [options system](https://www.pantsbuild.org/2.22/docs/using-pants/key-concepts/options). See below for more!
-- 🏠Support for executing local processes within the repository itself (rather than in a sandbox) via the new [workspace environment](https://www.pantsbuild.org/stable/docs/using-pants/environments#in-workspace-execution-experimental_workspace_environment) feature.
-- 🐍Initial support for Python 3.13.
-- 🛫Ability to export Python tools [from their default bundled lockfiles](https://www.pantsbuild.org/2.22/docs/using-pants/setting-up-an-ide#tool-virtualenvs).
-- ☁️Improvements in FaaS support, such as the ability to create cloud functions as directories, instead of .zip files.
-- 🏷️[`vcs_version`](https://www.pantsbuild.org/stable/reference/targets/vcs_version) always executes locally, so that it has the local git context, even when otherwise using docker environments.
-- 📊A new experimental SQL backend, with [SQLFluff](https://sqlfluff.com/) linter support.
-- 🗃️A new experimental [Makeself](https://makeself.io/) backend for creating self-extractable archives.
-- 🫙A [`deploy_jar_exclude_files`](https://www.pantsbuild.org/2.22/reference/subsystems/jvm#deploy_jar_exclude_files) option, to allow excluding irrelevant signature files from JAR files.
-- 🗺️Better understanding of self-type annotations in Scala dependency inference.
-- 🎒the ability to bundle `openapi_document` and its `openapi_source` dependencies into a single file, for consumption by other targets.
+- 🎛 A major re-implementation of the Pants [options system](https://www.pantsbuild.org/2.22/docs/using-pants/key-concepts/options). See below for more!
+- 🏠 Support for executing local processes within the repository itself (rather than in a sandbox) via the new [workspace environment](https://www.pantsbuild.org/stable/docs/using-pants/environments#in-workspace-execution-experimental_workspace_environment) feature.
+- 🐍 Initial support for Python 3.13.
+- 🛫 Ability to export Python tools [from their default bundled lockfiles](https://www.pantsbuild.org/2.22/docs/using-pants/setting-up-an-ide#tool-virtualenvs).
+- ☁️ Improvements in FaaS support, such as the ability to create cloud functions as directories, instead of .zip files.
+- 🏷️ [`vcs_version`](https://www.pantsbuild.org/stable/reference/targets/vcs_version) always executes locally, so that it has the local git context, even when otherwise using docker environments.
+- 📊 A new experimental SQL backend, with [SQLFluff](https://sqlfluff.com/) linter support.
+- 🗃️ A new experimental [Makeself](https://makeself.io/) backend for creating self-extractable archives.
+- 🫙 A [`deploy_jar_exclude_files`](https://www.pantsbuild.org/2.22/reference/subsystems/jvm#deploy_jar_exclude_files) option, to allow excluding irrelevant signature files from JAR files.
+- 🗺️ Better understanding of self-type annotations in Scala dependency inference.
+- 🎒 The ability to bundle `openapi_document` and its `openapi_source` dependencies into a single file, for consumption by other targets.
 - 📈 And lots of smaller features, update, bugfixes, and general improvements
 
 Check out the [full release notes](https://github.com/pantsbuild/pants/tree/2.22.x/src/python/pants/notes/2.22.x.md). Pants is an open-source project, and the changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a contributor.
