@@ -11,12 +11,11 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   deploy:
+    concurrency:
+      group: "pages"
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -63,3 +62,41 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
+  # NB: We use a separate job so we don't hog the single spot dedicated to building/deploying
+  # (since we set `concurrency` on that job). As more things merge, they can start building/deploying
+  # while this spins.
+  reindex:
+    runs-on: ubuntu-22.04
+    needs: deploy
+    steps:
+      - name: Wait for deployment to propagate
+        run: |
+          TIMEOUT_S=300
+          SLEEP_S=5
+
+          while [ $TIMEOUT_S -gt 0 ]; do
+            if curl -s http://www.pantsbuild.org | grep -q "$GITHUB_SHA"; then
+              echo "Found ref! Continuing on."
+              break
+            fi
+
+            echo "Ref not found yet, sleeping for $SLEEP_S seconds"
+            sleep $SLEEP_S
+            TIMEOUT_S=$((TIMEOUT_S-SLEEP_S))
+          done
+
+          if [ $TIMEOUT_S -le 0 ]; then
+            echo "TIMEOUT_S reached, failing!"
+            echo "::error::Timeout waiting for deploy"
+            exit 1
+          fi
+
+      # See https://www.algolia.com/doc/rest-api/crawler/#reindex-with-a-crawler
+      - name: Kickoff a crawl
+        run: |
+          curl \
+            -H "Content-Type: application/json" \
+            -X POST \
+            --user ${{ secrets.THEJCANNON_ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.THEJCANNON_ALGOLIA_CRAWLER_API_KEY }} \
+            https://crawler.algolia.com/api/1/crawlers/7ae90af1-f627-4806-a2cc-89e7157daa44/reindex
