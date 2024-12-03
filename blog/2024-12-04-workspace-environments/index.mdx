@@ -12,7 +12,7 @@
   [Unsplash](https://unsplash.com/photos/contemporary-loft-office-interior-3d-rendering-design-concept-nvzguGid2Kk)
 </CaptionedImg>
 
-Pants is just one of many build orchestration tools in the world. As of Pants v2.23.0, Pants better supports integrating seamlessly with other tools in your development workflow via the new "workspace environments" feature. With workspace environments, you can run processes in the repository itself (i.e., the workspace) instead of in the usual execution sandbox. This support is useful for better integrating Pants with third party tooling which assumes it runs from your repository.
+Pants is just one of many build orchestration tools in the world. As of Pants v2.23.0, Pants better supports integrating seamlessly with other tools in your development workflow via the new ["workspace environments" feature](/stable/docs/using-pants/environments#in-workspace-execution-experimental_workspace_environment). With workspace environments, you can run processes in the repository itself (i.e., the workspace) instead of in the usual execution sandbox. This support is useful for better integrating Pants with third party tooling which assumes it runs from your repository.
 
 Read on for an example of how to use this support to integrate Bazel with Pants.
 
@@ -20,17 +20,21 @@ Read on for an example of how to use this support to integrate Bazel with Pants.
 
 ## Motivation
 
-Why might you want to run processes in the workspace? One reason is if your development workflow uses third party tools not already supported by Pants. Such third party tools may assume they are the only build tool in use and _expect_ that they will run from the workspace. Trying to run them from the Pants execution sandbox then ends up being harder than just running the tool directly because of the need to work around the tool's "run from workspace" assumption. With workspace environments, Pants can now run those tools in the way that they expect, and let you avoid having to work around the tool's assumptions about how it should be invoked.
+Why might you want to run processes in the workspace?
+
+One reason is if your development workflow uses third party tools not already supported by Pants. Such third party tools may assume they are the only build tool in use and _expect_ that they will run from the workspace. Trying to run them from the Pants execution sandbox then ends up being harder than just running the tool directly because of the need to work around the tool's "run from workspace" assumption.
+
+With workspace environments, Pants can now run those tools in the way that they expect, and let you avoid having to work around the tool's assumptions about how it should be invoked.
 
 ## The Example: Running Bazel
 
-The goal for this example is to let Pants invoke Bazel to build a JVM jar file and then make use of that jar within Pants build logic using the workspace environment feature.[0] We will use [this GitHub repository](https://github.com/pantsbuild/example-workspace-execution) for the example.
+The goal for this example is to let Pants invoke Bazel to build a JVM jar file and then make use of that jar within Pants build logic using the workspace environment feature. <a href="#fn0">[0]</a> We will use [this GitHub repository](https://github.com/pantsbuild/example-workspace-execution) for the example.
 
 This article assumes you have some familiarity with the [Pants environments system](/stable/docs/using-pants/environments). The in-workspace execution support is modeled as "just another environment" and so most of the concepts applicable to other environments such as `local_environment`, `docker_environment`, and `remote_environment` are applicable to `experimental_workspace_environment`. For example, you can override any environment-aware configuration option in the same manner for `experimental_workspace_environment` as you would have for any of the other environment target types.
 
 First make sure Pants, Bazel, and Docker are all installed.
 
-Next, simply clone the repository and run `pants run //:project-image`.
+Next, simply clone the repository with `git clone https://github.com/pantsbuild/example-workspace-execution` and then run `pants run //:project-image`.
 
 Pants will invoke Bazel, Bazel will build the jar, and then Pants will build a Docker image from that jar and run the resulting Docker image. It may take some time for Bazel to build the jar the first time, and Pants will not display any output from Bazel until Bazel completes. You should see `Hello!` as the final output.
 
@@ -38,7 +42,7 @@ Let's walk through the code and configuration.
 
 ### Repository layout
 
-The repository is laid out as follows:
+The [repository](https://github.com/pantsbuild/example-workspace-execution) is laid out as follows:
 
 <table>
   <thead>
@@ -94,6 +98,10 @@ There are some limitations with the in-workspace execution support:
 
 Hopefully the user community will find this support useful. We look forward to what you all build with it!
 
-This work was awesomely sponsored by [Proxima Fusion GmbH](https://www.proximafusion.com/). Please check them out.
+This work was awesomely sponsored by [Proxima Fusion GmbH](https://www.proximafusion.com/).
 
-[0] Having Bazel build a jar is a contrived example since Pants does have JVM support. But using Bazel’s JVM support for this example made it more straightforward to demonstrate integration between Pants and Bazel.
+<hr />
+
+<span id="fn0">[0]</span> Having Bazel build a jar is a contrived example since
+Pants does have JVM support. But using Bazel’s JVM support for this example made
+it more straightforward to demonstrate integration between Pants and Bazel.
