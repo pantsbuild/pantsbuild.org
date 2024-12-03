@@ -19,7 +19,7 @@ Why might you want to run processes in the workspace? One reason is if your deve
 
 ## The Example: Running Bazel
 
-The goal for this example is to let Pants invoke Bazel to build a JVM jar file and then make use of that jar within Pants build logic using the workspace environment feature.[0]  We will use [this GitHub repository](https://github.com/pantsbuild/example-workspace-execution) for the example.
+The goal for this example is to let Pants invoke Bazel to build a JVM jar file and then make use of that jar within Pants build logic using the workspace environment feature.[0] We will use [this GitHub repository](https://github.com/pantsbuild/example-workspace-execution) for the example.
 
 This article assumes you have some familiarity with the [Pants environments system](/stable/docs/using-pants/environments). The in-workspace execution support is modeled as "just another environment" and so most of the concepts applicable to other environments such as `local_environment`, `docker_environment`, and `remote_environment` are applicable to `experimental_workspace_environment`. For example, you can override any environment-aware configuration option in the same manner for `experimental_workspace_environment` as you would have for any of the other environment target types.
 
@@ -42,9 +42,12 @@ The repository is laid out as follows:
 1. _Configuring the workspace environment_. The first thing to do is configure a workspace environment to enable in-workspace execution support. In this example, we added an `experimental_workspace_environment` target to the repository in the root `BUILD.pants`. Then we added the address for this target (`//:workspace`) to `pants.toml` under the `[environments-preview.names]` key which gives the environment a name.
 
 2. _Setting up the integration target_. The example uses the `shell_command` target at address `//:bazel-jvm-binary` to invoke Bazel.
-  1. That target is configured to use the workspace environment by virtue of setting its `environment` field to the special symbol `__local_workspace__` which selects whatever `experimental_workspace_environment` matches the current platform. (If there is only one such environment, then it will always match.) We could have also just used the name of the workspace directly.
-  2. The new path_env_modify field on shell_command is set to off so that Pants does not modify the PATH environment variable. By default, Pants will inject a directory with symlinks to the tools set on a shell_command target. Bazel incorporates the PATH into its own cache key and so we need to disable Pants changing that value so that Bazel does not invalidate the jar every time it is invoked.
-  3. The output from Bazel is copied to the {chroot} directory. Ordinarily, when Pants invokes a process, {chroot} refers to the execution sandbox. With workspace execution, this is no longer the case. The working directory is within the repository, but Pants will still create a (now separate) temporary directory to allow materializing dependencies and to allow capture of outputs. Restated, Pants will not capture outputs from the repository, only from the temporary directory created during execution. This is the {chroot} directory.
+
+- That target is configured to use the workspace environment by virtue of setting its `environment` field to the special symbol `__local_workspace__` which selects whatever `experimental_workspace_environment` matches the current platform. (If there is only one such environment, then it will always match.) We could have also just used the name of the workspace directly.
+
+- The new path_env_modify field on shell_command is set to off so that Pants does not modify the PATH environment variable. By default, Pants will inject a directory with symlinks to the tools set on a shell_command target. Bazel incorporates the PATH into its own cache key and so we need to disable Pants changing that value so that Bazel does not invalidate the jar every time it is invoked.
+
+- The output from Bazel is copied to the {chroot} directory. Ordinarily, when Pants invokes a process, {chroot} refers to the execution sandbox. With workspace execution, this is no longer the case. The working directory is within the repository, but Pants will still create a (now separate) temporary directory to allow materializing dependencies and to allow capture of outputs. Restated, Pants will not capture outputs from the repository, only from the temporary directory created during execution. This is the {chroot} directory.
 
 3. _Using the output from Bazel_. The `docker_image` target at address `//:project_image` consumes the output from the `//:bazel-jvm-binary` `shell_command` target by listing it as a dependency in the `dependencies` field. The Docker image is setup to invoke the jar. It is that simple to consume the output from Bazel!
 
@@ -61,6 +64,5 @@ There are some limitations with the in-workspace execution support:
 Hopefully the user community will find this support useful. We look forward to what you all build with it!
 
 This work was awesomely sponsored by [Proxima Fusion GmbH](https://www.proximafusion.com/). Please check them out.
-
 
 [0] Having Bazel build a jar is a contrived example since Pants does have JVM support. But using Bazel’s JVM support does make for a more straightforward Bazel example for purposes of demonstrating integration between Pants and Bazel.
