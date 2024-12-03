@@ -40,11 +40,33 @@ Let's walk through the code and configuration.
 
 The repository is laid out as follows:
 
-|Path|Description|
-|`BUILD.pants`|The root BUILD file for Pants. We are calling it `BUILD.pants` so Bazel (and developers) cannot confuse it for a Bazel build file.|
-|`pants.toml`|The Pants configuration file|
-|`bazel-jvm/**`|A Bazel project which produces a jar file.|
-|`bazel-jvm/src/main/java/com/example/**/*.java`|The Java files to be built into the jar.|
+<table>
+  <thead>
+    <th>Path</th>
+    <th>Description</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>`BUILD.pants`</td>
+      <td>
+        The root BUILD file for Pants. We are calling it `BUILD.pants` so Bazel
+        (and developers) cannot confuse it for a Bazel build file.
+      </td>
+    </tr>
+    <tr>
+      <td>`pants.toml`</td>
+      <td>The Pants configuration file</td>
+    </tr>
+    <tr>
+      <td>`bazel-jvm/**`</td>
+      <td>A Bazel project which produces a jar file.</td>
+    </tr>
+    <tr>
+      <td>`bazel-jvm/src/main/java/com/example/**/*.java`</td>
+      <td>The Java files to be built into the jar by Bazel.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Pants configuration
 
