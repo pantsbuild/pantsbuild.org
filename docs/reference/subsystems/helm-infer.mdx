@@ -43,7 +43,7 @@ chart=&#x22;:mychart&#x22;,
 values=&#123;&#x22;container.image_ref&#x22;: &#x22;python:3.10&#x22;&#125;,
 ) `&#x60;`
 
-Use the value &#x27;\*&#x27; to disable this check. This will limit Pants&#x27;s ability to warn on unknown docker images.
+Use Python fnmatch glob syntax (ex: &#x27;docker.io/\*&#x27;) to disable this check for certain images or patterns. This will limit Pants&#x27;s ability to warn on unknown docker images.
 
 </Option>
 
