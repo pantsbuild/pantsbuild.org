@@ -127,7 +127,7 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.24/docs/python/overview/lockfiles#lockfiles-for-tools.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.25/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
@@ -177,13 +177,13 @@ source_plugins = [
 
 An optional list of `python_sources` target addresses to load first-party plugins.
 
-You must set the plugin&#x27;s parent directory as a source root. For example, if your plugin is at `build-support/pylint/custom_plugin.py`, add `'build-support/pylint'` to `[source].root_patterns` in `pants.toml`. This is necessary for Pants to know how to tell Pylint to discover your plugin. See https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/source-roots
+You must set the plugin&#x27;s parent directory as a source root. For example, if your plugin is at `build-support/pylint/custom_plugin.py`, add `'build-support/pylint'` to `[source].root_patterns` in `pants.toml`. This is necessary for Pants to know how to tell Pylint to discover your plugin. See https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/source-roots
 
 You must also set `load-plugins=$module_name` in your Pylint config file.
 
 While your plugin&#x27;s code can depend on other first-party code and third-party requirements, all first-party dependencies of the plugin must live in the same directory or a subdirectory.
 
-To instead load third-party plugins, add them to a custom resolve alongside pylint itself, as described in https://www.pantsbuild.org/2.24/docs/python/overview/lockfiles#lockfiles-for-tools.
+To instead load third-party plugins, add them to a custom resolve alongside pylint itself, as described in https://www.pantsbuild.org/2.25/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 </Option>
 

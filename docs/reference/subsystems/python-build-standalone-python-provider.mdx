@@ -29,7 +29,21 @@ Config section: <span className="color--primary">`[python-build-standalone-pytho
 
 ## Basic options
 
-None
+### `release_constraints`
+
+<Option
+  cli_repr={`--python-build-standalone-python-provider-release-constraints=<str>`}
+  env_repr='PANTS_PYTHON_BUILD_STANDALONE_PYTHON_PROVIDER_RELEASE_CONSTRAINTS'
+  toml_repr={`[python-build-standalone-python-provider]
+release_constraints = <str>`}
+  default_repr={`None`}
+>
+
+Version constraints on the PBS &#x22;release&#x22; version to ensure only matching PBS releases are considered.
+Constraints should be specfied using operators like `>=`, `<=`, `>`, `<`, `==`, or `!=` in a similar
+manner to Python interpreter constraints: e.g., `>=20241201` or `>=20241201,<20250101`.
+
+</Option>
 
 ## Advanced options
 
@@ -44,7 +58,7 @@ known_python_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`<Metadata for versions: 3.10.0, 3.10.11, 3.10.12, 3.10.13, 3.10.14, 3.10.15, 3.10.2, 3.10.3, 3.10.4, 3.10.5, 3.10.6, 3.10.7, 3.10.8, 3.10.9, 3.11.1, 3.11.10, 3.11.3, 3.11.4, 3.11.5, 3.11.6, 3.11.7, 3.11.8, 3.11.9, 3.12.0, 3.12.1, 3.12.2, 3.12.3, 3.12.4, 3.12.5, 3.12.6, 3.13.0rc2, 3.8.12, 3.8.13, 3.8.14, 3.8.15, 3.8.16, 3.8.17, 3.8.18, 3.8.19, 3.8.20, 3.9.10, 3.9.11, 3.9.12, 3.9.13, 3.9.14, 3.9.15, 3.9.16, 3.9.17, 3.9.18, 3.9.19, 3.9.20, 3.9.6, 3.9.7>`}
+  default_repr={`<Metadata for versions: 3.10.11, 3.10.12, 3.10.13, 3.10.14, 3.10.15, 3.10.2, 3.10.3, 3.10.4, 3.10.5, 3.10.6, 3.10.7, 3.10.8, 3.10.9, 3.11.1, 3.11.10, 3.11.3, 3.11.4, 3.11.5, 3.11.6, 3.11.7, 3.11.8, 3.11.9, 3.12.0, 3.12.1, 3.12.2, 3.12.3, 3.12.4, 3.12.5, 3.12.6, 3.12.7, 3.13.0, 3.8.12, 3.8.13, 3.8.14, 3.8.15, 3.8.16, 3.8.17, 3.8.18, 3.8.19, 3.8.20, 3.9.10, 3.9.11, 3.9.12, 3.9.13, 3.9.14, 3.9.15, 3.9.16, 3.9.17, 3.9.18, 3.9.19, 3.9.20>`}
 >
 
 Known versions to verify downloads against.

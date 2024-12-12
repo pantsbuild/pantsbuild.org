@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A Python layer suitable for uploading to AWS Lambda.
 
-See https://www.pantsbuild.org/2.24/docs/python/integrations/aws-lambda.
+See https://www.pantsbuild.org/2.25/docs/python/integrations/aws-lambda.
 
 Backend: <span className="color--primary">`pants.backend.awslambda.python`</span>
 
@@ -29,7 +29,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -63,7 +63,7 @@ You can give a list of multiple complete platforms to create a multiplatform PEX
 
 Complete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
 
-See https://www.pantsbuild.org/2.24/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
+See https://www.pantsbuild.org/2.25/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
 
 N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform&#x27;s ambient interpreter, such as when running in an docker environment.
 
@@ -202,7 +202,7 @@ All dependencies must share the same value for their `resolve` field.
 ## `runtime`
 
 <Field
-    type_repr={`'python3.10' | 'python3.11' | 'python3.12' | 'python3.6' | 'python3.7' | 'python3.8' | 'python3.9' | None`}
+    type_repr={`'python3.10' | 'python3.11' | 'python3.12' | 'python3.13' | 'python3.6' | 'python3.7' | 'python3.8' | 'python3.9' | None`}
     default_repr={`None`}
 >
 

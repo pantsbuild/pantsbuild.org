@@ -187,8 +187,8 @@ For all runtime environment types:
 
 When the environment is a `local_environment` target:
 
-- `<ASDF>`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-- `<ASDF_LOCAL>`, the ASDF binaries with the version in `BUILD_ROOT/.tool-versions`
+- `AsdfPathString.STANDARD`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `AsdfPathString.LOCAL`, the ASDF binaries with the version in `BUILD_ROOT/.tool-versions`
 - `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
 - `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
   Note that the version in the .nvmrc file has to be on the form &#x22;vX.Y.Z&#x22;.
@@ -225,7 +225,7 @@ url_template = <str>`}
   default_repr={`https://nodejs.org/dist/{version}/node-{version}-{platform}.tar`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.24/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
