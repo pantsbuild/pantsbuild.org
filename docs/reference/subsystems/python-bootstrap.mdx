@@ -34,7 +34,7 @@ None
 key1 = val1
 key2 = val2
 ...`}
-  default_repr={`{\n  "linux_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-aarch64-unknown-linux-gnu-install_only.tar.gz",\n    "1ba520c0db431c84305677f56eb9a4254f5097430ed443e92fc8617f8fba973d",\n    23873387\n  ],\n  "linux_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-x86_64-unknown-linux-gnu-install_only.tar.gz",\n    "7ba397787932393e65fc2fb9fcfabf54f2bb6751d5da2b45913cb25b2d493758",\n    26129729\n  ],\n  "macos_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-aarch64-apple-darwin-install_only.tar.gz",\n    "d732d212d42315ac27c6da3e0b69636737a8d72086c980daf844344c010cab80",\n    17084463\n  ],\n  "macos_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20230116/cpython-3.9.16+20230116-x86_64-apple-darwin-install_only.tar.gz",\n    "3948384af5e8d4ee7e5ccc648322b99c1c5cf4979954ed5e6b3382c69d6db71e",\n    17059474\n  ]\n}`}
+  default_repr={`{\n  "linux_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20241008/cpython-3.11.10+20241008-aarch64-unknown-linux-gnu-install_only.tar.gz",\n    "320635e957e13d2e10d70a3031563d032fae9e40e60e5ec32bc353643fae1335",\n    25925875\n  ],\n  "linux_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20241008/cpython-3.11.10+20241008-x86_64-unknown-linux-gnu-install_only.tar.gz",\n    "ff121f14ed113c9da83a45f76c3cf41976fb4419fe406d5cc7066765761c6a4e",\n    29716764\n  ],\n  "macos_arm64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20241008/cpython-3.11.10+20241008-aarch64-apple-darwin-install_only.tar.gz",\n    "ecdc9c042b8f97bff211fcf9425bc51c96acd4037df1565964e89816f2c9564d",\n    17795541\n  ],\n  "macos_x86_64": [\n    "https://github.com/indygreg/python-build-standalone/releases/download/20241008/cpython-3.11.10+20241008-x86_64-apple-darwin-install_only.tar.gz",\n    "a618c086e0514f681523947e2b66a4dc0c6560f91c36faa072fa6787455df9ea",\n    18165701\n  ]\n}`}
 >
 
 A map from platform to the information needed to download Python Build Standalone.
@@ -97,8 +97,8 @@ For all runtime environment types:
 
 When the environment is a `local_environment` target:
 
-- `<ASDF>`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-- `<ASDF_LOCAL>`, the ASDF interpreter with the version in `BUILD_ROOT/.tool-versions`
+- `AsdfPathString.STANDARD`, all Python versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `AsdfPathString.LOCAL`, the ASDF interpreter with the version in `BUILD_ROOT/.tool-versions`
 - `<PYENV>`, all Python versions under `$(pyenv root)/versions`
 - `<PYENV_LOCAL>`, the Pyenv interpreter with the version in `BUILD_ROOT/.python-version`
 - `<PEXRC>`, paths in the `PEX_PYTHON_PATH` variable in `/etc/pexrc` or `~/.pexrc`
