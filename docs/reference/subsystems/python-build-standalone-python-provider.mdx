@@ -82,6 +82,22 @@ that version.
 
 </Option>
 
+### `require_inferrable_release_tag`
+
+<Option
+  cli_repr={`--[no-]python-build-standalone-python-provider-require-inferrable-release-tag`}
+  env_repr='PANTS_PYTHON_BUILD_STANDALONE_PYTHON_PROVIDER_REQUIRE_INFERRABLE_RELEASE_TAG'
+  toml_repr={`[python-build-standalone-python-provider]
+require_inferrable_release_tag = <bool>`}
+  default_repr={`False`}
+>
+
+Normally, Pants will try to infer the PBS release &#x22;tag&#x22; from URLs supplied to the
+`--python-build-standalone-known-python-versions` option. If this option is True,
+then it is an error if Pants cannot infer the tag from the URL.
+
+</Option>
+
 ## Deprecated options
 
 None
