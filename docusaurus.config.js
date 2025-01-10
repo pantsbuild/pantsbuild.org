@@ -235,11 +235,6 @@ const config = {
   ],
 
   themeConfig: {
-    // Temporary: Announce the 2024 User Survey.
-    announcementBar: {
-      content:
-        'The Pantsbuild 2024 User Survey is live! Check out the <a href="/blog/2024/10/08/user-survey-2024">blog post</a> or <a target="_blank" href="https://forms.gle/eo7Y4DuxurjaMSZn6">take the survey</a>.',
-    },
     image: "img/social-card.png",
     navbar: {
       title: "Pantsbuild",
