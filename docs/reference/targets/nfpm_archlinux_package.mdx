@@ -58,7 +58,7 @@ This should be a valid GOARCH value (or GOARCH+GOARM) that nFPM can convert into
 
 nFPM conversion from GOARCH to package-specific value is documented here: https://nfpm.goreleaser.com/goarch-to-pkg/
 
-Use one of these values unless you need nFPM to use your value as-is: &#x27;386&#x27;, &#x27;all&#x27;, &#x27;amd64&#x27;, &#x27;arm5&#x27;, &#x27;arm6&#x27;, &#x27;arm7&#x27;, &#x27;arm64&#x27;, &#x27;loong64&#x27;, &#x27;mips&#x27;, &#x27;mipsle&#x27;, &#x27;mips64&#x27;, &#x27;mips64le&#x27;, &#x27;ppc64&#x27;, &#x27;ppc64le&#x27;, &#x27;riscv64&#x27;, &#x27;s390&#x27;, &#x27;s390x&#x27;, &#x27;sparc64&#x27;, &#x27;wasm&#x27;
+Use one of these values unless you need nFPM to use your value as-is: `'386' | 'all' | 'amd64' | 'arm5' | 'arm6' | 'arm7' | 'arm64' | 'loong64' | 'mips' | 'mipsle' | 'mips64' | 'mips64le' | 'ppc64' | 'ppc64le' | 'riscv64' | 's390' | 's390x' | 'sparc64' | 'wasm'`
 
 </Field>
 
@@ -109,7 +109,9 @@ List of package dependencies (for package installers).
 
 The &#x27;depends&#x27; field has install-time dependencies that can use version selectors (with one of `<`, `<=`, `=`, `>=`, `>`).
 
-- &#x22;git&#x22; - &#x22;tcpdump&#x3C;5&#x22; - &#x22;foobar&#x3E;=1.8.0&#x22;
+- &#x22;git&#x22;
+- &#x22;tcpdump&#x3C;5&#x22;
+- &#x22;foobar&#x3E;=1.8.0&#x22;
 
 WARNING: This is NOT the same as the &#x27;dependencies&#x27; field! It does not accept pants-style dependencies like target addresses.
 
@@ -253,7 +255,9 @@ Do not include the &#x27;package_name&#x27; (known by &#x27;pkgname&#x27; in Arc
 
 For example, package &#x22;baz&#x22; could declare that it also provides virtual packages &#x22;foo&#x22; and &#x22;bar&#x22; as well as the &#x22;libbaz.so&#x22; v2 shared object. Because the &#x22;baz&#x22; package implicitly provides its own name, this list should not include &#x22;baz&#x22;.
 
-- &#x22;foo&#x22; - &#x22;bar=1.0.0&#x22; - &#x22;libbaz.so=2&#x22;
+- &#x22;foo&#x22;
+- &#x22;bar=1.0.0&#x22;
+- &#x22;libbaz.so=2&#x22;
 
 If several packages declare the same &#x27;provides&#x27;, then they might need to declare that they conflict with each other using &#x27;conflicts&#x27; if, for example, they also install a binary with the same path. Packages that have the same package (or virtual package) in both &#x27;provides&#x27; and &#x27;conflicts&#x27; are considered alternative packages that cannot be installed at the same time. If those package only include an entry in &#x27;provides&#x27; and not in &#x27;conflicts&#x27;, then they CAN be installed at the same time.
 
@@ -287,16 +291,7 @@ Map of install script source files for the Archlinux package.
 
 This maps the script type (key) to the script source file (value). Each of the script source file(s) must be provided via &#x27;dependencies&#x27;. nFPM will package all of these scripts in a single `.INSTALL` scriptlet file by adding a shell function for each of your script files where your script becomes the body of that function. These functions are:
 
-```
-| nFPM script | `.INSTALL` function |
-+-------------+---------------------+
-| preinstall | pre_install |
-| postinstall | post_install |
-| preupgrade | pre_upgrade |
-| postupgrade | post_upgrade |
-| preremove | pre_remove |
-| postremove | post_remove |
-```
+| nFPM script | `.INSTALL` function | +-------------+---------------------+ | preinstall | pre_install | | postinstall | post_install | | preupgrade | pre_upgrade | | postupgrade | post_upgrade | | preremove | pre_remove | | postremove | post_remove |
 
 So, if you provide a `preinstall` script, the `.INSTALL` scriptlet would contain:
 

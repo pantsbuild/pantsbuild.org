@@ -82,7 +82,7 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 Additional environment variables to include in test processes.
 
-Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. `fnmatch` globs like `ENV_VAR_PREFIXED_*` can be used to copy multiple environment variables.
 
 This will be merged with and override values from `[test].extra_env_vars`.
 

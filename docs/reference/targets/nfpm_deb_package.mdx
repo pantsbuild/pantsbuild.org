@@ -74,7 +74,7 @@ This should be a valid GOARCH value (or GOARCH+GOARM) that nFPM can convert into
 
 nFPM conversion from GOARCH to package-specific value is documented here: https://nfpm.goreleaser.com/goarch-to-pkg/
 
-Use one of these values unless you need nFPM to use your value as-is: &#x27;386&#x27;, &#x27;all&#x27;, &#x27;amd64&#x27;, &#x27;arm5&#x27;, &#x27;arm6&#x27;, &#x27;arm7&#x27;, &#x27;arm64&#x27;, &#x27;loong64&#x27;, &#x27;mips&#x27;, &#x27;mipsle&#x27;, &#x27;mips64&#x27;, &#x27;mips64le&#x27;, &#x27;ppc64&#x27;, &#x27;ppc64le&#x27;, &#x27;riscv64&#x27;, &#x27;s390&#x27;, &#x27;s390x&#x27;, &#x27;sparc64&#x27;, &#x27;wasm&#x27;
+Use one of these values unless you need nFPM to use your value as-is: `'386' | 'all' | 'amd64' | 'arm5' | 'arm6' | 'arm7' | 'arm64' | 'loong64' | 'mips' | 'mipsle' | 'mips64' | 'mips64le' | 'ppc64' | 'ppc64le' | 'riscv64' | 's390' | 's390x' | 'sparc64' | 'wasm'`
 
 </Field>
 
@@ -91,7 +91,8 @@ The installation of this package is blocked (by package installers) if any packa
 
 For example, this is how to declare that this breaks package foo, but only if foo version 2.5 or less is installed and it breaks package bar no matter what version is installed.
 
-- &#x22;foo (&#x3C;2.6)&#x22; - &#x22;bar&#x22;
+- &#x22;foo (&#x3C;2.6)&#x22;
+- &#x22;bar&#x22;
 
 See: https://www.debian.org/doc/debian-policy/ch-relationships.html#packages-which-break-other-packages-breaks
 
@@ -121,7 +122,8 @@ Generally, you should use &#x27;breaks&#x27; instead of &#x27;conflicts&#x27;, b
 
 For example, this is how to declare that this package conflicts with the foo (version 2.5 or less) and bar packages, so they must be uninstalled before this package can be installed.
 
-- &#x22;foo (&#x3C;2.6)&#x22; - &#x22;bar&#x22;
+- &#x22;foo (&#x3C;2.6)&#x22;
+- &#x22;bar&#x22;
 
 See: https://www.debian.org/doc/debian-policy/ch-relationships.html#conflicting-binary-packages-conflicts
 
@@ -157,7 +159,9 @@ List of package dependencies (for package installers).
 
 The &#x27;depends&#x27; field has install-time dependencies that can use version selectors (with one of `<<`, `<=`, `=`, `>=`, `>>` in parentheses) or use `|` to specify package alternatives that equally satisfy a dependency.
 
-- &#x22;git&#x22; - &#x22;libc6 (&#x3E;= 2.2.1)&#x22; - &#x22;default-mta | mail-transport-agent&#x22;
+- &#x22;git&#x22;
+- &#x22;libc6 (&#x3E;= 2.2.1)&#x22;
+- &#x22;default-mta | mail-transport-agent&#x22;
 
 Make sure to include package dependencies of this package as well as any packages required by the `postinstall`, `postupgrade`, or `preremove` scripts.
 
@@ -331,7 +335,8 @@ Each entry can be either a package name, or a package name with a version. The v
 
 For example, these declare virtual packages foo and bar.
 
-- &#x22;foo&#x22; - &#x22;bar (=1.0.0)&#x22;
+- &#x22;foo&#x22;
+- &#x22;bar (=1.0.0)&#x22;
 
 If several packages declare the same &#x27;provides&#x27;, then they might need to declare that they conflict with each other using &#x27;conflicts&#x27; if, for example, they also install a binary with the same path.
 
@@ -384,17 +389,7 @@ Map of maintainer script source files for the deb package.
 
 This maps the script type (key) to the script source file (value). Each of the script source file(s) must be provided via &#x27;dependencies&#x27;. The script types are the names used by nFPM. For reference, Debian uses the following file names instead:
 
-```
-| nFPM script | Debian file |
-+-------------+-------------+
-| preinstall | preinst |
-| postinstall | postinst |
-| preremove | prerm |
-| postremove | postrm |
-| config | config |
-| templates | templates |
-| rules | rules |
-```
+| nFPM script | Debian file | +-------------+-------------+ | preinstall | preinst | | postinstall | postinst | | preremove | prerm | | postremove | postrm | | config | config | | templates | templates | | rules | rules |
 
 The `pre*` and `post*` scripts are used by `dpkg` at various stages of installing, upgrading, and removing the deb package.
 

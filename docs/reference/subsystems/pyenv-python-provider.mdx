@@ -44,7 +44,7 @@ installation_extra_env_vars = [
 
 Additional environment variables to include when running `pyenv install`.
 
-Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment.
+Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. `fnmatch` globs like `ENV_VAR_PREFIXED_*` can be used to copy multiple environment variables.
 
 This is especially useful if you want to use an optimized Python (E.g. setting `PYTHON_CONFIGURE_OPTS='--enable-optimizations --with-lto'` and `PYTHON_CFLAGS='-march=native -mtune=native'`) or need custom compiler flags.
 
