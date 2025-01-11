@@ -58,7 +58,7 @@ This should be a valid GOARCH value (or GOARCH+GOARM) that nFPM can convert into
 
 nFPM conversion from GOARCH to package-specific value is documented here: https://nfpm.goreleaser.com/goarch-to-pkg/
 
-Use one of these values unless you need nFPM to use your value as-is: &#x27;386&#x27;, &#x27;all&#x27;, &#x27;amd64&#x27;, &#x27;arm5&#x27;, &#x27;arm6&#x27;, &#x27;arm7&#x27;, &#x27;arm64&#x27;, &#x27;loong64&#x27;, &#x27;mips&#x27;, &#x27;mipsle&#x27;, &#x27;mips64&#x27;, &#x27;mips64le&#x27;, &#x27;ppc64&#x27;, &#x27;ppc64le&#x27;, &#x27;riscv64&#x27;, &#x27;s390&#x27;, &#x27;s390x&#x27;, &#x27;sparc64&#x27;, &#x27;wasm&#x27;
+Use one of these values unless you need nFPM to use your value as-is: `'386' | 'all' | 'amd64' | 'arm5' | 'arm6' | 'arm7' | 'arm64' | 'loong64' | 'mips' | 'mipsle' | 'mips64' | 'mips64le' | 'ppc64' | 'ppc64le' | 'riscv64' | 's390' | 's390x' | 'sparc64' | 'wasm'`
 
 </Field>
 
@@ -100,7 +100,8 @@ The &#x27;depends&#x27; field takes a variety of different formats. You can depe
 
 Example package dependencies (which do not have a prefix):
 
-- &#x22;git&#x22; - &#x22;git=2.40.1-r0&#x22;
+- &#x22;git&#x22;
+- &#x22;git=2.40.1-r0&#x22;
 
 Example absolute path dependencies (which start with `/`):
 
@@ -108,7 +109,10 @@ Example absolute path dependencies (which start with `/`):
 
 Example shared object dependencies (which have a `so:` prefix):
 
-- &#x22;so:libc.musl-x86_64.so.1&#x22; - &#x22;so:libcurl.so.4&#x22; - &#x22;so:libpcre2-8.so.0&#x22; - &#x22;so:libz.so.1&#x22;
+- &#x22;so:libc.musl-x86_64.so.1&#x22;
+- &#x22;so:libcurl.so.4&#x22;
+- &#x22;so:libpcre2-8.so.0&#x22;
+- &#x22;so:libz.so.1&#x22;
 
 WARNING: This is NOT the same as the &#x27;dependencies&#x27; field! It does not accept pants-style dependencies like target addresses.
 
@@ -235,7 +239,14 @@ Sadly, the format of this field is not very well documented, so you may have to 
 
 Here are some examples extracted a variety of random packages:
 
-- &#x22;cmd:bash=5.2.15-r0&#x22; - &#x22;cmd:git=2.38.5-r0&#x22; - &#x22;cmd:gio=2.74.6-r0&#x22; - &#x22;so:libgio-2.0.so.0=0.7400.6&#x22; - &#x22;so:libglib-2.0.so.0=0.7400.6&#x22; - &#x22;py3.10:pkgconfig=1.5.5-r1&#x22; - &#x22;pc:libpkgconf=1.9.4&#x22; - &#x22;pkgconfig=1&#x22;
+- &#x22;cmd:bash=5.2.15-r0&#x22;
+- &#x22;cmd:git=2.38.5-r0&#x22;
+- &#x22;cmd:gio=2.74.6-r0&#x22;
+- &#x22;so:libgio-2.0.so.0=0.7400.6&#x22;
+- &#x22;so:libglib-2.0.so.0=0.7400.6&#x22;
+- &#x22;py3.10:pkgconfig=1.5.5-r1&#x22;
+- &#x22;pc:libpkgconf=1.9.4&#x22;
+- &#x22;pkgconfig=1&#x22;
 
 See: https://wiki.alpinelinux.org/wiki/Apk_spec#PKGINFO_Format https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#provides
 
@@ -256,7 +267,9 @@ If another package &#x27;provides&#x27; the same file, and that package is in th
 
 This field takes a simple list of package names, like this:
 
-- &#x22;bash&#x22; - &#x22;git&#x22; - &#x22;pkgconfig&#x22;
+- &#x22;bash&#x22;
+- &#x22;git&#x22;
+- &#x22;pkgconfig&#x22;
 
 See: https://wiki.alpinelinux.org/wiki/Apk_spec#PKGINFO_Format https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#replaces
 
@@ -273,16 +286,7 @@ Map of install script source files for the APK package.
 
 This maps the script type (key) to the script source file (value). Each of the script source file(s) must be provided via &#x27;dependencies&#x27;. The script types are the terms used by nFPM. For reference, Alpine Linux uses the following terms in the APKBUILD file instead:
 
-```
-| nFPM term | APKBUILD term |
-+-------------+----------------+
-| preinstall | pre-install |
-| postinstall | post-install |
-| preupgrade | pre-upgrade |
-| postupgrade | post-upgrade |
-| preremove | pre-deinstall |
-| postremove | post-deinstall |
-```
+| nFPM term | APKBUILD term | +-------------+----------------+ | preinstall | pre-install | | postinstall | post-install | | preupgrade | pre-upgrade | | postupgrade | post-upgrade | | preremove | pre-deinstall | | postremove | post-deinstall |
 
 Please consult the Alpine Linux docs to understand when `apk` will run each of these scripts, how it handles a failure, and what failure means for the lifecycle of the package `apk` is working on.
 

@@ -159,6 +159,8 @@ extra_env_vars = [
 
 Additional environment variables that would be made available to all Helm processes or during value interpolation.
 
+Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. `fnmatch` globs like `ENV_VAR_PREFIXED_*` can be used to copy multiple environment variables.
+
 </Option>
 
 ### `known_versions`

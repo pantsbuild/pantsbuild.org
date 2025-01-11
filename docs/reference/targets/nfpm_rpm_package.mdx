@@ -58,7 +58,7 @@ This should be a valid GOARCH value (or GOARCH+GOARM) that nFPM can convert into
 
 nFPM conversion from GOARCH to package-specific value is documented here: https://nfpm.goreleaser.com/goarch-to-pkg/
 
-Use one of these values unless you need nFPM to use your value as-is: &#x27;386&#x27;, &#x27;all&#x27;, &#x27;amd64&#x27;, &#x27;arm5&#x27;, &#x27;arm6&#x27;, &#x27;arm7&#x27;, &#x27;arm64&#x27;, &#x27;loong64&#x27;, &#x27;mips&#x27;, &#x27;mipsle&#x27;, &#x27;mips64&#x27;, &#x27;mips64le&#x27;, &#x27;ppc64&#x27;, &#x27;ppc64le&#x27;, &#x27;riscv64&#x27;, &#x27;s390&#x27;, &#x27;s390x&#x27;, &#x27;sparc64&#x27;, &#x27;wasm&#x27;
+Use one of these values unless you need nFPM to use your value as-is: `'386' | 'all' | 'amd64' | 'arm5' | 'arm6' | 'arm7' | 'arm64' | 'loong64' | 'mips' | 'mipsle' | 'mips64' | 'mips64le' | 'ppc64' | 'ppc64le' | 'riscv64' | 's390' | 's390x' | 'sparc64' | 'wasm'`
 
 </Field>
 
@@ -75,11 +75,21 @@ This takes a compression algorithm and optionally a compression level. To specif
 
 Here are several gzip examples with and without the optional compression level (-1 means use the default level which is 5; 9 is the max).
 
-&#x27;gzip:9&#x27; &#x27;gzip:0&#x27; &#x27;gzip:-1&#x27; &#x27;gzip:5&#x27; &#x27;gzip&#x27;
+- &#x27;gzip:9&#x27;
+- &#x27;gzip:0&#x27;
+- &#x27;gzip:-1&#x27;
+- &#x27;gzip:5&#x27;
+- &#x27;gzip&#x27;
 
 Here are several zstd examples. Note that nFPM uses a library that only defines four named compression levels, and then maps the zstd integer levels to those. You may specify the zstd level as an integer, or using these names: https://github.com/klauspost/compress/tree/master/zstd#status
 
-&#x27;zstd:fastest&#x27; &#x27;zstd:default&#x27; &#x27;zstd:better&#x27; &#x27;zstd:best&#x27; &#x27;zstd:3&#x27; &#x27;zstd:9&#x27; &#x27;zstd&#x27;
+- &#x27;zstd:fastest&#x27;
+- &#x27;zstd:default&#x27;
+- &#x27;zstd:better&#x27;
+- &#x27;zstd:best&#x27;
+- &#x27;zstd:3&#x27;
+- &#x27;zstd:9&#x27;
+- &#x27;zstd&#x27;
 
 </Field>
 
@@ -130,7 +140,9 @@ List of package requirements (for package installers).
 
 The &#x27;depends&#x27; field has install-time requirements that can use version selectors (with one of `<`, `<=`, `=`, `>=`, `>` surrounded by spaces), where the version is formatted: `[epoch:]version[-release]`
 
-- &#x22;git&#x22; - &#x22;bash &#x3C; 5&#x22; - &#x22;perl &#x3E;= 9:5.00502-3&#x22;
+- &#x22;git&#x22;
+- &#x22;bash &#x3C; 5&#x22;
+- &#x22;perl &#x3E;= 9:5.00502-3&#x22;
 
 The rpm file header uses the term &#x22;requires&#x22; for this. This field is named &#x22;depends&#x22; because that is the term used by nFPM.
 
@@ -162,7 +174,10 @@ Use `pants list --documented ::` to see all targets with descriptions.
 
 A list of files that this package owns, but that this package does not include.
 
-Examples of ghosted files include: - A log file or a state file that does not exist until runtime. - A binary that is managed by &#x27;alternatives&#x27;.
+Examples of ghosted files include:
+
+- A log file or a state file that does not exist until runtime.
+- A binary that is managed by &#x27;alternatives&#x27;.
 
 RPM specs use the `%ghost` directive to list these ghosted files.
 
@@ -327,7 +342,9 @@ A list of virtual packages or file paths that this package provides.
 
 This is used so that multiple packages can be be alternatives for each other. The list can include virtual package names and/or file paths. For example the `bash` package includes these in &#x27;provides&#x27;:
 
-- &#x22;bash&#x22; - &#x22;/bin/sh&#x22; - &#x22;/bin/bash&#x22;
+- &#x22;bash&#x22;
+- &#x22;/bin/sh&#x22;
+- &#x22;/bin/bash&#x22;
 
 This means another package could also provide alternative implementations for the &#x22;bash&#x22; package name and could provide &#x22;/bin/sh&#x22; and/or &#x22;/bin/bash&#x22;.
 
@@ -382,17 +399,7 @@ Map of install scriptlet source files for the deb package.
 
 This maps the script type (key) to the script source file (value). Each of the script source file(s) must be provided via &#x27;dependencies&#x27;. The script types are the names used by nFPM. For reference, RPM uses the following scriptlet tag names instead and runs them before/after the indicated phase:
 
-```
-| nFPM term | RPM scriptlet | RPM phase |
-+-------------+---------------+-------------+
-| preinstall | %pre | install |
-| postinstall | %post | install |
-| preremove | %preun | uninstall |
-| postremove | %postun | uninstall |
-| pretrans | %pretrans | transaction |
-| posttrans | %posttrans | transaction |
-| verify | %verifyscript | verify |
-```
+| nFPM term | RPM scriptlet | RPM phase | +-------------+---------------+-------------+ | preinstall | %pre | install | | postinstall | %post | install | | preremove | %preun | uninstall | | postremove | %postun | uninstall | | pretrans | %pretrans | transaction | | posttrans | %posttrans | transaction | | verify | %verifyscript | verify |
 
 Please consult the RPM docs to understand what is required of these scripts.
 
