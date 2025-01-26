@@ -33,6 +33,8 @@ use_rust_parser = <bool>`}
 
 Use the new experimental Rust-based, multithreaded, in-process dependency parser.
 
+This new parser does not require the `dockerfile` dependency and thus, for instance, doesn&#x27;t require Go to be installed to run on platforms for which that package doesn&#x27;t provide pre-built wheels.
+
 If you think the new behaviour is causing problems, it is recommended that you run `pants --dockerfile-parser-use-rust-parser=True peek :: > new-parser.json` and then `pants --dockerfile-parser-use-rust-parser=False peek :: > old-parser.json` and compare the two results.
 
 If you think there is a bug, please file an issue: https://github.com/pantsbuild/pants/issues/new/choose.

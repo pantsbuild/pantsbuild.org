@@ -15,6 +15,21 @@ pants fix [args]
 
 Autofix source code.
 
+This goal runs tools that make &#x27;semantic&#x27; changes to source code, where the meaning of the code may change.
+
+See also:
+
+- [The `fmt` goal](https://www.pantsbuild.org/2.25/reference/goals/fix will run code-editing tools that may make only
+  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by
+  default (see [the `skip_formatters` option](#skip_formatters) to control this).
+
+- [The `lint` goal](https://www.pantsbuild.org/2.25/reference/goals/lint) will validate code is formatted, by running these
+  fixers and checking there&#x27;s no change.
+
+- Documentation about formatters for various ecosystems, such as:
+  [Python](https://www.pantsbuild.org/2.25/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format),
+  [SQL](https://www.pantsbuild.org/2.25/docs/sql#enable-sqlfluff-linter)
+
 Backend: <span className="color--primary">`pants.core`</span>
 
 Config section: <span className="color--primary">`[fix]`</span>
