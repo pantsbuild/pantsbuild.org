@@ -14,7 +14,7 @@ on
 [Unsplash](https://unsplash.com/photos/tuxedo-cat-in-brown-cardboard-box-W-ypTC6R7_k)
 </CaptionedImg>
 
-{/_ truncate _/}
+{/* truncate */}
 
 We are pleased to announce Pants [2.24.0](https://github.com/pantsbuild/pants/blob/2.24.x/docs/notes/2.24.x.md), the latest release of [Pantsbuild, the scalable and ergonomic build system](https://www.pantsbuild.org/). To update, set `pants_version = "2.24.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](https://www.pantsbuild.org/2.24/docs/getting-started).
 
