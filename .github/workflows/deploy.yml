@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - csb/deploy-redux
+      - main
 
 permissions:
   contents: read
