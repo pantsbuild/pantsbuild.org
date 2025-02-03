@@ -15,6 +15,20 @@ pants fmt [args]
 
 Autoformat source code.
 
+This goal runs tools that make &#x27;syntactic&#x27; changes to source code, where the meaning of the code doesn&#x27;t (usually) change.
+
+See also:
+
+- [The `fix` goal](https://www.pantsbuild.org/2.25/reference/goals/fix) will run code-editing tools that may make semantic
+  changes, not just syntactic ones.
+
+- [The `lint` goal](https://www.pantsbuild.org/2.25/reference/goals/lint) will validate code is formatted, by running these
+  formatters and checking there&#x27;s no change.
+
+- Documentation about formatters for various ecosystems, such as:
+  [Python](https://www.pantsbuild.org/2.25/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.25/docs/go#gofmt),
+  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.25/docs/shell#shfmt-autoformatter).
+
 Backend: <span className="color--primary">`pants.core`</span>
 
 Config section: <span className="color--primary">`[fmt]`</span>
