@@ -258,7 +258,7 @@ If set to true, do not push this Helm chart to registries when running `pants pu
 
 <Field
     type_repr={`Iterable[str] | None`}
-    default_repr={`('.helmignore', 'README.md', 'LICENSE', 'values.yaml', 'values.yml', 'values.schema.json', 'templates/*.yaml', 'templates/*.yml', 'templates/*.tpl', 'templates/NOTES.txt', 'crds/*.yaml', 'crds/*.yml')`}
+    default_repr={`('.helmignore', 'README.md', 'LICENSE', 'values.yaml', 'values.yml', 'values.schema.json', 'templates/**/*.yaml', 'templates/**/*.yml', 'templates/**/*.tpl', 'templates/NOTES.txt', 'crds/*.yaml', 'crds/*.yml')`}
 >
 
 A list of files and globs that belong to this target.

@@ -136,6 +136,24 @@ Values are space-stripped, so pipes can be indented for readability if necessary
 
 </Option>
 
+### `optional_tools`
+
+<Option
+  cli_repr={`--nodejs-optional-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_NODEJS_OPTIONAL_TOOLS'
+  toml_repr={`[nodejs]
+optional_tools = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List any additional executable which are not mandatory for node processes to work, but which should be included if available. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by nodejs processes execution.
+
+</Option>
+
 ### `resolves`
 
 <Option
@@ -192,6 +210,24 @@ When the environment is a `local_environment` target:
 - `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
 - `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
   Note that the version in the .nvmrc file has to be on the form &#x22;vX.Y.Z&#x22;.
+
+</Option>
+
+### `tools`
+
+<Option
+  cli_repr={`--nodejs-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_NODEJS_TOOLS'
+  toml_repr={`[nodejs]
+tools = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List any additional executable tools required for node processes to work. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by nodejs processes execution.
 
 </Option>
 
