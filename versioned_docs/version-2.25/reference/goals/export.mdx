@@ -1,0 +1,187 @@
+---
+title: export
+description: |
+  Export Pants data for use in other tools, such as IDEs.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants export [args]
+```
+
+Export Pants data for use in other tools, such as IDEs.
+
+:::caution Exporting tools requires creating a custom lockfile for them
+
+Follow [the instructions for creating tool lockfiles](../../docs/python/overview/lockfiles#lockfiles-for-tools)
+
+:::
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[export]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `bin`
+
+<Option
+  cli_repr={`--export-bin="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_BIN'
+  toml_repr={`[export]
+bin = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Export the specified binaries. To select a binary, provide its subsystem scope name, as used for setting its options.
+
+</Option>
+
+### `py_resolve_format`
+
+<Option
+  cli_repr={`--export-py-resolve-format=<PythonResolveExportFormat>`}
+  env_repr='PANTS_EXPORT_PY_RESOLVE_FORMAT'
+  toml_repr={`[export]
+py_resolve_format = <PythonResolveExportFormat>`}
+  one_of='mutable_virtualenv, symlinked_immutable_virtualenv'
+  default_repr={`mutable_virtualenv`}
+>
+
+Export Python resolves using this format. Options are:
+
+- `mutable_virtualenv`: Export a standalone mutable virtualenv that you can
+  further modify.
+- `symlinked_immutable_virtualenv`: Export a symlink into a cached Python virtualenv.
+  This virtualenv will have no pip binary, and will be immutable. Any attempt to
+  modify it will corrupt the cache! It may, however, take significantly less time
+  to export than a standalone, mutable virtualenv.
+
+</Option>
+
+### `resolve`
+
+<Option
+  cli_repr={`--export-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_RESOLVE'
+  toml_repr={`[export]
+resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Export the specified resolve(s). The export format is backend-specific, e.g., Python resolves are exported as virtualenvs.
+
+</Option>
+
+## Advanced options
+
+### `py_editable_in_resolve`
+
+<Option
+  cli_repr={`--export-py-editable-in-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_PY_EDITABLE_IN_RESOLVE'
+  toml_repr={`[export]
+py_editable_in_resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+When exporting a mutable virtualenv for a resolve, do PEP-660 editable installs of all `python_distribution` targets that own code in the exported resolve.
+
+If a resolve name is not in this list, `python_distribution` targets will not be installed in the virtualenv. This defaults to an empty list for backwards compatibility and to prevent unnecessary work to generate and install the PEP-660 editable wheels.
+
+This only applies when `[python].enable_resolves` is true and when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they must not be edited, and do not include `pip`).
+
+</Option>
+
+### `py_generated_sources_in_resolve`
+
+<Option
+  cli_repr={`--export-py-generated-sources-in-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_PY_GENERATED_SOURCES_IN_RESOLVE'
+  toml_repr={`[export]
+py_generated_sources_in_resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+When exporting a mutable virtualenv for a resolve listed in this option, generate sources which result from code generation (for example, the `protobuf_sources` and `thrift_sources` target types) into the mutable virtualenv exported for that resolve. Generated sources will be placed in the appropriate location within the site-packages directory of the mutable virtualenv.
+
+</Option>
+
+### `py_non_hermetic_scripts_in_resolve`
+
+<Option
+  cli_repr={`--export-py-non-hermetic-scripts-in-resolve="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_EXPORT_PY_NON_HERMETIC_SCRIPTS_IN_RESOLVE'
+  toml_repr={`[export]
+py_non_hermetic_scripts_in_resolve = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+When exporting a mutable virtualenv for a resolve listed in this option, by default console script shebang lines will be made &#x22;hermetic&#x22;. Specifically, the shebang of hermetic console scripts will uses the python args `-sE` where:
+
+- `-s` skips inclusion of the user site-packages directory,
+- `-E` ignores all `PYTHON*` env vars like `PYTHONPATH`.
+
+If you need &#x22;non-hermetic&#x22; scripts for a partcular resolve, then add that resolve&#x27;s name to this option. This will allow simple python shebangs that respect vars like `PYTHONPATH`, which, for example, will allow IDEs like PyCharm to inject its debugger, coverage, or other IDE-specific libs when running a script.
+
+This only applies when when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they are used internally by pants itself. Pants requires hermetic scripts to provide its reproduciblity guarantee, fine-grained caching, and other features).
+
+</Option>
+
+## Deprecated options
+
+### `py_hermetic_scripts`
+
+<Option
+  cli_repr={`--[no-]export-py-hermetic-scripts`}
+  env_repr='PANTS_EXPORT_PY_HERMETIC_SCRIPTS'
+  toml_repr={`[export]
+py_hermetic_scripts = <bool>`}
+  default_repr={`True`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'Use `--export-py-non-hermetic-scripts-in-resolve` instead.'}
+>
+
+When exporting a mutable virtualenv for a resolve, by default modify console script shebang lines to make them &#x22;hermetic&#x22;. The shebang of hermetic console scripts uses the python args: `-sE`:
+
+- `-s` skips inclusion of the user site-packages directory,
+- `-E` ignores all `PYTHON*` env vars like `PYTHONPATH`.
+
+Set this to false if you need non-hermetic scripts with simple python shebangs that respect vars like `PYTHONPATH`, to, for example, allow IDEs like PyCharm to inject its debugger, coverage, or other IDE-specific libs when running a script.
+
+This only applies when when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they are used internally by pants itself. Pants requires hermetic scripts to provide its reproduciblity guarantee, fine-grained caching, and other features).
+
+</Option>
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>

@@ -1,0 +1,179 @@
+---
+title: scalafix
+description: |
+  scalafix (https://scalacenter.github.io/scalafix/)
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+scalafix (https://scalacenter.github.io/scalafix/)
+
+Backend: <span className="color--primary">`pants.backend.experimental.scala.lint.scalafix`</span>
+
+Config section: <span className="color--primary">`[scalafix]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]scalafix-skip`}
+  env_repr='PANTS_SCALAFIX_SKIP'
+  toml_repr={`[scalafix]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use scalafix when running `pants fix` and `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `artifacts`
+
+<Option
+  cli_repr={`--scalafix-artifacts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SCALAFIX_ARTIFACTS'
+  toml_repr={`[scalafix]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "ch.epfl.scala:scalafix-cli_2.13.12:{version}"\n]`}
+>
+
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[scalafix].version` option.
+
+</Option>
+
+### `config_file_name`
+
+<Option
+  cli_repr={`--scalafix-config-file-name=<str>`}
+  env_repr='PANTS_SCALAFIX_CONFIG_FILE_NAME'
+  toml_repr={`[scalafix]
+config_file_name = <str>`}
+  default_repr={`.scalafix.conf`}
+>
+
+Name of a config file understood by scalafix (https://scalacenter.github.io/scalafix/docs/users/configuration.html). The plugin will search the ancestors of each directory in which Scala files are found for a config file of this name.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--scalafix-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SCALAFIX_JVM_OPTIONS'
+  toml_repr={`[scalafix]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `scalafix` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--scalafix-lockfile=<str>`}
+  env_repr='PANTS_SCALAFIX_LOCKFILE'
+  toml_repr={`[scalafix]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.25.0a0/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.
+
+</Option>
+
+### `orphan_files_behavior`
+
+<Option
+  cli_repr={`--scalafix-orphan-files-behavior=<OrphanFilepathConfigBehavior>`}
+  env_repr='PANTS_SCALAFIX_ORPHAN_FILES_BEHAVIOR'
+  toml_repr={`[scalafix]
+orphan_files_behavior = <OrphanFilepathConfigBehavior>`}
+  one_of='ignore, error, warn'
+  default_repr={`error`}
+>
+
+Whether to ignore, error or show a warning when files are found that are not covered by the config file provided in `[scalafix].config_file_name` setting.
+
+</Option>
+
+### `rule_targets`
+
+<Option
+  cli_repr={`--scalafix-rule-targets="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_SCALAFIX_RULE_TARGETS'
+  toml_repr={`[scalafix]
+rule_targets = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of targets providing additional Scalafix rules.
+
+</Option>
+
+### `semantic_rules`
+
+<Option
+  cli_repr={`--[no-]scalafix-semantic-rules`}
+  env_repr='PANTS_SCALAFIX_SEMANTIC_RULES'
+  toml_repr={`[scalafix]
+semantic_rules = <bool>`}
+  default_repr={`True`}
+>
+
+Whether semantic rules are enabled or not.
+
+Using semantic rules requires the usage of the `semanticdb-scalac` plugin and will trigger compilation of the source code before running scalafix on the sources.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--scalafix-version=<str>`}
+  env_repr='PANTS_SCALAFIX_VERSION'
+  toml_repr={`[scalafix]
+version = <str>`}
+  default_repr={`0.11.1`}
+>
+
+Version string for the tool. This is available for substitution in the `[scalafix].artifacts` option by including the string `{version}`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

@@ -1,0 +1,64 @@
+---
+title: redocly
+description: |
+  Redocly CLI toolbox with rich validation and bundling features (https://github.com/Redocly/redocly-cli).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Redocly CLI toolbox with rich validation and bundling features (https://github.com/Redocly/redocly-cli).
+
+Backend: <span className="color--primary">`pants.backend.experimental.openapi`</span>
+
+Config section: <span className="color--primary">`[redocly]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--redocly-install-from-resolve=<str>`}
+  env_repr='PANTS_REDOCLY_INSTALL_FROM_RESOLVE'
+  toml_repr={`[redocly]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve, instead of the version configured in this subsystem.
+
+If unspecified, the tool will use the default configured package manager [nodejs].package_manager`, and install the tool without a lockfile.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--redocly-version=<str>`}
+  env_repr='PANTS_REDOCLY_VERSION'
+  toml_repr={`[redocly]
+version = <str>`}
+  default_repr={`@redocly/cli@1.10.5`}
+>
+
+Version string for the tool in the form package@version (e.g. prettier@2.6.2)
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
