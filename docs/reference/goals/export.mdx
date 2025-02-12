@@ -156,7 +156,28 @@ This only applies when when exporting a `mutable_virtualenv` (`symlinked_immutab
 
 ## Deprecated options
 
-None
+### `py_hermetic_scripts`
+
+<Option
+  cli_repr={`--[no-]export-py-hermetic-scripts`}
+  env_repr='PANTS_EXPORT_PY_HERMETIC_SCRIPTS'
+  toml_repr={`[export]
+py_hermetic_scripts = <bool>`}
+  default_repr={`True`}
+  removal_version='2.26.0.dev0'
+  removal_hint={'Use `--export-py-non-hermetic-scripts-in-resolve` instead.'}
+>
+
+When exporting a mutable virtualenv for a resolve, by default modify console script shebang lines to make them &#x22;hermetic&#x22;. The shebang of hermetic console scripts uses the python args: `-sE`:
+
+- `-s` skips inclusion of the user site-packages directory,
+- `-E` ignores all `PYTHON*` env vars like `PYTHONPATH`.
+
+Set this to false if you need non-hermetic scripts with simple python shebangs that respect vars like `PYTHONPATH`, to, for example, allow IDEs like PyCharm to inject its debugger, coverage, or other IDE-specific libs when running a script.
+
+This only applies when when exporting a `mutable_virtualenv` (`symlinked_immutable_virtualenv` exports are not &#x22;full&#x22; virtualenvs because they are used internally by pants itself. Pants requires hermetic scripts to provide its reproduciblity guarantee, fine-grained caching, and other features).
+
+</Option>
 
 ## Related subsystems
 
