@@ -150,7 +150,7 @@ url_template = <str>`}
   default_repr={`https://github.com/astral-sh/ruff/releases/download/{version}/ruff-{platform}.tar.gz`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.26/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
@@ -199,8 +199,8 @@ Supported Ruff versions: &#x3E;=0.1.2,&#x3C;1
   toml_repr={`[ruff]
 console_script = <str>`}
   default_repr={`None`}
-  removal_version='2.27.0.dev0'
-  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.26/reference/subsystems/ruff'}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.25/reference/subsystems/ruff'}
 >
 
 Formerly used to customise the version of Ruff to install.
@@ -215,8 +215,8 @@ Formerly used to customise the version of Ruff to install.
   toml_repr={`[ruff]
 entry_point = <str>`}
   default_repr={`None`}
-  removal_version='2.27.0.dev0'
-  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.26/reference/subsystems/ruff'}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.25/reference/subsystems/ruff'}
 >
 
 Formerly used to customise the version of Ruff to install.
@@ -231,8 +231,8 @@ Formerly used to customise the version of Ruff to install.
   toml_repr={`[ruff]
 install_from_resolve = <str>`}
   default_repr={`None`}
-  removal_version='2.27.0.dev0'
-  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.26/reference/subsystems/ruff'}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.25/reference/subsystems/ruff'}
 >
 
 Formerly used to customise the version of Ruff to install.
@@ -251,8 +251,8 @@ interpreter_constraints = [
     ...,
 ]`}
   default_repr={`[]`}
-  removal_version='2.27.0.dev0'
-  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.26/reference/subsystems/ruff'}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.25/reference/subsystems/ruff'}
 >
 
 Formerly used to customise the version of Ruff to install.
@@ -271,8 +271,8 @@ requirements = [
     ...,
 ]`}
   default_repr={`[]`}
-  removal_version='2.27.0.dev0'
-  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.26/reference/subsystems/ruff'}
+  removal_version='2.26.0.dev0'
+  removal_hint={'NOW IGNORED: use `version` and `known_versions` options to customise the version of ruff, replacing this option; consider deleting the resolve and `python_requirement` if no longer used. See https://www.pantsbuild.org/2.25/reference/subsystems/ruff'}
 >
 
 Formerly used to customise the version of Ruff to install.
