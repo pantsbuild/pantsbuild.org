@@ -151,7 +151,7 @@ The JVM packages this artifact provides for the purposes of dependency inference
 
 For example, the JVM artifact `junit:junit` might provide `["org.junit.**"]`.
 
-Usually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.24.1/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `["io.confluent.**"]`.
+Usually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.24.2/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `["io.confluent.**"]`.
 
 The package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `["org.junit.**"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.
 
