@@ -58,7 +58,7 @@ unowned_dependency_behavior = <UnownedHelmDependencyUsage>`}
   default_repr={`error`}
 >
 
-How to handle inferred dependencies that don&#x27;t have an inferrable owner.
+How to handle inferred dependencies that don&#x27;t have an inferable owner.
 
 Usually when an import cannot be inferred, it represents an issue like Pants not being properly configured, e.g. targets not set up. Often, missing dependencies will result in confusing runtime errors where Docker images haven&#x27;t been published, so this option can be helpful to error more eagerly.
 
