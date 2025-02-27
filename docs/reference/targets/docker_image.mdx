@@ -57,7 +57,7 @@ Set the target platform(s) for the build.
 ## `cache_from`
 
 <Field
-    type_repr={`list[Dict[str, str]] | None`}
+    type_repr={`list[dict[str, str]] | None`}
     default_repr={`None`}
 >
 
@@ -94,7 +94,7 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 ## `cache_to`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
@@ -187,7 +187,7 @@ Use `[docker].build_args` to set default build args for all images.
 ## `extra_build_hosts`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
@@ -211,7 +211,7 @@ Extra arguments to pass into the invocation of `docker run`. These are in additi
 ## `image_labels`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
@@ -266,7 +266,7 @@ docker_image(
 ## `output`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`FrozenDict({'type': 'docker'})`}
 >
 
@@ -388,7 +388,7 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `secrets`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
