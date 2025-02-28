@@ -52,7 +52,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v2.32.1|macos_arm64|1e953b668ae930e0472e8a40709adbf7c342de9ad249d8bbbc719dce7e50e0f7|4450314",\n  "v2.32.1|macos_x86_64|1e953b668ae930e0472e8a40709adbf7c342de9ad249d8bbbc719dce7e50e0f7|4450314",\n  "v2.32.1|linux_x86_64|1e953b668ae930e0472e8a40709adbf7c342de9ad249d8bbbc719dce7e50e0f7|4450314",\n  "v2.32.1|linux_arm64|1e953b668ae930e0472e8a40709adbf7c342de9ad249d8bbbc719dce7e50e0f7|4450314"\n]`}
+  default_repr={`[\n  "v2.33.1|macos_arm64|5ebed0e2ba875983a72b4715ee3b2ca6ae5fedbf28d738634e02e30e3bb5ed28|4559974",\n  "v2.33.1|macos_x86_64|5ebed0e2ba875983a72b4715ee3b2ca6ae5fedbf28d738634e02e30e3bb5ed28|4559974",\n  "v2.33.1|linux_x86_64|5ebed0e2ba875983a72b4715ee3b2ca6ae5fedbf28d738634e02e30e3bb5ed28|4559974",\n  "v2.33.1|linux_arm64|5ebed0e2ba875983a72b4715ee3b2ca6ae5fedbf28d738634e02e30e3bb5ed28|4559974"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -106,7 +106,7 @@ url_template = <str>`}
   default_repr={`https://github.com/pex-tool/pex/releases/download/{version}/pex`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.26/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
@@ -136,7 +136,7 @@ Supported pex versions: &#x3E;=2.13.0,&#x3C;3.0
   env_repr='PANTS_PEX_CLI_VERSION'
   toml_repr={`[pex-cli]
 version = <str>`}
-  default_repr={`v2.32.1`}
+  default_repr={`v2.33.1`}
 >
 
 Use this version of pex.

@@ -57,7 +57,7 @@ Set the target platform(s) for the build.
 ## `cache_from`
 
 <Field
-    type_repr={`list[Dict[str, str]] | None`}
+    type_repr={`list[dict[str, str]] | None`}
     default_repr={`None`}
 >
 
@@ -94,7 +94,7 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 ## `cache_to`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
@@ -150,7 +150,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.26/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -187,7 +187,7 @@ Use `[docker].build_args` to set default build args for all images.
 ## `extra_build_hosts`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
@@ -211,7 +211,7 @@ Extra arguments to pass into the invocation of `docker run`. These are in additi
 ## `image_labels`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
@@ -234,7 +234,7 @@ Any tags to apply to the Docker image name (the version is usually applied as a 
 
 tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
-See https://www.pantsbuild.org/2.25/docs/docker/tagging-docker-images.
+See https://www.pantsbuild.org/2.26/docs/docker/tagging-docker-images.
 
 </Field>
 
@@ -266,7 +266,7 @@ docker_image(
 ## `output`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`FrozenDict({'type': 'docker'})`}
 >
 
@@ -388,7 +388,7 @@ If true, runs of this target with the `run` goal may be interrupted and restarte
 ## `secrets`
 
 <Field
-    type_repr={`Dict[str, str] | None`}
+    type_repr={`dict[str, str] | None`}
     default_repr={`None`}
 >
 
