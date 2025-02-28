@@ -23,6 +23,21 @@ Config section: <span className="color--primary">`[publish]`</span>
 
 ## Basic options
 
+### `noninteractive_process_output`
+
+<Option
+  cli_repr={`--publish-noninteractive-process-output=<ShowOutput>`}
+  env_repr='PANTS_PUBLISH_NONINTERACTIVE_PROCESS_OUTPUT'
+  toml_repr={`[publish]
+noninteractive_process_output = <ShowOutput>`}
+  one_of='all, failed, none'
+  default_repr={`all`}
+>
+
+Show stdout/stderr when publishing with noninteractively. This only has an effect for those publish subsystems that support a noninteractive mode.
+
+</Option>
+
 ### `output`
 
 <Option
