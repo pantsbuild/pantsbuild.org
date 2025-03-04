@@ -13,7 +13,7 @@ A single Python test file, written in either Pytest style or unittest style.
 
 All test util code, including `conftest.py`, should go into a dedicated `python_source` target and then be included in the `dependencies` field. (You can use the `python_test_utils` target to generate these `python_source` targets.)
 
-See https://www.pantsbuild.org/2.26/docs/python/goals/test
+See https://www.pantsbuild.org/2.25/docs/python/goals/test
 
 Backend: <span className="color--primary">`pants.backend.python`</span>
 
@@ -68,7 +68,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/2.26/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.25/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -92,7 +92,7 @@ Use `pants list --documented ::` to see all targets with descriptions.
 ## `entry_point_dependencies`
 
 <Field
-    type_repr={`dict[str, Iterable[str]] | None`}
+    type_repr={`Dict[str, Iterable[str]] | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.python"
 >
@@ -169,7 +169,7 @@ Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPyt
 
 If the field is not set, it will default to the option `[python].interpreter_constraints`.
 
-See https://www.pantsbuild.org/2.26/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+See https://www.pantsbuild.org/2.25/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 
 </Field>
 
