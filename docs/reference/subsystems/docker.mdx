@@ -188,20 +188,6 @@ Allow support for podman when available.
 
 </Option>
 
-### `publish_noninteractively`
-
-<Option
-  cli_repr={`--[no-]docker-publish-noninteractively`}
-  env_repr='PANTS_DOCKER_PUBLISH_NONINTERACTIVELY'
-  toml_repr={`[docker]
-publish_noninteractively = <bool>`}
-  default_repr={`False`}
->
-
-If true, publish images non-interactively. This allows for pushes to be parallelized, but requires docker to be pre-authenticated to the registries to which it is pushing.
-
-</Option>
-
 ### `registries`
 
 <Option
