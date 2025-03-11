@@ -1,5 +1,5 @@
 ---
-title: experimental_test_shell_command
+title: test_shell_command
 description: |
   Run a script as a test via the `test` goal, with all dependencies packaged/copied available in the chroot.
 ---
@@ -14,7 +14,7 @@ Run a script as a test via the `test` goal, with all dependencies packaged/copie
 Example BUILD file:
 
 ```
-experimental_test_shell_command(
+test_shell_command(
     name="test",
     tools=["test"],
     command="test -r $CHROOT/some-data-file.txt",
@@ -22,7 +22,7 @@ experimental_test_shell_command(
 )
 ```
 
-The `command` may use either `{chroot}` on the command line, or the `$CHROOT` environment variable to get the root directory for where any dependencies are located.
+The `command` may use the `{chroot}` marker on the command line or in environment variables to get the root directory where any dependencies are materialized during execution.
 
 In contrast to the `run_shell_command`, this target is intended to run shell commands as tests and will only run them via the `test` goal.
 

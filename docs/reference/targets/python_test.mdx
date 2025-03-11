@@ -120,7 +120,7 @@ entry_point_dependencies={
 
 Code for matching `entry_points` on `python_distribution` targets will be added as dependencies so that they are available on PYTHONPATH during tests.
 
-Plus, an `entry_points.txt` file will be generated in the sandbox so that each of the `python_distribution`s appear to be &#x22;installed&#x22;. The `entry_points.txt` file will only include the entry points requested on this field. This allows the tests, or the code under test, to lookup entry points metadata using something like `pkg_resources.iter_entry_points` from `setuptools`.
+Plus, an `entry_points.txt` file will be generated in the sandbox so that each of the `python_distribution`s appear to be &#x22;installed&#x22;. The `entry_points.txt` file will only include the entry points requested on this field. This allows the tests, or the code under test, to lookup entry points&#x27; metadata using an API like the `importlib.metadata.entry_points()` API in the standard library (available on older Python interpreters via the `importlib-metadata` distribution).
 
 </Field>
 
