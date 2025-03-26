@@ -1,0 +1,228 @@
+---
+title: python_aws_lambda_layer
+description: |
+  A Python layer suitable for uploading to AWS Lambda.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A Python layer suitable for uploading to AWS Lambda.
+
+See https://www.pantsbuild.org/2.26/docs/python/integrations/aws-lambda.
+
+Backend: <span className="color--primary">`pants.backend.awslambda.python`</span>
+
+---
+
+<span className={styles.options}>
+
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str]`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/2.26/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `architecture`
+
+<Field
+    type_repr={`'arm64' | 'x86_64' | None`}
+    default_repr={`'x86_64'`}
+>
+
+The architecture of the AWS Lambda runtime to target (x86_64 or arm64). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html.
+
+</Field>
+
+## `complete_platforms`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The platforms the built PEX should be compatible with.
+
+There must be built wheels available for all of the foreign platforms, rather than sdists.
+
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+
+Complete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+
+See https://www.pantsbuild.org/2.26/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
+
+N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform&#x27;s ambient interpreter, such as when running in an docker environment.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `environment`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'__local__'`}
+>
+
+Specify which environment target to consume environment-sensitive options from.
+
+Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
+
+You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
+
+</Field>
+
+## `include_requirements`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to resolve requirements and include them in the AWS Lambda artifact. This is most useful with Lambda Layers to make code uploads smaller when third-party requirements are in layers. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+
+</Field>
+
+## `include_sources`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to resolve first party sources and include them in the AWS Lambda artifact. This is most useful to allow creating a Lambda Layer with only third-party requirements. https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html
+
+</Field>
+
+## `layout`
+
+<Field
+    type_repr={`'flat' | 'flat-zipped' | 'venv' | None`}
+    default_repr={`'flat-zipped'`}
+>
+
+Control the layout of the final artifact: `flat` creates a directory with the source and requirements at the top level, as recommended by cloud vendors, while `flat-zipped` (the default) wraps this up into a single zip file.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'\${spec_path_normalized}/\${target_name_normalized}\${file_suffix}'`}
+>
+
+Where the built asset should be located.
+
+This field supports the following template replacements:
+
+- `${spec_path_normalized}`: The path to the target&#x27;s directory (&#x22;spec path&#x22;) with forward slashes replaced by dots.
+
+- `${target_name_normalized}`: The target&#x27;s name with paramaterizations escaped by replacing dots with underscores.
+
+- `${file_suffix}`: For target&#x27;s which produce single file artifacts, this is the file type suffix to use with a leading dot,
+  and is empty otherwise when not applicable.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. This behavior corresponds to the default template: `${spec_path_normalized}/${target_name_normalized}${file_suffix}`
+
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `pex_build_extra_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Additional arguments to pass to the `pex` invocation that is used to collect the requirements and sources for packaging.
+
+For example, `pex_build_extra_args=["--exclude=pypi-package-name"]` to force a package called `pypi-package-name` isn&#x27;t included in the artifact.
+
+Note: Excluding dependencies currently causes Pex to throw an error. You can additionally pass the `--ignore-errors` flag.
+
+</Field>
+
+## `pex3_venv_create_extra_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Any extra arguments to pass to the `pex3 venv create` invocation that is used to create the final zip file or directory.
+
+For example, `pex3_venv_create_extra_args=["--collisions-ok"]`, if using packages that have colliding files that aren&#x27;t required at runtime (errors like &#x22;Encountered collisions populating ...&#x22;).
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `runtime`
+
+<Field
+    type_repr={`'python3.10' | 'python3.11' | 'python3.12' | 'python3.13' | 'python3.6' | 'python3.7' | 'python3.8' | 'python3.9' | None`}
+    default_repr={`None`}
+>
+
+The identifier of the AWS Lambda runtime to target (pythonX.Y). See https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html.
+
+N.B.: only one of this and `complete_platforms` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. If you have issues either packaging the AWS Lambda PEX or running it as a deployed AWS Lambda function, you should try using an explicit `complete_platforms` instead.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+</span>
