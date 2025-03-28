@@ -28,10 +28,10 @@ Config section: <span className="color--primary">`[dockerfile-parser]`</span>
   env_repr='PANTS_DOCKERFILE_PARSER_USE_RUST_PARSER'
   toml_repr={`[dockerfile-parser]
 use_rust_parser = <bool>`}
-  default_repr={`False`}
+  default_repr={`True`}
 >
 
-Use the new experimental Rust-based, multithreaded, in-process dependency parser.
+Use the new Rust-based, multithreaded, in-process dependency parser.
 
 This new parser does not require the `dockerfile` dependency and thus, for instance, doesn&#x27;t require Go to be installed to run on platforms for which that package doesn&#x27;t provide pre-built wheels.
 
@@ -55,7 +55,7 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.26/docs/python/overview/lockfiles#lockfiles-for-tools.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.27/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
