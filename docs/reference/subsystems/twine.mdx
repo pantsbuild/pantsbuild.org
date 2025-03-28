@@ -71,7 +71,7 @@ Uses the value from `[GLOBAL].ca_certs_path` by default. Set to `"<none>"` to no
 
 Even when using the `docker_environment` and `remote_environment` targets, this path will be read from the local host, and those certs will be used in the environment.
 
-This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/2.26/docs/using-pants/key-concepts/options.
+This option cannot be overridden via environment targets, so if you need a different value than what the rest of your organization is using, override the value via an environment variable, CLI argument, or `.pants.rc` file. See https://www.pantsbuild.org/2.27/docs/using-pants/key-concepts/options.
 
 </Option>
 
@@ -147,7 +147,7 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.26/docs/python/overview/lockfiles#lockfiles-for-tools.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.27/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
