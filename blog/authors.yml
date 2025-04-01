@@ -43,6 +43,11 @@ grihabor:
   title: Pants Contributor
   url: https://github.com/grihabor
   image_url: https://github.com/grihabor.png
+huonw:
+  name: Huon Wilson
+  title: Pants Maintainer
+  url: https://github.com/huonw
+  image_url: https://github.com/huonw.png
 joshua:
   name: Joshua Cannon
   title: Pants Maintainer
