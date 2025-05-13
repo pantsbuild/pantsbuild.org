@@ -1,0 +1,563 @@
+---
+title: nfpm_rpm_package
+description: |
+  An RPM system package built by nFPM.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+An RPM system package built by nFPM.
+
+This will not install the package, only create an .rpm file that you can then distribute and install, e.g. via pkg.
+
+See https://www.pantsbuild.org/nfpm-rpm-package.
+
+Backend: <span className="color--primary">`pants.backend.experimental.nfpm`</span>
+
+---
+
+<span className={styles.options}>
+
+## `package_name`
+
+<Field
+    type_repr={`str`}
+>
+
+The package name.
+
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`str`}
+>
+
+The package version (preferably following semver).
+
+If &#x27;version_schema&#x27; is not &#x27;semver&#x27;, then this should not be prefixed with a &#x27;v&#x27; because some package managers, like deb, require the version start with a digit.
+
+See the &#x27;version_schema&#x27; field&#x27;s help for more details about how this field gets parsed by nFPM when it is &#x27;semver&#x27;.
+
+</Field>
+
+## `arch`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'amd64'`}
+>
+
+The package architecture.
+
+This should be a valid GOARCH value (or GOARCH+GOARM) that nFPM can convert into the package-specific equivalent. Otherwise, pants tells nFPM to use this value as-is.
+
+nFPM conversion from GOARCH to package-specific value is documented here: https://nfpm.goreleaser.com/goarch-to-pkg/
+
+Use one of these values unless you need nFPM to use your value as-is: `'386' | 'all' | 'amd64' | 'arm5' | 'arm6' | 'arm7' | 'arm64' | 'loong64' | 'mips' | 'mipsle' | 'mips64' | 'mips64le' | 'ppc64' | 'ppc64le' | 'riscv64' | 's390' | 's390x' | 'sparc64' | 'wasm'`
+
+</Field>
+
+## `compression`
+
+<Field
+    type_repr={`'gzip' | 'lzma' | 'xz' | 'zstd' | None`}
+    default_repr={`'gzip:-1'`}
+>
+
+The compression algorithm to use on the rpm package.
+
+This takes a compression algorithm and optionally a compression level. To specify a level, use &#x27;algorithm:level&#x27;. Specifying a compression level is only valid for &#x27;gzip&#x27; or &#x27;zstd&#x27;.
+
+Here are several gzip examples with and without the optional compression level (-1 means use the default level which is 5; 9 is the max).
+
+- &#x27;gzip:9&#x27;
+- &#x27;gzip:0&#x27;
+- &#x27;gzip:-1&#x27;
+- &#x27;gzip:5&#x27;
+- &#x27;gzip&#x27;
+
+Here are several zstd examples. Note that nFPM uses a library that only defines four named compression levels, and then maps the zstd integer levels to those. You may specify the zstd level as an integer, or using these names: https://github.com/klauspost/compress/tree/master/zstd#status
+
+- &#x27;zstd:fastest&#x27;
+- &#x27;zstd:default&#x27;
+- &#x27;zstd:better&#x27;
+- &#x27;zstd:best&#x27;
+- &#x27;zstd:3&#x27;
+- &#x27;zstd:9&#x27;
+- &#x27;zstd&#x27;
+
+</Field>
+
+## `conflicts`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of packages that this package conflicts with.
+
+Packages that conflict with each other cannot be installed at the same time.
+
+The &#x27;conflicts&#x27; field has the same syntax as the &#x27;depends&#x27; field.
+
+See: https://rpm-software-management.github.io/rpm/manual/dependencies.html#conflicts https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/ https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-CONFLICTS-TAG https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-depend-manual-dependencies.html#S2-RPM-DEPEND-CONFLICTS-TAG
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/2.27/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `depends`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+List of package requirements (for package installers).
+
+The &#x27;depends&#x27; field has install-time requirements that can use version selectors (with one of `<`, `<=`, `=`, `>=`, `>` surrounded by spaces), where the version is formatted: `[epoch:]version[-release]`
+
+- &#x22;git&#x22;
+- &#x22;bash &#x3C; 5&#x22;
+- &#x22;perl &#x3E;= 9:5.00502-3&#x22;
+
+The rpm file header uses the term &#x22;requires&#x22; for this. This field is named &#x22;depends&#x22; because that is the term used by nFPM.
+
+WARNING: This is NOT the same as the &#x27;dependencies&#x27; field! It does not accept pants-style dependencies like target addresses.
+
+See: https://rpm-software-management.github.io/rpm/manual/dependencies.html#requires https://rpm-software-management.github.io/rpm/manual/dependencies.html#versioning https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-REQUIRES-TAG https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-depend-manual-dependencies.html#S2-RPM-DEPEND-REQUIRES-TAG
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `ghost_contents`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of files that this package owns, but that this package does not include.
+
+Examples of ghosted files include:
+
+- A log file or a state file that does not exist until runtime.
+- A binary that is managed by &#x27;alternatives&#x27;.
+
+RPM specs use the `%ghost` directive to list these ghosted files.
+
+Each file in this list gets passed to nFPM via the &#x27;contents&#x27; field with &#x27;type=ghost&#x27;. Then nFPM translates that into the appropriate RPM header. The file does not need to exist in your pants workspace as nFPM directly adds it to the RPM header.
+
+See: https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-files-list-directives.html#S3-RPM-INSIDE-FLIST-GHOST-DIRECTIVE
+
+N.B.: Packages distributed by Fedora must use this if they provide &#x27;alternatives&#x27;. https://docs.fedoraproject.org/en-US/packaging-guidelines/Alternatives/#_how_to_use_alternatives
+
+</Field>
+
+## `group`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+For older rpm-based distros, this groups packages by their functionality.
+
+&#x27;group&#x27; is a path-like string to allow for hierarchical grouping of applications like &#x22;Applications/Editors&#x22;.
+
+See: https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-GROUP-TAG
+
+N.B.: This field is only useful when packaging for old distros (EL 5 or earlier). All newer rpm-based distros have deprecated--and do not use--this field. https://docs.fedoraproject.org/en-US/packaging-guidelines/#_tags_and_sections
+
+</Field>
+
+## `homepage`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The URL of this package&#x27;s homepage like &#x22;https://example.com&#x22;.
+
+This field is named &#x22;homepage&#x22; instead of &#x22;url&#x22; because that is the term used by nFPM, which adopted the term from deb packaging. The term &#x22;url&#x22; is used by apk, archlinux, and rpm packaging.
+
+</Field>
+
+## `license`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The license of this package.
+
+Where possible, please try to use the SPDX license identifiers (for example &#x22;Apache-2.0&#x22;, &#x22;BSD-3-Clause&#x22;, &#x22;GPL-3.0-or-later&#x22;, or &#x22;MIT&#x22;): https://spdx.org/licenses/
+
+For more complex cases, where the package includes software with multiple licenses, consider using an SPDX license expression: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
+
+See also these rpm-specific descriptions of how to set this field (this is helpful info even if you are not using rpm): https://docs.fedoraproject.org/en-US/legal/license-field/
+
+nFPM does not yet generate the debian/copyright file, so this field is technically unused for now. Even for deb, we recommend using this field to document the software license for this package. See also these pages about specifying a license for deb packaging: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/#license-specification https://wiki.debian.org/Proposals/CopyrightFormat#Differences_between_DEP5_and_SPDX
+
+</Field>
+
+## `mtime`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'1980-01-01T00:00:00Z'`}
+>
+
+The file modification time as an RFC 3339 formatted string.
+
+For example: 2008-01-02T15:04:05Z
+
+The format is defined in RFC 3339: https://rfc-editor.org/rfc/rfc3339.html
+
+NOTE: This field does NOT set the mtime for package contents. It sets the build time in package metadata (for package types that have that metadata), as well as the file modification time for files that nFPM generates in the package. To set the mtime for package contents, use the `file_mtime` field on the relevant `nfpm_content_*` targets.
+
+The default value is &#x27;1980-01-01T00:00:00Z&#x27;. You may also override the default value by setting `[nfpm].default_mtime` in `pants.toml`, or by setting the `SOURCE_DATE_EPOCH` environment variable.
+
+See also: https://reproducible-builds.org/docs/timestamps/
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'\${spec_path_normalized}/\${target_name_normalized}\${file_suffix}'`}
+>
+
+Where the built directory tree should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/project/packaging:rpm` would be `src.project.packaging/rpm/`.
+
+Regardless of whether you use the default or set this field, the package&#x27;s file name will have the packaging system&#x27;s conventional filename (as understood by nFPM). So, an rpm using the default for this field, the target `src/project/packaging:rpm` might have a final path like `src.project.packaging/rpm/projectname-1.2.3-1.x86_64.rpm`. Similarly, for deb, the target `src/project/packaging:deb` might have a final path like `src.project.packaging/deb/projectname_1.2.3+git-1_x86_64.deb`. The other packagers have their own formats as well.
+
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `packager`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The name and email address of the packager or packager organization.
+
+The &#x27;packager&#x27; is used to identify who actually packaged the software, as opposed to the author of the software.
+
+The name is first, then the email address inside angle brackets `<>` (in RFC5322 format). For example: &#x22;Foo Bar &#x3C;maintainer@example.com&#x3E;&#x22; This format is the conventional format; it not a hard requirement.
+
+See: https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-PACKAGER-TAG
+
+N.B.: Packages distributed by Fedora do not use this field. https://docs.fedoraproject.org/en-US/packaging-guidelines/#_tags_and_sections
+
+</Field>
+
+## `platform`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'linux'`}
+>
+
+The package platform or OS.
+
+You probably do not need to change the package&#x27;s OS. nFPM is designed with the assumption that this is a GOOS value (since nFPM is part of the &#x22;goreleaser&#x22; project). But, nFPM does not do much with it.
+
+For archlinux and apk, the only valid value is &#x27;linux&#x27;. For deb, this can be used as part of the &#x27;Architecture&#x27; entry. For rpm, this populates the &#x22;OS&#x22; tag.
+
+</Field>
+
+## `prefixes`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of relocatable prefixes (to support relocatable rpms).
+
+Defining &#x27;prefixes&#x27; allows rpm to install your package at an alternative prefix if the user requests that using the `--prefix` flag. This list is the default list of prefixes used by this package. If rpm relocates an installation of this package, it will strip off each of these prefixes, replacing them with the `--prefix` requested by the user.
+
+Before using this, ensure that any packaged software can actually run from alternate prefixes, and watch out for any absolute symlinks targets which might not be relocated correctly.
+
+RPM specs use the `Prefix:` tag to list each prefix in this list.
+
+See: https://rpm-software-management.github.io/rpm/manual/tags.html#packages-with-files https://ftp.osuosl.org/pub/rpm/max-rpm/ch-rpm-reloc.html https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-PREFIX-TAG
+
+</Field>
+
+## `provides`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of virtual packages or file paths that this package provides.
+
+This is used so that multiple packages can be be alternatives for each other. The list can include virtual package names and/or file paths. For example the `bash` package includes these in &#x27;provides&#x27;:
+
+- &#x22;bash&#x22;
+- &#x22;/bin/sh&#x22;
+- &#x22;/bin/bash&#x22;
+
+This means another package could also provide alternative implementations for the &#x22;bash&#x22; package name and could provide &#x22;/bin/sh&#x22; and/or &#x22;/bin/bash&#x22;.
+
+N.B.: Virtual package names must not include any version numbers.
+
+See: https://rpm-software-management.github.io/rpm/manual/dependencies.html#provides https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-depend-manual-dependencies.html#S2-RPM-DEPEND-PROVIDES-TAG
+
+</Field>
+
+## `recommends`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+List of weak package requirements (for package installers).
+
+This is like the &#x27;depends&#x27; field, but the package resolver can ignore the requirement if it cannot resolve the packages with it included. If an entry in &#x27;recommends&#x27; is ignored, no error or warning gets reported.
+
+The &#x27;recommends&#x27; field has the same syntax as the &#x27;depends&#x27; field.
+
+See: https://rpm-software-management.github.io/rpm/manual/dependencies.html#weak-dependencies
+
+</Field>
+
+## `replaces`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of packages that this package obsoletes (replaces).
+
+When a pacakge name changes or splits, rpm uses &#x22;obsoletes&#x22; (ie the &#x27;replaces&#x27; field) on the new package to list the old package name(s) that can be upgraded to this package.
+
+The rpm file header uses the term &#x22;obsoletes&#x22; for this. This field is named &#x22;replaces&#x22; because that is the term used by nFPM.
+
+See: https://rpm-software-management.github.io/rpm/manual/dependencies.html#obsoletes
+
+</Field>
+
+## `scripts`
+
+<Field
+    type_repr={`dict[str, str] | None`}
+    default_repr={`None`}
+>
+
+Map of install scriptlet source files for the deb package.
+
+This maps the script type (key) to the script source file (value). Each of the script source file(s) must be provided via &#x27;dependencies&#x27;. The script types are the names used by nFPM. For reference, RPM uses the following scriptlet tag names instead and runs them before/after the indicated phase:
+
+| nFPM term | RPM scriptlet | RPM phase | +-------------+---------------+-------------+ | preinstall | %pre | install | | postinstall | %post | install | | preremove | %preun | uninstall | | postremove | %postun | uninstall | | pretrans | %pretrans | transaction | | posttrans | %posttrans | transaction | | verify | %verifyscript | verify |
+
+Please consult the RPM docs to understand what is required of these scripts.
+
+See: https://docs.fedoraproject.org/en-US/packaging-guidelines/Scriptlets/ https://rpm-software-management.github.io/rpm/manual/tags.html#scriptlets https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-scripts.html#S2-RPM-INSIDE-ERASE-TIME-SCRIPTS
+
+</Field>
+
+## `suggests`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+List of very weak package requirements (for package installers).
+
+These suggestions are ignored by the package resolver. They are merely shown to the user as optional packages that the user might want to also install.
+
+The &#x27;suggests&#x27; field has the same syntax as the &#x27;depends&#x27; field.
+
+See: https://rpm-software-management.github.io/rpm/manual/dependencies.html#weak-dependencies
+
+</Field>
+
+## `summary`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A one-line description of the packaged software.
+
+If unset, nFPM will use the first line of &#x27;description&#x27; for the &#x27;summary&#x27;.
+
+See: https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-SUMMARY-TAG
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `vendor`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The entity responsible for packaging (typically an organization).
+
+See: https://ftp.osuosl.org/pub/rpm/max-rpm/s1-rpm-inside-tags.html#S3-RPM-INSIDE-VENDOR-TAG
+
+N.B.: Packages distributed by Fedora do not use this field. https://docs.fedoraproject.org/en-US/packaging-guidelines/#_tags_and_sections
+
+</Field>
+
+## `version_epoch`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`None`}
+>
+
+A package with a higher version epoch will always be considered newer. This is primarily useful when the version numbering scheme has changed.
+
+Debian and RPM documentation warn against using epoch in most cases: https://www.debian.org/doc/debian-policy/ch-controlfields.html#epochs-should-be-used-sparingly https://rpm-packaging-guide.github.io/#epoch
+
+When this field is None (the default) nFPM will use &#x22;&#x22; for deb packages, and &#x22;0&#x22; for rpm packages.
+
+N.B.: The nFPM documentation incorrectly notes that nFPM can parse this from the &#x27;version&#x27; field; the nFPM code actually does not replace or update this.
+
+</Field>
+
+## `version_metadata`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+This is package-manager specific metadata for the version.
+
+This is typically prefixed with a &#x22;+&#x22; in the version. If the version contains &#x22;+git&#x22;, then the &#x27;version_metadata&#x27; is &#x22;git&#x22;. Debian has various conventions for this metadata, including things like &#x22;+b&#x22;, &#x22;+nmu&#x22;, &#x22;+really&#x22;, and &#x22;+deb10u1&#x22;. See: https://www.debian.org/doc/debian-policy/ch-controlfields.html#special-version-conventions
+
+nFPM extracts the default for this from &#x27;version&#x27; if it is semver compatible. If you set &#x27;version_metadata&#x27;, then any metadata component of &#x27;version&#x27; gets discarded.
+
+</Field>
+
+## `version_prerelease`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+This is a pre-release indicator like &#x22;alpha&#x22; or &#x22;beta&#x22; and often includes a numeric component like &#x22;rc1&#x22; and &#x22;rc2&#x22;.
+
+For apk and archlinux, version and prerelease are merely concatenated. For deb and rpm, prerelease is typically prefixed with a &#x22;~&#x22; in the version.
+
+nFPM extracts the default for this from &#x27;version&#x27; if it is semver compatible. If you set &#x27;version_prerelease&#x27;, then any prerelease component of &#x27;version&#x27; gets discarded.
+
+</Field>
+
+## `version_release`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`1`}
+>
+
+The release or revision number for a given package version.
+
+Increment the release each time you release the same version of the package. Often, these releases allow for correcting metadata about a package or to rebuild something that was broken in a previous release of that version.
+
+Reset this to 1 whenever you bump the &#x27;version&#x27; field.
+
+N.B.: nFPM does NOT parse this from the &#x27;version&#x27; field.
+
+</Field>
+
+## `version_schema`
+
+<Field
+    type_repr={`'none' | 'semver' | None`}
+    default_repr={`'semver'`}
+>
+
+Which schema the &#x27;version&#x27; field follows.
+
+nFPM only supports two schemas for now: semver, none
+
+If this is &#x22;none&#x22;, then nFPM will use &#x27;version&#x27; as-is.
+
+If this is &#x22;semver&#x22;, then nFPM will parse &#x27;version&#x27; into its constituent parts using a lenient algorithm: It will strip a `v` prefix and will accept versions with fewer than 3 components, like `v1.2`. If parsing fails, then the version is used as-is. If parsing succeeds, nFPM replaces config options with the parsed components.
+
+The &#x27;version&#x27; field always gets replaced with a dotted 3 part version (Major.Minor.Patch).
+
+The &#x27;version_prerelease&#x27; field is only updated if not set. It gets the &#x22;dev&#x22;, &#x22;alpha&#x22;, &#x22;rc&#x22;, or similar parsed prerelease indicator.
+
+The &#x27;version_metadata&#x27; field is only updated if not set. This will be set with &#x22;git&#x22; when the version contains &#x22;+git&#x22; and similar metadata tags.
+
+The &#x27;version_release&#x27; and &#x27;version_epoch&#x27; fields are NOT replaced by components parsed from &#x27;version&#x27;.
+
+N.B.: Some of these fields are not available for all package types.
+
+This field is named &#x22;version&#x22; because that is the term used by nFPM. Though deb and rpm packaging also use &#x22;version&#x22;, this is known as &#x22;pkgver&#x22; in apk and archlinux packaging.
+
+</Field>
+
+</span>
