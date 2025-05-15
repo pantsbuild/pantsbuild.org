@@ -175,7 +175,7 @@ See also `execution_dependencies` and `runnable_dependencies`.
 
 Specify full directories (including recursive descendants) of output to capture, relative to the value of `workdir`.
 
-For individual files, use `output_files`. At least one of `output_files` and`output_directories` must be specified.
+For individual files, use `output_files`. At least one of `output_files` and `output_directories` must be specified.
 
 Relative paths (including `..`) may be used, as long as the path does not ascend further than the build root.
 
@@ -190,7 +190,7 @@ Relative paths (including `..`) may be used, as long as the path does not ascend
 
 Specify the output files to capture, relative to the value of `workdir`.
 
-For directories, use `output_directories`. At least one of `output_files` and`output_directories` must be specified.
+For directories, use `output_directories`. At least one of `output_files` and `output_directories` must be specified.
 
 Relative paths (including `..`) may be used, as long as the path does not ascend further than the build root.
 
@@ -226,9 +226,15 @@ Valid values are:
     default_repr={`'prepend'`}
 >
 
-When executing the command of an `adhoc_tool` or `shell_command` target, Pants may augment the `PATH` environment variable with the location of any binary shims created for `tools` and for any runnable dependencies.
+When executing the command of an `adhoc_tool`, `shell_command`, or `test_shell_command` target, Pants may augment the `PATH` environment variable with the location of any binary shims created for `tools` and any runnable dependencies.
 
-Modification of the `PATH` environment variable can be configured as follows: - `prepend`: Prepend the extra path components to any existing `PATH` value. - `append`: Append the extra path componenets to any existing `PATH` value. - `off`: Do not modify the existing `PATH` value.
+Modification of the `PATH` environment variable can be configured as follows:
+
+- `prepend`: Prepend the extra path components to any existing `PATH` value.
+
+- `append`: Append the extra path componenets to any existing `PATH` value.
+
+- `off`: Do not modify the existing `PATH` value.
 
 </Field>
 
