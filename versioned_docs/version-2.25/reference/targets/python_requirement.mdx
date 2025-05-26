@@ -96,7 +96,7 @@ The modules this requirement provides (used for dependency inference).
 
 For example, the requirement `setuptools` provides `["setuptools", "pkg_resources", "easy_install"]`.
 
-Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.25.1/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.
+Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.25.2rc0/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.
 
 Mutually exclusive with the `type_stub_modules` field.
 
@@ -141,7 +141,7 @@ The modules this requirement provides if the requirement is a type stub (used fo
 
 For example, the requirement `types-requests` provides `["requests"]`.
 
-Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.25.1/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).
+Usually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.25.2rc0/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).
 
 Mutually exclusive with the `modules` field.
 
