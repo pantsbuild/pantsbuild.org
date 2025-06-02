@@ -30,5 +30,101 @@
       "id": "docs/introduction/how-does-pants-work",
       "label": "Docs"
     }
+  ],
+  "releaseNotesSidebar": [
+    {
+      "type": "category",
+      "label": "Release Notes",
+      "link": {
+        "type": "doc",
+        "id": "notes/2.20.x"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "id": "notes/2.20.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.19.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.18.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.17.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.16.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.15.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.14.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.13.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.12.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.11.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.10.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.9.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.8.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.7.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.6.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.5.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.4.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.3.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.2.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.1.x"
+        },
+        {
+          "type": "doc",
+          "id": "notes/2.0.x"
+        }
+      ]
+    }
   ]
 }
