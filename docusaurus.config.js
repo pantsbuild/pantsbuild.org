@@ -184,6 +184,10 @@ const config = {
   onBrokenLinks: isDev ? "warn" : "warn",
   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
+  markdown: {
+    format: "detect",
+  },
+
   webpack: {
     jsLoader: (isServer) => ({
       loader: require.resolve("swc-loader"),
@@ -254,6 +258,12 @@ const config = {
           position: "left",
           sidebarId: "referenceSidebar",
           label: "Reference",
+        },
+        {
+          type: "docSidebar",
+          position: "left",
+          sidebarId: "releaseNotesSidebar",
+          label: "Release Notes",
         },
         { to: "/blog", label: "Blog", position: "left" },
         { to: "/sponsors", label: "Sponsors", position: "left" },
