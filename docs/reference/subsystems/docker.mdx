@@ -350,6 +350,20 @@ List any additional executables which are not mandatory for Docker to work, but 
 
 </Option>
 
+### `suggest_renames`
+
+<Option
+  cli_repr={`--[no-]docker-suggest-renames`}
+  env_repr='PANTS_DOCKER_SUGGEST_RENAMES'
+  toml_repr={`[docker]
+suggest_renames = <bool>`}
+  default_repr={`True`}
+>
+
+When true and, the `docker_image` build fails, enrich the logs with suggestions for renaming source file COPY instructions where possible.
+
+</Option>
+
 ### `tailor`
 
 <Option

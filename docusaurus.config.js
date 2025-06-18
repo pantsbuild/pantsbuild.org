@@ -184,31 +184,13 @@ const config = {
   onBrokenLinks: isDev ? "warn" : "warn",
   onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve("swc-loader"),
-      options: {
-        jsc: {
-          parser: {
-            syntax: "ecmascript",
-            tsx: false,
-            jsx: true,
-          },
-          transform: {
-            react: {
-              runtime: "automatic",
-            },
-          },
-          target: "es2017",
-        },
-        module: {
-          type: isServer ? "commonjs" : "es6",
-        },
-      },
-    }),
+  clientModules: ["./src/js/redirectCodeFragment.js"],
+
+  future: {
+    experimental_faster: true,
+    v4: true,
   },
 
-  clientModules: ["./src/js/redirectCodeFragment.js"],
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -464,6 +446,14 @@ const config = {
         },
       },
     ],
+    function disableExpensiveBundlerOptimizationPlugin() {
+      return {
+        name: "disable-expensive-bundler-optimizations",
+        configureWebpack(_config) {
+          return { optimization: { concatenateModules: false } };
+        },
+      };
+    },
   ],
 };
 
