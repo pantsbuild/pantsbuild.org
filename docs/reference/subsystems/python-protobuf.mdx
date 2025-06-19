@@ -21,6 +21,20 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 ## Basic options
 
+### `generate_type_stubs`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-generate-type-stubs`}
+  env_repr='PANTS_PYTHON_PROTOBUF_GENERATE_TYPE_STUBS'
+  toml_repr={`[python-protobuf]
+generate_type_stubs = <bool>`}
+  default_repr={`False`}
+>
+
+If True, then configure `protoc` to also generate `.pyi` type stubs for each generated Python file. This option will work wih any recent version of `protoc` and should be preferred over the `--python-protobuf-mypy-plugin` option.
+
+</Option>
+
 ### `grpcio_plugin`
 
 <Option
@@ -60,6 +74,8 @@ mypy_plugin = <bool>`}
 >
 
 Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate `.pyi` type stubs.
+
+Please prefer the `--python-protobuf-generate-type-stubs` option over this option since recent versions of `protoc` have the ability to directly generate type stubs.
 
 </Option>
 

@@ -99,6 +99,46 @@ If not defined, will default to `[jvm].default_resolve`.
 
 </Field>
 
+## `python_additional_properties`
+
+<Field
+    type_repr={`dict[str, str] | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.python"
+>
+
+Additional properties for python generator
+
+</Field>
+
+## `python_generator_name`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.python"
+>
+
+Python generator name
+
+</Field>
+
+## `python_resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.openapi.codegen.python"
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
 ## `skip_java`
 
 <Field
@@ -108,6 +148,18 @@ If not defined, will default to `[jvm].default_resolve`.
 >
 
 If true, skips generation of Java sources from this target
+
+</Field>
+
+## `skip_python`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.openapi.codegen.python"
+>
+
+If true, skips generation of Python sources from this target
 
 </Field>
 
