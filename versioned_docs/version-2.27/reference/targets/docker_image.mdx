@@ -434,6 +434,18 @@ If true, do not push this image to registries when running `pants publish`.
 
 </Field>
 
+## `skip_trivy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.docker.lint.trivy"
+>
+
+If true, don&#x27;t run Trivy on this target&#x27;s Terraform files
+
+</Field>
+
 ## `source`
 
 <Field
