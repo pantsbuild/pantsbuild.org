@@ -16,6 +16,9 @@ on:
         required: false
         type: string
 
+env:
+  NODE_VERSION: 24.x
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -41,6 +44,7 @@ jobs:
           ref: release_${{ inputs.version }}
           fetch-depth: 0
           path: pants
+
       - name: Checkout docs repo
         uses: actions/checkout@v4
         with:
@@ -48,22 +52,26 @@ jobs:
           fetch-depth: 0
           path: pantsbuild.org
 
-      # Setup `node` and friends
-      - name: Setup Node
-        uses: actions/setup-node@v3
+      # Setup `node` and and `pnpm`
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: "18"
-      - name: Get yarn cache
-        id: yarn-cache
-        run: echo "YARN_CACHE_DIR=$(yarn cache dir)" >> "${GITHUB_OUTPUT}"
-      - name: Cache dependencies
-        uses: actions/cache@v3
+          run_install: false
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
         with:
-          path: ${{ steps.yarn-cache.outputs.YARN_CACHE_DIR }}
-          key: ${{ runner.os }}-website-${{ hashFiles('pantsbuild.org/**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-website-
-      - run: yarn install --frozen-lockfile
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "PNPM_STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
         working-directory: pantsbuild.org
 
       # Calculate destination
@@ -75,7 +83,7 @@ jobs:
           if [ ! -d "$DESTINATION_DIR" ]; then
             if [[ "${{ inputs.version }}" =~ .*\.0a0$ ]]; then
               # a0 => we've cut a new branch from `main`, so make a new version
-              npm run docusaurus docs:version $BASE_VERSION
+              pnpm docusaurus docs:version $BASE_VERSION
             else
               DESTINATION_DIR="docs"
             fi
@@ -89,7 +97,7 @@ jobs:
 
       # Generate reference docs
       - name: Generate reference docs
-        run: npm run generate-reference "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
+        run: pnpm generate-reference "${{ steps.get-destination-dir.outputs.DESTINATION_DIR }}"
         working-directory: pantsbuild.org
 
       # Sync the docs repo
