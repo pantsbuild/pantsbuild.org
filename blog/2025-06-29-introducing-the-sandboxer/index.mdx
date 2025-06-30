@@ -52,7 +52,7 @@ Since the issue is due to a program writing out a binary and then executing it, 
 One way to do that is to delegate writing the binary file out to disk to another process.
 
 But there is a little extra complication: we can't always know which files in the sandbox are going to end up being executed. That is, we obviously know which binary Pants executes directly,
-but we don't know if that process will itself exec some other binary. So to be certain that we've solved the problem comprehensively we need to delegate writing *all* sandbox files to another process. And that is exactly what the Sandboxer process is for.
+but we don't know if that process will itself exec some other binary. So to be certain that we've solved the problem comprehensively we need to delegate writing _all_ sandbox files to another process. And that is exactly what the Sandboxer process is for.
 
 The Sandboxer is a sidecar process managed by the Pants daemon, `pantsd`. The Sandboxer is a very lightweight process, written in Rust. All it does is listen for gRPC requests on a local socket, and act on them. When `pantsd` needs to materialize files into a sandbox, it send a gRPC request to the Sandboxer with the details of the files that need materializing. The Sandboxer will read those files from the local store and materialize them to the relevant local sandbox directory.
 
