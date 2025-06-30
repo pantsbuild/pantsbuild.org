@@ -1,0 +1,68 @@
+---
+  authors: [benjy]
+  tags: [under-the-hood]
+  date: 2025-06-29
+---
+
+# Introducing the Sandboxer!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Anatol Rurac](https://unsplash.com/@tolikrurac82) on
+  [Unsplash](https://unsplash.com/photos/a-yellow-toy-bulldozer-digging-in-the-sand-hOyxnkkPQrI)
+</CaptionedImg>
+
+{/* truncate */}
+
+The latest Pants release, [2.27.0](/blog/2025/06/30/pants-2-27), includes a new feature known as the "sandboxer". This feature solves the "ETXTBSY race" - a longstanding issue on POSIX systems that is a particular nuisance to build systems.
+
+## The ETXTBSY race
+
+This issue is due to an apparent design flaw in POSIX, causing bad interactions between multithreaded programs that write binaries to disk and then attempt to run them. The issue is as follows:
+
+First, note that POSIX will error with ETXTBSY if an attempt is made to exec a binary that has any file descriptors open for writing. This on its own is a good thing, as you can imagine. Trying to exec a binary that is currently being written to could be disastrous!
+
+However, now consider a multithreaded process that writes out a binary in a thread and tries to execute it (in that same thread or in some other thread). On POSIX, executing another binary in a subprocess involves [two steps](https://en.wikipedia.org/wiki/Fork%E2%80%93exec):
+
+- `fork`: creates a clone of the current process. The child process is identical to the parent process, and so inherits all the parent process's open file descriptors.
+- `exec`: Just after the fork point, the child process detects that it is the child, and switches to running the new binary's executable. At that point all those inherited file descriptors will be closed.
+
+The problem manifests as the following race condition:
+
+- Thread A starts writing out binary `path/bin`, via an open write file descriptor.
+- Concurrently, thread B forks subprocess #1 in order to run some unrelated process. After subprocess #1 forks, but before it execs, it has a clone of the parent process's open write file descriptor to `path/bin`.
+- Thread A finishes writing out the binary, closes the file descriptor, and forks subprocess #2 to exec it.
+- If subprocess #2 proceeds to exec before subprocess #1 does, then the exec will fail due to the open write file handle still being held by subprocess #1.
+
+This is a fundamental issue with the POSIX model, and there are no simple workarounds. You can read a good writeup about this problem [here](https://github.com/golang/go/issues/22315).
+
+## Materializing Sandboxes
+
+Unfortunately, writing processes out to disk and then executing them is pretty critical functionality for Pants, and for most build systems like it. For Pants, specifically, this happens when materializing sandboxes.
+
+As a reminder, Pants executes each subprocess in a hermetic subdirectory known as a "sandbox". Executing a process typically involves writing all the process's inputs into the sandbox directory, and then executing the process with the sandbox as its working directory. This ensures that the process runs on exactly the inputs that the result is cached against.
+The contents of these input files are stored in a local or remote content-addressable store; Writing them out to the sandbox is referred to as "materializing" the files.
+
+In many cases these input files include the binary to be executed. So Pants must write the binary out to disk, in the sandbox, and then execute it. And since Pants is a multithreaded process, this can trigger the ETXTBSY race.
+
+Previously we attempted to mitigate the problem via retry loops and other hacks. These have made the issue less frequent, but they aren't robust solutions.
+
+## The Sandboxer Process
+
+Since the issue is due to a program writing out a binary and then executing it, the solution naturally needs to take one of those aspects out of the equation.
+One way to do that is to delegate writing the binary file out to disk to another process.
+
+But there is a little extra complication: we can't always know which files in the sandbox are going to end up being executed. That is, we obviously know which binary Pants executes directly,
+but we don't know if that process will itself exec some other binary. So to be certain that we've solved the problem comprehensively we need to delegate writing *all* sandbox files to another process. And that is exactly what the Sandboxer process is for.
+
+The Sandboxer is a sidecar process managed by the Pants daemon, `pantsd`. The Sandboxer is a very lightweight process, written in Rust. All it does is listen for gRPC requests on a local socket, and act on them. When `pantsd` needs to materialize files into a sandbox, it send a gRPC request to the Sandboxer with the details of the files that need materializing. The Sandboxer will read those files from the local store and materialize them to the relevant local sandbox directory.
+
+Note that with the Sandboxer, the `pantsd` process itself doesn't write out binaries, but does execute them, and the Sandboxer process does write out binaries but doesn't execute them. So the ETXTBSY race is avoided by both.
+
+The Sandboxer process is stateless, and is cheap to restart, so it is quick to exit on errors or inactivity. `pantsd` will restart it as needed.
+
+## Using the Sandboxer
+
+The Sandboxer functionality is new and so is currently turned off by default. If you encounter an ETXTBSY error, you can set the [global `sandboxer` option](https://www.pantsbuild.org/2.27/reference/global-options#sandboxer) to true to enable this feature.
+In the future we will likely enable this by default. We'll then be able to remove the previous mitigations, which will simplify the codebase.
+
+The Sandboxer solves a longstanding, if infrequent, issue that has plagued Pants users. We hope it increases the robustness and reliability of the system for you and your team!
