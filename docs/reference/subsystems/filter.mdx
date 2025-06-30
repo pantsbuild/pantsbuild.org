@@ -11,7 +11,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 Filter the input targets based on various criteria.
 
-Most of the filtering options below are comma-separated lists of filtering criteria, with an implied logical OR between them, so that a target passes the filter if it matches any of the criteria in the list. A &#x27;-&#x27; prefix inverts the sense of the entire comma-separated list, so that a target passes the filter only if it matches none of the criteria in the list.
+Most of the filtering options below are comma-separated lists of filtering criteria, with an implied logical OR between them, so that a target passes the filter if it matches any of the criteria in the list.
+
+A &#x27;-&#x27; prefix inverts the sense of the entire comma-separated list, so that a target passes the filter only if it matches _none_ of the criteria in the list.
 
 Each of the filtering options may be specified multiple times, with an implied logical AND between them.
 
@@ -37,7 +39,11 @@ address_regex = [
   default_repr={`[]`}
 >
 
-Filter on target addresses matching these regexes.
+Filter targets based on each target&#x27;s address matching the provided regular expressions.
+
+The regular expressions are parsed by the Python `re` module. The syntax is documented at https://docs.python.org/3/library/re.html#regular-expression-syntax.
+
+As with any target filter, a `-` prefix will negate matches for purposes of filtering; that is, the filter will include a target only if the target&#x27;s adddress fails to match all of the provided regular expressions.
 
 </Option>
 
@@ -98,7 +104,11 @@ tag_regex = [
   default_repr={`[]`}
 >
 
-Filter on targets with tags matching these regexes.
+Filter targets based on whether any of each target&#x27;s tags (in the target&#x27;s `tags` field) matches the provided regular expressions.
+
+The regular expressions are parsed by the Python `re` module. The syntax is documented at https://docs.python.org/3/library/re.html#regular-expression-syntax.
+
+As with any target filter, a `-` prefix will negate matches for purposes of filtering; that is, the filter will include a target only if all of the target&#x27;s tags fail to match all of the provided regular expressions.
 
 </Option>
 
@@ -116,7 +126,9 @@ target_type = [
   default_repr={`[]`}
 >
 
-Filter on these target types, e.g. `resources` or `python_sources`.
+Filter targets based each targets&#x27;s target type, e.g. `resources` or `python_sources`.
+
+As with any target filter, a `-` prefix will negate matches for purposes of filtering; that is, the filter will include a target only if the target&#x27;s target type fails to match all of the provided values.
 
 </Option>
 

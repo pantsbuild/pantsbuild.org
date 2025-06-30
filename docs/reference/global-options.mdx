@@ -1385,6 +1385,20 @@ The maximum total size of blobs allowed to be sent in a single batch API call to
 
 </Option>
 
+### `remote_store_batch_load_enabled`
+
+<Option
+  cli_repr={`--[no-]remote-store-batch-load-enabled`}
+  env_repr='PANTS_REMOTE_STORE_BATCH_LOAD_ENABLED'
+  toml_repr={`[GLOBAL]
+remote_store_batch_load_enabled = <bool>`}
+  default_repr={`False`}
+>
+
+Whether to enable batch load requests to the remote store.
+
+</Option>
+
 ### `remote_store_chunk_bytes`
 
 <Option

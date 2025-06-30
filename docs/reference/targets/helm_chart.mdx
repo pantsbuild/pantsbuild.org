@@ -254,6 +254,18 @@ If set to true, do not push this Helm chart to registries when running `pants pu
 
 </Field>
 
+## `skip_trivy`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+    backend="pants.backend.experimental.helm.lint.trivy"
+>
+
+If true, don&#x27;t run Trivy on this target&#x27;s Terraform files
+
+</Field>
+
 ## `sources`
 
 <Field
