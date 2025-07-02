@@ -1,0 +1,79 @@
+---
+title: changed
+description: |
+  Tell Pants to detect what files and targets have changed from Git.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Tell Pants to detect what files and targets have changed from Git.
+
+See https://www.pantsbuild.org/2.28/docs/using-pants/advanced-target-selection.
+
+Backend: <span className="color--primary">``</span>
+
+Config section: <span className="color--primary">`[changed]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `dependents`
+
+<Option
+  cli_repr={`--changed-dependents=<DependentsOption>`}
+  env_repr='PANTS_CHANGED_DEPENDENTS'
+  toml_repr={`[changed]
+dependents = <DependentsOption>`}
+  one_of='none, direct, transitive'
+  default_repr={`none`}
+>
+
+Include direct or transitive dependents of changed targets.
+
+</Option>
+
+### `diffspec`
+
+<Option
+  cli_repr={`--changed-diffspec=<str>`}
+  env_repr='PANTS_CHANGED_DIFFSPEC'
+  toml_repr={`[changed]
+diffspec = <str>`}
+  default_repr={`None`}
+>
+
+Calculate changes contained within a given Git spec (commit range/SHA/ref).
+
+</Option>
+
+### `since`
+
+<Option
+  cli_repr={`--changed-since=<str>`}
+  env_repr='PANTS_CHANGED_SINCE'
+  toml_repr={`[changed]
+since = <str>`}
+  default_repr={`None`}
+>
+
+Calculate changes since this Git spec (commit range/SHA/ref).
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

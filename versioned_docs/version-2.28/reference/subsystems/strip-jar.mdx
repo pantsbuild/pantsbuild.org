@@ -1,0 +1,104 @@
+---
+title: strip-jar
+description: |
+  Reproducible Build Maven Plugin
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Reproducible Build Maven Plugin
+
+Backend: <span className="color--primary">`pants.backend.experimental.scala`</span>
+
+Config section: <span className="color--primary">`[strip-jar]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `artifacts`
+
+<Option
+  cli_repr={`--strip-jar-artifacts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_STRIP_JAR_ARTIFACTS'
+  toml_repr={`[strip-jar]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "io.github.zlika:reproducible-build-maven-plugin:{version}"\n]`}
+>
+
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[strip-jar].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--strip-jar-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_STRIP_JAR_JVM_OPTIONS'
+  toml_repr={`[strip-jar]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `strip-jar` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--strip-jar-lockfile=<str>`}
+  env_repr='PANTS_STRIP_JAR_LOCKFILE'
+  toml_repr={`[strip-jar]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.28.0a0/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--strip-jar-version=<str>`}
+  env_repr='PANTS_STRIP_JAR_VERSION'
+  toml_repr={`[strip-jar]
+version = <str>`}
+  default_repr={`0.16`}
+>
+
+Version string for the tool. This is available for substitution in the `[strip-jar].artifacts` option by including the string `{version}`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
