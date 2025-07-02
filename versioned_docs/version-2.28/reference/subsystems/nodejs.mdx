@@ -1,0 +1,312 @@
+---
+title: nodejs
+description: |
+  The Node.js Javascript runtime (including Corepack).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+The Node.js Javascript runtime (including Corepack).
+
+Backend: <span className="color--primary">`pants.backend.experimental.javascript`</span>
+
+Config section: <span className="color--primary">`[nodejs]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `package_manager`
+
+<Option
+  cli_repr={`--nodejs-package-manager=<str>`}
+  env_repr='PANTS_NODEJS_PACKAGE_MANAGER'
+  toml_repr={`[nodejs]
+package_manager = <str>`}
+  default_repr={`npm`}
+>
+
+Default Node.js package manager to use.
+
+You can either rely on this default together with the [nodejs].package_managers option, or specify the `package.json#packageManager` tool and version in the package.json of your project.
+
+Specifying conflicting package manager versions within a multi-package workspace is an error.
+
+</Option>
+
+### `package_managers`
+
+<Option
+  cli_repr={`--nodejs-package-managers="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_NODEJS_PACKAGE_MANAGERS'
+  toml_repr={`[nodejs.package_managers]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "npm": "10.9.2",\n  "pnpm": "9.15.6",\n  "yarn": "1.22.22"\n}`}
+>
+
+A mapping of package manager versions to semver releases.
+
+Many organizations only need a single version of a package manager, which is a good default and often the simplest thing to do.
+
+The version download is managed by Corepack. This mapping corresponds to the https://github.com/nodejs/corepack#known-good-releases setting, using the `--activate` flag.
+
+</Option>
+
+## Advanced options
+
+### `corepack_env_vars`
+
+<Option
+  cli_repr={`--nodejs-corepack-env-vars="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_NODEJS_COREPACK_ENV_VARS'
+  toml_repr={`[nodejs]
+corepack_env_vars = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+  target_field_name='nodejs_corepack_env_vars'
+>
+
+Environment variables to set for `corepack` invocations.
+
+Entries are either strings in the form `ENV_VAR=value` to set an explicit value; or just `ENV_VAR` to copy the value from Pants&#x27;s own environment.
+
+Review https://github.com/nodejs/corepack#environment-variables for available variables.
+
+</Option>
+
+### `executable_search_paths`
+
+<Option
+  cli_repr={`--nodejs-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_NODEJS_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[nodejs]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
+  default_repr={`[\n  "<PATH>"\n]`}
+  target_field_name='nodejs_executable_search_paths'
+>
+
+The PATH value that will be used to find any tools required to run nodejs processes. The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
+
+### `extra_env_vars`
+
+<Option
+  cli_repr={`--nodejs-extra-env-vars="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_NODEJS_EXTRA_ENV_VARS'
+  toml_repr={`[nodejs]
+extra_env_vars = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Environment variables to set during package manager operations.
+
+Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. `fnmatch` globs like `ENV_VAR_PREFIXED_*` can be used to copy multiple environment variables.
+
+</Option>
+
+### `known_versions`
+
+<Option
+  cli_repr={`--nodejs-known-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_NODEJS_KNOWN_VERSIONS'
+  toml_repr={`[nodejs]
+known_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "v22.14.0|macos_arm64|e9404633bc02a5162c5c573b1e2490f5fb44648345d64a958b17e325729a5e42|47035396",\n  "v22.14.0|macos_x86_64|6698587713ab565a94a360e091df9f6d91c8fadda6d00f0cf6526e9b40bed250|48656392",\n  "v22.14.0|linux_arm64|08bfbf538bad0e8cbb0269f0173cca28d705874a67a22f60b57d99dc99e30050|28636440",\n  "v22.14.0|linux_x86_64|69b09dba5c8dcb05c4e4273a4340db1005abeafe3927efda2bc5b249e80437ec|29893360"\n]`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of `version|platform|sha256|length` or
+`version|platform|sha256|length|url_override`, where:
+
+- `version` is the version string
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
+- (Optional) `url_override` is a specific url to use instead of the normally
+  generated url for this version
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `optional_tools`
+
+<Option
+  cli_repr={`--nodejs-optional-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_NODEJS_OPTIONAL_TOOLS'
+  toml_repr={`[nodejs]
+optional_tools = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List any additional executable which are not mandatory for node processes to work, but which should be included if available. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by nodejs processes execution.
+
+</Option>
+
+### `resolves`
+
+<Option
+  cli_repr={`--nodejs-resolves="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_NODEJS_RESOLVES'
+  toml_repr={`[nodejs.resolves]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+A mapping of names to lockfile paths used in your project.
+
+Specifying a resolve name is optional. If unspecified, the default resolve name is calculated by taking the path from the source root to the directory containing the lockfile and replacing &#x27;/&#x27; with &#x27;.&#x27; in that path.
+
+Example: An npm lockfile located at `src/js/package/package-lock.json` will result in a resolve named `js.package`, assuming src/ is a source root.
+
+Run `pants generate-lockfiles` to generate the lockfile(s).
+
+</Option>
+
+### `search_path`
+
+<Option
+  cli_repr={`--nodejs-search-path="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_NODEJS_SEARCH_PATH'
+  toml_repr={`[nodejs]
+search_path = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
+  default_repr={`[\n  "<PATH>"\n]`}
+  target_field_name='nodejs_search_path'
+>
+
+A list of paths to search for Node.js distributions.
+
+This option is only used if a templated url download specified via [nodejs].known_versions does not contain a version matching the configured [nodejs].version range.
+
+You can specify absolute paths to binaries and/or to directories containing binaries. The order of entries does not matter.
+
+The following special strings are supported:
+
+For all runtime environment types:
+
+- `<PATH>`, the contents of the PATH env var
+
+When the environment is a `local_environment` target:
+
+- `AsdfPathString.STANDARD`, all Node.js versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `AsdfPathString.LOCAL`, the ASDF binaries with the version in `BUILD_ROOT/.tool-versions`
+- `<NVM>`, all NodeJS versions under $NVM_DIR/versions/node
+- `<NVM_LOCAL>`, the nvm installation with the version in BUILD_ROOT/.nvmrc
+  Note that the version in the .nvmrc file has to be on the form &#x22;vX.Y.Z&#x22;.
+
+</Option>
+
+### `tools`
+
+<Option
+  cli_repr={`--nodejs-tools="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_NODEJS_TOOLS'
+  toml_repr={`[nodejs]
+tools = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List any additional executable tools required for node processes to work. The paths to these tools will be included in the PATH used in the execution sandbox, so that they may be used by nodejs processes execution.
+
+</Option>
+
+### `url_platform_mapping`
+
+<Option
+  cli_repr={`--nodejs-url-platform-mapping="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_NODEJS_URL_PLATFORM_MAPPING'
+  toml_repr={`[nodejs.url_platform_mapping]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{\n  "linux_arm64": "linux-arm64",\n  "linux_x86_64": "linux-x64",\n  "macos_arm64": "darwin-arm64",\n  "macos_x86_64": "darwin-x64"\n}`}
+>
+
+A dictionary mapping platforms to strings to be used when generating the URL to download the tool.
+
+In `--url-template`, anytime the `{platform}` string is used, Pants will determine the current platform, and substitute `{platform}` with the respective value from your dictionary.
+
+For example, if you define `{"macos_x86_64": "apple-darwin", "linux_x86_64": "unknown-linux"}`, and run Pants on Linux with an intel architecture, then `{platform}` will be substituted in the `--url-template` option with `unknown-linux`.
+
+</Option>
+
+### `url_template`
+
+<Option
+  cli_repr={`--nodejs-url-template=<str>`}
+  env_repr='PANTS_NODEJS_URL_TEMPLATE'
+  toml_repr={`[nodejs]
+url_template = <str>`}
+  default_repr={`https://nodejs.org/dist/{version}/node-{version}-{platform}.tar`}
+>
+
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.28/docs/using-pants/key-concepts/options#config-file-entries)).
+
+Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--nodejs-version=<str>`}
+  env_repr='PANTS_NODEJS_VERSION'
+  toml_repr={`[nodejs]
+version = <str>`}
+  default_repr={`v22.14.0`}
+>
+
+Use this version of nodejs.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
