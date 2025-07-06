@@ -127,7 +127,7 @@ install_from_resolve = <str>`}
 
 If specified, install the tool using the lockfile for this named resolve.
 
-This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.28/docs/python/overview/lockfiles#lockfiles-for-tools.
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.29/docs/python/overview/lockfiles#lockfiles-for-tools.
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
@@ -197,7 +197,7 @@ An optional list of `python_sources` target addresses to load first-party plugin
 
 You must also set `plugins = path.to.module` in your `mypy.ini`, and set the `[mypy].config` option in your `pants.toml`.
 
-To instead load third-party plugins, set the option `[mypy].install_from_resolve` to a resolve whose lockfile includes those plugins, and set the `plugins` option in `mypy.ini`. See https://www.pantsbuild.org/2.28/docs/python/goals/check.
+To instead load third-party plugins, set the option `[mypy].install_from_resolve` to a resolve whose lockfile includes those plugins, and set the `plugins` option in `mypy.ini`. See https://www.pantsbuild.org/2.29/docs/python/goals/check.
 
 </Option>
 

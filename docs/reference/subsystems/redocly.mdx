@@ -23,6 +23,20 @@ None
 
 ## Advanced options
 
+### `binary_name`
+
+<Option
+  cli_repr={`--redocly-binary-name=<str>`}
+  env_repr='PANTS_REDOCLY_BINARY_NAME'
+  toml_repr={`[redocly]
+binary_name = <str>`}
+  default_repr={`None`}
+>
+
+Override the binary to run for this tool. Defaults to the package name.
+
+</Option>
+
 ### `install_from_resolve`
 
 <Option
