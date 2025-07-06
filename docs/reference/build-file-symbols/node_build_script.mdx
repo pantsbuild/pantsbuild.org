@@ -6,7 +6,7 @@ description: |
 
 import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
 
-<BuildFileSymbol name={`node_build_script`} signature={`(entry_point: 'str', output_directories: 'Iterable[str]' = (), output_files: 'Iterable[str]' = (), extra_caches: 'Iterable[str]' = (), extra_env_vars: 'Iterable[str]' = ()) -> 'NodeBuildScript'`}>
+<BuildFileSymbol name={`node_build_script`} signature={`(entry_point: 'str', output_directories: 'Iterable[str]' = (), output_files: 'Iterable[str]' = (), extra_caches: 'Iterable[str]' = (), extra_env_vars: 'Iterable[str]' = (), description: 'str | None' = None, tags: 'Iterable[str]' = ()) -> 'NodeBuildScript'`}>
 
 A build script, mapped from the `scripts` section of a package.json file.
 

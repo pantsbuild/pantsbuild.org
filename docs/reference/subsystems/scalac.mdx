@@ -37,6 +37,22 @@ Arguments to pass directly to scalac, e.g. `--scalac-args='-encoding UTF-8'`.
 
 </Option>
 
+### `args_for_resolve`
+
+<Option
+  cli_repr={`--scalac-args-for-resolve="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_SCALAC_ARGS_FOR_RESOLVE'
+  toml_repr={`[scalac.args_for_resolve]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+A dictionary mapping JVM resolve names to additional arguments to pass to `scalac` for that resolve. These arguments are appended to the global `[scalac].args` option when compiling Scala code using the resolve.
+
+</Option>
+
 ### `plugins_for_resolve`
 
 <Option
