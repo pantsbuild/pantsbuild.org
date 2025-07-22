@@ -57,6 +57,12 @@ To include any version(s) in addition to the "next" version:
 PANTSBUILD_ORG_INCLUDE_VERSIONS=$version1,$version2 npm start
 ```
 
+To render uncommitted version-specific docs from a local Pants repo:
+
+```bash
+cp -r <path/to/pants/repo>/docs/docs ./docs && npm start
+```
+
 ### Building the real deal
 
 To build the site, run:
