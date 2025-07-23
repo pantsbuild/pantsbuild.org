@@ -1,6 +1,6 @@
 # pantsbuild.org
 
-All of the material and stitching for [pantsbuild.org](pantsbuild.org).
+All of the material and stitching for [pantsbuild.org](https://www.pantsbuild.org).
 
 ## Layout
 
@@ -26,21 +26,36 @@ This **should not** be edited directly in this repository. Instead, edit in <htt
 
 ## Development
 
-The docs site is a JS project, so you'll want `nvm` and `yarn` installed.
+The documentation site is built using [Docusaurus](https://docusaurus.io) and some additional dependencies for rendering charts and code.
 
-Afterwards
+### Package Manager
+
+This project uses [pnpm](https://pnpm.io) as the package manager. It's roughly a drop-in replacement for `npm`, but it's typically faster and uses less disk space across multiple projects.
+
+Installation instructions for `pnpm` can be found [here](https://pnpm.io/installation).
+
+Optionally, you can install [nvm](https://github.com/nvm-sh/nvm) to manage multiple versions of [Node.js](https://nodejs.org) and switch between them easily. This project uses Node.js 24.
+
+From the root of this repo:
 
 ```bash
+# Optionally run
 nvm use
-yarn install
+
+# Install all dependencies as per the package.json and pnpm-lock.yaml
+pnpm install
 ```
 
-### Dev server
+### Starting a development server
 
-The following command will start the dev server:
+Once you've cloned the project and installed dependencies with `pnpm install`, start a development server:
 
 ```bash
-npm start
+pnpm start
+
+# ...
+# [SUCCESS] Docusaurus website is running at: http://localhost:3000/
+# ...
 ```
 
 By default, only the "next" docs (e.g. the docs for the version that maps to `main`) will get built.
@@ -48,25 +63,25 @@ By default, only the "next" docs (e.g. the docs for the version that maps to `ma
 To include the blog, use:
 
 ```bash
-PANTSBUILD_ORG_INCLUDE_BLOG=1 npm start
+PANTSBUILD_ORG_INCLUDE_BLOG=1 pnpm start
 ```
 
 To include any version(s) in addition to the "next" version:
 
 ```bash
-PANTSBUILD_ORG_INCLUDE_VERSIONS=$version1,$version2 npm start
+PANTSBUILD_ORG_INCLUDE_VERSIONS=$version1,$version2 pnpm start
 ```
 
-### Building the real deal
+### Building for production
 
-To build the site, run:
+To build a production-optimized version of the site, run the following command (this may take several minutes):
 
 ```bash
-NODE_ENV=production NODE_OPTIONS="--max-old-space-size=12288" npm run build
+NODE_ENV=production NODE_OPTIONS="--max-old-space-size=12288" pnpm build
 ```
 
-(Note: Node needs more than the default amount of RAM because this site is beefy)
+Note: the [--max-old-space-size](https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-mib) argument is a remnant from when this site was built using `yarn` and `webpack` instead of `pnpm` and `rspack` - it may not be required anymore.
 
-## Tech
+## Deployment
 
-The site is fully managed via https://docusaurus.io/ and is published via GitHub Actions to GitHub Pages.
+The site is fully deployed via Github Actions to Github Pages. Refer to the [deployment workflow](./.github/workflows/deploy.yml) for more information. The [sync-docs workflow](./.github/workflows/sync_docs.yml) is responsible for merging changes from the `pantsbuild/pants` repo.
