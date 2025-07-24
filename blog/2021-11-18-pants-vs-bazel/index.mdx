@@ -54,7 +54,6 @@ We have a lot of respect for Bazel. Pants and Bazel share common lineage and ins
 Here are some reasons why Pants may be a better choice than Bazel for your team:
 
 - **Pants is strongly focused on first-class support for the real-world use cases of a variety of software organizations.** Bazel, in contrast, was designed primarily for internal C++ usage at Google. For example:
-
   - Bazel's support for consuming published third-party dependencies is haphazard, because Google typically doesn't use external code. But your team, like almost all others, probably relies on published code in public repositories such as PyPI or Maven Central, so Pants has strong support for that case, including [a feature for safely managing multiple versions of the same dependency in a single repo](../2022-05-25-multiple-lockfiles-python/index.mdx).
   - Pants has first-class [support for Python](https://www.pantsbuild.org/docs/python), and specifically for how real-world organizations use it in practice. Its Python plugin has out-of-the-box support for running pip, setuptools, pytest, mypy, black, yapf, pylint, isort, bandit, flake8, docformatter, protoc, pex, AWS lambda and more. New tools and functionality are being added all the time. Pants also intrinsically handles complex issues such as Python interpreter version compatibility, and can work well with tools like pyenv and asdf. Whereas Bazel's Python support was somewhat tacked on as an adjunct to the core functionality, and is often insufficient, leading teams to have to cobble together their own custom logic.
 
