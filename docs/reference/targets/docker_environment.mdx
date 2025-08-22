@@ -44,7 +44,7 @@ While most images will have these preinstalled, users of base images such as Dis
 ## `apache_thrift_thrift_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.codegen.thrift.apache.python"
 >
@@ -69,7 +69,7 @@ Use `pants list --documented ::` to see all targets with descriptions.
 ## `docker_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -81,7 +81,7 @@ Overrides the default value from the option `[docker].env_vars` when this enviro
 ## `docker_executable_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -106,7 +106,7 @@ Must be an environment name from the option `[environments-preview].names`, the 
 ## `go_generate_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -118,7 +118,7 @@ Overrides the default value from the option `[go-generate].env_vars` when this e
 ## `golang_cgo_c_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -130,7 +130,7 @@ Overrides the default value from the option `[golang].cgo_c_flags` when this env
 ## `golang_cgo_cxx_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -154,7 +154,7 @@ Overrides the default value from the option `[golang].cgo_fortran_binary_name` w
 ## `golang_cgo_fortran_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -190,7 +190,7 @@ Overrides the default value from the option `[golang].cgo_gxx_binary_name` when 
 ## `golang_cgo_linker_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -202,7 +202,7 @@ Overrides the default value from the option `[golang].cgo_linker_flags` when thi
 ## `golang_cgo_tool_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -226,7 +226,7 @@ Overrides the default value from the option `[golang].external_linker_binary_nam
 ## `golang_extra_tools`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -238,7 +238,7 @@ Overrides the default value from the option `[golang].extra_tools` when this env
 ## `golang_go_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -250,7 +250,7 @@ Overrides the default value from the option `[golang].go_search_paths` when this
 ## `golang_subprocess_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.go"
 >
@@ -262,7 +262,7 @@ Overrides the default value from the option `[golang].subprocess_env_vars` when 
 ## `jvm_global_options`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.scala"
 >
@@ -274,7 +274,7 @@ Overrides the default value from the option `[jvm].global_options` when this env
 ## `kubectl_executable_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.k8s"
 >
@@ -298,7 +298,7 @@ Overrides the default value from the option `[nfpm].default_mtime` when this env
 ## `nodejs_corepack_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.openapi"
 >
@@ -310,7 +310,7 @@ Overrides the default value from the option `[nodejs].corepack_env_vars` when th
 ## `nodejs_executable_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.openapi"
 >
@@ -322,7 +322,7 @@ Overrides the default value from the option `[nodejs].executable_search_paths` w
 ## `nodejs_search_path`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.openapi"
 >
@@ -334,7 +334,7 @@ Overrides the default value from the option `[nodejs].search_path` when this env
 ## `pex_executable_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -359,7 +359,7 @@ If unset, Pants will default to the CPU architecture of your local host machine.
 ## `pyenv_python_provider_installation_extra_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.python.providers.experimental.pyenv"
 >
@@ -371,7 +371,7 @@ Overrides the default value from the option `[pyenv-python-provider].installatio
 ## `python_bootstrap_names`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -383,7 +383,7 @@ Overrides the default value from the option `[python-bootstrap].names` when this
 ## `python_bootstrap_search_path`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -395,7 +395,7 @@ Overrides the default value from the option `[python-bootstrap].search_path` whe
 ## `python_native_code_cpp_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -407,7 +407,7 @@ Overrides the default value from the option `[python-native-code].cpp_flags` whe
 ## `python_native_code_ld_flags`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -419,7 +419,7 @@ Overrides the default value from the option `[python-native-code].ld_flags` when
 ## `shell_setup_executable_search_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.makeself"
 >
@@ -431,7 +431,7 @@ Overrides the default value from the option `[shell-setup].executable_search_pat
 ## `subprocess_environment_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -443,7 +443,7 @@ Overrides the default value from the option `[subprocess-environment].env_vars` 
 ## `system_binaries_system_binary_paths`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
@@ -468,7 +468,7 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 ## `test_extra_env_vars`
 
 <Field
-    type_repr={`Iterable[str] | None`}
+    type_repr={`Any | None`}
     default_repr={`None`}
     backend="pants.backend.experimental.helm"
 >
