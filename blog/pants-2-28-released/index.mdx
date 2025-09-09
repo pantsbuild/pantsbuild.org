@@ -1,0 +1,53 @@
+---
+  authors: [tdyas]
+  tags: [announcement]
+  # Date of the actual release
+  date: 2025-09-08
+---
+
+# Pants 2.28.0 is released!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Adrien](https://unsplash.com/@add_rien_20) on
+  [Unsplash](https://unsplash.com/photos/a-man-riding-a-bike-down-a-street-z2wYBRTck-g)
+</CaptionedImg>
+
+{/* truncate */}
+
+We are pleased to announce Pants [2.28.0](https://github.com/pantsbuild/pants/blob/2.28.x/docs/notes/2.28.x.md), the latest release of [Pantsbuild, the scalable and ergonomic build system](https://www.pantsbuild.org/). To update, set `pants_version = "2.28.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](https://www.pantsbuild.org/2.28/docs/getting-started).
+
+Thank you to [Klaviyo](https://www.klaviyo.com/) for their Platinum tier [sponsorship](https://www.pantsbuild.org/sponsors) throughout this release!
+
+## Highlights in [2.28](https://github.com/pantsbuild/pants/blob/2.28.x/docs/notes/2.28.x.md) include:
+
+- 🚀 **Significantly faster daemon startup** - Some real-world codebases report startup time cut to 30-40% of what it was in v2.27.0 (2.5-3× faster!).
+- 🎯 **TypeScript improvements** - TypeScript targets now work with JavaScript goals, plus better dependency inference with TSX grammar.
+- 📦 **Batched remote cache reads** - Experimental support for batch reads from the gRPC Remote Execution API significantly increases throughput.
+- 🐍 **Direct type stub generation for Protobuf/Python** - Protobuf can now generate Python type stubs directly via `protoc`.
+- 🐞 And a whole bunch of updates, bugfixes, and general improvements!
+
+Check out the [full release notes](https://github.com/pantsbuild/pants/blob/2.28.x/docs/notes/2.28.x.md).
+
+## Pants is an open-source project
+
+The changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a [contributor](https://www.pantsbuild.org/stable/docs/contributions).
+
+We also offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/sponsorship), as well as individual sponsorships via [GitHub](https://github.com/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+
+Some Pants maintainers also offer [paid consulting](https://www.pantsbuild.org/spotlight/service-providers) for adopting and customizing Pants for your company's needs.
+
+## To see Pants in action, explore our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc/)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-javascript](https://github.com/pantsbuild/example-javascript)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/community/getting-help)
+
+Pants wouldn't be possible without everyone who contributed to `2.28.0`, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!
