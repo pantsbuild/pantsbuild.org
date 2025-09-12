@@ -1,0 +1,95 @@
+---
+title: shell-setup
+description: |
+  Options for Pants&#x27;s Shell support.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options for Pants&#x27;s Shell support.
+
+Backend: <span className="color--primary">`pants.backend.shell`</span>
+
+Config section: <span className="color--primary">`[shell-setup]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `dependency_inference`
+
+<Option
+  cli_repr={`--[no-]shell-setup-dependency-inference`}
+  env_repr='PANTS_SHELL_SETUP_DEPENDENCY_INFERENCE'
+  toml_repr={`[shell-setup]
+dependency_inference = <bool>`}
+  default_repr={`True`}
+>
+
+Infer Shell dependencies on other Shell files by analyzing `source` statements.
+
+</Option>
+
+### `executable_search_paths`
+
+<Option
+  cli_repr={`--shell-setup-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_SHELL_SETUP_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[shell-setup]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
+  default_repr={`[\n  "<PATH>"\n]`}
+  target_field_name='shell_setup_executable_search_paths'
+>
+
+The PATH value that will be used to find shells and to run certain processes like the shunit2 test runner. The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
+
+### `tailor_shunit2_tests`
+
+<Option
+  cli_repr={`--[no-]shell-setup-tailor-shunit2-tests`}
+  env_repr='PANTS_SHELL_SETUP_TAILOR_SHUNIT2_TESTS'
+  toml_repr={`[shell-setup]
+tailor_shunit2_tests = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `shunit2_tests` targets with the `tailor` goal.
+
+</Option>
+
+### `tailor_sources`
+
+<Option
+  cli_repr={`--[no-]shell-setup-tailor-sources`}
+  env_repr='PANTS_SHELL_SETUP_TAILOR_SOURCES'
+  toml_repr={`[shell-setup]
+tailor_sources = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `shell_sources` targets with the `tailor` goal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

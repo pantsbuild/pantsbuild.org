@@ -1,0 +1,130 @@
+---
+title: google-java-format
+description: |
+  Google Java Format (https://github.com/google/google-java-format)
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Google Java Format (https://github.com/google/google-java-format)
+
+Backend: <span className="color--primary">`pants.backend.experimental.java.lint.google_java_format`</span>
+
+Config section: <span className="color--primary">`[google-java-format]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `aosp`
+
+<Option
+  cli_repr={`--[no-]google-java-format-aosp`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_AOSP'
+  toml_repr={`[google-java-format]
+aosp = <bool>`}
+  default_repr={`False`}
+>
+
+Use AOSP style instead of Google Style (4-space indentation). (&#x22;AOSP&#x22; is the Android Open Source Project.)
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]google-java-format-skip`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_SKIP'
+  toml_repr={`[google-java-format]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use Google Java Format when running `pants fmt` and `pants lint`.
+
+</Option>
+
+## Advanced options
+
+### `artifacts`
+
+<Option
+  cli_repr={`--google-java-format-artifacts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_ARTIFACTS'
+  toml_repr={`[google-java-format]
+artifacts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "com.google.googlejavaformat:google-java-format:{version}"\n]`}
+>
+
+Artifact requirements for this tool using specified as either the address of a `jvm_artifact` target or, alternatively, as a colon-separated Maven coordinates (e.g., `group:name:version`). For Maven coordinates, the string `{version}` version will be substituted with the value of the `[google-java-format].version` option.
+
+</Option>
+
+### `jvm_options`
+
+<Option
+  cli_repr={`--google-java-format-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_JVM_OPTIONS'
+  toml_repr={`[google-java-format]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of JVM options to pass to `google-java-format` JVM processes.
+
+Options set here will be added to those set in `[jvm].global_options`. Please check the documentation for the `jvm` subsystem to see what values are accepted here.
+
+</Option>
+
+### `lockfile`
+
+<Option
+  cli_repr={`--google-java-format-lockfile=<str>`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_LOCKFILE'
+  toml_repr={`[google-java-format]
+lockfile = <str>`}
+  default_repr={`<default>`}
+>
+
+Path to a lockfile used for installing the tool.
+
+Set to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.29.0a0/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.
+
+To use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--google-java-format-version=<str>`}
+  env_repr='PANTS_GOOGLE_JAVA_FORMAT_VERSION'
+  toml_repr={`[google-java-format]
+version = <str>`}
+  default_repr={`1.13.0`}
+>
+
+Version string for the tool. This is available for substitution in the `[google-java-format].artifacts` option by including the string `{version}`.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
