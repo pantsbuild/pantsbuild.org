@@ -143,7 +143,7 @@ All known Python major/minor interpreter versions that may be used by either you
 
 This is used by Pants to robustly handle interpreter constraints, such as knowing when generating lockfiles which Python versions to check if your code is using.
 
-This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/2.29/docs/python/overview/interpreter-compatibility.
+This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/2.30/docs/python/overview/interpreter-compatibility.
 
 All elements must be the minor and major Python version, e.g. `'2.7'` or `'3.10'`. Do not include the patch version.
 
@@ -196,7 +196,7 @@ pip_version = <str>`}
 
 Use this version of Pip for resolving requirements and generating lockfiles.
 
-The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.29/docs/python/overview/pex for details.
+The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.30/docs/python/overview/pex for details.
 
 N.B.: The `latest` value selects the latest of the choices listed by PEX which is not necessarily the latest Pip version released on PyPI.
 
@@ -242,7 +242,7 @@ If you need multiple resolves:
 4. Run `pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
 5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
-If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/2.29/docs/using-pants/key-concepts/targets-and-build-files for information about `parametrize`.
+If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/2.30/docs/using-pants/key-concepts/targets-and-build-files for information about `parametrize`.
 
 For example:
 
@@ -297,6 +297,27 @@ See https://pip.pypa.io/en/stable/user_guide/#constraints-files for more informa
 Expects a dictionary of resolve names from `[python].resolves` and Python tools (e.g. `black` and `pytest`) to file paths for constraints files. For example, `{'data-science': '3rdparty/data-science-constraints.txt'}`. If a resolve is not set in the dictionary, it will not use a constraints file.
 
 You can use the key `__default__` to set a default value for all resolves.
+
+</Option>
+
+### `resolves_to_excludes`
+
+<Option
+  cli_repr={`--python-resolves-to-excludes="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_RESOLVES_TO_EXCLUDES'
+  toml_repr={`[python.resolves_to_excludes]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Specifies requirements to exclude from a resolve and its
+lockfile. Any distribution included in the PEX&#x27;s resolve that
+matches the requirement is excluded from the built PEX along with
+all of its transitive dependencies that are not also required by
+other non-excluded distributions. At runtime, the PEX will boot
+without checking the excluded dependencies are available.
 
 </Option>
 
@@ -369,6 +390,35 @@ You can use the key `__default__` to set a default value for all resolves.
 For each resolve you can use the value `:all:` to disable all source packages: `{'data-science': [':all:']}`.
 
 Packages without binary distributions will fail to install when this option is used on them. See https://pip.pypa.io/en/stable/cli/pip_install/#install-only-binary for details.
+
+</Option>
+
+### `resolves_to_overrides`
+
+<Option
+  cli_repr={`--python-resolves-to-overrides="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_RESOLVES_TO_OVERRIDES'
+  toml_repr={`[python.resolves_to_overrides]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Specifies a transitive requirement to override in a resolve
+and its lockfile. Overrides can either modify an existing
+dependency on a project name by changing extras, version
+constraints or markers or else they can completely swap out the
+dependency for a dependency on another project altogether. For the
+former, simply supply the requirement you wish. For example,
+specifying `--override cowsay==5.0` will override any transitive
+dependency on cowsay that has any combination of extras, version
+constraints or markers with the requirement `cowsay==5.0`. To
+completely replace cowsay with another library altogether, you can
+specify an override like `--override cowsay=my-cowsay>2`. This
+will replace any transitive dependency on cowsay that has any
+combination of extras, version constraints or markers with the
+requirement `my-cowsay>2`.
 
 </Option>
 
