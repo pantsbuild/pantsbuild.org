@@ -1,0 +1,45 @@
+---
+  authors: [cburroughs]
+  tags: [announcement]
+  # Date of the actual release
+  date: 2025-10-03
+---
+
+# Pants 2.29.0 is released!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Klares Vincent](https://unsplash.com/@byvincentk) on
+  [Unsplash](https://unsplash.com/photos/ancient-stone-aqueduct-reflected-in-calm-water-Sbhx-SzSWBw)
+</CaptionedImg>
+
+{/* truncate */}
+
+We are pleased to announce Pants [2.29.0](https://github.com/pantsbuild/pants/blob/2.29.x/docs/notes/2.29.x.md), the latest release of [Pantsbuild](https://www.pantsbuild.org/), the scalable and ergonomic build system. To update, set `pants_version = "2.29.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](https://www.pantsbuild.org/2.29/docs/getting-started).
+
+Thank you to [Klaviyo](https://www.klaviyo.com/) for their Platinum tier [sponsorship](https://www.pantsbuild.org/sponsors) throughout this release!
+
+So, this is usually the spot where these blog posts include some highlights.  And there *are* bugs fixed, tools updated, maintenance completed, lights kept on, and quality of life improvements refined.  But the big theme of this release is the continued work on -- and near completion of! -- the [call-by-name](https://github.com/pantsbuild/pants/issues/21065) migration.  This brings faster startup time, simplified Pants engine code, and an end to inscrutable rules graph errors for plugin authors. (If you have seen [one](https://gist.github.com/cburroughs/beb4054b73c377373f1195f20a6a477d), you know what I mean.)
+
+Check out the [full release notes](https://github.com/pantsbuild/pants/blob/2.29.x/docs/notes/2.29.x.md) for the accumulation of all those little imprvoemnts, and look forward to guidance for plugins to switch to call-by-name in 2.30.
+
+Pants is an open-source project, and the changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a [contributor](https://www.pantsbuild.org/stable/docs/contributions).
+
+We also offer [formal sponsorship tiers for companies](https://www.pantsbuild.org/sponsorship), as well as individual sponsorships via [GitHub](https://github.com/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+
+Some Pants maintainers also offer [paid consulting](https://www.pantsbuild.org/spotlight/service-providers) for adopting and customizing Pants for your company's needs.
+
+To see Pants in action, explore our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc/)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-javascript](https://github.com/pantsbuild/example-javascript)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+
+And let us know what you think in [Slack!](https://www.pantsbuild.org/community/getting-help)
+
+Pants wouldn't be possible without everyone who contributed to `2.29.0`, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!
