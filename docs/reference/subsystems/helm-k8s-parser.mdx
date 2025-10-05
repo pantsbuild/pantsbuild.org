@@ -21,7 +21,24 @@ Config section: <span className="color--primary">`[helm-k8s-parser]`</span>
 
 ## Basic options
 
-None
+### `crd`
+
+<Option
+  cli_repr={`--helm-k8s-parser-crd="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_HELM_K8S_PARSER_CRD'
+  toml_repr={`[helm-k8s-parser.crd]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Additional custom resource definitions be made available to all Helm processes or during value interpolation. Example:
+[helm-k8s-parser.crd]
+&#x22;filename1&#x22;=&#x22;classname1&#x22;
+&#x22;filename2&#x22;=&#x22;classname2&#x22;
+
+</Option>
 
 ## Advanced options
 

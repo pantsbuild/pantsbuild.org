@@ -444,6 +444,20 @@ This option does not affect packaging deployable artifacts, such as PEX files, w
 
 </Option>
 
+### `separate_lockfile_metadata_file`
+
+<Option
+  cli_repr={`--[no-]python-separate-lockfile-metadata-file`}
+  env_repr='PANTS_PYTHON_SEPARATE_LOCKFILE_METADATA_FILE'
+  toml_repr={`[python]
+separate_lockfile_metadata_file = <bool>`}
+  default_repr={`False`}
+>
+
+If set, lockfile metadata will be written to a separate sibling file, rather than prepended as a header to the lockfile (which has various disadvantages). This will soon become True by default and eventually the header option will be deprecated and then removed.
+
+</Option>
+
 ### `tailor_ignore_empty_init_files`
 
 <Option
