@@ -1,4 +1,5 @@
 import versions from "./versions.json";
+import renamed_path_redirects from "./renamed_path_redirects.js";
 import old_site_redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
@@ -423,7 +424,7 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects: old_site_redirects,
+        redirects: old_site_redirects.concat(renamed_path_redirects),
         createRedirects(existingPath) {
           if (existingPath.startsWith("/dev/")) {
             return [existingPath.replace("/dev/", `/${currentVersion}/`)];
