@@ -1,0 +1,108 @@
+---
+title: typescript
+description: |
+  TypeScript type checker (tsc).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+TypeScript type checker (tsc).
+
+Backend: <span className="color--primary">`pants.backend.experimental.typescript`</span>
+
+Config section: <span className="color--primary">`[typescript]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `extra_build_args`
+
+<Option
+  cli_repr={`--typescript-extra-build-args="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_TYPESCRIPT_EXTRA_BUILD_ARGS'
+  toml_repr={`[typescript]
+extra_build_args = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Extra arguments to pass to tsc when running in --build mode. These args are added to the base command &#x27;tsc --build&#x27;. Commonly used: --verbose, --force, --dry.
+
+</Option>
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]typescript-skip`}
+  env_repr='PANTS_TYPESCRIPT_SKIP'
+  toml_repr={`[typescript]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use TypeScript when running `pants check`.
+
+</Option>
+
+## Advanced options
+
+### `binary_name`
+
+<Option
+  cli_repr={`--typescript-binary-name=<str>`}
+  env_repr='PANTS_TYPESCRIPT_BINARY_NAME'
+  toml_repr={`[typescript]
+binary_name = <str>`}
+  default_repr={`None`}
+>
+
+Override the binary to run for this tool. Defaults to the package name.
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--typescript-install-from-resolve=<str>`}
+  env_repr='PANTS_TYPESCRIPT_INSTALL_FROM_RESOLVE'
+  toml_repr={`[typescript]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve, instead of the version configured in this subsystem.
+
+If unspecified, the tool will use the default configured package manager [nodejs].package_manager`, and install the tool without a lockfile.
+
+</Option>
+
+### `version`
+
+<Option
+  cli_repr={`--typescript-version=<str>`}
+  env_repr='PANTS_TYPESCRIPT_VERSION'
+  toml_repr={`[typescript]
+version = <str>`}
+  default_repr={`typescript@FROM_PACKAGE_JSON`}
+>
+
+Version string for the tool in the form package@version (e.g. prettier@3.5.2)
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
