@@ -169,6 +169,7 @@ const formatCopyright = () => {
   return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
 };
 
+/** @type {import("@docusaurus/types").Config} */
 const config = {
   title: "Pantsbuild",
   tagline: "The ergonomic build system",
@@ -183,7 +184,6 @@ const config = {
 
   // @TODO: This should throw on prod
   onBrokenLinks: isDev ? "warn" : "warn",
-  onBrokenMarkdownLinks: isDev ? "warn" : "warn",
 
   clientModules: ["./src/js/redirectCodeFragment.js"],
 
@@ -191,6 +191,73 @@ const config = {
     experimental_faster: true,
     v4: true,
   },
+
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
+
+  plugins: [
+    [
+      "./src/js/docsPluginWithTopLevel404.js",
+      {
+        sidebarPath: require.resolve("./sidebars.js"),
+        routeBasePath: "/",
+        onlyIncludeVersions,
+        lastVersion: onlyIncludeVersions
+          ? undefined
+          : mostRecentStableVersion.shortVersion,
+        versions: Object.fromEntries(
+          versionDetails.map(({ isCurrent, shortVersion, config }) => [
+            isCurrent ? "current" : shortVersion,
+            config,
+          ])
+        ),
+        remarkPlugins: [captionedCode, tabBlocks],
+        editUrl: ({ docPath }) => {
+          if (docPath.startsWith("reference/")) {
+            return undefined;
+          }
+          return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
+        },
+      },
+    ],
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: old_site_redirects.concat(renamed_path_redirects),
+        createRedirects(existingPath) {
+          if (existingPath.startsWith("/dev/")) {
+            return [existingPath.replace("/dev/", `/${currentVersion}/`)];
+          } else if (existingPath.startsWith("/prerelease/")) {
+            return [
+              existingPath.replace(
+                "/prerelease/",
+                `/${mostRecentPreReleaseVersion.shortVersion}/`
+              ),
+            ];
+          } else if (existingPath.startsWith("/stable/")) {
+            return [
+              existingPath.replace(
+                "/stable/",
+                `/${mostRecentStableVersion.shortVersion}/`
+              ),
+            ];
+          }
+          return undefined;
+        },
+      },
+    ],
+    function disableExpensiveBundlerOptimizationPlugin() {
+      return {
+        name: "disable-expensive-bundler-optimizations",
+        configureWebpack(_config) {
+          return { optimization: { concatenateModules: false } };
+        },
+      };
+    },
+  ],
 
   presets: [
     [
@@ -396,66 +463,6 @@ const config = {
       darkTheme: prismThemes.nightOwl,
     },
   },
-  plugins: [
-    [
-      "./src/js/docsPluginWithTopLevel404.js",
-      {
-        sidebarPath: require.resolve("./sidebars.js"),
-        routeBasePath: "/",
-        onlyIncludeVersions,
-        lastVersion: onlyIncludeVersions
-          ? undefined
-          : mostRecentStableVersion.shortVersion,
-        versions: Object.fromEntries(
-          versionDetails.map(({ isCurrent, shortVersion, config }) => [
-            isCurrent ? "current" : shortVersion,
-            config,
-          ])
-        ),
-        remarkPlugins: [captionedCode, tabBlocks],
-        editUrl: ({ docPath }) => {
-          if (docPath.startsWith("reference/")) {
-            return undefined;
-          }
-          return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
-        },
-      },
-    ],
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: old_site_redirects.concat(renamed_path_redirects),
-        createRedirects(existingPath) {
-          if (existingPath.startsWith("/dev/")) {
-            return [existingPath.replace("/dev/", `/${currentVersion}/`)];
-          } else if (existingPath.startsWith("/prerelease/")) {
-            return [
-              existingPath.replace(
-                "/prerelease/",
-                `/${mostRecentPreReleaseVersion.shortVersion}/`
-              ),
-            ];
-          } else if (existingPath.startsWith("/stable/")) {
-            return [
-              existingPath.replace(
-                "/stable/",
-                `/${mostRecentStableVersion.shortVersion}/`
-              ),
-            ];
-          }
-          return undefined;
-        },
-      },
-    ],
-    function disableExpensiveBundlerOptimizationPlugin() {
-      return {
-        name: "disable-expensive-bundler-optimizations",
-        configureWebpack(_config) {
-          return { optimization: { concatenateModules: false } };
-        },
-      };
-    },
-  ],
 };
 
 module.exports = config;
