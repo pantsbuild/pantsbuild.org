@@ -44,6 +44,10 @@ nvm use
 
 # Install all dependencies as per the package.json and pnpm-lock.yaml
 pnpm install
+
+# (Optional) This is also a good time to audit the dependencies to make sure we're up-to-date
+pnpm audit --fix
+pnpm install
 ```
 
 ### Starting a development server
