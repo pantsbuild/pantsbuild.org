@@ -1,6 +1,21 @@
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    groups:
+      gha-deps:
+        patterns:
+          - "*"
+    schedule:
+      interval: "monthly"
+
   - package-ecosystem: "npm"
     directory: "/"
+    groups:
+      npm-deps:
+        patterns:
+          - "*"
     schedule:
       interval: "weekly"
