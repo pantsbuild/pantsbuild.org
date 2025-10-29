@@ -1,0 +1,463 @@
+---
+    title: Concepts
+    sidebar_position: 0
+---
+
+The core concepts of the Rules API.
+
+---
+
+## Rules
+
+Plugin logic is defined in _rules_. A rule is a pure function (or, more precisely, a pure coroutine) that maps a set of statically-declared input types to a statically-declared output type.
+
+Each rule is an `async` Python function annotated with the decorator `@rule`. A rule can take any number of parameters, each of a specific type, and returns a value of a specific type. Rule parameters and return types must be annotated with [type hints](https://www.python.org/dev/peps/pep-0484/).
+
+For example, this rule maps `(int) -> str`.
+
+```python
+from pants.engine.rules import rule
+
+@rule
+async def int_to_str(i: int) -> str:
+    return str(i)
+```
+
+Rules are typically module-level functions. In some cases you can define rules in nested scopes, such as inside a class or function body. But this is useful only in specific, special cases in the Pants codebase, and you are unlikely to need to use this in practice.
+
+Although any immutable Python type, including builtin types like `int`, can be a parameter or a return type of a rule, in almost all cases rules will deal with values of custom Python classes. These are are typically implemented as [frozen dataclasses](https://docs.python.org/3/library/dataclasses.html), for reasons we'll get into [below](#dataclasses).
+
+Generally, a rule corresponds to a step in your build process. For example, when implementing a rule to run [shellcheck](https://www.shellcheck.net/) on a set of shell scripts, you could have a rule that maps `(Target, Shellcheck) -> LintResult`:
+
+```python
+@rule
+async def run_shellcheck(target: Target, shellcheck: Shellcheck) -> LintResult:
+    # Your logic.
+    return LintResult(stdout=..., stderr=..., exit_code=...)
+```
+
+In this example the `target` argument points to the set of files to check, the `shellcheck` argument points to the `shellcheck` binary to run, and the return value contains the result of running `shellcheck` on those files. We will see later how the values of the rule parameters, `target` and `shellcheck` in this example, are provided.
+
+Although rules are implemented as Python coroutines, they differ from regular Python async code because their execution is controlled by the Pants engine and not by a standard Python event loop.
+
+The Pants engine provides the following benefits for rule execution:
+
+- The engine analyzes the input and output types and can "fill in the blanks" of any input parameters not explicitly provided. This is why rule signatures must have complete type annotations.
+- The engine invokes rules concurrently where possible, to make use of all available local and remote cores. This is why rule params and return values must be immutable.
+- The engine applies memoization, so that if a rule has already run with the given params, the engine will supply the output value from the in-memory cache, instead of executing the rule. This is why rules must be [pure](https://en.wikipedia.org/wiki/Pure_function) and why rule params and return values must be hashable.
+
+This requirement of rule purity is worth emphasizing: a rule must yield the same output for a given set of inputs, and a rule must not directly or indirectly rely on side-effecting code like `print()`, `subprocess.run()`, or `requests`. The Rules API provides alternatives that are understood by the Pants engine and which work properly with its caching and concurrency mechanisms.
+
+## Invoking other rules in a rule body
+
+One obvious way for a rule to depend on values of given types is to declare input parameters of those types. However it is very common to request extra values in the rule body by explicitly calling other rules. This is useful when you want programmatic control over the inputs to those other rules, or when you want to invoke other rules conditionally.
+
+To call a rule explicitly, you `await` it, and pass explicit and/or implicit params to it. The following contrived example shows a couple of rule calls (note that Pants ships with real shellcheck support that is more complicated, this example is simplified for clarity):
+
+```python
+from pants.engine.rules import rule
+from pants.engine.intrinsics import execute_process
+from pants.engine.process import (
+    ProcessResult,
+    FallibleProcessResult,
+    fallible_to_exec_result_or_raise,
+)
+
+@rule
+async def run_shellcheck(target: Target, shellcheck: Shellcheck) -> LintResult:
+    ...
+    process_request = Process(
+        ["/bin/echo", str(target.address)],
+        description=f"Echo {target.address}",
+    )
+    # Get a process result that allows failure.
+    fallible_process_result: FallibleProcessResult = await execute_process(
+        process_request, **implicitly()
+    )
+    # Raise if the process failed, or return its info if it succeeded.
+    process_result: ProcessResult = await fallible_to_exec_result_or_raise(
+        fallible_process_result, **implicitly()
+    )
+    return LintResult(
+        stdout=process_result.stdout, stderr=process_result.stderr, exit_code=0
+    )
+```
+
+The Pants engine will run your rule as straight-line Python code until it encounters the `await`, which will yield execution back to the engine. The engine will then see if it has a memoized result for the requested rule invocation. If not, it will execute the rule to obtain such a value.  Once the engine gives back the resulting output value, control will be returned back to your Python code, until the next `await`.
+
+In this example, we could not have requested the `process_result` as a parameter to our rule because we needed to create the `Process` object dynamically.
+
+We will revisit process execution [below](#extra-context-for-implicit-parameters) and cover it in a lot more detail [here](./processes.mdx).
+
+## Explicit vs. implicit rule parameters
+
+### Explicit parameters
+
+In simple cases, you can pass parameters directly to invoked rules:
+
+```python
+from pants.engine.environment import EnvironmentName
+from pants.engine.fs import NativeDownloadFile
+from pants.engine.intrinsics import download_file, run_id, run_interactive_process_in_environment
+from pants.engine.process import InteractiveProcess
+from pants.engine.rules import rule
+...
+
+@rule
+async def my_rule() -> MyResult:
+    # Takes no params.
+    rid = await run_id()
+
+    # Takes one param.
+    downloaded_file = await download_file(NativeDownloadFile(
+        url="https://www.google.com/robots.txt",
+        expected_digest=FileDigest(
+            "988d5eecb5b9d346bb0ca87fe76ab029be332997c79c590af858cc0c6dd6d1a4",
+            7153,
+        ))
+    )
+
+    # Takes two params.
+    interactive_process_result = await run_interactive_process_in_environment(
+        InteractiveProcess(...),
+        EnvironmentName("local")
+    )
+    ...
+```
+
+:::caution Explicit rule parameters must be passed positionally
+Explicit rule parameters must be passed as positional arguments, as in the examples above. We hope
+to support keyword arguments in the future.
+:::
+
+### Implicit parameters
+
+In many cases it is very useful to call rules using _implicit_ parameters. These parameters are injected by the Pants engine instead of being provided explicitly by the caller. This is the "fill in the blanks" functionality mentioned earlier, and is part of what makes the Pants engine so powerful.
+
+To tell the engine to implicitly fill in any unspecified parameters, you use the `**implicitly()` idiom:
+
+```python
+from pants.engine.rules import implicitly, rule
+
+@rule
+async def my_rule() -> MyResult:
+    # The engine implicitly provides the GlobalOptions param.
+    ll = await log_level(**implicitly())
+
+    # The user explicitly provides the EnvironmentVarsRequest param.
+    # The engine implicitly provides the CompleteEnvironmentVars param.
+    localization_vars = await environment_vars_subset(
+        EnvironmentVarsRequest(["LANG", "LC_ALL"]), **implicitly()
+    )
+    ...
+```
+
+Where does Pants get the values for implicit parameters? They can be:
+- From external context, such as [option values](/using-pants/key-concepts/options), git state, or the set of targets provided on the Pants command line.
+- From the input parameters of the calling rule.
+- Computed from other params by (transitively) applying suitable rules. You can think of this as a form of dependency injection via type: Pants knows the type of the implicit parameter, and can traverse a path through rule execution to go from an initial set of values, known from context, to the needed value.
+
+Since explicit params must be provided positionally, they must be the first arguments to the rule. This means that when you write a rules, you should put the parameters expected to be passed explicitly before the parameters expected to be provided implicitly.
+
+### Extra context for implicit parameters
+
+As mentioned above, Pants can compute values for implicit parameters by transitively applying rules. In many cases the initial parameters for *those* rules are known from external context. But in some cases we need to provide extra context from the calling rule. To do so, we pass the contextual parameters as arguments to `**implicitly()`:
+
+```python
+from pants.engine.process import fallible_to_exec_result_or_raise
+from pants.engine.rules import implicitly, rule
+
+@rule
+async def my_rule() -> MyResult:
+    process_result = await fallible_to_exec_result_or_raise(
+        **implicitly(
+            Process(
+                ["/bin/echo", str(target.address)],
+                description=f"Echo {target.address}",
+            )
+        )
+    )
+    ...
+```
+
+In this example the `fallible_to_exec_result_or_raise()` rule takes a `FallibleProcessResult` and returns a `ProcessResult` by first checking the `FallibleProcessResult` for success and raising an exception if it failed. We saw this earlier, in the simplified shellcheck example.
+
+But instead of explicitly passing a `FallibleProcessResult` as we did earlier, we now pass a `Process` as implicit context. The Pants engine then looks at all the rules it knows about to figure out how to compute a `FallibleProcessResult` from a `Process`. The `execute_process()` we encountered earlier fits the bill, and so the engine calls it on our `Process` and passes its return value into `fallible_to_exec_result_or_raise()`. Whereas earlier we called both rules explicitly, here we get the exact same behavior with just one call.
+
+In fact, since raising an exception on process failure is frequently what you want, we have an alias, `execute_process_or_raise`, to make the code more readable when using this common shorthand idiom.
+
+### Static analysis of parameter types
+
+It's important to note that the parameter types, and the corresponding rule matching, are computed _statically_, at engine startup time. Pants employs various static analysis heuristics to capture common cases. E.g., in the example above, the engine knows that the parameter passed to `**implicitly()` is intended to match the formal parameter type `Process` because it recognizes the explicit `Process()` initializer call.
+
+But in some cases the parameter value will have been created earlier, and the engine can't know its type from static analysis. In such cases you must provide the type explicitly, by passing a dict to `**implicitly()` mapping values to the formal parameter types they are intended to match:
+
+```python
+from pants.engine.process import execute_process_or_raise
+from pants.engine.rules import implicitly, rule
+
+@rule
+async def my_rule() -> MyResult:
+    process = Process(...)
+    ...
+    process_result = await execute_process_or_raise(
+        **implicitly({
+            process: Process,
+            ProductDescription("Running echo"): ProductDescription,
+        })
+    )
+    ...
+```
+
+As you can see above, this also allows you to pass multiple contextual params to `**implicitly()`.
+
+## Rule concurrency
+
+The engine pauses execution on each `await` in your rule until the result is returned. This means that if you have two consecutive `await`s, the engine will evaluate them sequentially.
+
+If your rules can be executed concurrently (because nether depends on the result of the other) then you can use `concurrently(...)` to instead get multiple results in a single `await`:
+
+```python
+from pants.engine.rules import concurrently, rule
+
+@rule
+async def lint_single_target(target: Target) -> LintResult:
+    ...
+
+@rule
+async def lint_all(targets: Targets) -> LintResults:
+    single_results = await concurrently(
+        lint_single_target(target, **implicitly()) for target in targets
+    )
+    ...
+```
+
+The result of `concurrently` is a tuple with each individual result, in the same order as the requests. You should hardly ever call `await` in a loop - use `await concurrently` instead.
+
+`concurrently` can either take an iterable of rule calls, as above, or take multiple individual rule calls. For example:
+
+```python
+from pants.engine.rules import concurrently, rule
+
+@rule
+async def my_rule() -> MyResult:
+    first_party_deps, third_party_deps = await concurrently(
+        get_first_party_deps(FirstPartyDepsRequest(...)),
+        get_third_party_deps(ThirdPartyDepsRequest(...)),
+    )
+```
+
+## Recursive rules
+
+A rule can call itself recursively:
+
+```python
+from dataclasses import dataclass
+from pants.engine.rules import rule
+
+@dataclass(frozen=True)
+class Fibonacci:
+    val: int
+
+@rule
+async def fibonacci(n: int) -> Fibonacci:
+    if n < 2:
+        return Fibonacci(n)
+    x, y = await concurrently(fibonacci(n - 2), fibonacci(n - 1))
+    return Fibonacci(x.val + y.val)
+```
+
+This is useful in cases such as compiling a JVM source file, which first requires compiling its direct dependencies.
+
+Rules can even be mutually recursive, that is, there can be circular calls between multiple rules. However in this case the rules must all be top-level functions in the same module. This is due to limitations of the engine's static analysis heuristics. In practice, mutual recursion between functions in different modules would create forbidden Python import cycles anyway, unless you used local imports or other unsavory workarounds.
+
+## Valid types
+
+Input params and output values must be hashable, and therefore must be immutable. Specifically, their types must implement `__hash__()` and `__eq__()`. While the engine will not validate that your type is immutable, you should be careful to ensure this so that the cache works properly.
+
+### Dataclasses
+
+Python 3's [dataclasses](https://docs.python.org/3/library/dataclasses.html) work well with the engine because:
+
+1. If `frozen=True` is set, they are immutable and hashable.
+2. Dataclasses use type hints.
+3. Dataclasses are declarative and ergonomic.
+
+You are not required to use dataclasses. You can use alternatives like `attrs` or normal Python classes with manual `__hash__()` and `__eq__()` implementations. However, dataclasses are convenient and idiomatic, and we encourage their use.
+
+You should set `@dataclass(frozen=True)` for Python to autogenerate `__hash__()` and to ensure that the type is immutable.
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Name:
+    first: str
+    last: str | None
+
+@rule
+async def demo(name: Name) -> Foo:
+    ...
+```
+
+:::caution Don't use `NamedTuple`
+`NamedTuple` behaves similarly to dataclasses, but it should not be used because the `__eq__()` implementation uses structural equality, rather than the nominal equality used by the engine.
+:::
+
+:::note Custom dataclass `__init__()`
+Sometimes, you may want to have a custom `__init__()` constructor. For example, you may want your dataclass to store a `tuple[str, ...]`, but for your constructor to take the more flexible `Iterable[str]` which you then convert to an immutable tuple sequence.
+
+The Python docs suggest using `object.__setattr__` to set attributes in your `__init__` for frozen dataclasses.
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Iterable
+
+@dataclass(frozen=True)
+class Example:
+    args: tuple[str, ...]
+
+    def __init__(self, args: Iterable[str]) -> None:
+        object.__setattr__(self, "args", tuple(args))
+```
+
+:::
+
+### Exact type matching
+
+Recall that type annotations are used by the engine at runtime to "fill in the blanks" of implicit parameters. This is an unsual use of type hints, which are normally for the benefit of build time type checking by tools such as MyPy.
+
+Unlike type checkers, the engine uses _exact_ type matches and does not consider subtyping. Even if `Truck` subclasses `Vehicle`, the engine will view these types as completely unrelated when deciding how to fill in implicit parameters. The engine has a different way of expressing polymorphism, namely [unions](union-rules-advanced.mdx).
+
+### Type disambiguation
+
+To disambiguate between different uses of the same type, you will usually want to "newtype" the types that you use. For example, instead of using the builtin `str` or `int` to represent a name or age you can define new classes that nominally extend them:
+
+```python
+class Name(str):
+    pass
+
+class Age(int):
+    pass
+```
+
+### Collections
+
+Fields of input params and output values may be collections, but you must use the following types:
+
+- `tuple` instead of `list`.
+- `pants.util.frozendict.FrozenDict` instead of `dict`.
+- `pants.util.ordered_set.FrozenOrderedSet` instead of `set`.
+
+The type annotations for parameters and return values must be just a type name. For example, a rule cannot return `Foo | None`, or take `tuple[Foo, ...]` as a parameter.
+
+### `Collection`: a newtype for `tuple`
+
+If you want a rule to use a homogenous sequence, you can use `pants.engine.collection.Collection` to "newtype" a tuple. This will behave the same as a tuple, but will have a distinct type.
+
+```python
+from pants.engine.collection import Collection
+
+@dataclass(frozen=True)
+class LintResult:
+    stdout: str
+    stderr: str
+    exit_code: int
+
+
+class LintResults(Collection[LintResult]):
+    pass
+
+
+@rule
+async def demo(results: LintResults) -> Foo:
+    for result in results:
+        print(result.stdout)
+    ...
+```
+
+### `DeduplicatedCollection`: a newtype for `FrozenOrderedSet`
+
+If you want a rule to use a homogenous set, you can use `pants.engine.collection.DeduplicatedCollection` to newtype a `FrozenOrderedSet`. This will behave the same as a `FrozenOrderedSet`, but will have a distinct type.
+
+```python
+from pants.engine.collection import DeduplicatedCollection
+
+class RequirementStrings(DeduplicatedCollection[str]):
+    sort_input = True
+
+
+@rule
+async def demo(requirements: RequirementStrings) -> Foo:
+    for requirement in requirements:
+        print(requirement)
+    ...
+```
+
+Setting the class property `sort_input` to `True` will often result in more cache hits, at the expense of time spent sorting.
+
+## Registering rules in `register.py`
+
+To register a new rule, use the `rules()` hook in your [`register.py` file](../overview.mdx). This function expects a list of functions annotated with `@rule`.
+
+```python title="pants-plugins/plugin1/register.py"
+def rules():
+    return [rule1, rule2]
+```
+
+Conventionally, each file will have a function called `rules()` and then `register.py` will re-export them. This is meant to make imports more organized. Within each file, you can use `collect_rules()` to automatically find the rules in the file.
+
+```python tab={"label":"pants-plugins/fortran/register.py"}
+from fortran import fmt, test
+
+def rules():
+    return [*fmt.rules(), *test.rules()]
+```
+
+```python tab={"label":"pants-plugins/fortran/fmt.py"}
+from pants.engine.rules import collect_rules, rule
+
+@rule
+async def setup_formatter(...) -> Formatter:
+    ...
+
+@rule
+async def fmt_fortran(...) -> FormatResult:
+    ...
+
+def rules():
+    return collect_rules()
+```
+
+```python tab={"label":"pants-plugins/fortran/test.py"}
+from pants.engine.rules import collect_rules, rule
+
+@rule
+async def run_fotran_test(...) -> TestResult:
+    ...
+
+def rules():
+    return collect_rules()
+```
+
+## The rule graph
+
+As we mentioned above, at startup the Pants engine performs static analysis on the registered rules. The resulting analysis is represented as a _rule graph_.  This is a directed graph where the nodes represent _queries_, rules or _params_, and the edges represent data dependencies.
+
+The queries are the roots of the graph - graph traversals always start at a query. When the user runs a Pants command, the engine looks for a special type of rule, annotated with `@goal_rule`, that implements the respective goal. For example, `pants list` triggers the `list` Goal rule, which in turn represents a query into the rule graph.
+
+The params are the leaves of the graph - they represent initial data that is provided from context, such as option values or command line arguments. All other intermediate types and the final goal type are computed from these params by traversing the graph and executing rules along the way.
+
+To view the graph for a goal, see: [Visualize the rule graph](./tips-and-debugging.mdx#debugging-visualize-the-rule-graph).
+
+If the engine cannot find a path, or if there is ambiguity due to multiple possible paths, rule graph construction will fail.
+
+:::caution Rule graph errors can be confusing
+We know that rule graph errors can be intimidating and confusing to understand. We are planning to improve them. In the meantime, please do not hesitate to ask for help on [Slack](/community/getting-help).
+
+Also see [Tips and debugging](./tips-and-debugging.mdx#debugging-rule-graph-issues) for some tips for how to approach these errors.
+:::

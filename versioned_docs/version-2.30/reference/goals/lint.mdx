@@ -1,0 +1,128 @@
+---
+title: lint
+description: |
+  Run linters/formatters/fixers in check mode.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants lint [args]
+```
+
+Run linters/formatters/fixers in check mode.
+
+This goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.
+
+See also:
+
+- [The `fmt` goal](https://www.pantsbuild.org/2.30/reference/goals/fix will save the the result of formatters
+  (code-editing tools that make only &#x22;syntactic&#x22; changes) back to the workspace.
+
+- [The `fmt` goal](https://www.pantsbuild.org/2.30/reference/goals/fix will save the the result of fixers
+  (code-editing tools that may make &#x22;semantic&#x22; changes too) back to the workspace.
+
+- Documentation about linters for various ecosystems, such as:
+  [Python](https://www.pantsbuild.org/2.30/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.30/docs/go),
+  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.30/docs/shell),
+  [Docker](https://www.pantsbuild.org/2.30/docs/docker#linting-dockerfiles-with-hadolint).
+
+Backend: <span className="color--primary">`pants.core`</span>
+
+Config section: <span className="color--primary">`[lint]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `only`
+
+<Option
+  cli_repr={`--lint-only="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_LINT_ONLY'
+  toml_repr={`[lint]
+only = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Only run these linters and skip all others.
+
+The linter names are outputted at the final summary of running this goal, e.g. `flake8` and `shellcheck`. You can also run `lint --only=fake` to get a list of all activated linters.
+
+You can repeat this option, e.g. `lint --only=flake8 --only=shellcheck` or `lint --only=['flake8', 'shellcheck']`.
+
+</Option>
+
+### `skip_fixers`
+
+<Option
+  cli_repr={`--[no-]lint-skip-fixers`}
+  env_repr='PANTS_LINT_SKIP_FIXERS'
+  toml_repr={`[lint]
+skip_fixers = <bool>`}
+  default_repr={`False`}
+>
+
+If true, skip running all fixers in check-only mode.
+
+FYI: when running `pants fix lint ::`, there should be diminishing performance benefit to using this flag. Pants attempts to reuse the results from `fix` when running `lint` where possible.
+
+</Option>
+
+### `skip_formatters`
+
+<Option
+  cli_repr={`--[no-]lint-skip-formatters`}
+  env_repr='PANTS_LINT_SKIP_FORMATTERS'
+  toml_repr={`[lint]
+skip_formatters = <bool>`}
+  default_repr={`False`}
+>
+
+If true, skip running all formatters in check-only mode.
+
+FYI: when running `pants fmt lint ::`, there should be diminishing performance benefit to using this flag. Pants attempts to reuse the results from `fmt` when running `lint` where possible.
+
+</Option>
+
+## Advanced options
+
+### `batch_size`
+
+<Option
+  cli_repr={`--lint-batch-size=<int>`}
+  env_repr='PANTS_LINT_BATCH_SIZE'
+  toml_repr={`[lint]
+batch_size = <int>`}
+  default_repr={`128`}
+>
+
+The target number of files to be included in each linter batch.
+
+Linter processes are batched for a few reasons:
+
+1. to avoid OS argument length limits (in processes which don&#x27;t support argument files)
+2. to support more stable cache keys than would be possible if all files were operated on in a single batch.
+3. to allow for parallelism in linter processes which don&#x27;t have internal parallelism, or -- if they do support internal parallelism -- to improve scheduling behavior when multiple processes are competing for cores and so internal parallelism cannot be used perfectly.
+
+In order to improve cache hit rates (see 2.), batches are created at stable boundaries, and so this value is only a &#x22;target&#x22; batch size (rather than an exact value).
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+
+</span>
