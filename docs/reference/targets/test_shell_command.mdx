@@ -44,6 +44,28 @@ The command is executed as `'bash -c <command>'` by default. If you want to invo
 
 </Field>
 
+## `cache_scope`
+
+<Field
+    type_repr={`'from_environment' | 'session' | 'success' | 'success_per_pantsd_restart' | None`}
+    default_repr={`'from_environment'`}
+>
+
+Set the &#x22;cache scope&#x22; of the executed process to provided value. The cache scope determines for how long Pants will cache the result of the process execution (assuming no changes to files or dependencies invalidate the result in the meantime).
+
+The valid values are:
+
+- `from_environment`: Use the default cache scope for the applicable environment in which the process will execute. This is `success` for all environments except for `experimental_workspace_environment`, in which case `session` cache scope will be used.
+
+- `success`: Cache successful executions of the process.
+
+- `success_per_pantsd_restart`: Cache successful executions of the process for the life of the
+  applicable pantsd process.
+
+- `session`: Only cache the result for a single Pants session. This will usually be a single invocation of the `pants` tool.
+
+</Field>
+
 ## `description`
 
 <Field

@@ -46,7 +46,7 @@ Specifying conflicting package manager versions within a multi-package workspace
 key1 = val1
 key2 = val2
 ...`}
-  default_repr={`{\n  "npm": "10.9.2",\n  "pnpm": "9.15.6",\n  "yarn": "1.22.22"\n}`}
+  default_repr={`{\n  "npm": "11.6.2",\n  "pnpm": "10.19.0",\n  "yarn": "1.22.22"\n}`}
 >
 
 A mapping of package manager versions to semver releases.
@@ -132,7 +132,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v22.14.0|macos_arm64|e9404633bc02a5162c5c573b1e2490f5fb44648345d64a958b17e325729a5e42|47035396",\n  "v22.14.0|macos_x86_64|6698587713ab565a94a360e091df9f6d91c8fadda6d00f0cf6526e9b40bed250|48656392",\n  "v22.14.0|linux_arm64|08bfbf538bad0e8cbb0269f0173cca28d705874a67a22f60b57d99dc99e30050|28636440",\n  "v22.14.0|linux_x86_64|69b09dba5c8dcb05c4e4273a4340db1005abeafe3927efda2bc5b249e80437ec|29893360"\n]`}
+  default_repr={`[\n  "v24.10.0|macos_arm64|fbc3d6e1e1d962450d058e918214373872cc4c46e08673f31c35932afac4a8c5|51169103",\n  "v24.10.0|macos_x86_64|627b884f66db0dd35f4b46fb9e994774ce560a7fb60798ba1ab81e867a73687d|52347633",\n  "v24.10.0|linux_arm64|07f0558316ebb8977dd6fb29b4de8d369a639d3d8cef544293852a6f5eea6af8|31020300",\n  "v24.10.0|linux_x86_64|2642f4428869aca32443660fd71b3918e2be1277a899bdcaeb64c93b54b5af17|32102040"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -281,7 +281,7 @@ url_template = <str>`}
   default_repr={`https://nodejs.org/dist/{version}/node-{version}-{platform}.tar`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.30/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.31/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
@@ -294,7 +294,7 @@ Use `{version}` to have the value from `--version` substituted, and `{platform}`
   env_repr='PANTS_NODEJS_VERSION'
   toml_repr={`[nodejs]
 version = <str>`}
-  default_repr={`v22.14.0`}
+  default_repr={`v24.10.0`}
 >
 
 Use this version of nodejs.
