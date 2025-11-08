@@ -87,6 +87,22 @@ The name must be defined as a resolve in `[python].resolves`.
 
 </Option>
 
+### `default_to_resolve_interpreter_constraints`
+
+<Option
+  cli_repr={`--[no-]python-default-to-resolve-interpreter-constraints`}
+  env_repr='PANTS_PYTHON_DEFAULT_TO_RESOLVE_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[python]
+default_to_resolve_interpreter_constraints = <bool>`}
+  default_repr={`False`}
+>
+
+For Python targets with both `resolve` and `interpreter_constraints` fields, default to using the `interpreter_constraints` field of the resolve if `interpreter_constraints` is not set on the target itself.
+
+`[python].enable_resolves` must be `True` for this option to also be enabled. This will become True by default in a future version of Pants and eventually be deprecated and then removed.
+
+</Option>
+
 ### `enable_lockfile_targets`
 
 <Option
@@ -143,7 +159,7 @@ All known Python major/minor interpreter versions that may be used by either you
 
 This is used by Pants to robustly handle interpreter constraints, such as knowing when generating lockfiles which Python versions to check if your code is using.
 
-This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/2.30/docs/python/overview/interpreter-compatibility.
+This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/2.31/docs/python/overview/interpreter-compatibility.
 
 All elements must be the minor and major Python version, e.g. `'2.7'` or `'3.10'`. Do not include the patch version.
 
@@ -196,7 +212,7 @@ pip_version = <str>`}
 
 Use this version of Pip for resolving requirements and generating lockfiles.
 
-The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.30/docs/python/overview/pex for details.
+The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.31/docs/python/overview/pex for details.
 
 N.B.: The `latest` value selects the latest of the choices listed by PEX which is not necessarily the latest Pip version released on PyPI.
 
@@ -242,7 +258,7 @@ If you need multiple resolves:
 4. Run `pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
 5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
-If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/2.30/docs/using-pants/key-concepts/targets-and-build-files for information about `parametrize`.
+If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/2.31/docs/using-pants/key-concepts/targets-and-build-files for information about `parametrize`.
 
 For example:
 
@@ -419,6 +435,32 @@ specify an override like `--override cowsay=my-cowsay>2`. This
 will replace any transitive dependency on cowsay that has any
 combination of extras, version constraints or markers with the
 requirement `my-cowsay>2`.
+
+</Option>
+
+### `resolves_to_sources`
+
+<Option
+  cli_repr={`--python-resolves-to-sources="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_RESOLVES_TO_SOURCES'
+  toml_repr={`[python.resolves_to_sources]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Defines a limited scope to use a named find links repo or
+index for specific dependencies in a resolve and its lockfile.
+Sources take the form `<name>=<scope>` where the name must match
+a find links repo or index defined via `[python-repos].indexes` or
+`[python-repos].find_links`. The scope can be a project name
+(e.g., `internal=torch` to resolve the `torch` project from the
+`internal` repo), a project name with a marker (e.g.,
+`internal=torch; sys_platform != 'darwin'` to resolve `torch` from
+the `internal` repo except on macOS), or just a marker (e.g.,
+`piwheels=platform_machine == 'armv7l'` to resolve from the
+`piwheels` repo when targeting 32bit ARM machines).
 
 </Option>
 
