@@ -1,7 +1,7 @@
 ---
-title: add-trailing-comma
+title: elfdeps
 description: |
-  The add-trailing-comma Python code formatter (https://github.com/asottile/add-trailing-comma).
+  Used to analyze ELF binaries.
 ---
 
 import Option from "@site/src/components/reference/Option";
@@ -9,60 +9,32 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-The add-trailing-comma Python code formatter (https://github.com/asottile/add-trailing-comma).
+Used to analyze ELF binaries.
 
-This version of Pants uses `add-trailing-comma` version 2.5.1 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
+Both elfdeps and pyelftools (used by elfdeps) are pure-python libraries, so this should be portable across platforms.
 
-Backend: <span className="color--primary">`pants.backend.experimental.python.lint.add_trailing_comma`</span>
+This version of Pants uses `elfdeps` version 0.2.0 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
 
-Config section: <span className="color--primary">`[add-trailing-comma]`</span>
+Backend: <span className="color--primary">`pants.backend.experimental.nfpm.native_libs`</span>
+
+Config section: <span className="color--primary">`[elfdeps]`</span>
 
 <span className={styles.options}>
 
 ## Basic options
 
-### `args`
-
-<Option
-  cli_repr={`--add-trailing-comma-args="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_ARGS'
-  toml_repr={`[add-trailing-comma]
-args = [
-    <shell_str>,
-    <shell_str>,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Arguments to pass directly to add-trailing-comma, e.g. `--add-trailing-comma-args='--py36-plus'`.
-
-</Option>
-
-### `skip`
-
-<Option
-  cli_repr={`--[no-]add-trailing-comma-skip`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_SKIP'
-  toml_repr={`[add-trailing-comma]
-skip = <bool>`}
-  default_repr={`False`}
->
-
-If true, don&#x27;t use add-trailing-comma when running `pants fmt` and `pants lint`.
-
-</Option>
+None
 
 ## Advanced options
 
 ### `console_script`
 
 <Option
-  cli_repr={`--add-trailing-comma-console-script=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_CONSOLE_SCRIPT'
-  toml_repr={`[add-trailing-comma]
+  cli_repr={`--elfdeps-console-script=<str>`}
+  env_repr='PANTS_ELFDEPS_CONSOLE_SCRIPT'
+  toml_repr={`[elfdeps]
 console_script = <str>`}
-  default_repr={`add-trailing-comma`}
+  default_repr={`elfdeps`}
 >
 
 The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
@@ -72,9 +44,9 @@ The console script for the tool. Using this option is generally preferable to (a
 ### `entry_point`
 
 <Option
-  cli_repr={`--add-trailing-comma-entry-point=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_ENTRY_POINT'
-  toml_repr={`[add-trailing-comma]
+  cli_repr={`--elfdeps-entry-point=<str>`}
+  env_repr='PANTS_ELFDEPS_ENTRY_POINT'
+  toml_repr={`[elfdeps]
 entry_point = <str>`}
   default_repr={`None`}
 >
@@ -86,9 +58,9 @@ The entry point for the tool. Generally you only want to use this option if the 
 ### `install_from_resolve`
 
 <Option
-  cli_repr={`--add-trailing-comma-install-from-resolve=<str>`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_INSTALL_FROM_RESOLVE'
-  toml_repr={`[add-trailing-comma]
+  cli_repr={`--elfdeps-install-from-resolve=<str>`}
+  env_repr='PANTS_ELFDEPS_INSTALL_FROM_RESOLVE'
+  toml_repr={`[elfdeps]
 install_from_resolve = <str>`}
   default_repr={`None`}
 >
@@ -99,24 +71,24 @@ This resolve must be defined in `[python].resolves`, as described in https://www
 
 The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
 
-If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `add-trailing-comma` version 2.5.1.
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `elfdeps` version 0.2.0.
 
-If unspecified, and the `lockfile` option is set, the tool will use the custom `add-trailing-comma` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+If unspecified, and the `lockfile` option is set, the tool will use the custom `elfdeps` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
 
 </Option>
 
 ### `interpreter_constraints`
 
 <Option
-  cli_repr={`--add-trailing-comma-interpreter-constraints="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_INTERPRETER_CONSTRAINTS'
-  toml_repr={`[add-trailing-comma]
+  cli_repr={`--elfdeps-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ELFDEPS_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[elfdeps]
 interpreter_constraints = [
     '<str>',
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "CPython>=3.9,<3.15"\n]`}
+  default_repr={`[\n  "CPython>=3.10,<3.15"\n]`}
 >
 
 Python interpreter constraints for this tool.
@@ -126,9 +98,9 @@ Python interpreter constraints for this tool.
 ### `requirements`
 
 <Option
-  cli_repr={`--add-trailing-comma-requirements="['<str>', '<str>', ...]"`}
-  env_repr='PANTS_ADD_TRAILING_COMMA_REQUIREMENTS'
-  toml_repr={`[add-trailing-comma]
+  cli_repr={`--elfdeps-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_ELFDEPS_REQUIREMENTS'
+  toml_repr={`[elfdeps]
 requirements = [
     '<str>',
     '<str>',
