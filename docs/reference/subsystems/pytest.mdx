@@ -21,6 +21,24 @@ Config section: <span className="color--primary">`[pytest]`</span>
 
 ## Basic options
 
+### `allow_empty_test_collection`
+
+<Option
+  cli_repr={`--[no-]pytest-allow-empty-test-collection`}
+  env_repr='PANTS_PYTEST_ALLOW_EMPTY_TEST_COLLECTION'
+  toml_repr={`[pytest]
+allow_empty_test_collection = <bool>`}
+  default_repr={`False`}
+>
+
+If true, treat pytest exit code 5 (&#x22;No tests were collected&#x22;) as success.
+
+Pytest returns exit code 5 when no tests are collected, e.g., when all tests in a file are skipped via markers or deselected via `-k`. By default, Pants treats this as a test failure. Enable this option to instead treat it as &#x22;no tests found&#x22;, which will be skipped in the test summary.
+
+See https://docs.pytest.org/en/stable/reference/exit-codes.html
+
+</Option>
+
 ### `args`
 
 <Option
