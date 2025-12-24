@@ -1,0 +1,52 @@
+---
+  authors: [benjy]
+  tags: [announcement]
+  # Date of the actual release
+  date: 2025-12-10
+---
+
+# Pants 2.30.0 is released!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [marcos mayer](https://unsplash.com/@mmayyer) on
+  [Unsplash](https://unsplash.com/photos/shallow-focus-photography-of-padlocks-in-steel-cable-8_NI1WTqCGY)
+</CaptionedImg>
+
+{/* truncate */}
+
+We are pleased to announce Pants [2.30.0](https://github.com/pantsbuild/pants/blob/2.30.x/docs/notes/2.30.x.md), the latest release of [Pantsbuild](https://www.pantsbuild.org/), the scalable and ergonomic build system. To update, set `pants_version = "2.30.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](/2.30/docs/getting-started).
+
+Important note: Pants 2.30 is scheduled to be the last version to provide binaries for the [MacOS Intel platform](/blog/2025/10/06/winding-down-macos-intel-support). This flows from the [reduced support](https://github.com/actions/runner-images/issues/13046) from GitHub and continued movement in the macOS ecosystem. If you are interested in maintaining or supporting `x86_64` macOS binaries, please [reach out](https://github.com/pantsbuild/pants/discussions/22711).
+
+_Highlights in [2.30](https://github.com/pantsbuild/pants/blob/2.30.x/docs/notes/2.30.x.md) include_:
+
+- 🔒 **Python lockfile metadata can now be stored in a sibling file to the lockfile** - instead of as a prepended header in the lockfile itself.
+- 📛 **The plugin API's `Get()` construct has been deprecated in favor of call-by-name**. See [here](/2.30/docs/writing-plugins/the-rules-api/migrating-gets) for how to update your plugins.
+- 🐞 And a whole bunch of updates, bugfixes, and general improvements!
+
+Check out the [full release notes](https://github.com/pantsbuild/pants/blob/2.30.x/docs/notes/2.30.x.md) for the accumulation of all those little improvements, and look forward to guidance for plugins to switch to call-by-name in 2.30.
+
+Pants is an open-source project, and the changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a [contributor](/stable/docs/contributions).
+
+We also offer [formal sponsorship tiers for companies](/sponsorship), as well as individual sponsorships via [GitHub](/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+
+Some Pants maintainers also offer [paid consulting](/spotlight/service-providers) for adopting and customizing Pants for your company's needs.
+
+To see Pants in action, explore our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-django](https://github.com/pantsbuild/example-django)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-javascript](https://github.com/pantsbuild/example-javascript)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-serverless](https://github.com/pantsbuild/example-serverless)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+- [example-workspace-execution](https://github.com/pantsbuild/example-workspace-execution)
+
+And let us know what you think in [Slack!](/community/getting-help)
+
+Pants wouldn't be possible without everyone who contributed to `2.30.0`, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!
