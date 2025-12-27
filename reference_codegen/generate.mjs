@@ -378,14 +378,20 @@ await Promise.all([
   // BUILD file symbols (NB. targets are also included, so need to be explicitly removed).
   helpAll.name_to_build_file_info &&
     Object.values(helpAll.name_to_build_file_info).map(async (info) => {
-      if (info.is_target) return;
+      if (info.is_target) {
+        return;
+      }
 
       info.short_documentation = info.documentation?.split("\n")?.[0];
       info.documentation =
         info.documentation && convertDescription(info.documentation);
 
+      // Docusaurus treats files starting with `__` as partials and won't render them without exclusions
+      const sanitized_name = info.name.replaceAll("__", "--");
+      info.is_dunder = sanitized_name !== info.name;
+
       await writeFile(
-        path.join("build-file-symbols", `${info.name}.mdx`),
+        path.join("build-file-symbols", `${sanitized_name}.mdx`),
         renderBuildFileSymbolTemplate(info)
       );
     }),

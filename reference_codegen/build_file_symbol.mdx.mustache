@@ -2,6 +2,10 @@
 title: {{ name }}
 description: |
     {{{short_documentation}}}
+{{#is_dunder}}
+id: {{ name }}
+slug: {{ name }}
+{{/is_dunder}}
 ---
 
 import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol"
