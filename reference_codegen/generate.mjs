@@ -388,6 +388,7 @@ await Promise.all([
 
       // Docusaurus treats files starting with `__` as partials and won't render them without exclusions
       const sanitized_name = info.name.replaceAll("__", "--");
+      info.is_dunder = sanitized_name !== info.name;
 
       await writeFile(
         path.join("build-file-symbols", `${sanitized_name}.mdx`),
