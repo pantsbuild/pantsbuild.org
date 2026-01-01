@@ -38,7 +38,7 @@ jobs:
 
       # Checkout both repos
       - name: Checkout pants repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: pantsbuild/pants
           ref: release_${{ inputs.version }}
@@ -46,7 +46,7 @@ jobs:
           path: pants
 
       - name: Checkout docs repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: pantsbuild/pantsbuild.org
           fetch-depth: 0
