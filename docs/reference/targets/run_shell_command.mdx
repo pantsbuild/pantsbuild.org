@@ -1,7 +1,7 @@
 ---
 title: run_shell_command
 description: |
-  Run a script in the workspace, with all dependencies packaged/copied into a chroot.
+  Run a script in the workspace with dependencies packaged into a chroot.
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -9,7 +9,9 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-Run a script in the workspace, with all dependencies packaged/copied into a chroot.
+Run a script in the workspace with dependencies packaged into a chroot.
+
+This target is designed for quick, workspace-oriented interactive scripts that use tools from the system PATH.
 
 Example BUILD file:
 
@@ -22,7 +24,9 @@ run_shell_command(
 
 The `command` may use either `{chroot}` on the command line, or the `$CHROOT` environment variable to get the root directory for where any dependencies are located.
 
-In contrast to the `shell_command`, in addition to `workdir` you only have the `command` and `execution_dependencies` fields as the `tools` you are going to use are already on the PATH which is inherited from the Pants environment. Also, the `outputs` does not apply, as any output files produced will end up directly in your project tree.
+In contrast to `shell_command`, this target: - Uses tools from the system PATH (not explicit `tools` field) - Does not support `output_files` (outputs go directly to workspace) - Is simpler to use for quick workspace scripts
+
+For more hermetic execution with explicit tool dependencies, consider using `shell_command` instead, which provides better reproducibility and caching.
 
 Backend: <span className="color--primary">`pants.backend.shell`</span>
 
