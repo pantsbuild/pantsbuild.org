@@ -1,7 +1,7 @@
 ---
 title: shell_command
 description: |
-  Execute any external tool for its side effects.
+  Execute any external tool for its side effects, or run it interactively.
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -9,7 +9,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-Execute any external tool for its side effects.
+Execute any external tool for its side effects, or run it interactively.
+
+This target provides hermetic execution with explicit tool dependencies via the `tools` field. It can be used for:
+
+- Code generation (produces output files consumed by other targets) - Running scripts interactively with explicit dependencies (via `pants run`) - Build-time hermetic execution (via `pants experimental_run_in_sandbox`)
 
 Example BUILD file:
 
@@ -25,9 +29,13 @@ shell_command(
 shell_sources(name="scripts")
 ```
 
-Remember to add this target to the dependencies of each consumer, such as your `python_tests` or `docker_image`. When relevant, Pants will run your `command` and insert the `outputs` into that consumer's context.
+When used as a dependency of other targets (e.g., `python_tests` or `docker_image`), Pants will run your `command` and insert the `outputs` into that consumer's context.
+
+When used with `pants run :target`, the command runs interactively in the workspace with all dependencies and tools available.
 
 The command may be retried and/or cancelled, so ensure that it is idempotent.
+
+For simpler, workspace-oriented scripts that use system PATH tools, consider `run_shell_command` instead.
 
 Backend: <span className="color--primary">`pants.backend.shell`</span>
 
