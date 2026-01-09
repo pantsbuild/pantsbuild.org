@@ -42,7 +42,7 @@ fi
 echo "*** Checking generated reference files are up-to-date ***"
 # NB. in future, it would be nice for this to be packaged as a test that one can run
 # locally, e.g. https://github.com/pantsbuild/pants/discussions/18235
-npm run generate-reference-all
+pnpm generate-reference-all
 
 if ! git diff --quiet ; then
     echo "::group::Full diff"
@@ -53,8 +53,8 @@ if ! git diff --quiet ; then
 Error: the references have differences between what's committed and what would be
 generated. Either:
 
-- if you made changes to the generation scripts, please regenerate with 'npm run
-  generate-reference-all' or 'npm run generate-reference <specific directory>'.
+- if you made changes to the generation scripts, please regenerate with 'pnpm
+  generate-reference-all' or 'pnpm generate-reference <specific directory>'.
 
 - if you have edited the files directly, https://github.com/pantsbuild/pants is the
   source of truth: make the changes there and they will be synced here on the next

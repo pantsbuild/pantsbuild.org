@@ -202,25 +202,25 @@ const config = {
     [
       "./src/js/docsPluginWithTopLevel404.js",
       {
-        sidebarPath: require.resolve("./sidebars.js"),
-        routeBasePath: "/",
-        onlyIncludeVersions,
-        lastVersion: onlyIncludeVersions
-          ? undefined
-          : mostRecentStableVersion.shortVersion,
-        versions: Object.fromEntries(
-          versionDetails.map(({ isCurrent, shortVersion, config }) => [
-            isCurrent ? "current" : shortVersion,
-            config,
-          ])
-        ),
-        remarkPlugins: [captionedCode, tabBlocks],
         editUrl: ({ docPath }) => {
           if (docPath.startsWith("reference/")) {
             return undefined;
           }
           return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
         },
+        lastVersion: onlyIncludeVersions
+          ? undefined
+          : mostRecentStableVersion.shortVersion,
+        onlyIncludeVersions,
+        remarkPlugins: [captionedCode, tabBlocks],
+        routeBasePath: "/",
+        sidebarPath: require.resolve("./sidebars.js"),
+        versions: Object.fromEntries(
+          versionDetails.map(({ isCurrent, shortVersion, config }) => [
+            isCurrent ? "current" : shortVersion,
+            config,
+          ])
+        ),
       },
     ],
     [
