@@ -1,5 +1,10 @@
 node-linker: hoisted
+
+overrides:
+  qs@<6.14.1: ">=6.14.1"
+
 trustPolicy: no-downgrade
+
 trustPolicyExclude:
   - detect-port@1.6.1
   - semver
