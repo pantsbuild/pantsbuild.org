@@ -356,6 +356,37 @@ NOTE: `pants run` will always run the &#x22;regular&#x22; PEX, use `package` to 
 
 </Field>
 
+## `scie_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Additional arguments to pass to the custom `scie_exe` entry
+point. Scie placeholders can be used in `scie_args`,
+
+</Field>
+
+## `scie_bind_resource_path`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Specifies an environment variable to bind the path of a resource
+in the PEX to in the form `<env var name>=<resource rel path>`. For
+example `WINDOWS_X64_CONSOLE_TRAMPOLINE=pex/windows/stubs/uv-
+       trampoline-x86_64-console.exe` would lookup the path of the
+`pex/windows/stubs/uv-trampoline-x86_64-console.exe` file on the
+`sys.path` and bind its absolute path to the
+WINDOWS_X64_CONSOLE_TRAMPOLINE environment variable. N.B.: resource
+paths must use the Unix path separator of `/`. These will be converted
+to the runtime host path separator as needed.
+
+</Field>
+
 ## `scie_busybox`
 
 <Field
@@ -371,17 +402,25 @@ NOTE: This is only available for formal Python entry points &#x3C;https://packag
 
 </Field>
 
-## `scie_busybox_pex_entrypoint_env_passthrough`
+## `scie_env`
 
 <Field
-    type_repr={`bool | None`}
+    type_repr={`Iterable[str] | None`}
     default_repr={`None`}
 >
 
-When creating a busybox, allow overriding the primary entrypoint
-at runtime via PEX_INTERPRETER, PEX_SCRIPT and PEX_MODULE. Note that
-when using the `venv` execution mode this adds modest startup overhead
-on the order of 10ms.
+Environment variables to set when executing the custom `scie_exe` entry point. Scie placeholders can be used in `scie_env`.
+
+</Field>
+
+## `scie_exe`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Specify a custom PEX scie entry point instead of using the PEX&#x27;s entrypoint. When specifying a custom entry point additional args can be set via `scie_args` and environment variables can be set via `scie_env`. Scie placeholders can be used in `scie_exe`.
 
 </Field>
 
@@ -404,6 +443,21 @@ algorithms, see the science tool --hash documentation here:
 
 </Field>
 
+## `scie_load_dotenv`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Have the scie launcher load `.env` files and apply the loaded env
+vars to the PEX scie environment. See the &#x27;load_dotenv&#x27; docs here for
+more on the `.env` loading specifics: https://github.com/a-
+scie/jump/blob/main/docs/packaging.md#optional-fields (Pex default:
+False)
+
+</Field>
+
 ## `scie_name_style`
 
 <Field
@@ -412,6 +466,30 @@ algorithms, see the science tool --hash documentation here:
 >
 
 Control how the output file translates to a scie name. By default (`dynamic`), the platform is used as a file suffix only when needed for disambiguation when targeting a local platform. Specifying `platform-file-suffix` forces the scie target platform name to be added as a suffix of the output filename; Specifying `platform-parent-dir` places the scie in a sub- directory with the name of the platform it targets.
+
+</Field>
+
+## `scie_pbs_debug`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Should the Python Standalone Builds CPython distributions be debug
+builds. Note that this option is not compatible with
+`scie_pbs_stripped=True`. (default: False)
+
+</Field>
+
+## `scie_pbs_free_threaded`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Should the Python Standalone Builds CPython distributions be free-threaded. If left unspecified or otherwise turned off, creating a scie from a PEX with free-threaded abi wheels will automatically turn this option on. Note that this option is not compatible with `scie_pbs_stripped=True`. (Pex default: False)
 
 </Field>
 
@@ -442,7 +520,20 @@ used.
 Should the Python Standalone Builds CPython distributions used be
 stripped of debug symbols or not. For Linux and Windows particularly,
 the stripped distributions are less than half the size of the
-distributions that ship with debug symbols.
+distributions that ship with debug symbols. Note that this option is
+not compatible with `scie_pbs_free_threaded=True` or
+`scie_pbs_debug=True`. (Pex default: False)
+
+</Field>
+
+## `scie_pex_entrypoint_env_passthrough`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Allow overriding the primary entrypoint at runtime via PEX_INTERPRETER, PEX_SCRIPT and PEX_MODULE. Note that when using --venv with a script entrypoint this adds modest startup overhead on the order of 10ms. Defaults to false for busybox scies and true for single entrypoint scies.
 
 </Field>
 
