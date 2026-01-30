@@ -1,0 +1,15 @@
+---
+title: parametrize
+description: |
+  A builtin function/dataclass that can be used to parametrize Targets.
+---
+
+import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
+
+<BuildFileSymbol name={`parametrize`} signature={`(*args: 'str', **kwargs: 'Any') -> 'None'`}>
+
+A builtin function/dataclass that can be used to parametrize Targets.
+
+Parametrization is applied between TargetAdaptor construction and Target instantiation, which means that individual Field instances need not be aware of it.
+
+</BuildFileSymbol>

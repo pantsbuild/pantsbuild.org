@@ -1,0 +1,667 @@
+---
+title: pex_binary
+description: |
+  A Python target that can be converted into an executable PEX file.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A Python target that can be converted into an executable PEX file.
+
+PEX files are self-contained executable files that contain a complete Python environment capable of running the target. For more information, see https://www.pantsbuild.org/2.31/docs/python/overview/pex.
+
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+---
+
+<span className={styles.options}>
+
+## `args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Freeze these command-line args into the PEX. Allows you to run generic entry points on specific arguments without creating a shim file.
+
+This is different to `extra_build_args`: `args` records arguments used by the packaged PEX when executed, `extra_build_args` passes arguments to the process that does the packaging.
+
+</Field>
+
+## `check`
+
+<Field
+    type_repr={`'error' | 'none' | 'warn' | None`}
+    default_repr={`'warn'`}
+>
+
+Check that the built PEX is valid. Currently this only applies to `--layout zipapp` where the PEX zip is tested for importability of its `__main__` module by the Python zipimport module. This check will fail for PEX zips that use ZIP64 extensions since the Python zipimport zipimporter only works with 32 bit zips. The check no-ops for all other layouts.
+
+</Field>
+
+## `complete_platforms`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The platforms the built PEX should be compatible with.
+
+There must be built wheels available for all of the foreign platforms, rather than sdists.
+
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+
+Complete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+
+See https://www.pantsbuild.org/2.31/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/2.31/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `emit_warnings`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Whether or not to emit PEX warnings at runtime.
+
+The default is determined by the option `emit_warnings` in the `[pex-binary-defaults]` scope.
+
+</Field>
+
+## `entry_point`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a module.
+
+You can specify a full module like `'path.to.module'` and `'path.to.module:func'`, or use a shorthand to specify a file name, using the same syntax as the `sources` field:
+
+1. `'app.py'`, Pants will convert into the module `path.to.app`;
+2. `'app.py:func'`, Pants will convert into `path.to.app:func`.
+
+You may only set one of: this field, or the `script` field, or the `executable` field. Leave off all three fields to have no entry point.
+
+</Field>
+
+## `env`
+
+<Field
+    type_repr={`dict[str, str] | None`}
+    default_repr={`None`}
+>
+
+Freeze these environment variables into the PEX. Allows you to run generic entry points on a specific environment without creating a shim file.
+
+</Field>
+
+## `environment`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'__local__'`}
+>
+
+Specify which environment target to consume environment-sensitive options from.
+
+Once environments are defined in `[environments-preview].names`, you can specify the environment for this target by its name. Any fields that are defined in that environment will override the values from options set by `pants.toml`, command line values, or environment variables.
+
+You can specify multiple valid environments by using `parametrize`. If `__local__` is specified, Pants will fall back to the `local_environment` defined for the current platform, or no environment if no such environment exists.
+
+</Field>
+
+## `executable`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Set the entry point, i.e. what gets run when executing `./my_app.pex`, to an execuatble local python script. This executable python script is typically something that cannot be imported so it cannot be used via `script` or `entry_point`.
+
+You may only set one of: this field, or the `entry_point` field, or the `script` field. Leave off all three fields to have no entry point.
+
+</Field>
+
+## `execution_mode`
+
+<Field
+    type_repr={`'venv' | 'zipapp' | None`}
+    default_repr={`'zipapp'`}
+>
+
+The mode the generated PEX file will run in.
+
+The traditional PEX file runs in a modified &#x27;zipapp&#x27; mode (See: https://www.python.org/dev/peps/pep-0441/) where zipped internal code and dependencies are first unpacked to disk. This mode achieves the fastest cold start times and may, for example be the best choice for cloud lambda functions.
+
+The fastest execution mode in the steady state is &#x27;venv&#x27;, which generates a virtual environment from the PEX file on first run, but then achieves near native virtual environment start times. This mode also benefits from a traditional virtual environment `sys.path`, giving maximum compatibility with stdlib and third party APIs.
+
+</Field>
+
+## `extra_build_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Extra arguments to pass to the `pex` invocation used to build this PEX. These are passed after all other arguments. This can be used to pass extra options that Pants doesn&#x27;t have built-in support for.
+
+This is different to `args`: `args` records arguments used by the packaged PEX when executed, `extra_build_args` passes arguments to the process that does the packaging.
+
+</Field>
+
+## `ignore_errors`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Should PEX ignore errors when it cannot resolve dependencies?
+
+</Field>
+
+## `include_requirements`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to include the third party requirements the binary depends on in the packaged PEX file.
+
+</Field>
+
+## `include_sources`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether to include your first party sources the binary uses in the packaged PEX file.
+
+</Field>
+
+## `include_tools`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Whether to include Pex tools in the PEX bootstrap code.
+
+With tools included, the generated PEX file can be executed with `PEX_TOOLS=1 <pex file> --help` to gain access to all the available tools.
+
+</Field>
+
+## `inherit_path`
+
+<Field
+    type_repr={`'fallback' | 'false' | 'prefer' | None`}
+    default_repr={`None`}
+>
+
+Whether to inherit the `sys.path` (aka PYTHONPATH) of the environment that the binary runs in.
+
+Use `false` to not inherit `sys.path`; use `fallback` to inherit `sys.path` after packaged dependencies; and use `prefer` to inherit `sys.path` before packaged dependencies.
+
+</Field>
+
+## `interpreter_constraints`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The Python interpreters this code is compatible with.
+
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+
+Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
+
+If the field is not set, it will default to the option `[python].interpreter_constraints`.
+
+See https://www.pantsbuild.org/2.31/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
+
+</Field>
+
+## `layout`
+
+<Field
+    type_repr={`'loose' | 'packed' | 'zipapp' | None`}
+    default_repr={`'zipapp'`}
+>
+
+The layout used for the PEX binary.
+
+By default, a PEX is created as a single file zipapp, but either a packed or loose directory tree based layout can be chosen instead.
+
+A packed layout PEX is an executable directory structure designed to have cache-friendly characteristics for syncing incremental updates to PEXed applications over a network. At the top level of the packed directory tree there is an executable `__main__.py` script. The directory can also be executed by passing its path to a Python executable; e.g: `python packed-pex-dir/`. The Pex bootstrap code and all dependency code are packed into individual zip files for efficient caching and syncing.
+
+A loose layout PEX is similar to a packed PEX, except that neither the Pex bootstrap code nor the dependency code are packed into zip files, but are instead present as collections of loose files in the directory tree providing different caching and syncing tradeoffs.
+
+Both zipapp and packed layouts install themselves in the `$PEX_ROOT` as loose apps by default before executing, but these layouts compose with `execution_mode='zipapp'` as well.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'\${spec_path_normalized}/\${target_name_normalized}\${file_suffix}'`}
+>
+
+Where the built asset should be located.
+
+This field supports the following template replacements:
+
+- `${spec_path_normalized}`: The path to the target&#x27;s directory (&#x22;spec path&#x22;) with forward slashes replaced by dots.
+
+- `${target_name_normalized}`: The target&#x27;s name with paramaterizations escaped by replacing dots with underscores.
+
+- `${file_suffix}`: For target&#x27;s which produce single file artifacts, this is the file type suffix to use with a leading dot,
+  and is empty otherwise when not applicable.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. This behavior corresponds to the default template: `${spec_path_normalized}/${target_name_normalized}${file_suffix}`
+
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `resolve`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The resolve from `[python].resolves` to use.
+
+If not defined, will default to `[python].default_resolve`.
+
+All dependencies must share the same value for their `resolve` field.
+
+</Field>
+
+## `restartable`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If true, runs of this target with the `run` goal may be interrupted and restarted when its input files change.
+
+</Field>
+
+## `scie`
+
+<Field
+    type_repr={`'eager' | 'lazy' | None`}
+    default_repr={`None`}
+>
+
+Create one or more native executable scies from your PEX that include a portable CPython interpreter along with your PEX making for a truly hermetic PEX that can run on machines with no Python installed at all. If your PEX has multiple targets then one PEX scie will be made for each platform, selecting the latest compatible portable CPython or PyPy interpreter as appropriate. Note that only Python&#x3E;=3.8 is supported. If you&#x27;d like to explicitly control the target platforms or the exact portable CPython selected, see `scie_platform`, `scie_pbs_release` and `scie_python_version`. Specifying `lazy` will fetch the portable CPython interpreter just in time on first boot of the PEX scie on a given machine if needed. Specifying `eager` will embed the portable CPython interpreter in your PEX scie making for a larger file, but requiring no internet access to boot. See https://science.scie.app for further details.
+
+This field must be set for any other `scie_*` fields to take effect.
+
+NOTE: `pants run` will always run the &#x22;regular&#x22; PEX, use `package` to create scie PEXs.
+
+</Field>
+
+## `scie_args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Additional arguments to pass to the custom `scie_exe` entry
+point. Scie placeholders can be used in `scie_args`,
+
+</Field>
+
+## `scie_bind_resource_path`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Specifies an environment variable to bind the path of a resource
+in the PEX to in the form `<env var name>=<resource rel path>`. For
+example `WINDOWS_X64_CONSOLE_TRAMPOLINE=pex/windows/stubs/uv-
+       trampoline-x86_64-console.exe` would lookup the path of the
+`pex/windows/stubs/uv-trampoline-x86_64-console.exe` file on the
+`sys.path` and bind its absolute path to the
+WINDOWS_X64_CONSOLE_TRAMPOLINE environment variable. N.B.: resource
+paths must use the Unix path separator of `/`. These will be converted
+to the runtime host path separator as needed.
+
+</Field>
+
+## `scie_busybox`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Make the PEX scie a BusyBox over the specified entry points. The entry points can either be console scripts or entry point specifiers. To select all console scripts in all distributions contained in the PEX, use `@`. To just pick all the console scripts from a particular project name&#x27;s distributions in the PEX, use `@<project name>`; e.g.: `@ansible-core`. To exclude all the console scripts from a project, prefix with a `!`; e.g.: `@,!@ansible-core` selects all console scripts except those provided by the `ansible- core` project. To select an individual console script, just use its name or prefix the name with `!` to exclude that individual console script. To specify an arbitrary entry point in a module contained within one of the distributions in the PEX, use a string of the form `<name>=<module>(:<function>)`; e.g.: &#x27;run- baz=foo.bar:baz&#x27; to execute the `baz` function in the `foo.bar` module as the entry point named `run-baz`.
+
+A BusyBox scie has no default entrypoint; instead, when run, it inspects argv0; if that matches one of its embedded entry points, it runs that entry point; if not, it lists all available entrypoints for you to pick from. To run a given entry point, you specify it as the first argument and all other arguments after that are forwarded to that entry point. BusyBox PEX scies allow you to install all their contained entry points into a given directory. For more information, run `SCIE=help <your PEX scie>` and review the `install` command help.
+
+NOTE: This is only available for formal Python entry points &#x3C;https://packaging.python.org/en/latest/specifications/entry-points/&#x3E; and not the informal use by the `pex_binary` field `entry_point` to run first party files.
+
+</Field>
+
+## `scie_env`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Environment variables to set when executing the custom `scie_exe` entry point. Scie placeholders can be used in `scie_env`.
+
+</Field>
+
+## `scie_exe`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Specify a custom PEX scie entry point instead of using the PEX&#x27;s entrypoint. When specifying a custom entry point additional args can be set via `scie_args` and environment variables can be set via `scie_env`. Scie placeholders can be used in `scie_exe`.
+
+</Field>
+
+## `scie_hash_alg`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Output a checksum file for each scie generated that is compatible
+with the shasum family of tools. For each unique algorithm specified,
+a sibling file to each scie executable will be generated with the same
+stem as that scie file and hash algorithm name suffix. The file will
+contain the hex fingerprint of the scie executable using that
+algorithm to hash it. Supported algorithms include at least md5, sha1,
+sha256, sha384 and sha512. For the complete list of supported hash
+algorithms, see the science tool --hash documentation here:
+&#x3C;https://science.scie.app/cli.html#science-lift-build&#x3E;.
+
+</Field>
+
+## `scie_load_dotenv`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Have the scie launcher load `.env` files and apply the loaded env
+vars to the PEX scie environment. See the &#x27;load_dotenv&#x27; docs here for
+more on the `.env` loading specifics: https://github.com/a-
+scie/jump/blob/main/docs/packaging.md#optional-fields (Pex default:
+False)
+
+</Field>
+
+## `scie_name_style`
+
+<Field
+    type_repr={`'dynamic' | 'platform-file-suffix' | 'platform-parent-dir' | None`}
+    default_repr={`<ScieNameStyle.DYNAMIC: 'dynamic'>`}
+>
+
+Control how the output file translates to a scie name. By default (`dynamic`), the platform is used as a file suffix only when needed for disambiguation when targeting a local platform. Specifying `platform-file-suffix` forces the scie target platform name to be added as a suffix of the output filename; Specifying `platform-parent-dir` places the scie in a sub- directory with the name of the platform it targets.
+
+</Field>
+
+## `scie_pbs_debug`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Should the Python Standalone Builds CPython distributions be debug
+builds. Note that this option is not compatible with
+`scie_pbs_stripped=True`. (default: False)
+
+</Field>
+
+## `scie_pbs_free_threaded`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Should the Python Standalone Builds CPython distributions be free-threaded. If left unspecified or otherwise turned off, creating a scie from a PEX with free-threaded abi wheels will automatically turn this option on. Note that this option is not compatible with `scie_pbs_stripped=True`. (Pex default: False)
+
+</Field>
+
+## `scie_pbs_release`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The Python Standalone Builds release to use when a CPython
+interpreter distribution is needed for the PEX scie. Currently,
+releases are dates of the form YYYYMMDD, e.g.: &#x27;20240713&#x27;. See their
+GitHub releases page at
+&#x3C;https://github.com/astral-sh/python-build-standalone/releases&#x3E; to
+discover available releases. If left unspecified the latest release is
+used.
+
+</Field>
+
+## `scie_pbs_stripped`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Should the Python Standalone Builds CPython distributions used be
+stripped of debug symbols or not. For Linux and Windows particularly,
+the stripped distributions are less than half the size of the
+distributions that ship with debug symbols. Note that this option is
+not compatible with `scie_pbs_free_threaded=True` or
+`scie_pbs_debug=True`. (Pex default: False)
+
+</Field>
+
+## `scie_pex_entrypoint_env_passthrough`
+
+<Field
+    type_repr={`bool | None`}
+    default_repr={`None`}
+>
+
+Allow overriding the primary entrypoint at runtime via PEX_INTERPRETER, PEX_SCRIPT and PEX_MODULE. Note that when using --venv with a script entrypoint this adds modest startup overhead on the order of 10ms. Defaults to false for busybox scies and true for single entrypoint scies.
+
+</Field>
+
+## `scie_platform`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The platform to produce the native PEX scie executable for. You
+can use a value of `current` to select the current platform. If left
+unspecified, the platforms implied by the targets selected to build
+the PEX with are used. Those targets are influenced by the current
+interpreter running Pex as well as use of `complete_platforms` and
+`interpreter_constraints`. Note that, in general, `scie_platform`
+should only be used to select a subset of the platforms implied by the
+targets selected via other options.
+
+</Field>
+
+## `scie_python_version`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The portable CPython version to select. Can be either in
+`<major>.<minor>` form; e.g.: &#x27;3.11&#x27;, or else fully specified as
+`<major>.<minor>.<patch>`; e.g.: &#x27;3.11.3&#x27;. If you don&#x27;t specify this
+option, Pex will do its best to guess appropriate portable CPython
+versions. N.B.: Python Standalone Builds does not provide all patch
+versions; so you should check their releases at
+&#x3C;https://github.com/astral-sh/python-build-standalone/releases&#x3E; if you
+wish to pin down to the patch level.
+
+</Field>
+
+## `script`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Set the entry point, i.e. what gets run when executing `./my_app.pex`, to a script or console_script as defined by any of the distributions in the PEX.
+
+You may only set one of: this field, or the `entry_point` field, or the `executable` field. Leave off all three fields to have no entry point.
+
+</Field>
+
+## `sh_boot`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+Should PEX create a modified ZIPAPP that uses `/bin/sh` to boot?
+
+If you know the machines that the PEX will be distributed to have POSIX compliant `/bin/sh` (almost all do, see: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/sh.html); then this is probably the way you want your PEX to boot. Instead of launching via a Python shebang, the PEX will launch via a `#!/bin/sh` shebang that executes a small script embedded in the head of the PEX ZIPAPP that performs initial interpreter selection and re-execution of the underlying PEX in a way that is often more robust than a Python shebang and always faster on 2nd and subsequent runs since the sh script has a constant overhead of O(1ms) whereas the Python overhead to perform the same interpreter selection and re-execution is O(100ms).
+
+</Field>
+
+## `shebang`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Set the generated PEX to use this shebang, rather than the default of PEX choosing a shebang based on the interpreter constraints.
+
+This influences the behavior of running `./result.pex`. You can ignore the shebang by instead running `/path/to/python_interpreter ./result.pex`.
+
+</Field>
+
+## `strip_pex_env`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+Whether or not to strip the PEX runtime environment of `PEX*` environment variables.
+
+Most applications have no need for the `PEX*` environment variables that are used to control PEX startup; so these variables are scrubbed from the environment by Pex before transferring control to the application by default. This prevents any subprocesses that happen to execute other PEX files from inheriting these control knob values since most would be undesired; e.g.: PEX_MODULE or PEX_PATH.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `venv_hermetic_scripts`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`True`}
+>
+
+If execution_mode is &#x22;venv&#x22;, emit a hermetic venv `pex` script and hermetic console scripts.
+
+The venv `pex` script and the venv console scripts are constructed to be hermetic by default; Python is executed with `-sE` to restrict the `sys.path` to the PEX venv contents only. Setting this field to `False` elides the Python `-sE` restrictions and can be used to interoperate with frameworks that use `PYTHONPATH` manipulation to run code.
+
+</Field>
+
+## `venv_site_packages_copies`
+
+<Field
+    type_repr={`bool`}
+    default_repr={`False`}
+>
+
+If execution_mode is venv, populate the venv site packages using hard links or copies of resolved PEX dependencies instead of symlinks.
+
+This can be used to work around problems with tools or libraries that are confused by symlinked source files.
+
+</Field>
+
+</span>

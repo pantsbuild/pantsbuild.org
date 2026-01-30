@@ -1,0 +1,99 @@
+---
+title: python-build-standalone-python-provider
+description: |
+  A subsystem for Pants-provided Python leveraging Python Build Standalone (or PBS) (https://gregoryszorc.com/docs/python-build-standalone/main/).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+A subsystem for Pants-provided Python leveraging Python Build Standalone (or PBS) (https://gregoryszorc.com/docs/python-build-standalone/main/).
+
+Enabling this subsystem will switch Pants from trying to find an appropriate Python on your system to using PBS to download the correct Python(s).
+
+The Pythons provided by PBS will be used to run any &#x22;user&#x22; code (your Python code as well as any Python-based tools you use, like black or pylint). The Pythons are also read-only to ensure they remain hermetic across runs of different tools and code.
+
+The Pythons themselves are stored in your `named_caches_dir`: https://www.pantsbuild.org/docs/reference-global#named_caches_dir under `python_build_standalone/<version>`. Wiping the relevant version directory (with `sudo rm -rf`) will force a re-download of Python.
+
+WARNING: PBS does have some behavior quirks, most notably that it has some hardcoded references to build-time paths (such as constants that are found in the `sysconfig` module). These paths may be used when trying to compile some extension modules from source.
+
+For more info, see https://gregoryszorc.com/docs/python-build-standalone/main/quirks.html.
+
+Backend: <span className="color--primary">`pants.backend.python.providers.experimental.python_build_standalone`</span>
+
+Config section: <span className="color--primary">`[python-build-standalone-python-provider]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `release_constraints`
+
+<Option
+  cli_repr={`--python-build-standalone-python-provider-release-constraints=<str>`}
+  env_repr='PANTS_PYTHON_BUILD_STANDALONE_PYTHON_PROVIDER_RELEASE_CONSTRAINTS'
+  toml_repr={`[python-build-standalone-python-provider]
+release_constraints = <str>`}
+  default_repr={`None`}
+>
+
+Version constraints on the PBS &#x22;release&#x22; version to ensure only matching PBS releases are considered.
+Constraints should be specfied using operators like `>=`, `<=`, `>`, `<`, `==`, or `!=` in a similar
+manner to Python interpreter constraints: e.g., `>=20241201` or `>=20241201,<20250101`.
+
+</Option>
+
+## Advanced options
+
+### `known_python_versions`
+
+<Option
+  cli_repr={`--python-build-standalone-python-provider-known-python-versions="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTHON_BUILD_STANDALONE_PYTHON_PROVIDER_KNOWN_PYTHON_VERSIONS'
+  toml_repr={`[python-build-standalone-python-provider]
+known_python_versions = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`<Metadata for versions: 3.10.11, 3.10.12, 3.10.13, 3.10.14, 3.10.15, 3.10.16, 3.10.17, 3.10.18, 3.10.19, 3.10.2, 3.10.3, 3.10.4, 3.10.5, 3.10.6, 3.10.7, 3.10.8, 3.10.9, 3.11.1, 3.11.10, 3.11.11, 3.11.12, 3.11.13, 3.11.14, 3.11.3, 3.11.4, 3.11.5, 3.11.6, 3.11.7, 3.11.8, 3.11.9, 3.12.0, 3.12.1, 3.12.10, 3.12.11, 3.12.12, 3.12.2, 3.12.3, 3.12.4, 3.12.5, 3.12.6, 3.12.7, 3.12.8, 3.12.9, 3.13.0, 3.13.1, 3.13.10, 3.13.11, 3.13.2, 3.13.3, 3.13.4, 3.13.5, 3.13.6, 3.13.7, 3.13.8, 3.13.9, 3.14.0, 3.14.1, 3.14.2, 3.8.12, 3.8.13, 3.8.14, 3.8.15, 3.8.16, 3.8.17, 3.8.18, 3.8.19, 3.8.20, 3.9.10, 3.9.11, 3.9.12, 3.9.13, 3.9.14, 3.9.15, 3.9.16, 3.9.17, 3.9.18, 3.9.19, 3.9.20, 3.9.21, 3.9.22, 3.9.23, 3.9.24, 3.9.25>`}
+>
+
+Known versions to verify downloads against.
+
+Each element is a pipe-separated string of either `py_version+pbs_release_tag|platform|sha256|length|url` or
+`sha256|length|url`, where:
+
+- `py_version` is the Python version string
+- `pbs_release_tag` is the PBS release tag (i.e., the PBS-specific version)
+- `platform` is one of `[linux_arm64,linux_x86_64,macos_arm64,macos_x86_64]`
+- `sha256` is the 64-character hex representation of the expected sha256
+  digest of the download file, as emitted by `shasum -a 256`
+- `length` is the expected length of the download file in bytes, as emitted by
+  `wc -c`
+- `url` is the download URL to the `.tar.gz` archive
+
+E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813|https://<URL>`
+or `https://<URL>|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44e28514f5be|42813`.
+
+Values are space-stripped, so pipes can be indented for readability if necessary. If the three field
+format is used, then Pants will infer the `py_version`, `pbs_release_tag`, and `platform` fields from
+the URL. With the five field format, one or more of `py_version`, `pbs_release_tag`, and `platform`
+may be left blank if Pants can infer the field from the URL.
+
+Additionally, any versions you specify here will override the default Pants metadata for
+that version.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

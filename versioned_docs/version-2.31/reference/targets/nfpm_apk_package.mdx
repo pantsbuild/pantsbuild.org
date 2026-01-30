@@ -1,0 +1,371 @@
+---
+title: nfpm_apk_package
+description: |
+  An APK system package (Alpine Package Keeper) built by nFPM.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+An APK system package (Alpine Package Keeper) built by nFPM.
+
+This will not install the package, only create an .apk file that you can then distribute and install, e.g. via pkg.
+
+See https://www.pantsbuild.org/nfpm-apk-package.
+
+Backend: <span className="color--primary">`pants.backend.experimental.nfpm`</span>
+
+---
+
+<span className={styles.options}>
+
+## `package_name`
+
+<Field
+    type_repr={`str`}
+>
+
+The package name.
+
+</Field>
+
+## `version`
+
+<Field
+    type_repr={`str`}
+>
+
+The package version (preferably following semver).
+
+If &#x27;version_schema&#x27; is not &#x27;semver&#x27;, then this should not be prefixed with a &#x27;v&#x27; because some package managers, like deb, require the version start with a digit.
+
+See the &#x27;version_schema&#x27; field&#x27;s help for more details about how this field gets parsed by nFPM when it is &#x27;semver&#x27;.
+
+</Field>
+
+## `arch`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'amd64'`}
+>
+
+The package architecture.
+
+This should be a valid GOARCH value (or GOARCH+GOARM) that nFPM can convert into the package-specific equivalent. Otherwise, pants tells nFPM to use this value as-is.
+
+nFPM conversion from GOARCH to package-specific value is documented here: https://nfpm.goreleaser.com/goarch-to-pkg/
+
+Use one of these values unless you need nFPM to use your value as-is: `'386' | 'all' | 'amd64' | 'arm5' | 'arm6' | 'arm7' | 'arm64' | 'loong64' | 'mips' | 'mipsle' | 'mips64' | 'mips64le' | 'ppc64' | 'ppc64le' | 'riscv64' | 's390' | 's390x' | 'sparc64' | 'wasm'`
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/2.31/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `depends`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+List of package dependencies or conflicts (for package installers).
+
+To specify a conflicting dependency (a package that cannot be installed at the same time), prefix the entry with a `!`.
+
+This field is named &#x22;depends&#x22; because that is the term used by nFPM. Alpine linux uses both &#x22;depends&#x22; and &#x22;depend&#x22;, which are used in APKBUILD and PKGINFO files respectively. The `abuild` tool uses the APKBUILD &#x22;depends&#x22; var--and other build-time introspection--to generate the PKGINFO &#x22;depend&#x22; var that ends up in the final apk package.
+
+The Alpine documentation says not to include shared-object dependencies in the APKBUILD &#x22;depends&#x22; var, but that warning does not apply to this field. Even though this field is named &#x22;depends&#x22;, nFPM uses it to build the PKGINFO &#x22;depend&#x22; var, so you SHOULD include any shared-object dependencies in this list.
+
+The &#x27;depends&#x27; field takes a variety of different formats. You can depend on packages, absolute paths, shared objects, pkg-configs, and possibly other things. Sadly, that format is not very well documented, so you may have to open other packages to find examples of how to use pkg-config deps (which have a `pc:` prefix), and any other less common syntax. Here are some examples extracted a variety of random packages:
+
+Example package dependencies (which do not have a prefix):
+
+- &#x22;git&#x22;
+- &#x22;git=2.40.1-r0&#x22;
+
+Example absolute path dependencies (which start with `/`):
+
+- &#x22;/bin/sh&#x22;
+
+Example shared object dependencies (which have a `so:` prefix):
+
+- &#x22;so:libc.musl-x86_64.so.1&#x22;
+- &#x22;so:libcurl.so.4&#x22;
+- &#x22;so:libpcre2-8.so.0&#x22;
+- &#x22;so:libz.so.1&#x22;
+
+WARNING: This is NOT the same as the &#x27;dependencies&#x27; field! It does not accept pants-style dependencies like target addresses.
+
+See: https://wiki.alpinelinux.org/wiki/Apk_spec#PKGINFO_Format
+
+See also the related (but different!) &#x22;depends&#x22; var in APKBUILD: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#depends https://wiki.alpinelinux.org/wiki/Creating_an_Alpine_package#depends_&#x26;_makedepends
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `homepage`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The URL of this package&#x27;s homepage like &#x22;https://example.com&#x22;.
+
+This field is named &#x22;homepage&#x22; instead of &#x22;url&#x22; because that is the term used by nFPM, which adopted the term from deb packaging. The term &#x22;url&#x22; is used by apk, archlinux, and rpm packaging.
+
+</Field>
+
+## `license`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The license of this package.
+
+Where possible, please try to use the SPDX license identifiers (for example &#x22;Apache-2.0&#x22;, &#x22;BSD-3-Clause&#x22;, &#x22;GPL-3.0-or-later&#x22;, or &#x22;MIT&#x22;): https://spdx.org/licenses/
+
+For more complex cases, where the package includes software with multiple licenses, consider using an SPDX license expression: https://spdx.github.io/spdx-spec/v2.3/SPDX-license-expressions/
+
+See also these rpm-specific descriptions of how to set this field (this is helpful info even if you are not using rpm): https://docs.fedoraproject.org/en-US/legal/license-field/
+
+nFPM does not yet generate the debian/copyright file, so this field is technically unused for now. Even for deb, we recommend using this field to document the software license for this package. See also these pages about specifying a license for deb packaging: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/#license-specification https://wiki.debian.org/Proposals/CopyrightFormat#Differences_between_DEP5_and_SPDX
+
+</Field>
+
+## `maintainer`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+The name and email address of the packager or packager organization.
+
+The &#x27;maintainer&#x27; is used to identify who actually packaged the software, as opposed to the author of the software.
+
+The name is first, then the email address inside angle brackets `<>` (in RFC5322 format). For example: &#x22;Foo Bar &#x3C;maintainer@example.com&#x3E;&#x22;
+
+See: https://wiki.alpinelinux.org/wiki/Apk_spec#PKGINFO_Format
+
+</Field>
+
+## `mtime`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'1980-01-01T00:00:00Z'`}
+>
+
+The file modification time as an RFC 3339 formatted string.
+
+For example: 2008-01-02T15:04:05Z
+
+The format is defined in RFC 3339: https://rfc-editor.org/rfc/rfc3339.html
+
+NOTE: This field does NOT set the mtime for package contents. It sets the build time in package metadata (for package types that have that metadata), as well as the file modification time for files that nFPM generates in the package. To set the mtime for package contents, use the `file_mtime` field on the relevant `nfpm_content_*` targets.
+
+The default value is &#x27;1980-01-01T00:00:00Z&#x27;. You may also override the default value by setting `[nfpm].default_mtime` in `pants.toml`, or by setting the `SOURCE_DATE_EPOCH` environment variable.
+
+See also: https://reproducible-builds.org/docs/timestamps/
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'\${spec_path_normalized}/\${target_name_normalized}\${file_suffix}'`}
+>
+
+Where the built directory tree should be located.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/project/packaging:rpm` would be `src.project.packaging/rpm/`.
+
+Regardless of whether you use the default or set this field, the package&#x27;s file name will have the packaging system&#x27;s conventional filename (as understood by nFPM). So, an rpm using the default for this field, the target `src/project/packaging:rpm` might have a final path like `src.project.packaging/rpm/projectname-1.2.3-1.x86_64.rpm`. Similarly, for deb, the target `src/project/packaging:deb` might have a final path like `src.project.packaging/deb/projectname_1.2.3+git-1_x86_64.deb`. The other packagers have their own formats as well.
+
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `provides`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of (virtual) packages or other things that this package provides.
+
+The &#x27;provides&#x27; field takes a variety of different formats. You can provide package alternatives, virtual packages, or various packaged components (commands, shared objects, pkg-config, etc). A &#x22;provides&#x22; entry with a version specifier defines an alternative name for this package that will conflict with any other package that has or provides that name. A &#x22;provides&#x22; entry without a version specifier defines a virtual package that does not create conflicts; multiple packages with the same virtual package (no version specifier) can be installed at the same time.
+
+Sadly, the format of this field is not very well documented, so you may have to open other packages to find examples of how to use it. The format seems to be very similar to the &#x27;depends&#x27; field.
+
+Here are some examples extracted a variety of random packages:
+
+- &#x22;cmd:bash=5.2.15-r0&#x22;
+- &#x22;cmd:git=2.38.5-r0&#x22;
+- &#x22;cmd:gio=2.74.6-r0&#x22;
+- &#x22;so:libgio-2.0.so.0=0.7400.6&#x22;
+- &#x22;so:libglib-2.0.so.0=0.7400.6&#x22;
+- &#x22;py3.10:pkgconfig=1.5.5-r1&#x22;
+- &#x22;pc:libpkgconf=1.9.4&#x22;
+- &#x22;pkgconfig=1&#x22;
+
+See: https://wiki.alpinelinux.org/wiki/Apk_spec#PKGINFO_Format https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#provides
+
+</Field>
+
+## `replaces`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+A list of packages whose files this package can take ownership of.
+
+WARNING: This field does NOT have the same semantics as &#x22;replaces&#x22; in other packaging systems. This field deals with allowing packages that want to provide the same file to be installed at the same time.
+
+If another package &#x27;provides&#x27; the same file, and that package is in the &#x27;replaces&#x27; list, then the apk installer will allow both packages to be installed and record that this package owns the conflicting files.
+
+This field takes a simple list of package names, like this:
+
+- &#x22;bash&#x22;
+- &#x22;git&#x22;
+- &#x22;pkgconfig&#x22;
+
+See: https://wiki.alpinelinux.org/wiki/Apk_spec#PKGINFO_Format https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#replaces
+
+</Field>
+
+## `scripts`
+
+<Field
+    type_repr={`dict[str, str] | None`}
+    default_repr={`None`}
+>
+
+Map of install script source files for the APK package.
+
+This maps the script type (key) to the script source file (value). Each of the script source file(s) must be provided via &#x27;dependencies&#x27;. The script types are the terms used by nFPM. For reference, Alpine Linux uses the following terms in the APKBUILD file instead:
+
+| nFPM term | APKBUILD term | +-------------+----------------+ | preinstall | pre-install | | postinstall | post-install | | preupgrade | pre-upgrade | | postupgrade | post-upgrade | | preremove | pre-deinstall | | postremove | post-deinstall |
+
+Please consult the Alpine Linux docs to understand when `apk` will run each of these scripts, how it handles a failure, and what failure means for the lifecycle of the package `apk` is working on.
+
+See: https://wiki.alpinelinux.org/wiki/APKBUILD_Reference#install https://wiki.alpinelinux.org/wiki/Creating_an_Alpine_package#install https://wiki.alpinelinux.org/wiki/Apk_spec#Binary_Format
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `version_prerelease`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+This is a pre-release indicator like &#x22;alpha&#x22; or &#x22;beta&#x22; and often includes a numeric component like &#x22;rc1&#x22; and &#x22;rc2&#x22;.
+
+For apk and archlinux, version and prerelease are merely concatenated. For deb and rpm, prerelease is typically prefixed with a &#x22;~&#x22; in the version.
+
+nFPM extracts the default for this from &#x27;version&#x27; if it is semver compatible. If you set &#x27;version_prerelease&#x27;, then any prerelease component of &#x27;version&#x27; gets discarded.
+
+</Field>
+
+## `version_release`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`1`}
+>
+
+The release or revision number for a given package version.
+
+Increment the release each time you release the same version of the package. Often, these releases allow for correcting metadata about a package or to rebuild something that was broken in a previous release of that version.
+
+Reset this to 1 whenever you bump the &#x27;version&#x27; field.
+
+N.B.: nFPM does NOT parse this from the &#x27;version&#x27; field.
+
+</Field>
+
+## `version_schema`
+
+<Field
+    type_repr={`'none' | 'semver' | None`}
+    default_repr={`'semver'`}
+>
+
+Which schema the &#x27;version&#x27; field follows.
+
+nFPM only supports two schemas for now: semver, none
+
+If this is &#x22;none&#x22;, then nFPM will use &#x27;version&#x27; as-is.
+
+If this is &#x22;semver&#x22;, then nFPM will parse &#x27;version&#x27; into its constituent parts using a lenient algorithm: It will strip a `v` prefix and will accept versions with fewer than 3 components, like `v1.2`. If parsing fails, then the version is used as-is. If parsing succeeds, nFPM replaces config options with the parsed components.
+
+The &#x27;version&#x27; field always gets replaced with a dotted 3 part version (Major.Minor.Patch).
+
+The &#x27;version_prerelease&#x27; field is only updated if not set. It gets the &#x22;dev&#x22;, &#x22;alpha&#x22;, &#x22;rc&#x22;, or similar parsed prerelease indicator.
+
+The &#x27;version_metadata&#x27; field is only updated if not set. This will be set with &#x22;git&#x22; when the version contains &#x22;+git&#x22; and similar metadata tags.
+
+The &#x27;version_release&#x27; and &#x27;version_epoch&#x27; fields are NOT replaced by components parsed from &#x27;version&#x27;.
+
+N.B.: Some of these fields are not available for all package types.
+
+This field is named &#x22;version&#x22; because that is the term used by nFPM. Though deb and rpm packaging also use &#x22;version&#x22;, this is known as &#x22;pkgver&#x22; in apk and archlinux packaging.
+
+</Field>
+
+</span>

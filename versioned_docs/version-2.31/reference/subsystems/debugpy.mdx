@@ -1,0 +1,144 @@
+---
+title: debugpy
+description: |
+  An implementation of the Debug Adapter Protocol for Python (https://github.com/microsoft/debugpy).
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+An implementation of the Debug Adapter Protocol for Python (https://github.com/microsoft/debugpy).
+
+This version of Pants uses `debugpy` version 1.6.7.post1 by default. Use a dedicated lockfile and the `install_from_resolve` option to control this.
+
+Backend: <span className="color--primary">`pants.backend.python`</span>
+
+Config section: <span className="color--primary">`[debugpy]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `args`
+
+<Option
+  cli_repr={`--debugpy-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DEBUGPY_ARGS'
+  toml_repr={`[debugpy]
+args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to debugpy, e.g. `--debugpy-args='--log-to-stderr'`.
+
+</Option>
+
+## Advanced options
+
+### `console_script`
+
+<Option
+  cli_repr={`--debugpy-console-script=<str>`}
+  env_repr='PANTS_DEBUGPY_CONSOLE_SCRIPT'
+  toml_repr={`[debugpy]
+console_script = <str>`}
+  default_repr={`None`}
+>
+
+The console script for the tool. Using this option is generally preferable to (and mutually exclusive with) specifying an `--entry-point` since console script names have a higher expectation of staying stable across releases of the tool. Usually, you will not want to change this from the default.
+
+</Option>
+
+### `entry_point`
+
+<Option
+  cli_repr={`--debugpy-entry-point=<str>`}
+  env_repr='PANTS_DEBUGPY_ENTRY_POINT'
+  toml_repr={`[debugpy]
+entry_point = <str>`}
+  default_repr={`debugpy`}
+>
+
+The entry point for the tool. Generally you only want to use this option if the tool does not offer a `--console-script` (which this option is mutually exclusive with). Usually, you will not want to change this from the default.
+
+</Option>
+
+### `install_from_resolve`
+
+<Option
+  cli_repr={`--debugpy-install-from-resolve=<str>`}
+  env_repr='PANTS_DEBUGPY_INSTALL_FROM_RESOLVE'
+  toml_repr={`[debugpy]
+install_from_resolve = <str>`}
+  default_repr={`None`}
+>
+
+If specified, install the tool using the lockfile for this named resolve.
+
+This resolve must be defined in `[python].resolves`, as described in https://www.pantsbuild.org/2.31/docs/python/overview/lockfiles#lockfiles-for-tools.
+
+The resolve&#x27;s entire lockfile will be installed, unless specific requirements are listed via the `requirements` option, in which case only those requirements will be installed. This is useful if you don&#x27;t want to invalidate the tool&#x27;s outputs when the resolve incurs changes to unrelated requirements.
+
+If unspecified, and the `lockfile` option is unset, the tool will be installed using the default lockfile shipped with Pants, which uses `debugpy` version 1.6.7.post1.
+
+If unspecified, and the `lockfile` option is set, the tool will use the custom `debugpy` &#x22;tool lockfile&#x22; generated from the `version` and `extra_requirements` options. But note that this mechanism is deprecated.
+
+</Option>
+
+### `interpreter_constraints`
+
+<Option
+  cli_repr={`--debugpy-interpreter-constraints="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DEBUGPY_INTERPRETER_CONSTRAINTS'
+  toml_repr={`[debugpy]
+interpreter_constraints = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[\n  "CPython>=3.9,<3.15"\n]`}
+>
+
+Python interpreter constraints for this tool.
+
+</Option>
+
+### `requirements`
+
+<Option
+  cli_repr={`--debugpy-requirements="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_DEBUGPY_REQUIREMENTS'
+  toml_repr={`[debugpy]
+requirements = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+If `install_from_resolve` is specified, install these requirements, at the versions provided by the specified resolve&#x27;s lockfile.
+
+Values can be pip-style requirements (e.g., `tool` or `tool==1.2.3` or `tool>=1.2.3`), or addresses of `python_requirement` targets (or targets that generate or depend on `python_requirement` targets). Make sure to use the `//` prefix to refer to targets using their full address from the root (e.g. `//3rdparty/python:tool`). This is necessary to distinguish address specs from local or VCS requirements.
+
+The lockfile will be validated against the requirements - if a lockfile doesn&#x27;t provide the requirement (at a suitable version, if the requirement specifies version constraints) Pants will error.
+
+If unspecified, install the entire lockfile.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
