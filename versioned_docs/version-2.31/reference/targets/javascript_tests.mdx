@@ -1,0 +1,161 @@
+---
+title: javascript_tests
+description: |
+  Generate a `javascript_test` target for each file in the `sources` field.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Generate a `javascript_test` target for each file in the `sources` field.
+
+Backend: <span className="color--primary">`pants.backend.experimental.javascript`</span>
+
+---
+
+<span className={styles.options}>
+
+## `batch_compatibility_tag`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+An arbitrary value used to mark the test files belonging to this target as valid for batched execution.
+
+It&#x27;s _sometimes_ safe to run multiple `javascript_test`s within a single test runner process, and doing so can give significant wins by allowing reuse of expensive test setup / teardown logic. To opt into this behavior, set this field to an arbitrary non-empty string on all the `javascript_test` targets that are safe/compatible to run in the same process.
+
+If this field is left unset on a target, the target is assumed to be incompatible with all others and will run in a dedicated `nodejs test runner` process.
+
+If this field is set on a target, and its value is different from the value on some other test `javascript_test`, then the two targets are explicitly incompatible and are guaranteed to not run in the same `nodejs test runner` process.
+
+If this field is set on a target, and its value is the same as the value on some other `javascript_test`, then the two targets are explicitly compatible and _may_ run in the same test runner process. Compatible tests may not end up in the same test runner batch if:
+
+- There are &#x22;too many&#x22; compatible tests in a partition, as determined by the `[test].batch_size` config parameter, or
+- Compatible tests have some incompatibility in Pants metadata (i.e. different `resolve`s or `extra_env_vars`).
+
+When tests with the same `batch_compatibility_tag` have incompatibilities in some other Pants metadata, they will be automatically split into separate batches. This way you can set a high-level `batch_compatibility_tag` using `__defaults__` and then have tests continue to work as you tweak BUILD metadata on specific targets.
+
+</Field>
+
+## `dependencies`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to other targets that this target depends on, e.g. `['helloworld/subdir:lib', 'helloworld/main.py:lib', '3rdparty:reqs#django']`.
+
+This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
+
+See https://www.pantsbuild.org/2.31/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+
+If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
+
+You may exclude dependencies by prefixing with `!`, e.g. `['!helloworld/subdir:lib', '!./sibling.txt']`. Ignores are intended for false positives with dependency inference; otherwise, simply leave off the dependency from the BUILD file.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `extra_env_vars`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Additional environment variables to include in test processes.
+
+Entries are strings in the form `ENV_VAR=value` to use explicitly; or just `ENV_VAR` to copy the value of a variable in Pants&#x27;s own environment. `fnmatch` globs like `ENV_VAR_PREFIXED_*` can be used to copy multiple environment variables.
+
+This will be merged with and override values from `[test].extra_env_vars`.
+
+</Field>
+
+## `overrides`
+
+<Field
+    type_repr={`dict[str | tuple[str, ...], dict[str, Any]] | None`}
+    default_repr={`None`}
+>
+
+Override the field values for generated `javascript_test` targets.
+
+Expects a dictionary of relative file paths and globs to a dictionary for the overrides. You may either use a string for a single path / glob, or a string tuple for multiple paths / globs. Each override is a dictionary of field names to the overridden value.
+
+For example:
+
+```
+overrides={
+    "foo.test.js": {"timeout": 120},
+    "bar.test.js": {"timeout": 200},
+    ("foo.test.js", "bar.test.js"): {"tags": ["slow_tests"]},
+}
+```
+
+File paths and globs are relative to the BUILD file's directory. Every overridden file is validated to belong to this target's `sources` field.
+
+If you&#x27;d like to override a field&#x27;s value for every `javascript_test` target generated by this target, change the field directly on this target rather than using the `overrides` field.
+
+You can specify the same file name in multiple keys, so long as you don&#x27;t override the same field more than one time for the file.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`('*.test.js', '*.test.cjs', '*.test.mjs')`}
+>
+
+A list of files and globs that belong to this target.
+
+Paths are relative to the BUILD file&#x27;s directory. You can ignore files/globs by prefixing them with `!`.
+
+Example: `sources=['utils.test.js', 'subdir/*.test.mjs', '!ignore_me.test.js']`
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `timeout`
+
+<Field
+    type_repr={`int | None`}
+    default_repr={`None`}
+>
+
+A timeout (in seconds) used by each test file belonging to this target.
+
+If unset, will default to `[test].timeout_default`; if that option is also unset, then the test will never time out. Will never exceed `[test].timeout_maximum`. Only applies if the option `--test-timeouts` is set to true (the default).
+
+</Field>
+
+</span>

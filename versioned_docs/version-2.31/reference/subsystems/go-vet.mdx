@@ -1,0 +1,48 @@
+---
+title: go-vet
+description: |
+  `go vet`-specific options.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+`go vet`-specific options.
+
+Backend: <span className="color--primary">`pants.backend.experimental.go.lint.vet`</span>
+
+Config section: <span className="color--primary">`[go-vet]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `skip`
+
+<Option
+  cli_repr={`--[no-]go-vet-skip`}
+  env_repr='PANTS_GO_VET_SKIP'
+  toml_repr={`[go-vet]
+skip = <bool>`}
+  default_repr={`False`}
+>
+
+If true, don&#x27;t use `go vet` when running `pants lint`.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
