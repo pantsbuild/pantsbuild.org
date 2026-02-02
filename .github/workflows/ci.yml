@@ -52,7 +52,7 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          NODE_OPTIONS: --max-old-space-size=12288
+          NODE_OPTIONS: --max-old-space-size=12200
 
       # As an interim step in lieu of https://github.com/pantsbuild/pantsbuild.org/issues/28, upload
       # the build result so someone can download and view it, without having to run the build
