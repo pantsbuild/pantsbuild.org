@@ -87,7 +87,7 @@ cp -r <path/to/pants/repo>/docs/docs ./docs && pnpm start
 To build a production-optimized version of the site, run the following command (this may take several minutes):
 
 ```bash
-NODE_ENV=production NODE_OPTIONS="--max-old-space-size=12288" pnpm build
+NODE_ENV=production NODE_OPTIONS="--max-old-space-size=15000" pnpm build
 ```
 
 Note: the [--max-old-space-size](https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-mib) argument is a remnant from when this site was built using `yarn` and `webpack` instead of `pnpm` and `rspack` - it may not be required anymore.
