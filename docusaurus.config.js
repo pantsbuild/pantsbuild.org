@@ -4,7 +4,6 @@ import old_site_redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
 import fs from "fs";
-import fsPromises from "fs/promises";
 import path from "path";
 
 import { themes as prismThemes } from "prism-react-renderer";
@@ -12,26 +11,19 @@ import { themes as prismThemes } from "prism-react-renderer";
 const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
 
-const numberOfSupportedStableVersions = 2;
-
 // Controls for how much to build:
-//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version"), and no blog.
-//  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
-//  - PANTSBUILD_ORG_INCLUDE_BLOG=1 -> Include the blog.
-// Note that `NODE_ENV === 'production' builds _everything_.
+//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version")
+//  - PANTS_VERSION_COUNT=n -> Use current version and n versions specified in `versions.json` (defaults to 3)
 const isDev = process.env.NODE_ENV === "development";
 
+const versionCount = process.env.PANTS_VERSION_COUNT ?? (isDev ? 0 : 3);
+const numberOfSupportedStableVersions = 2;
+
 // Versions
-const onlyIncludeVersions = isDev
-  ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
-    ? ["current"].concat(
-        (process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS || "").split(",")
-      )
-    : ["current"]
-  : undefined;
+const onlyIncludeVersions = ["current", ...versions.slice(0, versionCount)];
 
 // In Docusaurus terms, "current" == main == trunk == dev.  It is *newer* than
-// the newest in versions.json
+// the newest in versions.json - so we artificially bump it's version by 1
 function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
   const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
@@ -39,7 +31,6 @@ function getCurrentVersion() {
 }
 
 const currentVersion = getCurrentVersion();
-
 const isCurrentVersion = (shortVersion) => shortVersion === currentVersion;
 
 const getFullVersion = (shortVersion) => {
@@ -149,9 +140,6 @@ const mostRecentPreReleaseVersion = versionDetails.find(
 const mostRecentStableVersion = versionDetails.find(
   ({ isPrerelease }) => !isPrerelease
 );
-
-// Blog
-const includeBlog = process.env.PANTSBUILD_ORG_INCLUDE_BLOG === "1" || !isDev;
 
 // Other information
 const formatCopyright = () => {
@@ -269,7 +257,7 @@ const config = {
         },
         debug: process.env.NODE_ENV !== "production",
         docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
-        blog: includeBlog && {
+        blog: {
           showReadingTime: true,
           editUrl: `https://github.com/${organizationName}/${projectName}/edit/main/`,
           remarkPlugins: [captionedCode, tabBlocks],

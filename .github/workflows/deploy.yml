@@ -60,7 +60,6 @@ jobs:
         run: pnpm build
         env:
           NODE_ENV: "production"
-          NODE_OPTIONS: --max-old-space-size=12288
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
