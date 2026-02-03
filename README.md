@@ -62,13 +62,7 @@ pnpm start
 # ...
 ```
 
-By default, only the "next" docs (e.g. the docs for the version that maps to `main`) will get built.
-
-To include the blog, use:
-
-```bash
-PANTSBUILD_ORG_INCLUDE_BLOG=1 pnpm start
-```
+By default, only the "next" docs (e.g. the docs for the version that maps to `main`) and the blog will get built.
 
 To include any version(s) in addition to the "next" version:
 
