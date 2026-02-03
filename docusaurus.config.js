@@ -11,25 +11,19 @@ import { themes as prismThemes } from "prism-react-renderer";
 const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
 
-const numberOfSupportedStableVersions = 2;
-
 // Controls for how much to build:
 //  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version")
-//  - PANTSBUILD_ORG_INCLUDE_VERSIONS=<version>,<version> -> Use current version and versions specified
-// Note that `NODE_ENV === 'production' builds _everything_.
+//  - PANTS_VERSION_COUNT=n -> Use current version and n versions specified in `versions.json` (defaults to 3)
 const isDev = process.env.NODE_ENV === "development";
 
+const versionCount = process.env.PANTS_VERSION_COUNT ?? (isDev ? 0 : 3);
+const numberOfSupportedStableVersions = 2;
+
 // Versions
-const onlyIncludeVersions = isDev
-  ? process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS
-    ? ["current"].concat(
-        (process.env.PANTSBUILD_ORG_INCLUDE_VERSIONS || "").split(",")
-      )
-    : ["current"]
-  : undefined;
+const onlyIncludeVersions = ["current", ...versions.slice(0, versionCount)];
 
 // In Docusaurus terms, "current" == main == trunk == dev.  It is *newer* than
-// the newest in versions.json
+// the newest in versions.json - so we artificially bump it's version by 1
 function getCurrentVersion() {
   const lastReleasedVersion = versions[0];
   const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
@@ -37,7 +31,6 @@ function getCurrentVersion() {
 }
 
 const currentVersion = getCurrentVersion();
-
 const isCurrentVersion = (shortVersion) => shortVersion === currentVersion;
 
 const getFullVersion = (shortVersion) => {
