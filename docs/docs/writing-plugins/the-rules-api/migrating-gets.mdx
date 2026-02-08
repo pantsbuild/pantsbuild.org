@@ -262,15 +262,27 @@ targets = await resolve_targets(
 
 If the rule doesn't take `InputType` directly but needs the engine to infer parameters:
 
-**Before:**
+<table>
+<tr>
+<td> Before </td> <td> After </td>
+</tr>
+<tr>
+<td>
+
 ```python
 val = await Get(OutputType, InputType, input)
 ```
 
-**After:**
+</td>
+<td>
+
 ```python
 val = await rule_name(**implicitly({input: InputType}))
 ```
+
+</td>
+</tr>
+</table>
 
 ## Common Intrinsics Reference
 
@@ -290,19 +302,38 @@ Here's a quick reference for commonly used intrinsics:
 
 ⚠️ **Important**: In the old API, `Get(Snapshot, AddPrefix(...))` would return a `Snapshot`. In the new API, `add_prefix` and `remove_prefix` return `Digest`. If you need a `Snapshot`, you must explicitly convert:
 
-**Before:**
+<table>
+<tr>
+<td> Before </td> <td> After </td>
+</tr>
+<tr>
+<td>
+
 ```python
-prefixed_snapshot = await Get(Snapshot, AddPrefix(digest, "prefix/"))
+prefixed_snapshot = await Get(
+    Snapshot,
+    AddPrefix(digest, "prefix/")
+)
 files = prefixed_snapshot.files  # Works
 ```
 
-**After:**
+</td>
+<td>
+
 ```python
 # add_prefix returns Digest, not Snapshot
-prefixed_digest = await add_prefix(AddPrefix(digest, "prefix/"))
-prefixed_snapshot = await digest_to_snapshot(prefixed_digest)  # Explicit conversion
+prefixed_digest = await add_prefix(
+    AddPrefix(digest, "prefix/")
+)
+prefixed_snapshot = await digest_to_snapshot(
+    prefixed_digest
+)  # Explicit conversion
 files = prefixed_snapshot.files  # Now works
 ```
+
+</td>
+</tr>
+</table>
 
 ## Complete Before/After Examples
 
