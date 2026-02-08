@@ -46,7 +46,11 @@ To achieve concurrency you could `await MultiGet(<iterable of Gets>)`.
 
 `Get` and `MultiGet` are now deprecated, and will be removed entirely soon. Pants itself no longer uses them internally, but external plugins still might. Plugin authors must migrate from `Get`/`MultiGet` to call-by-name syntax as soon as possible.
 
-## Understanding Intrinsics vs Regular Rules
+---
+
+## Migration Guide
+
+### Understanding Intrinsics vs Regular Rules
 
 Before migrating, it's crucial to understand the two types of callable functions in the Rules API:
 
@@ -55,9 +59,9 @@ Before migrating, it's crucial to understand the two types of callable functions
 
 **The key difference**: Intrinsics do NOT need `**implicitly()`, but regular rules DO (with one exception for Process-based intrinsics, explained below).
 
-## Migrating to call-by-name
+### Migrating to call-by-name
 
-### Step 1: Update Imports
+#### Step 1: Update Imports
 
 **Why more imports?** Previously, `Get()` was a generic abstraction that hid which functions you were calling. With call-by-name, you explicitly import each function you use. You only need to add imports for the specific intrinsics and rules your code actually calls.
 
@@ -98,7 +102,7 @@ from pants.source.source_root import get_source_root
 </tr>
 </table>
 
-### Step 2: Replace MultiGet with concurrently
+#### Step 2: Replace MultiGet with concurrently
 
 Replace all `MultiGet`s with `concurrently`, imported from `pants.engine.rules`. `MultiGet` is now just an alias for `concurrently`, so this is straightforward:
 
@@ -134,7 +138,7 @@ results = await concurrently(
 </tr>
 </table>
 
-### Step 3: Migrate Get() Calls
+#### Step 3: Migrate Get() Calls
 
 Replace `await Get(OutputType, InputType, input)` with `await rule_name(...)` where `rule_name` is the rule that returns `OutputType`. The exact pattern depends on whether you're calling an intrinsic or a regular rule.
 
@@ -284,7 +288,7 @@ val = await rule_name(**implicitly({input: InputType}))
 </tr>
 </table>
 
-## Common Intrinsics Reference
+### Common Intrinsics Reference
 
 Here's a quick reference for commonly used intrinsics:
 
@@ -335,9 +339,9 @@ files = prefixed_snapshot.files  # Now works
 </tr>
 </table>
 
-## Complete Before/After Examples
+### Complete Before/After Examples
 
-### Example 1: File Operations with Source Root
+#### Example 1: File Operations with Source Root
 
 <table>
 <tr>
@@ -436,7 +440,7 @@ async def my_rule(field: MyField) -> MyResult:
 </tr>
 </table>
 
-### Example 2: Process Execution and JAR Download
+#### Example 2: Process Execution and JAR Download
 
 <table>
 <tr>
@@ -535,7 +539,7 @@ async def download_jars(
 </tr>
 </table>
 
-### Example 3: Merging Digests
+#### Example 3: Merging Digests
 
 <table>
 <tr>
@@ -622,7 +626,7 @@ async def create_merged_digest(
 </tr>
 </table>
 
-### Example 4: Environment Variables
+#### Example 4: Environment Variables
 
 <table>
 <tr>
@@ -679,9 +683,9 @@ async def my_rule() -> MyResult:
 </tr>
 </table>
 
-## Common Pitfalls
+### Common Pitfalls
 
-### Pitfall 1: Forgetting `**implicitly()` on Regular Rules
+#### Pitfall 1: Forgetting `**implicitly()` on Regular Rules
 
 **Error Message:**
 ```
@@ -702,7 +706,7 @@ result = await determine_source_files(
 )
 ```
 
-### Pitfall 2: Adding `**implicitly()` to Non-Process Intrinsics
+#### Pitfall 2: Adding `**implicitly()` to Non-Process Intrinsics
 
 **Error Message:**
 ```
@@ -726,7 +730,7 @@ digest = await create_digest(CreateDigest([...]))
 result = await execute_process_or_raise(**implicitly(Process(...)))
 ```
 
-### Pitfall 3: Expecting Snapshot Instead of Digest
+#### Pitfall 3: Expecting Snapshot Instead of Digest
 
 **Error Message:**
 ```
@@ -747,7 +751,7 @@ prefixed_snapshot = await digest_to_snapshot(prefixed_digest)  # Convert
 files = prefixed_snapshot.files  # Now works
 ```
 
-## Testing Your Migration
+### Testing Your Migration
 
 After migrating, verify everything works:
 
@@ -764,6 +768,10 @@ pants --level=debug list :: 2>&1 | grep "Get() is deprecated"
 
 For more examples of migrations, you can review [pull requests](https://github.com/pantsbuild/pants/pulls?q=is%3Apr+%22call-by-name%22+is%3Aclosed) made to the Pants repository. Additionally, there are some simplified examples in the form of [Pants integration tests](https://github.com/pantsbuild/pants/blob/main/src/python/pants/goal/migrate_call_by_name_integration_test.py).
 
-## Migrating union `Get`s to call-by-name
+---
+
+## Advanced: Union Rules
+
+#### Migrating union `Get`s to call-by-name
 
 If you're relying on polymorphic dispatch via a [union](./union-rules-advanced.mdx), then you must make sure that your implementation rule has the same signature as the "base" rule (the `@rule(polymorphic=True)` rule) - the same type annotations for parameters and return value - except with your subtype in place of the union type. If things aren't working and the base rule is a standard Pants rule, you can examine its signature in the Pants source code.
