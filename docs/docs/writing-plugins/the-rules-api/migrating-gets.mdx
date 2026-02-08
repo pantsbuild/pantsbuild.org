@@ -7,9 +7,11 @@ Migrating away from the old call-by-type Rules API.
 
 ---
 
-## `Get` and `MultiGet`
+## Background: `Get` and `MultiGet`
 
-As [we've seen](./concepts.mdx), rules invoke other rules directly by name:
+The Pants Rules API has evolved from an implicit call-by-type system to an explicit call-by-name system. This guide helps you migrate your plugins to the new approach.
+
+**The new way** - as [described in the Rules API concepts](./concepts.mdx), rules invoke other rules directly by name:
 
 ```python
 from pants.engine.fs import NativeDownloadFile
@@ -25,7 +27,7 @@ async def my_rule() -> MyResult:
     ...
 ```
 
-However, a previous version of the Rules API had a different idiom, call-by-type. This was achieved using a construct called `Get`:
+**The old way (deprecated)** - rules used `Get()` for implicit call-by-type:
 
 ```python
 from pants.engine.fs import Digest, NativeDownloadFile
@@ -42,9 +44,18 @@ A `Get(OutputType, InputType, input)` or `Get(OutputType, InputType(...))` invok
 
 To achieve concurrency you could `await MultiGet(<iterable of Gets>)`.
 
-## `Get` and `MultiGet` are deprecated
+## Why Migrate? `Get` and `MultiGet` are Deprecated
 
-`Get` and `MultiGet` are now deprecated, and will be removed entirely soon. Pants itself no longer uses them internally, but external plugins still might. Plugin authors must migrate from `Get`/`MultiGet` to call-by-name syntax as soon as possible.
+:::warning Deprecation Notice
+`Get` and `MultiGet` are **deprecated as of Pants 2.30** and will be **removed in Pants 2.31**.
+:::
+
+**Current status:**
+- ✅ Pants core has migrated to call-by-name
+- ⚠️ External plugins may still use `Get`/`MultiGet`
+- 🎯 **Action required:** Plugin authors must migrate before Pants 2.31
+
+**Why the change?** Call-by-name is more explicit, easier to understand, and provides better IDE support with clear imports and function signatures.
 
 ---
 
