@@ -202,6 +202,23 @@ If true, publish images non-interactively. This allows for pushes to be parallel
 
 </Option>
 
+### `push_on_package`
+
+<Option
+  cli_repr={`--docker-push-on-package=<DockerPushOnPackageBehavior>`}
+  env_repr='PANTS_DOCKER_PUSH_ON_PACKAGE'
+  toml_repr={`[docker]
+push_on_package = <DockerPushOnPackageBehavior>`}
+  one_of='allow, ignore, warn, error'
+  default_repr={`warn`}
+>
+
+The behavior when a docker_image target would push to a registry during packaging (e.g., when output has push=true or type=registry).
+
+Options: - allow: Allow pushes during packaging - warn: Log a warning but continue with the push (default) - ignore: Skip building images that would push - error: Raise an error if an image would push
+
+</Option>
+
 ### `registries`
 
 <Option
