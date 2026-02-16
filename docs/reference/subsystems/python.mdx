@@ -69,6 +69,70 @@ Whether to use the standard Python command history file when running a repl.
 
 </Option>
 
+### `tailor_test_file_globs`
+
+<Option
+  cli_repr={`--python-tailor-test-file-globs="[glob, glob, ...]"`}
+  env_repr='PANTS_PYTHON_TAILOR_TEST_FILE_GLOBS'
+  toml_repr={`[python]
+tailor_test_file_globs = [
+    glob,
+    glob,
+    ...,
+]`}
+  default_repr={`[\n  "test_*.py",\n  "*_test.py",\n  "tests.py"\n]`}
+>
+
+Globs to match your test files. Used to decide which files should tailor python_tests() vs python_sources() targets.
+
+NB: This doesn&#x27;t change the default set of files that a target owns, just the files
+that trigger tailoring of a target. If you need those to match (and you almost always do)
+then you should also create custom target type macros whose globs match these, and list
+them as substitutes for python_tests() and python_sources() in `[tailor].alias_mapping`.
+(see &#123;doc_url(&#x22;docs/writing-plugins/macros&#x22;)&#125; and
+&#123;doc_url(&#x22;reference/goals/tailor#alias_mapping&#x22;)&#125;).
+
+For example, you can set `[python].tailor_test_file_globs` to `["*_mytests.py"]`, and then create `my_pants_macros.py` with:
+
+```def my_python_tests(**kwargs):
+    if "sources" not in kwargs:
+        kwargs["sources"] = ["*_mytests.py"]
+    python_tests(**kwargs)
+
+def my_python_sources(**kwargs):
+    if "sources" not in kwargs:
+        kwargs["sources"] = ["*.py", "!*_mytests.py"]
+    python_sources(**kwargs)
+```
+
+And set the following in `pants.toml`:
+
+[global] build_file_prelude_globs = [&#x22;my_pants_macros.py&#x22;]
+
+[tailor] alias_mapping = &#123; python_sources = &#x22;my_python_sources&#x22;, python_tests = &#x22;my_python_tests&#x22; &#125;
+
+</Option>
+
+### `tailor_testutils_file_globs`
+
+<Option
+  cli_repr={`--python-tailor-testutils-file-globs="[glob, glob, ...]"`}
+  env_repr='PANTS_PYTHON_TAILOR_TESTUTILS_FILE_GLOBS'
+  toml_repr={`[python]
+tailor_testutils_file_globs = [
+    glob,
+    glob,
+    ...,
+]`}
+  default_repr={`[\n  "conftest.py",\n  "test_*.pyi",\n  "*_test.pyi",\n  "tests.pyi"\n]`}
+>
+
+Globs to match your testutil files. Used to decide which files should tailor python_test_utils() vs python_sources() targets.
+
+See tailor_test_file_globs above for caveats and usage.
+
+</Option>
+
 ## Advanced options
 
 ### `default_resolve`
@@ -159,7 +223,7 @@ All known Python major/minor interpreter versions that may be used by either you
 
 This is used by Pants to robustly handle interpreter constraints, such as knowing when generating lockfiles which Python versions to check if your code is using.
 
-This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/2.31/docs/python/overview/interpreter-compatibility.
+This does not control which interpreter your code will use. Instead, to set your interpreter constraints, update `[python].interpreter_constraints`, the `interpreter_constraints` field, and relevant tool options like `[isort].interpreter_constraints` to tell Pants which interpreters your code actually uses. See https://www.pantsbuild.org/2.32/docs/python/overview/interpreter-compatibility.
 
 All elements must be the minor and major Python version, e.g. `'2.7'` or `'3.10'`. Do not include the patch version.
 
@@ -212,7 +276,7 @@ pip_version = <str>`}
 
 Use this version of Pip for resolving requirements and generating lockfiles.
 
-The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.31/docs/python/overview/pex for details.
+The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.32/docs/python/overview/pex for details.
 
 N.B.: The `latest` value selects the latest of the choices listed by PEX which is not necessarily the latest Pip version released on PyPI.
 
@@ -258,7 +322,7 @@ If you need multiple resolves:
 4. Run `pants generate-lockfiles` to generate the lockfiles. If the results aren&#x27;t what you&#x27;d expect, adjust the prior step.
 5. Update any targets like `python_source` / `python_sources`, `python_test` / `python_tests`, and `pex_binary` which need to set a non-default resolve with the `resolve` field.
 
-If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/2.31/docs/using-pants/key-concepts/targets-and-build-files for information about `parametrize`.
+If a target can work with multiple resolves, you can either use the `parametrize` mechanism or manually create a distinct target per resolve. See https://www.pantsbuild.org/2.32/docs/using-pants/key-concepts/targets-and-build-files for information about `parametrize`.
 
 For example:
 
