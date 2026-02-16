@@ -2,10 +2,6 @@ node-linker: hoisted
 
 overrides:
   eslint@<9.26.0: ">=9.26.0"
-  lodash@>=4.0.0 <=4.17.22: ">=4.17.23"
+  qs@>=6.7.0 <=6.14.1: ">=6.14.2"
 
 trustPolicy: no-downgrade
-
-trustPolicyExclude:
-  - detect-port@1.6.1
-  - semver
