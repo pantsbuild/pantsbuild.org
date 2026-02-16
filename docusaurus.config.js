@@ -1,161 +1,43 @@
+/**
+ * Controls for how much to build:
+ * - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version")
+ * - PANTS_VERSIONS_SINCE="{MAJOR.MINOR}" -> Build all versions since/including the specified one
+ */
+
 import versions from "./versions.json";
 import renamed_path_redirects from "./renamed_path_redirects.js";
-import old_site_redirects from "./old_site_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
 import fs from "fs";
 import path from "path";
-
 import { themes as prismThemes } from "prism-react-renderer";
+
+/***** PROJECT CONSTANTS *****/
 
 const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
-
-// Controls for how much to build:
-//  - (No env vars set) -> Just uses the docs from `/docs/` (Docusaurus calls this "current version")
-//  - PANTS_VERSION_COUNT=n -> Use current version and n versions specified in `versions.json` (defaults to 3)
-const isDev = process.env.NODE_ENV === "development";
-
-const versionCount = process.env.PANTS_VERSION_COUNT ?? (isDev ? 0 : 3);
+const url = "https://www.pantsbuild.org";
 const numberOfSupportedStableVersions = 2;
 
-// Versions
+/***** RUNTIME CONFIG *****/
+
+const isDev = process.env.NODE_ENV === "development";
+
+const sinceVersionIndex = versions.indexOf(process.env.PANTS_VERSIONS_SINCE);
+const versionCount = sinceVersionIndex === -1 ? 0 : sinceVersionIndex + 1;
 const onlyIncludeVersions = ["current", ...versions.slice(0, versionCount)];
 
-// In Docusaurus terms, "current" == main == trunk == dev.  It is *newer* than
-// the newest in versions.json - so we artificially bump it's version by 1
-function getCurrentVersion() {
-  const lastReleasedVersion = versions[0];
-  const version = parseInt(lastReleasedVersion.replace("2.", ""), 10);
-  return `2.${version + 1}`;
-}
-
 const currentVersion = getCurrentVersion();
-const isCurrentVersion = (shortVersion) => shortVersion === currentVersion;
+const allVersionsDetails = getVersionDetails();
 
-const getFullVersion = (shortVersion) => {
-  const parentDir = isCurrentVersion(shortVersion)
-    ? "docs"
-    : path.join("versioned_docs", `version-${shortVersion}`);
-  const helpAll = JSON.parse(
-    fs.readFileSync(path.join(parentDir, "reference", "help-all.json"), "utf8")
-  );
-
-  const pantsVersion = helpAll["scope_to_help_info"][""]["advanced"].find(
-    (help) => help["config_key"] === "pants_version"
-  );
-
-  const hardcoded = pantsVersion["value_history"]["ranked_values"].find(
-    (value) => value["rank"] == "HARDCODED"
-  );
-
-  return hardcoded["value"];
-};
-
-const isPrereleaseVersion = (fullVersion) => {
-  // Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
-  // We don't treat patch versions pre-releases as pre-releases, since it looks weird.
-  // Optimally we shouldn't sync those either way, but some have ended up here by accident.
-  const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
-
-  return rex.test(fullVersion);
-};
-
-const getVersionDetails = () => {
-  const versionDetails = [];
-
-  let seenStableVersions = 0;
-  let newestPreReleaseVersion = null;
-
-  // Construct the configuration for each version. NB. iterating from newest to oldest is important,
-  // to be able to label too-old stable versions as unsupported.
-  for (const shortVersion of [currentVersion, ...versions]) {
-    const fullVersion = getFullVersion(shortVersion);
-
-    // NB. "maintained" versions includes pre-releases
-    const isMaintained = seenStableVersions < numberOfSupportedStableVersions;
-    const isPrerelease = isPrereleaseVersion(fullVersion);
-    const isCurrent = isCurrentVersion(shortVersion);
-    if (!isCurrent && isPrerelease && newestPreReleaseVersion === null) {
-      newestPreReleaseVersion = shortVersion;
-    }
-
-    // compute the appropriate configuration this version
-    let config;
-    if (isCurrent) {
-      // current version => dev
-      config = {
-        label: `${shortVersion} (dev)`,
-        path: "dev",
-      };
-    } else if (isPrerelease) {
-      // prerelease => prerelease
-      config = {
-        label: `${shortVersion} (prerelease)`,
-        banner: "unreleased",
-        noIndex: false,
-        path:
-          shortVersion == newestPreReleaseVersion ? "prerelease" : shortVersion,
-      };
-    } else if (isMaintained) {
-      // a new-enough stable version => so still supported
-      config = {
-        label: shortVersion,
-        banner: "none",
-        noIndex: false,
-        path: seenStableVersions == 0 ? "stable" : shortVersion,
-      };
-    } else {
-      // stable, but too old => deprecated
-      config = {
-        label: `${shortVersion} (deprecated)`,
-        banner: "unmaintained",
-        noIndex: true,
-        path: shortVersion,
-      };
-    }
-
-    versionDetails.push({
-      shortVersion,
-      fullVersion,
-      isMaintained,
-      isPrerelease,
-      isCurrent,
-      config,
-    });
-
-    if (!isPrerelease) {
-      seenStableVersions += 1;
-    }
-  }
-  return versionDetails;
-};
-
-const versionDetails = getVersionDetails();
-
-const mostRecentPreReleaseVersion = versionDetails.find(
-  (ver) => ver.isPrerelease && !ver.isCurrent
+const mostRecentPreReleaseVersion = allVersionsDetails.find(
+  (v) => v.isPrerelease && !v.isCurrent
 );
-
-const mostRecentStableVersion = versionDetails.find(
+const mostRecentStableVersion = allVersionsDetails.find(
   ({ isPrerelease }) => !isPrerelease
 );
 
-// Other information
-const formatCopyright = () => {
-  const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
-
-  const repoUrl = `https://github.com/${organizationName}/${projectName}`;
-  const repoLink = makeLink(repoUrl, "Website source");
-
-  // Only set by CI, so fallback to just `local` for local dev
-  const docsCommit = process.env.GITHUB_SHA;
-  const commitLink = docsCommit
-    ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
-    : "local";
-
-  return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
-};
+/***** DOCUSAURUS CONFIG *****/
 
 /** @type {import("@docusaurus/types").Config} */
 const config = {
@@ -163,7 +45,7 @@ const config = {
   tagline: "The ergonomic build system",
   favicon: "img/favicon.ico",
 
-  url: "https://www.pantsbuild.org",
+  url: url,
   baseUrl: "/",
   trailingSlash: false,
 
@@ -204,7 +86,7 @@ const config = {
         routeBasePath: "/",
         sidebarPath: require.resolve("./sidebars.js"),
         versions: Object.fromEntries(
-          versionDetails.map(({ isCurrent, shortVersion, config }) => [
+          allVersionsDetails.map(({ isCurrent, shortVersion, config }) => [
             isCurrent ? "current" : shortVersion,
             config,
           ])
@@ -214,7 +96,7 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects: old_site_redirects.concat(renamed_path_redirects),
+        redirects: renamed_path_redirects,
         createRedirects(existingPath) {
           if (existingPath.startsWith("/dev/")) {
             return [existingPath.replace("/dev/", `/${currentVersion}/`)];
@@ -425,12 +307,14 @@ const config = {
       ],
       copyright: formatCopyright(),
     },
+
     algolia: {
       appId: "QD9KY1TRVK",
       apiKey: "487e5f50fad326e6126bf593c06b3310",
       indexName: "pantsbuild",
       contextualSearch: true,
     },
+
     prism: {
       additionalLanguages: [
         "bash",
@@ -446,11 +330,192 @@ const config = {
         "toml",
         // TODO: Add thrift once supported: https://github.com/PrismJS/prism/issues/3641
       ],
+
       // NB: Not all themes support shell-session well. Check before you change this.
       theme: prismThemes.palenight,
       darkTheme: prismThemes.nightOwl,
     },
   },
 };
+
+/***** HELPER UTILITIES *****/
+
+/**
+ * In Docusaurus terms, "current" == main == trunk == dev.  It is *newer* than
+ * the newest in versions.json - so we artificially bump it's version by 1
+ *
+ * @returns {string} The current version in the form of "2.{MINOR}"
+ */
+function getCurrentVersion() {
+  const lastReleasedVersion = versions[0];
+  const minorVersion = parseInt(lastReleasedVersion.replace("2.", ""), 10);
+  return `2.${minorVersion + 1}`;
+}
+
+/**
+ * Compares the passed in `shortVersion` to the globally available `currentVersion`.
+ *
+ * @param {string} shortVersion A "{major}.{minor}" form of the version
+ * @returns {boolean}
+ */
+function isCurrentVersion(shortVersion) {
+  return shortVersion === currentVersion;
+}
+
+/**
+ * Check if it's one of xx.xx.0.dev0, xx.xx.0a0, xx.xx.0b0,  xx.xx.0rc0, etc.
+ * We don't treat patch versions pre-releases as pre-releases, since it looks weird.
+ * Optimally we shouldn't sync those either way, but some have ended up here by accident.
+ *
+ * @param {string} fullVersion Version in the form "{major}.{minor}.{patch+cycle}"
+ * @returns {boolean}
+ */
+function isPrereleaseVersion(fullVersion) {
+  const rex = /^(\d+\.\d+\.0)(\.dev|a|b|rc)\d+$/;
+  return rex.test(fullVersion);
+}
+
+/**
+ * Uses Pants `help-all` to get a full version of the `shortVersion` param.
+ * @param {string} shortVersion A "{major}.{minor}" form of the version
+ * @returns {string} A "{major}.{minor}.{patch+cycle}" version of the `shortVersion`
+ */
+function getFullVersion(shortVersion) {
+  const parentDir = isCurrentVersion(shortVersion)
+    ? "docs"
+    : path.join("versioned_docs", `version-${shortVersion}`);
+  const helpAll = JSON.parse(
+    fs.readFileSync(path.join(parentDir, "reference", "help-all.json"), "utf8")
+  );
+
+  // In help.json, find: `"config_key": "pants_version"` (also in "env_var_to_help_info")
+  const pantsVersionObj = helpAll["scope_to_help_info"][""]["advanced"].find(
+    (help) => help["config_key"] === "pants_version"
+  );
+
+  // Looks for this:
+  // {
+  //   "details": null,
+  //   "rank": "HARDCODED",
+  //   "value": "2.31.0rc0"
+  // },
+  const hardcodedRankedValue = pantsVersionObj["value_history"][
+    "ranked_values"
+  ].find((value) => value["rank"] === "HARDCODED");
+
+  return hardcodedRankedValue["value"];
+}
+
+/**
+ * @typedef {Object} VersionDetail
+ * @property {string} shortVersion - The `{major}.{minor}` version string
+ * @property {string} fullVersion - The `{major}.{minor}.{patch+cycle}` string
+ * @property {boolean} isMaintained - Whether the version is within the supported stability window
+ * @property {boolean} isPrerelease - Whether the version is a pre-release
+ * @property {boolean} isCurrent - Whether this is the "dev" docs version from the local /docs/ folder
+ * @property {import("@docusaurus/plugin-content-docs").VersionOptions} config - The Docusaurus version options object
+ */
+
+/**
+ * Generates metadata and Docusaurus configuration for all documentation versions.
+ *
+ * It iterates from newest to oldest to determine which versions should be labeled as "stable",
+ * "prerelease", or "deprecated" based on the global `numberOfSupportedStableVersions` setting.
+ *
+ * @returns {VersionDetail[]} An array of version details and their associated UI configurations.
+ */
+function getVersionDetails() {
+  /** @type {VersionDetail[]} */
+  const versionDetails = [];
+
+  let seenStableVersions = 0;
+  let newestPreReleaseVersion = null;
+
+  // Construct the configuration for each version. NB. iterating from newest to oldest is important,
+  // to be able to label too-old stable versions as unsupported.
+  for (const shortVersion of [currentVersion, ...versions]) {
+    const fullVersion = getFullVersion(shortVersion);
+
+    // NB. "maintained" versions includes pre-releases
+    const isMaintained = seenStableVersions < numberOfSupportedStableVersions;
+    const isPrerelease = isPrereleaseVersion(fullVersion);
+    const isCurrent = isCurrentVersion(shortVersion);
+    if (!isCurrent && isPrerelease && newestPreReleaseVersion === null) {
+      newestPreReleaseVersion = shortVersion;
+    }
+
+    // compute the appropriate configuration this version
+    /** @type {import("@docusaurus/plugin-content-docs").VersionOptions} */
+    let config;
+    if (isCurrent) {
+      // current version => dev
+      config = {
+        label: `${shortVersion} (dev)`,
+        path: "dev",
+      };
+    } else if (isPrerelease) {
+      // prerelease => prerelease
+      config = {
+        label: `${shortVersion} (prerelease)`,
+        banner: "unreleased",
+        noIndex: false,
+        path:
+          shortVersion === newestPreReleaseVersion
+            ? "prerelease"
+            : shortVersion,
+      };
+    } else if (isMaintained) {
+      // a new-enough stable version => so still supported
+      config = {
+        label: shortVersion,
+        banner: "none",
+        noIndex: false,
+        path: seenStableVersions === 0 ? "stable" : shortVersion,
+      };
+    } else {
+      // stable, but too old => deprecated
+      config = {
+        label: `${shortVersion} (deprecated)`,
+        banner: "unmaintained",
+        noIndex: true,
+        path: shortVersion,
+      };
+    }
+
+    versionDetails.push({
+      shortVersion,
+      fullVersion,
+      isMaintained,
+      isPrerelease,
+      isCurrent,
+      config,
+    });
+
+    if (!isPrerelease) {
+      seenStableVersions += 1;
+    }
+  }
+  return versionDetails;
+}
+
+/**
+ * Returns a copyright string formatted with globals from this file.
+ *
+ * @returns {string} Copyright string
+ */
+function formatCopyright() {
+  const makeLink = (href, text) => `<a href="${href}">${text}</a>`;
+
+  const repoUrl = `https://github.com/${organizationName}/${projectName}`;
+  const repoLink = makeLink(repoUrl, "Website source");
+
+  // Only set by CI, so fallback to just `local` for local dev
+  const docsCommit = process.env.GITHUB_SHA;
+  const commitLink = docsCommit
+    ? makeLink(`${repoUrl}/commit/${docsCommit}`, docsCommit.slice(0, 6))
+    : "local";
+
+  return `Copyright © Pants project contributors. ${repoLink} @ ${commitLink}.`;
+}
 
 module.exports = config;
