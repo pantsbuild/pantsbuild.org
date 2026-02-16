@@ -60,6 +60,7 @@ jobs:
         run: pnpm build
         env:
           NODE_ENV: "production"
+          PANTS_VERSIONS_SINCE: "2.28"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
