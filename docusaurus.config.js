@@ -5,7 +5,6 @@
  */
 
 import versions from "./versions.json";
-import renamed_path_redirects from "./renamed_path_redirects.js";
 import captionedCode from "./src/remark/captioned-code.js";
 import tabBlocks from "docusaurus-remark-plugin-tab-blocks";
 import fs from "fs";
@@ -36,6 +35,12 @@ const mostRecentPreReleaseVersion = allVersionsDetails.find(
 const mostRecentStableVersion = allVersionsDetails.find(
   ({ isPrerelease }) => !isPrerelease
 );
+// https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-docs#lastVersion
+const defaultDisplayedVersion = onlyIncludeVersions.includes(
+  mostRecentStableVersion.shortVersion
+)
+  ? mostRecentStableVersion.shortVersion
+  : undefined;
 
 /***** DOCUSAURUS CONFIG *****/
 
@@ -78,9 +83,7 @@ const config = {
           }
           return `https://github.com/pantsbuild/pants/edit/main/docs/${docPath}`;
         },
-        lastVersion: onlyIncludeVersions
-          ? undefined
-          : mostRecentStableVersion.shortVersion,
+        lastVersion: defaultDisplayedVersion,
         onlyIncludeVersions,
         remarkPlugins: [captionedCode, tabBlocks],
         routeBasePath: "/",
@@ -96,7 +99,12 @@ const config = {
     [
       "@docusaurus/plugin-client-redirects",
       {
-        redirects: renamed_path_redirects,
+        redirects: [
+          {
+            from: "/blog/pants-2-28-released",
+            to: "/blog/2025/09/08/pants-2-28",
+          },
+        ],
         createRedirects(existingPath) {
           if (existingPath.startsWith("/dev/")) {
             return [existingPath.replace("/dev/", `/${currentVersion}/`)];
