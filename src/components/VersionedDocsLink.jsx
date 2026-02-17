@@ -21,7 +21,7 @@ const useVersionConfigs = () => {
   return {
     "current-dev": current,
     // When running the dev server, we might be only showing the "current" docs (unless
-    // PANTSBUILD_ORG_INCLUDE_VERSIONS is set), in which lastVersion may not be set, so we just
+    // PANTS_VERSIONS_SINCE is set), in which lastVersion may not be set, so we just
     // fallback to the current version to keep things working
     "last-stable": docsPluginConfig.lastVersion
       ? docsPluginConfig.versions[docsPluginConfig.lastVersion]

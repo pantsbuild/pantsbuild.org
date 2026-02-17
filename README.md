@@ -62,18 +62,12 @@ pnpm start
 # ...
 ```
 
-By default, only the "next" docs (e.g. the docs for the version that maps to `main`) will get built.
-
-To include the blog, use:
-
-```bash
-PANTSBUILD_ORG_INCLUDE_BLOG=1 pnpm start
-```
+By default, only the "next" docs (e.g. the docs for the version that maps to `main`) and the blog will get built.
 
 To include any version(s) in addition to the "next" version:
 
 ```bash
-PANTSBUILD_ORG_INCLUDE_VERSIONS=$version1,$version2 pnpm start
+PANTS_VERSIONS_SINCE="2.28" pnpm start
 ```
 
 To render uncommitted version-specific docs from a local Pants repo:
@@ -87,11 +81,15 @@ cp -r <path/to/pants/repo>/docs/docs ./docs && pnpm start
 To build a production-optimized version of the site, run the following command (this may take several minutes):
 
 ```bash
-NODE_ENV=production NODE_OPTIONS="--max-old-space-size=12288" pnpm build
+NODE_ENV=production PANTS_VERSIONS_SINCE="2.28" pnpm build
 ```
-
-Note: the [--max-old-space-size](https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-mib) argument is a remnant from when this site was built using `yarn` and `webpack` instead of `pnpm` and `rspack` - it may not be required anymore.
 
 ## Deployment
 
 The site is fully deployed via Github Actions to Github Pages. Refer to the [deployment workflow](./.github/workflows/deploy.yml) for more information. The [sync-docs workflow](./.github/workflows/sync_docs.yml) is responsible for merging changes from the `pantsbuild/pants` repo.
+
+## Archived documentation
+
+Due to the growing size of our documentation, CI builds began failing around v2.32, even with [Docusaurus Faster](https://github.com/facebook/docusaurus/issues/10556) enabled. To resolve this, we have archived a snapshot of the documentation at [v2.pantsbuild.org](https://v2.pantsbuild.org) in Feb 2026.
+
+CI now only builds recent versions to ensure stability and older versions are re-directed to the archive site (similar to [v1](https://v1.pantsbuild.org)). The v1 snapshot is located at https://github.com/pantsbuild/pantsbuild.github.io, while the v2 snapshots are located at https://github.com/pantsbuild/v2.pantsbuild.org.

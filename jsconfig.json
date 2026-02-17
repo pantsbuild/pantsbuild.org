@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "jsx": "react-native",
+    "resolveJsonModule": true
+  },
+  "exclude": [".docusaurus", "build", "node_modules"]
+}
