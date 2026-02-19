@@ -1,0 +1,55 @@
+---
+  authors: [cburroughs]
+  tags: [announcement]
+  # Date of the actual release
+  date: 2026-02-19
+---
+
+# Pants 2.31.0 is released!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by [Brett Wharton](https://unsplash.com/@brettwharton) on
+  [Unsplash](https://unsplash.com/photos/lanterns-hang-in-front-of-a-brick-building-YbzrvO36m48)
+</CaptionedImg>
+
+{/* truncate */}
+
+We are pleased to announce Pants [2.31.0](https://github.com/pantsbuild/pants/blob/2.31.x/docs/notes/2.31.x.md), the latest release of [Pantsbuild](https://www.pantsbuild.org/), the scalable and ergonomic build system. To update, set `pants_version = "2.31.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](/2.31/docs/getting-started).
+
+_Highlights in [2.31](https://github.com/pantsbuild/pants/blob/2.31.x/docs/notes/2.31.x.md) include_:
+
+- 🔏 `pantsd` now preserves web proxy environment variables for environments with restricted internet access.
+- 🏃 `shell_command` targets are now "runnable" by both the `run` goal and targets like `code_quality_tool`.
+- 🐹 Go now compiles with trimpath for reproducible builds
+- 🔬 `pex_binary` targets can now create fully executable binaries (that is, they "bring their own Python") by leveraging [The Science Projects](https://github.com/a-scie) and [Pex](https://docs.pex-tool.org/).
+- 🧝 A new `pants.backend.experimental.nfpm.native_libs` backend that simplifies the handling of native Linux binary dependency management.
+- 🐞 And a whole bunch of updates, bugfixes, and general improvements!
+
+NOTE: [Following](/blog/2025/10/06/winding-down-macos-intel-support) [prior](/blog/2025/12/10/pants-2-30) [announcements](https://github.com/pantsbuild/pants/discussions/22711), Pants 2.31 does not provide `x86_64` (aka "Intel") macOS binaries. This flows from the [reduced support](https://github.com/actions/runner-images/issues/13046) from GitHub and continued movement in the macOS ecosystem. If you are interested in maintaining and resurrecting support for `x86_64` macOS binaries, please [reach out](https://github.com/pantsbuild/pants/discussions/22711).
+
+Check out the [full release notes](https://github.com/pantsbuild/pants/blob/2.31.x/docs/notes/2.31.x.md) for the accumulation of all those little improvements.
+
+Pants is an open-source project, and the changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a [contributor](/stable/docs/contributions).
+
+We also offer [formal sponsorship tiers for companies](/sponsorship), as well as individual sponsorships via [GitHub](/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+
+Some Pants maintainers also offer [paid consulting](/spotlight/service-providers) for adopting and customizing Pants for your company's needs.
+
+To see Pants in action, explore our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-django](https://github.com/pantsbuild/example-django)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-javascript](https://github.com/pantsbuild/example-javascript)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-serverless](https://github.com/pantsbuild/example-serverless)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+- [example-workspace-execution](https://github.com/pantsbuild/example-workspace-execution)
+
+And let us know what you think in [Slack!](/community/getting-help)
+
+Pants wouldn't be possible without everyone who contributed to `2.31.0`, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!
