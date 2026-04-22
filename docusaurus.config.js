@@ -63,7 +63,7 @@ const config = {
   clientModules: ["./src/js/redirectCodeFragment.js"],
 
   future: {
-    experimental_faster: true,
+    faster: true,
     v4: true,
   },
 

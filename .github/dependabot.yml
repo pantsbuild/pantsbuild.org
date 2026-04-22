@@ -3,6 +3,8 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    cooldown:
+      default-days: 7
     directory: "/"
     groups:
       gha-deps:
@@ -12,6 +14,8 @@ updates:
       interval: "monthly"
 
   - package-ecosystem: "npm"
+    cooldown:
+      default-days: 7  
     directory: "/"
     groups:
       npm-deps:
