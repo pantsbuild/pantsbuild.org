@@ -19,29 +19,30 @@ Config section: <span className="color--primary">`[uv]`</span>
 
 ## Basic options
 
-### `args_for_uv_pip_install`
-
-<Option
-  cli_repr={`--uv-args-for-uv-pip-install="[<shell_str>, <shell_str>, ...]"`}
-  env_repr='PANTS_UV_ARGS_FOR_UV_PIP_INSTALL'
-  toml_repr={`[uv]
-args_for_uv_pip_install = [
-    <shell_str>,
-    <shell_str>,
-    ...,
-]`}
-  default_repr={`[]`}
->
-
-Arguments to pass directly to uv, e.g. `--uv-args='--index-strategy unsafe-first-match'`.
-
-Additional arguments to pass to `uv pip install` invocations.
-
-Used when `[python].pex_builder = "uv"` to pass extra flags to the `uv pip install` step (e.g. `--index-url`, `--extra-index-url`). These are NOT passed to the `uv venv` step.
-
-</Option>
+None
 
 ## Advanced options
+
+### `executable_search_paths`
+
+<Option
+  cli_repr={`--uv-executable-search-paths="[<binary-paths>, <binary-paths>, ...]"`}
+  env_repr='PANTS_UV_EXECUTABLE_SEARCH_PATHS'
+  toml_repr={`[uv]
+executable_search_paths = [
+    <binary-paths>,
+    <binary-paths>,
+    ...,
+]`}
+  default_repr={`[\n  "<PATH>"\n]`}
+  target_field_name='uv_executable_search_paths'
+>
+
+The PATH value that will be used by the uv subprocess and any subprocesses it spawns.
+
+The special string `"<PATH>"` will expand to the contents of the PATH env var.
+
+</Option>
 
 ### `known_versions`
 
