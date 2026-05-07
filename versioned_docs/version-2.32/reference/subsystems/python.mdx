@@ -264,27 +264,6 @@ If set, and if running on macOS Big Sur, use `macosx_10_16` as the platform when
 
 </Option>
 
-### `pex_builder`
-
-<Option
-  cli_repr={`--python-pex-builder=<PexBuilder>`}
-  env_repr='PANTS_PYTHON_PEX_BUILDER'
-  toml_repr={`[python]
-pex_builder = <PexBuilder>`}
-  one_of='pex, uv'
-  default_repr={`pex`}
->
-
-Which tool to use for installing dependencies when building PEX files.
-
-- `pex` (default): Use pip via PEX. - `uv` (experimental): Pre-install dependencies into a uv venv, then pass it
-  to PEX via `--venv-repository`. When a PEX-native lockfile is available,
-  uv installs the exact pinned versions with `--no-deps`.
-
-Only applies to non-internal, non-cross-platform PEX builds. Other builds silently fall back to pip.
-
-</Option>
-
 ### `pip_version`
 
 <Option
@@ -300,6 +279,23 @@ Use this version of Pip for resolving requirements and generating lockfiles.
 The value used here must be one of the Pip versions supported by the underlying PEX version. See https://www.pantsbuild.org/2.32/docs/python/overview/pex for details.
 
 N.B.: The `latest` value selects the latest of the choices listed by PEX which is not necessarily the latest Pip version released on PyPI.
+
+</Option>
+
+### `resolver`
+
+<Option
+  cli_repr={`--python-resolver=<Resolver>`}
+  env_repr='PANTS_PYTHON_RESOLVER'
+  toml_repr={`[python]
+resolver = <Resolver>`}
+  one_of='pex, uv'
+  default_repr={`pex`}
+>
+
+Which tool to use for generating lockfiles.
+
+- `pex` (default): Use pip via PEX. - `uv` (experimental): Use uv.
 
 </Option>
 
