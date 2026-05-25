@@ -17,6 +17,8 @@ To use this environment, map this target&#x27;s address with a memorable name in
 
 Only one `local_environment` may be defined in `[environments-preview].names` per platform, and when `__local__` is specified as the environment, the `local_environment` that matches the current platform (if defined) will be selected.
 
+See https://www.pantsbuild.org/stable/docs/using-pants/environments for more information.
+
 Backend: <span className="color--primary">`pants.core`</span>
 
 ---
@@ -458,6 +460,30 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 >
 
 Overrides the default value from the option `[test].extra_env_vars` when this environment target is active.
+
+</Field>
+
+## `uv_executable_search_paths`
+
+<Field
+    type_repr={`Any | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm"
+>
+
+Overrides the default value from the option `[uv].executable_search_paths` when this environment target is active.
+
+</Field>
+
+## `uv_extra_env_vars`
+
+<Field
+    type_repr={`Any | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm"
+>
+
+Overrides the default value from the option `[uv].extra_env_vars` when this environment target is active.
 
 </Field>
 
