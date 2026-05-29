@@ -1,0 +1,63 @@
+---
+  authors: [sureshjoshi]
+  tags: [announcement]
+  # Date of the actual release
+  date: 2026-05-28
+---
+
+# Pants 2.32.0 is released!
+
+<CaptionedImg src={require("./splash.jpg").default}>
+  Photo by <a href="https://unsplash.com/@radio_jane">Juliana Tanchak 🇺🇦</a> 
+  on <a href="https://unsplash.com/photos/a-room-with-purple-lighting-and-a-white-wall-5yKQ1pikvGg">Unsplash</a>
+</CaptionedImg>
+
+{/* truncate */}
+
+We are pleased to announce Pants [2.32.0](https://github.com/pantsbuild/pants/blob/2.32.x/docs/notes/2.32.x.md), the latest release of [Pantsbuild](https://www.pantsbuild.org/), the scalable and ergonomic build system. To update, set `pants_version = "2.32.0"` in your `pants.toml`. If you're not using Pants yet, [get started now](/2.32/docs/getting-started).
+
+_Highlights in [2.32](https://github.com/pantsbuild/pants/blob/2.32.x/docs/notes/2.32.x.md) include_:
+
+- ⚡ Experimental support for `uv` lockfiles, resulting in much faster Python dependency resolution.
+- 🔄 Python lockfile generation can use the `sync` option for faster, incremental updates.
+- 🐳 Docker and Helm now have added options to prevent packaging on `pants publish`.
+- 🐍 Pants itself now runs using Python 3.14 (previously 3.11), meaning plugins can use newer language features. User code using other Python versions is unaffected.
+- 🧹 Support for the deprecated `Get()`/`MultiGet()` in the plugin API has been removed.
+- 📦 Support for [pip 26.0.1](https://pip.pypa.io/en/stable/news/#v26-0-1) via `pex`.
+- 🐞 And a whole bunch of updates, bugfixes, and general improvements!
+
+Quick heads up for some of these changes:
+
+- `uv` resolver support comes with a couple of known issues, which may or may not be relevant to you:
+  - `uv` does not yet work with remote caching
+  - The `uv` resolve does not yet support building lambdas
+- If you're using the `pants` [launcher binary](https://github.com/pantsbuild/scie-pants/), you'll need to update to at least version `0.13.2` [following the upgrade instructions](https://www.pantsbuild.org/2.31/docs/getting-started/installing-pants#upgrading-pants).
+- Plugins still using the older "call-by-type" style of API will need to [migrate to the call-by-name API](https://www.pantsbuild.org/stable/docs/writing-plugins/the-rules-api/migrating-gets).
+  - For those on 2.31.x, this is made a little bit easier using the [migrate-call-by-name goal](https://www.pantsbuild.org/2.31/reference/goals/migrate-call-by-name).
+
+Check out the [full release notes](https://github.com/pantsbuild/pants/blob/2.32.x/docs/notes/2.32.x.md) for the accumulation of all those little improvements.
+
+Pants is an open-source project, and the changes are all contributed by our community. If you want to see something more in the next changelog, join us on [GitHub](https://github.com/pantsbuild/pants) and become a [contributor](/stable/docs/contributions).
+
+We also offer [formal sponsorship tiers for companies](/sponsorship), as well as individual sponsorships via [GitHub](/sponsors/pantsbuild). These help pay for the ongoing development and hosting costs, and are managed by the Pants Build non-profit organization.
+
+Some Pants maintainers also offer [paid consulting](/spotlight/service-providers) for adopting and customizing Pants for your company's needs.
+
+To see Pants in action, explore our example repositories:
+
+- [example-python](https://github.com/pantsbuild/example-python)
+- [example-adhoc](https://github.com/pantsbuild/example-adhoc)
+- [example-codegen](https://github.com/pantsbuild/example-codegen)
+- [example-django](https://github.com/pantsbuild/example-django)
+- [example-docker](https://github.com/pantsbuild/example-docker)
+- [example-golang](https://github.com/pantsbuild/example-golang)
+- [example-javascript](https://github.com/pantsbuild/example-javascript)
+- [example-jvm](https://github.com/pantsbuild/example-jvm)
+- [example-kotlin](https://github.com/pantsbuild/example-kotlin)
+- [example-serverless](https://github.com/pantsbuild/example-serverless)
+- [example-visibility](https://github.com/pantsbuild/example-visibility)
+- [example-workspace-execution](https://github.com/pantsbuild/example-workspace-execution)
+
+And let us know what you think in [Slack!](/community/getting-help)
+
+Pants wouldn't be possible without everyone who contributed to `2.32.0`, including everyone who shared feedback on changes and who tested release candidates! Thank you very much!
