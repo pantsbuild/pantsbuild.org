@@ -77,6 +77,24 @@ If not specified, Pants will generate lockfiles for all resolves.
 
 </Option>
 
+### `sync`
+
+<Option
+  cli_repr={`--[no-]generate-lockfiles-sync`}
+  env_repr='PANTS_GENERATE_LOCKFILES_SYNC'
+  toml_repr={`[generate-lockfiles]
+sync = <bool>`}
+  default_repr={`False`}
+>
+
+Attempt a minimal update of the lockfile, preserving existing dependency versions wherever possible. The resulting lockfile will be a valid solution for the requested dependency versions, but it may not include the latest versions available.
+
+If a backend does not support syncing it will fall back to full regeneration of the lockfile, and this option will have no effect.
+
+Note that there may be edge cases where syncing will fail the next time it&#x27;s run after options that affect lockfile generation are changed. In this case you may need to temporarily turn off `sync` and trigger a full regeneration of the lockfile.
+
+</Option>
+
 ## Advanced options
 
 ### `custom_command`

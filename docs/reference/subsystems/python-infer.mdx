@@ -162,6 +162,28 @@ By default, Pants only adds a &#x22;proper&#x22; dependency if there is content 
 
 </Option>
 
+### `string_import_ignore`
+
+<Option
+  cli_repr={`--python-infer-string-import-ignore="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_PYTHON_INFER_STRING_IMPORT_IGNORE'
+  toml_repr={`[python-infer]
+string_import_ignore = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Dotted string values that should be ignored for string-based dependency inference.
+
+If there are many string values that look like module or class references but should not become inferred dependencies, you can list them here instead of annotating each occurrence with `# pants: no-infer-dep`.
+
+Values are glob patterns matched against the full dotted string. For example, `string-import-ignore=["foo.generated.*", "acme.plugins.dev_only"]` will ignore `foo.generated.loader` and `acme.plugins.dev_only`.
+
+</Option>
+
 ### `string_imports`
 
 <Option

@@ -66,7 +66,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "v0.4.3|macos_x86_64|1161254cf38b928b87a7ac1552dc2e12e6c5da298f9ce370d80e5518ddb6513d|6240316",\n  "v0.4.3|macos_arm64 |3d84b85a7288f94301a4726dcf95b2d92c8ff796c4d45c4733fbdcc04ceaf21d|5996085",\n  "v0.4.3|linux_x86_64|5e7ecb614b5926acfc36eb1258800391ab7c6e6e026fa7cacbfe92006bac895c|6037013",\n  "v0.4.3|linux_arm64 |a8c3f4140d18c324cc69f5de4df0566e529e1636cff340095a42475799bf3fed|5548404"\n]`}
+  default_repr={`[\n  "v0.4.3|linux_arm64 |a8c3f4140d18c324cc69f5de4df0566e529e1636cff340095a42475799bf3fed|5548404",\n  "v0.4.3|linux_x86_64|5e7ecb614b5926acfc36eb1258800391ab7c6e6e026fa7cacbfe92006bac895c|6037013",\n  "v0.4.3|macos_arm64 |3d84b85a7288f94301a4726dcf95b2d92c8ff796c4d45c4733fbdcc04ceaf21d|5996085",\n  "v0.4.3|macos_x86_64|1161254cf38b928b87a7ac1552dc2e12e6c5da298f9ce370d80e5518ddb6513d|6240316"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -120,7 +120,7 @@ url_template = <str>`}
   default_repr={`https://github.com/cue-lang/cue/releases/download/{version}/cue_{version}_{platform}.tar.gz`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.32/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.33/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
