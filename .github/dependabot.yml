@@ -3,6 +3,8 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    cooldown:
+      default-days: 7
     directory: "/"
     groups:
       gha-deps:
@@ -12,14 +14,12 @@ updates:
       interval: "monthly"
 
   - package-ecosystem: "npm"
+    cooldown:
+      default-days: 7
     directory: "/"
     groups:
       npm-deps:
         patterns:
           - "*"
-    ignore:
-      # SJ (2026-01-12): The next update is React 19.x. It has a lot of audit patches and broke our markdown parsing. Ignore until Docu 4.x
-      - dependency-name: "react"
-      - dependency-name: "react-dom"
     schedule:
       interval: "weekly"
