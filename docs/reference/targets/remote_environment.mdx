@@ -19,6 +19,8 @@ To use this environment, map this target&#x27;s address with a memorable name in
 
 Often, it is only necessary to have a single `remote_environment` target for your repository, but it can be useful to have &#x3E;1 so that you can set different `extra_platform_properties`. For example, with some servers, you could use this to configure a different Docker image per environment.
 
+See https://www.pantsbuild.org/stable/docs/using-pants/environments for more information.
+
 Backend: <span className="color--primary">`pants.core`</span>
 
 ---
@@ -488,6 +490,30 @@ For example, you may tag some test targets with &#x27;integration_test&#x27; so 
 >
 
 Overrides the default value from the option `[test].extra_env_vars` when this environment target is active.
+
+</Field>
+
+## `uv_executable_search_paths`
+
+<Field
+    type_repr={`Any | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm"
+>
+
+Overrides the default value from the option `[uv].executable_search_paths` when this environment target is active.
+
+</Field>
+
+## `uv_extra_env_vars`
+
+<Field
+    type_repr={`Any | None`}
+    default_repr={`None`}
+    backend="pants.backend.experimental.helm"
+>
+
+Overrides the default value from the option `[uv].extra_env_vars` when this environment target is active.
 
 </Field>
 
