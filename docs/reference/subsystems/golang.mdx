@@ -82,8 +82,8 @@ Specify absolute paths to directories with the `go` binary, e.g. `/usr/bin`. Ear
 The following special strings are supported:
 
 - `<PATH>`, the contents of the PATH environment variable
-- `AsdfPathString.STANDARD`, all Go versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
-- `AsdfPathString.LOCAL`, the ASDF binary with the version in `BUILD_ROOT/.tool-versions`
+- `<ASDF>`, all Go versions currently configured by ASDF `(asdf shell, ${HOME}/.tool-versions)`, with a fallback to all installed versions
+- `<ASDF_LOCAL>`, the ASDF binary with the version in `BUILD_ROOT/.tool-versions`
 
 </Option>
 
@@ -350,6 +350,24 @@ tailor_package_targets = <bool>`}
 >
 
 If true, add a `go_package` target with the `tailor` goal in every directory with a `.go` file.
+
+</Option>
+
+### `use_prebuilt_stdlib_archives`
+
+<Option
+  cli_repr={`--[no-]golang-use-prebuilt-stdlib-archives`}
+  env_repr='PANTS_GOLANG_USE_PREBUILT_STDLIB_ARCHIVES'
+  toml_repr={`[golang]
+use_prebuilt_stdlib_archives = <bool>`}
+  default_repr={`True`}
+>
+
+If true, pre-compile the entire Go standard library once per Go toolchain configuration (via `go install std`) and link against those archives, instead of compiling each standard library package as a separate build action.
+
+This is usually significantly faster. Pants automatically falls back to compiling the standard library from source for build configurations that are incompatible with the pre-built archives, such as when using the race detector or other sanitizers, code coverage, or custom compiler/assembler flags.
+
+Set this to false to always compile standard library packages from source.
 
 </Option>
 

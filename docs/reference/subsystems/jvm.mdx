@@ -116,6 +116,38 @@ Options set here will be used by any JVM processes required by Pants, with the e
 
 </Option>
 
+### `intermediate_jars_remote_cache`
+
+<Option
+  cli_repr={`--[no-]jvm-intermediate-jars-remote-cache`}
+  env_repr='PANTS_JVM_INTERMEDIATE_JARS_REMOTE_CACHE'
+  toml_repr={`[jvm]
+intermediate_jars_remote_cache = <bool>`}
+  default_repr={`False`}
+>
+
+If intermediate jars produced by compiling jvm targets should be remote cached.
+
+This is a trade off between forking short-lived processes for each compiled target and remote cache overhead.
+
+</Option>
+
+### `intermediate_jars_remote_cache_speculation_delay`
+
+<Option
+  cli_repr={`--jvm-intermediate-jars-remote-cache-speculation-delay=<int>`}
+  env_repr='PANTS_JVM_INTERMEDIATE_JARS_REMOTE_CACHE_SPECULATION_DELAY'
+  toml_repr={`[jvm]
+intermediate_jars_remote_cache_speculation_delay = <int>`}
+  default_repr={`100`}
+>
+
+The time in milliseconds to delay speculation of creating intermediate jars while reading from the remote cache.
+
+Tuning this can allow for reducing the amount of short-lived processes forked for each compiled target when they are cached remotely.
+
+</Option>
+
 ### `jdk`
 
 <Option
@@ -134,6 +166,34 @@ If the string `'system'` is passed, Coursier&#x27;s `--system-jvm` option will b
 
 </Option>
 
+### `nailgun_enable_agent`
+
+<Option
+  cli_repr={`--[no-]jvm-nailgun-enable-agent`}
+  env_repr='PANTS_JVM_NAILGUN_ENABLE_AGENT'
+  toml_repr={`[jvm]
+nailgun_enable_agent = <bool>`}
+  default_repr={`False`}
+>
+
+If enabled, start the Nailgun server with itself as a Java Agent.
+
+</Option>
+
+### `nailgun_jar_digest`
+
+<Option
+  cli_repr={`--jvm-nailgun-jar-digest=<str>`}
+  env_repr='PANTS_JVM_NAILGUN_JAR_DIGEST'
+  toml_repr={`[jvm]
+nailgun_jar_digest = <str>`}
+  default_repr={`4518faa6bf4bd26fccdc4d85e1625dc679381a08d56872d8ad12151dda9cef25:32927`}
+>
+
+The digest of the Nailgun server JAR, as `sha256:length_in_bytes`, used to verify the artifact fetched for `[jvm].nailgun_server`.
+
+</Option>
+
 ### `nailgun_remote_cache_speculation_delay`
 
 <Option
@@ -149,6 +209,22 @@ The time in milliseconds to delay speculation of nailgun processes while reading
 When speculating, a remote cache hit will cancel the local copy of a process. But because nailgun does not natively support cancellation, that requires killing a nailgun server, which will mean that future processes take longer to warm up.
 
 This setting allows for trading off waiting for potentially slow cache entries against potentially having to warm up a new nailgun server.
+
+</Option>
+
+### `nailgun_server`
+
+<Option
+  cli_repr={`--jvm-nailgun-server=<str>`}
+  env_repr='PANTS_JVM_NAILGUN_SERVER'
+  toml_repr={`[jvm]
+nailgun_server = <str>`}
+  default_repr={`com.martiansoftware:nailgun-server:0.9.1#com.martiansoftware.nailgun.NGServer`}
+>
+
+The Nailgun server artifact to run, as `group:artifact:version#main.class.Name`.
+
+The portion before `#` is a standard Maven coordinate; the portion after `#` is the fully-qualified main class used to start the server.
 
 </Option>
 

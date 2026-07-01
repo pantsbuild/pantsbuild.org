@@ -67,7 +67,7 @@ known_versions = [
     '<str>',
     ...,
 ]`}
-  default_repr={`[\n  "2.5.3|macos_x86_64|2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.5.3|macos_arm64|2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.5.3|linux_x86_64|2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.5.3|linux_arm64|2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.4.7|macos_x86_64|0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490",\n  "2.4.7|macos_arm64|0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490",\n  "2.4.7|linux_x86_64|0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490",\n  "2.4.7|linux_arm64|0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490"\n]`}
+  default_repr={`[\n  "2.5.3|linux_arm64 |2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.5.3|linux_x86_64|2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.5.3|macos_arm64 |2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.5.3|macos_x86_64|2068872d4f3174d697bcfd602ada3dc2b7764e84f73be7850c0de86fbf00f69e|1335821",\n  "2.4.7|linux_arm64 |0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490",\n  "2.4.7|linux_x86_64|0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490",\n  "2.4.7|macos_arm64 |0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490",\n  "2.4.7|macos_x86_64|0c0137963dd3c4b356663a3a152a64815e5e4364f131f2976a2731a13ab1de4d|799490"\n]`}
 >
 
 Known versions to verify downloads against.
@@ -121,7 +121,7 @@ url_template = <str>`}
   default_repr={`https://github.com/pyenv/pyenv/archive/refs/tags/v{version}.tar.gz`}
 >
 
-URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.32/docs/using-pants/key-concepts/options#config-file-entries)).
+URL to download the tool, either as a single binary file or a compressed file (e.g. zip file). You can change this to point to your own hosted file, e.g. to work with proxies or for access via the filesystem through a `file:$abspath` URL (e.g. `file:/this/is/absolute`, possibly by [templating the buildroot in a config file](https://www.pantsbuild.org/2.33/docs/using-pants/key-concepts/options#config-file-entries)).
 
 Use `{version}` to have the value from `--version` substituted, and `{platform}` to have a value from `--url-platform-mapping` substituted in, depending on the current platform. For example, https://github.com/.../protoc-&#123;version&#125;-&#123;platform&#125;.zip.
 
