@@ -150,7 +150,7 @@ Addresses to other targets that this target depends on, e.g. `['helloworld/subdi
 
 This augments any dependencies inferred by Pants, such as by analyzing your imports. Use `pants dependencies` or `pants peek` on this target to get the final result.
 
-See https://www.pantsbuild.org/2.32/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
+See https://www.pantsbuild.org/2.33/docs/using-pants/key-concepts/targets-and-build-files for more about how addresses are formed, including for generated targets. You can also run `pants list ::` to find all addresses in your project, or `pants list dir` to find all addresses defined in that directory.
 
 If the target is in the same BUILD file, you can leave off the BUILD file path, e.g. `:tgt` instead of `helloworld/subdir:tgt`. For generated first-party addresses, use `./` for the file path, e.g. `./main.py:tgt`; for all other generated targets, use `:tgt#generated_name`.
 
@@ -234,7 +234,7 @@ Any tags to apply to the Docker image name (the version is usually applied as a 
 
 tag may use placeholders in curly braces to be interpolated. The placeholders are derived from various sources, such as the Dockerfile instructions and build args.
 
-See https://www.pantsbuild.org/2.32/docs/docker/tagging-docker-images.
+See https://www.pantsbuild.org/2.33/docs/docker/tagging-docker-images.
 
 </Field>
 
@@ -280,6 +280,36 @@ Values may use placeholders in curly braces to be interpolated. The placeholders
 
 </Field>
 
+## `output_directories`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Directories to capture from a BuildKit local output export, relative to the build root.
+
+When this field or `output_files` is set, Pants overrides the default Docker build output with `--output=type=local,dest=.` and captures only the requested files and directories as the package digest.
+
+Use `target_stage` to capture output from a specific Dockerfile stage.
+
+</Field>
+
+## `output_files`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Files to capture from a BuildKit local output export, relative to the build root.
+
+When this field or `output_directories` is set, Pants overrides the default Docker build output with `--output=type=local,dest=.` and captures only the requested files and directories as the package digest.
+
+Use `target_stage` to capture output from a specific Dockerfile stage.
+
+</Field>
+
 ## `output_path`
 
 <Field
@@ -303,6 +333,29 @@ If undefined, this will use the path to the BUILD file, followed by the target n
 When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
 
 Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `outputs_match_mode`
+
+<Field
+    type_repr={`'all' | 'all_warn' | 'allow_empty' | 'at_least_one' | 'at_least_one_warn' | None`}
+    default_repr={`'all_warn'`}
+>
+
+Configure whether all, or some, of the values in the `output_files` and `output_directories` fields must actually match outputs from the Docker build.
+
+Valid values are:
+
+- `all_warn`: Log a warning if any glob fails to match an output. (In other words, all globs must match to avoid a warning.) This is the default value.
+
+- `all`: Ensure all globs match an output or else raise an error.
+
+- `at_least_one_warn`: Log a warning if none of the globs match an output.
+
+- `at_least_one`: Ensure at least one glob matches an output or else raise an error.
+
+- `allow_empty`: Allow empty digests (which means nothing was captured). This disables checking that globs match outputs.
 
 </Field>
 

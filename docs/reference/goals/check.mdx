@@ -23,6 +23,20 @@ Config section: <span className="color--primary">`[check]`</span>
 
 ## Basic options
 
+### `force`
+
+<Option
+  cli_repr={`--[no-]check-force`}
+  env_repr='PANTS_CHECK_FORCE'
+  toml_repr={`[check]
+force = <bool>`}
+  default_repr={`False`}
+>
+
+Force checks to run, even if they could be satisfied from cache.
+
+</Option>
+
 ### `only`
 
 <Option
