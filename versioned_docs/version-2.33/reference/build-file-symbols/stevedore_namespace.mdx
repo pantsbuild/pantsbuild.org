@@ -1,0 +1,24 @@
+---
+title: stevedore_namespace
+description: |
+  Tag a namespace in entry_points as a stevedore namespace.
+---
+
+import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
+
+<BuildFileSymbol name={`stevedore_namespace`} signature={``}>
+
+Tag a namespace in entry_points as a stevedore namespace.
+
+This is required for the entry_point to be visible to dep inference based on the `stevedore_namespaces` field.
+
+For example: `&#x60;`python python_distribution(
+...
+entry_points=&#123;
+stevedore_namespace(&#x22;a.b.c&#x22;): &#123;
+&#x22;plugin_name&#x22;: &#x22;some.entry:point&#x22;,
+&#125;,
+&#125;,
+) `&#x60;`
+
+</BuildFileSymbol>
