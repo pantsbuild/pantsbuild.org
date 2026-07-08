@@ -1,0 +1,66 @@
+---
+title: k8s
+description: |
+  Kubernetes options
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Kubernetes options
+
+Backend: <span className="color--primary">`pants.backend.experimental.k8s`</span>
+
+Config section: <span className="color--primary">`[k8s]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `available_contexts`
+
+<Option
+  cli_repr={`--k8s-available-contexts="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_K8S_AVAILABLE_CONTEXTS'
+  toml_repr={`[k8s]
+available_contexts = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+List of available contexts for `kubectl` command. `k8s_bundle` context will be validated against this list.
+
+You have to explicitly provide the list, because it will be shared with people using the pants repo. We can&#x27;t parse the KUBECONFIG env var because different people might have different private clusters, e.g. minikube or kind, which means pants validation will give different results.
+
+</Option>
+
+## Advanced options
+
+### `tailor_source_targets`
+
+<Option
+  cli_repr={`--[no-]k8s-tailor-source-targets`}
+  env_repr='PANTS_K8S_TAILOR_SOURCE_TARGETS'
+  toml_repr={`[k8s]
+tailor_source_targets = <bool>`}
+  default_repr={`True`}
+>
+
+If true, add `k8s_sources` targets with the `tailor` goal.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

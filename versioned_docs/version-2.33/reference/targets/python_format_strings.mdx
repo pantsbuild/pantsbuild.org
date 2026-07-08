@@ -1,0 +1,67 @@
+---
+title: python_format_strings
+description: |
+  Substitutes values into files. See k8s backend documentation for details.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Substitutes values into files. See k8s backend documentation for details.
+
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.python_format_string`</span>
+
+---
+
+<span className={styles.options}>
+
+## `values`
+
+<Field
+    type_repr={`dict[str, str]`}
+>
+
+Dictionary of key/value pairs to substitute.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `sources`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+See k8s backend documentatiom.
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+</span>
