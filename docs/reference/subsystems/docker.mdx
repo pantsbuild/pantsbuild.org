@@ -48,6 +48,33 @@ Use the `extra_build_args` field on a `docker_image` target for additional image
 
 </Option>
 
+### `build_extra_options`
+
+<Option
+  cli_repr={`--docker-build-extra-options="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_DOCKER_BUILD_EXTRA_OPTIONS'
+  toml_repr={`[docker]
+build_extra_options = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Global extra options to pass to the `docker build` / `podman build` command.
+
+These are appended after all other computed flags. If any option specified here uses a flag that is already covered by a dedicated field (e.g. `--pull`, `--network`, `--platform`), the dedicated field&#x27;s contribution is suppressed in favour of the value given here, to avoid duplicate or conflicting flags.
+
+Example:
+
+```
+[docker]
+build_extra_options = ["--pull=always"]
+```
+
+</Option>
+
 ### `build_hosts`
 
 <Option
