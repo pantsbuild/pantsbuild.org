@@ -23,7 +23,25 @@ Config section: <span className="color--primary">`[go-export-cgo-codegen]`</span
 
 ## Basic options
 
-None
+### `import_paths`
+
+<Option
+  cli_repr={`--go-export-cgo-codegen-import-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GO_EXPORT_CGO_CODEGEN_IMPORT_PATHS'
+  toml_repr={`[go-export-cgo-codegen]
+import_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Third-party packages to export Cgo files for, by import path, resolved against the `go.mod` of the `go_third_party_module` target(s) passed on the command line.
+
+Under `[golang].third_party_target_granularity = "module"`, third-party packages other than a module&#x27;s root do not have their own target, so pass the module target and select the package(s) with this option (mirroring `go_binary`&#x27;s `main_import_path`). Defaults to the module&#x27;s root package. Ignored for first-party and `go_third_party_package` targets.
+
+</Option>
 
 ## Advanced options
 

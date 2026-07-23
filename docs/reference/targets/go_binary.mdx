@@ -147,6 +147,21 @@ Address of the `go_package` with the `main` for this binary.
 
 If not specified, will default to the `go_package` for the same directory as this target&#x27;s BUILD file. You should usually rely on this default.
 
+Mutually exclusive with `main_import_path`.
+
+</Field>
+
+## `main_import_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Import path of the package with the `main` for this binary, e.g. `main_import_path="github.com/some/tool/cmd/tool"`. Resolved against this target&#x27;s `go.mod`; use it to build a binary from a third-party package.
+
+Mutually exclusive with `main`.
+
 </Field>
 
 ## `msan`

@@ -353,6 +353,25 @@ If true, add a `go_package` target with the `tailor` goal in every directory wit
 
 </Option>
 
+### `third_party_target_granularity`
+
+<Option
+  cli_repr={`--golang-third-party-target-granularity=<ThirdPartyTargetGranularity>`}
+  env_repr='PANTS_GOLANG_THIRD_PARTY_TARGET_GRANULARITY'
+  toml_repr={`[golang]
+third_party_target_granularity = <ThirdPartyTargetGranularity>`}
+  one_of='package, module'
+  default_repr={`package`}
+>
+
+The granularity at which third-party targets are generated from a `go_mod` target.
+
+`package`: one `go_third_party_package` target per third-party Go package (the historical behavior).
+
+`module`: one `go_third_party_module` target per third-party Go module. First-party targets depend on the modules they import; `go.mod`/`go.sum` owns transitive resolution. Use `go_binary`&#x27;s `main_import_path` field to build a specific third-party package.
+
+</Option>
+
 ### `use_prebuilt_stdlib_archives`
 
 <Option
