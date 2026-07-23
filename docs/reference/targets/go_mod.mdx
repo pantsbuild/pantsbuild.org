@@ -11,7 +11,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 A first-party Go module (corresponding to a `go.mod` file).
 
-Generates `go_third_party_package` targets based on the `require` directives in your `go.mod`.
+Generates `go_third_party_package` targets (or `go_third_party_module` targets under `[golang].third_party_target_granularity = "module"`) based on the `require` directives in your `go.mod`.
 
 If you have third-party packages, make sure you have an up-to-date `go.sum`. Run `go mod tidy` directly to update your `go.mod` and `go.sum`.
 

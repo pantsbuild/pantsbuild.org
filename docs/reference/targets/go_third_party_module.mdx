@@ -1,7 +1,7 @@
 ---
-title: go_third_party_package
+title: go_third_party_module
 description: |
-  A package from a third-party Go module.
+  A third-party Go module.
 ---
 
 import Field from "@site/src/components/reference/Field";
@@ -9,11 +9,11 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-A package from a third-party Go module.
+A third-party Go module.
 
-You should not explicitly create this target in BUILD files. Instead, add a `go_mod` target where you have your `go.mod` file, which will generate `go_third_party_package` targets for you (one per package, under the default `[golang].third_party_target_granularity = "package"`).
+You should not explicitly create this target in BUILD files. Under `[golang].third_party_target_granularity = "module"`, adding a `go_mod` target generates one `go_third_party_module` target per third-party module, addressed by the module&#x27;s import path (its root package). Other packages in the module are compiled on demand when imported; use `go_binary`&#x27;s `main_import_path` field to build a specific package.
 
-Make sure that your `go.mod` and `go.sum` files include this package&#x27;s module.
+Make sure that your `go.mod` and `go.sum` files include this module.
 
 Backend: <span className="color--primary">`pants.backend.experimental.go`</span>
 
