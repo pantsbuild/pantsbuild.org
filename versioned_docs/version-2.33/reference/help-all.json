@@ -11653,7 +11653,7 @@
       ],
       "env_var": "PANTS_GOOGLE_JAVA_FORMAT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15109,7 +15109,7 @@
       ],
       "env_var": "PANTS_JARJAR_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15353,7 +15353,7 @@
       ],
       "env_var": "PANTS_JAR_TOOL_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15588,7 +15588,7 @@
       ],
       "env_var": "PANTS_JAVA_AVRO_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15873,7 +15873,7 @@
       ],
       "env_var": "PANTS_JAVA_PARSER_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -16111,7 +16111,7 @@
       ],
       "env_var": "PANTS_JUNIT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -17165,7 +17165,7 @@
       ],
       "env_var": "PANTS_KOTLIN_PARSER_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -17405,7 +17405,7 @@
       ],
       "env_var": "PANTS_KTLINT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -21359,7 +21359,7 @@
       ],
       "env_var": "PANTS_OPENAPI_GENERATOR_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -23853,7 +23853,7 @@
       ],
       "env_var": "PANTS_PROTOBUF_JAVA_GRPC_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -32683,7 +32683,7 @@
       ],
       "env_var": "PANTS_SCALAFIX_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33046,7 +33046,7 @@
       ],
       "env_var": "PANTS_SCALAFMT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33329,7 +33329,7 @@
       ],
       "env_var": "PANTS_SCALAPB_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33529,7 +33529,7 @@
       ],
       "env_var": "PANTS_SCALATEST_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33898,7 +33898,7 @@
       ],
       "env_var": "PANTS_SCALA_PARSER_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -34391,7 +34391,7 @@
       ],
       "env_var": "PANTS_SCROOGE_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -37508,7 +37508,7 @@
       ],
       "env_var": "PANTS_STRIP_JAR_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -41713,12 +41713,12 @@
           {
             "details": null,
             "rank": "HARDCODED",
-            "value": "2.33.0a0"
+            "value": "2.33.0rc0"
           },
           {
             "details": "env var",
             "rank": "ENVIRONMENT",
-            "value": "2.33.0a0"
+            "value": "2.33.0rc0"
           }
         ]
       }
@@ -63149,6 +63149,7 @@
         "pants.backend.build_files.fmt.black",
         "pants.backend.build_files.fmt.yapf",
         "pants.backend.python",
+        "pants.backend.python.lint.bandit",
         "pants.backend.python.providers.experimental.pyenv",
         "pants.core"
       ],
@@ -63167,6 +63168,7 @@
       "used_in_rules": [
         "pants.backend.build_files.fmt.black.register.black_fmt",
         "pants.backend.build_files.fmt.yapf.register.yapf_fmt",
+        "pants.backend.python.goals.lockfile.generate_uv_lockfile",
         "pants.backend.python.goals.pytest_runner.setup_pytest_for_target",
         "pants.backend.python.util_rules.pex._setup_pex_requirements",
         "pants.core.goals.update_build_files.format_build_file_with_black",
@@ -63432,7 +63434,8 @@
         "pants.backend.python.lint.pylint",
         "pants.backend.python.lint.yapf",
         "pants.backend.url_handlers.s3",
-        "pants.base.build_root"
+        "pants.base.build_root",
+        "pants.core"
       ],
       "dependents": [
         "pants.backend.python.lint.pyupgrade"
@@ -78586,6 +78589,7 @@
         "pants.core.util_rules.system_binaries.find_zip",
         "pants.core.util_rules.system_binaries.find_zstd",
         "pants.core.util_rules.system_binaries.get_bash",
+        "pants.core.util_rules.system_binaries.maybe_find_flock",
         "pants.core.util_rules.system_binaries.maybe_find_git",
         "pants.engine.desktop.find_open_program"
       ]
@@ -79226,6 +79230,30 @@
       "union_type": null,
       "used_in_rules": []
     },
+    "pants.core.util_rules.system_binaries.MaybeFlockBinary": {
+      "consumed_by_rules": [
+        "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile"
+      ],
+      "dependencies": [
+        "pants.backend.python.lint.isort"
+      ],
+      "dependents": [
+        "pants.backend.python.providers.experimental.pyenv.custom_install"
+      ],
+      "documentation": "MaybeFlockBinary(flock_binary: 'FlockBinary | None' = None)",
+      "is_union": false,
+      "module": "pants.core.util_rules.system_binaries",
+      "name": "MaybeFlockBinary",
+      "provider": [
+        "pants.backend.build_files.fmt.ruff"
+      ],
+      "returned_by_rules": [
+        "pants.core.util_rules.system_binaries.maybe_find_flock"
+      ],
+      "union_members": [],
+      "union_type": null,
+      "used_in_rules": []
+    },
     "pants.core.util_rules.system_binaries.MaybeGitBinary": {
       "consumed_by_rules": [
         "pants.core.util_rules.system_binaries.maybe_find_git_wrapper",
@@ -79657,6 +79685,7 @@
         "pants.core.util_rules.system_binaries.find_zip",
         "pants.core.util_rules.system_binaries.find_zstd",
         "pants.core.util_rules.system_binaries.get_bash",
+        "pants.core.util_rules.system_binaries.maybe_find_flock",
         "pants.core.util_rules.system_binaries.maybe_find_git"
       ],
       "dependencies": [
@@ -80931,6 +80960,7 @@
         "pants.backend.experimental.nfpm",
         "pants.backend.experimental.scala.bsp",
         "pants.backend.experimental.tools.trufflehog",
+        "pants.backend.python.lint.bandit",
         "pants.backend.python.providers.experimental.pyenv",
         "pants.backend.python.providers.experimental.python_build_standalone",
         "pants.backend.shell"
@@ -80957,6 +80987,7 @@
         "pants.backend.java.bsp.rules.bsp_java_compile_request",
         "pants.backend.nfpm.util_rules.generate_config.generate_nfpm_yaml",
         "pants.backend.nfpm.util_rules.sandbox.populate_nfpm_content_sandbox",
+        "pants.backend.python.goals.lockfile.generate_uv_lockfile",
         "pants.backend.python.util_rules.pex_requirements.load_lockfile",
         "pants.backend.scala.bsp.rules.bsp_scala_compile_request",
         "pants.backend.shell.goals.package.package_shell_command",
@@ -89433,11 +89464,17 @@
       ]
     },
     "pants.util.logging.LogLevel": {
-      "consumed_by_rules": [],
+      "consumed_by_rules": [
+        "pants.backend.python.goals.lockfile.generate_uv_lockfile",
+        "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile"
+      ],
       "dependencies": [
         "pants.backend.python.lint.autoflake"
       ],
-      "dependents": [],
+      "dependents": [
+        "pants.backend.python.lint.bandit",
+        "pants.backend.python.providers.experimental.pyenv.custom_install"
+      ],
       "documentation": "Exposes an enum of the Python `logging` module's levels, with the addition of TRACE.\n\nNB: The `logging` module uses the opposite integer ordering of levels from Rust's `log` crate,\nbut the ordering implementation of this enum inverts its comparison to make its ordering align\nwith Rust's. That is, TRACE > DEBUG > INFO > WARN > ERROR",
       "is_union": false,
       "module": "pants.util.logging",
@@ -100661,12 +100698,13 @@
     "pants.backend.python.goals.lockfile.generate_uv_lockfile": {
       "awaitables": [
         "pants.backend.python.util_rules.pex_requirements.determine_resolve_config() -> ResolveConfig",
-        "pants.engine.intrinsics.path_globs_to_digest() -> Digest",
+        "pants.backend.python.util_rules.pex_requirements.get_lockfile_for_resolve() -> Lockfile",
+        "pants.backend.python.util_rules.pex_requirements.load_lockfile() -> LoadedLockfile",
+        "pants.engine.intrinsics.get_digest_entries() -> DigestEntries",
         "pants.engine.intrinsics.create_digest() -> Digest",
         "pants.engine.intrinsics.merge_digests() -> Digest",
         "pants.engine.process.fallible_to_exec_result_or_raise(Process) -> ProcessResult",
-        "pants.engine.intrinsics.get_digest_contents() -> DigestContents",
-        "pants.backend.python.util_rules.pex_requirements.load_lockfile() -> LoadedLockfile"
+        "pants.engine.intrinsics.get_digest_contents() -> DigestContents"
       ],
       "description": "Generate uv lockfile",
       "documentation": null,
@@ -100674,7 +100712,8 @@
         "GenerateUvLockfile",
         "GenerateLockfilesSubsystem",
         "DownloadedUv",
-        "UvEnvironment"
+        "UvEnvironment",
+        "LogLevel"
       ],
       "name": "pants.backend.python.goals.lockfile.generate_uv_lockfile",
       "output_type": "GenerateLockfileResult",
@@ -103026,7 +103065,9 @@
         "DownloadedUv",
         "UvEnvironment",
         "RealpathBinary",
-        "BuildRoot"
+        "BuildRoot",
+        "MaybeFlockBinary",
+        "LogLevel"
       ],
       "name": "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile",
       "output_type": "VenvRepository",
@@ -108757,6 +108798,19 @@
       ],
       "name": "pants.core.util_rules.system_binaries.get_bash",
       "output_type": "BashBinary",
+      "provider": "pants.backend.build_files.fmt.ruff"
+    },
+    "pants.core.util_rules.system_binaries.maybe_find_flock": {
+      "awaitables": [
+        "pants.core.util_rules.system_binaries.find_binary() -> BinaryPaths"
+      ],
+      "description": "Finding the `flock` binary",
+      "documentation": null,
+      "input_types": [
+        "EnvironmentAware"
+      ],
+      "name": "pants.core.util_rules.system_binaries.maybe_find_flock",
+      "output_type": "MaybeFlockBinary",
       "provider": "pants.backend.build_files.fmt.ruff"
     },
     "pants.core.util_rules.system_binaries.maybe_find_git": {
@@ -114983,7 +115037,7 @@
         {
           "alias": "packages",
           "default": null,
-          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
+          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -118174,7 +118228,7 @@
         },
         {
           "alias": "version_spec",
-          "default": "'== 2.33.0a0'",
+          "default": "'== 2.33.0rc0'",
           "description": "The PEP 440 version specifier version of Pants to target. E.g. `== 2.15.*`, or `>= 2.16.0, < 2.17.0`",
           "provider": "",
           "required": false,
@@ -119125,6 +119179,14 @@
           "type_hint": "bool"
         },
         {
+          "alias": "python_interpreter_constraints",
+          "default": null,
+          "description": "The Python interpreters this code is compatible with.\n\nEach element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.\n\nSpecify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.\n\nIf the field is not set, it will default to the option `[python].interpreter_constraints`.\n\nSee https://www.pantsbuild.org/2.33/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.",
+          "provider": "",
+          "required": false,
+          "type_hint": "Iterable[str] | None"
+        },
+        {
           "alias": "python_source_root",
           "default": null,
           "description": "The source root to generate Python sources under.\n\nIf unspecified, the source root the `protobuf_sources` is under will be used.",
@@ -119139,14 +119201,6 @@
           "provider": "",
           "required": false,
           "type_hint": "str | None"
-        },
-        {
-          "alias": "python_interpreter_constraints",
-          "default": null,
-          "description": "The Python interpreters this code is compatible with.\n\nEach element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.\n\nSpecify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.\n\nIf the field is not set, it will default to the option `[python].interpreter_constraints`.\n\nSee https://www.pantsbuild.org/2.33/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.",
-          "provider": "",
-          "required": false,
-          "type_hint": "Iterable[str] | None"
         },
         {
           "alias": "grpc",
@@ -119871,7 +119925,7 @@
         {
           "alias": "modules",
           "default": null,
-          "description": "The modules this requirement provides (used for dependency inference).\n\nFor example, the requirement `setuptools` provides `[\"setuptools\", \"pkg_resources\", \"easy_install\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.\n\nMutually exclusive with the `type_stub_modules` field.",
+          "description": "The modules this requirement provides (used for dependency inference).\n\nFor example, the requirement `setuptools` provides `[\"setuptools\", \"pkg_resources\", \"easy_install\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.\n\nMutually exclusive with the `type_stub_modules` field.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -119879,7 +119933,7 @@
         {
           "alias": "type_stub_modules",
           "default": null,
-          "description": "The modules this requirement provides if the requirement is a type stub (used for dependency inference).\n\nFor example, the requirement `types-requests` provides `[\"requests\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).\n\nMutually exclusive with the `modules` field.",
+          "description": "The modules this requirement provides if the requirement is a type stub (used for dependency inference).\n\nFor example, the requirement `types-requests` provides `[\"requests\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).\n\nMutually exclusive with the `modules` field.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -121759,7 +121813,7 @@
         {
           "alias": "packages",
           "default": null,
-          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
+          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -124777,12 +124831,12 @@
               {
                 "details": null,
                 "rank": "HARDCODED",
-                "value": "2.33.0a0"
+                "value": "2.33.0rc0"
               },
               {
                 "details": "env var",
                 "rank": "ENVIRONMENT",
-                "value": "2.33.0a0"
+                "value": "2.33.0rc0"
               }
             ]
           }
@@ -140581,7 +140635,7 @@
           ],
           "env_var": "PANTS_GOOGLE_JAVA_FORMAT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -143391,7 +143445,7 @@
           ],
           "env_var": "PANTS_JAR_TOOL_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -143562,7 +143616,7 @@
           ],
           "env_var": "PANTS_JARJAR_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -143814,7 +143868,7 @@
           ],
           "env_var": "PANTS_JAVA_AVRO_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -144126,7 +144180,7 @@
           ],
           "env_var": "PANTS_JAVA_PARSER_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -144443,7 +144497,7 @@
           ],
           "env_var": "PANTS_JUNIT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -145575,7 +145629,7 @@
           ],
           "env_var": "PANTS_KOTLIN_PARSER_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -145835,7 +145889,7 @@
           ],
           "env_var": "PANTS_KTLINT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -149396,7 +149450,7 @@
           ],
           "env_var": "PANTS_OPENAPI_GENERATOR_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -151216,7 +151270,7 @@
           ],
           "env_var": "PANTS_PROTOBUF_JAVA_GRPC_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -159380,7 +159434,7 @@
           ],
           "env_var": "PANTS_SCALA_PARSER_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -159679,7 +159733,7 @@
           ],
           "env_var": "PANTS_SCALAFIX_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -160054,7 +160108,7 @@
           ],
           "env_var": "PANTS_SCALAFMT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -160349,7 +160403,7 @@
           ],
           "env_var": "PANTS_SCALAPB_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -160560,7 +160614,7 @@
           ],
           "env_var": "PANTS_SCALATEST_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -161083,7 +161137,7 @@
           ],
           "env_var": "PANTS_SCROOGE_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -164074,7 +164128,7 @@
           ],
           "env_var": "PANTS_STRIP_JAR_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0a0/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.33.0rc0/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
