@@ -775,6 +775,20 @@ Write end products, such as the results of `pants package`, to this dir.
 
 </Option>
 
+### `pants_free_threaded`
+
+<Option
+  cli_repr={`--[no-]pants-free-threaded`}
+  env_repr='PANTS_FREE_THREADED'
+  toml_repr={`[GLOBAL]
+pants_free_threaded = <bool>`}
+  default_repr={`True`}
+>
+
+Run Pants on a free-threaded CPython interpreter. Like `pants_version`, this is consumed by the `pants` launcher to select which Pants distribution to install and has no effect once Pants is running.
+
+</Option>
+
 ### `pants_ignore`
 
 <Option
