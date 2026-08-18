@@ -10059,6 +10059,47 @@
         ]
       }
     },
+    "PANTS_FREE_THREADED": {
+      "choices": null,
+      "comma_separated_choices": null,
+      "comma_separated_display_args": "--[no-]pants-free-threaded",
+      "config_key": "pants_free_threaded",
+      "default": true,
+      "deprecated_message": null,
+      "deprecation_active": false,
+      "display_args": [
+        "--[no-]pants-free-threaded"
+      ],
+      "env_var": "PANTS_FREE_THREADED",
+      "fromfile": false,
+      "help": "Run Pants on a free-threaded CPython interpreter. Like `pants_version`, this is consumed by the `pants` launcher to select which Pants distribution to install and has no effect once Pants is running.",
+      "removal_hint": null,
+      "removal_version": null,
+      "scoped_cmd_line_args": [
+        "--pants-free-threaded",
+        "--no-pants-free-threaded"
+      ],
+      "target_field_name": null,
+      "typ": "bool",
+      "unscoped_cmd_line_args": [
+        "--pants-free-threaded",
+        "--no-pants-free-threaded"
+      ],
+      "value_history": {
+        "ranked_values": [
+          {
+            "details": null,
+            "rank": "NONE",
+            "value": null
+          },
+          {
+            "details": null,
+            "rank": "HARDCODED",
+            "value": true
+          }
+        ]
+      }
+    },
     "PANTS_GENERATE_LOCKFILES_CUSTOM_COMMAND": {
       "choices": null,
       "comma_separated_choices": null,
@@ -11734,7 +11775,7 @@
       ],
       "env_var": "PANTS_GOOGLE_JAVA_FORMAT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15268,7 +15309,7 @@
       ],
       "env_var": "PANTS_JARJAR_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15512,7 +15553,7 @@
       ],
       "env_var": "PANTS_JAR_TOOL_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -15747,7 +15788,7 @@
       ],
       "env_var": "PANTS_JAVA_AVRO_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -16032,7 +16073,7 @@
       ],
       "env_var": "PANTS_JAVA_PARSER_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -16270,7 +16311,7 @@
       ],
       "env_var": "PANTS_JUNIT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -17324,7 +17365,7 @@
       ],
       "env_var": "PANTS_KOTLIN_PARSER_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -17564,7 +17605,7 @@
       ],
       "env_var": "PANTS_KTLINT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -21518,7 +21559,7 @@
       ],
       "env_var": "PANTS_OPENAPI_GENERATOR_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -24012,7 +24053,7 @@
       ],
       "env_var": "PANTS_PROTOBUF_JAVA_GRPC_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -26421,24 +26462,24 @@
       "config_key": "internal_python_build_standalone_info",
       "default": {
         "linux_arm64": [
-          "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz",
-          "7dbb43b742c040835a277318355fb359b41e509dbf4fbb614da38005a9290e16",
-          29297561
+          "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+          "3d82c130c647988c0cb83fbf6b69637024dfa184da0b4d25c1498a3e9655b2f1",
+          30304472
         ],
         "linux_x86_64": [
-          "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
-          "493c477b4a88bb1ea2f6c6f57fa0e88ffbe55d9e7b1405c4699f2d41c04eb154",
-          34580370
+          "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+          "d4872b127c641aadb0846a0a4f2c3f6377393a34e89de7668274ec2434d50c00",
+          36178201
         ],
         "macos_arm64": [
-          "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-apple-darwin-install_only_stripped.tar.gz",
-          "057476264b07222a2baeff68a733647f91a9d61c94f79beba46a44eb42101749",
-          16923076
+          "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+          "f47f0d5b02fc634385bdc630dd293678cfbdbc009de2b04403ce04c92473b483",
+          26071097
         ],
         "macos_x86_64": [
-          "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-apple-darwin-install_only_stripped.tar.gz",
-          "56dcb0cdafabac9d6d976690fb05d9ee92d20ce798c3aabe9049259ebe7d3e0d",
-          16905036
+          "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+          "f8daa286f7315afc2fc1d51e3f6169ef133bd030f344d182f5f24849439aa4be",
+          26138236
         ]
       },
       "deprecated_message": null,
@@ -26471,24 +26512,24 @@
             "rank": "HARDCODED",
             "value": {
               "linux_arm64": [
-                "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz",
-                "7dbb43b742c040835a277318355fb359b41e509dbf4fbb614da38005a9290e16",
-                29297561
+                "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+                "3d82c130c647988c0cb83fbf6b69637024dfa184da0b4d25c1498a3e9655b2f1",
+                30304472
               ],
               "linux_x86_64": [
-                "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
-                "493c477b4a88bb1ea2f6c6f57fa0e88ffbe55d9e7b1405c4699f2d41c04eb154",
-                34580370
+                "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+                "d4872b127c641aadb0846a0a4f2c3f6377393a34e89de7668274ec2434d50c00",
+                36178201
               ],
               "macos_arm64": [
-                "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-apple-darwin-install_only_stripped.tar.gz",
-                "057476264b07222a2baeff68a733647f91a9d61c94f79beba46a44eb42101749",
-                16923076
+                "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+                "f47f0d5b02fc634385bdc630dd293678cfbdbc009de2b04403ce04c92473b483",
+                26071097
               ],
               "macos_x86_64": [
-                "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-apple-darwin-install_only_stripped.tar.gz",
-                "56dcb0cdafabac9d6d976690fb05d9ee92d20ce798c3aabe9049259ebe7d3e0d",
-                16905036
+                "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+                "f8daa286f7315afc2fc1d51e3f6169ef133bd030f344d182f5f24849439aa4be",
+                26138236
               ]
             }
           }
@@ -28841,6 +28882,45 @@
       "typ": "dict",
       "unscoped_cmd_line_args": [
         "--resolves-to-uploaded-prior-to"
+      ],
+      "value_history": {
+        "ranked_values": [
+          {
+            "details": "",
+            "rank": "NONE",
+            "value": {}
+          },
+          {
+            "details": "",
+            "rank": "HARDCODED",
+            "value": {}
+          }
+        ]
+      }
+    },
+    "PANTS_PYTHON_RESOLVES_TO_UV_PLATFORMS": {
+      "choices": null,
+      "comma_separated_choices": null,
+      "comma_separated_display_args": "--python-resolves-to-uv-platforms=\"{'key1': val1, 'key2': val2, ...}\"",
+      "config_key": "resolves_to_uv_platforms",
+      "default": {},
+      "deprecated_message": null,
+      "deprecation_active": false,
+      "display_args": [
+        "--python-resolves-to-uv-platforms=\"{'key1': val1, 'key2': val2, ...}\""
+      ],
+      "env_var": "PANTS_PYTHON_RESOLVES_TO_UV_PLATFORMS",
+      "fromfile": false,
+      "help": "A mapping of resolve names (from `[python].resolves`) to lists of uv platform targets for cross-platform/multiplatform builds when using the uv resolver.\n\nEach entry is a uv `--python-platform` value (e.g. `x86_64-unknown-linux-gnu`, `aarch64-apple-darwin`, `x86_64-manylinux_2_34`).\n\nExample: `{'my-resolve': ['x86_64-unknown-linux-gnu', 'aarch64-apple-darwin']}`\n\nYou can use the key `__default__` to set a default value for all resolves.",
+      "removal_hint": null,
+      "removal_version": null,
+      "scoped_cmd_line_args": [
+        "--python-resolves-to-uv-platforms"
+      ],
+      "target_field_name": null,
+      "typ": "dict",
+      "unscoped_cmd_line_args": [
+        "--resolves-to-uv-platforms"
       ],
       "value_history": {
         "ranked_values": [
@@ -32842,7 +32922,7 @@
       ],
       "env_var": "PANTS_SCALAFIX_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33205,7 +33285,7 @@
       ],
       "env_var": "PANTS_SCALAFMT_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33488,7 +33568,7 @@
       ],
       "env_var": "PANTS_SCALAPB_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -33688,7 +33768,7 @@
       ],
       "env_var": "PANTS_SCALATEST_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -34057,7 +34137,7 @@
       ],
       "env_var": "PANTS_SCALA_PARSER_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -34550,7 +34630,7 @@
       ],
       "env_var": "PANTS_SCROOGE_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -37667,7 +37747,7 @@
       ],
       "env_var": "PANTS_STRIP_JAR_LOCKFILE",
       "fromfile": false,
-      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
+      "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
       "removal_hint": null,
       "removal_version": null,
       "scoped_cmd_line_args": [
@@ -41872,12 +41952,12 @@
           {
             "details": null,
             "rank": "HARDCODED",
-            "value": "2.34.0.dev2"
+            "value": "2.34.0.dev3"
           },
           {
             "details": "env var",
             "rank": "ENVIRONMENT",
-            "value": "2.34.0.dev2"
+            "value": "2.34.0.dev3"
           }
         ]
       }
@@ -44039,7 +44119,7 @@
       "dependents": [
         "pants.backend.awslambda.python"
       ],
-      "documentation": "PythonAwsLambdaFieldSet(address: 'Address', include_requirements: 'PythonAwsLambdaIncludeRequirements', runtime: 'PythonAwsLambdaRuntime', architecture: 'AWSLambdaArchitectureField', complete_platforms: 'PythonFaaSCompletePlatforms', pex3_venv_create_extra_args: 'PythonFaaSPex3VenvCreateExtraArgsField', pex_build_extra_args: 'PythonFaaSPexBuildExtraArgs', layout: 'PythonFaaSLayoutField', output_path: 'OutputPathField', environment: 'EnvironmentField', handler: 'PythonAwsLambdaHandlerField')",
+      "documentation": "PythonAwsLambdaFieldSet(address: 'Address', include_requirements: 'PythonAwsLambdaIncludeRequirements', runtime: 'PythonAwsLambdaRuntime', architecture: 'AWSLambdaArchitectureField', complete_platforms: 'PythonFaaSCompletePlatforms', uv_platforms: 'PythonFaaSUvPlatforms', pex3_venv_create_extra_args: 'PythonFaaSPex3VenvCreateExtraArgsField', pex_build_extra_args: 'PythonFaaSPexBuildExtraArgs', layout: 'PythonFaaSLayoutField', output_path: 'OutputPathField', environment: 'EnvironmentField', handler: 'PythonAwsLambdaHandlerField')",
       "is_union": false,
       "module": "pants.backend.awslambda.python.rules",
       "name": "PythonAwsLambdaFieldSet",
@@ -44061,7 +44141,7 @@
       "dependents": [
         "pants.backend.awslambda.python"
       ],
-      "documentation": "PythonAwsLambdaLayerFieldSet(address: 'Address', include_requirements: 'PythonAwsLambdaIncludeRequirements', runtime: 'PythonAwsLambdaRuntime', architecture: 'AWSLambdaArchitectureField', complete_platforms: 'PythonFaaSCompletePlatforms', pex3_venv_create_extra_args: 'PythonFaaSPex3VenvCreateExtraArgsField', pex_build_extra_args: 'PythonFaaSPexBuildExtraArgs', layout: 'PythonFaaSLayoutField', output_path: 'OutputPathField', environment: 'EnvironmentField', dependencies: 'PythonAwsLambdaLayerDependenciesField', include_sources: 'PythonAwsLambdaIncludeSources')",
+      "documentation": "PythonAwsLambdaLayerFieldSet(address: 'Address', include_requirements: 'PythonAwsLambdaIncludeRequirements', runtime: 'PythonAwsLambdaRuntime', architecture: 'AWSLambdaArchitectureField', complete_platforms: 'PythonFaaSCompletePlatforms', uv_platforms: 'PythonFaaSUvPlatforms', pex3_venv_create_extra_args: 'PythonFaaSPex3VenvCreateExtraArgsField', pex_build_extra_args: 'PythonFaaSPexBuildExtraArgs', layout: 'PythonFaaSLayoutField', output_path: 'OutputPathField', environment: 'EnvironmentField', dependencies: 'PythonAwsLambdaLayerDependenciesField', include_sources: 'PythonAwsLambdaIncludeSources')",
       "is_union": false,
       "module": "pants.backend.awslambda.python.rules",
       "name": "PythonAwsLambdaLayerFieldSet",
@@ -50384,7 +50464,7 @@
       "dependents": [
         "pants.backend.google_cloud_function.python"
       ],
-      "documentation": "PythonGoogleCloudFunctionFieldSet(address: 'Address', handler: 'PythonGoogleCloudFunctionHandlerField', runtime: 'PythonGoogleCloudFunctionRuntime', complete_platforms: 'PythonFaaSCompletePlatforms', pex3_venv_create_extra_args: 'PythonFaaSPex3VenvCreateExtraArgsField', pex_build_extra_args: 'PythonFaaSPexBuildExtraArgs', layout: 'PythonFaaSLayoutField', type: 'PythonGoogleCloudFunctionType', output_path: 'OutputPathField', environment: 'EnvironmentField')",
+      "documentation": "PythonGoogleCloudFunctionFieldSet(address: 'Address', handler: 'PythonGoogleCloudFunctionHandlerField', runtime: 'PythonGoogleCloudFunctionRuntime', complete_platforms: 'PythonFaaSCompletePlatforms', uv_platforms: 'PythonFaaSUvPlatforms', pex3_venv_create_extra_args: 'PythonFaaSPex3VenvCreateExtraArgsField', pex_build_extra_args: 'PythonFaaSPexBuildExtraArgs', layout: 'PythonFaaSLayoutField', type: 'PythonGoogleCloudFunctionType', output_path: 'OutputPathField', environment: 'EnvironmentField')",
       "is_union": false,
       "module": "pants.backend.google_cloud_function.python.rules",
       "name": "PythonGoogleCloudFunctionFieldSet",
@@ -60435,6 +60515,7 @@
         "pants.backend.python.typecheck.pyright.rules.pyright_determine_partitions",
         "pants.backend.python.typecheck.pytype.rules.pytype_determine_partitions",
         "pants.backend.python.util_rules.dists.run_pep517_build",
+        "pants.backend.python.util_rules.faas.build_python_faas",
         "pants.backend.python.util_rules.faas.infer_faas_handler_dependency",
         "pants.backend.python.util_rules.local_dists_pep660.build_editable_local_dists",
         "pants.backend.python.util_rules.local_dists_pep660.isolate_local_dist_pep660_wheels",
@@ -61621,7 +61702,7 @@
       "dependents": [
         "pants.backend.awslambda.python"
       ],
-      "documentation": "RuntimePlatforms(interpreter_version: 'None | tuple[int, int]', complete_platforms: 'CompletePlatforms' = CompletePlatforms([]))",
+      "documentation": "RuntimePlatforms(interpreter_version: 'None | tuple[int, int]', complete_platforms: 'CompletePlatforms', uv_platforms: 'tuple[str, ...]')",
       "is_union": false,
       "module": "pants.backend.python.util_rules.faas",
       "name": "RuntimePlatforms",
@@ -62548,7 +62629,7 @@
         "pants.backend.python.providers.experimental.python_build_standalone",
         "pants.backend.python.typecheck.mypy"
       ],
-      "documentation": "PexRequest(*, output_filename: 'str', internal_only: 'bool', layout: 'PexLayout | None' = None, python: 'PythonExecutable | None' = None, requirements: 'PexRequirements | EntireLockfile' = PexRequirements(req_strings_or_addrs=FrozenOrderedSet(), constraints_strings=FrozenOrderedSet(), from_superset=None, description_of_origin=''), interpreter_constraints=InterpreterConstraints(), platforms=PexPlatforms([]), complete_platforms=CompletePlatforms([]), sources: 'Digest | None' = None, additional_inputs: 'Digest | None' = None, main: 'MainSpecification | None' = None, inject_args: 'Iterable[str]' = (), inject_env: 'Mapping[str, str]' = FrozenDict({}), additional_args: 'Iterable[str]' = (), pex_path: 'Iterable[Pex]' = (), description: 'str | None' = None, cache_scope: 'ProcessCacheScope' = <ProcessCacheScope.SUCCESSFUL: 'successful'>) -> 'None'",
+      "documentation": "PexRequest(*, output_filename: 'str', internal_only: 'bool', layout: 'PexLayout | None' = None, python: 'PythonExecutable | None' = None, requirements: 'PexRequirements | EntireLockfile' = PexRequirements(req_strings_or_addrs=FrozenOrderedSet(), constraints_strings=FrozenOrderedSet(), from_superset=None, description_of_origin=''), interpreter_constraints=InterpreterConstraints(), platforms=PexPlatforms([]), complete_platforms=CompletePlatforms([]), uv_platforms: 'Iterable[str]' = (), sources: 'Digest | None' = None, additional_inputs: 'Digest | None' = None, main: 'MainSpecification | None' = None, inject_args: 'Iterable[str]' = (), inject_env: 'Mapping[str, str]' = FrozenDict({}), additional_args: 'Iterable[str]' = (), pex_path: 'Iterable[Pex]' = (), description: 'str | None' = None, cache_scope: 'ProcessCacheScope' = <ProcessCacheScope.SUCCESSFUL: 'successful'>) -> 'None'",
       "is_union": false,
       "module": "pants.backend.python.util_rules.pex",
       "name": "PexRequest",
@@ -62927,7 +63008,7 @@
       "dependents": [
         "pants.backend.python.lint.pyupgrade"
       ],
-      "documentation": "_BuildPexRequirementsSetup(digests: 'list[Digest]', argv: 'list[str]', concurrency_available: 'int', uv_lockfile: 'LoadedLockfile | None' = None)",
+      "documentation": "_BuildPexRequirementsSetup(digests: 'list[Digest]', argv: 'list[str]', concurrency_available: 'int', uv_lockfile: 'LoadedLockfile | None' = None, uv_platforms: 'tuple[str, ...]' = ())",
       "is_union": false,
       "module": "pants.backend.python.util_rules.pex",
       "name": "_BuildPexRequirementsSetup",
@@ -63173,6 +63254,7 @@
         "pants.backend.python",
         "pants.backend.python.lint.bandit",
         "pants.backend.python.lint.isort",
+        "pants.backend.python.lint.pyupgrade",
         "pants.backend.python.providers.experimental.python_build_standalone"
       ],
       "documentation": "The BinaryPath of a Python executable for user code, along with some extras.",
@@ -63198,6 +63280,7 @@
         "pants.backend.python.goals.lockfile.generate_pex_lockfile",
         "pants.backend.python.goals.run_pex_binary.create_pex_binary_run_request",
         "pants.backend.python.util_rules.pex._determine_pex_python_and_platforms",
+        "pants.backend.python.util_rules.pex.build_pex",
         "pants.backend.python.util_rules.pex.find_interpreter"
       ]
     },
@@ -63285,7 +63368,7 @@
       "dependents": [
         "pants.backend.python.typecheck.mypy"
       ],
-      "documentation": "PexFromTargetsRequest(addresses: 'Iterable[Address]', *, output_filename: 'str', internal_only: 'bool', layout: 'PexLayout | None' = None, main: 'MainSpecification | None' = None, inject_args: 'Iterable[str]' = (), inject_env: 'Mapping[str, str]' = FrozenDict({}), platforms: 'PexPlatforms' = PexPlatforms([]), complete_platforms: 'CompletePlatforms' = CompletePlatforms([]), additional_args: 'Iterable[str]' = (), additional_lockfile_args: 'Iterable[str]' = (), include_source_files: 'bool' = True, include_requirements: 'bool' = True, include_local_dists: 'bool' = False, additional_sources: 'Digest | None' = None, additional_inputs: 'Digest | None' = None, hardcoded_interpreter_constraints: 'InterpreterConstraints | None' = None, description: 'str | None' = None, warn_for_transitive_files_targets: 'bool' = False) -> 'None'",
+      "documentation": "PexFromTargetsRequest(addresses: 'Iterable[Address]', *, output_filename: 'str', internal_only: 'bool', layout: 'PexLayout | None' = None, main: 'MainSpecification | None' = None, inject_args: 'Iterable[str]' = (), inject_env: 'Mapping[str, str]' = FrozenDict({}), platforms: 'PexPlatforms' = PexPlatforms([]), complete_platforms: 'CompletePlatforms' = CompletePlatforms([]), uv_platforms: 'Iterable[str]' = (), additional_args: 'Iterable[str]' = (), additional_lockfile_args: 'Iterable[str]' = (), include_source_files: 'bool' = True, include_requirements: 'bool' = True, include_local_dists: 'bool' = False, additional_sources: 'Digest | None' = None, additional_inputs: 'Digest | None' = None, hardcoded_interpreter_constraints: 'InterpreterConstraints | None' = None, description: 'str | None' = None, warn_for_transitive_files_targets: 'bool' = False) -> 'None'",
       "is_union": false,
       "module": "pants.backend.python.util_rules.pex_from_targets",
       "name": "PexFromTargetsRequest",
@@ -63473,7 +63556,8 @@
       ],
       "dependents": [
         "pants.backend.python.lint.bandit",
-        "pants.backend.python.providers.experimental.pyenv"
+        "pants.backend.python.providers.experimental.pyenv",
+        "pants.backend.python.providers.experimental.pyenv.custom_install"
       ],
       "documentation": "Configuration from `[python]` that impacts how the resolve is created.",
       "is_union": false,
@@ -63490,7 +63574,8 @@
       "used_in_rules": [
         "pants.backend.python.goals.lockfile.generate_pex_lockfile",
         "pants.backend.python.goals.lockfile.generate_uv_lockfile",
-        "pants.backend.python.util_rules.pex._setup_pex_requirements"
+        "pants.backend.python.util_rules.pex._setup_pex_requirements",
+        "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile"
       ]
     },
     "pants.backend.python.util_rules.pex_venv.PexVenv": {
@@ -79190,13 +79275,15 @@
     },
     "pants.core.util_rules.system_binaries.DirnameBinary": {
       "consumed_by_rules": [
-        "pants.backend.makeself.system_binaries.get_binaries_required_for_makeself"
+        "pants.backend.makeself.system_binaries.get_binaries_required_for_makeself",
+        "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile"
       ],
       "dependencies": [
         "pants.backend.python.lint.isort"
       ],
       "dependents": [
-        "pants.backend.experimental.makeself"
+        "pants.backend.experimental.makeself",
+        "pants.backend.python.providers.experimental.pyenv.custom_install"
       ],
       "documentation": null,
       "is_union": false,
@@ -79561,6 +79648,7 @@
         "pants.backend.makeself.system_binaries.get_binaries_required_for_makeself",
         "pants.backend.python.providers.python_build_standalone.rules.get_python",
         "pants.backend.python.typecheck.mypy.rules.mypy_typecheck_partition",
+        "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile",
         "pants.backend.terraform.tool.setup_terraform_process",
         "pants.backend.typescript.goals.check.create_tsc_wrapper_script",
         "pants.jvm.resolve.coursier_setup.setup_coursier"
@@ -79573,6 +79661,7 @@
         "pants.backend.experimental.makeself",
         "pants.backend.experimental.terraform",
         "pants.backend.experimental.typescript",
+        "pants.backend.python.providers.experimental.pyenv.custom_install",
         "pants.backend.python.providers.experimental.python_build_standalone",
         "pants.backend.python.typecheck.mypy"
       ],
@@ -90547,7 +90636,7 @@
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
     },
     "avro_source": {
-      "documentation": "A single Avro file used to generate various languages.\n\nSee https://www.pantsbuild.org/avro.",
+      "documentation": "A single Avro file used to generate various languages.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/avro_source.",
       "is_target": true,
       "name": "avro_source",
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
@@ -90901,13 +90990,13 @@
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
     },
     "nfpm_apk_package": {
-      "documentation": "An APK system package (Alpine Package Keeper) built by nFPM.\n\nThis will not install the package, only create an .apk file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-apk-package.",
+      "documentation": "An APK system package (Alpine Package Keeper) built by nFPM.\n\nThis will not install the package, only create an .apk file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_apk_package.",
       "is_target": true,
       "name": "nfpm_apk_package",
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
     },
     "nfpm_archlinux_package": {
-      "documentation": "An Archlinux system package built by nFPM.\n\nThis will not install the package, only create an .tar.zst file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-archlinux-package.",
+      "documentation": "An Archlinux system package built by nFPM.\n\nThis will not install the package, only create an .tar.zst file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_archlinux_package.",
       "is_target": true,
       "name": "nfpm_archlinux_package",
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
@@ -90949,13 +91038,13 @@
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
     },
     "nfpm_deb_package": {
-      "documentation": "A Debian system package built by nFPM.\n\nThis will not install the package, only create a .deb file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-deb-package.",
+      "documentation": "A Debian system package built by nFPM.\n\nThis will not install the package, only create a .deb file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_deb_package.",
       "is_target": true,
       "name": "nfpm_deb_package",
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
     },
     "nfpm_rpm_package": {
-      "documentation": "An RPM system package built by nFPM.\n\nThis will not install the package, only create an .rpm file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-rpm-package.",
+      "documentation": "An RPM system package built by nFPM.\n\nThis will not install the package, only create an .rpm file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_rpm_package.",
       "is_target": true,
       "name": "nfpm_rpm_package",
       "signature": "(**kwargs: 'Any') -> 'TargetAdaptor'"
@@ -91603,7 +91692,7 @@
         "filter",
         "fix"
       ],
-      "description": "Autofix source code.\n\nThis goal runs tools that make 'semantic' changes to source code, where the meaning of the code may change.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will run code-editing tools that may make only\n  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by\n  default (see [the `skip_formatters` option](#skip_formatters) to control this).\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  fixers and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format),\n  [SQL](https://www.pantsbuild.org/2.34/docs/sql#enable-sqlfluff-linter)",
+      "description": "Autofix source code.\n\nThis goal runs tools that make 'semantic' changes to source code, where the meaning of the code may change.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will run code-editing tools that may make only\n  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by\n  default (see [the `skip_formatters` option](#skip_formatters) to control this).\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  fixers and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format),\n  [SQL](https://www.pantsbuild.org/2.34/docs/sql#enable-sqlfluff-linter)",
       "is_implemented": true,
       "name": "fix",
       "provider": "pants.core"
@@ -91615,7 +91704,7 @@
         "filter",
         "fmt"
       ],
-      "description": "Autoformat source code.\n\nThis goal runs tools that make 'syntactic' changes to source code, where the meaning of the code doesn't (usually) change.\n\nSee also:\n\n- [The `fix` goal](https://www.pantsbuild.org/2.34/reference/goals/fix) will run code-editing tools that may make semantic\n  changes, not just syntactic ones.\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  formatters and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go#gofmt),\n  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell#shfmt-autoformatter).",
+      "description": "Autoformat source code.\n\nThis goal runs tools that make 'syntactic' changes to source code, where the meaning of the code doesn't (usually) change.\n\nSee also:\n\n- [The `fix` goal](https://www.pantsbuild.org/2.34/reference/goals/fix) will run code-editing tools that may make semantic\n  changes, not just syntactic ones.\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  formatters and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go#gofmt),\n  [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell#shfmt-autoformatter).",
       "is_implemented": true,
       "name": "fmt",
       "provider": "pants.core"
@@ -91771,7 +91860,7 @@
         "filter",
         "lint"
       ],
-      "description": "Run linters/formatters/fixers in check mode.\n\nThis goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of formatters\n  (code-editing tools that make only \"syntactic\" changes) back to the workspace.\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of fixers\n  (code-editing tools that may make \"semantic\" changes too) back to the workspace.\n\n- Documentation about linters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go),\n  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell),\n  [Docker](https://www.pantsbuild.org/2.34/docs/docker#linting-dockerfiles-with-hadolint).",
+      "description": "Run linters/formatters/fixers in check mode.\n\nThis goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of formatters\n  (code-editing tools that make only \"syntactic\" changes) back to the workspace.\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of fixers\n  (code-editing tools that may make \"semantic\" changes too) back to the workspace.\n\n- Documentation about linters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go),\n  [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell),\n  [Docker](https://www.pantsbuild.org/2.34/docs/docker#linting-dockerfiles-with-hadolint).",
       "is_implemented": true,
       "name": "lint",
       "provider": "pants.core"
@@ -92591,7 +92680,7 @@
         "pants.engine.internals.options_parsing.scope_options() -> ScopedOptions"
       ],
       "description": null,
-      "documentation": "Autofix source code.\n\nThis goal runs tools that make 'semantic' changes to source code, where the meaning of the code may change.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will run code-editing tools that may make only\n  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by\n  default (see [the `skip_formatters` option](#skip_formatters) to control this).\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  fixers and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format),\n  [SQL](https://www.pantsbuild.org/2.34/docs/sql#enable-sqlfluff-linter)",
+      "documentation": "Autofix source code.\n\nThis goal runs tools that make 'semantic' changes to source code, where the meaning of the code may change.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will run code-editing tools that may make only\n  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by\n  default (see [the `skip_formatters` option](#skip_formatters) to control this).\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  fixers and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format),\n  [SQL](https://www.pantsbuild.org/2.34/docs/sql#enable-sqlfluff-linter)",
       "input_types": [],
       "name": "construct_scope_fix",
       "output_type": "FixSubsystem",
@@ -92613,7 +92702,7 @@
         "pants.engine.internals.options_parsing.scope_options() -> ScopedOptions"
       ],
       "description": null,
-      "documentation": "Autoformat source code.\n\nThis goal runs tools that make 'syntactic' changes to source code, where the meaning of the code doesn't (usually) change.\n\nSee also:\n\n- [The `fix` goal](https://www.pantsbuild.org/2.34/reference/goals/fix) will run code-editing tools that may make semantic\n  changes, not just syntactic ones.\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  formatters and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go#gofmt),\n  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell#shfmt-autoformatter).",
+      "documentation": "Autoformat source code.\n\nThis goal runs tools that make 'syntactic' changes to source code, where the meaning of the code doesn't (usually) change.\n\nSee also:\n\n- [The `fix` goal](https://www.pantsbuild.org/2.34/reference/goals/fix) will run code-editing tools that may make semantic\n  changes, not just syntactic ones.\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  formatters and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go#gofmt),\n  [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell#shfmt-autoformatter).",
       "input_types": [],
       "name": "construct_scope_fmt",
       "output_type": "FmtSubsystem",
@@ -93075,7 +93164,7 @@
         "pants.engine.internals.options_parsing.scope_options() -> ScopedOptions"
       ],
       "description": null,
-      "documentation": "Run linters/formatters/fixers in check mode.\n\nThis goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of formatters\n  (code-editing tools that make only \"syntactic\" changes) back to the workspace.\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of fixers\n  (code-editing tools that may make \"semantic\" changes too) back to the workspace.\n\n- Documentation about linters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go),\n  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell),\n  [Docker](https://www.pantsbuild.org/2.34/docs/docker#linting-dockerfiles-with-hadolint).",
+      "documentation": "Run linters/formatters/fixers in check mode.\n\nThis goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of formatters\n  (code-editing tools that make only \"syntactic\" changes) back to the workspace.\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of fixers\n  (code-editing tools that may make \"semantic\" changes too) back to the workspace.\n\n- Documentation about linters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go),\n  [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell),\n  [Docker](https://www.pantsbuild.org/2.34/docs/docker#linting-dockerfiles-with-hadolint).",
       "input_types": [],
       "name": "construct_scope_lint",
       "output_type": "LintSubsystem",
@@ -102564,7 +102653,8 @@
       "description": null,
       "documentation": null,
       "input_types": [
-        "BuildPythonFaaSRequest"
+        "BuildPythonFaaSRequest",
+        "PythonSetup"
       ],
       "name": "pants.backend.python.util_rules.faas.build_python_faas",
       "output_type": "BuiltPackage",
@@ -102943,6 +103033,7 @@
         "pants.backend.python.util_rules.pex._setup_pex_requirements(PexRequest) -> _BuildPexRequirementsSetup",
         "pants.engine.intrinsics.add_prefix() -> Digest",
         "pants.backend.python.util_rules.pex.get_req_strings() -> PexRequirementsInfo",
+        "pants.backend.python.util_rules.pex.find_interpreter() -> PythonExecutable",
         "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile() -> VenvRepository",
         "pants.core.util_rules.stripped_source_files.strip_file_name() -> StrippedFileName",
         "pants.engine.intrinsics.merge_digests() -> Digest",
@@ -103412,6 +103503,7 @@
     },
     "pants.backend.python.util_rules.uv.create_venv_repository_from_uv_lockfile": {
       "awaitables": [
+        "pants.backend.python.util_rules.pex_requirements.determine_resolve_config() -> ResolveConfig",
         "pants.engine.intrinsics.create_digest() -> Digest",
         "pants.engine.intrinsics.get_digest_contents() -> DigestContents",
         "pants.engine.intrinsics.merge_digests() -> Digest"
@@ -103424,6 +103516,8 @@
         "UvEnvironment",
         "RealpathBinary",
         "BuildRoot",
+        "DirnameBinary",
+        "MkdirBinary",
         "MaybeFlockBinary",
         "LogLevel"
       ],
@@ -111992,7 +112086,7 @@
     },
     "avro_source": {
       "alias": "avro_source",
-      "description": "A single Avro file used to generate various languages.\n\nSee https://www.pantsbuild.org/avro.",
+      "description": "A single Avro file used to generate various languages.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/avro_source.",
       "fields": [
         {
           "alias": "tags",
@@ -115453,7 +115547,7 @@
         {
           "alias": "packages",
           "default": null,
-          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
+          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -116560,7 +116654,7 @@
     },
     "nfpm_apk_package": {
       "alias": "nfpm_apk_package",
-      "description": "An APK system package (Alpine Package Keeper) built by nFPM.\n\nThis will not install the package, only create an .apk file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-apk-package.",
+      "description": "An APK system package (Alpine Package Keeper) built by nFPM.\n\nThis will not install the package, only create an .apk file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_apk_package.",
       "fields": [
         {
           "alias": "tags",
@@ -116712,7 +116806,7 @@
     },
     "nfpm_archlinux_package": {
       "alias": "nfpm_archlinux_package",
-      "description": "An Archlinux system package built by nFPM.\n\nThis will not install the package, only create an .tar.zst file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-archlinux-package.",
+      "description": "An Archlinux system package built by nFPM.\n\nThis will not install the package, only create an .tar.zst file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_archlinux_package.",
       "fields": [
         {
           "alias": "tags",
@@ -117352,7 +117446,7 @@
     },
     "nfpm_deb_package": {
       "alias": "nfpm_deb_package",
-      "description": "A Debian system package built by nFPM.\n\nThis will not install the package, only create a .deb file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-deb-package.",
+      "description": "A Debian system package built by nFPM.\n\nThis will not install the package, only create a .deb file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_deb_package.",
       "fields": [
         {
           "alias": "tags",
@@ -117608,7 +117702,7 @@
     },
     "nfpm_rpm_package": {
       "alias": "nfpm_rpm_package",
-      "description": "An RPM system package built by nFPM.\n\nThis will not install the package, only create an .rpm file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/nfpm-rpm-package.",
+      "description": "An RPM system package built by nFPM.\n\nThis will not install the package, only create an .rpm file that you can then distribute and install, e.g. via pkg.\n\nSee https://www.pantsbuild.org/2.34/reference/targets/nfpm_rpm_package.",
       "fields": [
         {
           "alias": "tags",
@@ -118644,7 +118738,7 @@
         },
         {
           "alias": "version_spec",
-          "default": "'== 2.34.0.dev2'",
+          "default": "'== 2.34.0.dev3'",
           "description": "The PEP 440 version specifier version of Pants to target. E.g. `== 2.15.*`, or `>= 2.16.0, < 2.17.0`",
           "provider": "",
           "required": false,
@@ -118749,7 +118843,7 @@
         {
           "alias": "complete_platforms",
           "default": null,
-          "description": "The platforms the built PEX should be compatible with.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.",
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -118957,7 +119051,7 @@
         {
           "alias": "complete_platforms",
           "default": null,
-          "description": "The platforms the built PEX should be compatible with.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.",
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -119595,14 +119689,6 @@
           "type_hint": "bool"
         },
         {
-          "alias": "python_source_root",
-          "default": null,
-          "description": "The source root to generate Python sources under.\n\nIf unspecified, the source root the `protobuf_sources` is under will be used.",
-          "provider": "",
-          "required": false,
-          "type_hint": "str | None"
-        },
-        {
           "alias": "python_resolve",
           "default": null,
           "description": "The resolve from `[python].resolves` to use.\n\nIf not defined, will default to `[python].default_resolve`.\n\nAll dependencies must share the same value for their `resolve` field.",
@@ -119617,6 +119703,14 @@
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
+        },
+        {
+          "alias": "python_source_root",
+          "default": null,
+          "description": "The source root to generate Python sources under.\n\nIf unspecified, the source root the `protobuf_sources` is under will be used.",
+          "provider": "",
+          "required": false,
+          "type_hint": "str | None"
         },
         {
           "alias": "grpc",
@@ -119765,7 +119859,15 @@
         {
           "alias": "complete_platforms",
           "default": null,
-          "description": "The platforms the built PEX should be compatible with.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform's ambient interpreter, such as when running in an docker environment.",
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform's ambient interpreter, such as when running in a docker environment.",
+          "provider": "",
+          "required": false,
+          "type_hint": "Iterable[str] | None"
+        },
+        {
+          "alias": "uv_platforms",
+          "default": null,
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default platform is chosen, if one is known for that runtime.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -119885,7 +119987,15 @@
         {
           "alias": "complete_platforms",
           "default": null,
-          "description": "The platforms the built PEX should be compatible with.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform's ambient interpreter, such as when running in an docker environment.",
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform's ambient interpreter, such as when running in a docker environment.",
+          "provider": "",
+          "required": false,
+          "type_hint": "Iterable[str] | None"
+        },
+        {
+          "alias": "uv_platforms",
+          "default": null,
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default platform is chosen, if one is known for that runtime.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -120245,7 +120355,15 @@
         {
           "alias": "complete_platforms",
           "default": null,
-          "description": "The platforms the built PEX should be compatible with.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform's ambient interpreter, such as when running in an docker environment.",
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform's ambient interpreter, such as when running in a docker environment.",
+          "provider": "",
+          "required": false,
+          "type_hint": "Iterable[str] | None"
+        },
+        {
+          "alias": "uv_platforms",
+          "default": null,
+          "description": "The platforms the built PEX should be compatible with, when using the `pex` resolver.\n\nThere must be built wheels available for all of the foreign platforms, rather than sdists.\n\nYou can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.\n\nComplete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).\n\nSee https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.\n\nN.B.: only one of this and `runtime` can be set. If `runtime` is set, a default platform is chosen, if one is known for that runtime.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -120341,7 +120459,7 @@
         {
           "alias": "modules",
           "default": null,
-          "description": "The modules this requirement provides (used for dependency inference).\n\nFor example, the requirement `setuptools` provides `[\"setuptools\", \"pkg_resources\", \"easy_install\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.\n\nMutually exclusive with the `type_stub_modules` field.",
+          "description": "The modules this requirement provides (used for dependency inference).\n\nFor example, the requirement `setuptools` provides `[\"setuptools\", \"pkg_resources\", \"easy_install\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/python/dependency_inference/default_module_mapping.py), and then will default to the normalized project name. For example, the requirement `Django` would default to the module `django`.\n\nMutually exclusive with the `type_stub_modules` field.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -120349,7 +120467,7 @@
         {
           "alias": "type_stub_modules",
           "default": null,
-          "description": "The modules this requirement provides if the requirement is a type stub (used for dependency inference).\n\nFor example, the requirement `types-requests` provides `[\"requests\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).\n\nMutually exclusive with the `modules` field.",
+          "description": "The modules this requirement provides if the requirement is a type stub (used for dependency inference).\n\nFor example, the requirement `types-requests` provides `[\"requests\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will first look at the default module mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/python/dependency_inference/default_module_mapping.py). If not found _and_ the requirement name starts with `types-` or `stubs-`, or ends with `-types` or `-stubs`, will default to that requirement name without the prefix/suffix. For example, `types-requests` would default to `requests`. Otherwise, will be treated like a normal requirement (see the `modules` field).\n\nMutually exclusive with the `modules` field.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -122229,7 +122347,7 @@
         {
           "alias": "packages",
           "default": null,
-          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
+          "description": "The JVM packages this artifact provides for the purposes of dependency inference.\n\nFor example, the JVM artifact `junit:junit` might provide `[\"org.junit.**\"]`.\n\nUsually you can leave this field off. If unspecified, Pants will fall back to the `[java-infer].third_party_import_mapping`, then to a built in mapping (https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/dependency_inference/jvm_artifact_mappings.py), and then finally it will default to the normalized `group` of the artifact. For example, in the absence of any other mapping the artifact `io.confluent:common-config` would default to providing `[\"io.confluent.**\"]`.\n\nThe package path may be made recursive to match symbols in subpackages by adding `.**` to the end of the package path. For example, specify `[\"org.junit.**\"]` to infer a dependency on the artifact for any file importing a symbol from `org.junit` or its subpackages.",
           "provider": "",
           "required": false,
           "type_hint": "Iterable[str] | None"
@@ -125247,12 +125365,53 @@
               {
                 "details": null,
                 "rank": "HARDCODED",
-                "value": "2.34.0.dev2"
+                "value": "2.34.0.dev3"
               },
               {
                 "details": "env var",
                 "rank": "ENVIRONMENT",
-                "value": "2.34.0.dev2"
+                "value": "2.34.0.dev3"
+              }
+            ]
+          }
+        },
+        {
+          "choices": null,
+          "comma_separated_choices": null,
+          "comma_separated_display_args": "--[no-]pants-free-threaded",
+          "config_key": "pants_free_threaded",
+          "default": true,
+          "deprecated_message": null,
+          "deprecation_active": false,
+          "display_args": [
+            "--[no-]pants-free-threaded"
+          ],
+          "env_var": "PANTS_FREE_THREADED",
+          "fromfile": false,
+          "help": "Run Pants on a free-threaded CPython interpreter. Like `pants_version`, this is consumed by the `pants` launcher to select which Pants distribution to install and has no effect once Pants is running.",
+          "removal_hint": null,
+          "removal_version": null,
+          "scoped_cmd_line_args": [
+            "--pants-free-threaded",
+            "--no-pants-free-threaded"
+          ],
+          "target_field_name": null,
+          "typ": "bool",
+          "unscoped_cmd_line_args": [
+            "--pants-free-threaded",
+            "--no-pants-free-threaded"
+          ],
+          "value_history": {
+            "ranked_values": [
+              {
+                "details": null,
+                "rank": "NONE",
+                "value": null
+              },
+              {
+                "details": null,
+                "rank": "HARDCODED",
+                "value": true
               }
             ]
           }
@@ -138188,7 +138347,7 @@
       ],
       "deprecated": [],
       "deprecated_scope": null,
-      "description": "Autofix source code.\n\nThis goal runs tools that make 'semantic' changes to source code, where the meaning of the code may change.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will run code-editing tools that may make only\n  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by\n  default (see [the `skip_formatters` option](#skip_formatters) to control this).\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  fixers and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format),\n  [SQL](https://www.pantsbuild.org/2.34/docs/sql#enable-sqlfluff-linter)",
+      "description": "Autofix source code.\n\nThis goal runs tools that make 'semantic' changes to source code, where the meaning of the code may change.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will run code-editing tools that may make only\n  syntactic changes, not semantic ones. The `fix` includes running these `fmt` tools by\n  default (see [the `skip_formatters` option](#skip_formatters) to control this).\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  fixers and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format),\n  [SQL](https://www.pantsbuild.org/2.34/docs/sql#enable-sqlfluff-linter)",
       "is_goal": true,
       "provider": "pants.core",
       "scope": "fix"
@@ -138669,7 +138828,7 @@
       ],
       "deprecated": [],
       "deprecated_scope": null,
-      "description": "Autoformat source code.\n\nThis goal runs tools that make 'syntactic' changes to source code, where the meaning of the code doesn't (usually) change.\n\nSee also:\n\n- [The `fix` goal](https://www.pantsbuild.org/2.34/reference/goals/fix) will run code-editing tools that may make semantic\n  changes, not just syntactic ones.\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  formatters and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go#gofmt),\n  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell#shfmt-autoformatter).",
+      "description": "Autoformat source code.\n\nThis goal runs tools that make 'syntactic' changes to source code, where the meaning of the code doesn't (usually) change.\n\nSee also:\n\n- [The `fix` goal](https://www.pantsbuild.org/2.34/reference/goals/fix) will run code-editing tools that may make semantic\n  changes, not just syntactic ones.\n\n- [The `lint` goal](https://www.pantsbuild.org/2.34/reference/goals/lint) will validate code is formatted, by running these\n  formatters and checking there's no change.\n\n- Documentation about formatters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go#gofmt),\n  [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell#shfmt-autoformatter).",
       "is_goal": true,
       "provider": "pants.core",
       "scope": "fmt"
@@ -141213,7 +141372,7 @@
           ],
           "env_var": "PANTS_GOOGLE_JAVA_FORMAT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/java/lint/google_java_format/google_java_format.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=google-java-format`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -144023,7 +144182,7 @@
           ],
           "env_var": "PANTS_JAR_TOOL_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/jar_tool/jar_tool.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jar_tool`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -144194,7 +144353,7 @@
           ],
           "env_var": "PANTS_JARJAR_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/shading/jarjar.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=jarjar`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -144446,7 +144605,7 @@
           ],
           "env_var": "PANTS_JAVA_AVRO_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/avro/java/avro-tools.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-avro`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -144758,7 +144917,7 @@
           ],
           "env_var": "PANTS_JAVA_PARSER_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/java/dependency_inference/java_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=java-parser`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -145075,7 +145234,7 @@
           ],
           "env_var": "PANTS_JUNIT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/test/junit.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=junit`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -146207,7 +146366,7 @@
           ],
           "env_var": "PANTS_KOTLIN_PARSER_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/kotlin/dependency_inference/kotlin_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=kotlin-parser`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -146467,7 +146626,7 @@
           ],
           "env_var": "PANTS_KTLINT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/kotlin/lint/ktlint/ktlint.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=ktlint`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -147699,7 +147858,7 @@
       ],
       "deprecated": [],
       "deprecated_scope": null,
-      "description": "Run linters/formatters/fixers in check mode.\n\nThis goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of formatters\n  (code-editing tools that make only \"syntactic\" changes) back to the workspace.\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of fixers\n  (code-editing tools that may make \"semantic\" changes too) back to the workspace.\n\n- Documentation about linters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go),\n  [JVM](https://www.pantsbuild.org/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell),\n  [Docker](https://www.pantsbuild.org/2.34/docs/docker#linting-dockerfiles-with-hadolint).",
+      "description": "Run linters/formatters/fixers in check mode.\n\nThis goal runs tools that check code quality/styling etc, without changing that code. This includes running formatters and fixers, but instead of writing changes back to the workspace, Pants treats any changes they would make as a linting failure.\n\nSee also:\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of formatters\n  (code-editing tools that make only \"syntactic\" changes) back to the workspace.\n\n- [The `fmt` goal](https://www.pantsbuild.org/2.34/reference/goals/fix will save the the result of fixers\n  (code-editing tools that may make \"semantic\" changes too) back to the workspace.\n\n- Documentation about linters for various ecosystems, such as:\n  [Python](https://www.pantsbuild.org/2.34/docs/python/overview/linters-and-formatters), [Go](https://www.pantsbuild.org/2.34/docs/go),\n  [JVM](https://www.pantsbuild.org/2.34/docs/jvm/java-and-scala#lint-and-format), [Shell](https://www.pantsbuild.org/2.34/docs/shell),\n  [Docker](https://www.pantsbuild.org/2.34/docs/docker#linting-dockerfiles-with-hadolint).",
       "is_goal": true,
       "provider": "pants.core",
       "scope": "lint"
@@ -150028,7 +150187,7 @@
           ],
           "env_var": "PANTS_OPENAPI_GENERATOR_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/openapi/subsystems/openapi_generator.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=openapi-generator`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -151848,7 +152007,7 @@
           ],
           "env_var": "PANTS_PROTOBUF_JAVA_GRPC_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/protobuf/java/grpc-java.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=protobuf-java-grpc`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -155147,6 +155306,45 @@
         {
           "choices": null,
           "comma_separated_choices": null,
+          "comma_separated_display_args": "--python-resolves-to-uv-platforms=\"{'key1': val1, 'key2': val2, ...}\"",
+          "config_key": "resolves_to_uv_platforms",
+          "default": {},
+          "deprecated_message": null,
+          "deprecation_active": false,
+          "display_args": [
+            "--python-resolves-to-uv-platforms=\"{'key1': val1, 'key2': val2, ...}\""
+          ],
+          "env_var": "PANTS_PYTHON_RESOLVES_TO_UV_PLATFORMS",
+          "fromfile": false,
+          "help": "A mapping of resolve names (from `[python].resolves`) to lists of uv platform targets for cross-platform/multiplatform builds when using the uv resolver.\n\nEach entry is a uv `--python-platform` value (e.g. `x86_64-unknown-linux-gnu`, `aarch64-apple-darwin`, `x86_64-manylinux_2_34`).\n\nExample: `{'my-resolve': ['x86_64-unknown-linux-gnu', 'aarch64-apple-darwin']}`\n\nYou can use the key `__default__` to set a default value for all resolves.",
+          "removal_hint": null,
+          "removal_version": null,
+          "scoped_cmd_line_args": [
+            "--python-resolves-to-uv-platforms"
+          ],
+          "target_field_name": null,
+          "typ": "dict",
+          "unscoped_cmd_line_args": [
+            "--resolves-to-uv-platforms"
+          ],
+          "value_history": {
+            "ranked_values": [
+              {
+                "details": "",
+                "rank": "NONE",
+                "value": {}
+              },
+              {
+                "details": "",
+                "rank": "HARDCODED",
+                "value": {}
+              }
+            ]
+          }
+        },
+        {
+          "choices": null,
+          "comma_separated_choices": null,
           "comma_separated_display_args": "--python-resolves-to-uploaded-prior-to=\"{'key1': val1, 'key2': val2, ...}\"",
           "config_key": "resolves_to_uploaded_prior_to",
           "default": {},
@@ -155946,24 +156144,24 @@
           "config_key": "internal_python_build_standalone_info",
           "default": {
             "linux_arm64": [
-              "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz",
-              "7dbb43b742c040835a277318355fb359b41e509dbf4fbb614da38005a9290e16",
-              29297561
+              "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+              "3d82c130c647988c0cb83fbf6b69637024dfa184da0b4d25c1498a3e9655b2f1",
+              30304472
             ],
             "linux_x86_64": [
-              "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
-              "493c477b4a88bb1ea2f6c6f57fa0e88ffbe55d9e7b1405c4699f2d41c04eb154",
-              34580370
+              "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+              "d4872b127c641aadb0846a0a4f2c3f6377393a34e89de7668274ec2434d50c00",
+              36178201
             ],
             "macos_arm64": [
-              "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-apple-darwin-install_only_stripped.tar.gz",
-              "057476264b07222a2baeff68a733647f91a9d61c94f79beba46a44eb42101749",
-              16923076
+              "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+              "f47f0d5b02fc634385bdc630dd293678cfbdbc009de2b04403ce04c92473b483",
+              26071097
             ],
             "macos_x86_64": [
-              "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-apple-darwin-install_only_stripped.tar.gz",
-              "56dcb0cdafabac9d6d976690fb05d9ee92d20ce798c3aabe9049259ebe7d3e0d",
-              16905036
+              "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+              "f8daa286f7315afc2fc1d51e3f6169ef133bd030f344d182f5f24849439aa4be",
+              26138236
             ]
           },
           "deprecated_message": null,
@@ -155996,24 +156194,24 @@
                 "rank": "HARDCODED",
                 "value": {
                   "linux_arm64": [
-                    "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz",
-                    "7dbb43b742c040835a277318355fb359b41e509dbf4fbb614da38005a9290e16",
-                    29297561
+                    "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+                    "3d82c130c647988c0cb83fbf6b69637024dfa184da0b4d25c1498a3e9655b2f1",
+                    30304472
                   ],
                   "linux_x86_64": [
-                    "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz",
-                    "493c477b4a88bb1ea2f6c6f57fa0e88ffbe55d9e7b1405c4699f2d41c04eb154",
-                    34580370
+                    "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-unknown-linux-gnu-freethreaded-install_only_stripped.tar.gz",
+                    "d4872b127c641aadb0846a0a4f2c3f6377393a34e89de7668274ec2434d50c00",
+                    36178201
                   ],
                   "macos_arm64": [
-                    "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-aarch64-apple-darwin-install_only_stripped.tar.gz",
-                    "057476264b07222a2baeff68a733647f91a9d61c94f79beba46a44eb42101749",
-                    16923076
+                    "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-aarch64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+                    "f47f0d5b02fc634385bdc630dd293678cfbdbc009de2b04403ce04c92473b483",
+                    26071097
                   ],
                   "macos_x86_64": [
-                    "https://github.com/astral-sh/python-build-standalone/releases/download/20251014/cpython-3.14.0+20251014-x86_64-apple-darwin-install_only_stripped.tar.gz",
-                    "56dcb0cdafabac9d6d976690fb05d9ee92d20ce798c3aabe9049259ebe7d3e0d",
-                    16905036
+                    "https://github.com/astral-sh/python-build-standalone/releases/download/20260610/cpython-3.14.6+20260610-x86_64-apple-darwin-freethreaded-install_only_stripped.tar.gz",
+                    "f8daa286f7315afc2fc1d51e3f6169ef133bd030f344d182f5f24849439aa4be",
+                    26138236
                   ]
                 }
               }
@@ -160012,7 +160210,7 @@
           ],
           "env_var": "PANTS_SCALA_PARSER_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/dependency_inference/scala_parser.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scala-parser`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -160311,7 +160509,7 @@
           ],
           "env_var": "PANTS_SCALAFIX_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/lint/scalafix/scalafix.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafix`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -160686,7 +160884,7 @@
           ],
           "env_var": "PANTS_SCALAFMT_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/lint/scalafmt/scalafmt.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalafmt`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -160981,7 +161179,7 @@
           ],
           "env_var": "PANTS_SCALAPB_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/protobuf/scala/scalapbc.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalapb`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -161192,7 +161390,7 @@
           ],
           "env_var": "PANTS_SCALATEST_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/scala/subsystems/scalatest.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scalatest`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -161715,7 +161913,7 @@
           ],
           "env_var": "PANTS_SCROOGE_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/backend/codegen/thrift/scrooge/scrooge.default.lockfile.txt for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=scrooge`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [
@@ -164706,7 +164904,7 @@
           ],
           "env_var": "PANTS_STRIP_JAR_LOCKFILE",
           "fromfile": false,
-          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev2/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
+          "help": "Path to a lockfile used for installing the tool.\n\nSet to the string `<default>` to use a lockfile provided by Pants, so long as you have not changed the `--version` option. See https://github.com/pantsbuild/pants/blob/release_2.34.0.dev3/src/python/pants/jvm/strip_jar/strip_jar.lock for the default lockfile contents.\n\nTo use a custom lockfile, set this option to a file path relative to the build root, then run `pants generate-lockfiles --resolve=strip-jar`.",
           "removal_hint": null,
           "removal_version": null,
           "scoped_cmd_line_args": [

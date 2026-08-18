@@ -55,7 +55,7 @@ The architecture of the AWS Lambda runtime to target (x86_64 or arm64). See http
     default_repr={`None`}
 >
 
-The platforms the built PEX should be compatible with.
+The platforms the built PEX should be compatible with, when using the `pex` resolver.
 
 There must be built wheels available for all of the foreign platforms, rather than sdists.
 
@@ -65,7 +65,7 @@ Complete platforms should be addresses of `file` or `resource` targets that poin
 
 See https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
 
-N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform&#x27;s ambient interpreter, such as when running in an docker environment.
+N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default complete platform is chosen, if one is known for that runtime. Explicitly set this to `[]` to use the platform&#x27;s ambient interpreter, such as when running in a docker environment.
 
 </Field>
 
@@ -222,6 +222,27 @@ N.B.: only one of this and `complete_platforms` can be set. If `runtime` is set,
 Arbitrary strings to describe a target.
 
 For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `uv_platforms`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The platforms the built PEX should be compatible with, when using the `pex` resolver.
+
+There must be built wheels available for all of the foreign platforms, rather than sdists.
+
+You can give a list of multiple complete platforms to create a multiplatform PEX, meaning that the PEX will be executable in all of the supported environments.
+
+Complete platforms should be addresses of `file` or `resource` targets that point to files that contain complete platform JSON as described by Pex (https://pex.readthedocs.io/en/latest/buildingpex.html#complete-platform).
+
+See https://www.pantsbuild.org/2.34/docs/python/overview/pex#generating-the-complete_platforms-file for details on how to create this file.
+
+N.B.: only one of this and `runtime` can be set. If `runtime` is set, a default platform is chosen, if one is known for that runtime.
 
 </Field>
 
