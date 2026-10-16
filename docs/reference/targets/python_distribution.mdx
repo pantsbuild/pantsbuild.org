@@ -128,13 +128,11 @@ Whether to generate setup information for this distribution, based on analyzing 
     default_repr={`None`}
 >
 
-The Python interpreters this code is compatible with.
+The Python interpreters this distribution is compatible with.
 
-Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`. You can leave off `CPython` as a shorthand, e.g. `>=2.7` will be expanded to `CPython>=2.7`.
+Each element should be written in pip-style format, e.g. `CPython==2.7.*` or `CPython>=3.6,<4`.
 
-Specify more than one element to OR the constraints, e.g. `['PyPy==3.7.*', 'CPython==3.7.*']` means either PyPy 3.7 _or_ CPython 3.7.
-
-If the field is not set, it will default to the option `[python].interpreter_constraints`.
+If this field is not set, Pants will infer the constraints from the `[project].requires-python` value in a `pyproject.toml` file in the same directory as this target, if there is one. Failing that, it defaults to the option `[python].interpreter_constraints`.
 
 See https://www.pantsbuild.org/2.34/docs/python/overview/interpreter-compatibility for how these interpreter constraints are merged with the constraints of dependencies.
 

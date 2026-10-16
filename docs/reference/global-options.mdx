@@ -254,12 +254,10 @@ Supported values:
   env_repr='PANTS_SANDBOXER'
   toml_repr={`[GLOBAL]
 sandboxer = <bool>`}
-  default_repr={`False`}
+  default_repr={`True`}
 >
 
 Enables use of the sandboxer process. The sandboxer materializes files into the sandbox on behalf of the main process (either pantsd or the pants client process if running without pantsd). This works around a well-known race condition when a multithreaded program writes executable files and then spawns subprocesses to execute them, which can lead to ETXTBSY errors.
-
-This is a new feature so it is off by default. In the future, once this is stable, it will likely default to True.
 
 </Option>
 

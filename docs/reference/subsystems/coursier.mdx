@@ -61,6 +61,32 @@ Coursier will resolve these repositories in the order in which they are specifie
 
 ## Advanced options
 
+### `jvm_options`
+
+<Option
+  cli_repr={`--coursier-jvm-options="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_COURSIER_JVM_OPTIONS'
+  toml_repr={`[coursier]
+jvm_options = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Extra JVM options to pass to Coursier.
+
+Coursier is distributed as a GraalVM native image. It bundles its own trust store from build time and does not read the `HTTP_PROXY`/`HTTPS_PROXY` environment variables, so a custom CA or proxy must be supplied as JVM system properties on Coursier&#x27;s own command line. Without this option there is no way to do that, and Coursier fails to fetch artifacts and JDKs in environments with a TLS-inspecting proxy or without direct internet access.
+
+Each value is passed to Coursier prefixed with `-J`; the prefix is added automatically if you omit it. For example, both `-Djavax.net.ssl.trustStore=/etc/pki/java/cacerts` and `-J-Djavax.net.ssl.trustStore=/etc/pki/java/cacerts` are passed to Coursier as `-J-Djavax.net.ssl.trustStore=/etc/pki/java/cacerts`.
+
+These options apply to every Coursier invocation, including JDK provisioning. They are unrelated to `[jvm].global_options`, which applies to the JVM processes Pants runs, not to Coursier itself.
+
+See https://get-coursier.io/docs/other-proxy.
+
+</Option>
+
 ### `known_versions`
 
 <Option
