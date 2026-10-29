@@ -1,0 +1,58 @@
+---
+  authors: [benjy]
+  tags: [announcement,development]
+  date: 2026-10-29
+---
+
+# Pants's response to the eMudhra CA certificate compromise
+
+<CaptionedImg src={require("./splash.png").default}>
+  Photo by [Adam Hornyak](https://unsplash.com/@adamhornyak) on
+  [Unsplash](https://unsplash.com/photos/brown-and-gray-concrete-building-Cm187aESg0k)
+</CaptionedImg>
+
+{/* truncate */}
+
+On October 17th 2026 a security researcher [discovered](https://emudhra.we-have-a-problem.com/) that the
+private keys of certain intermediate CA certificates issued by eMudhra were compromised. Any software
+trusting those certificates would be vulnerable to impersonation of any website.
+
+Operating systems, browsers and other core infrastructure systems have been rolling out patches to address the issue, and Pants is no exception:
+
+## Upgrade Pants
+
+Pants has released new versions that include the necessary fixes:
+
+- If you're on a Pants 2.32.x release, upgrade to 2.32.2rc3 or higher.
+- If you're on a Pants 2.33.x release, upgrade to 2.33.2rc3 or higher.
+- If you're on an earlier release, we highly recommend that you upgrade to 2.32.x.
+
+You upgrade by simply updating the `pants_version` in your `pants.toml`.
+
+## Upgrade the `pants` launcher binary
+
+You must also upgrade the `pants` launcher binary (AKA "scie-pants") to 1.13.4 or higher:
+- If you installed via homebrew you can `brew update && brew upgrade pants`.
+- Otherwise you can run `SCIE_BOOT=update pants`.
+
+## Notes
+
+These fixes rely on updated versions of pex (2.104.1) and pip (26.2.2), which are now the defaults.
+If you're using custom versions you must upgrade them or you will not be protected,
+
+However, note that this version of pip doesn't support Python 3.9 or earlier. If your codebase uses
+such a Python version, or if you must use an earlier pip for some other reason, you will have to set
+the [`ca_certs_path` option](https://www.pantsbuild.org/2.32/reference/global-options#ca_certs_path)
+to point to an updated certs file. You can get such a file by installing `certifi>=2026.10.19` in
+some virtualenv and running `python -c "import certifi; print(certifi.where())"` there to get the full
+path to the `cacert.pem` file. You can then copy that file into your repo, and periodically maintain it.
+
+If you're using the JS/TS, Go, Docker or other backends you will also want to look into ensuring that
+the underlying tools are secured against this vulnerability. In some cases you will need to upgrade
+them. In others it may be sufficient to update the cert bundles installed on the machines.
+
+We are continuing to look at what else Pants itself should do to mitigate this concern in the various
+backends.
+
+Please [reach out to us](https://www.pantsbuild.org/community/getting-help#where-to-get-help) if
+you have any questions or concerns.
