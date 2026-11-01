@@ -20,6 +20,9 @@ importers:
       "@docusaurus/plugin-content-docs":
         specifier: ^3.9.2
         version: 3.9.2(@docusaurus/faster@3.9.2(@docusaurus/types@3.9.2(@swc/core@1.15.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@mdx-js/react@3.1.1(@types/react@19.2.10)(react@18.3.1))(@rspack/core@1.7.4)(@swc/core@1.15.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      "@docusaurus/plugin-google-gtag":
+        specifier: ^3.9.2
+        version: 3.9.2(@docusaurus/faster@3.9.2(@docusaurus/types@3.9.2(@swc/core@1.15.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@mdx-js/react@3.1.1(@types/react@19.2.10)(react@18.3.1))(@rspack/core@1.7.4)(@swc/core@1.15.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
       "@docusaurus/preset-classic":
         specifier: ^3.9.2
         version: 3.9.2(@docusaurus/faster@3.9.2(@docusaurus/types@3.9.2(@swc/core@1.15.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))(@mdx-js/react@3.1.1(@types/react@19.2.10)(react@18.3.1))(@rspack/core@1.7.4)(@swc/core@1.15.11)(@types/react@19.2.10)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
@@ -4800,6 +4803,7 @@ packages:
         integrity: sha512-LEyamqS7W5HB3ujJyvi0HQK/dtVINZvd5mAAp9eT5S/ujByGjiZLCzPcHVzuXbpJDJF/cxwHlfceVUDZ2lnSTw==,
       }
     engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: "*"

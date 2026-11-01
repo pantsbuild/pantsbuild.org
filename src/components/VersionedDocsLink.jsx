@@ -8,9 +8,12 @@ const docsPluginPath = "./src/js/docsPluginWithTopLevel404.js";
 const useVersionConfigs = () => {
   const { siteConfig } = useDocusaurusContext();
 
-  const [_, docsPluginConfig] = siteConfig.plugins.find(
-    (pair) => pair[0] == docsPluginPath
-  );
+  // Plugins that aren't `[path, options]` pairs (e.g. inline function plugins, which serialize
+  // to null on the client) are skipped.
+  const [_, docsPluginConfig] =
+    siteConfig.plugins.find(
+      (pair) => Array.isArray(pair) && pair[0] == docsPluginPath
+    ) ?? [];
   if (!docsPluginConfig) {
     throw new Error(
       `failed to find docs plugin at ${docsPluginPath} in docusaurus.config.js; has something been renamed?`
