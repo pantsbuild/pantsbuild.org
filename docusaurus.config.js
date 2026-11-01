@@ -281,6 +281,18 @@ const config = {
               label: "Sponsors",
               href: "/sponsors",
             },
+            {
+              label: "Privacy Policy",
+              to: "/privacy-policy",
+            },
+            {
+              label: "Cookie Policy",
+              to: "/cookie-policy",
+            },
+            {
+              label: "Terms of Use",
+              to: "/terms-of-use",
+            },
           ],
         },
         {
