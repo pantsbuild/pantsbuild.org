@@ -17,6 +17,7 @@ const organizationName = "pantsbuild";
 const projectName = "pantsbuild.org";
 const url = "https://www.pantsbuild.org";
 const numberOfSupportedStableVersions = 2;
+const termlyWebsiteId = "3bee1ad8-1522-4627-9bd5-2ddc314eba32";
 
 /***** RUNTIME CONFIG *****/
 
@@ -74,6 +75,35 @@ const config = {
   },
 
   plugins: [
+    // Termly's resource blocker must be the first script on the page so it can block cookies set
+    // by later scripts until the user consents. Plugins inject head tags in registration order,
+    // and preset plugins are registered before these, so gtag is registered here, after Termly,
+    // rather than via the preset.
+    function termlyConsentBannerPlugin() {
+      return {
+        name: "termly-consent-banner",
+        injectHtmlTags() {
+          return {
+            headTags: [
+              {
+                tagName: "script",
+                attributes: {
+                  type: "text/javascript",
+                  src: `https://app.termly.io/resource-blocker/${termlyWebsiteId}?autoBlock=on`,
+                },
+              },
+            ],
+          };
+        },
+      };
+    },
+    [
+      "@docusaurus/plugin-google-gtag",
+      {
+        trackingID: "G-SEHBXJRF42",
+        anonymizeIP: true,
+      },
+    ],
     [
       "./src/js/docsPluginWithTopLevel404.js",
       {
@@ -141,10 +171,6 @@ const config = {
     [
       "@docusaurus/preset-classic",
       {
-        gtag: {
-          trackingID: "G-SEHBXJRF42",
-          anonymizeIP: true,
-        },
         debug: process.env.NODE_ENV !== "production",
         docs: false, // NB: See `docsPluginWithTopLevel404.js` reference below
         blog: {
