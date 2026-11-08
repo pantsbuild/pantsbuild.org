@@ -1,0 +1,59 @@
+---
+title: complete
+description: |
+  Generates a completion script for the specified shell. The script is printed to stdout.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants complete [args]
+```
+
+Generates a completion script for the specified shell. The script is printed to stdout.
+
+For example, `pants complete --shell=zsh > pants-completions.zsh` will generate a zsh completion script and write it to the file `pants-completions.zsh`. You can then source this file in your `.zshrc` file to enable completion for Pants.
+
+This command is also used by the completion scripts to generate the completion options using passthrough options. This usage is not intended for use by end users, but could be useful for building custom completion scripts.
+
+An example of this usage is in the bash completion script, where we use the following command: `pants complete -- ${COMP_WORDS[@]}`. This will generate the completion options for the current args, and then pass them to the bash completion script.
+
+Backend: <span className="color--primary">`pants.goal`</span>
+
+Config section: <span className="color--primary">`[complete]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `shell`
+
+<Option
+  cli_repr={`--complete-shell=<Shell>`}
+  env_repr='PANTS_COMPLETE_SHELL'
+  toml_repr={`[complete]
+shell = <Shell>`}
+  one_of='bash, zsh'
+  default_repr={`bash`}
+>
+
+Which shell completion type should be printed to stdout.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

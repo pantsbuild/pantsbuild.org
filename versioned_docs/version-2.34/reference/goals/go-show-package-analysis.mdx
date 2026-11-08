@@ -1,0 +1,62 @@
+---
+title: go-show-package-analysis
+description: |
+  Show the package analysis for Go package targets.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+```
+pants go-show-package-analysis [args]
+```
+
+Show the package analysis for Go package targets.
+
+Backend: <span className="color--primary">`pants.backend.experimental.go.debug_goals`</span>
+
+Config section: <span className="color--primary">`[go-show-package-analysis]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `import_paths`
+
+<Option
+  cli_repr={`--go-show-package-analysis-import-paths="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_GO_SHOW_PACKAGE_ANALYSIS_IMPORT_PATHS'
+  toml_repr={`[go-show-package-analysis]
+import_paths = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Third-party packages to analyze by import path, resolved against the `go.mod` of the `go_third_party_module` target(s) passed on the command line.
+
+Under `[golang].third_party_target_granularity = "module"`, third-party packages other than a module&#x27;s root do not have their own target, so pass the module target and select the package(s) to analyze with this option (mirroring `go_binary`&#x27;s `main_import_path`). Ignored for first-party and `go_third_party_package` targets.
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+- [environments-preview](../subsystems/environments-preview.mdx)
+- [filter](../subsystems/filter.mdx)
+- [go-test](../subsystems/go-test.mdx)
+- [golang](../subsystems/golang.mdx)
+- [system-binaries](../subsystems/system-binaries.mdx)
+
+</span>

@@ -1,0 +1,15 @@
+---
+title: node_run_script
+description: |
+  A script that can be run directly via the run goal, mapped from the `scripts` section of a package.json file.
+---
+
+import BuildFileSymbol from "@site/src/components/reference/BuildFileSymbol";
+
+<BuildFileSymbol name={`node_run_script`} signature={`(entry_point: 'str', extra_env_vars: 'Iterable[str]' = ()) -> 'NodeRunScript'`}>
+
+A script that can be run directly via the run goal, mapped from the `scripts` section of a package.json file.
+
+This allows running any script defined in package.json directly through pants run.
+
+</BuildFileSymbol>

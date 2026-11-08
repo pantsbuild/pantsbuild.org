@@ -1,0 +1,183 @@
+---
+title: python-protobuf
+description: |
+  Options related to the Protobuf Python backend.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options related to the Protobuf Python backend.
+
+See https://www.pantsbuild.org/2.34/docs/python/integrations/protobuf-and-grpc.
+
+Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python`</span>
+
+Config section: <span className="color--primary">`[python-protobuf]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `codegen_tool`
+
+<Option
+  cli_repr={`--python-protobuf-codegen-tool=<ProtobufCodegenTool>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_CODEGEN_TOOL'
+  toml_repr={`[python-protobuf]
+codegen_tool = <ProtobufCodegenTool>`}
+  one_of='protoc, buf'
+  default_repr={`protoc`}
+>
+
+Which tool generates Python from Protobuf.
+
+- `protoc`: Pants runs `protoc`. Output paths follow source roots and the
+  `python_source_root` field.
+- `buf`: Pants runs `buf generate` with a `buf.gen.yaml` template, which decides
+  the plugins and output paths. See the `buf_gen_template` field for how the
+  template is found.
+
+</Option>
+
+### `generate_type_stubs`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-generate-type-stubs`}
+  env_repr='PANTS_PYTHON_PROTOBUF_GENERATE_TYPE_STUBS'
+  toml_repr={`[python-protobuf]
+generate_type_stubs = <bool>`}
+  default_repr={`False`}
+>
+
+If True, then configure `protoc` to also generate `.pyi` type stubs for each generated Python file. This option will work wih any recent version of `protoc` and should be preferred over the `--python-protobuf-mypy-plugin` option.
+
+</Option>
+
+### `grpcio_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-grpcio-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_GRPCIO_PLUGIN'
+  toml_repr={`[python-protobuf]
+grpcio_plugin = <bool>`}
+  default_repr={`True`}
+>
+
+Use the official `grpcio` plugin (https://pypi.org/project/grpcio/) to generate grpc service stubs.
+
+</Option>
+
+### `grpclib_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-grpclib-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_GRPCLIB_PLUGIN'
+  toml_repr={`[python-protobuf]
+grpclib_plugin = <bool>`}
+  default_repr={`False`}
+>
+
+Use the alternative `grpclib` plugin (https://github.com/vmagamedov/grpclib) to generate grpc service stubs.
+
+</Option>
+
+### `mypy_plugin`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-mypy-plugin`}
+  env_repr='PANTS_PYTHON_PROTOBUF_MYPY_PLUGIN'
+  toml_repr={`[python-protobuf]
+mypy_plugin = <bool>`}
+  default_repr={`False`}
+>
+
+Use the `mypy-protobuf` plugin (https://github.com/dropbox/mypy-protobuf) to also generate `.pyi` type stubs.
+
+Please prefer the `--python-protobuf-generate-type-stubs` option over this option since recent versions of `protoc` have the ability to directly generate type stubs.
+
+</Option>
+
+## Advanced options
+
+### `buf_gen_template`
+
+<Option
+  cli_repr={`--python-protobuf-buf-gen-template=<file_option>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_BUF_GEN_TEMPLATE'
+  toml_repr={`[python-protobuf]
+buf_gen_template = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the `buf.gen.yaml` template used to generate Python, when `codegen_tool` is `buf`.
+
+Takes precedence over `[buf].gen_template`. Set this when other languages generate from the same protos with plugins that need tooling this language&#x27;s sandbox does not carry -- one `buf generate` run executes every plugin in its template, so those languages need templates of their own.
+
+Paths inside the template (`inputs:`, `out:`) are relative to the build root, because Pants runs `buf generate` from the sandbox root.
+
+</Option>
+
+### `extra_buf_plugins`
+
+<Option
+  cli_repr={`--python-protobuf-extra-buf-plugins="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_PROTOBUF_EXTRA_BUF_PLUGINS'
+  toml_repr={`[python-protobuf.extra_buf_plugins]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Additional buf plugins that generate Python, layered on top of Pants&#x27;s built-in entries for common plugins (e.g. `buf.build/protocolbuffers/python`, `buf.build/grpc/python`).
+
+Keys are `<kind>:<id>`, where `<kind>` is the field in the `buf.gen.yaml` plugin entry (`remote`, `protoc_builtin` or `local`) and `<id>` is its value, without any `:<version>`. Each value has:
+
+- `suffix` (optional): what the plugin appends to each `.proto` file&#x27;s name to name
+  its module, e.g. `_pb2_grpc` for `foo_pb2_grpc.py`, so Pants can infer
+  dependencies on the generated modules. Leave it out for a plugin whose modules
+  are named some other way.
+- `runtime` (optional): modules the generated code imports, so Pants can add
+  dependencies on the requirements that provide them.
+
+Example:
+
+```
+extra_buf_plugins = {
+  "local:protoc-gen-myorg-python": {"suffix": "_pb2", "runtime": ["google.protobuf"]},
+  "remote:buf.build/example/grpc-fork": {"suffix": "_pb2_grpc", "runtime": ["grpc"]},
+}
+```
+
+</Option>
+
+### `infer_runtime_dependency`
+
+<Option
+  cli_repr={`--[no-]python-protobuf-infer-runtime-dependency`}
+  env_repr='PANTS_PYTHON_PROTOBUF_INFER_RUNTIME_DEPENDENCY'
+  toml_repr={`[python-protobuf]
+infer_runtime_dependency = <bool>`}
+  default_repr={`True`}
+>
+
+If True, will add a dependency on a `python_requirement` target exposing the `protobuf` module (usually from the `protobuf` requirement). If the `protobuf_source` target sets `grpc=True`, will also add a dependency on the `python_requirement` target exposing the `grpcio` module.
+
+If `[python].enable_resolves` is set, Pants will only infer dependencies on `python_requirement` targets that use the same resolve as the particular `protobuf_source` / `protobuf_sources` target uses, which is set via its `python_resolve` field.
+
+Unless this option is disabled, Pants will error if no relevant target is found or if more than one is found which causes ambiguity.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
