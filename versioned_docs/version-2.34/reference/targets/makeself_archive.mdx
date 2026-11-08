@@ -1,0 +1,152 @@
+---
+title: makeself_archive
+description: |
+  Self-extractable archive on Unix using [makeself](https://github.com/megastep/makeself) tool.
+---
+
+import Field from "@site/src/components/reference/Field";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Self-extractable archive on Unix using [makeself](https://github.com/megastep/makeself) tool.
+
+Backend: <span className="color--primary">`pants.backend.experimental.makeself`</span>
+
+---
+
+<span className={styles.options}>
+
+## `args`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+[Arguments](https://github.com/megastep/makeself#usage) to pass to the `makeself` script when building this archive. These are passed before any file paths.
+
+</Field>
+
+## `description`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+A human-readable description of the target.
+
+Use `pants list --documented ::` to see all targets with descriptions.
+
+</Field>
+
+## `files`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to any `file`, `files`, or `relocated_files` targets to include in the archive, e.g. `["resources:logo"]`.
+
+This is useful to include any loose files, like data files, image assets, or config files.
+
+This will ignore any targets that are not `file`, `files`, or `relocated_files` targets.
+
+If you instead want those files included in any packages specified in the `packages` field for this target, then use a `resource` or `resources` target and have the original package depend on the resources.
+
+</Field>
+
+## `label`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+An arbitrary text string describing the package. It will be displayed while extracting the files.
+
+</Field>
+
+## `output_path`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`'\${spec_path_normalized}/\${target_name_normalized}\${file_suffix}'`}
+>
+
+Where the built asset should be located.
+
+This field supports the following template replacements:
+
+- `${spec_path_normalized}`: The path to the target&#x27;s directory (&#x22;spec path&#x22;) with forward slashes replaced by dots.
+
+- `${target_name_normalized}`: The target&#x27;s name with paramaterizations escaped by replacing dots with underscores.
+
+- `${file_suffix}`: For target&#x27;s which produce single file artifacts, this is the file type suffix to use with a leading dot,
+  and is empty otherwise when not applicable.
+
+If undefined, this will use the path to the BUILD file, followed by the target name. For example, `src/python/project:app` would be `src.python.project/app.ext`. This behavior corresponds to the default template: `${spec_path_normalized}/${target_name_normalized}${file_suffix}`
+
+When running `pants package`, this path will be prefixed by `--distdir` (e.g. `dist/`).
+
+Warning: setting this value risks naming collisions with other package targets you may have.
+
+</Field>
+
+## `packages`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Addresses to any targets that can be built with `pants package`, e.g. `["project:app"]`.
+
+Pants will build the assets as if you had run `pants package`. It will include the results in your archive using the same name they would normally have, but without the `--distdir` prefix (e.g. `dist/`).
+
+You can include anything that can be built by `pants package`, e.g. a `pex_binary`, `python_awslambda`, or even another `makeself_archive`.
+
+</Field>
+
+## `startup_script`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+The startup script, i.e. what gets run when executing `./my_archive.run`.
+
+Examples: - `["startup.sh"]` - `["echo", "Running makeself archieve"]`
+
+</Field>
+
+## `tags`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`None`}
+>
+
+Arbitrary strings to describe a target.
+
+For example, you may tag some test targets with &#x27;integration_test&#x27; so that you could run `pants --tag='integration_test' test ::` to only run on targets with that tag.
+
+</Field>
+
+## `tools`
+
+<Field
+    type_repr={`Iterable[str] | None`}
+    default_repr={`()`}
+>
+
+Specify required executable tools that might be used.
+
+Only the tools explicitly provided will be available on the search PATH, and these tools must be found on the paths provided by `[shell-setup].executable_search_paths` (which defaults to the system PATH).
+
+</Field>
+
+</span>

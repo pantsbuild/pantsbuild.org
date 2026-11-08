@@ -1,0 +1,51 @@
+---
+title: s3-url-handler
+description: |
+  AWS S3 URL handler options
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+AWS S3 URL handler options
+
+Backend: <span className="color--primary">`pants.backend.url_handlers.s3`</span>
+
+Config section: <span className="color--primary">`[s3-url-handler]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+### `auth_signing`
+
+<Option
+  cli_repr={`--s3-url-handler-auth-signing=<S3AuthSigning>`}
+  env_repr='PANTS_S3_URL_HANDLER_AUTH_SIGNING'
+  toml_repr={`[s3-url-handler]
+auth_signing = <S3AuthSigning>`}
+  one_of='sigv4, hmacv1'
+  default_repr={`sigv4`}
+>
+
+The authentication signing behavior to use when making requests to S3.
+
+Available options: - sigv4: Use AWS Signature Version 4 signing process (default and recommended) - hmacv1: Use the legacy HmacV1 signing process
+
+</Option>
+
+## Advanced options
+
+None
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>
