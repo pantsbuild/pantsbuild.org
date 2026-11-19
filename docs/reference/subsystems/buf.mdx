@@ -1,7 +1,7 @@
 ---
 title: buf
 description: |
-  A linter and formatter for Protocol Buffers (https://github.com/bufbuild/buf).
+  A code generator, linter and formatter for Protocol Buffers (https://github.com/bufbuild/buf).
 ---
 
 import Option from "@site/src/components/reference/Option";
@@ -9,7 +9,7 @@ import styles from "@site/src/components/reference/styles.module.css";
 
 ---
 
-A linter and formatter for Protocol Buffers (https://github.com/bufbuild/buf).
+A code generator, linter and formatter for Protocol Buffers (https://github.com/bufbuild/buf).
 
 Backend: <span className="color--primary">`pants.backend.codegen.protobuf.lint.buf`</span>
 
@@ -51,6 +51,24 @@ If true, don&#x27;t use Buf when running `pants fmt` and `pants lint`.
 
 </Option>
 
+### `gen_args`
+
+<Option
+  cli_repr={`--buf-gen-args="[<shell_str>, <shell_str>, ...]"`}
+  env_repr='PANTS_BUF_GEN_ARGS'
+  toml_repr={`[buf]
+gen_args = [
+    <shell_str>,
+    <shell_str>,
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Arguments to pass directly to Buf, e.g. `--buf-args='--include-imports'`.
+
+</Option>
+
 ### `lint_args`
 
 <Option
@@ -85,6 +103,28 @@ If true, don&#x27;t use Buf when running `pants lint`.
 
 ## Advanced options
 
+### `codegen_plugins`
+
+<Option
+  cli_repr={`--buf-codegen-plugins="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_BUF_CODEGEN_PLUGINS'
+  toml_repr={`[buf]
+codegen_plugins = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Addresses of runnable targets (ones `pants run` can execute) that are `local:` plugins named by a `buf.gen.yaml` template, e.g. `["//src/gen:protoc-gen-example"]`.
+
+Each one is placed on `PATH` for `buf generate` under its target name, which must match the `local:` entry in the template that uses it.
+
+A `local:` path to a plugin outside the sandbox also runs, but Pants doesn&#x27;t track it, so editing the plugin won&#x27;t regenerate code.
+
+</Option>
+
 ### `config`
 
 <Option
@@ -114,6 +154,66 @@ config_discovery = <bool>`}
 If true, Pants will include any relevant root config files during runs (`buf.yaml`). If the json format is preferred, the path to the `buf.json` file should be provided in the config option.
 
 Use `[buf].config` instead if your config is in a non-standard location.
+
+</Option>
+
+### `extra_plugin_pins`
+
+<Option
+  cli_repr={`--buf-extra-plugin-pins="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_BUF_EXTRA_PLUGIN_PINS'
+  toml_repr={`[buf.extra_plugin_pins]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Map of `buf.gen.yaml` plugin ids to default `<version>:<revision>` pins that Pants will fill in for unpinned `remote:` entries, layered on top of Pants&#x27;s built-in registry. The version is the plugin&#x27;s own, `v` included, and the revision is the BSR&#x27;s integer build number for that version.
+
+Pants requires every `remote:` plugin to be pinned to an exact version+revision so codegen output is reproducible. For plugins in Pants&#x27;s built-in registry, you can omit the pin and Pants synthesizes it. Use this option to do the same for custom or forked plugins, or to override the built-in default for a known plugin.
+
+Example:
+
+```
+extra_plugin_pins = {
+  "myorg.example.com/internal/python-fork": "v2.0.0:3",
+}
+```
+
+</Option>
+
+### `gen_template`
+
+<Option
+  cli_repr={`--buf-gen-template=<file_option>`}
+  env_repr='PANTS_BUF_GEN_TEMPLATE'
+  toml_repr={`[buf]
+gen_template = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the `buf.gen.yaml` template used by `buf generate` (https://buf.build/docs/configuration/v2/buf-gen-yaml). The template must be `version: v2`.
+
+A language&#x27;s `buf_gen_template` option (e.g. `[python-protobuf].buf_gen_template`) and a target&#x27;s `buf_gen_template` field take precedence.
+
+Setting this option disables `[buf].gen_template_discovery`.
+
+</Option>
+
+### `gen_template_discovery`
+
+<Option
+  cli_repr={`--[no-]buf-gen-template-discovery`}
+  env_repr='PANTS_BUF_GEN_TEMPLATE_DISCOVERY'
+  toml_repr={`[buf]
+gen_template_discovery = <bool>`}
+  default_repr={`True`}
+>
+
+If true, Pants will include any relevant `buf.gen.yaml` files found at the repository root during code generation runs.
+
+Use `[buf].gen_template` instead if your template is in a non-standard location, or use the `buf_gen_template` field for a per-target override.
 
 </Option>
 
@@ -149,6 +249,26 @@ E.g., `3.1.2|macos_x86_64|6d0f18cd84b918c7b3edd0203e75569e0c7caecb1367bbbe409b44
 and `3.1.2|macos_arm64 |aca5c1da0192e2fd46b7b55ab290a92c5f07309e7b0ebf4e45ba95731ae98291|50926|https://example.mac.org/bin/v3.1.2/mac-aarch64-v3.1.2.tgz`.
 
 Values are space-stripped, so pipes can be indented for readability if necessary.
+
+</Option>
+
+### `plugins`
+
+<Option
+  cli_repr={`--buf-plugins="['<str>', '<str>', ...]"`}
+  env_repr='PANTS_BUF_PLUGINS'
+  toml_repr={`[buf]
+plugins = [
+    '<str>',
+    '<str>',
+    ...,
+]`}
+  default_repr={`[]`}
+>
+
+Addresses of runnable targets (ones `pants run` can execute) that are Buf check plugins (https://buf.build/docs/cli/buf-plugins/), e.g. `["//src/checks:buf-plugin-example"]`.
+
+Each one is placed on `PATH` for `buf lint` under its target name, which must match the `plugins:` entry in `buf.yaml` that uses it.
 
 </Option>
 

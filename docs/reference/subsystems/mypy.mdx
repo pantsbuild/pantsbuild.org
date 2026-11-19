@@ -98,9 +98,11 @@ config_discovery = <bool>`}
   default_repr={`True`}
 >
 
-If true, Pants will include any relevant config files during runs (`mypy.ini`, `.mypy.ini`, and `setup.cfg`).
+If true, Pants will use any relevant config files during runs (`mypy.ini`, `.mypy.ini`, `pyproject.toml`, and `setup.cfg`).
 
-Use `[mypy].config` instead if your config is in a non-standard location.
+Pants looks for a config file in the directory of each source file and in that directory&#x27;s ancestors, using the nearest one found. If a directory holds more than one candidate, Pants follows mypy&#x27;s own file-preference order.
+
+Use `[mypy].config` instead if you have a singular mypy config and it is defined in a non-standard location.
 
 </Option>
 

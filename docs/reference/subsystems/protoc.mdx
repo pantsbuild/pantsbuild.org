@@ -31,6 +31,8 @@ dependency_inference = <bool>`}
 
 Infer Protobuf dependencies on other Protobuf files by analyzing import statements.
 
+For code generated with buf, this also scopes `buf generate` to each target&#x27;s own files when enabled, or runs it against the full proto tree when disabled.
+
 </Option>
 
 ## Advanced options
