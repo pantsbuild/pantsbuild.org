@@ -21,6 +21,27 @@ Config section: <span className="color--primary">`[python-protobuf]`</span>
 
 ## Basic options
 
+### `codegen_tool`
+
+<Option
+  cli_repr={`--python-protobuf-codegen-tool=<ProtobufCodegenTool>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_CODEGEN_TOOL'
+  toml_repr={`[python-protobuf]
+codegen_tool = <ProtobufCodegenTool>`}
+  one_of='protoc, buf'
+  default_repr={`protoc`}
+>
+
+Which tool generates Python from Protobuf.
+
+- `protoc`: Pants runs `protoc`. Output paths follow source roots and the
+  `python_source_root` field.
+- `buf`: Pants runs `buf generate` with a `buf.gen.yaml` template, which decides
+  the plugins and output paths. See the `buf_gen_template` field for how the
+  template is found.
+
+</Option>
+
 ### `generate_type_stubs`
 
 <Option
@@ -80,6 +101,58 @@ Please prefer the `--python-protobuf-generate-type-stubs` option over this optio
 </Option>
 
 ## Advanced options
+
+### `buf_gen_template`
+
+<Option
+  cli_repr={`--python-protobuf-buf-gen-template=<file_option>`}
+  env_repr='PANTS_PYTHON_PROTOBUF_BUF_GEN_TEMPLATE'
+  toml_repr={`[python-protobuf]
+buf_gen_template = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the `buf.gen.yaml` template used to generate Python, when `codegen_tool` is `buf`.
+
+Takes precedence over `[buf].gen_template`. Set this when other languages generate from the same protos with plugins that need tooling this language&#x27;s sandbox does not carry -- one `buf generate` run executes every plugin in its template, so those languages need templates of their own.
+
+Paths inside the template (`inputs:`, `out:`) are relative to the build root, because Pants runs `buf generate` from the sandbox root.
+
+</Option>
+
+### `extra_buf_plugins`
+
+<Option
+  cli_repr={`--python-protobuf-extra-buf-plugins="{'key1': val1, 'key2': val2, ...}"`}
+  env_repr='PANTS_PYTHON_PROTOBUF_EXTRA_BUF_PLUGINS'
+  toml_repr={`[python-protobuf.extra_buf_plugins]
+key1 = val1
+key2 = val2
+...`}
+  default_repr={`{}`}
+>
+
+Additional buf plugins that generate Python, layered on top of Pants&#x27;s built-in entries for common plugins (e.g. `buf.build/protocolbuffers/python`, `buf.build/grpc/python`).
+
+Keys are `<kind>:<id>`, where `<kind>` is the field in the `buf.gen.yaml` plugin entry (`remote`, `protoc_builtin` or `local`) and `<id>` is its value, without any `:<version>`. Each value has:
+
+- `suffix` (optional): what the plugin appends to each `.proto` file&#x27;s name to name
+  its module, e.g. `_pb2_grpc` for `foo_pb2_grpc.py`, so Pants can infer
+  dependencies on the generated modules. Leave it out for a plugin whose modules
+  are named some other way.
+- `runtime` (optional): modules the generated code imports, so Pants can add
+  dependencies on the requirements that provide them.
+
+Example:
+
+```
+extra_buf_plugins = {
+  "local:protoc-gen-myorg-python": {"suffix": "_pb2", "runtime": ["google.protobuf"]},
+  "remote:buf.build/example/grpc-fork": {"suffix": "_pb2_grpc", "runtime": ["grpc"]},
+}
+```
+
+</Option>
 
 ### `infer_runtime_dependency`
 

@@ -107,6 +107,36 @@ Do not include the patch version.
 
 </Option>
 
+### `third_party_target_generation`
+
+<Option
+  cli_repr={`--golang-third-party-target-generation=<GoThirdPartyTargetGeneration>`}
+  env_repr='PANTS_GOLANG_THIRD_PARTY_TARGET_GENERATION'
+  toml_repr={`[golang]
+third_party_target_generation = <GoThirdPartyTargetGeneration>`}
+  one_of='build-list, imported'
+  default_repr={`build-list`}
+>
+
+Which `go_third_party_package` targets to generate for each `go_mod` target.
+
+- `build-list`: generate a target for every package of every module in the module
+  build list, i.e. everything `go list -m all` reports.
+- `imported`: generate targets only for third-party packages reachable through the
+  import graph from the `go_mod`&#x27;s own first-party code.
+
+The build list over-approximates what a repo actually uses, often by a lot: minimal version selection resolves at module granularity, so importing one package from a module puts that whole module -- and everything it requires -- on the list, and every package of every listed module becomes a target. Because target generation must analyze each of those modules, it also downloads them, whether or not anything imports them.
+
+Setting `imported` can dramatically reduce target count, memory use and the number of module downloads, at the cost of two behavior changes:
+
+- third-party packages nothing imports no longer appear in `pants list ::`;
+- hand-written addresses pointing at an unimported third-party package no longer
+  resolve.
+
+Imports guarded by build tags, imports for other platforms and the `tools.go` pattern are all treated as imports, so they still generate targets.
+
+</Option>
+
 ## Advanced options
 
 ### `asdf_bin_relpath`

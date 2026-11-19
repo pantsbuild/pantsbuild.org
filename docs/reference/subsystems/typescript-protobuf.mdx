@@ -1,0 +1,68 @@
+---
+title: typescript-protobuf
+description: |
+  Options related to the Protobuf TypeScript backend.
+---
+
+import Option from "@site/src/components/reference/Option";
+import styles from "@site/src/components/reference/styles.module.css";
+
+---
+
+Options related to the Protobuf TypeScript backend.
+
+Backend: <span className="color--primary">`pants.backend.experimental.codegen.protobuf.typescript`</span>
+
+Config section: <span className="color--primary">`[typescript-protobuf]`</span>
+
+<span className={styles.options}>
+
+## Basic options
+
+None
+
+## Advanced options
+
+### `buf_gen_template`
+
+<Option
+  cli_repr={`--typescript-protobuf-buf-gen-template=<file_option>`}
+  env_repr='PANTS_TYPESCRIPT_PROTOBUF_BUF_GEN_TEMPLATE'
+  toml_repr={`[typescript-protobuf]
+buf_gen_template = <file_option>`}
+  default_repr={`None`}
+>
+
+Path to the `buf.gen.yaml` template used to generate TypeScript. If unset, TypeScript uses `[buf].gen_template`, or a discovered `buf.gen.yaml`.
+
+Set this when other languages also generate with buf: one `buf generate` run executes every plugin in its template, and the TypeScript plugins need Node.js, which other languages&#x27; sandboxes don&#x27;t have.
+
+Paths inside the template (`inputs:`, `out:`) are relative to the build root, because Pants runs `buf generate` from the sandbox root.
+
+</Option>
+
+### `buf_node_package_address`
+
+<Option
+  cli_repr={`--typescript-protobuf-buf-node-package-address=<str>`}
+  env_repr='PANTS_TYPESCRIPT_PROTOBUF_BUF_NODE_PACKAGE_ADDRESS'
+  toml_repr={`[typescript-protobuf]
+buf_node_package_address = <str>`}
+  default_repr={`None`}
+>
+
+Address of a `package_json` target whose `node_modules` provides npm plugins named in the TypeScript template (for example `plugins/typescript:typescript`). Only needed for npm plugins; `remote:`, `protoc_builtin:` and `[buf].codegen_plugins` plugins work without it.
+
+The package is installed into the sandbox and its `node_modules/.bin` is put on `PATH` for the `buf generate` process, so the template can name plugins without absolute paths. Its own sources are staged too, so a repo-local plugin can run.
+
+</Option>
+
+## Deprecated options
+
+None
+
+## Related subsystems
+
+None
+
+</span>

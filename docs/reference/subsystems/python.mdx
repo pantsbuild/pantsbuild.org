@@ -250,20 +250,6 @@ Use `ignore` to avoid needing a lockfile header at all, e.g. if you are manually
 
 </Option>
 
-### `macos_big_sur_compatibility`
-
-<Option
-  cli_repr={`--[no-]python-macos-big-sur-compatibility`}
-  env_repr='PANTS_PYTHON_MACOS_BIG_SUR_COMPATIBILITY'
-  toml_repr={`[python]
-macos_big_sur_compatibility = <bool>`}
-  default_repr={`False`}
->
-
-If set, and if running on macOS Big Sur, use `macosx_10_16` as the platform when building wheels. Otherwise, the default of `macosx_11_0` will be used. This may be required for `pip` to be able to install the resulting distribution on Big Sur.
-
-</Option>
-
 ### `pip_version`
 
 <Option
@@ -271,7 +257,7 @@ If set, and if running on macOS Big Sur, use `macosx_10_16` as the platform when
   env_repr='PANTS_PYTHON_PIP_VERSION'
   toml_repr={`[python]
 pip_version = <str>`}
-  default_repr={`24.2`}
+  default_repr={`26.2.2`}
 >
 
 Use this version of Pip for resolving requirements and generating lockfiles.
@@ -778,6 +764,22 @@ As of Pants v2.24.x and later, Pants will no longer be tested regularly with Pyt
 </Option>
 
 ## Deprecated options
+
+### `macos_big_sur_compatibility`
+
+<Option
+  cli_repr={`--[no-]python-macos-big-sur-compatibility`}
+  env_repr='PANTS_PYTHON_MACOS_BIG_SUR_COMPATIBILITY'
+  toml_repr={`[python]
+macos_big_sur_compatibility = <bool>`}
+  default_repr={`False`}
+  removal_version='2.36.0.dev0'
+  removal_hint={'We no longer support macOS Big Sur.'}
+>
+
+If set, and if running on macOS Big Sur, use `macosx_10_16` as the platform when building wheels. Otherwise, the default of `macosx_11_0` will be used. This may be required for `pip` to be able to install the resulting distribution on Big Sur.
+
+</Option>
 
 ### `requirement_constraints`
 

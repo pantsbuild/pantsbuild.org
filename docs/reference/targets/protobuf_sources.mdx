@@ -17,6 +17,19 @@ Backend: <span className="color--primary">`pants.backend.codegen.protobuf.python
 
 <span className={styles.options}>
 
+## `buf_gen_template`
+
+<Field
+    type_repr={`str | None`}
+    default_repr={`None`}
+>
+
+Path to the `buf.gen.yaml` template for this target, relative to the BUILD file&#x27;s directory. Only used by languages that generate with buf.
+
+A target&#x27;s template is the first of: this field, the language&#x27;s `buf_gen_template` option (e.g. `[python-protobuf].buf_gen_template`), `[buf].gen_template`, and a `buf.gen.yaml` at the repository root.
+
+</Field>
+
 ## `dependencies`
 
 <Field
@@ -175,6 +188,8 @@ All dependencies must share the same value for their `resolve` field.
 The source root to generate Python sources under.
 
 If unspecified, the source root the `protobuf_sources` is under will be used.
+
+Ignored when `[python-protobuf].codegen_tool` is `buf`; the output location then comes from the `out:` field of the `buf.gen.yaml` template.
 
 </Field>
 
